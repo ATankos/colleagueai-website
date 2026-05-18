@@ -1,0 +1,49 @@
+# Dependabot configuration
+# Docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+#
+# What this does:
+#   - Scans npm dependencies in this repo every week (Monday morning UTC)
+#   - Opens PRs for security fixes immediately (any day) — those are not bound by schedule
+#   - Groups minor + patch updates so we get one PR per week, not 20
+#   - Major version bumps come as separate PRs (they need human review)
+
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+      timezone: "Europe/Prague"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+      include: "scope"
+    groups:
+      # Bundle non-breaking updates into ONE PR per week per group
+      production-minor-patch:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-minor-patch:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Also keep GitHub Actions up to date (we'll add some in Task 9)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+      timezone: "Europe/Prague"
+    labels:
+      - "dependencies"
+      - "github-actions"
