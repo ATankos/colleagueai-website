@@ -22,6 +22,7 @@
     "lhci": "npm run build && node ./scripts/run-lhci.mjs",
     "lhci:report": "start .lighthouseci",
     "diacritics": "playwright test diacritics.spec.js",
+    "edge-cases": "playwright test edge-cases.spec.js --project=chromium",
     "check": "npm run lint && npm run test:run",
     "check:e2e": "npm run lint && npm run test:run && playwright test",
     "check:full": "npm run lint && npm run test:run && playwright test && npm run lhci"
