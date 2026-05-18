@@ -7,21 +7,49 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report",
+    "e2e:prod": "playwright test --config=playwright.prod.config.js",
+    "visual": "playwright test visual.spec.js --project=chromium",
+    "visual:update": "playwright test visual.spec.js --project=chromium --update-snapshots",
+    "a11y": "playwright test a11y.spec.js --project=chromium",
+    "lhci": "npm run build && node ./scripts/run-lhci.mjs",
+    "lhci:report": "start .lighthouseci",
+    "diacritics": "playwright test diacritics.spec.js",
+    "check": "npm run lint && npm run test:run",
+    "check:e2e": "npm run lint && npm run test:run && playwright test",
+    "check:full": "npm run lint && npm run test:run && playwright test && npm run lhci"
   },
   "dependencies": {
+    "@sentry/react": "^10.53.1",
     "react": "^19.2.6",
     "react-dom": "^19.2.6"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^10.0.1",
+    "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.60.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
+    "@vitest/ui": "^4.1.6",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
-    "vite": "^8.0.12"
+    "jsdom": "^29.1.1",
+    "serve": "^14.2.6",
+    "vite": "^8.0.12",
+    "vitest": "^4.1.6"
   }
 }

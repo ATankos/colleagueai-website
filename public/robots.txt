@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://colleagueai.ai/sitemap.xml
