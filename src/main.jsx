@@ -1,6 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import * as Sentry from '@sentry/react'
+import { Analytics } from '@vercel/analytics/react'
+import { SpeedInsights } from '@vercel/speed-insights/react'
 import './index.css'
 import App from './App.jsx'
 
@@ -70,5 +72,9 @@ const AppWithSentry = Sentry.withErrorBoundary(App, {
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppWithSentry />
+    {/* Vercel Web Analytics — page-view & event tracking, privacy-first, no cookies */}
+    <Analytics />
+    {/* Vercel Speed Insights — real-user Web Vitals (LCP, FID, CLS, INP) per visit */}
+    <SpeedInsights />
   </StrictMode>,
 )
