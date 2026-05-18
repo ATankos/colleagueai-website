@@ -94,8 +94,8 @@ To recover env vars: log in to Vercel → project → Settings → Environment V
 | **Visibility** | Private |
 | **Default branch** | `main` |
 | **Account owner** | ATankos (`alexandr.tankos@gmail.com`) |
-| **2FA** | TODO: enable GitHub 2FA at https://github.com/settings/two_factor_authentication (CRITICAL — GitHub is the master key for Vercel / Sentry / Better Stack) |
-| **Recovery codes location** | TODO: once 2FA enabled, save 8 backup codes somewhere recoverable |
+| **2FA** | Enabled (authenticator app), 2026-05-18 |
+| **Recovery codes location** | TODO: confirm where the 16 recovery codes are saved (screenshot, printed, password manager, etc.) |
 | **Collaborators** | Only Alexandr today. TODO: invite Marek as a collaborator (Task 10 in the fundamentals plan) |
 | **Deploy keys / actions secrets** | None today. (Added in Task 9 — update this row after.) |
 
@@ -137,7 +137,7 @@ Project lives at `C:\Users\alexa\OneDrive\Documents\Claude\Projects\colleagueai-
 | Master account | Login email | 2FA method | Recovery method |
 |---|---|---|---|
 | Google (`alexandr.tankos@gmail.com`) | self | TODO: confirm 2FA enabled | TODO: phone number on file + backup codes location |
-| GitHub (ATankos) | alexandr.tankos@gmail.com | TODO: enable 2FA (see Section 4) | TODO: backup codes location after 2FA setup |
+| GitHub (ATankos) | alexandr.tankos@gmail.com | Enabled (authenticator app), 2026-05-18 | TODO: confirm where recovery codes saved |
 
 Most other services (Vercel, Sentry, Better Stack) were created via "Sign in with GitHub" — so GitHub access transitively recovers them all.
 
@@ -202,4 +202,4 @@ If the laptop is destroyed: clone the GitHub repo on any machine, run `npm insta
 
 | Date | Reviewer | Notes |
 |---|---|---|
-| 2026-05-18 | Alexandr | Initial version. People + service emails filled in. Open TODOs: enable GitHub 2FA, enable Porkbun 2FA, save Google + GitHub recovery codes, confirm Porkbun auto-renew + expiry, invite Marek as repo collaborator. |
+| 2026-05-18 | Alexandr | Initial version. People + service emails filled in. GitHub 2FA enabled. Open TODOs: confirm GitHub recovery codes location, enable Porkbun 2FA, enable Google 2FA + save recovery codes, confirm Porkbun auto-renew + expiry, invite Marek as repo collaborator. |
