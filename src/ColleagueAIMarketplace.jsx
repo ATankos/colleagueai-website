@@ -541,12 +541,12 @@ export default function ColleagueAIMarketplace() {
           {t.contact.h2a} <span style={{ fontStyle: 'italic' }}>{t.contact.h2b}</span>
         </h2>
 
-        <a href="mailto:hello@colleagueai.com" className="cta-button" style={{
+        <a href="mailto:hello@colleagueai.ai" className="cta-button" style={{
           display: 'inline-block', padding: '16px 32px',
           backgroundColor: '#1D1B1A', color: '#F5F0E8',
           borderRadius: '999px', fontSize: '16px', fontWeight: 500,
         }}>
-          hello@colleagueai.com →
+          hello@colleagueai.ai →
         </a>
       </section>
 
