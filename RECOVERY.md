@@ -45,6 +45,7 @@ If the site is down or you need to take over operations:
 | **Auto-renew** | TODO: verify at https://porkbun.com/account/domains |
 | **Expiration date** | TODO: from porkbun dashboard |
 | **WHOIS privacy** | Porkbun default (enabled — registrant info hidden from public WHOIS) |
+| **Marek's access** | None today. Porkbun doesn't support team accounts. Workaround: when shared password manager is set up, add the Porkbun login there so Marek can recover the domain if Alexandr is unreachable. |
 
 ### DNS records currently active (as of 2026-05-18)
 
@@ -76,6 +77,16 @@ If Vercel changes the recommended values, update both Porkbun and this doc.
 | **2FA** | Inherited from GitHub 2FA — see Section 4 |
 | **Billing** | None (free Hobby plan). If usage scales beyond free limits, no card on file yet. |
 
+### Shared access workaround (Hobby plan limitation)
+
+Vercel's free Hobby plan does **not** support multiple team members. Workaround until we upgrade to Pro:
+
+- **For routine deploys**: Marek doesn't need Vercel access. Pushing to `main` on GitHub auto-deploys via the integration. Marek already has GitHub write access (see Section 4).
+- **For emergency operations** (rollback, env vars, domain config): only Alexandr can log in to Vercel today. To enable Marek to operate Vercel solo (e.g., if Alexandr is unreachable):
+  1. Alexandr shares the GitHub login (used as Vercel OAuth) via shared password manager — TODO once one is set up
+  2. OR upgrade to Vercel Pro ($20/mo per user) and invite Marek as a team member: https://vercel.com/teams/create
+- **Recommended trigger to upgrade to Pro**: first paying enterprise customer, OR when audit trail of "who deployed what" becomes legally relevant.
+
 ### Environment variables (set in Vercel dashboard → project → Settings → Environment Variables)
 
 | Key | Used for | Where the value comes from |
@@ -96,7 +107,8 @@ To recover env vars: log in to Vercel → project → Settings → Environment V
 | **Account owner** | ATankos (`alexandr.tankos@gmail.com`) |
 | **2FA** | Enabled (authenticator app), 2026-05-18 |
 | **Recovery codes location** | TODO: confirm where the 16 recovery codes are saved (screenshot, printed, password manager, etc.) |
-| **Collaborators** | Only Alexandr today. TODO: invite Marek as a collaborator (Task 10 in the fundamentals plan) |
+| **Collaborators** | Alexandr (owner); Marek Tesitel invited 2026-05-18 with Write role |
+| **Branch protection** | `main` branch is protected by ruleset "Protect main" (Active). Direct pushes blocked; requires PR + passing Lighthouse CI check before merge. |
 | **Deploy keys / actions secrets** | None today. (Added in Task 9 — update this row after.) |
 
 ### Local clone
