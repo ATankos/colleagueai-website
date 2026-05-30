@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const S = {
   page: {
@@ -185,6 +185,24 @@ export default function Demo() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
+  const [installPrompt, setInstallPrompt] = useState(null);
+  const [installed, setInstalled] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    });
+    window.addEventListener('appinstalled', () => setInstalled(true));
+  }, []);
+
+  async function handleInstall() {
+    if (!installPrompt) return;
+    installPrompt.prompt();
+    const { outcome } = await installPrompt.userChoice;
+    if (outcome === 'accepted') setInstalled(true);
+    setInstallPrompt(null);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -215,7 +233,22 @@ export default function Demo() {
     <div style={S.page}>
       <nav style={S.nav}>
         <a href="/" style={S.logo}>Colleague AI</a>
-        <a href="/" style={S.backLink}>← Back to site</a>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          {installPrompt && !installed && (
+            <button onClick={handleInstall} style={{
+              background: '#C7522A', color: '#fff', border: 0,
+              borderRadius: '999px', padding: '8px 18px',
+              fontSize: '14px', fontWeight: 700, cursor: 'pointer',
+              fontFamily: 'inherit',
+            }}>
+              ⬇ Install app
+            </button>
+          )}
+          {installed && (
+            <span style={{ fontSize: '14px', color: '#6B7556', fontWeight: 600 }}>✓ App installed</span>
+          )}
+          <a href="/" style={S.backLink}>← Back to site</a>
+        </div>
       </nav>
 
       <div style={S.hero}>
