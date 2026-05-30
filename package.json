@@ -28,6 +28,7 @@
     "check:full": "npm run lint && npm run test:run && playwright test && npm run lhci"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.100.1",
     "@sentry/react": "^10.53.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
