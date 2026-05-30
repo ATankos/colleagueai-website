@@ -2,6 +2,12 @@ import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
+// Hard cap on total demo runs (resets on cold start, but combined with rate
+// limiting this is solid protection for a friends-and-family demo).
+// Override via DEMO_MAX_CALLS env var in Vercel if you want to adjust.
+const DEMO_MAX_CALLS = Number(process.env.DEMO_MAX_CALLS ?? 500);
+let totalCalls = 0;
+
 // Simple in-process rate limit: max 10 requests per IP per minute
 const requestLog = new Map();
 function isRateLimited(ip) {
@@ -30,6 +36,11 @@ export default async function handler(req, res) {
   if (isRateLimited(ip)) {
     return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
   }
+
+  if (totalCalls >= DEMO_MAX_CALLS) {
+    return res.status(503).json({ error: 'Demo quota reached for today. Check back soon!' });
+  }
+  totalCalls += 1;
 
   const { origin = 'ZRH', destination = 'YYZ', departureDate, adults = 1, cabin = 'ECONOMY', maxStops = 2, preferences = 'Best value' } = req.body;
 
