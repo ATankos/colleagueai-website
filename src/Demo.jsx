@@ -1,5 +1,18 @@
 import { useState, useEffect } from 'react';
 
+// Download URLs — replace with real GitHub Release links once installers are built
+const DOWNLOADS = {
+  windows: 'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague-AI-Setup.exe',
+  mac:     'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague-AI.dmg',
+};
+
+function detectOS() {
+  const ua = navigator.userAgent;
+  if (ua.includes('Win')) return 'windows';
+  if (ua.includes('Mac')) return 'mac';
+  return 'other';
+}
+
 const AGENT = {
   id: 'PKG-TRV-0001',
   icon: '✈',
@@ -26,6 +39,7 @@ export default function Demo() {
   const [installPrompt, setInstallPrompt] = useState(null);
   const [installed, setInstalled] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const os = detectOS();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -168,6 +182,95 @@ export default function Demo() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* DOWNLOAD SECTION */}
+        <div style={{
+          background: '#1D1B1A', borderRadius: '20px', padding: '32px 28px',
+          marginBottom: '24px', textAlign: 'center',
+        }}>
+          <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '12px' }}>
+            DOWNLOAD
+          </div>
+          <h3 className="fraunces" style={{ fontSize: '24px', fontWeight: 500, letterSpacing: '-0.02em', color: '#F5F0E8', marginBottom: '8px' }}>
+            Install on your computer
+          </h3>
+          <p style={{ fontSize: '14px', color: '#A39B91', marginBottom: '28px', lineHeight: 1.6 }}>
+            Download the desktop app and the AI Flight Advisor runs directly on your machine — no browser needed.
+          </p>
+
+          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
+            {/* Primary button — matches detected OS */}
+            {os === 'windows' && (
+              <a href={DOWNLOADS.windows} style={{
+                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                background: '#F5F0E8', color: '#1D1B1A',
+                padding: '14px 28px', borderRadius: '12px',
+                fontSize: '15px', fontWeight: 600, textDecoration: 'none',
+              }}>
+                <span>⊞</span> Download for Windows
+              </a>
+            )}
+            {os === 'mac' && (
+              <a href={DOWNLOADS.mac} style={{
+                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                background: '#F5F0E8', color: '#1D1B1A',
+                padding: '14px 28px', borderRadius: '12px',
+                fontSize: '15px', fontWeight: 600, textDecoration: 'none',
+              }}>
+                <span></span> Download for Mac
+              </a>
+            )}
+            {os === 'other' && (
+              <>
+                <a href={DOWNLOADS.windows} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '10px',
+                  background: '#F5F0E8', color: '#1D1B1A',
+                  padding: '14px 28px', borderRadius: '12px',
+                  fontSize: '15px', fontWeight: 600, textDecoration: 'none',
+                }}>
+                  <span>⊞</span> Windows
+                </a>
+                <a href={DOWNLOADS.mac} style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '10px',
+                  background: 'rgba(245,240,232,0.1)', color: '#F5F0E8',
+                  padding: '14px 28px', borderRadius: '12px',
+                  fontSize: '15px', fontWeight: 600, textDecoration: 'none',
+                  border: '1px solid rgba(245,240,232,0.2)',
+                }}>
+                  <span></span> Mac
+                </a>
+              </>
+            )}
+
+            {/* Secondary button — other platform */}
+            {os === 'windows' && (
+              <a href={DOWNLOADS.mac} style={{
+                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                background: 'rgba(245,240,232,0.1)', color: '#A39B91',
+                padding: '14px 28px', borderRadius: '12px',
+                fontSize: '14px', fontWeight: 500, textDecoration: 'none',
+                border: '1px solid rgba(245,240,232,0.12)',
+              }}>
+                <span></span> Mac version
+              </a>
+            )}
+            {os === 'mac' && (
+              <a href={DOWNLOADS.windows} style={{
+                display: 'inline-flex', alignItems: 'center', gap: '10px',
+                background: 'rgba(245,240,232,0.1)', color: '#A39B91',
+                padding: '14px 28px', borderRadius: '12px',
+                fontSize: '14px', fontWeight: 500, textDecoration: 'none',
+                border: '1px solid rgba(245,240,232,0.12)',
+              }}>
+                <span>⊞</span> Windows version
+              </a>
+            )}
+          </div>
+
+          <p style={{ fontSize: '11px', color: '#6B655E', marginTop: '20px' }}>
+            Free · No account needed · v0.1.0
+          </p>
         </div>
 
         {/* LIVE DEMO SECTION */}
