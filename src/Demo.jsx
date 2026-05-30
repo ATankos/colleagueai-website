@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 
 // Download URLs — replace with real GitHub Release links once installers are built
 const DOWNLOADS = {
-  windows: 'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague+AI+0.1.0.exe',
+  windows: 'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague%20AI%200.1.0.exe',
   mac:     'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague-AI.dmg',
 };
 
