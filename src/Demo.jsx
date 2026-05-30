@@ -13,23 +13,105 @@ function detectOS() {
   return 'other';
 }
 
+const translations = {
+  en: {
+    eyebrow: 'LIVE AGENT DEMO',
+    h1a: 'Try it before you',
+    h1b: 'buy it.',
+    sub: 'A live Colleague AI agent — running on real AI, explaining its reasoning in plain language.',
+    back: '← Back',
+    agentCategory: 'Travel / Procurement',
+    agentDesc: 'Analyses available flights against your stated preferences — price, duration, layover comfort, and risk — and explains its recommendation in plain language. The same reasoning engine we embed in enterprise procurement workflows.',
+    roiLabel: 'ROI',
+    roiValue: 'Save 45 min per booking decision',
+    deployLabel: 'DEPLOY TIME',
+    deployValue: '~ instant (hosted demo)',
+    reviewedLabel: 'REVIEWED BY',
+    downloadEyebrow: 'DOWNLOAD',
+    downloadTitle: 'Install on your computer',
+    downloadSub: 'Download the desktop app and the AI Flight Advisor runs directly on your machine — no browser needed.',
+    downloadWin: 'Download for Windows',
+    downloadMac: 'Download for Mac',
+    downloadWinShort: 'Windows',
+    downloadMacShort: 'Mac',
+    downloadMacAlt: 'Mac version',
+    downloadWinAlt: 'Windows version',
+    downloadFree: 'Free · No account needed · v0.1.0',
+    demoEyebrow: 'LIVE REASONING ENGINE',
+    demoTitle: 'Run the agent on your search',
+    demoSub: 'Mock flight data · Agent reasoning is real · Not a booking tool',
+    labelFrom: 'From',
+    labelTo: 'To',
+    labelDate: 'Date',
+    labelCabin: 'Cabin',
+    labelPrefs: 'Your preferences',
+    prefsDefault: 'Cheapest option, but avoid overnight layovers and very short connections.',
+    cabinEconomy: 'Economy',
+    cabinPremium: 'Premium Economy',
+    cabinBusiness: 'Business',
+    runBtn: 'Run agent →',
+    runningBtn: 'Agent is reasoning…',
+    rankedLabel: 'AGENT RANKED',
+    rankedSuffix: 'OPTIONS',
+    footerNote: 'This is a live demo of Colleague AI\'s reasoning engine.',
+    footerLink: 'See all agents →',
+  },
+  cs: {
+    eyebrow: 'ŽIVÁ UKÁZKA AGENTA',
+    h1a: 'Vyzkoušejte před',
+    h1b: 'nákupem.',
+    sub: 'Živý agent Colleague AI — běží na skutečné AI a vysvětluje své uvažování srozumitelným jazykem.',
+    back: '← Zpět',
+    agentCategory: 'Cestování / Nákup',
+    agentDesc: 'Analyzuje dostupné lety podle vašich preferencí — cena, délka letu, pohodlí přestupu a riziko — a doporučení vysvětluje srozumitelně. Stejný reasoning engine, který nasazujeme v podnikových nákupních procesech.',
+    roiLabel: 'ÚSPORA',
+    roiValue: 'Ušetřete 45 min na každém výběru letu',
+    deployLabel: 'NASAZENÍ',
+    deployValue: '~ okamžitě (hosted demo)',
+    reviewedLabel: 'OVĚŘENO',
+    downloadEyebrow: 'STAŽENÍ',
+    downloadTitle: 'Nainstalujte do počítače',
+    downloadSub: 'Stáhněte desktopovou aplikaci a AI Flight Advisor poběží přímo na vašem počítači — bez prohlížeče.',
+    downloadWin: 'Stáhnout pro Windows',
+    downloadMac: 'Stáhnout pro Mac',
+    downloadWinShort: 'Windows',
+    downloadMacShort: 'Mac',
+    downloadMacAlt: 'Verze pro Mac',
+    downloadWinAlt: 'Verze pro Windows',
+    downloadFree: 'Zdarma · Bez registrace · v0.1.0',
+    demoEyebrow: 'ŽIVÝ REASONING ENGINE',
+    demoTitle: 'Spusťte agenta na vlastním hledání',
+    demoSub: 'Testovací data letů · Uvažování agenta je skutečné · Není to rezervační nástroj',
+    labelFrom: 'Odkud',
+    labelTo: 'Kam',
+    labelDate: 'Datum',
+    labelCabin: 'Třída',
+    labelPrefs: 'Vaše preference',
+    prefsDefault: 'Nejlevnější možnost, ale vyhněte se nočním přestupům a velmi krátkým spojům.',
+    cabinEconomy: 'Ekonomická',
+    cabinPremium: 'Prémiová ekonomická',
+    cabinBusiness: 'Business',
+    runBtn: 'Spustit agenta →',
+    runningBtn: 'Agent přemýšlí…',
+    rankedLabel: 'AGENT SEŘADIL',
+    rankedSuffix: 'MOŽNOSTI',
+    footerNote: 'Toto je živá ukázka reasoning engine od Colleague AI.',
+    footerLink: 'Zobrazit všechny agenty →',
+  },
+};
+
 const AGENT = {
   id: 'PKG-TRV-0001',
   icon: '✈',
   iconBg: '#FFE8DC',
   name: 'AI Flight Advisor',
-  category: 'Travel / Procurement',
-  platform: 'Web · iOS · Android',
   risk: 'L1',
   score: 'A',
   scoreColor: '#A8482A',
-  roi: 'Save 45 min per booking decision',
-  deployTime: '~ instant (hosted demo)',
   price: '€0',
   priceSub: 'free demo',
-  desc: 'Analyses available flights against your stated preferences — price, duration, layover comfort, and risk — and explains its recommendation in plain language. The same reasoning engine we embed in enterprise procurement workflows.',
   reviewer: 'Colleague AI',
-  reviewed: 'May 2026',
+  reviewed: 'Květen 2026 / May 2026',
 };
 
 export default function Demo() {
@@ -39,7 +121,9 @@ export default function Demo() {
   const [installPrompt, setInstallPrompt] = useState(null);
   const [installed, setInstalled] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [lang, setLang] = useState('en');
   const os = detectOS();
+  const t = translations[lang];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -119,7 +203,12 @@ export default function Demo() {
               }}>⬇ Install app</button>
             )}
             {installed && <span style={{ fontSize: '12px', color: '#A8482A', fontWeight: 600 }}>✓ Installed</span>}
-            <a href="/" style={{ fontSize: '12px', color: '#6B655E', textDecoration: 'none' }}>← Back</a>
+            <div className="mono" style={{ display: 'flex', gap: '2px', fontSize: '11px' }}>
+              <button onClick={() => setLang('en')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'en' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'en' ? 600 : 400 }}>EN</button>
+              <span style={{ color: '#6B655E' }}>·</span>
+              <button onClick={() => setLang('cs')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'cs' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'cs' ? 600 : 400 }}>CS</button>
+            </div>
+            <a href="/" style={{ fontSize: '12px', color: '#6B655E', textDecoration: 'none' }}>{t.back}</a>
           </div>
         </div>
       </nav>
@@ -129,13 +218,13 @@ export default function Demo() {
         {/* EYEBROW */}
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
           <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '14px' }}>
-            LIVE AGENT DEMO
+            {t.eyebrow}
           </div>
           <h1 className="fraunces" style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '14px' }}>
-            Try it before you<br /><span style={{ fontStyle: 'italic' }}>buy it.</span>
+            {t.h1a}<br /><span style={{ fontStyle: 'italic' }}>{t.h1b}</span>
           </h1>
           <p style={{ fontSize: '16px', color: '#6B655E', maxWidth: '480px', margin: '0 auto', lineHeight: 1.6 }}>
-            A live Colleague AI agent — running on real AI, explaining its reasoning in plain language.
+            {t.sub}
           </p>
         </div>
 
@@ -157,7 +246,7 @@ export default function Demo() {
                   <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '4px', background: '#FFE8DC', color: AGENT.scoreColor, fontWeight: 700 }}>Score {AGENT.score}</span>
                 </div>
                 <h2 className="fraunces" style={{ fontSize: '22px', fontWeight: 500, letterSpacing: '-0.02em', marginBottom: '4px' }}>{AGENT.name}</h2>
-                <div style={{ fontSize: '12px', color: '#6B655E' }}>{AGENT.category} · {AGENT.platform}</div>
+                <div style={{ fontSize: '12px', color: '#6B655E' }}>{t.agentCategory} · {AGENT.platform}</div>
               </div>
             </div>
             <div style={{ textAlign: 'right' }}>
@@ -167,14 +256,14 @@ export default function Demo() {
           </div>
 
           <p style={{ fontSize: '14px', color: '#4A4641', lineHeight: 1.6, margin: '20px 0', borderTop: '1px solid rgba(29,27,26,0.06)', paddingTop: '20px' }}>
-            {AGENT.desc}
+            {t.agentDesc}
           </p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
             {[
-              { label: 'ROI', value: AGENT.roi },
-              { label: 'DEPLOY TIME', value: AGENT.deployTime },
-              { label: 'REVIEWED BY', value: AGENT.reviewer + ' · ' + AGENT.reviewed },
+              { label: t.roiLabel, value: t.roiValue },
+              { label: t.deployLabel, value: t.deployValue },
+              { label: t.reviewedLabel, value: AGENT.reviewer + ' · ' + AGENT.reviewed },
             ].map((item, i) => (
               <div key={i} style={{ background: '#F5F0E8', borderRadius: '12px', padding: '14px' }}>
                 <div className="mono" style={{ fontSize: '9px', color: '#A8482A', letterSpacing: '0.1em', marginBottom: '6px' }}>{item.label}</div>
@@ -190,13 +279,13 @@ export default function Demo() {
           marginBottom: '24px', textAlign: 'center',
         }}>
           <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '12px' }}>
-            DOWNLOAD
+            {t.downloadEyebrow}
           </div>
           <h3 className="fraunces" style={{ fontSize: '24px', fontWeight: 500, letterSpacing: '-0.02em', color: '#F5F0E8', marginBottom: '8px' }}>
-            Install on your computer
+            {t.downloadTitle}
           </h3>
           <p style={{ fontSize: '14px', color: '#A39B91', marginBottom: '28px', lineHeight: 1.6 }}>
-            Download the desktop app and the AI Flight Advisor runs directly on your machine — no browser needed.
+            {t.downloadSub}
           </p>
 
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
@@ -208,7 +297,7 @@ export default function Demo() {
                 padding: '14px 28px', borderRadius: '12px',
                 fontSize: '15px', fontWeight: 600, textDecoration: 'none',
               }}>
-                <span>⊞</span> Download for Windows
+                <span>⊞</span> {t.downloadWin}
               </a>
             )}
             {os === 'mac' && (
@@ -218,7 +307,7 @@ export default function Demo() {
                 padding: '14px 28px', borderRadius: '12px',
                 fontSize: '15px', fontWeight: 600, textDecoration: 'none',
               }}>
-                <span></span> Download for Mac
+                <span></span> {t.downloadMac}
               </a>
             )}
             {os === 'other' && (
@@ -229,7 +318,7 @@ export default function Demo() {
                   padding: '14px 28px', borderRadius: '12px',
                   fontSize: '15px', fontWeight: 600, textDecoration: 'none',
                 }}>
-                  <span>⊞</span> Windows
+                  <span>⊞</span> {t.downloadWinShort}
                 </a>
                 <a href={DOWNLOADS.mac} style={{
                   display: 'inline-flex', alignItems: 'center', gap: '10px',
@@ -238,7 +327,7 @@ export default function Demo() {
                   fontSize: '15px', fontWeight: 600, textDecoration: 'none',
                   border: '1px solid rgba(245,240,232,0.2)',
                 }}>
-                  <span></span> Mac
+                  <span></span> {t.downloadMacShort}
                 </a>
               </>
             )}
@@ -252,7 +341,7 @@ export default function Demo() {
                 fontSize: '14px', fontWeight: 500, textDecoration: 'none',
                 border: '1px solid rgba(245,240,232,0.12)',
               }}>
-                <span></span> Mac version
+                <span></span> {t.downloadMacAlt}
               </a>
             )}
             {os === 'mac' && (
@@ -263,53 +352,53 @@ export default function Demo() {
                 fontSize: '14px', fontWeight: 500, textDecoration: 'none',
                 border: '1px solid rgba(245,240,232,0.12)',
               }}>
-                <span>⊞</span> Windows version
+                <span>⊞</span> {t.downloadWinAlt}
               </a>
             )}
           </div>
 
           <p style={{ fontSize: '11px', color: '#6B655E', marginTop: '20px' }}>
-            Free · No account needed · v0.1.0
+            {t.downloadFree}
           </p>
         </div>
 
         {/* LIVE DEMO SECTION */}
         <div style={{ background: '#fff', borderRadius: '20px', padding: '28px', border: '1px solid rgba(29,27,26,0.05)', boxShadow: '0 4px 24px rgba(29,27,26,0.06)' }}>
           <div style={{ marginBottom: '24px' }}>
-            <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '8px' }}>LIVE REASONING ENGINE</div>
-            <h3 className="fraunces" style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em' }}>Run the agent on your search</h3>
-            <p style={{ fontSize: '13px', color: '#6B655E', marginTop: '4px' }}>Mock flight data · Agent reasoning is real · Not a booking tool</p>
+            <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '8px' }}>{t.demoEyebrow}</div>
+            <h3 className="fraunces" style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em' }}>{t.demoTitle}</h3>
+            <p style={{ fontSize: '13px', color: '#6B655E', marginTop: '4px' }}>{t.demoSub}</p>
           </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '16px' }}>
             <div className="grid2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>From</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelFrom}</label>
                 <input name="origin" className="demo-input" placeholder="ZRH" defaultValue="ZRH" required />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>To</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelTo}</label>
                 <input name="destination" className="demo-input" placeholder="YYZ" defaultValue="YYZ" required />
               </div>
             </div>
             <div className="grid2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>Date</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelDate}</label>
                 <input name="departureDate" type="date" className="demo-input" required />
               </div>
               <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>Cabin</label>
+                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelCabin}</label>
                 <select name="cabin" className="demo-input">
-                  <option value="ECONOMY">Economy</option>
-                  <option value="PREMIUM_ECONOMY">Premium Economy</option>
-                  <option value="BUSINESS">Business</option>
+                  <option value="ECONOMY">{t.cabinEconomy}</option>
+                  <option value="PREMIUM_ECONOMY">{t.cabinPremium}</option>
+                  <option value="BUSINESS">{t.cabinBusiness}</option>
                 </select>
               </div>
             </div>
             <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>Your preferences</label>
+              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelPrefs}</label>
               <textarea name="preferences" className="demo-input" style={{ minHeight: '72px', resize: 'vertical' }}
-                defaultValue="Cheapest option, but avoid overnight layovers and very short connections." />
+                defaultValue={t.prefsDefault} />
             </div>
             <button type="submit" disabled={loading} style={{
               width: '100%', padding: '14px', background: loading ? '#6B655E' : '#1D1B1A',
@@ -317,7 +406,7 @@ export default function Demo() {
               fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit',
               transition: 'background 0.2s',
             }}>
-              {loading ? 'Agent is reasoning…' : 'Run agent →'}
+              {loading ? t.runningBtn : t.runBtn}
             </button>
           </form>
 
@@ -326,7 +415,7 @@ export default function Demo() {
           {results.length > 0 && (
             <div style={{ marginTop: '24px', borderTop: '1px solid rgba(29,27,26,0.06)', paddingTop: '24px' }}>
               <div className="mono" style={{ fontSize: '10px', color: '#6B655E', letterSpacing: '0.08em', marginBottom: '12px' }}>
-                AGENT RANKED {results.length} OPTIONS
+                {t.rankedLabel} {results.length} {t.rankedSuffix}
               </div>
               {results.map((r, i) => (
                 <div key={i} className="result-card">
@@ -349,7 +438,7 @@ export default function Demo() {
 
         {/* FOOTER NOTE */}
         <p style={{ textAlign: 'center', fontSize: '12px', color: '#A39B91', marginTop: '32px' }}>
-          This is a live demo of Colleague AI's reasoning engine. <a href="/" style={{ color: '#A8482A' }}>See all agents →</a>
+          {t.footerNote} <a href="/" style={{ color: '#A8482A' }}>{t.footerLink}</a>
         </p>
       </div>
     </div>
