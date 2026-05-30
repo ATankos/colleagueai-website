@@ -79,6 +79,7 @@ createRoot(document.getElementById('root')).render(
   </StrictMode>,
 )
 
+// Unregister any previously installed service workers
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('/sw.js'));
+  navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
 }
