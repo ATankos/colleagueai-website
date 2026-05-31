@@ -28,10 +28,15 @@ const translations = {
     back: '← Back',
     agentCategory: 'Travel / Procurement',
     agentDesc: 'Analyses available flights against your stated preferences — price, duration, layover comfort, and risk — and explains its recommendation in plain language. The same reasoning engine we embed in enterprise procurement workflows.',
-    roiLabel: 'ROI',
-    roiValue: 'Save 45 min per booking decision',
-    deployLabel: 'DEPLOY TIME',
-    deployValue: '~ instant (hosted demo)',
+    roiLabel: 'ANNUAL SAVINGS',
+    roiValue: '€18,400 per 10-person team',
+    roiSub: '45 min saved per booking · €60/hr blended rate · 340 trips/yr',
+    complianceLabel: 'COMPLIANCE',
+    complianceValue: 'Full audit log · Policy enforcement',
+    complianceSub: 'Every decision recorded, timestamped, and explainable for internal audit',
+    riskLabel: 'RISK RATING',
+    riskValue: 'L1 — Low risk',
+    riskSub: 'Read-only advisory · No autonomous spend · Human approval required',
     reviewedLabel: 'REVIEWED BY',
     downloadEyebrow: 'DOWNLOAD',
     downloadTitle: 'Install on your computer',
@@ -75,10 +80,15 @@ const translations = {
     back: '← Zpět',
     agentCategory: 'Cestování / Nákup',
     agentDesc: 'Analyzuje dostupné lety podle vašich preferencí — cena, délka letu, pohodlí přestupu a riziko — a doporučení vysvětluje srozumitelně. Stejný reasoning engine, který nasazujeme v podnikových nákupních procesech.',
-    roiLabel: 'ÚSPORA',
-    roiValue: 'Ušetřete 45 min na každém výběru letu',
-    deployLabel: 'NASAZENÍ',
-    deployValue: '~ okamžitě (hosted demo)',
+    roiLabel: 'ROČNÍ ÚSPORA',
+    roiValue: '€18 400 na tým 10 lidí',
+    roiSub: '45 min ušetřeno na rezervaci · sazba €60/hod · 340 cest/rok',
+    complianceLabel: 'COMPLIANCE',
+    complianceValue: 'Úplný audit log · Vynucení politik',
+    complianceSub: 'Každé rozhodnutí je zaznamenáno, označeno časovým razítkem a vysvětlitelné pro interní audit',
+    riskLabel: 'HODNOCENÍ RIZIKA',
+    riskValue: 'L1 — Nízké riziko',
+    riskSub: 'Pouze poradní funkce · Bez autonomních výdajů · Vyžaduje schválení člověkem',
     reviewedLabel: 'OVĚŘENO',
     downloadEyebrow: 'STAŽENÍ',
     downloadTitle: 'Nainstalujte do počítače',
@@ -379,16 +389,35 @@ export default function Demo() {
             {t.agentDesc}
           </p>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px' }}>
-            {[
-              { label: t.roiLabel, value: t.roiValue },
-              { label: t.deployLabel, value: t.deployValue },
-              { label: t.reviewedLabel, value: AGENT.reviewer + ' · ' + AGENT.reviewed },
-            ].map((item, i) => (
-              <div key={i} style={{ background: '#F5F0E8', borderRadius: '12px', padding: '14px' }}>
-                <div className="mono" style={{ fontSize: '9px', color: '#A8482A', letterSpacing: '0.1em', marginBottom: '6px' }}>{item.label}</div>
-                <div style={{ fontSize: '13px', color: '#1D1B1A', fontWeight: 500 }}>{item.value}</div>
-              </div>
+          {/* ROI + Compliance + Risk — three buying reasons */}
+          <div className="grid2" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
+            {/* ROI */}
+            <div style={{ background: '#F0FAF4', border: '1px solid rgba(22,101,52,0.1)', borderRadius: '12px', padding: '14px' }}>
+              <div className="mono" style={{ fontSize: '9px', color: '#166534', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.roiLabel}</div>
+              <div style={{ fontSize: '16px', color: '#166534', fontWeight: 700, marginBottom: '4px' }}>{t.roiValue}</div>
+              <div style={{ fontSize: '11px', color: '#4A7C59', lineHeight: 1.4 }}>{t.roiSub}</div>
+            </div>
+            {/* Compliance */}
+            <div style={{ background: '#EFF6FF', border: '1px solid rgba(29,78,216,0.1)', borderRadius: '12px', padding: '14px' }}>
+              <div className="mono" style={{ fontSize: '9px', color: '#1D4ED8', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.complianceLabel}</div>
+              <div style={{ fontSize: '13px', color: '#1D4ED8', fontWeight: 700, marginBottom: '4px' }}>{t.complianceValue}</div>
+              <div style={{ fontSize: '11px', color: '#3B6FCA', lineHeight: 1.4 }}>{t.complianceSub}</div>
+            </div>
+            {/* Risk */}
+            <div style={{ background: '#FFF7ED', border: '1px solid rgba(154,52,18,0.1)', borderRadius: '12px', padding: '14px' }}>
+              <div className="mono" style={{ fontSize: '9px', color: '#9A3412', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.riskLabel}</div>
+              <div style={{ fontSize: '13px', color: '#9A3412', fontWeight: 700, marginBottom: '4px' }}>{t.riskValue}</div>
+              <div style={{ fontSize: '11px', color: '#B45309', lineHeight: 1.4 }}>{t.riskSub}</div>
+            </div>
+          </div>
+
+          {/* Audit-proof compliance strip */}
+          <div style={{ marginTop: '14px', background: '#F5F0E8', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
+            <span className="mono" style={{ fontSize: '9px', color: '#6B655E', letterSpacing: '0.08em', flexShrink: 0 }}>AUDIT TRAIL</span>
+            {['Decision log', 'Timestamp', 'Reasoning saved', 'Exportable PDF', 'No shadow IT'].map((badge, i) => (
+              <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#4A4641' }}>
+                <span style={{ color: '#166534', fontWeight: 700 }}>✓</span> {badge}
+              </span>
             ))}
           </div>
         </div>
