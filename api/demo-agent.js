@@ -2,13 +2,9 @@ import Anthropic from '@anthropic-ai/sdk';
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
-// Hard cap on total demo runs (resets on cold start, but combined with rate
-// limiting this is solid protection for a friends-and-family demo).
-// Override via DEMO_MAX_CALLS env var in Vercel if you want to adjust.
 const DEMO_MAX_CALLS = Number(process.env.DEMO_MAX_CALLS ?? 500);
 let totalCalls = 0;
 
-// Simple in-process rate limit: max 10 requests per IP per minute
 const requestLog = new Map();
 function isRateLimited(ip) {
   const now = Date.now();
@@ -28,38 +24,31 @@ const mockFlights = [
 ];
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const ip = req.headers['x-forwarded-for'] ?? 'unknown';
-  if (isRateLimited(ip)) {
-    return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
-  }
-
-  if (totalCalls >= DEMO_MAX_CALLS) {
-    return res.status(503).json({ error: 'Demo quota reached for today. Check back soon!' });
-  }
+  if (isRateLimited(ip)) return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
+  if (totalCalls >= DEMO_MAX_CALLS) return res.status(503).json({ error: 'Demo quota reached for today. Check back soon!' });
   totalCalls += 1;
 
-  const { origin = 'ZRH', destination = 'YYZ', departureDate, adults = 1, cabin = 'ECONOMY', maxStops = 2, preferences = 'Best value' } = req.body;
+  const { origin = 'ZRH', destination = 'YYZ', departureDate, cabin = 'ECONOMY', preferences = 'Best value' } = req.body;
 
-  const flights = mockFlights.filter(f => f.stops <= Number(maxStops));
-
-  const flightList = flights.map((f, i) =>
+  const flightList = mockFlights.map((f, i) =>
     `Flight ${i + 1}: ${f.airline} | ${origin}-${destination} | Dep ${f.departure} Arr ${f.arrival} | ` +
     `${Math.floor(f.durationMinutes / 60)}h ${f.durationMinutes % 60}m | ` +
     `${f.stops} stop (${f.layoverMinutes}min layover at ${f.layoverAirport}) | ` +
     `${f.priceAmount} ${f.currency} | ${cabin}`
   ).join('\n');
 
-  const prompt = `You are a flight advisor agent for Colleague AI — a demo for friends and prospects to experience how AI agents reason about choices.
+  const prompt = `You are a senior flight advisor agent at Colleague AI — an enterprise AI platform that helps companies make smarter procurement decisions. You are demonstrating your capabilities to potential customers.
 
-Search: ${origin} → ${destination} | Date: ${departureDate ?? 'flexible'} | ${adults} passenger(s) | ${cabin}
-Preferences: ${preferences}
+Search: ${origin} → ${destination} | Date: ${departureDate ?? 'flexible'} | ${cabin}
+Traveller preferences: ${preferences}
 
 Available flights:
 ${flightList}
+
+Analyse each flight carefully against the traveller's preferences. Consider: total cost, journey duration, layover comfort, connection risk, and overall value. Think like an expert corporate travel manager.
 
 Return ONLY a JSON array (no markdown, no text outside the array):
 [
@@ -72,31 +61,49 @@ Return ONLY a JSON array (no markdown, no text outside the array):
     "duration": "Xh Ym",
     "price": "amount currency",
     "score": number 0-100,
-    "reason": "1-2 sentences explaining the recommendation given the traveller's preferences"
+    "verdict": "RECOMMENDED" | "ALTERNATIVE" | "AVOID",
+    "reason": "2-3 sentences explaining the recommendation with specific reference to the traveller's preferences and key trade-offs"
   }
 ]
 
-Score 0-100 based on price, duration, layover comfort, and match to preferences. Sort best first.`;
+Score 0-100. Sort best first. Be specific and confident — this is enterprise-grade reasoning.`;
+
+  // Stream the response
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
 
   try {
-    const message = await client.messages.create({
+    let fullText = '';
+
+    const stream = await client.messages.create({
       model: 'claude-haiku-4-5-20251001',
       max_tokens: 1024,
+      stream: true,
       messages: [{ role: 'user', content: prompt }],
     });
 
-    const text = message.content[0]?.type === 'text' ? message.content[0].text : '';
+    for await (const event of stream) {
+      if (event.type === 'content_block_delta' && event.delta?.type === 'text_delta') {
+        fullText += event.delta.text;
+        res.write(`data: ${JSON.stringify({ chunk: event.delta.text })}\n\n`);
+      }
+    }
+
+    // Parse and send final results
     let results;
     try {
-      results = JSON.parse(text);
+      results = JSON.parse(fullText);
     } catch {
-      const match = text.match(/\[[\s\S]*\]/);
+      const match = fullText.match(/\[[\s\S]*\]/);
       results = match ? JSON.parse(match[0]) : [];
     }
 
-    return res.status(200).json({ results });
+    res.write(`data: ${JSON.stringify({ done: true, results })}\n\n`);
+    res.end();
   } catch (err) {
     console.error('Anthropic API error:', err);
-    return res.status(500).json({ error: 'Agent error. Please try again.' });
+    res.write(`data: ${JSON.stringify({ error: 'Agent error. Please try again.' })}\n\n`);
+    res.end();
   }
 }
