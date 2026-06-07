@@ -32,8 +32,10 @@
     "@sentry/react": "^10.53.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "aws4fetch": "^1.0.20",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "stripe": "^22.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
