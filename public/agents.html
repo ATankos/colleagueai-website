@@ -1,0 +1,2243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI</title>
+<meta name="description" content="36 certified enterprise AI agents scored on the CAI Score (L1–L5). See where each fits your process, its ROI, KPI, and risk &amp; compliance posture. Audit-ready. EU AI Act-aligned. Runs in your environment." />
+<meta name="keywords" content="enterprise AI agents, AI agent certification, CAI Score, AI governance, AI agent risk classification, EU AI Act compliance, AI control plane, agent sprawl, audit-ready AI, trust layer for enterprise AI, ISO/IEC 42001, agent management" />
+<meta name="author" content="Colleague AI" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<meta name="theme-color" content="#F5F0E8" />
+<link rel="canonical" href="https://www.colleagueai.ai/agents" />
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Colleague AI" />
+<meta property="og:title" content="AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents" />
+<meta property="og:description" content="The trust layer for enterprise AI. 36 audit-ready agents, each scored on the CAI Score (L1–L5). Run in your environment, not ours." />
+<meta property="og:url" content="https://www.colleagueai.ai/agents" />
+<meta property="og:locale" content="en" />
+<meta property="og:locale:alternate" content="cs" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AI Agent Catalogue — Colleague AI" />
+<meta name="twitter:description" content="36 certified, risk-tiered enterprise AI agents on the CAI Score (L1–L5). Audit-ready and EU AI Act-aligned." />
+<!-- Hreflang -->
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents" />
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti" />
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/agentes" />
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/agentes" />
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents" />
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten" />
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/agenci" />
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/agenti" />
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents" />
+<!-- Analytics: Plausible (cookieless, EU-hosted, no cookie banner needed) -->
+<!-- TO ACTIVATE: create a free account at plausible.io, add colleagueai.ai as a site, then uncomment the two lines below -->
+<!-- <script defer data-domain="colleagueai.ai" src="https://plausible.io/js/script.js"></script> -->
+<!-- <script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script> -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#F5F0E8;
+    --cream-2:#EFE8DC;
+    --paper:#FBF8F2;
+    --graphite:#2B2A28;
+    --graphite-soft:#54514C;
+    --muted:#8A857C;
+    --terra:#C65D3A;
+    --terra-deep:#9E3D22;
+    --line:#E2D9CB;
+    --line-soft:#EAE2D4;
+    /* tier heat ramp — cool/safe -> dark/highest, anchored on brand terracotta */
+    --t1:#6E8B7B; /* sage */
+    --t2:#C99A5B; /* sand */
+    --t3:#C65D3A; /* terracotta (brand) */
+    --t4:#9E3D22; /* rust */
+    --t5:#2B2A28; /* graphite */
+    --shadow:0 1px 2px rgba(43,42,40,.04), 0 8px 30px rgba(43,42,40,.06);
+    --shadow-lg:0 30px 80px -30px rgba(43,42,40,.30);
+    --r:18px;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--graphite);
+    font-family:"Geist",-apple-system,sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--terra);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .mono{font-family:"JetBrains Mono",monospace;font-weight:500;letter-spacing:.02em}
+  .eyebrow{
+    font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:500;
+    text-transform:uppercase;letter-spacing:.22em;color:var(--terra);
+  }
+  .serif{font-family:"Fraunces",serif}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(245,240,232,.78);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.nav.scrolled{border-bottom-color:var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:"Fraunces",serif;font-size:21px;font-weight:600;letter-spacing:-.01em}
+  .logo .ai{color:var(--terra)}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--graphite-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--graphite)}
+  .nav-cta{
+    font-size:13.5px;color:var(--paper);background:var(--graphite);
+    padding:9px 18px;border-radius:100px;transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
+  #langsel{font-family:"Geist",sans-serif;font-size:13px;color:var(--graphite-soft);background:transparent;border:1px solid var(--line);border-radius:100px;padding:7px 10px;cursor:pointer;transition:border-color .2s}
+  #langsel:hover{border-color:var(--muted)}
+  #langsel:focus{outline:none;border-color:var(--terra)}
+  @media(max-width:860px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:108px 0 64px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:end}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding:72px 0 48px}}
+  h1.hero-title{
+    font-family:"Fraunces",serif;font-weight:340;
+    font-size:clamp(40px,6.4vw,80px);line-height:1.02;letter-spacing:-.02em;
+    margin:22px 0 0;
+  }
+  h1.hero-title em{font-style:italic;color:var(--terra)}
+  .hero-sub{font-size:clamp(17px,2vw,20px);color:var(--graphite-soft);max-width:46ch;margin-top:26px;line-height:1.5}
+  .hero-aside{
+    border-left:1px solid var(--line);padding-left:28px;
+    font-size:15px;color:var(--graphite-soft);
+  }
+  .hero-aside .big{font-family:"Fraunces",serif;font-size:15px;color:var(--graphite);display:block;margin-bottom:6px;font-weight:500}
+  .hero-stats{display:flex;gap:40px;margin-top:36px;flex-wrap:wrap}
+  .stat .n{font-family:"Fraunces",serif;font-size:38px;font-weight:400;line-height:1;letter-spacing:-.02em}
+  .stat .l{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-top:8px}
+  .stat .n .unit{color:var(--terra)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:84px 0;position:relative}
+  .sec-head{max-width:62ch}
+  .sec-head h2{
+    font-family:"Fraunces",serif;font-weight:360;
+    font-size:clamp(30px,4.2vw,46px);line-height:1.07;letter-spacing:-.02em;margin:14px 0 0;
+  }
+  .sec-head p{font-size:17px;color:var(--graphite-soft);margin-top:18px;line-height:1.55}
+  .divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+  /* ---------- PHILOSOPHY ---------- */
+  .princ{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:54px}
+  @media(max-width:820px){.princ{grid-template-columns:1fr}}
+  .princ .cell{background:var(--paper);padding:34px 30px;}
+  .princ .num{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--terra);letter-spacing:.1em}
+  .princ h3{font-family:"Fraunces",serif;font-weight:500;font-size:21px;margin:18px 0 10px;letter-spacing:-.01em}
+  .princ p{font-size:14.5px;color:var(--graphite-soft);line-height:1.55}
+
+  /* ---------- TIER LADDER ---------- */
+  #score{background:var(--cream-2)}
+  .ladder{margin-top:54px;display:flex;flex-direction:column;gap:14px}
+  .rung{
+    display:grid;grid-template-columns:96px 1fr auto;gap:28px;align-items:center;
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;overflow:hidden;
+  }
+  .rung:hover{transform:translateX(6px);box-shadow:var(--shadow)}
+  .rung::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rc)}
+  .rung .code{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:26px;color:var(--rc);letter-spacing:-.02em}
+  .rung .body h4{font-family:"Fraunces",serif;font-weight:600;font-size:18px;margin-bottom:5px}
+  .rung .body p{font-size:14px;color:var(--graphite-soft);max-width:62ch}
+  .rung .auto{text-align:right;min-width:130px}
+  .rung .auto .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .rung .auto .val{font-size:13.5px;color:var(--graphite);margin-top:4px;font-weight:500}
+  @media(max-width:760px){.rung{grid-template-columns:64px 1fr;gap:18px}.rung .auto{display:none}}
+  .ladder-note{margin-top:24px;font-size:13.5px;color:var(--muted);font-family:"JetBrains Mono",monospace;letter-spacing:.01em}
+
+  /* ---------- CATALOGUE ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:46px;align-items:center}
+  .fgroup{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .flabel{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+  .chip{
+    font-size:13px;padding:7px 15px;border-radius:100px;border:1px solid var(--line);
+    background:var(--paper);color:var(--graphite-soft);cursor:pointer;transition:all .18s ease;
+    font-family:"Geist",sans-serif;white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--muted);color:var(--graphite)}
+  .chip.active{background:var(--graphite);color:var(--paper);border-color:var(--graphite)}
+  .chip.tier.active{background:var(--tc);border-color:var(--tc)}
+  .search{
+    margin-left:auto;border:1px solid var(--line);background:var(--paper);border-radius:100px;
+    padding:8px 16px;font-size:13.5px;font-family:"Geist",sans-serif;color:var(--graphite);
+    min-width:210px;transition:border-color .2s;
+  }
+  .search:focus{outline:none;border-color:var(--terra)}
+  @media(max-width:760px){.search{margin-left:0;width:100%}}
+
+  .count{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);margin-top:22px;letter-spacing:.04em}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 22px 20px;
+    cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, border-color .25s;
+    display:flex;flex-direction:column;min-height:188px;position:relative;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--line-soft)}
+  .card .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .badge{
+    font-family:"JetBrains Mono",monospace;font-weight:600;font-size:11px;letter-spacing:.04em;
+    color:#fff;background:var(--bc);padding:4px 9px;border-radius:7px;line-height:1;
+  }
+  .pill{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .card h3{font-family:"Fraunces",serif;font-weight:500;font-size:19px;line-height:1.15;letter-spacing:-.01em;margin-bottom:9px}
+  .card .desc{font-size:13.7px;color:var(--graphite-soft);line-height:1.5;flex:1}
+  .card .foot{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft)}
+  .card .kpi{font-size:12px;color:var(--graphite);font-weight:500;max-width:68%;line-height:1.35}
+  .card .kpi .kl{font-family:"JetBrains Mono",monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+  .card .open{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+  .card .open .ring{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--graphite-soft);transition:all .22s ease}
+  .card:hover .open{color:var(--terra)}
+  .card:hover .open .ring{background:var(--terra);border-color:var(--terra);color:#fff;transform:translate(2px,-2px)}
+  .empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted);font-family:"JetBrains Mono",monospace;font-size:13px}
+
+  /* ---------- DRAWER ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(43,42,40,.32);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:min(520px,100%);background:var(--paper);z-index:100;
+    transform:translateX(102%);transition:transform .42s cubic-bezier(.3,.8,.25,1);
+    box-shadow:var(--shadow-lg);display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{padding:30px 34px 22px;border-bottom:1px solid var(--line);position:relative}
+  .drawer-close{position:absolute;top:24px;right:28px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--cream);cursor:pointer;font-size:17px;color:var(--graphite-soft);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .drawer-close:hover{background:var(--graphite);color:var(--paper);border-color:var(--graphite)}
+  .drawer-head .dtop{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+  .drawer-head h3{font-family:"Fraunces",serif;font-weight:500;font-size:27px;line-height:1.1;letter-spacing:-.01em;max-width:88%}
+  .drawer-head .dpath{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+  .drawer-body{padding:8px 34px 40px;overflow-y:auto;flex:1}
+  .dblock{padding:22px 0;border-bottom:1px solid var(--line-soft)}
+  .dblock:last-child{border-bottom:none}
+  .dblock .dl{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .dblock p{font-size:15px;color:var(--graphite);line-height:1.58}
+  .dblock.lede p{font-size:16px;color:var(--graphite-soft)}
+  .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .dgrid .dblock{border-bottom:none}
+  .dgrid .dblock:first-child{border-right:1px solid var(--line-soft);padding-right:24px}
+  .dgrid .dblock:last-child{padding-left:24px}
+  @media(max-width:520px){.dgrid{grid-template-columns:1fr}.dgrid .dblock:first-child{border-right:none;padding-right:0;border-bottom:1px solid var(--line-soft)}.dgrid .dblock:last-child{padding-left:0}}
+  .compliance-block{background:var(--cream-2);margin:0 -34px;padding:22px 34px;border-bottom:none}
+  .compliance-block .dl{color:var(--terra-deep)}
+  .drawer-foot{border-top:1px solid var(--line);padding:18px 34px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper)}
+  .d-demo{display:inline-flex;align-items:center;gap:9px;background:var(--graphite);color:var(--paper);font-size:14px;padding:12px 22px;border-radius:100px;transition:background .2s, transform .2s}
+  .d-demo:hover{background:var(--terra);transform:translateY(-1px)}
+  .d-foot-note{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.4}
+
+  /* ---------- PROCESS BLUEPRINTS ---------- */
+  #fit{background:var(--cream-2)}
+  .flow{margin-top:30px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px 30px 34px}
+  .flow + .flow{margin-top:20px}
+  .flow .ftitle{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .flow .ftitle h3{font-family:"Fraunces",serif;font-weight:560;font-size:21px;letter-spacing:-.01em}
+  .flow .ftitle .ftag{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .flow .fsub{font-size:14.5px;color:var(--graphite-soft);max-width:74ch;margin-bottom:24px}
+  .steps{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;position:relative;padding-right:30px}
+  .step:last-child{padding-right:0}
+  .step::after{content:"→";position:absolute;right:8px;top:14px;color:var(--terra);font-size:16px}
+  .step:last-child::after{display:none}
+  .step .sbadge{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:10.5px;color:#fff;background:var(--sc);padding:3px 8px;border-radius:6px}
+  .step .sname{font-family:"Fraunces",serif;font-weight:500;font-size:15.5px;margin:11px 0 5px;line-height:1.2}
+  .step .srole{font-size:12.7px;color:var(--graphite-soft);line-height:1.45}
+  @media(max-width:680px){.step{flex:100%;padding:0 0 26px;min-width:0}.step::after{content:"↓";right:auto;left:0;top:auto;bottom:6px}.step:last-child{padding-bottom:0}}
+
+  /* ---------- DEPLOYMENT ---------- */
+  .deploy{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:50px}
+  @media(max-width:760px){.deploy{grid-template-columns:1fr}}
+  .deploy .cell{background:var(--paper);padding:34px 32px}
+  .deploy .cell.dark{background:var(--graphite);color:var(--cream)}
+  .deploy .cell.dark .dh,.deploy .cell.dark p{color:var(--cream)}
+  .deploy .ico{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--terra);letter-spacing:.1em}
+  .deploy .dh{font-family:"Fraunces",serif;font-weight:500;font-size:20px;margin:16px 0 10px;letter-spacing:-.01em}
+  .deploy p{font-size:14.5px;color:var(--graphite-soft);line-height:1.56}
+  .deploy .cell.dark .ico{color:#E8A07F}
+
+  /* ---------- PLATFORM ---------- */
+  .platform{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+  .ptag{font-family:"JetBrains Mono",monospace;font-size:12.5px;padding:9px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--graphite-soft)}
+
+  /* ---------- DEFINITION STRIP (GEO direct-answer) ---------- */
+  .defstrip{background:var(--graphite);color:var(--cream)}
+  .defstrip .wrap{padding-top:46px;padding-bottom:46px}
+  .defstrip .dlabel{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#E8A07F}
+  .defstrip p{font-family:"Fraunces",serif;font-weight:330;font-size:clamp(20px,2.8vw,28px);line-height:1.34;letter-spacing:-.01em;margin-top:16px;max-width:60ch}
+  .defstrip p strong{font-weight:560;color:#fff}
+  .defstrip p .acc{color:#E8A07F;font-style:italic}
+
+  /* ---------- FAQ ---------- */
+  .faq{margin-top:46px;border-top:1px solid var(--line)}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{
+    list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;
+    font-family:"Fraunces",serif;font-weight:500;font-size:19px;letter-spacing:-.01em;line-height:1.3;
+    transition:color .2s;
+  }
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary:hover{color:var(--terra)}
+  .qa summary::after{content:"+";position:absolute;right:8px;top:20px;font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--terra);transition:transform .25s ease}
+  .qa[open] summary::after{transform:rotate(45deg)}
+  .qa p{font-size:15.5px;color:var(--graphite-soft);line-height:1.6;max-width:74ch;padding:0 44px 24px 0;margin-top:-4px}
+
+  /* ---------- DRAWER: pains + adopt ---------- */
+  .pains{list-style:none;margin:2px 0 0;padding:0}
+  .pains li{position:relative;padding:8px 0 8px 26px;font-size:14.5px;color:var(--graphite);line-height:1.5;border-bottom:1px solid var(--line-soft)}
+  .pains li:last-child{border-bottom:none}
+  .pains li::before{content:"\2014";position:absolute;left:0;top:8px;color:var(--terra);font-family:"JetBrains Mono",monospace}
+  .adopt{display:flex;align-items:center;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+  .adopt .stp{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);background:rgba(198,93,58,.10);padding:6px 12px;border-radius:8px}
+  .adopt .arr{color:var(--muted);font-size:13px}
+  .d-actions{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .d-calc{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--graphite);color:var(--graphite);font-size:14px;padding:12px 22px;border-radius:100px;cursor:pointer;background:transparent;font-family:"Geist",sans-serif;transition:all .2s;width:100%}
+  .d-calc:hover{background:var(--graphite);color:var(--paper)}
+
+  /* ---------- ROI CALCULATOR ---------- */
+  #roi{background:var(--cream-2)}
+  .calc{margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  @media(max-width:860px){.calc{grid-template-columns:1fr}}
+  .calc-in{background:var(--paper);padding:34px 34px 38px}
+  .calc-out{background:var(--graphite);color:var(--cream);padding:34px 34px 38px;display:flex;flex-direction:column}
+  .calc-in h3,.calc-out h3{font-family:"Fraunces",serif;font-weight:500;font-size:20px;letter-spacing:-.01em;margin-bottom:4px}
+  .calc-in .ch-note,.calc-out .ch-note{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);margin-bottom:22px}
+  .calc-out .ch-note{color:#B9B0A2}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:500;color:var(--graphite);margin-bottom:7px}
+  .field .hint{font-weight:400;color:var(--muted);font-size:12px}
+  .field-row{display:flex;gap:10px}
+  .field input[type=number],.field select{
+    width:100%;border:1px solid var(--line);background:var(--cream);border-radius:10px;
+    padding:11px 13px;font-family:"Geist",sans-serif;font-size:15px;color:var(--graphite);transition:border-color .2s;
+  }
+  .field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--terra)}
+  .field select{cursor:pointer}
+  .cur-sel{max-width:96px;flex-shrink:0}
+  .slider-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  .slider-head .sv{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:14px;color:var(--terra)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:var(--line);outline:none;margin:6px 0}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--terra);cursor:pointer;border:3px solid var(--paper);box-shadow:0 1px 4px rgba(43,42,40,.25)}
+  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--terra);cursor:pointer;border:3px solid var(--paper)}
+  .res-hero{padding:6px 0 18px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .res-hero .rl{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#E8A07F;margin-bottom:8px}
+  .res-hero .rv{font-family:"Fraunces",serif;font-weight:400;font-size:clamp(34px,5vw,46px);line-height:1;letter-spacing:-.02em;color:#fff}
+  .res-hero .rsub{font-size:13.5px;color:#C9C0B2;margin-top:8px}
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);margin-top:18px;border-radius:12px;overflow:hidden}
+  .res-cell{background:var(--graphite);padding:18px 16px}
+  .res-cell .rl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#B9B0A2;margin-bottom:7px}
+  .res-cell .rv{font-family:"Fraunces",serif;font-size:24px;color:#fff;line-height:1.05}
+  .res-cell .rv small{font-family:"Geist",sans-serif;font-size:13px;color:#C9C0B2;font-weight:400}
+  .roi-pos{color:#9ED3B8!important}
+  .calc-disc{font-size:11.5px;color:#9A9488;line-height:1.5;margin-top:auto;padding-top:20px}
+  .calc-disc strong{color:#C9C0B2;font-weight:500}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta{padding:90px 0;text-align:center}
+  .cta h2{font-family:"Fraunces",serif;font-weight:340;font-size:clamp(30px,5vw,52px);line-height:1.05;letter-spacing:-.02em;max-width:18ch;margin:0 auto}
+  .cta h2 em{font-style:italic;color:var(--terra)}
+  .cta .btns{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+  .btn-p{background:var(--graphite);color:var(--paper);padding:14px 28px;border-radius:100px;font-size:15px;transition:transform .2s, background .2s}
+  .btn-p:hover{background:var(--terra);transform:translateY(-2px)}
+  .btn-s{border:1px solid var(--graphite);padding:14px 28px;border-radius:100px;font-size:15px;transition:all .2s}
+  .btn-s:hover{background:var(--graphite);color:var(--paper)}
+  footer{border-top:1px solid var(--line);padding:40px 0}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .logo{font-size:18px}
+  footer .fnote{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+</style>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Organization",
+   "@id": "https://www.colleagueai.ai/#org",
+   "name": "Colleague AI",
+   "url": "https://www.colleagueai.ai",
+   "description": "The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client’s own environment.",
+   "slogan": "The trust layer for enterprise AI",
+   "email": "hello@colleagueai.ai",
+   "knowsAbout": [
+    "AI governance",
+    "AI agent certification",
+    "CAI Score",
+    "EU AI Act compliance",
+    "AI agent risk classification",
+    "enterprise AI agents",
+    "AI control plane",
+    "agent sprawl",
+    "ISO/IEC 42001"
+   ]
+  },
+  {
+   "@type": [
+    "WebPage",
+    "CollectionPage"
+   ],
+   "@id": "https://www.colleagueai.ai/agents/#page",
+   "url": "https://www.colleagueai.ai/agents",
+   "name": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents",
+   "isPartOf": {
+    "@id": "https://www.colleagueai.ai/#org"
+   },
+   "dateModified": "2026-06-05",
+   "description": "Browse 36 certified, risk-tiered enterprise AI agents scored on the CAI Score (L1–L5). See where each fits in your process, the ROI, the KPI it moves, and its risk and compliance posture. Agents run in your environment.",
+   "mainEntity": {
+    "@type": "ItemList",
+    "name": "Colleague AI Agent Catalogue",
+    "numberOfItems": 36,
+    "itemListElement": [
+     {
+      "@type": "ListItem",
+      "position": 1,
+      "item": {
+       "@type": "Service",
+       "name": "Reconciliation Root-Cause Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Investigates each reconciliation break, prioritises it by materiality, and narrates why it happened and how to fix it.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the front of the reconciliation queue: it triages breaks the moment they appear, before an analyst opens the first one — and feeds clean, explained breaks into the dual-control step."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Lower break-resolution time · fewer repeat breaks · cleaner audit trail."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 2,
+      "item": {
+       "@type": "Service",
+       "name": "SMT Backlog Triage Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Classifies and prioritises items in the Service Management Tool backlog so teams work the right item next instead of triaging by hand.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Runs continuously over the backlog as the intake gate — items are typed, owned and ranked against SLA before a person picks anything up."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Faster reporting cycles · better SLA adherence · improved auditability."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 3,
+      "item": {
+       "@type": "Service",
+       "name": "Four-Eyes Control Assistant",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Supports the second reviewer in a four-eyes process — checks the work, highlights discrepancies, and captures the validation evidence.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L4 — Decide (supervised)"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Slots into the dual-control step of any sign-off chain (e.g. after the RCA Agent in month-end close). It does the first-pass check; the human reviewer confirms and remains the named approver."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Faster control cycles · improved auditability."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 4,
+      "item": {
+       "@type": "Service",
+       "name": "Operations Procedures Assistant",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "A conversational assistant that lets staff find and follow internal operational procedures on demand instead of searching documents.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Lives wherever staff get stuck mid-task — answering 'how do I…' from the approved procedure set, so the right step is one question away."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Faster task completion · fewer 'how do I…' escalations."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 5,
+      "item": {
+       "@type": "Service",
+       "name": "SMT Support Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Supports day-to-day Service Management Tool workflows in production support, handling routine actions and assisting analysts on complex items.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Embeds in the support team's daily workflow as the first pair of hands — it clears the repeatable actions so analysts focus on the genuinely hard tickets."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "≈ 10 FTE of capacity released."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 6,
+      "item": {
+       "@type": "Service",
+       "name": "SMT Request Automation Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Automates incoming support requests end-to-end — intake, classification, and fulfilment of standard requests — routing exceptions to people.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Replaces the manual request-handling lane entirely for standard, low-risk requests, while everything non-standard is routed to the right team."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "≈ 12 FTE of capacity released."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 7,
+      "item": {
+       "@type": "Service",
+       "name": "Service Delivery Manager Copilot",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "A daily co-pilot for SDMs that pulls together KPI and escalation data per client, flags at-risk accounts, and drafts client-ready updates.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Becomes the SDM's morning briefing — it consolidates the day's KPI and escalation picture per client so the manager walks into the day already ahead of the issues."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved client satisfaction · reduced service credits."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 8,
+      "item": {
+       "@type": "Service",
+       "name": "Service Review Pack Builder",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Generates the content for monthly/periodic service-review packs automatically, pulling performance data into a consistent, client-ready format.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "The last step of the service-review cycle — it turns the month's performance data into a draft pack, cutting prep down to review-and-approve."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced prep effort · faster time-to-pack."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 9,
+      "item": {
+       "@type": "Service",
+       "name": "Escalation Triage Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Operations & Service Delivery",
+       "description": "Handles inbound escalations, classifies severity, drafts an initial response, and routes to the correct owner so issues resolve faster.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "The front door for escalations — it classifies and routes the moment one lands, and hands a drafted first response to the owner."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Faster resolution time · reduced escalation risk."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 10,
+      "item": {
+       "@type": "Service",
+       "name": "Risk Event Capture Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Risk, Security & Compliance",
+       "description": "Walks users through creating and logging risk events in the GRC tooling, enforcing consistent classification and complete required fields.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the point of capture — the moment someone needs to log a risk event — guiding them so events are recorded consistently and nothing gets under-reported."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Time saved on event logging · improved reporting completeness."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 11,
+      "item": {
+       "@type": "Service",
+       "name": "Security Defect Triage Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Risk, Security & Compliance",
+       "description": "Analyses security defects from multiple sources and assigns a consistent, risk-based severity rating using the firm's internal scoring model.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L4 — Decide (supervised)"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits between detection and remediation — it consolidates defects from every source and applies one consistent severity model, ending the dev-vs-security debate over how bad something is."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced analysis time · fewer clarifying questions."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 12,
+      "item": {
+       "@type": "Service",
+       "name": "Compliance & Audit Action Tracker",
+       "serviceType": "Certified AI agent",
+       "category": "Risk, Security & Compliance",
+       "description": "Replaces manual compliance tracking — spreadsheets, evidence follow-ups, deadlines and reporting — with automated trackers, validation and live dashboards.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L4 — Decide (supervised)"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Becomes the backbone of the compliance cycle: it tracks every action, chases evidence, and shows posture on a live dashboard, so the audit deadline never arrives as a surprise."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Less manual tracking · fewer missed deadlines · live dashboards."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 13,
+      "item": {
+       "@type": "Service",
+       "name": "Cyber Security Reporting Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Risk, Security & Compliance",
+       "description": "Automates multi-source cyber reporting that today means manually combining PowerPoint, Excel and Power BI with inconsistent formats.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Replaces the manual report-assembly step — it consolidates inconsistent sources, tracks follow-ups and runs anomaly detection so reporting is consistent every cycle."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced reporting effort · faster, more consistent reports."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 14,
+      "item": {
+       "@type": "Service",
+       "name": "DDQ Data Search Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Risk, Security & Compliance",
+       "description": "Searches internal data to answer due-diligence questionnaires quickly and accurately, instead of manual lookups across systems.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the start of DDQ turnaround — it finds and drafts sourced answers from internal systems, so the team reviews and confirms rather than hunting."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved efficiency & accuracy."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 15,
+      "item": {
+       "@type": "Service",
+       "name": "Risk Control Oversight Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Risk, Security & Compliance",
+       "description": "Supports oversight of risk controls — data preparation, delivery and compliance reporting across the control environment.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L4 — Decide (supervised)"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Provides the continuous-oversight layer across the control set, so gaps and weaknesses surface between formal reviews rather than at them."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved control visibility · reduced manual effort."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 16,
+      "item": {
+       "@type": "Service",
+       "name": "Power Query Code Generator",
+       "serviceType": "Certified AI agent",
+       "category": "Data, Engineering & Infrastructure",
+       "description": "Generates Advanced Editor (M) code in Power Query for Excel and Power BI, so analysts don't hand-write transformation code.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Drops into the analyst's modelling workflow — describe the transformation, get the M code, paste and check. The saving compounds as the data estate grows."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "≈ 10 min saved per query · compounds with scale."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 17,
+      "item": {
+       "@type": "Service",
+       "name": "Infrastructure Wiki Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Data, Engineering & Infrastructure",
+       "description": "A dynamic knowledge agent that answers infrastructure questions and guides issue resolution from the infrastructure knowledge base.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits beside engineers during incidents and BAU — answering from current docs and guiding resolution, so knowledge isn't locked in a few heads."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Faster issue resolution."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 18,
+      "item": {
+       "@type": "Service",
+       "name": "Maintenance Event Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Data, Engineering & Infrastructure",
+       "description": "Auto-populates maintenance events so planned work is logged consistently and is visible to the right teams.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the planning step — it fills out maintenance records consistently, improving visibility of planned work across teams."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved reliability & awareness."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 19,
+      "item": {
+       "@type": "Service",
+       "name": "Sales Qualification Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Sales & Marketing",
+       "description": "Qualifies leads by automating research and outreach drafting, so sellers spend time on the opportunities most likely to convert.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the top of the funnel — it researches and enriches inbound and target leads, drafts personalised outreach, and scores them for the seller to action."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved lead-handling efficiency."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 20,
+      "item": {
+       "@type": "Service",
+       "name": "Sales Opportunity Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Sales & Marketing",
+       "description": "Researches live opportunities to give sellers and managers visibility of deal velocity and risk, using AI research across available sources.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits across the active pipeline — surfacing velocity and risk signals on each opportunity to sharpen forecasting decisions."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved decision quality · better deal-risk visibility."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 21,
+      "item": {
+       "@type": "Service",
+       "name": "Sales End-to-End Assistant",
+       "serviceType": "Certified AI agent",
+       "category": "Sales & Marketing",
+       "description": "Covers the full sales cycle — lead generation, RFP drafting, pipeline analysis and deal-execution support — in one assistant.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Spans the whole cycle as a connective layer, picking up routine work at each stage from first touch through to deal execution."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved revenue performance & pipeline quality."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 22,
+      "item": {
+       "@type": "Service",
+       "name": "Pipeline Reporting Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Sales & Marketing",
+       "description": "Automates pipeline reporting and status updates so managers always have a current, accurate view without manual roll-ups.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the reporting layer — keeping the pipeline view current automatically so managers stop chasing roll-ups."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved efficiency & accuracy."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 23,
+      "item": {
+       "@type": "Service",
+       "name": "Content & Comms Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Sales & Marketing",
+       "description": "Drafts emails, presentations and campaign content, automating the repetitive parts of internal and external communications.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the start of every comms task — producing a branded, on-tone first draft so the team edits rather than starts from blank."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved engagement metrics."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 24,
+      "item": {
+       "@type": "Service",
+       "name": "Campaign & Project Management Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Sales & Marketing",
+       "description": "Supports marketing project tracking and communications, keeping campaigns on schedule and stakeholders informed.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits across the campaign timeline — tracking tasks, coordinating comms and surfacing status and risks to keep delivery on schedule."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved KPI performance across goals."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 25,
+      "item": {
+       "@type": "Service",
+       "name": "Contract Obligations Review Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Reviews MSAs and SLAs to extract obligations, deadlines and service commitments, and cross-references them against how operations actually run.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L4 — Decide (supervised)"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits in the contract lifecycle after summarisation — checking contracted commitments against operational delivery and flagging the gaps before they become disputes."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced legal risk & review effort."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 26,
+      "item": {
+       "@type": "Service",
+       "name": "SOP Generation Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Generates Standard Operating Procedures directly from process flows, turning a diagram or description into a documented SOP.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the readiness/handover step — converting a process flow into a first-draft SOP for a human to review and approve."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced effort & errors."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 27,
+      "item": {
+       "@type": "Service",
+       "name": "OAT Test Script Generator",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Generates Operational Acceptance Testing scripts from process flows, improving coverage while cutting authoring effort.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits in the readiness/testing step — generating OAT scripts from the process flow so testers refine rather than author from scratch."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved coverage · reduced effort."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 28,
+      "item": {
+       "@type": "Service",
+       "name": "Supplier Meeting Minutes Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Produces structured minutes for supplier meetings using standard templates, so actions and decisions are captured reliably.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the end of every supplier meeting — turning the discussion into structured minutes with actions and owners, the same way every time."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced minute-taking effort · more reliable records."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 29,
+      "item": {
+       "@type": "Service",
+       "name": "Monthly Reporting Automation Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Automates recurring monthly reporting, assembling report content and reducing the manual cycle each period.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the monthly reporting step (e.g. after the financial close clears) — assembling the report so analysts review rather than rebuild each period."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "≈ 1 FTE-day saved per month."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 30,
+      "item": {
+       "@type": "Service",
+       "name": "Onboarding Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Guides new joiners through onboarding, answering questions and keeping them on track from day one.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits with the new joiner from day one — guiding them through the steps and answering common questions so the experience is smooth and consistent."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved new-joiner experience."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 31,
+      "item": {
+       "@type": "Service",
+       "name": "Development & Career Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Provides career-growth guidance to employees, suggesting development paths and resources.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits alongside development conversations — offering personalised growth suggestions and resources that support, not replace, the manager–employee discussion."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved engagement."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 32,
+      "item": {
+       "@type": "Service",
+       "name": "People Ops Query Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Answers everyday employee HR queries, taking routine questions off the People Ops team.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L2 — Draft"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits as the first line for HR questions — giving consistent, policy-grounded answers and escalating complex cases to People Ops."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced People Ops workload."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 33,
+      "item": {
+       "@type": "Service",
+       "name": "Performance Management Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Supports managers in performance management, helping structure reviews and keep feedback consistent across teams.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits inside the performance cycle — helping managers structure reviews and feedback so quality is consistent across the organisation."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved management consistency."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 34,
+      "item": {
+       "@type": "Service",
+       "name": "Contract Summarisation Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Reads contracts and extracts the key risks and obligations, giving legal and business teams a fast, consistent summary.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L4 — Decide (supervised)"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "The opening step of the contract lifecycle — it produces a consistent risk-and-obligation summary and flags items that need a lawyer's eye."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Reduced review workload."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 35,
+      "item": {
+       "@type": "Service",
+       "name": "Signing Summary Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Prepares signing summaries ahead of execution, so signatories see the key points without reading the full document.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits just before execution — giving signatories a concise view of the key terms so they sign informed, faster."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved efficiency."
+        }
+       ]
+      }
+     },
+     {
+      "@type": "ListItem",
+      "position": 36,
+      "item": {
+       "@type": "Service",
+       "name": "Leadership Reporting Agent",
+       "serviceType": "Certified AI agent",
+       "category": "Corporate (HR, Legal, Procurement, Reporting)",
+       "description": "Produces leadership-level reporting, consolidating performance and management information into a consistent executive view.",
+       "provider": {
+        "@type": "Organization",
+        "name": "Colleague AI"
+       },
+       "additionalProperty": [
+        {
+         "@type": "PropertyValue",
+         "name": "CAI Score risk tier",
+         "value": "L3 — Operate"
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "Where it fits",
+         "value": "Sits at the top of the reporting chain (e.g. after monthly reporting) — rolling inputs into a consistent executive format for leadership."
+        },
+        {
+         "@type": "PropertyValue",
+         "name": "KPI",
+         "value": "Improved management consistency."
+        }
+       ]
+      }
+     }
+    ]
+   }
+  },
+  {
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+    {
+     "@type": "ListItem",
+     "position": 1,
+     "name": "Colleague AI",
+     "item": "https://www.colleagueai.ai"
+    },
+    {
+     "@type": "ListItem",
+     "position": 2,
+     "name": "Agent Catalogue",
+     "item": "https://www.colleagueai.ai/agents"
+    }
+   ]
+  },
+  {
+   "@type": "DefinedTerm",
+   "name": "CAI Score",
+   "@id": "https://www.colleagueai.ai/#cai-score",
+   "description": "A certification framework for enterprise AI agents that classifies each agent by risk on a five-tier scale (L1 Assist to L5 Autonomous), documents its controls, and produces an audit trail. Described as “the FICO of AI.”",
+   "inDefinedTermSet": "https://www.colleagueai.ai"
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is Colleague AI?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score — a five-tier risk classification (L1–L5) — documenting each agent’s controls and producing an audit trail. Agents run inside your own environment; Colleague AI hosts only the governance control plane, so enterprises can deploy AI they can defend."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is the CAI Score?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The CAI Score is a certification framework for AI agents, described as “the FICO of AI.” It classifies each agent by risk on a five-tier scale, from L1 (Assist) to L5 (Autonomous), defining exactly how much the agent does on its own and where a named human stays accountable — then evidences it for audit."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What are the CAI Score risk tiers, L1 to L5?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "L1 Assist: informs only, takes no action. L2 Draft: produces work for a human to approve. L3 Operate: executes routine actions inside a bounded workflow. L4 Decide (supervised): supports high-stakes decisions with a named accountable human. L5 Autonomous: acts within hard, pre-approved guardrails. The higher the tier, the more oversight and logging the framework requires."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where do Colleague AI agents run, and is my data safe?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane — scores, policies and audit metadata. No customer data is processed on Colleague AI’s side, which keeps the trust boundary simple and your data inside your own tenancy."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Does Colleague AI help with EU AI Act compliance?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. Risk classification, human oversight, logging and transparency are the core of the CAI Score, mapping directly to the EU AI Act’s obligations for high-risk AI. General-purpose AI obligations apply from August 2026, with high-risk obligations following, so agents arrive pre-mapped to the duties that apply — adoption never outruns compliance."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How is Colleague AI different from an AI agent management platform or other AI governance vendors?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Most platforms observe and orchestrate agents (the control plane) or audit models after the fact. Colleague AI adds the missing layer: a portable risk score and certification for every agent — the CAI Score — plus production-grade agents that ship pre-certified. It is governance you can act on, not just another dashboard."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "What is agent sprawl, and how does certification help?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Agent sprawl is the rapid, ungoverned spread of AI agents across an enterprise — different vendors, frameworks and clouds, multiplying faster than oversight can keep up. Certifying each agent with a CAI Score gives every one a known risk tier and audit trail, turning an unmanaged agent estate into a governed, defensible one."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many AI agents does Colleague AI offer, and in which areas?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The catalogue includes 36 production-grade AI agents across five functional pillars: Operations & Service Delivery, Risk, Security & Compliance, Data & Infrastructure, Sales & Marketing, and Corporate (HR, Legal, Procurement, Reporting). They run at CAI tiers L2 to L4, with L4 agents requiring senior sign-off before go-live."
+     }
+    }
+   ]
+  }
+ ]
+}
+</script>
+</head>
+<body>
+<!-- Skip to content (accessibility) -->
+<a href="#catalogue" class="skip-link">Skip to content</a>
+<style>.skip-link{position:absolute;left:-9999px;top:0;z-index:300;background:var(--graphite);color:var(--paper);padding:10px 16px;font:600 14px "Geist",sans-serif;border-radius:0 0 8px 0}.skip-link:focus{left:0}</style>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="#" class="logo">colleague<span class="ai">ai</span></a>
+    <nav class="nav-links">
+      <a href="#philosophy" data-i18n="nav_philosophy">Philosophy</a>
+      <a href="#score" data-i18n="nav_score">The Score</a>
+      <a href="#catalogue" data-i18n="nav_catalogue">Catalogue</a>
+      <a href="#fit" data-i18n="nav_fit">How they fit</a>
+      <a href="#roi" data-i18n="nav_roi">ROI</a>
+      <a href="#deploy" data-i18n="nav_deploy">Deployment</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <select id="langsel" aria-label="Language"></select>
+      <a href="https://www.colleagueai.ai/demo" target="_blank" rel="noopener" class="nav-cta" data-i18n="nav_demo" id="nav-demo-link">Book a demo</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow" data-i18n="hero_eyebrow">Agent Catalogue · The trust layer for enterprise AI</span>
+        <h1 class="hero-title" data-i18n-html="hero_title">We don't sell you agents.<br>We sell you the <em>blueprint</em> they fit into.</h1>
+        <p class="hero-sub" data-i18n="hero_sub">Every agent below is classified on the CAI Score — a five-tier model that says exactly how much it does on its own and how much a human stays accountable for. Tiered, certified, auditable. That's what makes them safe to put into a real process.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="n">36</div><div class="l" data-i18n="hero_stat1">Production-grade agents</div></div>
+          <div class="stat"><div class="n">5</div><div class="l" data-i18n="hero_stat2">Functional pillars</div></div>
+          <div class="stat"><div class="n">L2<span class="unit">–</span>L4</div><div class="l" data-i18n="hero_stat3">Live CAI tiers</div></div>
+        </div>
+      </div>
+      <aside class="hero-aside">
+        <span class="big" data-i18n="hero_aside_big">The FICO of enterprise AI.</span>
+        <span data-i18n="hero_aside">Banks don't approve a borrower without a credit score. You shouldn't approve an AI agent without a risk score. The CAI Score is that number — and the agents in this catalogue ship with it from day one.</span>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEFINITION STRIP (extractable direct answer for SEO/GEO) -->
+<section class="defstrip">
+  <div class="wrap">
+    <span class="dlabel" data-i18n="def_label">In one line</span>
+    <p data-i18n-html="def_p"><strong>Colleague AI is the trust layer for enterprise AI.</strong> It certifies AI agents against the <span class="acc">CAI Score</span> — a five-tier risk classification from L1 to L5 — documenting each agent&#x2019;s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p>
+  </div>
+</section>
+
+<!-- PHILOSOPHY -->
+<section id="philosophy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="phil_eyebrow">The philosophy</span>
+      <h2 data-i18n="phil_h2">Most AI projects fail on governance, not capability. So we put the blueprint first.</h2>
+      <p data-i18n="phil_p">The hard part of enterprise AI isn&#x2019;t building an agent that works in a demo — it&#x2019;s governing the sprawl once dozens of them are live: knowing where each one is allowed to act, who&#x2019;s accountable when it does, and being able to prove it to an auditor. Colleague AI gives you that framework first — the governance blueprint — then fits certified agents into it at the right tier.</p>
+    </div>
+    <div class="princ reveal">
+      <div class="cell">
+        <span class="num">01</span>
+        <h3 data-i18n="phil_1h">Blueprint before bots</h3>
+        <p data-i18n="phil_1p">We map your process and assign each step a risk tier on the CAI Score before a single agent goes live. Agents fill slots in a governed design — they don't get bolted onto a process and hope for the best.</p>
+      </div>
+      <div class="cell">
+        <span class="num">02</span>
+        <h3 data-i18n="phil_2h">Safe by tier, not by promise</h3>
+        <p data-i18n="phil_2p">An agent's CAI tier is a hard contract about its autonomy. Low-tier agents only draft and suggest. High-tier agents assist a named human who stays accountable. Safety is structural, not a marketing claim.</p>
+      </div>
+      <div class="cell">
+        <span class="num">03</span>
+        <h3 data-i18n="phil_3h">It runs in your house</h3>
+        <p data-i18n="phil_3p">Agents run inside your own Microsoft and cloud environment. Colleague AI hosts only the control plane — the governance metadata, scores and audit trail. Your data never leaves your tenancy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE SCORE / TIER LADDER -->
+<section id="score">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="score_eyebrow">The CAI Score</span>
+      <h2 data-i18n="score_h2">Five tiers. Each one is a promise about how much rope an agent gets.</h2>
+      <p data-i18n="score_p">Read it from the bottom up: the higher the tier, the more an agent can do — and the more human oversight, logging and accountability the blueprint builds in around it. Every agent in the catalogue carries one of these.</p>
+    </div>
+    <div class="ladder reveal">
+      <div class="rung" style="--rc:var(--t1)">
+        <div class="code">L1</div>
+        <div class="body"><h4 data-i18n="t1_name">Assist</h4><p data-i18n="t1_desc">Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand.</p></div>
+        <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t1_role">Does everything</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t2)">
+        <div class="code">L2</div>
+        <div class="body"><h4 data-i18n="t2_name">Draft</h4><p data-i18n="t2_desc">Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off.</p></div>
+        <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t2_role">Reviews &amp; approves</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t3)">
+        <div class="code">L3</div>
+        <div class="body"><h4 data-i18n="t3_name">Operate</h4><p data-i18n="t3_desc">Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.</p></div>
+        <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t3_role">Owns exceptions</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t4)">
+        <div class="code">L4</div>
+        <div class="body"><h4 data-i18n="t4_name">Decide (supervised)</h4><p data-i18n="t4_desc">Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.</p></div>
+        <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t4_role">Stays accountable</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t5)">
+        <div class="code">L5</div>
+        <div class="body"><h4 data-i18n="t5_name">Autonomous</h4><p data-i18n="t5_desc">Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today.</p></div>
+        <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t5_role">Sets the rails</div></div>
+      </div>
+    </div>
+    <p class="ladder-note" data-i18n="score_note">// This catalogue ships at L2–L4. L4 agents require senior sign-off before go-live.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CATALOGUE -->
+<section id="catalogue">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="cat_eyebrow">The catalogue</span>
+      <h2 data-i18n="cat_h2">36 agents, ready to slot into your blueprint.</h2>
+      <p data-i18n="cat_p">Filter by where they work and by how much autonomy they carry. Open any agent to see where it fits in a process, the value case, the KPI it moves, and the risk &amp; compliance posture.</p>
+    </div>
+
+    <div class="filters reveal">
+      <div class="fgroup">
+        <span class="flabel" data-i18n="flabel_pillar">Pillar</span>
+        <button class="chip pillar active" data-pillar="all" data-i18n="pillar_all">All</button>
+        <button class="chip pillar" data-pillar="ops" data-i18n="pillar_ops">Operations &amp; Service</button>
+        <button class="chip pillar" data-pillar="risk" data-i18n="pillar_risk">Risk, Security &amp; Compliance</button>
+        <button class="chip pillar" data-pillar="data" data-i18n="pillar_data">Data &amp; Infrastructure</button>
+        <button class="chip pillar" data-pillar="sales" data-i18n="pillar_sales">Sales &amp; Marketing</button>
+        <button class="chip pillar" data-pillar="corp" data-i18n="pillar_corp">Corporate</button>
+      </div>
+      <input class="search" id="search" type="text" placeholder="Search agents…" data-i18n-ph="search_ph" />
+    </div>
+    <div class="filters" style="margin-top:12px">
+      <div class="fgroup">
+        <span class="flabel" data-i18n="flabel_tier">Tier</span>
+        <button class="chip tier active" data-tier="all" data-i18n="tier_any">Any</button>
+        <button class="chip tier" data-tier="L2" style="--tc:var(--t2)" data-i18n="chip_l2">L2 · Draft</button>
+        <button class="chip tier" data-tier="L3" style="--tc:var(--t3)" data-i18n="chip_l3">L3 · Operate</button>
+        <button class="chip tier" data-tier="L4" style="--tc:var(--t4)" data-i18n="chip_l4">L4 · Decide</button>
+      </div>
+    </div>
+
+    <div class="count" id="count"></div>
+    <div class="grid" id="grid"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW THEY FIT / PROCESS BLUEPRINTS -->
+<section id="fit">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="fit_eyebrow">How they fit</span>
+      <h2 data-i18n="fit_h2">Agents are most valuable in a chain. Here's what a blueprint looks like.</h2>
+      <p data-i18n="fit_p">A single agent helps. A governed sequence transforms a process end-to-end — each agent at the right tier, each handing off to the next, with humans owning the high-stakes steps. Four worked examples.</p>
+    </div>
+
+    <div class="flow reveal">
+      <div class="ftitle"><h3 data-i18n="flow1_title">Month-end financial close</h3><span class="ftag" data-i18n="flow1_tag">Finance · Operations</span></div>
+      <p class="fsub" data-i18n="flow1_sub">From unexplained reconciliation breaks to a board-ready report — with dual control on the numbers that matter.</p>
+      <div class="steps">
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">RCA Agent</div><div class="srole" data-i18n="flow1_s1">Investigates each break and explains the root cause.</div></div>
+        <div class="step" style="--sc:var(--t4)"><span class="sbadge">L4</span><div class="sname">Four-Eyes Control</div><div class="srole" data-i18n="flow1_s2">Second-reviews the adjustments; a human signs off.</div></div>
+        <div class="step" style="--sc:var(--t2)"><span class="sbadge">L2</span><div class="sname">Monthly Reporting</div><div class="srole" data-i18n="flow1_s3">Assembles the period report from the cleared data.</div></div>
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">Leadership Reporting</div><div class="srole" data-i18n="flow1_s4">Rolls it up into a consistent executive view.</div></div>
+      </div>
+    </div>
+
+    <div class="flow reveal">
+      <div class="ftitle"><h3 data-i18n="flow2_title">Incident to service review</h3><span class="ftag" data-i18n="flow2_tag">Service Delivery</span></div>
+      <p class="fsub" data-i18n="flow2_sub">An escalation arrives and ends up, weeks later, as a clean line in the monthly client pack — without a manager living in the ticket queue.</p>
+      <div class="steps">
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">Escalation Triage</div><div class="srole" data-i18n="flow2_s1">Classifies severity and drafts the first response.</div></div>
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">SMT Support</div><div class="srole" data-i18n="flow2_s2">Works the routine fulfilment inside the tool.</div></div>
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">SDM Copilot</div><div class="srole" data-i18n="flow2_s3">Surfaces the at-risk account to the manager daily.</div></div>
+        <div class="step" style="--sc:var(--t2)"><span class="sbadge">L2</span><div class="sname">Service Review Pack</div><div class="srole" data-i18n="flow2_s4">Builds the monthly review pack to review-and-approve.</div></div>
+      </div>
+    </div>
+
+    <div class="flow reveal">
+      <div class="ftitle"><h3 data-i18n="flow3_title">Contract lifecycle</h3><span class="ftag" data-i18n="flow3_tag">Legal · Procurement</span></div>
+      <p class="fsub" data-i18n="flow3_sub">A vendor MSA goes from inbox to signature with the obligations understood and the risks flagged — legal time spent on judgement, not reading.</p>
+      <div class="steps">
+        <div class="step" style="--sc:var(--t4)"><span class="sbadge">L4</span><div class="sname">Contract Summarisation</div><div class="srole" data-i18n="flow3_s1">Extracts key risks and obligations into a summary.</div></div>
+        <div class="step" style="--sc:var(--t4)"><span class="sbadge">L4</span><div class="sname">Obligations Review</div><div class="srole" data-i18n="flow3_s2">Checks commitments against how operations run.</div></div>
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">Signing Summary</div><div class="srole" data-i18n="flow3_s3">Gives signatories the key points before execution.</div></div>
+      </div>
+    </div>
+
+    <div class="flow reveal">
+      <div class="ftitle"><h3 data-i18n="flow4_title">Risk &amp; compliance cycle</h3><span class="ftag" data-i18n="flow4_tag">Risk · Compliance</span></div>
+      <p class="fsub" data-i18n="flow4_sub">A risk event is captured cleanly, oversight stays continuous, and the audit deadline never sneaks up — with a live dashboard instead of a spreadsheet scramble.</p>
+      <div class="steps">
+        <div class="step" style="--sc:var(--t3)"><span class="sbadge">L3</span><div class="sname">Risk Event Capture</div><div class="srole" data-i18n="flow4_s1">Walks the user through logging the event completely.</div></div>
+        <div class="step" style="--sc:var(--t4)"><span class="sbadge">L4</span><div class="sname">Risk Control Oversight</div><div class="srole" data-i18n="flow4_s2">Keeps continuous visibility across the control set.</div></div>
+        <div class="step" style="--sc:var(--t4)"><span class="sbadge">L4</span><div class="sname">Compliance &amp; Audit Tracker</div><div class="srole" data-i18n="flow4_s3">Tracks evidence and deadlines on a live dashboard.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ROI CALCULATOR -->
+<section id="roi">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="roi_eyebrow">Build your business case</span>
+      <h2 data-i18n="roi_h2">See the money and time a single agent gives back.</h2>
+      <p data-i18n="roi_p">Pick an agent, enter your own numbers and your investment, and the calculator estimates annual savings, hours and FTE freed, ROI and payback. Your figures stay in your browser &mdash; nothing is sent anywhere.</p>
+    </div>
+    <div class="calc reveal">
+      <div class="calc-in">
+        <h3 data-i18n="calc_inputs">Your inputs</h3>
+        <div class="ch-note" data-i18n="calc_note">// editable estimates &mdash; not a quote</div>
+        <div class="field">
+          <label for="c-agent" data-i18n="calc_agent">Agent</label>
+          <select id="c-agent"></select>
+        </div>
+        <div class="field">
+          <label for="c-people"><span data-i18n="calc_people">People doing this work today</span> <span class="hint" data-i18n="calc_people_hint">(headcount)</span></label>
+          <input type="number" id="c-people" min="1" step="1" value="4" />
+        </div>
+        <div class="field">
+          <label for="c-cost"><span data-i18n="calc_cost">Loaded cost per person / year</span> <span class="hint" data-i18n="calc_cost_hint">(salary + overhead)</span></label>
+          <div class="field-row">
+            <select id="c-cur" class="cur-sel"><option value="EUR">€ EUR</option><option value="USD">$ USD</option><option value="CZK">Kč CZK</option></select>
+            <input type="number" id="c-cost" min="0" step="1000" value="45000" />
+          </div>
+        </div>
+        <div class="field">
+          <div class="slider-head"><label for="c-share" style="margin:0" data-i18n="calc_share">Share of their time on this task</label><span class="sv" id="c-share-v">30%</span></div>
+          <input type="range" id="c-share" min="5" max="100" step="5" value="30" />
+        </div>
+        <div class="field">
+          <div class="slider-head"><label for="c-eff" style="margin:0"><span data-i18n="calc_eff">Effort the agent removes</span> <span class="hint" data-i18n="calc_eff_hint">(typical)</span></label><span class="sv" id="c-eff-v">60%</span></div>
+          <input type="range" id="c-eff" min="10" max="90" step="5" value="60" />
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label for="c-inv" data-i18n="calc_inv">Your investment in this agent / year</label>
+          <div class="field-row">
+            <select id="c-cur2" class="cur-sel" disabled><option>€ EUR</option></select>
+            <input type="number" id="c-inv" min="0" step="1000" value="18000" />
+          </div>
+        </div>
+      </div>
+      <div class="calc-out">
+        <h3 id="c-agent-name" data-i18n="calc_out_title">Estimated annual return</h3>
+        <div class="ch-note" id="c-tier-line">// based on your inputs above</div>
+        <div class="res-hero">
+          <div class="rl" data-i18n="calc_money">Money saved / year</div>
+          <div class="rv" id="r-money">€0</div>
+          <div class="rsub" id="r-net">Net of investment: €0</div>
+        </div>
+        <div class="res-grid">
+          <div class="res-cell"><div class="rl" data-i18n="calc_time">Time freed / year</div><div class="rv" id="r-hours">0 <small>hrs</small></div></div>
+          <div class="res-cell"><div class="rl" data-i18n="calc_fte">FTE equivalent</div><div class="rv" id="r-fte">0</div></div>
+          <div class="res-cell"><div class="rl" data-i18n="calc_roi">Return on investment</div><div class="rv roi-pos" id="r-roi">0%</div></div>
+          <div class="res-cell"><div class="rl" data-i18n="calc_pay">Payback period</div><div class="rv" id="r-pay">&mdash;</div></div>
+        </div>
+        <p class="calc-disc" data-i18n-html="calc_disc"><strong>Estimate only.</strong> Figures are generated from your inputs and editable default assumptions (annual full-time hours taken as 1,840). They illustrate potential value and are not a guarantee, a quote, or financial advice.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- DEPLOYMENT & SAFETY -->
+<section id="deploy">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow" data-i18n="dep_eyebrow">Deployment &amp; safety</span>
+      <h2 data-i18n="dep_h2">Your environment. Your data. Our governance.</h2>
+      <p data-i18n="dep_p">The architecture is the safety story. Agents execute where your data already lives; we hold only the trust layer around them.</p>
+    </div>
+    <div class="deploy reveal">
+      <div class="cell">
+        <span class="ico">// architecture</span>
+        <div class="dh" data-i18n="dep_1h">Client-hosted by design</div>
+        <p data-i18n="dep_1p">Agents run inside your Microsoft Copilot Studio, Power Automate and Azure estate. Colleague AI hosts only the control plane — scores, policies, audit metadata. No customer data is processed on our side, which keeps the trust boundary simple.</p>
+      </div>
+      <div class="cell dark">
+        <span class="ico">// accountability</span>
+        <div class="dh" data-i18n="dep_2h">A human is always named</div>
+        <p data-i18n="dep_2p">The CAI tier defines exactly where a person stays accountable. L4 agents never decide alone — they assist, evidence, and hand the call to a named human. Oversight isn't a setting you can switch off; it's built into the tier.</p>
+      </div>
+      <div class="cell">
+        <span class="ico">// audit</span>
+        <div class="dh" data-i18n="dep_3h">Evidence by default</div>
+        <p data-i18n="dep_3p">Every agent action is logged, time-stamped and attributable. When an auditor or regulator asks what happened and who approved it, the answer is a record — not a reconstruction. This is what makes high-tier agents defensible.</p>
+      </div>
+      <div class="cell">
+        <span class="ico">// regulation</span>
+        <div class="dh" data-i18n="dep_4h">Built for the EU AI Act</div>
+        <p data-i18n="dep_4p">Risk classification, human oversight, logging and transparency aren&#x2019;t bolt-ons — they&#x2019;re the CAI Score&#x2019;s reason for existing. With general-purpose AI obligations applying from August 2026 and high-risk obligations following, agents arrive pre-mapped to the EU AI Act and ISO/IEC 42001 expectations — so adoption never outruns your compliance.</p>
+      </div>
+    </div>
+
+    <div class="sec-head reveal" style="margin-top:64px">
+      <span class="eyebrow" data-i18n="plat_eyebrow">Platform &amp; integration layer</span>
+      <h2 style="font-size:clamp(24px,3.4vw,34px)" data-i18n="plat_h2">The connectors the agents run on.</h2>
+    </div>
+    <div class="platform reveal">
+      <span class="ptag">Microsoft Copilot Studio</span>
+      <span class="ptag">Power Automate · AI Builder</span>
+      <span class="ptag">Azure DevOps</span>
+      <span class="ptag">GitHub</span>
+      <span class="ptag">JIRA</span>
+      <span class="ptag">Confluence</span>
+      <span class="ptag">Power BI</span>
+      <span class="ptag">ServiceNow ticket integration</span>
+      <span class="ptag">Teams app (Dev · Sandbox · Prod)</span>
+      <span class="ptag">API tools &amp; connectors</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Questions, answered</span>
+      <h2>What buyers and AI assistants ask about Colleague AI.</h2>
+      <p>Direct answers on the CAI Score, deployment, EU AI Act alignment, and how the trust layer differs from an agent management platform.</p>
+    </div>
+    <div class="faq reveal">
+      <details class="qa">
+        <summary data-i18n="faq_q1">What is Colleague AI?</summary>
+        <p data-i18n="faq_a1">Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score — a five-tier risk classification (L1–L5) — documenting each agent’s controls and producing an audit trail. Agents run inside your own environment; Colleague AI hosts only the governance control plane, so enterprises can deploy AI they can defend.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q2">What is the CAI Score?</summary>
+        <p data-i18n="faq_a2">The CAI Score is a certification framework for AI agents, described as “the FICO of AI.” It classifies each agent by risk on a five-tier scale, from L1 (Assist) to L5 (Autonomous), defining exactly how much the agent does on its own and where a named human stays accountable — then evidences it for audit.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q3">What are the CAI Score risk tiers, L1 to L5?</summary>
+        <p data-i18n="faq_a3">L1 Assist: informs only, takes no action. L2 Draft: produces work for a human to approve. L3 Operate: executes routine actions inside a bounded workflow. L4 Decide (supervised): supports high-stakes decisions with a named accountable human. L5 Autonomous: acts within hard, pre-approved guardrails. The higher the tier, the more oversight and logging the framework requires.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q4">Where do Colleague AI agents run, and is my data safe?</summary>
+        <p data-i18n="faq_a4">Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane — scores, policies and audit metadata. No customer data is processed on Colleague AI’s side, which keeps the trust boundary simple and your data inside your own tenancy.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q5">Does Colleague AI help with EU AI Act compliance?</summary>
+        <p data-i18n="faq_a5">Yes. Risk classification, human oversight, logging and transparency are the core of the CAI Score, mapping directly to the EU AI Act’s obligations for high-risk AI. General-purpose AI obligations apply from August 2026, with high-risk obligations following, so agents arrive pre-mapped to the duties that apply — adoption never outruns compliance.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q6">How is Colleague AI different from an AI agent management platform or other AI governance vendors?</summary>
+        <p data-i18n="faq_a6">Most platforms observe and orchestrate agents (the control plane) or audit models after the fact. Colleague AI adds the missing layer: a portable risk score and certification for every agent — the CAI Score — plus production-grade agents that ship pre-certified. It is governance you can act on, not just another dashboard.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q7">What is agent sprawl, and how does certification help?</summary>
+        <p data-i18n="faq_a7">Agent sprawl is the rapid, ungoverned spread of AI agents across an enterprise — different vendors, frameworks and clouds, multiplying faster than oversight can keep up. Certifying each agent with a CAI Score gives every one a known risk tier and audit trail, turning an unmanaged agent estate into a governed, defensible one.</p>
+      </details>
+      <details class="qa">
+        <summary data-i18n="faq_q8">How many AI agents does Colleague AI offer, and in which areas?</summary>
+        <p data-i18n="faq_a8">The catalogue includes 36 production-grade AI agents across five functional pillars: Operations &amp; Service Delivery, Risk, Security &amp; Compliance, Data &amp; Infrastructure, Sales &amp; Marketing, and Corporate (HR, Legal, Procurement, Reporting). They run at CAI tiers L2 to L4, with L4 agents requiring senior sign-off before go-live.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="wrap">
+    <h2 data-i18n-html="cta_h2">Want to see which agents fit <em>your</em> process?</h2>
+    <div class="btns">
+      <a href="https://www.colleagueai.ai/demo" target="_blank" rel="noopener" class="btn-p" data-i18n="cta_demo" id="footer-demo-link">Book a live demo</a>
+      <a href="#catalogue" class="btn-s" data-i18n="cta_browse">Browse the catalogue</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot-inner">
+    <a href="#" class="logo">colleague<span class="ai">ai</span></a>
+    <span class="fnote" data-i18n="foot_note">// The trust layer for enterprise AI · CAI Score™ · Updated June 2026</span>
+  </div>
+</footer>
+
+<!-- DRAWER -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <button class="drawer-close" id="dclose" aria-label="Close">✕</button>
+    <div class="dtop"><span class="badge" id="d-badge"></span><span class="pill" id="d-pill"></span></div>
+    <h3 id="d-name"></h3>
+    <div class="dpath" id="d-path"></div>
+  </div>
+  <div class="drawer-body">
+    <div class="dblock lede"><p id="d-desc"></p></div>
+    <div class="dblock"><span class="dl" data-i18n="dr_pains">⚑ Pain points it removes</span><ul class="pains" id="d-pains"></ul></div>
+    <div class="dblock"><span class="dl" data-i18n="dr_fit">↳ Where it fits</span><p id="d-fit"></p></div>
+    <div class="dblock"><span class="dl" data-i18n="dr_adopt">⤓ How you adopt it</span>
+      <div class="adopt"><span class="stp" data-i18n="dr_connect">Connect</span><span class="arr">→</span><span class="stp" data-i18n="dr_certify">Certify</span><span class="arr">→</span><span class="stp" data-i18n="dr_run">Run</span></div>
+      <p style="font-size:13.7px;color:var(--graphite-soft);line-height:1.5" data-i18n="dr_adopt_p">Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, certify it on the CAI Score, and it runs in your own tenant &mdash; no rebuild, no data leaving your walls.</p>
+    </div>
+    <div class="dgrid">
+      <div class="dblock"><span class="dl" data-i18n="dr_value">Value · ROI</span><p id="d-roi"></p></div>
+      <div class="dblock"><span class="dl" data-i18n="dr_kpi">KPI it moves</span><p id="d-kpi"></p></div>
+    </div>
+    <div class="dblock compliance-block"><span class="dl" data-i18n="dr_risk">⚖ Risk &amp; compliance</span><p id="d-comp"></p></div>
+    <div class="dblock" style="border-bottom:none">
+      <div class="d-actions">
+        <a class="d-demo" id="d-doc" href="#" target="_blank" rel="noopener" style="width:100%;justify-content:center" data-i18n="dr_doc">⤓ Download agent dossier (PDF)</a>
+        <button class="d-calc" id="d-calc" type="button" data-i18n="dr_calc">＝ Calculate ROI for this agent</button>
+      </div>
+    </div>
+  </div>
+  <div class="drawer-foot">
+    <a class="d-demo" id="d-demo" href="https://www.colleagueai.ai/demo" target="_blank" rel="noopener" data-i18n="dr_demo">See it in a live demo →</a>
+    <span class="d-foot-note" data-i18n-html="dr_footnote">Runs in<br>your environment</span>
+  </div>
+</aside>
+
+<script>
+/* ---------- AGENT DATA ---------- */
+const TIERS={L2:{c:"var(--t2)"},L3:{c:"var(--t3)"},L4:{c:"var(--t4)"}};
+const AGENTS=[{"n":"Reconciliation Root-Cause Agent","t":"L3","p":"ops","dom":"Operations · Reconciliations","desc":"Investigates each reconciliation break, prioritises it by materiality, and narrates why it happened and how to fix it.","fit":"Sits at the front of the reconciliation queue: it triages breaks the moment they appear, before an analyst opens the first one — and feeds clean, explained breaks into the dual-control step.","roi":"Cuts manual investigation effort and stops systemic issues from recurring by spotting the pattern, not just the symptom.","kpi":"Lower break-resolution time · fewer repeat breaks · cleaner audit trail.","comp":"L3 — operates inside the recon workflow; routine breaks are explained automatically, anything material is routed to a human. Every investigation produces audit-ready evidence.","eff":65,"pains":["Analysts burn the first days of close manually chasing why each break happened.","The same systemic break reappears every month because no one joins the dots."]},{"n":"SMT Backlog Triage Agent","t":"L3","p":"ops","dom":"Operations · Service Management","desc":"Classifies and prioritises items in the Service Management Tool backlog so teams work the right item next instead of triaging by hand.","fit":"Runs continuously over the backlog as the intake gate — items are typed, owned and ranked against SLA before a person picks anything up.","roi":"Removes manual triage effort and lifts SLA adherence by surfacing at-risk items before they breach.","kpi":"Faster reporting cycles · better SLA adherence · improved auditability.","comp":"L3 — classification and prioritisation only; no item is actioned or closed without a human. Ageing/at-risk flags are logged for review.","eff":65,"pains":["The backlog is triaged by hand every morning before anyone does real work.","Items quietly age until they breach SLA and become an escalation."]},{"n":"Four-Eyes Control Assistant","t":"L4","p":"ops","dom":"Operations · Controls","desc":"Supports the second reviewer in a four-eyes process — checks the work, highlights discrepancies, and captures the validation evidence.","fit":"Slots into the dual-control step of any sign-off chain (e.g. after the RCA Agent in month-end close). It does the first-pass check; the human reviewer confirms and remains the named approver.","roi":"Speeds up dual-control sign-off while keeping a human accountable for the final decision — control quality goes up, cycle time goes down.","kpi":"Faster control cycles · improved auditability.","comp":"L4 — high-stakes. The agent assists and evidences; it never approves alone. Designed for control environments where the four-eyes principle and audit trail are mandatory.","eff":40,"pains":["Dual-control sign-off stalls waiting for a second reviewer to find time.","Reviewers eyeball everything manually, so discrepancies slip through under deadline."]},{"n":"Operations Procedures Assistant","t":"L2","p":"ops","dom":"Operations · Procedures","desc":"A conversational assistant that lets staff find and follow internal operational procedures on demand instead of searching documents.","fit":"Lives wherever staff get stuck mid-task — answering 'how do I…' from the approved procedure set, so the right step is one question away.","roi":"Improves problem-solving efficiency and breaks dependence on tribal knowledge held by a few experienced people.","kpi":"Faster task completion · fewer 'how do I…' escalations.","comp":"L2 — answers are grounded strictly in approved procedure documents; it informs, it doesn't act. Low risk, fully traceable to source.","eff":45,"pains":["Staff ping a senior colleague every time they hit a ‘how do I…’ moment.","Procedures live in documents no one can find when they actually need them."]},{"n":"SMT Support Agent","t":"L3","p":"ops","dom":"Service Delivery · Production Support","desc":"Supports day-to-day Service Management Tool workflows in production support, handling routine actions and assisting analysts on complex items.","fit":"Embeds in the support team's daily workflow as the first pair of hands — it clears the repeatable actions so analysts focus on the genuinely hard tickets.","roi":"Significant, sustained capacity release across the support team.","kpi":"≈ 10 FTE of capacity released.","comp":"L3 — handles routine, repeatable actions automatically; complex or unusual items are escalated to an analyst. Actions are logged for support audit.","eff":70,"pains":["Analysts spend most of the day on repeatable ticket actions, not hard problems.","Volume spikes mean overtime or a growing backlog — there’s no slack."]},{"n":"SMT Request Automation Agent","t":"L3","p":"ops","dom":"Service Delivery · Production Support","desc":"Automates incoming support requests end-to-end — intake, classification, and fulfilment of standard requests — routing exceptions to people.","fit":"Replaces the manual request-handling lane entirely for standard, low-risk requests, while everything non-standard is routed to the right team.","roi":"Large capacity release on high-volume, repetitive request handling.","kpi":"≈ 12 FTE of capacity released.","comp":"L3 — only standard/low-risk requests are fulfilled without a human; exceptions are routed, not actioned. Full intake-to-fulfilment log.","eff":75,"pains":["Standard requests queue behind a person keying the same steps all day.","Turnaround on routine requests is measured in days, not minutes."]},{"n":"Service Delivery Manager Copilot","t":"L3","p":"ops","dom":"Service Delivery","desc":"A daily co-pilot for SDMs that pulls together KPI and escalation data per client, flags at-risk accounts, and drafts client-ready updates.","fit":"Becomes the SDM's morning briefing — it consolidates the day's KPI and escalation picture per client so the manager walks into the day already ahead of the issues.","roi":"Improved client satisfaction and fewer service credits paid out.","kpi":"Improved client satisfaction · reduced service credits.","comp":"L3 — surfaces data and drafts updates; the SDM owns what's sent and how at-risk accounts are handled. Drafts are reviewed before release.","eff":65,"pains":["SDMs start the day blind, hunting KPIs across tools before the first client call.","An at-risk account only surfaces once the client has already complained."]},{"n":"Service Review Pack Builder","t":"L2","p":"ops","dom":"Service Delivery","desc":"Generates the content for monthly/periodic service-review packs automatically, pulling performance data into a consistent, client-ready format.","fit":"The last step of the service-review cycle — it turns the month's performance data into a draft pack, cutting prep down to review-and-approve.","roi":"Reduces preparation effort for every recurring service review.","kpi":"Reduced prep effort · faster time-to-pack.","comp":"L2 — assembles a draft from performance data; a human reviews and approves before the pack reaches the client.","eff":60,"pains":["Someone loses two days a month assembling the same review pack by hand.","Every manager’s pack looks different, so reviews start with format arguments."]},{"n":"Escalation Triage Agent","t":"L3","p":"ops","dom":"Service Delivery","desc":"Handles inbound escalations, classifies severity, drafts an initial response, and routes to the correct owner so issues resolve faster.","fit":"The front door for escalations — it classifies and routes the moment one lands, and hands a drafted first response to the owner.","roi":"Faster resolution and reduced risk on escalations.","kpi":"Faster resolution time · reduced escalation risk.","comp":"L3 — classifies, drafts and routes; the owning team approves the response and resolves. Severity calls are logged for review.","eff":65,"pains":["Escalations sit unclassified while the team works out who owns them.","First responses are drafted from scratch every time, slowing resolution."]},{"n":"Risk Event Capture Agent","t":"L3","p":"risk","dom":"Risk","desc":"Walks users through creating and logging risk events in the GRC tooling, enforcing consistent classification and complete required fields.","fit":"Sits at the point of capture — the moment someone needs to log a risk event — guiding them so events are recorded consistently and nothing gets under-reported.","roi":"Standardises risk-event capture and removes the friction that causes under-reporting.","kpi":"Time saved on event logging · improved reporting completeness.","comp":"L3 — enforces classification and drafts the narrative inside the GRC tool; the user confirms the submission. Reduces the compliance gap created by inconsistent logging.","eff":60,"pains":["Risk events go under-reported because logging them is slow and fiddly.","Half the events are missing fields, so the risk picture is never complete."]},{"n":"Security Defect Triage Agent","t":"L4","p":"risk","dom":"Security & Cyber","desc":"Analyses security defects from multiple sources and assigns a consistent, risk-based severity rating using the firm's internal scoring model.","fit":"Sits between detection and remediation — it consolidates defects from every source and applies one consistent severity model, ending the dev-vs-security debate over how bad something is.","roi":"Speeds up defect analysis and cuts back-and-forth between developers and security teams.","kpi":"Reduced analysis time · fewer clarifying questions.","comp":"L4 — severity ratings drive remediation priority, so each rating is explained and a human owns the final call. Rationale is recorded for security audit.","eff":50,"pains":["Dev and security argue over how severe each defect really is.","Defects from different scanners arrive in different formats and scales."]},{"n":"Compliance & Audit Action Tracker","t":"L4","p":"risk","dom":"Compliance","desc":"Replaces manual compliance tracking — spreadsheets, evidence follow-ups, deadlines and reporting — with automated trackers, validation and live dashboards.","fit":"Becomes the backbone of the compliance cycle: it tracks every action, chases evidence, and shows posture on a live dashboard, so the audit deadline never arrives as a surprise.","roi":"Removes a heavy manual burden and gives real-time visibility of compliance posture.","kpi":"Less manual tracking · fewer missed deadlines · live dashboards.","comp":"L4 — directly touches the firm's compliance evidence base; humans own attestations and sign-offs while the agent tracks and validates. Designed for audit defensibility.","eff":40,"pains":["Compliance tracking lives in fragile spreadsheets and chased-up emails.","An audit deadline arrives as a fire drill instead of a planned step."]},{"n":"Cyber Security Reporting Agent","t":"L3","p":"risk","dom":"Security & Cyber","desc":"Automates multi-source cyber reporting that today means manually combining PowerPoint, Excel and Power BI with inconsistent formats.","fit":"Replaces the manual report-assembly step — it consolidates inconsistent sources, tracks follow-ups and runs anomaly detection so reporting is consistent every cycle.","roi":"Turns a manual, error-prone reporting process into an automated, consistent one.","kpi":"Reduced reporting effort · faster, more consistent reports.","comp":"L3 — consolidates and detects anomalies; humans interpret findings and decide on action. Source data and follow-ups are tracked.","eff":60,"pains":["Reporting means hand-merging PowerPoint, Excel and Power BI every cycle.","Inconsistent source formats mean the numbers rarely tie out first time."]},{"n":"DDQ Data Search Agent","t":"L3","p":"risk","dom":"Risk · Due Diligence","desc":"Searches internal data to answer due-diligence questionnaires quickly and accurately, instead of manual lookups across systems.","fit":"Sits at the start of DDQ turnaround — it finds and drafts sourced answers from internal systems, so the team reviews and confirms rather than hunting.","roi":"Improved efficiency and accuracy on due-diligence responses.","kpi":"Improved efficiency &amp; accuracy.","comp":"L3 — drafts sourced responses; a human reviews and signs off before the DDQ goes back. Answers cite their internal source.","eff":60,"pains":["Answering one DDQ means manual lookups across five different systems.","Every responder writes answers differently, so quality is uneven."]},{"n":"Risk Control Oversight Agent","t":"L4","p":"risk","dom":"Risk · Controls","desc":"Supports oversight of risk controls — data preparation, delivery and compliance reporting across the control environment.","fit":"Provides the continuous-oversight layer across the control set, so gaps and weaknesses surface between formal reviews rather than at them.","roi":"Strengthens control oversight while reducing manual data handling.","kpi":"Improved control visibility · reduced manual effort.","comp":"L4 — operates on the control environment itself; oversight conclusions stay with accountable risk owners. Built for high-assurance, evidenced reporting.","eff":40,"pains":["Control gaps only surface at the formal review, never between them.","Oversight data is prepared by hand, so it’s stale by the time it’s read."]},{"n":"Power Query Code Generator","t":"L2","p":"data","dom":"Data & Engineering","desc":"Generates Advanced Editor (M) code in Power Query for Excel and Power BI, so analysts don't hand-write transformation code.","fit":"Drops into the analyst's modelling workflow — describe the transformation, get the M code, paste and check. The saving compounds as the data estate grows.","roi":"Saves ≈ 10 minutes per working query, and the saving stacks across the estate.","kpi":"≈ 10 min saved per query · compounds with scale.","comp":"L2 — generates code for a human to review and run; nothing executes against data without the analyst. Low risk.","eff":55,"pains":["Analysts hand-write M code they half-remember, then debug it for an hour.","Every new query starts from a blank Advanced Editor."]},{"n":"Infrastructure Wiki Agent","t":"L2","p":"data","dom":"Infrastructure","desc":"A dynamic knowledge agent that answers infrastructure questions and guides issue resolution from the infrastructure knowledge base.","fit":"Sits beside engineers during incidents and BAU — answering from current docs and guiding resolution, so knowledge isn't locked in a few heads.","roi":"Faster infrastructure issue resolution and less knowledge lock-in.","kpi":"Faster issue resolution.","comp":"L2 — answers grounded in current documentation; it guides, the engineer acts. Low risk.","eff":45,"pains":["Engineers wait on the one person who knows how that system actually works.","Resolution steps are buried in docs no one searches mid-incident."]},{"n":"Maintenance Event Agent","t":"L2","p":"data","dom":"Infrastructure","desc":"Auto-populates maintenance events so planned work is logged consistently and is visible to the right teams.","fit":"Sits at the planning step — it fills out maintenance records consistently, improving visibility of planned work across teams.","roi":"Improved reliability and awareness of maintenance activity.","kpi":"Improved reliability &amp; awareness.","comp":"L2 — populates records for confirmation; the owning team verifies before the event is committed. Low risk.","eff":50,"pains":["Planned work gets logged inconsistently, so teams are blindsided by it.","Maintenance records are filled in late, if at all."]},{"n":"Sales Qualification Agent","t":"L2","p":"sales","dom":"Sales","desc":"Qualifies leads by automating research and outreach drafting, so sellers spend time on the opportunities most likely to convert.","fit":"Sits at the top of the funnel — it researches and enriches inbound and target leads, drafts personalised outreach, and scores them for the seller to action.","roi":"Improves selling efficiency by focusing effort on qualified leads.","kpi":"Improved lead-handling efficiency.","comp":"L2 — drafts outreach and scores leads; the seller reviews and sends. Nothing reaches a prospect unapproved.","eff":45,"pains":["Reps spend hours researching leads that were never going to convert.","Outreach is generic because personalising it by hand doesn’t scale."]},{"n":"Sales Opportunity Agent","t":"L2","p":"sales","dom":"Sales","desc":"Researches live opportunities to give sellers and managers visibility of deal velocity and risk, using AI research across available sources.","fit":"Sits across the active pipeline — surfacing velocity and risk signals on each opportunity to sharpen forecasting decisions.","roi":"Sharper insight and better decision-making on the pipeline.","kpi":"Improved decision quality · better deal-risk visibility.","comp":"L2 — research and signals only; sellers and managers make the forecasting and deal calls.","eff":45,"pains":["Deal risk only becomes visible when a forecast misses.","Reps research accounts manually, so the pipeline view is always behind."]},{"n":"Sales End-to-End Assistant","t":"L3","p":"sales","dom":"Sales","desc":"Covers the full sales cycle — lead generation, RFP drafting, pipeline analysis and deal-execution support — in one assistant.","fit":"Spans the whole cycle as a connective layer, picking up routine work at each stage from first touch through to deal execution.","roi":"Improved revenue performance and higher-quality pipeline.","kpi":"Improved revenue performance &amp; pipeline quality.","comp":"L3 — operates across stages on routine work; sellers own commitments, pricing and what goes to the customer. Activity is tracked.","eff":60,"pains":["RFPs are drafted from scratch under time pressure, every time.","Routine cycle admin eats the hours reps should spend selling."]},{"n":"Pipeline Reporting Agent","t":"L2","p":"sales","dom":"Sales","desc":"Automates pipeline reporting and status updates so managers always have a current, accurate view without manual roll-ups.","fit":"Sits at the reporting layer — keeping the pipeline view current automatically so managers stop chasing roll-ups.","roi":"Improved efficiency and accuracy of pipeline reporting.","kpi":"Improved efficiency &amp; accuracy.","comp":"L2 — assembles reporting from existing pipeline data; managers review before it's used for decisions.","eff":60,"pains":["Managers chase reps for status to hand-build a roll-up each week.","By the time the pipeline report is ready, it’s already out of date."]},{"n":"Content & Comms Agent","t":"L2","p":"sales","dom":"Comms & Marketing","desc":"Drafts emails, presentations and campaign content, automating the repetitive parts of internal and external communications.","fit":"Sits at the start of every comms task — producing a branded, on-tone first draft so the team edits rather than starts from blank.","roi":"Improved engagement metrics on communications.","kpi":"Improved engagement metrics.","comp":"L2 — drafts only; a human reviews tone, accuracy and brand before anything is published or sent.","eff":50,"pains":["Every email, deck and campaign starts from a blank page.","Tone and branding drift because everyone drafts their own way."]},{"n":"Campaign & Project Management Agent","t":"L2","p":"sales","dom":"Comms & Marketing","desc":"Supports marketing project tracking and communications, keeping campaigns on schedule and stakeholders informed.","fit":"Sits across the campaign timeline — tracking tasks, coordinating comms and surfacing status and risks to keep delivery on schedule.","roi":"Improved KPI performance across marketing goals.","kpi":"Improved KPI performance across goals.","comp":"L2 — tracks and coordinates; the campaign owner makes the calls. Low risk.","eff":45,"pains":["Campaign status lives in someone’s head until the weekly stand-up.","Tasks slip because no one’s watching the whole timeline."]},{"n":"Contract Obligations Review Agent","t":"L4","p":"corp","dom":"Legal · Operations","desc":"Reviews MSAs and SLAs to extract obligations, deadlines and service commitments, and cross-references them against how operations actually run.","fit":"Sits in the contract lifecycle after summarisation — checking contracted commitments against operational delivery and flagging the gaps before they become disputes.","roi":"Reduces legal and commercial risk and cuts manual contract-review effort.","kpi":"Reduced legal risk &amp; review effort.","comp":"L4 — outputs feed legal and commercial risk decisions; lawyers own the interpretation. Gaps are flagged with evidence, not auto-resolved.","eff":35,"pains":["No one’s sure which SLA commitments operations is actually meeting.","Penalty clauses surface only when a customer invokes one."]},{"n":"SOP Generation Agent","t":"L2","p":"corp","dom":"Business Readiness","desc":"Generates Standard Operating Procedures directly from process flows, turning a diagram or description into a documented SOP.","fit":"Sits at the readiness/handover step — converting a process flow into a first-draft SOP for a human to review and approve.","roi":"Reduced manual effort and fewer documentation errors.","kpi":"Reduced effort &amp; errors.","comp":"L2 — produces a draft SOP; a process owner reviews and approves before it becomes the standard. Low risk.","eff":55,"pains":["Documenting a process from a flow diagram takes days of writing.","SOPs drift out of date because updating them is nobody’s favourite job."]},{"n":"OAT Test Script Generator","t":"L2","p":"corp","dom":"Business Readiness","desc":"Generates Operational Acceptance Testing scripts from process flows, improving coverage while cutting authoring effort.","fit":"Sits in the readiness/testing step — generating OAT scripts from the process flow so testers refine rather than author from scratch.","roi":"Improved test coverage and reduced authoring effort.","kpi":"Improved coverage · reduced effort.","comp":"L2 — generates draft scripts for a tester to review and run. Low risk.","eff":55,"pains":["Test scripts are authored by hand, so coverage depends on who’s free.","Thin test coverage means defects slip into production."]},{"n":"Supplier Meeting Minutes Agent","t":"L2","p":"corp","dom":"Procurement","desc":"Produces structured minutes for supplier meetings using standard templates, so actions and decisions are captured reliably.","fit":"Sits at the end of every supplier meeting — turning the discussion into structured minutes with actions and owners, the same way every time.","roi":"Consistent, low-effort record of supplier engagements.","kpi":"Reduced minute-taking effort · more reliable records.","comp":"L2 — drafts minutes for confirmation; attendees verify accuracy before they're circulated. Low risk.","eff":70,"pains":["Supplier actions get lost because minutes are scrappy or never written.","Someone spends the meeting typing instead of listening."]},{"n":"Monthly Reporting Automation Agent","t":"L2","p":"corp","dom":"Reporting","desc":"Automates recurring monthly reporting, assembling report content and reducing the manual cycle each period.","fit":"Sits at the monthly reporting step (e.g. after the financial close clears) — assembling the report so analysts review rather than rebuild each period.","roi":"Capacity released every reporting cycle.","kpi":"≈ 1 FTE-day saved per month.","comp":"L2 — assembles from existing data for review and approval before publication. Low risk.","eff":60,"pains":["An analyst loses a day every month assembling the same report.","Manual copy-paste between sources introduces errors each cycle."]},{"n":"Onboarding Agent","t":"L2","p":"corp","dom":"People Team (HR)","desc":"Guides new joiners through onboarding, answering questions and keeping them on track from day one.","fit":"Sits with the new joiner from day one — guiding them through the steps and answering common questions so the experience is smooth and consistent.","roi":"Improved onboarding experience.","kpi":"Improved new-joiner experience.","comp":"L2 — informs and guides; HR owns the process. Answers grounded in approved onboarding material. Low risk.","eff":45,"pains":["New joiners wait on HR for answers and lose their first-week momentum.","Onboarding quality depends on which manager you happened to get."]},{"n":"Development & Career Agent","t":"L2","p":"corp","dom":"People Team (HR)","desc":"Provides career-growth guidance to employees, suggesting development paths and resources.","fit":"Sits alongside development conversations — offering personalised growth suggestions and resources that support, not replace, the manager–employee discussion.","roi":"Higher employee engagement.","kpi":"Improved engagement.","comp":"L2 — suggests resources and paths; people and managers make development decisions. Low risk.","eff":45,"pains":["Career conversations stall because no one has time to map the options.","Development resources exist but employees never find the relevant ones."]},{"n":"People Ops Query Agent","t":"L2","p":"corp","dom":"People Team (HR)","desc":"Answers everyday employee HR queries, taking routine questions off the People Ops team.","fit":"Sits as the first line for HR questions — giving consistent, policy-grounded answers and escalating complex cases to People Ops.","roi":"Reduced workload on the People Ops team.","kpi":"Reduced People Ops workload.","comp":"L2 — answers grounded in policy; complex or sensitive cases are escalated to a person, never auto-decided. Low risk.","eff":45,"pains":["People Ops fields the same routine questions over and over.","Employees wait days for an answer that’s already written in a policy."]},{"n":"Performance Management Agent","t":"L3","p":"corp","dom":"People Team (HR)","desc":"Supports managers in performance management, helping structure reviews and keep feedback consistent across teams.","fit":"Sits inside the performance cycle — helping managers structure reviews and feedback so quality is consistent across the organisation.","roi":"Greater consistency in performance management.","kpi":"Improved management consistency.","comp":"L3 — structures and supports; managers own every assessment and decision. Sensitive context stays with the human.","eff":60,"pains":["Review quality swings wildly depending on the manager.","Managers reinvent the structure of every review from scratch."]},{"n":"Contract Summarisation Agent","t":"L4","p":"corp","dom":"Legal","desc":"Reads contracts and extracts the key risks and obligations, giving legal and business teams a fast, consistent summary.","fit":"The opening step of the contract lifecycle — it produces a consistent risk-and-obligation summary and flags items that need a lawyer's eye.","roi":"Reduced workload on contract review.","kpi":"Reduced review workload.","comp":"L4 — summaries inform legal risk assessment; lawyers own interpretation and advice. Flagged items are highlighted, not actioned.","eff":35,"pains":["Lawyers read every contract end-to-end just to find the key risks.","Business teams wait on legal for a summary they could have had instantly."]},{"n":"Signing Summary Agent","t":"L3","p":"corp","dom":"Legal","desc":"Prepares signing summaries ahead of execution, so signatories see the key points without reading the full document.","fit":"Sits just before execution — giving signatories a concise view of the key terms so they sign informed, faster.","roi":"Greater efficiency at the signing stage.","kpi":"Improved efficiency.","comp":"L3 — prepares a summary; the signatory and legal remain responsible for the executed document. Summary highlights key terms for review.","eff":60,"pains":["Signatories either read the whole document or sign without reading it.","Execution stalls while someone prepares a plain-language brief."]},{"n":"Leadership Reporting Agent","t":"L3","p":"corp","dom":"Legal · Reporting","desc":"Produces leadership-level reporting, consolidating performance and management information into a consistent executive view.","fit":"Sits at the top of the reporting chain (e.g. after monthly reporting) — rolling inputs into a consistent executive format for leadership.","roi":"More consistent leadership reporting.","kpi":"Improved management consistency.","comp":"L3 — consolidates and formats; leadership owns interpretation and decisions. Inputs are traceable.","eff":60,"pains":["Leadership reporting is re-formatted by hand from a dozen inputs.","Every exec pack looks different, so leaders compare apples to oranges."]}];
+
+/* ---------- RENDER ---------- */
+const grid=document.getElementById('grid');
+const countEl=document.getElementById('count');
+let fPillar='all', fTier='all', fSearch='';
+
+function tierClass(t){return t;}
+function render(){
+  const list=AGENTS.filter(a=>
+    (fPillar==='all'||a.p===fPillar) &&
+    (fTier==='all'||a.t===fTier) &&
+    (fSearch===''||(a.n+a.desc+a.dom).toLowerCase().includes(fSearch))
+  );
+  countEl.textContent=((window.T?T('count_tmpl'):'// {n} shown')).replace('{n}',list.length);
+  if(!list.length){grid.innerHTML='<div class="empty">No agents match these filters.</div>';return;}
+  grid.innerHTML=list.map((a,i)=>{
+    const idx=AGENTS.indexOf(a);
+    return `<article class="card" data-i="${idx}" style="--bc:${TIERS[a.t].c}">
+      <div class="top"><span class="badge">${a.t}</span><span class="pill">${a.dom}</span></div>
+      <h3>${a.n}</h3>
+      <p class="desc">${a.desc}</p>
+      <div class="foot">
+        <div class="kpi"><span class="kl">KPI</span>${a.kpi}</div>
+        <span class="open">Details<span class="ring">→</span></span>
+      </div>
+    </article>`;
+  }).join('');
+}
+render();
+
+/* ---------- FILTERS ---------- */
+document.querySelectorAll('.chip.pillar').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.chip.pillar').forEach(x=>x.classList.remove('active'));
+  c.classList.add('active');fPillar=c.dataset.pillar;render();
+}));
+document.querySelectorAll('.chip.tier').forEach(c=>c.addEventListener('click',()=>{
+  document.querySelectorAll('.chip.tier').forEach(x=>x.classList.remove('active'));
+  c.classList.add('active');fTier=c.dataset.tier;render();
+}));
+document.getElementById('search').addEventListener('input',e=>{fSearch=e.target.value.toLowerCase().trim();render();});
+
+/* ---------- DRAWER ---------- */
+const drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
+function openDrawer(i){
+  const a=AGENTS[i];
+  const dbadge=document.getElementById('d-badge');
+  dbadge.textContent=a.t; dbadge.style.background=TIERS[a.t].c;
+  document.getElementById('d-pill').textContent=a.dom;
+  document.getElementById('d-name').textContent=a.n;
+  document.getElementById('d-path').textContent='CAI '+a.t+' · '+(window.T?T({L2:'t2_name',L3:'t3_name',L4:'t4_name'}[a.t]):({L2:'Draft',L3:'Operate',L4:'Decide (supervised)'}[a.t]));
+  document.getElementById('d-desc').textContent=a.desc;
+  document.getElementById('d-fit').textContent=a.fit;
+  document.getElementById('d-roi').textContent=a.roi;
+  document.getElementById('d-kpi').innerHTML=a.kpi;
+  document.getElementById('d-comp').textContent=a.comp;
+  document.getElementById('d-pains').innerHTML=(a.pains||[]).map(p=>'<li>'+p+'</li>').join('');
+  const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  document.getElementById('d-doc').href='https://www.colleagueai.ai/docs/agents/'+slug+'.pdf';
+  document.getElementById('d-calc').onclick=function(){closeDrawer();if(window.openCalcFor)window.openCalcFor(a.n);};
+  document.getElementById('d-demo').href=(window.STORE&&STORE.schedulerUrl&&STORE.schedulerUrl!=='YOUR_SCHEDULER_URL'?STORE.schedulerUrl:'https://www.colleagueai.ai/demo')+'?agent='+encodeURIComponent(a.n)+'&tier='+a.t;
+  drawer.classList.add('open'); scrim.classList.add('open'); drawer.setAttribute('aria-hidden','false');
+  document.getElementById('drawer').querySelector('.drawer-body').scrollTop=0;
+}
+function closeDrawer(){drawer.classList.remove('open');scrim.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
+grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openDrawer(+c.dataset.i);});
+document.getElementById('dclose').addEventListener('click',closeDrawer);
+scrim.addEventListener('click',closeDrawer);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
+
+/* ---------- NAV + REVEAL ---------- */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>10);});
+const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+<script>
+/* ---------- ROI CALCULATOR ---------- */
+(function(){
+  const FTEH=1840, SYM={EUR:'\u20AC',USD:'$',CZK:'K\u010D'};
+  const PILL={ops:'Operations & Service',risk:'Risk, Security & Compliance',data:'Data & Infrastructure',sales:'Sales & Marketing',corp:'Corporate'};
+  const $=id=>document.getElementById(id);
+  const sel=$('c-agent');
+  function money(cur,n){n=Math.round(n);const neg=n<0;const s=Math.abs(n).toLocaleString('en-US');const v=cur==='CZK'?(s+'\u00A0K\u010D'):(SYM[cur]+s);return neg?('\u2212'+v):v;}
+  function recompute(){
+    const cur=$('c-cur').value;
+    const people=Math.max(0,+$('c-people').value||0);
+    const cost=Math.max(0,+$('c-cost').value||0);
+    const share=(+$('c-share').value||0)/100;
+    const eff=(+$('c-eff').value||0)/100;
+    const inv=Math.max(0,+$('c-inv').value||0);
+    const moneySaved=people*cost*share*eff, hours=people*FTEH*share*eff, fte=people*share*eff, net=moneySaved-inv;
+    $('r-money').textContent=money(cur,moneySaved);
+    $('r-net').textContent='Net of investment: '+money(cur,net);
+    $('r-hours').innerHTML=Math.round(hours).toLocaleString('en-US')+' <small>hrs</small>';
+    $('r-fte').textContent=fte.toFixed(1);
+    const roiEl=$('r-roi');
+    if(inv>0){const roi=net/inv*100;roiEl.textContent=Math.round(roi).toLocaleString('en-US')+'%';roiEl.classList.toggle('roi-pos',roi>=0);}
+    else{roiEl.textContent='\u2014';roiEl.classList.remove('roi-pos');}
+    const payEl=$('r-pay');
+    if(moneySaved>0&&inv>0){const m=inv/(moneySaved/12);payEl.innerHTML=(m<1?'&lt;1':Math.round(m))+' <small>mo</small>';}
+    else{payEl.textContent='\u2014';}
+    $('c-cur2').options[0].text=(cur==='CZK'?'K\u010D CZK':(SYM[cur]+' '+cur));
+  }
+  function onAgent(){
+    const a=AGENTS.find(x=>x.n===sel.value)||AGENTS[0];
+    $('c-eff').value=a.eff;$('c-eff-v').textContent=a.eff+'%';
+    $('c-tier-line').textContent='// '+a.n+' \u00B7 CAI '+a.t;
+    recompute();
+  }
+  function pillLabel(pk){return window.T?T('pillar_'+pk):({ops:'Operations & Service',risk:'Risk, Security & Compliance',data:'Data & Infrastructure',sales:'Sales & Marketing',corp:'Corporate'}[pk]);}
+  ['ops','risk','data','sales','corp'].forEach(pk=>{
+    const og=document.createElement('optgroup');og.label=pillLabel(pk);og.dataset.pk=pk;
+    AGENTS.filter(a=>a.p===pk).forEach(a=>{const o=document.createElement('option');o.value=a.n;o.textContent=a.n+' \u00B7 '+a.t;og.appendChild(o);});
+    sel.appendChild(og);
+  });
+  $('c-share').addEventListener('input',e=>{$('c-share-v').textContent=e.target.value+'%';recompute();});
+  $('c-eff').addEventListener('input',e=>{$('c-eff-v').textContent=e.target.value+'%';recompute();});
+  ['c-people','c-cost','c-inv','c-cur'].forEach(id=>$(id).addEventListener('input',recompute));
+  sel.addEventListener('change',onAgent);
+  window.openCalcFor=function(name){sel.value=name;onAgent();$('roi').scrollIntoView({behavior:'smooth',block:'start'});};
+  window.refreshCalcI18n=function(){sel.querySelectorAll('optgroup').forEach(og=>{og.label=pillLabel(og.dataset.pk);});onAgent();};
+  sel.selectedIndex=0; onAgent();
+})();
+</script>
+<script>
+(function(){
+var I18N={"en":{"nav_philosophy":"Philosophy","nav_score":"The Score","nav_catalogue":"Catalogue","nav_fit":"How they fit","nav_roi":"ROI","nav_deploy":"Deployment","nav_faq":"FAQ","nav_demo":"Book a demo","hero_eyebrow":"Agent Catalogue · The trust layer for enterprise AI","hero_sub":"Every agent below is classified on the CAI Score — a five-tier model that says exactly how much it does on its own and how much a human stays accountable for. Tiered, certified, auditable. That's what makes them safe to put into a real process.","hero_stat1":"Production-grade agents","hero_stat2":"Functional pillars","hero_stat3":"Live CAI tiers","hero_aside_big":"The FICO of enterprise AI.","hero_aside":"Banks don't approve a borrower without a credit score. You shouldn't approve an AI agent without a risk score. The CAI Score is that number — and the agents in this catalogue ship with it from day one.","def_label":"In one line","phil_eyebrow":"The philosophy","phil_h2":"Most AI projects fail on governance, not capability. So we put the blueprint first.","phil_p":"The hard part of enterprise AI isn’t building an agent that works in a demo — it’s governing the sprawl once dozens of them are live: knowing where each one is allowed to act, who’s accountable when it does, and being able to prove it to an auditor. Colleague AI gives you that framework first — the governance blueprint — then fits certified agents into it at the right tier.","phil_1h":"Blueprint before bots","phil_1p":"We map your process and assign each step a risk tier on the CAI Score before a single agent goes live. Agents fill slots in a governed design — they don't get bolted onto a process and hope for the best.","phil_2h":"Safe by tier, not by promise","phil_2p":"An agent's CAI tier is a hard contract about its autonomy. Low-tier agents only draft and suggest. High-tier agents assist a named human who stays accountable. Safety is structural, not a marketing claim.","phil_3h":"It runs in your house","phil_3p":"Agents run inside your own Microsoft and cloud environment. Colleague AI hosts only the control plane — the governance metadata, scores and audit trail. Your data never leaves your tenancy.","score_eyebrow":"The CAI Score","score_h2":"Five tiers. Each one is a promise about how much rope an agent gets.","score_p":"Read it from the bottom up: the higher the tier, the more an agent can do — and the more human oversight, logging and accountability the blueprint builds in around it. Every agent in the catalogue carries one of these.","t1_name":"Assist","t1_desc":"Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand.","tier_human":"Human role","t1_role":"Does everything","t2_name":"Draft","t2_desc":"Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off.","t2_role":"Reviews & approves","t3_name":"Operate","t3_desc":"Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.","t3_role":"Owns exceptions","t4_name":"Decide (supervised)","t4_desc":"Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.","t4_role":"Stays accountable","t5_name":"Autonomous","t5_desc":"Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today.","t5_role":"Sets the rails","score_note":"// This catalogue ships at L2–L4. L4 agents require senior sign-off before go-live.","cat_eyebrow":"The catalogue","cat_h2":"36 agents, ready to slot into your blueprint.","cat_p":"Filter by where they work and by how much autonomy they carry. Open any agent to see where it fits in a process, the value case, the KPI it moves, and the risk & compliance posture.","flabel_pillar":"Pillar","pillar_all":"All","pillar_ops":"Operations & Service","pillar_risk":"Risk, Security & Compliance","pillar_data":"Data & Infrastructure","pillar_sales":"Sales & Marketing","pillar_corp":"Corporate","flabel_tier":"Tier","tier_any":"Any","chip_l2":"L2 · Draft","chip_l3":"L3 · Operate","chip_l4":"L4 · Decide","fit_eyebrow":"How they fit","fit_h2":"Agents are most valuable in a chain. Here's what a blueprint looks like.","fit_p":"A single agent helps. A governed sequence transforms a process end-to-end — each agent at the right tier, each handing off to the next, with humans owning the high-stakes steps. Four worked examples.","flow1_title":"Month-end financial close","flow1_tag":"Finance · Operations","flow1_sub":"From unexplained reconciliation breaks to a board-ready report — with dual control on the numbers that matter.","flow1_s1":"Investigates each break and explains the root cause.","flow1_s2":"Second-reviews the adjustments; a human signs off.","flow1_s3":"Assembles the period report from the cleared data.","flow1_s4":"Rolls it up into a consistent executive view.","flow2_title":"Incident to service review","flow2_tag":"Service Delivery","flow2_sub":"An escalation arrives and ends up, weeks later, as a clean line in the monthly client pack — without a manager living in the ticket queue.","flow2_s1":"Classifies severity and drafts the first response.","flow2_s2":"Works the routine fulfilment inside the tool.","flow2_s3":"Surfaces the at-risk account to the manager daily.","flow2_s4":"Builds the monthly review pack to review-and-approve.","flow3_title":"Contract lifecycle","flow3_tag":"Legal · Procurement","flow3_sub":"A vendor MSA goes from inbox to signature with the obligations understood and the risks flagged — legal time spent on judgement, not reading.","flow3_s1":"Extracts key risks and obligations into a summary.","flow3_s2":"Checks commitments against how operations run.","flow3_s3":"Gives signatories the key points before execution.","flow4_title":"Risk & compliance cycle","flow4_tag":"Risk · Compliance","flow4_sub":"A risk event is captured cleanly, oversight stays continuous, and the audit deadline never sneaks up — with a live dashboard instead of a spreadsheet scramble.","flow4_s1":"Walks the user through logging the event completely.","flow4_s2":"Keeps continuous visibility across the control set.","flow4_s3":"Tracks evidence and deadlines on a live dashboard.","roi_eyebrow":"Build your business case","roi_h2":"See the money and time a single agent gives back.","roi_p":"Pick an agent, enter your own numbers and your investment, and the calculator estimates annual savings, hours and FTE freed, ROI and payback. Your figures stay in your browser — nothing is sent anywhere.","calc_inputs":"Your inputs","calc_note":"// editable estimates — not a quote","calc_agent":"Agent","calc_people":"People doing this work today","calc_people_hint":"(headcount)","calc_cost":"Loaded cost per person / year","calc_cost_hint":"(salary + overhead)","calc_share":"Share of their time on this task","calc_eff":"Effort the agent removes","calc_eff_hint":"(typical)","calc_inv":"Your investment in this agent / year","calc_out_title":"Estimated annual return","calc_money":"Money saved / year","calc_time":"Time freed / year","calc_fte":"FTE equivalent","calc_roi":"Return on investment","calc_pay":"Payback period","dep_eyebrow":"Deployment & safety","dep_h2":"Your environment. Your data. Our governance.","dep_p":"The architecture is the safety story. Agents execute where your data already lives; we hold only the trust layer around them.","dep_1h":"Client-hosted by design","dep_1p":"Agents run inside your Microsoft Copilot Studio, Power Automate and Azure estate. Colleague AI hosts only the control plane — scores, policies, audit metadata. No customer data is processed on our side, which keeps the trust boundary simple.","dep_2h":"A human is always named","dep_2p":"The CAI tier defines exactly where a person stays accountable. L4 agents never decide alone — they assist, evidence, and hand the call to a named human. Oversight isn't a setting you can switch off; it's built into the tier.","dep_3h":"Evidence by default","dep_3p":"Every agent action is logged, time-stamped and attributable. When an auditor or regulator asks what happened and who approved it, the answer is a record — not a reconstruction. This is what makes high-tier agents defensible.","dep_4h":"Built for the EU AI Act","dep_4p":"Risk classification, human oversight, logging and transparency aren’t bolt-ons — they’re the CAI Score’s reason for existing. With general-purpose AI obligations applying from August 2026 and high-risk obligations following, agents arrive pre-mapped to the EU AI Act and ISO/IEC 42001 expectations — so adoption never outruns your compliance.","plat_eyebrow":"Platform & integration layer","plat_h2":"The connectors the agents run on.","faq_q1":"What is Colleague AI?","faq_a1":"Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score — a five-tier risk classification (L1–L5) — documenting each agent’s controls and producing an audit trail. Agents run inside your own environment; Colleague AI hosts only the governance control plane, so enterprises can deploy AI they can defend.","faq_q2":"What is the CAI Score?","faq_a2":"The CAI Score is a certification framework for AI agents, described as “the FICO of AI.” It classifies each agent by risk on a five-tier scale, from L1 (Assist) to L5 (Autonomous), defining exactly how much the agent does on its own and where a named human stays accountable — then evidences it for audit.","faq_q3":"What are the CAI Score risk tiers, L1 to L5?","faq_a3":"L1 Assist: informs only, takes no action. L2 Draft: produces work for a human to approve. L3 Operate: executes routine actions inside a bounded workflow. L4 Decide (supervised): supports high-stakes decisions with a named accountable human. L5 Autonomous: acts within hard, pre-approved guardrails. The higher the tier, the more oversight and logging the framework requires.","faq_q4":"Where do Colleague AI agents run, and is my data safe?","faq_a4":"Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane — scores, policies and audit metadata. No customer data is processed on Colleague AI’s side, which keeps the trust boundary simple and your data inside your own tenancy.","faq_q5":"Does Colleague AI help with EU AI Act compliance?","faq_a5":"Yes. Risk classification, human oversight, logging and transparency are the core of the CAI Score, mapping directly to the EU AI Act’s obligations for high-risk AI. General-purpose AI obligations apply from August 2026, with high-risk obligations following, so agents arrive pre-mapped to the duties that apply — adoption never outruns compliance.","faq_q6":"How is Colleague AI different from an AI agent management platform or other AI governance vendors?","faq_a6":"Most platforms observe and orchestrate agents (the control plane) or audit models after the fact. Colleague AI adds the missing layer: a portable risk score and certification for every agent — the CAI Score — plus production-grade agents that ship pre-certified. It is governance you can act on, not just another dashboard.","faq_q7":"What is agent sprawl, and how does certification help?","faq_a7":"Agent sprawl is the rapid, ungoverned spread of AI agents across an enterprise — different vendors, frameworks and clouds, multiplying faster than oversight can keep up. Certifying each agent with a CAI Score gives every one a known risk tier and audit trail, turning an unmanaged agent estate into a governed, defensible one.","faq_q8":"How many AI agents does Colleague AI offer, and in which areas?","faq_a8":"The catalogue includes 36 production-grade AI agents across five functional pillars: Operations & Service Delivery, Risk, Security & Compliance, Data & Infrastructure, Sales & Marketing, and Corporate (HR, Legal, Procurement, Reporting). They run at CAI tiers L2 to L4, with L4 agents requiring senior sign-off before go-live.","cta_demo":"Book a live demo","cta_browse":"Browse the catalogue","foot_note":"// The trust layer for enterprise AI · CAI Score™ · Updated June 2026","dr_pains":"⚑ Pain points it removes","dr_fit":"↳ Where it fits","dr_adopt":"⤓ How you adopt it","dr_connect":"Connect","dr_certify":"Certify","dr_run":"Run","dr_adopt_p":"Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, certify it on the CAI Score, and it runs in your own tenant — no rebuild, no data leaving your walls.","dr_value":"Value · ROI","dr_kpi":"KPI it moves","dr_risk":"⚖ Risk & compliance","dr_doc":"⤓ Download agent dossier (PDF)","dr_calc":"＝ Calculate ROI for this agent","dr_demo":"See it in a live demo →","search_ph":"Search agents…","hero_title":"We don't sell you agents.<br>We sell you the <em>blueprint</em> they fit into.","def_p":"<strong>Colleague AI is the trust layer for enterprise AI.</strong> It certifies AI agents against the <span class=\"acc\">CAI Score</span> — a five-tier risk classification from L1 to L5 — documenting each agent&#x2019;s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.","calc_disc":"<strong>Estimate only.</strong> Figures are generated from your inputs and editable default assumptions (annual full-time hours taken as 1,840). They illustrate potential value and are not a guarantee, a quote, or financial advice.","cta_h2":"Want to see which agents fit <em>your</em> process?","dr_footnote":"Runs in<br>your environment","count_tmpl":"// {n} shown"},"cs":{"nav_philosophy":"Filozofie","nav_score":"Skóre","nav_catalogue":"Katalog","nav_fit":"Jak zapadají","nav_roi":"ROI","nav_deploy":"Nasazení","nav_faq":"FAQ","nav_demo":"Domluvit ukázku","hero_eyebrow":"Katalog agentů · Vrstva důvěry pro podnikovou AI","hero_sub":"Každý agent níže je klasifikován skóre CAI — pětistupňovým modelem, který přesně určuje, kolik agent zvládne sám a za co zůstává odpovědný člověk. Odstupňované, certifikované, auditovatelné. Právě to je činí bezpečnými pro nasazení do reálného procesu.","hero_stat1":"Agentů připravených k provozu","hero_stat2":"Funkčních pilířů","hero_stat3":"Aktivních úrovní CAI","hero_aside_big":"FICO pro podnikovou AI.","hero_aside":"Banka neschválí dlužníka bez úvěrového skóre. Vy byste neměli schválit AI agenta bez rizikového skóre. Skóre CAI je právě toto číslo — a agenti v tomto katalogu ho mají od prvního dne.","def_label":"V jedné větě","phil_eyebrow":"Filozofie","phil_h2":"Většina AI projektů selhává na governance, ne na schopnostech. Proto klademe plán na první místo.","phil_p":"Těžká část podnikové AI není postavit agenta, který funguje v ukázce — je to řízení rozrůstání, jakmile jich běží desítky: vědět, kde každý smí jednat, kdo je odpovědný, když jedná, a umět to doložit auditorovi. Colleague AI vám nejprve dá tento rámec — plán governance — a poté do něj zasadí certifikované agenty na správné úrovni.","phil_1h":"Plán dříve než boti","phil_1p":"Zmapujeme váš proces a každému kroku přiřadíme rizikovou úroveň ve skóre CAI ještě před spuštěním jediného agenta. Agenti zaplní místa v řízeném návrhu — nejsou na proces narychlo přilepeni s nadějí, že to vyjde.","phil_2h":"Bezpečné podle úrovně, ne podle slibu","phil_2p":"Úroveň CAI agenta je pevná smlouva o jeho autonomii. Agenti nízké úrovně pouze připravují návrhy a doporučují. Agenti vysoké úrovně asistují jmenovanému člověku, který zůstává odpovědný. Bezpečnost je strukturální, ne marketingové tvrzení.","phil_3h":"Běží u vás doma","phil_3p":"Agenti běží ve vašem vlastním prostředí Microsoft a cloudu. Colleague AI hostí pouze řídicí vrstvu — metadata governance, skóre a auditní stopu. Vaše data nikdy neopustí váš tenant.","score_eyebrow":"Skóre CAI","score_h2":"Pět úrovní. Každá je příslibem, kolik volnosti agent dostane.","score_p":"Čtěte odspodu: čím vyšší úroveň, tím více agent zvládne — a tím více lidského dohledu, logování a odpovědnosti kolem něj plán zabuduje. Každý agent v katalogu jednu z nich nese.","t1_name":"Asistuje","t1_desc":"Informuje a odpovídá. Neprovádí žádnou akci a nemění žádný záznam. Práci dělá člověk; agent ji jen pomáhá rychleji najít a pochopit.","tier_human":"Role člověka","t1_role":"Dělá vše","t2_name":"Navrhuje","t2_desc":"Vytváří pracovní výstup — dokument, dotaz, report, oslovovací zprávu — k revizi a schválení člověkem. Nic, co agent vytvoří, se nepoužije, dokud to člověk neschválí.","t2_role":"Reviduje a schvaluje","t3_name":"Provádí","t3_desc":"Provádí rutinní, nízkoriziková jednání v ohraničeném workflow — klasifikuje, směruje, vyřizuje, loguje. Výjimky a cokoli neobvyklého předává člověku. Každá akce má časové razítko.","t3_role":"Řeší výjimky","t4_name":"Rozhoduje (pod dohledem)","t4_desc":"Podporuje rozhodování a kontroly v procesech s vyšší mírou rizika — compliance, smlouvy, bezpečnost, princip čtyř očí. Za rozhodnutí zůstává odpovědný jmenovaný člověk; agent asistuje a vše dokládá. Postaveno pro audit vysoce rizikových procesů.","t4_role":"Zůstává odpovědný","t5_name":"Autonomní","t5_desc":"Jedná samostatně v rámci pevných, předem schválených mantinelů. Vyhrazeno pro nejvyšší úroveň certifikace — a dnes ho nepoužívá žádný agent v tomto katalogu.","t5_role":"Nastavuje mantinely","score_note":"// Tento katalog je dodáván na úrovních L2–L4. Agenti L4 vyžadují před spuštěním schválení vedením.","cat_eyebrow":"Katalog","cat_h2":"36 agentů připravených zapadnout do vašeho plánu.","cat_p":"Filtrujte podle oblasti působení a míry autonomie. Otevřete kteréhokoli agenta a uvidíte, kam v procesu zapadá, jeho přínos, KPI, které ovlivňuje, a postoj k riziku a compliance.","flabel_pillar":"Pilíř","pillar_all":"Vše","pillar_ops":"Provoz a služby","pillar_risk":"Riziko, bezpečnost a compliance","pillar_data":"Data a infrastruktura","pillar_sales":"Obchod a marketing","pillar_corp":"Korporátní","flabel_tier":"Úroveň","tier_any":"Jakákoli","chip_l2":"L2 · Navrhuje","chip_l3":"L3 · Provádí","chip_l4":"L4 · Rozhoduje","fit_eyebrow":"Jak zapadají","fit_h2":"Agenti mají největší hodnotu v řetězci. Takto vypadá plán.","fit_p":"Jediný agent pomůže. Řízená posloupnost promění proces od začátku do konce — každý agent na správné úrovni, každý předává dalšímu, přičemž vysoce rizikové kroky vlastní lidé. Čtyři praktické příklady.","flow1_title":"Měsíční finanční uzávěrka","flow1_tag":"Finance · Provoz","flow1_sub":"Od nevysvětlených rozdílů v rekonciliaci po report připravený pro představenstvo — s dvojí kontrolou u čísel, na kterých záleží.","flow1_s1":"Prošetří každý rozdíl a vysvětlí jeho příčinu.","flow1_s2":"Druhá kontrola úprav; schvaluje člověk.","flow1_s3":"Sestaví report za období z vyčištěných dat.","flow1_s4":"Sloučí jej do konzistentního pohledu pro vedení.","flow2_title":"Od incidentu k revizi služby","flow2_tag":"Dodávka služeb","flow2_sub":"Eskalace dorazí a o týdny později skončí jako čistý řádek v měsíčním reportu pro klienta — aniž by manažer žil ve frontě ticketů.","flow2_s1":"Klasifikuje závažnost a připraví první odpověď.","flow2_s2":"Vyřídí rutinní úkony přímo v nástroji.","flow2_s3":"Denně upozorní manažera na rizikový účet.","flow2_s4":"Sestaví měsíční report k revizi a schválení.","flow3_title":"Životní cyklus smlouvy","flow3_tag":"Právní · Nákup","flow3_sub":"Dodavatelská MSA projde z e-mailu k podpisu s pochopenými závazky a označenými riziky — právní tým tráví čas úsudkem, ne čtením.","flow3_s1":"Vytáhne klíčová rizika a závazky do shrnutí.","flow3_s2":"Porovná závazky s tím, jak běží provoz.","flow3_s3":"Dá signatářům klíčové body před podpisem.","flow4_title":"Cyklus rizika a compliance","flow4_tag":"Riziko · Compliance","flow4_sub":"Riziková událost je čistě zachycena, dohled zůstává průběžný a auditní termín nikdy nepřekvapí — díky živému dashboardu místo honičky v tabulkách.","flow4_s1":"Provede uživatele kompletním zalogováním události.","flow4_s2":"Udržuje průběžný přehled napříč sadou kontrol.","flow4_s3":"Sleduje důkazy a termíny na živém dashboardu.","roi_eyebrow":"Sestavte si business case","roi_h2":"Podívejte se, kolik peněz a času vám jediný agent vrátí.","roi_p":"Vyberte agenta, zadejte vlastní čísla a investici a kalkulačka odhadne roční úspory, uvolněné hodiny a FTE, ROI a návratnost. Vaše údaje zůstávají ve vašem prohlížeči — nikam se neodesílají.","calc_inputs":"Vaše vstupy","calc_note":"// upravitelné odhady — ne nabídka","calc_agent":"Agent","calc_people":"Lidé, kteří tuto práci dnes dělají","calc_people_hint":"(počet)","calc_cost":"Plně zatížené náklady na osobu / rok","calc_cost_hint":"(mzda + režie)","calc_share":"Podíl jejich času na tomto úkolu","calc_eff":"Úsilí, které agent odstraní","calc_eff_hint":"(typicky)","calc_inv":"Vaše investice do tohoto agenta / rok","calc_out_title":"Odhadovaná roční návratnost","calc_money":"Ušetřené peníze / rok","calc_time":"Uvolněný čas / rok","calc_fte":"Ekvivalent FTE","calc_roi":"Návratnost investice","calc_pay":"Doba návratnosti","dep_eyebrow":"Nasazení a bezpečnost","dep_h2":"Vaše prostředí. Vaše data. Naše governance.","dep_p":"Architektura je příběhem bezpečnosti. Agenti běží tam, kde už vaše data jsou; my držíme jen vrstvu důvěry kolem nich.","dep_1h":"Hostováno u klienta již z principu","dep_1p":"Agenti běží ve vašem prostředí Microsoft Copilot Studio, Power Automate a Azure. Colleague AI hostí pouze řídicí vrstvu — skóre, politiky, auditní metadata. Na naší straně se nezpracovávají žádná zákaznická data, což udržuje hranici důvěry jednoduchou.","dep_2h":"Vždy je jmenován člověk","dep_2p":"Úroveň CAI přesně určuje, kde zůstává odpovědný člověk. Agenti L4 nikdy nerozhodují sami — asistují, dokládají a předávají rozhodnutí jmenovanému člověku. Dohled není přepínač, který lze vypnout; je zabudován v úrovni.","dep_3h":"Důkazy ve výchozím nastavení","dep_3p":"Každá akce agenta je zalogována, opatřena časovým razítkem a přiřaditelná. Když se auditor nebo regulátor zeptá, co se stalo a kdo to schválil, odpovědí je záznam — ne rekonstrukce. Právě to činí agenty vyšších úrovní obhajitelnými.","dep_4h":"Postaveno pro EU AI Act","dep_4p":"Klasifikace rizik, lidský dohled, logování a transparentnost nejsou doplňky — jsou důvodem existence skóre CAI. S povinnostmi pro obecnou AI platnými od srpna 2026 a následnými povinnostmi pro vysoce rizikové systémy přicházejí agenti předem namapovaní na očekávání EU AI Act a ISO/IEC 42001 — takže nasazení nikdy nepředběhne vaši compliance.","plat_eyebrow":"Platforma a integrační vrstva","plat_h2":"Konektory, na kterých agenti běží.","faq_q1":"Co je Colleague AI?","faq_a1":"Colleague AI je vrstva důvěry pro podnikovou AI. Certifikuje AI agenty podle skóre CAI — pětistupňové klasifikace rizik (L1–L5) — dokumentuje kontroly každého agenta a vytváří auditní stopu. Agenti běží ve vašem vlastním prostředí; Colleague AI hostí pouze řídicí vrstvu governance, takže podniky mohou nasazovat AI, kterou dokážou obhájit.","faq_q2":"Co je skóre CAI?","faq_a2":"Skóre CAI je certifikační rámec pro AI agenty, označovaný jako „FICO pro AI“. Klasifikuje každého agenta podle rizika na pětistupňové škále, od L1 (Asistuje) po L5 (Autonomní), a přesně určuje, kolik agent dělá sám a kde zůstává odpovědný jmenovaný člověk — a poté to doloží pro audit.","faq_q3":"Jaké jsou rizikové úrovně skóre CAI, L1 až L5?","faq_a3":"L1 Asistuje: pouze informuje, nejedná. L2 Navrhuje: vytváří práci ke schválení člověkem. L3 Provádí: rutinní akce v ohraničeném workflow. L4 Rozhoduje (pod dohledem): podporuje vysoce riziková rozhodnutí s odpovědným jmenovaným člověkem. L5 Autonomní: jedná v rámci pevných, předem schválených mantinelů. Čím vyšší úroveň, tím více dohledu a logování rámec vyžaduje.","faq_q4":"Kde agenti Colleague AI běží a jsou má data v bezpečí?","faq_a4":"Agenti běží ve vašem vlastním prostředí Microsoft Copilot Studio, Power Automate a Azure. Colleague AI hostí pouze řídicí vrstvu — skóre, politiky a auditní metadata. Na straně Colleague AI se nezpracovávají žádná zákaznická data, což udržuje hranici důvěry jednoduchou a vaše data ve vašem tenantu.","faq_q5":"Pomáhá Colleague AI s compliance dle EU AI Act?","faq_a5":"Ano. Klasifikace rizik, lidský dohled, logování a transparentnost jsou jádrem skóre CAI a přímo odpovídají povinnostem EU AI Act pro vysoce rizikovou AI. Povinnosti pro obecnou AI platí od srpna 2026, následují povinnosti pro vysoce rizikové systémy, takže agenti přicházejí předem namapovaní na příslušné povinnosti — nasazení nikdy nepředběhne compliance.","faq_q6":"Čím se Colleague AI liší od platformy pro správu AI agentů nebo jiných dodavatelů AI governance?","faq_a6":"Většina platforem agenty sleduje a orchestruje (řídicí vrstva) nebo audituje modely zpětně. Colleague AI přidává chybějící vrstvu: přenositelné rizikové skóre a certifikaci pro každého agenta — skóre CAI — plus agenty připravené k provozu, kteří přicházejí předem certifikovaní. Je to governance, podle které lze jednat, ne jen další dashboard.","faq_q7":"Co je rozrůstání agentů a jak pomáhá certifikace?","faq_a7":"Rozrůstání agentů je rychlé, neřízené šíření AI agentů napříč podnikem — různí dodavatelé, frameworky a cloudy, množící se rychleji, než stačí dohled. Certifikace každého agenta skóre CAI dá každému z nich známou rizikovou úroveň a auditní stopu a promění neřízený park agentů v řízený a obhajitelný.","faq_q8":"Kolik AI agentů Colleague AI nabízí a v jakých oblastech?","faq_a8":"Katalog zahrnuje 36 agentů připravených k provozu napříč pěti funkčními pilíři: Provoz a služby, Riziko, bezpečnost a compliance, Data a infrastruktura, Obchod a marketing a Korporátní (HR, právní, nákup, reporting). Běží na úrovních CAI L2 až L4, přičemž agenti L4 vyžadují před spuštěním schválení vedením.","cta_demo":"Domluvit živou ukázku","cta_browse":"Procházet katalog","foot_note":"// Vrstva důvěry pro podnikovou AI · CAI Score™ · Aktualizováno červen 2026","dr_pains":"⚑ Bolesti, které odstraní","dr_fit":"↳ Kam zapadá","dr_adopt":"⤓ Jak ho nasadíte","dr_connect":"Připojit","dr_certify":"Certifikovat","dr_run":"Spustit","dr_adopt_p":"Dodáván předpřipravený pro Microsoft Copilot Studio, Power Automate a Azure. Připojíte ho ke svému prostředí, certifikujete skóre CAI a běží ve vašem vlastním tenantu — bez přestavby, bez dat opouštějících vaše zdi.","dr_value":"Přínos · ROI","dr_kpi":"KPI, které ovlivní","dr_risk":"⚖ Riziko a compliance","dr_doc":"⤓ Stáhnout dossier agenta (PDF)","dr_calc":"＝ Spočítat ROI pro tohoto agenta","dr_demo":"Zobrazit v živé ukázce →","count_tmpl":"// zobrazeno: {n}","hero_title":"Neprodáváme vám agenty.<br>Prodáváme vám <em>plán</em>, do kterého zapadnou.","def_p":"<strong>Colleague AI je vrstva důvěry pro podnikovou AI.</strong> Certifikuje AI agenty podle <span class=\"acc\">skóre CAI</span> — pětistupňové klasifikace rizik od L1 po L5 — dokumentuje kontroly každého agenta a vytváří auditní stopu. Agenti běží ve vašem vlastním prostředí; my hostíme pouze řídicí vrstvu governance. Takže nasazujete AI, kterou dokážete obhájit.","calc_disc":"<strong>Pouze odhad.</strong> Čísla vycházejí z vašich vstupů a upravitelných výchozích předpokladů (roční fond plného úvazku stanoven na 1 840 hodin). Ilustrují potenciální hodnotu a nejsou zárukou, nabídkou ani finančním poradenstvím.","cta_h2":"Chcete vidět, kteří agenti zapadnou do <em>vašeho</em> procesu?","dr_footnote":"Běží ve vašem<br>prostředí","search_ph":"Hledat agenty…"}};
+var NAMES={en:'English',cs:'Čeština',es:'Español',pt:'Português',fr:'Français',de:'Deutsch',pl:'Polski',it:'Italiano'};
+var ORDER=['en','cs','es','pt','fr','de','pl','it'];
+window.T=function(k){var l=window.LANGNOW||"en";return (I18N[l]&&I18N[l][k]!=null)?I18N[l][k]:((I18N.en&&I18N.en[k]!=null)?I18N.en[k]:k);};
+function applyLang(l){if(!I18N[l])l="en";window.LANGNOW=l;document.documentElement.lang=l;
+document.querySelectorAll("[data-i18n]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n"));if(v!=null)e.textContent=v;});
+document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-ht

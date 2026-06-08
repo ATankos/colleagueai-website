@@ -1,4 +1,16 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://colleagueai.ai/sitemap.xml
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+Sitemap: https://www.colleagueai.ai/sitemap.xml

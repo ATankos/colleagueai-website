@@ -32,8 +32,10 @@
     "@sentry/react": "^10.53.1",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
+    "aws4fetch": "^1.0.20",
     "react": "^19.2.6",
-    "react-dom": "^19.2.6"
+    "react-dom": "^19.2.6",
+    "stripe": "^22.2.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
@@ -43,17 +45,17 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "@types/react": "^19.2.15",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.1",
-    "@vitest/ui": "^4.1.7",
+    "@vitest/ui": "^4.1.6",
     "eslint": "^10.3.0",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.2",
     "globals": "^17.6.0",
     "jsdom": "^29.1.1",
     "serve": "^14.2.6",
-    "vite": "^8.0.14",
+    "vite": "^8.0.12",
     "vitest": "^4.1.6"
   }
 }
