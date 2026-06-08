@@ -26,11 +26,87 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io https://plausible.io; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com https://plausible.io; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
         }
       ]
     },
     {
       "source": "/og-image.png",
       "headers": [
-        { "key": "C
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/agents",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/agents",
+      "destination": "/agents.html"
+    },
+    {
+      "source": "/trust",
+      "destination": "/trust.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/license",
+      "destination": "/license.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/partners",
+      "destination": "/partners.html"
+    },
+    {
+      "source": "/partner-agreement",
+      "destination": "/partner-agreement.html"
+    },
+    {
+      "source": "/cs/agenti",
+      "destination": "/agents.html?lang=cs"
+    },
+    {
+      "source": "/es/agentes",
+      "destination": "/agents.html?lang=es"
+    },
+    {
+      "source": "/pt/agentes",
+      "destination": "/agents.html?lang=pt"
+    },
+    {
+      "source": "/fr/agents",
+      "destination": "/agents.html?lang=fr"
+    },
+    {
+      "source": "/de/agenten",
+      "destination": "/agents.html?lang=de"
+    },
+    {
+      "source": "/pl/agenci",
+      "destination": "/agents.html?lang=pl"
+    },
+    {
+      "source": "/it/agenti",
+      "destination": "/agents.html?lang=it"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
