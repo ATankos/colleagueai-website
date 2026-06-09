@@ -16,7 +16,11 @@
  */
 
 import Stripe from 'stripe';
-import { grantEntitlement } from '../lib/db.js';
+import { grantEntitlement, recordCommission } from '../lib/db.js';
+
+// Partner royalty rate — override with PARTNER_COMMISSION_RATE env var (0–1 float).
+// Default: 0.20 (20 %)
+const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.20');
 
 export const config = { api: { bodyParser: false } };  // Stripe needs raw body
 
@@ -66,6 +70,26 @@ export default async function handler(req, res) {
       console.error('[webhook] Failed to write entitlement:', err);
       // Still return 200 — Stripe will retry on non-2xx. Log and investigate.
       return res.status(200).json({ received: true, warning: 'Entitlement write failed — check logs' });
+    }
+
+    // ── Partner commission ──────────────────────────────────────────────────
+    const partnerCode = session.metadata?.partner;
+    if (partnerCode) {
+      // amount_total is in the smallest currency unit (cents / haléř).
+      // Store gross amount in that unit so we keep precision; convert on display.
+      const amountGross = session.amount_total ?? 0; // e.g. 120000 = €1,200.00
+      try {
+        const commission = await recordCommission({
+          code: partnerCode,
+          amountGross,
+          commissionRate: COMMISSION_RATE,
+          stripeSessionId: session.id,
+        });
+        console.log('[webhook] Partner commission recorded:', commission);
+      } catch (err) {
+        // Non-fatal — entitlement is already granted; log and continue.
+        console.error('[webhook] Failed to record partner commission:', err);
+      }
     }
   }
 
