@@ -84,9 +84,15 @@ export default function ColleagueAIMarketplace() {
           maxWidth: '1024px', width: '100%',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         }}>
-          <div style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em' }}>
-            <span>colleague</span>
-            <span style={{ color: '#A8482A' }}>ai</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', lineHeight: 1, textDecoration: 'none' }}>
+            <div style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em' }}>
+              <span>colleague</span><span style={{ color: '#A8482A' }}>ai</span>
+            </div>
+            <div style={{ display: 'flex', gap: '5px', paddingLeft: '1px' }}>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#A8482A', display: 'block' }}></span>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#1D1B1A', display: 'block' }}></span>
+              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#C4A882', display: 'block' }}></span>
+            </div>
           </div>
 
           <div className="hide-mobile" style={{
@@ -560,9 +566,15 @@ export default function ColleagueAIMarketplace() {
           fontSize: '12px', color: '#6B655E', flexWrap: 'wrap', gap: '20px',
         }}>
           <div className="mono">© 2026 COLLEAGUE AI · PRAHA, CZ</div>
-          <div style={{ fontSize: '14px' }}>
-            <span style={{ color: '#1D1B1A' }}>colleague</span>
-            <span style={{ color: '#A8482A' }}>ai</span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', lineHeight: 1 }}>
+            <div style={{ fontSize: '14px' }}>
+              <span style={{ color: '#1D1B1A' }}>colleague</span><span style={{ color: '#A8482A' }}>ai</span>
+            </div>
+            <div style={{ display: 'flex', gap: '5px', paddingLeft: '1px' }}>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#A8482A', display: 'block' }}></span>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#1D1B1A', display: 'block' }}></span>
+              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#C4A882', display: 'block' }}></span>
+            </div>
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
             <a href="#" className="link-hover">{t.footer.privacy}</a>
