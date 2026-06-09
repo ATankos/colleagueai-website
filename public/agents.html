@@ -2387,12 +2387,16 @@ function render(){
   if(!list.length){grid.innerHTML='<div class="empty">No agents match these filters.</div>';return;}
   grid.innerHTML=list.map((a,i)=>{
     const idx=AGENTS.indexOf(a);
+    const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const cs=(window.LANGNOW==='cs'&&window.AGENTS_CS&&window.AGENTS_CS[slug])||null;
+    const cardDesc=cs?cs.desc:a.desc;
+    const cardKpi=cs?cs.kpi:a.kpi;
     return `<article class="card" data-i="${idx}" style="--bc:${TIERS[a.t].c}">
       <div class="top"><span class="badge">${a.t}</span><span class="pill">${a.dom}</span></div>
       <h3>${a.n}</h3>
-      <p class="desc">${a.desc}</p>
+      <p class="desc">${cardDesc}</p>
       <div class="foot">
-        <div class="kpi"><span class="kl">KPI</span>${a.kpi}</div>
+        <div class="kpi"><span class="kl">KPI</span>${cardKpi}</div>
         <span class="open">Details<span class="ring">→</span></span>
       </div>
     </article>`;
@@ -2514,7 +2518,7 @@ var I18N={"en": {"nav_philosophy": "Philosophy", "nav_score": "The Score", "nav_
 var NAMES={en:'English',cs:'Čeština',es:'Español',pt:'Português',fr:'Français',de:'Deutsch',pl:'Polski',it:'Italiano'};
 var ORDER=['en','cs','es','pt','fr','de','pl','it'];
 window.T=function(k){var l=window.LANGNOW||"en";return (I18N[l]&&I18N[l][k]!=null)?I18N[l][k]:((I18N.en&&I18N.en[k]!=null)?I18N.en[k]:k);};
-function applyLang(l){if(!I18N[l])l="en";window.LANGNOW=l;document.documentElement.lang=l;
+function applyLang(l){if(!I18N[l])l="en";window.LANGNOW=l;document.documentElement.lang=l;if(typeof render==="function")render();
 document.querySelectorAll("[data-i18n]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n"));if(v!=null)e.textContent=v;});
 document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-html"));if(v!=null)e.innerHTML=v;});
 document.querySelectorAll("[data-i18n-ph]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-ph"));if(v!=null)e.setAttribute("placeholder",v);});
