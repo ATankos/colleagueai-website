@@ -2780,7 +2780,7 @@ applyLang(init);
 (function(){
   var KEY='cai_partner', pid='';
   try{
-    var u=new URLSearchParams(location.search), p=u.get('partner');
+    var u=new URLSearchParams(location.search), p=u.get('partner')||u.get('ref');
     if(p){ pid=p.slice(0,64); try{localStorage.setItem(KEY,pid);}catch(e){} }
     else { try{pid=localStorage.getItem(KEY)||'';}catch(e){} }
   }catch(e){}
