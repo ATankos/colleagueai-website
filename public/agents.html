@@ -2544,7 +2544,7 @@ applyLang(init);
     perAgentPrice:{},               // optional overrides by slug, e.g. {"contract-summarisation-agent":2400}
     checkoutBase:'https://www.colleagueai.ai/checkout', // your Stripe Payment Link / checkout endpoint
     paymentLinks:{},                // optional per-slug full checkout URLs, e.g. {"reconciliation-root-cause-agent":"https://buy.stripe.com/xxx"}
-    gate:{ copilotStudio:true, m365:true, dossier:true  }, // which downloads require payment
+    gate:{ copilotStudio:true, m365:true, dossier:false  }, // which downloads require payment
     schedulerUrl:'YOUR_SCHEDULER_URL'
   };
   var SYM={EUR:'€',USD:'$',GBP:'£',CZK:''};
