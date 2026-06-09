@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Programme — Colleague AI</title>
+<meta name="description" content="Adopt a Colleague AI agent, bring it to your clients, and earn 20% of every sale. Self-serve. No approval. Instant link.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.colleagueai.ai/partners">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#F5F0E8;--cream-2:#EFE8DC;--paper:#FBF8F2;--graphite:#2B2A28;--graphite-soft:#54514C;--muted:#8A857C;--terra:#C65D3A;--terra-deep:#9E3D22;--line:#E2D9CB;--line-soft:#EAE2D4;--sand:#C99A5B;--shadow:0 1px 2px rgba(43,42,40,.04),0 8px 30px rgba(43,42,40,.06);--r:18px;--maxw:1100px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--graphite);font-family:"Geist",-apple-system,sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--terra);color:var(--paper)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--terra)}
+section{padding:80px 0}
+.divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(245,240,232,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.nav.scrolled{border-bottom-color:var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+.logo-text{font-family:"Fraunces",serif;font-size:21px;font-weight:600;letter-spacing:-.01em;color:var(--graphite)}
+.logo-text .ai{color:var(--terra)}
+.logo-dots{display:flex;gap:5px;padding-left:1px}
+.logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+.logo-dots span:nth-child(1){background:var(--terra)}
+.logo-dots span:nth-child(2){background:var(--graphite)}
+.logo-dots span:nth-child(3){background:#C4A882}
+.nav-right{display:flex;gap:16px;align-items:center}
+.nav-link{font-size:14px;color:var(--graphite-soft);transition:color .2s}
+.nav-link:hover{color:var(--graphite)}
+.nav-cta{font-size:13.5px;color:var(--paper);background:var(--graphite);padding:9px 18px;border-radius:100px;transition:transform .2s,background .2s}
+.nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
+
+/* HERO */
+.hero{padding:100px 0 72px}
+.hero-inner{display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:center}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:40px}.hero{padding:72px 0 48px}}
+h1.hero-title{font-family:"Fraunces",serif;font-weight:340;font-size:clamp(38px,5.8vw,70px);line-height:1.03;letter-spacing:-.02em;margin:18px 0 0}
+h1.hero-title em{font-style:italic;color:var(--terra)}
+.hero-sub{font-size:clamp(16px,1.8vw,19px);color:var(--graphite-soft);max-width:48ch;margin-top:24px;line-height:1.55}
+.hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn-p{background:var(--graphite);color:var(--paper);padding:13px 26px;border-radius:100px;font-size:15px;transition:transform .2s,background .2s;display:inline-block}
+.btn-p:hover{background:var(--terra);transform:translateY(-2px)}
+.btn-s{border:1px solid var(--graphite);padding:13px 26px;border-radius:100px;font-size:15px;transition:all .2s;display:inline-block}
+.btn-s:hover{background:var(--graphite);color:var(--paper)}
+.hero-card{background:var(--graphite);border-radius:var(--r);padding:30px 28px;color:var(--cream)}
+.hero-card .rate{font-family:"Fraunces",serif;font-size:clamp(52px,7vw,80px);font-weight:400;line-height:1;letter-spacing:-.03em;color:#fff}
+.hero-card .rate em{color:var(--terra);font-style:italic}
+.hero-card .rate-lbl{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#B9B0A2;margin-top:10px;display:block}
+.hero-card .perks{margin-top:22px;display:flex;flex-direction:column;gap:9px}
+.hero-card .perk{display:flex;gap:10px;font-size:14px;color:#D9D3C8;line-height:1.45}
+.hero-card .perk::before{content:"✓";color:var(--terra);font-weight:700;flex-shrink:0}
+
+/* HOW IT WORKS */
+#how{background:var(--cream-2)}
+.sec-h{font-family:"Fraunces",serif;font-weight:360;font-size:clamp(28px,3.8vw,42px);line-height:1.08;letter-spacing:-.02em;margin-top:14px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:48px}
+@media(max-width:720px){.steps-grid{grid-template-columns:1fr}}
+.step-cell{background:var(--paper);padding:32px 26px}
+.step-num{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--terra);letter-spacing:.1em;margin-bottom:16px}
+.step-cell h3{font-family:"Fraunces",serif;font-weight:560;font-size:21px;margin-bottom:10px;letter-spacing:-.01em}
+.step-cell p{font-size:14.5px;color:var(--graphite-soft);line-height:1.55}
+.step-tag{display:inline-block;margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--terra);background:rgba(198,93,58,.10);padding:5px 11px;border-radius:8px}
+
+/* EARNINGS */
+.earnings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+@media(max-width:760px){.earnings-grid{grid-template-columns:1fr}}
+.earn-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+.earn-card .ag-name{font-family:"Fraunces",serif;font-size:17px;font-weight:560;margin-bottom:5px;line-height:1.2}
+.earn-card .ag-tag{font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.earn-card .price-row{display:flex;align-items:baseline;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line-soft);margin-top:10px}
+.earn-card .pr-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.earn-card .pr-val{font-family:"Fraunces",serif;font-size:22px;color:var(--graphite)}
+.earn-card .you-earn{background:rgba(198,93,58,.08);border-radius:10px;padding:9px 13px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.earn-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra)}
+.earn-val{font-family:"Fraunces",serif;font-size:20px;color:var(--terra);font-weight:500}
+
+/* GENERATOR */
+#generate{background:var(--graphite);color:var(--cream)}
+#generate .eyebrow{color:var(--sand)}
+#generate .sec-h{color:#fff}
+#generate .sub{font-size:17px;color:#D9D3C8;max-width:52ch;margin-top:16px;line-height:1.55}
+.gen-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:34px;margin-top:44px;max-width:620px}
+@media(max-width:640px){.gen-card{padding:22px 18px}}
+.gen-field{margin-bottom:18px}
+.gen-field label{display:block;font-size:13px;font-weight:500;color:#D9D3C8;margin-bottom:7px}
+.gen-field input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:12px 14px;font-family:"Geist",sans-serif;font-size:15px;color:#fff;outline:none;transition:border-color .2s}
+.gen-field input::placeholder{color:#7A7269}
+.gen-field input:focus{border-color:var(--terra)}
+.gen-btn{width:100%;background:var(--terra);color:#fff;border:none;border-radius:100px;padding:14px;font-family:"Geist",sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:4px}
+.gen-btn:hover:not(:disabled){background:var(--terra-deep)}
+.gen-btn:disabled{opacity:.42;pointer-events:none}
+.gen-result{display:none;margin-top:26px;padding-top:26px;border-top:1px solid rgba(255,255,255,.12)}
+.gen-result.show{display:block}
+.gen-rl{font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:#E8A07F;margin-bottom:10px;display:block}
+.link-box{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border-radius:12px;padding:12px 16px}
+.link-val{font-family:"JetBrains Mono",monospace;font-size:13px;color:#D9D3C8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{background:var(--terra);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex-shrink:0;transition:background .2s}
+.copy-btn:hover{background:var(--terra-deep)}
+.copy-btn.copied{background:#6E8B7B}
+.gen-code-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:10px 16px;background:rgba(0,0,0,.15);border-radius:10px}
+.gen-code-row .cl{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9A9285}
+.gen-code-row .cv{font-family:"JetBrains Mono",monospace;font-size:14px;color:#E8A07F;font-weight:600}
+.gen-note{font-size:12.5px;color:#9A9285;margin-top:12px;line-height:1.5}
+.gen-error{color:#F28B72;font-size:13.5px;margin-top:8px;display:none}
+.gen-error.show{display:block}
+
+/* FAQ */
+.faq-list{margin-top:44px;border-top:1px solid var(--line)}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;font-family:"Fraunces",serif;font-weight:500;font-size:18px;letter-spacing:-.01em;line-height:1.3;transition:color .2s}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover{color:var(--terra)}
+.qa summary::after{content:"+";position:absolute;right:8px;top:20px;font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--terra);transition:transform .25s ease}
+.qa[open] summary::after{transform:rotate(45deg)}
+.qa p{font-size:15px;color:var(--graphite-soft);line-height:1.6;max-width:72ch;padding:0 44px 22px 0;margin-top:-4px}
+.qa a{color:var(--terra);text-decoration:underline}
+
+/* CTA BAND */
+.cta-band{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:80px 0;text-align:center}
+.cta-band h2{font-family:"Fraunces",serif;font-weight:340;font-size:clamp(28px,4.5vw,50px);line-height:1.06;letter-spacing:-.02em;max-width:20ch;margin:0 auto}
+.cta-band h2 em{font-style:italic;color:var(--terra)}
+.cta-btns{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:36px 0}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot-note{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+/* MOBILE */
+@media(max-width:640px){
+  .wrap{padding:0 18px}
+  section{padding:52px 0}
+  .hero{padding:60px 0 40px}
+  .hero-actions,.cta-btns{flex-direction:column;align-items:stretch}
+  .hero-actions .btn-p,.hero-actions .btn-s,.cta-btns .btn-p,.cta-btns .btn-s{text-align:center}
+  .foot-inner{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="/agents" class="logo">
+      <span class="logo-text">colleague<span class="ai">ai</span></span>
+      <span class="logo-dots"><span></span><span></span><span></span></span>
+    </a>
+    <div class="nav-right">
+      <a href="/agents" class="nav-link">Agent catalogue</a>
+      <a href="#generate" class="nav-cta">Get your link →</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">Partner Programme</span>
+        <h1 class="hero-title">Adopt an agent.<br>Earn every time <em>it sells.</em></h1>
+        <p class="hero-sub">Every agent in the catalogue is open to partners. You bring it to your clients, we handle the licence — you earn a share of every sale, with full attribution tracked automatically.</p>
+        <div class="hero-actions">
+          <a href="#generate" class="btn-p">Get your partner link →</a>
+          <a href="/agents" class="btn-s">Browse the catalogue</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="rate">20<em>%</em></div>
+        <span class="rate-lbl">Of every agent sale you refer</span>
+        <div class="perks">
+          <div class="perk">Instant link — no approval, no wait</div>
+          <div class="perk">30-day attribution window per visitor</div>
+          <div class="perk">Applies to every agent in the catalogue</div>
+          <div class="perk">Tracked automatically through checkout</div>
+          <div class="perk">Monthly payouts, no minimum</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <span class="eyebrow">How it works</span>
+    <h2 class="sec-h">Three steps. No approval process.</h2>
+    <div class="steps-grid">
+      <div class="step-cell">
+        <div class="step-num">01</div>
+        <h3>Get your link</h3>
+        <p>Enter your name and email. Your unique partner code is derived cryptographically from your email — deterministic, so you can always regenerate the same link.</p>
+        <span class="step-tag">30 seconds</span>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">02</div>
+        <h3>Share it</h3>
+        <p>Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you — automatically, through Stripe checkout.</p>
+        <span class="step-tag">30-day window</span>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">03</div>
+        <h3>Earn</h3>
+        <p>When they buy any agent through your link, you earn 20% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts go monthly.</p>
+        <span class="step-tag">Paid monthly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXAMPLE EARNINGS -->
+<section id="earnings">
+  <div class="wrap">
+    <span class="eyebrow">What you earn</span>
+    <h2 class="sec-h">One referral. Real numbers.</h2>
+    <p style="font-size:17px;color:var(--graphite-soft);margin-top:16px;max-width:52ch;line-height:1.55">Illustrative figures at 20% commission. Agent prices are set at checkout in your region's currency.</p>
+    <div class="earnings-grid">
+      <div class="earn-card">
+        <div class="ag-name">Contract Summarisation Agent</div>
+        <div class="ag-tag">L4 · Legal & Procurement</div>
+        <div class="price-row">
+          <span class="pr-lbl">Agent price</span>
+          <span class="pr-val">€1,200</span>
+        </div>
+        <div class="you-earn">
+          <span class="earn-lbl">You earn</span>
+          <span class="earn-val">€240</span>
+        </div>
+      </div>
+      <div class="earn-card">
+        <div class="ag-name">Risk Control Oversight Agent</div>
+        <div class="ag-tag">L4 · Risk & Compliance</div>
+        <div class="price-row">
+          <span class="pr-lbl">Agent price</span>
+          <span class="pr-val">€1,500</span>
+        </div>
+        <div class="you-earn">
+          <span class="earn-lbl">You earn</span>
+          <span class="earn-val">€300</span>
+        </div>
+      </div>
+      <div class="earn-card">
+        <div class="ag-name">10 referrals in a year</div>
+        <div class="ag-tag">Mix of agents · avg. €1,200</div>
+        <div class="price-row">
+          <span class="pr-lbl">Total sales</span>
+          <span class="pr-val">€12,000</span>
+        </div>
+        <div class="you-earn">
+          <span class="earn-lbl">You earn</span>
+          <span class="earn-val">€2,400</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:16px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em">// Illustrative only. Actual prices vary by agent and region. Commission subject to partner terms.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LINK GENERATOR -->
+<section id="generate">
+  <div class="wrap">
+    <span class="eyebrow">Get your link</span>
+    <h2 class="sec-h">Your unique partner link,<br>in 30 seconds.</h2>
+    <p class="sub">No application. No wait. Enter your name and email — your partner code is derived from your email, so it is always the same and always yours to regenerate.</p>
+    <div class="gen-card">
+      <div class="gen-field">
+        <label for="g-name">Your name</label>
+        <input type="text" id="g-name" placeholder="e.g. Sarah Chen" autocomplete="name">
+      </div>
+      <div class="gen-field">
+        <label for="g-email">Work email</label>
+        <input type="email" id="g-email" placeholder="you@yourcompany.com" autocomplete="email">
+      </div>
+      <button class="gen-btn" id="gen-btn" disabled>Generate my partner link →</button>
+      <div class="gen-error" id="gen-error"></div>
+      <div class="gen-result" id="gen-result">
+        <span class="gen-rl">Your partner link</span>
+        <div class="link-box">
+          <span class="link-val" id="gen-link-val"></span>
+          <button class="copy-btn" id="copy-link">Copy</button>
+        </div>
+        <div class="gen-code-row">
+          <span class="cl">Partner code</span>
+          <span class="cv" id="gen-code-val"></span>
+        </div>
+        <p class="gen-note">Anyone who clicks your link and purchases any agent within 30 days earns you a 20% commission. Share it in proposals, emails, or your own site. Your code is saved to this browser — come back any time to copy it again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Questions</span>
+    <h2 class="sec-h">Common questions, direct answers.</h2>
+    <div class="faq-list">
+      <details class="qa"><summary>How does attribution work?</summary>
+        <p>When someone clicks your partner link, your code is saved in their browser for 30 days. If they buy any agent during that window — even days later, even if they return directly — the sale is credited to you. Attribution passes through our Stripe checkout metadata automatically.</p></details>
+      <details class="qa"><summary>When and how do I get paid?</summary>
+        <p>Commissions are tallied monthly. Once you have accumulated sales, we contact you at your registered email to arrange a bank transfer or other payment method. There is no minimum threshold — your first sale pays out.</p></details>
+      <details class="qa"><summary>Can I resell agents under my own brand?</summary>
+        <p>Yes. You can refer clients passively (they click your link and buy directly) or buy the agent licence yourself and deploy it for a client under a service agreement. Both routes earn you credit. Contact us at <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a> to discuss reseller terms.</p></details>
+      <details class="qa"><summary>What if my client has already seen Colleague AI?</summary>
+        <p>As long as they click your partner link before purchasing, you are credited. If they have already completed a purchase without your link, that sale cannot be attributed retroactively.</p></details>
+      <details class="qa"><summary>Is there a cap on how much I can earn?</summary>
+        <p>No cap. Refer one client or a hundred. Commission applies to every sale attributed to your code, at the same rate, with no volume tiers that reduce it.</p></details>
+      <details class="qa"><summary>What if I lose my partner link?</summary>
+        <p>Your code is derived deterministically from your email address. Come back to this page, enter the same name and email, and you get the exact same code and link every time.</p></details>
+      <details class="qa"><summary>Is there a formal partner agreement?</summary>
+        <p>By generating a link you accept that commissions are paid at the rate shown at the time of sale, apply only to completed and non-refunded purchases, and are non-transferable. A full written agreement is available on request at <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Ready to bring enterprise AI to <em>your</em> clients?</h2>
+    <div class="cta-btns">
+      <a href="#generate" class="btn-p">Get your partner link →</a>
+      <a href="/agents" class="btn-s">Browse the catalogue</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <a href="/agents" class="logo">
+      <span class="logo-text" style="font-size:18px">colleague<span class="ai">ai</span></span>
+      <span class="logo-dots"><span></span><span></span><span></span></span>
+    </a>
+    <span class="foot-note">// Partner Programme · CAI Score™ · Updated June 2026</span>
+    <span class="foot-note" style="font-size:10.5px">© Colleague AI 2026 · <a href="https://www.colleagueai.ai/terms" style="text-decoration:underline">Terms</a> · <a href="mailto:hello@colleagueai.ai" style="text-decoration:underline">hello@colleagueai.ai</a></span>
+  </div>
+</footer>
+
+<script>
+/* Nav scroll */
+const _nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scrollY>10));
+
+/* Partner link generator */
+(function(){
+  const nameEl=document.getElementById('g-name');
+  const emailEl=document.getElementById('g-email');
+  const btn=document.getElementById('gen-btn');
+  const result=document.getElementById('gen-result');
+  const linkVal=document.getElementById('gen-link-val');
+  const codeVal=document.getElementById('gen-code-val');
+  const copyBtn=document.getElementById('copy-link');
+  const errEl=document.getElementById('gen-error');
+  const STORE_KEY='cai_partner_reg';
+
+  function validate(){
+    const name=nameEl.value.trim(), email=emailEl.value.trim();
+    btn.disabled=!(name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  }
+  nameEl.addEventListener('input',validate);
+  emailEl.addEventListener('input',validate);
+
+  /* Derive partner code: SHA-256 of lowercase email → first 8 hex chars → "CAI-XXXXXXXX" */
+  async function deriveCode(email){
+    const enc=new TextEncoder().encode(email.toLowerCase().trim());
+    const buf=await crypto.subtle.digest('SHA-256',enc);
+    const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    return 'CAI-'+hex.slice(0,8).toUpperCase();
+  }
+
+  /* Restore saved registration if present */
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORE_KEY)||'null');
+    if(saved&&saved.code&&saved.email){
+      nameEl.value=saved.name||''; emailEl.value=saved.email||'';
+      validate(); showResult(saved.code);
+    }
+  }catch(e){}
+
+  function showResult(code){
+    const link='https://www.colleagueai.ai/agents?partner='+code;
+    linkVal.textContent=link; codeVal.textContent=code;
+    result.classList.add('show'); errEl.classList.remove('show');
+  }
+
+  btn.addEventListener('click',async function(){
+    const name=nameEl.value.trim(), email=emailEl.value.trim();
+    btn.disabled=true; btn.textContent='Generating…'; errEl.classList.remove('show');
+    try{
+      const code=await deriveCode(email);
+      try{localStorage.setItem(STORE_KEY,JSON.stringify({code,name,email}));}catch(e){}
+      showResult(code);
+      /* Register in backend — fire and forget */
+      fetch('/api/partner-register',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,email,code})}).catch(()=>{});
+    }catch(e){
+      errEl.textContent='Something went wrong. Please try again.';
+      errEl.classList.add('show');
+    }
+    btn.textContent='Generate my partner link →'; btn.disabled=false;
+  });
+
+  /* Copy to clipboard */
+  copyBtn.addEventListener('click',function(){
+    const link=linkVal.textContent;
+    navigator.clipboard.writeText(link).then(()=>{
+      copyBtn.textContent='Copied!'; copyBtn.classList.add('copied');
+      setTimeout(()=>{copyBtn.textContent='Copy';copyBtn.classList.remove('copied');},2000);
+    }).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+      copyBtn.textContent='Copied!';setTimeout(()=>{copyBtn.textContent='Copy';},2000);
+    });
+  });
+})();
+</script>
+</body>
+</html>
