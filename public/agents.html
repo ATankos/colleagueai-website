@@ -99,8 +99,14 @@
   }
   header.nav.scrolled{border-bottom-color:var(--line);}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-  .logo{font-family:"Fraunces",serif;font-size:21px;font-weight:600;letter-spacing:-.01em}
-  .logo .ai{color:var(--terra)}
+  .logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+  .logo-text{font-family:"Fraunces",serif;font-size:21px;font-weight:600;letter-spacing:-.01em;color:var(--graphite)}
+  .logo-text .ai{color:var(--terra)}
+  .logo-dots{display:flex;gap:5px;padding-left:1px}
+  .logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+  .logo-dots span:nth-child(1){background:var(--terra)}
+  .logo-dots span:nth-child(2){background:var(--graphite)}
+  .logo-dots span:nth-child(3){background:#C4A882}
   .nav-links{display:flex;gap:30px;align-items:center}
   .nav-links a{font-size:14px;color:var(--graphite-soft);transition:color .2s}
   .nav-links a:hover{color:var(--graphite)}
@@ -1779,7 +1785,7 @@
 
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="#" class="logo">colleague<span class="ai">ai</span></a>
+    <a href="#" class="logo"><span class="logo-text">colleague<span class="ai">ai</span></span><span class="logo-dots"><span></span><span></span><span></span></span></a>
     <nav class="nav-links">
       <a href="#philosophy" data-i18n="nav_philosophy">Philosophy</a>
       <a href="#score" data-i18n="nav_score">The Score</a>
@@ -2292,7 +2298,7 @@
 
 <footer>
   <div class="wrap foot-inner">
-    <a href="#" class="logo">colleague<span class="ai">ai</span></a>
+    <a href="#" class="logo"><span class="logo-text">colleague<span class="ai">ai</span></span><span class="logo-dots"><span></span><span></span><span></span></span></a>
     <span class="fnote" data-i18n="foot_note">// The trust layer for enterprise AI · CAI Score™ · Updated June 2026</span>
     <span class="flegal" data-i18n-html="foot_legal">© Colleague AI 2026 · Proprietary. Agents are licensed per tenant and may not be redistributed, resold or reverse-engineered. · <a href="https://www.colleagueai.ai/terms" target="_blank" rel="noopener">Terms</a> · <a href="https://www.colleagueai.ai/license" target="_blank" rel="noopener">Licence</a></span>
   </div>
