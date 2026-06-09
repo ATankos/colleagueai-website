@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 540 160" width="540" height="160">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500&amp;display=swap');
+      .word { font-family: 'Fraunces', Georgia, serif; font-size: 96px; font-weight: 500; letter-spacing: -0.02em; }
+    </style>
+  </defs>
+  <text x="8" y="108" class="word" fill="#1A1A1A">colleague</text>
+  <text x="390" y="108" class="word" fill="#C85020">ai</text>
+  <circle cx="8"  cy="143" r="8" fill="#C85020"/>
+  <circle cx="30" cy="143" r="8" fill="#1A1A1A"/>
+  <circle cx="52" cy="143" r="8" fill="#C4A882"/>
+</svg>
