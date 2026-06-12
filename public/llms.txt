@@ -1,0 +1,21 @@
+# Colleague AI
+
+> Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the
+> CAI Score — a five-tier risk classification (L1 Assist, L2 Draft, L3 Operate,
+> L4 Decide (supervised), L5 Autonomous) — documenting each agent's controls and producing
+> an audit trail. Agents run inside the client's own Microsoft Copilot Studio, Power
+> Automate and Azure environment; Colleague AI hosts only the governance control plane.
+> The catalogue contains 36 production-grade agents across five functional pillars,
+> aligned with the EU AI Act, DORA and ISO/IEC 42001.
+
+## Key pages
+
+- [Agent Catalogue](https://www.colleagueai.ai/agents): all 36 certified agents with CAI Score tiers, ROI and compliance posture
+- [Live Demo](https://www.colleagueai.ai/demo): try an agent
+- [Partner Programme](https://www.colleagueai.ai/partners): referral and resale partnership with tracked attribution
+- [Sitemap](https://www.colleagueai.ai/sitemap.xml)
+
+## Locales
+
+English (default), Čeština (/cs/agenti), Español (/es/agentes), Português (/pt/agentes),
+Français (/fr/agents), Deutsch (/de/agenten), Polski (/pl/agenci), Italiano (/it/agenti)

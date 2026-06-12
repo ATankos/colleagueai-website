@@ -48,6 +48,7 @@ http.createServer((req, res) => {
   const [destPath] = (dest ?? path).split('?');
   let file = join(ROOT, destPath);
   if (!existsSync(file) && existsSync(join(ROOT, path))) file = join(ROOT, path);
+  if (!existsSync(file) && existsSync(join(ROOT, path + '.html'))) file = join(ROOT, path + '.html'); // :slug rewrites
   if (!existsSync(file)) {
     // No filesystem match and no rewrite: Vercel serves 404.html with status 404
     const nf = join(ROOT, '404.html');
