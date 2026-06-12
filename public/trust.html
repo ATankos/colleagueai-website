@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust Center — AI Governance Evidence, Architecture &amp; Security | Colleague AI</title>
+<meta name="description" content="How Colleague AI is built to be verified: the CAI Score methodology, client-hosted architecture, what data we do and do not process, our subprocessors, and how to report a security issue.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/trust">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.colleagueai.ai/trust">
+<meta property="og:title" content="Trust Center — AI Governance Evidence, Architecture &amp; Security | Colleague AI">
+<meta property="og:description" content="The CAI Score methodology, client-hosted architecture, data flows, subprocessors, and responsible disclosure.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+<meta property="og:site_name" content="Colleague AI">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<style>
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
+main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
+.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#9A4B2F;text-decoration:none}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
+h2{font-size:15px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;color:#8a857d;margin:40px 0 10px;text-transform:uppercase}
+h3{font-size:16.5px;margin:20px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+td,th{border:1px solid #d8d2c6;padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#fff;font-weight:600}
+ul{margin:6px 0 0;padding-left:20px}
+.note{font-size:13px;color:#6b665e;background:#fff;border:1px solid #d8d2c6;border-radius:10px;padding:14px 16px;margin-top:14px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:40px}
+.btn{display:inline-block;padding:12px 26px;border-radius:999px;text-decoration:none;font-size:14.5px}
+.btn-p{background:#1D1B1A;color:#F5F0E8}.btn-s{border:1.5px solid #1D1B1A;color:#1D1B1A}
+footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+a{color:#9A4B2F}
+</style>
+</head>
+<body>
+<main>
+<nav class="crumb"><a href="/agents">← Agent Catalogue</a></nav>
+<div class="eyebrow">Trust Center · Verify us — don't take our word</div>
+<h1>The evidence, in one place.</h1>
+<p>In a category built on trust, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something — a third-party attestation, a public customer story — we say so instead of implying otherwise.</p>
+
+<h2>The CAI Score methodology</h2>
+<p>The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable — then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
+<h3>L1 · Assist</h3><p>Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.</p>
+<h3>L2 · Draft</h3><p>Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.</p>
+<h3>L3 · Operate</h3><p>Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped. Human role: owns exceptions.</p>
+<h3>L4 · Decide (supervised)</h3><p>Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny. Human role: stays accountable.</p>
+<h3>L5 · Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today. Human role: sets the rails.</p>
+<p class="note">The current catalogue ships at L2–L4. L4 agents require senior sign-off before go-live. Classifications are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
+
+<h2>Architecture: where agents run, where data lives</h2>
+<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to satisfy the EU AI Act, DORA and ISO/IEC 42001.</p>
+<h3>What this website itself processes</h3>
+<ul>
+<li><strong>Live demo</strong> (/demo): the messages you type are sent to Anthropic's API to generate responses, with per-IP and global rate limits. Don't paste confidential data into the demo.</li>
+<li><strong>Purchases</strong>: payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.</li>
+<li><strong>Downloads</strong>: agent packages are delivered through signed, time-limited URLs (15-minute expiry).</li>
+<li><strong>ROI calculator &amp; readiness check</strong>: run entirely in your browser; nothing is sent or stored.</li>
+<li><strong>Partner links</strong>: a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.</li>
+</ul>
+
+<h2>Subprocessors</h2>
+<table>
+<tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
+<tr><td>Vercel</td><td>Website hosting, edge network, web analytics</td><td>Standard request logs, anonymous usage metrics</td></tr>
+<tr><td>Stripe</td><td>Payment processing</td><td>Payment details (held by Stripe), buyer email</td></tr>
+<tr><td>Upstash</td><td>Key-value store for entitlements and partner records</td><td>Buyer email, licensed agent slugs, partner codes</td></tr>
+<tr><td>Anthropic</td><td>LLM responses for the live demo</td><td>Demo conversation text</td></tr>
+<tr><td>Cloudflare R2</td><td>Storage and delivery of purchased agent packages</td><td>Package files (no personal data)</td></tr>
+<tr><td>Sentry</td><td>Error monitoring</td><td>Technical error context; text is masked in session diagnostics</td></tr>
+<tr><td>Plausible</td><td>Privacy-first analytics</td><td>Anonymous, cookieless usage statistics</td></tr>
+<tr><td>Google Fonts</td><td>Web fonts</td><td>Standard font requests</td></tr>
+</table>
+
+<h2>Security practices</h2>
+<ul>
+<li>TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.</li>
+<li>Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.</li>
+<li>Commission attribution is gated: only registered partner codes are credited, and referral values are sanitized before storage.</li>
+<li>Secrets live in the hosting platform's environment configuration — never in code, never in the client bundle (verified by an automated scan on every build).</li>
+<li>Responsible disclosure: see <a href="/.well-known/security.txt">security.txt</a> or write to <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. We respond to good-faith reports and won't pursue researchers acting in good faith.</li>
+</ul>
+
+<h2>Pilot programme</h2>
+<p>We're onboarding pilot customers now. Every engagement starts the same way the catalogue promises: the agent is validated on your own cases before go-live, its ROI is quantified up front, and the governance evidence is produced from day one — so your first deployment is also your proof. If you want to be one of the proofs we publish here, that's the deal: you get the pilot terms, we get the (anonymised, approved-by-you) case study.</p>
+<div class="cta">
+  <a class="btn btn-p" href="/demo">Book a pilot conversation →</a>
+  <a class="btn btn-s" href="/agents">Browse the catalogue</a>
+</div>
+
+<footer>Runs in your tenant · No customer business data processed by us · EU AI Act · DORA · ISO/IEC 42001 aligned · © Colleague AI 2026 · <a href="https://www.colleagueai.ai/terms">Terms</a></footer>
+</main>
+</body>
+</html>

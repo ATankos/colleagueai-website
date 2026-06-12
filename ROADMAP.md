@@ -22,8 +22,13 @@ by revenue impact.
 
 ## Trust & credibility
 
-4. **Trust Center** (`/trust`) — referenced 16× in copy; needs real content: CAI methodology
-   summary, security posture, subprocessor list, data-flow diagram. (Copy: 1–2 days.)
+4. **Trust Center** — ✅ v1 live (`public/trust.html`): CAI methodology, architecture &
+   data-flow facts, subprocessor table, security practices, pilot-programme CTA — all
+   verifiable from the codebase, no invented claims. Remaining: third-party attestation
+   when engaged, and the first published (approved, anonymised) pilot case study.
+4b. **Claim accuracy** — ✅ EN "independently certified" softened to "certified under the
+   CAI Score framework". ⚠ 7 locale `hero_sub` strings still carry the old claim —
+   professional translator task, see `TRANSLATION-TODO.md`.
 5. **Consent/privacy review** — Sentry `sendDefaultPii: true` + session replay for EU
    traffic likely needs a consent banner or `sendDefaultPii: false`. (Counsel question.)
 6. **Partner programme terms** — payout threshold/schedule unspecified; partner dashboard
