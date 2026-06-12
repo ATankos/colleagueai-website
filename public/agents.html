@@ -115,6 +115,7 @@
     padding:9px 18px;border-radius:100px;transition:transform .2s, background .2s;
   }
   .nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
+  #langpill{display:inline-flex;position:relative}#langpill summary::-webkit-details-marker,#langpill summary::marker{display:none}
   
   
   
@@ -1847,13 +1848,7 @@
       <a href="#deploy" data-i18n="nav_deploy">Deployment</a>
       <a href="#readiness" data-i18n="nav_readiness">Readiness</a>
       <a href="#faq" data-i18n="nav_faq">FAQ</a>
-      <div id="langpill" style="position:relative">
-        <button id="langsel-btn" aria-haspopup="listbox" aria-expanded="false" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:100px;border:1px solid var(--line);background:transparent;font-family:'Geist',sans-serif;font-size:13px;font-weight:500;color:var(--graphite);cursor:pointer;transition:border-color .2s;white-space:nowrap;line-height:1" onmouseenter="this.style.borderColor='var(--muted)'" onmouseleave="this.style.borderColor='var(--line)'">
-          <span id="langsel-label">EN</span>
-          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;opacity:.6"><path d="M1 1l4 4 4-4" stroke="#54514C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
-        <div id="langsel-drop" role="listbox" aria-label="Language" style="display:none;position:absolute;top:calc(100% + 6px);right:0;background:rgba(245,240,232,.98);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(43,42,40,.14);overflow:hidden;z-index:200;min-width:120px"></div>
-      </div>
+      <details id="langpill" style="position:relative;list-style:none"><summary id="langsel-btn" style="display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:100px;border:1px solid var(--line);background:transparent;font-family:'Geist',sans-serif;font-size:13px;font-weight:500;color:var(--graphite);cursor:pointer;transition:border-color .2s;white-space:nowrap;line-height:1;list-style:none"><span id="langsel-label">EN</span><svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;opacity:.6"><path d="M1 1l4 4 4-4" stroke="#54514C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></summary><div id="langsel-drop" style="position:absolute;top:calc(100% + 6px);right:0;background:rgba(245,240,232,.98);backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 24px rgba(43,42,40,.14);overflow:hidden;z-index:200;min-width:120px"></div></details>
       <a href="/demo" class="nav-try" data-i18n="nav_try">Try it live</a>
 <a href="#" id="nav-call-link" class="nav-cta" data-i18n="nav_demo">Book a call</a>
     </nav>
@@ -2596,46 +2591,32 @@ if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshC
 window.applyLang=applyLang;
 var ORDER=["en","cs","de","fr","es","it","pt","pl"];
 var NAMES={"en":"EN","cs":"CS","de":"DE","fr":"FR","es":"ES","it":"IT","pt":"PT","pl":"PL"};
-var FLAGS={"en":"🇬🇧","cs":"🇨🇿","de":"🇩🇪","fr":"🇫🇷","es":"🇪🇸","it":"🇮🇹","pt":"🇵🇹","pl":"🇵🇱"};
-var btn=document.getElementById("langsel-btn");
 var lbl=document.getElementById("langsel-label");
 var drop=document.getElementById("langsel-drop");
 var pill=document.getElementById("langpill");
 var activeLang="en";
-function setLang(code){
+function pickLang(code){
   activeLang=code;
-  lbl.textContent=NAMES[code]||code.toUpperCase();
-  drop.querySelectorAll("button").forEach(function(b){
-    b.style.fontWeight=b.dataset.code===code?"600":"400";
-    b.style.background=b.dataset.code===code?"rgba(43,42,40,.06)":"";
-  });
+  if(lbl)lbl.textContent=NAMES[code]||code.toUpperCase();
+  if(pill)pill.removeAttribute("open");
   applyLang(code);
   try{localStorage.setItem("cai_lang",code);}catch(e){}
   if(window.caiTrack)caiTrack("lang_change",{lang:code});
 }
-// build dropdown items
-ORDER.filter(function(c){return I18N[c];}).forEach(function(c){
+if(drop){ORDER.filter(function(c){return I18N[c];}).forEach(function(c){
   var b=document.createElement("button");
-  b.dataset.code=c;
-  b.setAttribute("role","option");
-  b.textContent=(FLAGS[c]||"")+" "+NAMES[c];
-  b.style.cssText="display:flex;align-items:center;gap:8px;width:100%;padding:8px 14px;font-family:'Geist',sans-serif;font-size:13px;font-weight:400;color:var(--graphite);background:none;border:none;cursor:pointer;text-align:left;white-space:nowrap";
-  b.addEventListener("mouseenter",function(){this.style.background="rgba(43,42,40,.06)";});
-  b.addEventListener("mouseleave",function(){this.style.background=this.dataset.code===activeLang?"rgba(43,42,40,.06)":"";});
-  b.addEventListener("click",function(){setLang(c);drop.style.display="none";btn.setAttribute("aria-expanded","false");});
+  b.textContent=NAMES[c];
+  b.style.cssText="display:block;width:100%;padding:9px 16px;font-family:Geist,sans-serif;font-size:13px;font-weight:400;color:#2B2A28;background:none;border:none;cursor:pointer;text-align:left;white-space:nowrap";
+  b.addEventListener("mouseover",function(){this.style.background="rgba(43,42,40,.07)"});
+  b.addEventListener("mouseout",function(){this.style.background=""});
+  b.addEventListener("click",function(e){e.preventDefault();pickLang(c);});
   drop.appendChild(b);
-});
-btn.addEventListener("click",function(e){
-  e.stopPropagation();
-  var open=drop.style.display==="block";
-  drop.style.display=open?"none":"block";
-  btn.setAttribute("aria-expanded",open?"false":"true");
-});
-document.addEventListener("click",function(){drop.style.display="none";btn.setAttribute("aria-expanded","false");});
+});}
+document.addEventListener("click",function(e){if(pill&&!pill.contains(e.target))pill.removeAttribute("open");});
 var init="en";
-try{var u=new URLSearchParams(location.search).get("lang");var s=localStorage.getItem("cai_lang");var b=(navigator.language||"en").slice(0,2);init=u||s||b;}catch(e){}
+try{var qu=new URLSearchParams(location.search).get("lang");var st=localStorage.getItem("cai_lang");var br=(navigator.language||"en").slice(0,2);init=qu||st||br;}catch(e){}
 if(!I18N[init])init="en";
-setLang(init);
+pickLang(init);
 })();
 </script>
 <script>
