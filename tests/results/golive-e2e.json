@@ -1,0 +1,1021 @@
+{
+  "config": {
+    "configFile": "/tmp/repo/tests/e2e/playwright.golive.config.js",
+    "rootDir": "/tmp/repo/tests/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {},
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/repo/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "",
+        "name": "",
+        "testDir": "/tmp/repo/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "golive.spec.js"
+        ],
+        "timeout": 45000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "../results/golive-e2e.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.60.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "golive.spec.js",
+      "file": "golive.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "5. store purchase opens a live Stripe Checkout page (no payment completed)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "cd10cc7cf65fee30d06d-41f25cd72d9355e2cfdb",
+          "file": "golive.spec.js",
+          "line": 71,
+          "column": 1
+        },
+        {
+          "title": "6. attribution journey survives to checkout handoff (en)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "cd10cc7cf65fee30d06d-6b9378201da43e31cb5b",
+          "file": "golive.spec.js",
+          "line": 87,
+          "column": 3
+        },
+        {
+          "title": "6. attribution journey survives to checkout handoff (de)",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "cd10cc7cf65fee30d06d-f12322146066b23b8492",
+          "file": "golive.spec.js",
+          "line": 87,
+          "column": 3
+        },
+        {
+          "title": "7. language switcher preserves current path/agent",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [],
+              "status": "skipped"
+            }
+          ],
+          "id": "cd10cc7cf65fee30d06d-b0777c4144506a62fae3",
+          "file": "golive.spec.js",
+          "line": 103,
+          "column": 1
+        }
+      ],
+      "suites": [
+        {
+          "title": "locale en",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /agents loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-7f4855c633404e03295c",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-3e1196d128320a245b4a",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-a8c7f1f1ddfc4c20ffbe",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-6bd70aac28e1923c8da3",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-144bcd7c16597cd0efd9",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale cs",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /cs/agenti loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-a1bc2fa2f5a09144852c",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-12258f80f4528c5448b6",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-6962cd70f662c5fb9be1",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-969f3d717c6d04596c4f",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-1fdfb00d751f2a72d800",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale es",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /es/agentes loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-e43fbe148b7f4dfc10e2",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-04153d9c597a69ed1504",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-8ebdde8db9fc38fdb42a",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-8505655f1e41fbabfdfd",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-33579e44bd191072c6c3",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale pt",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /pt/agentes loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-ef60d92f420cc607099a",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-9b2d2f4755b12b92d8d9",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-a48eb5f5ef66e34f180e",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-41c4781316a7eab55e9b",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-57664df5d86d4298164e",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale fr",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /fr/agents loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-d59ca48174f0ff948b36",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-1629ea1cf2dfa448e545",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-61725d6d89d264e3d8c1",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-2a848312274d9c3f647f",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-d395e50fdc69f7075ab5",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale de",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /de/agenten loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-d6614435cb2bc3532c50",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-91c587a1ab60125df2d3",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-c31721aa35dd2f646f96",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-056203f6d9cb3a5255fb",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-07ed026bcdbc6ff64990",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale pl",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /pl/agenci loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-93f3f7a1cb49a23fbcf6",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-599a2ad9c6c48fc1b36d",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-cd449f2c896cf098d898",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-de9bdea05739a08ad4c8",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-e08e5b9ad2c57f05fc5c",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        },
+        {
+          "title": "locale it",
+          "file": "golive.spec.js",
+          "line": 23,
+          "column": 8,
+          "specs": [
+            {
+              "title": "1. /it/agenti loads with zero console errors / failed requests",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-070c0c29179de863c391",
+              "file": "golive.spec.js",
+              "line": 24,
+              "column": 5
+            },
+            {
+              "title": "2. primary nav links resolve (no 404)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-8e789b30697d629bcfa3",
+              "file": "golive.spec.js",
+              "line": 33,
+              "column": 5
+            },
+            {
+              "title": "3. purchase modal shows a real price (no placeholder)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-384f3969bb16a6a19da6",
+              "file": "golive.spec.js",
+              "line": 42,
+              "column": 5
+            },
+            {
+              "title": "4. demo / book-a-call CTA resolves (not \"#\", not placeholder scheduler)",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-b37c7faac6a9b7ecb4b7",
+              "file": "golive.spec.js",
+              "line": 51,
+              "column": 5
+            },
+            {
+              "title": "8. 404 page renders properly in-locale",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 45000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "",
+                  "projectName": "",
+                  "results": [],
+                  "status": "skipped"
+                }
+              ],
+              "id": "cd10cc7cf65fee30d06d-00c8854cf94a6a55f1bf",
+              "file": "golive.spec.js",
+              "line": 62,
+              "column": 5
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-06-12T17:45:09.188Z",
+    "duration": 109.95300000000009,
+    "expected": 0,
+    "skipped": 44,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

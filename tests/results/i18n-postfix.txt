@@ -1,0 +1,42 @@
+locales found: en, cs, de, fr, es, it, pt, pl (8)
+EN key count: 230 (spec expected 229 — actual reported per instructions)
+PASS  parity en: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity cs: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity de: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity fr: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity es: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity it: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity pt: 230 keys, missing=[], extra=[], empty=[]
+PASS  parity pl: 230 keys, missing=[], extra=[], empty=[]
+PASS  leakage cs: 1 values identical to EN (e.g. calc_agent)
+PASS  leakage de: 1 values identical to EN (e.g. calc_agent)
+PASS  leakage fr: 2 values identical to EN (e.g. nav_catalogue, calc_agent)
+PASS  leakage es: 0 values identical to EN 
+PASS  leakage it: 1 values identical to EN (e.g. pillar_corp)
+PASS  leakage pt: 0 values identical to EN 
+PASS  leakage pl: 1 values identical to EN (e.g. calc_agent)
+PASS  compliance-claims scan: 0 hit(s) (ISO/IEC 42001 "aligned" wording is excluded by design)
+INFO  legal-related i18n keys: pay_terms, foot_legal
+REVIEW(High per spec)  cs.foot_legal contains translated legal wording (593 chars)
+REVIEW(High per spec)  de.foot_legal contains translated legal wording (597 chars)
+REVIEW(High per spec)  fr.foot_legal contains translated legal wording (598 chars)
+REVIEW(High per spec)  es.foot_legal contains translated legal wording (606 chars)
+REVIEW(High per spec)  it.foot_legal contains translated legal wording (624 chars)
+REVIEW(High per spec)  pt.foot_legal contains translated legal wording (610 chars)
+REVIEW(High per spec)  pl.foot_legal contains translated legal wording (624 chars)
+PASS  no translated legal page files exist in repo (no terms/license/privacy HTML at all — separate finding)
+PASS  mojibake en: 0 double-encoded sequences in dictionary
+PASS  mojibake cs: 0 double-encoded sequences in dictionary
+PASS  mojibake de: 0 double-encoded sequences in dictionary
+PASS  mojibake fr: 0 double-encoded sequences in dictionary
+PASS  mojibake es: 0 double-encoded sequences in dictionary
+PASS  mojibake it: 0 double-encoded sequences in dictionary
+PASS  mojibake pt: 0 double-encoded sequences in dictionary
+PASS  mojibake pl: 0 double-encoded sequences in dictionary
+PASS  AGENTS_CS: 36 agents translated (expect 36)
+PASS  AGENTS_ES: 36 agents translated (expect 36)
+PASS  AGENTS_PT: 36 agents translated (expect 36)
+PASS  AGENTS_FR: 36 agents translated (expect 36)
+PASS  AGENTS_DE: 36 agents translated (expect 36)
+PASS  AGENTS_PL: 36 agents translated (expect 36)
+PASS  AGENTS_IT: 36 agents translated (expect 36)

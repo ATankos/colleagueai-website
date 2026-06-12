@@ -105,7 +105,7 @@
       "destination": "/agents.html?lang=it"
     },
     {
-      "source": "/(.*)",
+      "source": "/demo",
       "destination": "/index.html"
     }
   ]

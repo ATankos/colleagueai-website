@@ -1,0 +1,297 @@
+TAP version 13
+# [webhook] Signature verification failed: No stripe-signature header value was provided.
+# Subtest: 1a. no signature header → 400, no KV writes
+ok 1 - 1a. no signature header → 400, no KV writes
+  ---
+  duration_ms: 43.011815
+  type: 'test'
+  ...
+# [webhook] Signature verification failed: No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? 
+#  If a webhook request is being forwarded by a third-party tool, ensure that the exact request body, including JSON formatting and new line style, is preserved.
+# Learn more about webhook signing and explore webhook integration examples for various frameworks at https://docs.stripe.com/webhooks/signature
+# Subtest: 1b. invalid signature → 400, no KV writes
+ok 2 - 1b. invalid signature → 400, no KV writes
+  ---
+  duration_ms: 10.172901
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.721Z',
+#   updatedAt: '2026-06-12T17:41:31.721Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# Subtest: 1c. valid signature → 2xx (raw body verified before parsing)
+ok 3 - 1c. valid signature → 2xx (raw body verified before parsing)
+  ---
+  duration_ms: 12.857418
+  type: 'test'
+  ...
+# [webhook] Signature verification failed: Timestamp outside the tolerance zone
+# Subtest: 2. valid signature but stale timestamp (>tolerance) → rejected
+ok 4 - 2. valid signature but stale timestamp (>tolerance) → rejected
+  ---
+  duration_ms: 14.170093
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.746Z',
+#   updatedAt: '2026-06-12T17:41:31.746Z',
+#   stripeSessionIds: [ 'cs_dup_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-TESTPART',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_dup_1' ],
+#   registeredAt: '2026-06-12T17:41:31.752Z'
+# }
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.746Z',
+#   updatedAt: '2026-06-12T17:41:31.763Z',
+#   stripeSessionIds: [ 'cs_dup_1', 'cs_dup_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-TESTPART',
+#   salesCount: 2,
+#   totalEarned: 480,
+#   sessions: [ 'cs_dup_1', 'cs_dup_1' ],
+#   registeredAt: '2026-06-12T17:41:31.752Z',
+#   updatedAt: '2026-06-12T17:41:31.769Z'
+# }
+# Subtest: 3a. same event.id delivered twice → commission written exactly once, second still 2xx
+not ok 5 - 3a. same event.id delivered twice → commission written exactly once, second still 2xx
+  ---
+  duration_ms: 34.224948
+  type: 'test'
+  location: '/tmp/repo/tests/webhook.test.mjs:95:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: duplicate event.id credited partner twice (2 commission writes)'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/webhook.test.mjs:99:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.783Z',
+#   updatedAt: '2026-06-12T17:41:31.783Z',
+#   stripeSessionIds: [ 'cs_same' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-TESTPART',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_same' ],
+#   registeredAt: '2026-06-12T17:41:31.788Z'
+# }
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.783Z',
+#   updatedAt: '2026-06-12T17:41:31.797Z',
+#   stripeSessionIds: [ 'cs_same', 'cs_same' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-TESTPART',
+#   salesCount: 2,
+#   totalEarned: 480,
+#   sessions: [ 'cs_same', 'cs_same' ],
+#   registeredAt: '2026-06-12T17:41:31.788Z',
+#   updatedAt: '2026-06-12T17:41:31.800Z'
+# }
+# Subtest: 3b. two different events for the same checkout session → no double-crediting
+not ok 6 - 3b. two different events for the same checkout session → no double-crediting
+  ---
+  duration_ms: 30.524203
+  type: 'test'
+  location: '/tmp/repo/tests/webhook.test.mjs:102:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: same session credited 2 times (totalEarned=480)'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: 1
+  actual: 2
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/webhook.test.mjs:106:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.817Z',
+#   updatedAt: '2026-06-12T17:41:31.817Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-RATE',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_test_1' ],
+#   registeredAt: '2026-06-12T17:41:31.820Z'
+# }
+# Subtest: 4a. checkout.session.completed credits exactly once at PARTNER_COMMISSION_RATE
+ok 7 - 4a. checkout.session.completed credits exactly once at PARTNER_COMMISSION_RATE
+  ---
+  duration_ms: 19.161325
+  type: 'test'
+  ...
+# Subtest: 4b. invoice.paid (subscription renewal) → handler ignores it: renewals are UNCREDITED (revenue rule check)
+ok 8 - 4b. invoice.paid (subscription renewal) → handler ignores it: renewals are UNCREDITED (revenue rule check)
+  ---
+  duration_ms: 5.98267
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.836Z',
+#   updatedAt: '2026-06-12T17:41:31.836Z',
+#   stripeSessionIds: [ 'cs_attr_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-ABC12345',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_attr_1' ],
+#   registeredAt: '2026-06-12T17:41:31.846Z'
+# }
+# Subtest: 5a. partner ref present → KV record contains code + session id
+ok 9 - 5a. partner ref present → KV record contains code + session id
+  ---
+  duration_ms: 19.982889
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'clean@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.854Z',
+#   updatedAt: '2026-06-12T17:41:31.854Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# Subtest: 5b. no partner ref → clean entitlement, no partner writes, no crash
+ok 10 - 5b. no partner ref → clean entitlement, no partner writes, no crash
+  ---
+  duration_ms: 5.901255
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.860Z',
+#   updatedAt: '2026-06-12T17:41:31.860Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/<script>"\\n',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_test_1' ],
+#   registeredAt: '2026-06-12T17:41:31.863Z'
+# }
+# Subtest: 5c. malformed/oversized partner ref → sanitized or rejected, never stored raw
+not ok 11 - 5c. malformed/oversized partner ref → sanitized or rejected, never stored raw
+  ---
+  duration_ms: 10.559631
+  type: 'test'
+  location: '/tmp/repo/tests/webhook.test.mjs:135:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: oversized/malformed ref stored raw (len=5011)'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/webhook.test.mjs:140:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: 6. unknown event type → 2xx and ZERO side effects
+ok 12 - 6. unknown event type → 2xx and ZERO side effects
+  ---
+  duration_ms: 20.847525
+  type: 'test'
+  ...
+# [webhook] Failed to write entitlement: Error: KV error: 500 forced failure
+#     at kv (file:///tmp/repo/lib/db.js:21:22)
+#     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+#     at async getEntitlement (file:///tmp/repo/lib/db.js:43:15)
+#     at async grantEntitlement (file:///tmp/repo/lib/db.js:30:20)
+#     at async handler (file:///tmp/repo/api/webhook.js:67:27)
+# Subtest: 7. KV write failure → handler must return non-2xx so Stripe retries (200 = silent royalty loss)
+not ok 13 - 7. KV write failure → handler must return non-2xx so Stripe retries (200 = silent royalty loss)
+  ---
+  duration_ms: 7.39205
+  type: 'test'
+  location: '/tmp/repo/tests/webhook.test.mjs:150:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: handler returned 200 while KV write was dropped — Stripe will never retry'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/webhook.test.mjs:153:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T17:41:31.900Z',
+#   updatedAt: '2026-06-12T17:41:31.900Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-NEVERSEEN',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_test_1' ],
+#   registeredAt: '2026-06-12T17:41:31.902Z'
+# }
+# Subtest: 8. unregistered/non-accredited partner code must NOT accrue commission (no gate = High finding)
+not ok 14 - 8. unregistered/non-accredited partner code must NOT accrue commission (no gate = High finding)
+  ---
+  duration_ms: 8.319224
+  type: 'test'
+  location: '/tmp/repo/tests/webhook.test.mjs:157:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: no accreditation gate — unknown code earned a commission stub: {"code":"CAI-NEVERSEEN","salesCount":1,"totalEarned":240,"sessions":["cs_test_1"],"registeredAt":"2026-06-12T17:41:31.90'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  actual: '{"code":"CAI-NEVERSEEN","salesCount":1,"totalEarned":240,"sessions":["cs_test_1"],"registeredAt":"2026-06-12T17:41:31.902Z"}'
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/webhook.test.mjs:160:10)
+    process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..14
+# tests 14
+# suites 0
+# pass 9
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 416.712249
