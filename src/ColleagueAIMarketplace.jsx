@@ -1,7 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+
+const LOCALES = [
+  { code: 'en', flag: '🇬🇧', name: 'English' },
+  { code: 'cs', flag: '🇨🇿', name: 'Čeština' },
+  { code: 'de', flag: '🇩🇪', name: 'Deutsch' },
+  { code: 'fr', flag: '🇫🇷', name: 'Français' },
+  { code: 'es', flag: '🇪🇸', name: 'Español' },
+  { code: 'it', flag: '🇮🇹', name: 'Italiano' },
+  { code: 'pl', flag: '🇵🇱', name: 'Polski' },
+  { code: 'sk', flag: '🇸🇰', name: 'Slovenčina' },
+];
 
 export default function ColleagueAIMarketplace() {
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(() => {
+    try {
+      const saved = localStorage.getItem('cai-lang');
+      return LOCALES.some(l => l.code === saved) ? saved : 'en';
+    } catch { return 'en'; }
+  });
+  const [langOpen, setLangOpen] = useState(false);
+  const langRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
   const [filter, setFilter] = useState('all');
 
@@ -11,7 +29,17 @@ export default function ColleagueAIMarketplace() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const t = lang === 'en' ? en : cs;
+  useEffect(() => {
+    try { localStorage.setItem('cai-lang', lang); } catch {}
+  }, [lang]);
+
+  useEffect(() => {
+    const handler = (e) => { if (langRef.current && !langRef.current.contains(e.target)) setLangOpen(false); };
+    document.addEventListener('mousedown', handler);
+    return () => document.removeEventListener('mousedown', handler);
+  }, []);
+
+  const t = translations[lang] ?? translations.en;
 
   const filteredAgents = filter === 'all'
     ? t.agents
@@ -67,6 +95,58 @@ export default function ColleagueAIMarketplace() {
         @media (max-width: 768px) {
           .hide-mobile { display: none !important; }
         }
+
+        .lang-pill {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 4px;
+          padding: 4px 10px;
+          border-radius: 999px;
+          border: 1px solid rgba(29, 27, 26, 0.20);
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          font-weight: 500;
+          color: #1D1B1A;
+          background: transparent;
+          cursor: pointer;
+          transition: border-color 0.2s;
+          white-space: nowrap;
+          user-select: none;
+          line-height: 1;
+        }
+        .lang-pill:hover { border-color: rgba(29, 27, 26, 0.45); }
+        .lang-dropdown {
+          position: absolute;
+          top: calc(100% + 6px);
+          right: 0;
+          background: rgba(245, 240, 232, 0.98);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(29, 27, 26, 0.12);
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(29, 27, 26, 0.14);
+          overflow: hidden;
+          z-index: 200;
+          min-width: 130px;
+        }
+        .lang-option {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          width: 100%;
+          padding: 8px 14px;
+          font-family: 'JetBrains Mono', monospace;
+          font-size: 11px;
+          font-weight: 400;
+          color: #1D1B1A;
+          background: none;
+          border: none;
+          cursor: pointer;
+          text-align: left;
+          transition: background 0.15s;
+        }
+        .lang-option:hover { background: rgba(29, 27, 26, 0.06); }
+        .lang-option.active { font-weight: 600; }
       `}</style>
 
       {/* APPLE-STYLE NAV */}
@@ -84,15 +164,9 @@ export default function ColleagueAIMarketplace() {
           maxWidth: '1024px', width: '100%',
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         }}>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', lineHeight: 1, textDecoration: 'none' }}>
-            <div style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em' }}>
-              <span>colleague</span><span style={{ color: '#A8482A' }}>ai</span>
-            </div>
-            <div style={{ display: 'flex', gap: '5px', paddingLeft: '1px' }}>
-              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#A8482A', display: 'block' }}></span>
-              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#1D1B1A', display: 'block' }}></span>
-              <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#C4A882', display: 'block' }}></span>
-            </div>
+          <div style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em' }}>
+            <span>colleague</span>
+            <span style={{ color: '#A8482A' }}>ai</span>
           </div>
 
           <div className="hide-mobile" style={{
@@ -105,26 +179,34 @@ export default function ColleagueAIMarketplace() {
             <a href="#contact" className="link-hover">{t.nav.contact}</a>
           </div>
 
-          <div className="mono" style={{
-            display: 'flex', gap: '2px', fontSize: '11px',
-          }}>
+          <div ref={langRef} style={{ position: 'relative' }}>
             <button
-              onClick={() => setLang('en')}
-              style={{
-                padding: '4px 8px',
-                color: lang === 'en' ? '#1D1B1A' : '#6B655E',
-                fontWeight: lang === 'en' ? 600 : 400,
-              }}
-            >EN</button>
-            <span style={{ color: '#6B655E' }}>·</span>
-            <button
-              onClick={() => setLang('cs')}
-              style={{
-                padding: '4px 8px',
-                color: lang === 'cs' ? '#1D1B1A' : '#6B655E',
-                fontWeight: lang === 'cs' ? 600 : 400,
-              }}
-            >CS</button>
+              className="lang-pill"
+              onClick={() => setLangOpen(o => !o)}
+              aria-haspopup="listbox"
+              aria-expanded={langOpen}
+            >
+              <span>{LOCALES.find(l => l.code === lang)?.flag ?? '🌐'}</span>
+              <span>{(LOCALES.find(l => l.code === lang)?.code ?? 'EN').toUpperCase()}</span>
+              <span style={{ fontSize: '8px', opacity: 0.55, marginLeft: '2px' }}>▾</span>
+            </button>
+            {langOpen && (
+              <div className="lang-dropdown" role="listbox">
+                {LOCALES.map(loc => (
+                  <button
+                    key={loc.code}
+                    role="option"
+                    aria-selected={lang === loc.code}
+                    className={`lang-option${lang === loc.code ? ' active' : ''}`}
+                    onClick={() => { setLang(loc.code); setLangOpen(false); }}
+                  >
+                    <span>{loc.flag}</span>
+                    <span style={{ minWidth: '22px' }}>{loc.code.toUpperCase()}</span>
+                    <span style={{ color: '#6B655E', fontWeight: 400 }}>{loc.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </nav>
@@ -566,15 +648,9 @@ export default function ColleagueAIMarketplace() {
           fontSize: '12px', color: '#6B655E', flexWrap: 'wrap', gap: '20px',
         }}>
           <div className="mono">© 2026 COLLEAGUE AI · PRAHA, CZ</div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', lineHeight: 1 }}>
-            <div style={{ fontSize: '14px' }}>
-              <span style={{ color: '#1D1B1A' }}>colleague</span><span style={{ color: '#A8482A' }}>ai</span>
-            </div>
-            <div style={{ display: 'flex', gap: '5px', paddingLeft: '1px' }}>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#A8482A', display: 'block' }}></span>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#1D1B1A', display: 'block' }}></span>
-              <span style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#C4A882', display: 'block' }}></span>
-            </div>
+          <div style={{ fontSize: '14px' }}>
+            <span style={{ color: '#1D1B1A' }}>colleague</span>
+            <span style={{ color: '#A8482A' }}>ai</span>
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
             <a href="#" className="link-hover">{t.footer.privacy}</a>
@@ -763,3 +839,150 @@ const cs = {
   },
   footer: { privacy: 'Soukromí', terms: 'Podmínky' },
 };
+
+const de = {
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Philosophie', pricing: 'Preise', contact: 'Kontakt' },
+  hero: {
+    eyebrow: 'DER COLLEAGUE AI MARKETPLACE',
+    h1a: 'KI-Agenten, die Sie',
+    h1b: 'wirklich einsetzen können.',
+    sub: 'Zertifizierte, prüfbereite KI-Kollegen für Finanzen, Compliance und Betrieb.',
+    cta1: 'Marketplace erkunden',
+    cta2: 'Mehr über CAI Score',
+    stats: [
+      { num: '15+', label: 'AGENTEN IN PRODUKTION' },
+      { num: '4', label: 'ABGEDECKTE BEREICHE' },
+      { num: '100%', label: 'AUDIT-BEREIT' },
+    ],
+  },
+  trustTile: en.trustTile,
+  market: { ...en.market, filters: en.market.filters },
+  agents: en.agents,
+  phil: en.phil,
+  price: en.price,
+  contact: { eyebrow: 'KONTAKT', h2a: 'Bereit für', h2b: 'vertrauenswürdige KI?' },
+  footer: { privacy: 'Datenschutz', terms: 'AGB' },
+};
+
+const fr = {
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Philosophie', pricing: 'Tarifs', contact: 'Contact' },
+  hero: {
+    eyebrow: 'LE MARKETPLACE COLLEAGUE AI',
+    h1a: 'Des agents IA que vous pouvez',
+    h1b: 'vraiment déployer.',
+    sub: 'Des collègues IA certifiés, audit-ready pour la finance, la conformité et les opérations.',
+    cta1: 'Explorer le marketplace',
+    cta2: 'En savoir plus sur CAI Score',
+    stats: [
+      { num: '15+', label: 'AGENTS EN PRODUCTION' },
+      { num: '4', label: 'DOMAINES COUVERTS' },
+      { num: '100%', label: 'AUDIT-READY' },
+    ],
+  },
+  trustTile: en.trustTile,
+  market: en.market,
+  agents: en.agents,
+  phil: en.phil,
+  price: en.price,
+  contact: { eyebrow: 'NOUS CONTACTER', h2a: 'Prêt à déployer', h2b: "une IA que vous pouvez défendre ?" },
+  footer: { privacy: 'Confidentialité', terms: 'CGU' },
+};
+
+const es = {
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filosofía', pricing: 'Precios', contact: 'Contacto' },
+  hero: {
+    eyebrow: 'EL MARKETPLACE DE COLLEAGUE AI',
+    h1a: 'Agentes de IA que puede',
+    h1b: 'realmente desplegar.',
+    sub: 'Colegas de IA certificados y listos para auditoría en finanzas, cumplimiento y operaciones.',
+    cta1: 'Explorar el marketplace',
+    cta2: 'Más sobre CAI Score',
+    stats: [
+      { num: '15+', label: 'AGENTES EN PRODUCCIÓN' },
+      { num: '4', label: 'DOMINIOS CUBIERTOS' },
+      { num: '100%', label: 'LISTOS PARA AUDITORÍA' },
+    ],
+  },
+  trustTile: en.trustTile,
+  market: en.market,
+  agents: en.agents,
+  phil: en.phil,
+  price: en.price,
+  contact: { eyebrow: 'CONTÁCTENOS', h2a: '¿Listo para desplegar', h2b: 'IA en la que puede confiar?' },
+  footer: { privacy: 'Privacidad', terms: 'Términos' },
+};
+
+const it = {
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filosofia', pricing: 'Prezzi', contact: 'Contatti' },
+  hero: {
+    eyebrow: 'IL MARKETPLACE DI COLLEAGUE AI',
+    h1a: 'Agenti AI che puoi',
+    h1b: 'davvero dispiegare.',
+    sub: "Colleghi AI certificati e pronti per l'audit in finanza, compliance e operazioni.",
+    cta1: 'Esplora il marketplace',
+    cta2: 'Scopri il CAI Score',
+    stats: [
+      { num: '15+', label: 'AGENTI IN PRODUZIONE' },
+      { num: '4', label: 'DOMINI COPERTI' },
+      { num: '100%', label: 'PRONTI PER AUDIT' },
+    ],
+  },
+  trustTile: en.trustTile,
+  market: en.market,
+  agents: en.agents,
+  phil: en.phil,
+  price: en.price,
+  contact: { eyebrow: 'CONTATTACI', h2a: 'Pronti a dispiegare', h2b: 'AI di cui fidarsi?' },
+  footer: { privacy: 'Privacy', terms: 'Termini' },
+};
+
+const pl = {
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofia', pricing: 'Cennik', contact: 'Kontakt' },
+  hero: {
+    eyebrow: 'MARKETPLACE COLLEAGUE AI',
+    h1a: 'Agenci AI, których możesz',
+    h1b: 'faktycznie wdrożyć.',
+    sub: 'Certyfikowani agenci AI gotowi na audyt w finansach, compliance i operacjach.',
+    cta1: 'Przeglądaj marketplace',
+    cta2: 'Dowiedz się o CAI Score',
+    stats: [
+      { num: '15+', label: 'AGENTÓW W PRODUKCJI' },
+      { num: '4', label: 'OBSZARÓW' },
+      { num: '100%', label: 'GOTOWYCH NA AUDYT' },
+    ],
+  },
+  trustTile: en.trustTile,
+  market: en.market,
+  agents: en.agents,
+  phil: en.phil,
+  price: en.price,
+  contact: { eyebrow: 'SKONTAKTUJ SIĘ', h2a: 'Gotowy na wdrożenie', h2b: 'godnego zaufania AI?' },
+  footer: { privacy: 'Prywatność', terms: 'Warunki' },
+};
+
+const sk = {
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofia', pricing: 'Cenník', contact: 'Kontakt' },
+  hero: {
+    eyebrow: 'MARKETPLACE COLLEAGUE AI',
+    h1a: 'AI agenti, ktorých môžete',
+    h1b: 'skutočne nasadiť.',
+    sub: 'Certifikovaní AI kolegovia pre financie, compliance a prevádzku. Pripravení na audit.',
+    cta1: 'Prehliadať marketplace',
+    cta2: 'Viac o CAI Score',
+    stats: [
+      { num: '15+', label: 'AGENTOV V PRODUKCII' },
+      { num: '4', label: 'POKRYTÉ OBLASTI' },
+      { num: '100%', label: 'PRIPRAVENÍ NA AUDIT' },
+    ],
+  },
+  trustTile: en.trustTile,
+  market: en.market,
+  agents: en.agents,
+  phil: en.phil,
+  price: en.price,
+  contact: { eyebrow: 'KONTAKTUJTE NÁS', h2a: 'Pripravení nasadiť', h2b: 'AI, ktorej môžete veriť?' },
+  footer: { privacy: 'Ochrana súkromia', terms: 'Podmienky' },
+};
+
+const translations = { en, cs, de, fr, es, it, pl, sk };
+
