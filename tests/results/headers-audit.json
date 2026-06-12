@@ -1,0 +1,662 @@
+{
+  "BASE": "http://localhost:4173",
+  "date": "2026-06-12T20:49:34.627Z",
+  "results": [
+    {
+      "id": "H1",
+      "test": "HSTS present, max-age ≥ 15552000",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "max-age=63072000; includeSubDomains; preload"
+    },
+    {
+      "id": "H2",
+      "test": "CSP present",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://va.vercel-scripts.com https://*.inges"
+    },
+    {
+      "id": "H2b",
+      "test": "CSP avoids unsafe-inline/unsafe-eval",
+      "route": "/agents",
+      "result": "FAIL",
+      "severity": "Medium",
+      "evidence": "unsafe-inline,unsafe-inline"
+    },
+    {
+      "id": "H3",
+      "test": "X-Content-Type-Options: nosniff",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "nosniff"
+    },
+    {
+      "id": "H4",
+      "test": "X-Frame-Options or frame-ancestors",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "SAMEORIGIN"
+    },
+    {
+      "id": "H5",
+      "test": "Referrer-Policy present",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Medium",
+      "evidence": "strict-origin-when-cross-origin"
+    },
+    {
+      "id": "H6",
+      "test": "Permissions-Policy present",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Medium",
+      "evidence": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), micr"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
+      "route": "/",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow, max-snippet:-1, max-image-preview:large"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/agents"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "textBytes=16869 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow, max-snippet:-1, max-image-preview:large"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/agents"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "textBytes=16869 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod"
+    },
+    {
+      "id": "S2",
+      "test": "FAQPage JSON-LD on /agents",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "Medium",
+      "evidence": "Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod"
+    },
+    {
+      "id": "S3",
+      "test": "Product JSON-LD on store page",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "36×Product, Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "L1",
+      "test": "hreflang for 8 locales + x-default",
+      "route": "/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "en,cs,es,pt,fr,de,pl,it,x-default"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
+      "route": "/demo",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "none"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/demo; expected: https://www.colleagueai.ai/demo"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/demo",
+      "result": "FAIL",
+      "severity": "Critical",
+      "evidence": "textBytes=275 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Live Demo — Try a Certified Enterprise AI Agent | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/partners; expected: https://www.colleagueai.ai/partners"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "textBytes=4257 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Partner Programme — Resell Certified Enterprise AI Agents | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "P0",
+      "test": "route 404s pending page creation (FIXES §3)",
+      "route": "/trust",
+      "result": "OPEN",
+      "severity": "High",
+      "evidence": "HTTP 404, noindex=true"
+    },
+    {
+      "id": "P0",
+      "test": "route 404s pending page creation (FIXES §3)",
+      "route": "/terms",
+      "result": "OPEN",
+      "severity": "High",
+      "evidence": "HTTP 404, noindex=true"
+    },
+    {
+      "id": "P0",
+      "test": "route 404s pending page creation (FIXES §3)",
+      "route": "/privacy",
+      "result": "OPEN",
+      "severity": "High",
+      "evidence": "HTTP 404, noindex=true"
+    },
+    {
+      "id": "P0",
+      "test": "route 404s pending page creation (FIXES §3)",
+      "route": "/license",
+      "result": "OPEN",
+      "severity": "High",
+      "evidence": "HTTP 404, noindex=true"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow, max-snippet:-1, max-image-preview:large"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/cs/agenti",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/cs/agenti"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "textBytes=16869 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "L1",
+      "test": "hreflang for 8 locales + x-default",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "en,cs,es,pt,fr,de,pl,it,x-default"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow, max-snippet:-1, max-image-preview:large"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/de/agenten",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/de/agenten"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "textBytes=16869 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "L1",
+      "test": "hreflang for 8 locales + x-default",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "en,cs,es,pt,fr,de,pl,it,x-default"
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/agents → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/demo → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/partners → HTTP 200 "
+    },
+    {
+      "id": "R1",
+      "test": "robots.txt exists",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "R2",
+      "test": "no blanket Disallow: /",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "User-agent: *\r\nAllow: /\r\n\r\nUser-agent: GPTBot\r\nAllow: /\r\n\r\nUser-agent: ClaudeBot\r\nAllow: /\r\n\r\nUser-agent: Google-Extende"
+    },
+    {
+      "id": "R3",
+      "test": "allows GPTBot",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": ""
+    },
+    {
+      "id": "R3",
+      "test": "allows ClaudeBot",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": ""
+    },
+    {
+      "id": "R3",
+      "test": "allows PerplexityBot",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": ""
+    },
+    {
+      "id": "R3",
+      "test": "allows Google-Extended",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": ""
+    },
+    {
+      "id": "R4",
+      "test": "references sitemap",
+      "route": "/robots.txt",
+      "result": "PASS",
+      "severity": "Medium",
+      "evidence": "Sitemap: https://www.colleagueai.ai/sitemap.xml"
+    },
+    {
+      "id": "SM1",
+      "test": "sitemap.xml exists + parses as XML",
+      "route": "/sitemap.xml",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM2",
+      "test": "sitemap includes all 8 locale variants of /agents",
+      "route": "/sitemap.xml",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "9 urls"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/partners",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=4257"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/es/agentes",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/es/agentes",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/pt/agentes",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/pt/agentes",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/fr/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/fr/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/pl/agenci",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/pl/agenci",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/it/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/it/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=16869"
+    }
+  ]
+}

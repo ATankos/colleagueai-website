@@ -1,0 +1,225 @@
+TAP version 13
+# [webhook] Signature verification failed: No stripe-signature header value was provided.
+# Subtest: 1a. no signature header → 400, no KV writes
+ok 1 - 1a. no signature header → 400, no KV writes
+  ---
+  duration_ms: 41.44963
+  type: 'test'
+  ...
+# [webhook] Signature verification failed: No signatures found matching the expected signature for payload. Are you passing the raw request body you received from Stripe? 
+#  If a webhook request is being forwarded by a third-party tool, ensure that the exact request body, including JSON formatting and new line style, is preserved.
+# Learn more about webhook signing and explore webhook integration examples for various frameworks at https://docs.stripe.com/webhooks/signature
+# Subtest: 1b. invalid signature → 400, no KV writes
+ok 2 - 1b. invalid signature → 400, no KV writes
+  ---
+  duration_ms: 10.77026
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:15.993Z',
+#   updatedAt: '2026-06-12T18:03:15.993Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# Subtest: 1c. valid signature → 2xx (raw body verified before parsing)
+ok 3 - 1c. valid signature → 2xx (raw body verified before parsing)
+  ---
+  duration_ms: 23.687085
+  type: 'test'
+  ...
+# [webhook] Signature verification failed: Timestamp outside the tolerance zone
+# Subtest: 2. valid signature but stale timestamp (>tolerance) → rejected
+ok 4 - 2. valid signature but stale timestamp (>tolerance) → rejected
+  ---
+  duration_ms: 11.180039
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.046Z',
+#   updatedAt: '2026-06-12T18:03:16.046Z',
+#   stripeSessionIds: [ 'cs_dup_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-TESTPART',
+#   name: 'Test Partner',
+#   email: 't@example.com',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_dup_1' ],
+#   updatedAt: '2026-06-12T18:03:16.052Z'
+# }
+# Subtest: 3a. same event.id delivered twice → commission written exactly once, second still 2xx
+ok 5 - 3a. same event.id delivered twice → commission written exactly once, second still 2xx
+  ---
+  duration_ms: 46.914765
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.072Z',
+#   updatedAt: '2026-06-12T18:03:16.072Z',
+#   stripeSessionIds: [ 'cs_same' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-TESTPART',
+#   name: 'Test Partner',
+#   email: 't@example.com',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_same' ],
+#   updatedAt: '2026-06-12T18:03:16.075Z'
+# }
+# Subtest: 3b. two different events for the same checkout session → no double-crediting
+ok 6 - 3b. two different events for the same checkout session → no double-crediting
+  ---
+  duration_ms: 21.652037
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.091Z',
+#   updatedAt: '2026-06-12T18:03:16.091Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-RATE',
+#   name: 'Test Partner',
+#   email: 't@example.com',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_test_1' ],
+#   updatedAt: '2026-06-12T18:03:16.094Z'
+# }
+# Subtest: 4a. checkout.session.completed credits exactly once at PARTNER_COMMISSION_RATE
+ok 7 - 4a. checkout.session.completed credits exactly once at PARTNER_COMMISSION_RATE
+  ---
+  duration_ms: 15.461678
+  type: 'test'
+  ...
+# Subtest: 4b. invoice.paid (subscription renewal) → handler ignores it: renewals are UNCREDITED (revenue rule check)
+ok 8 - 4b. invoice.paid (subscription renewal) → handler ignores it: renewals are UNCREDITED (revenue rule check)
+  ---
+  duration_ms: 7.23737
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.111Z',
+#   updatedAt: '2026-06-12T18:03:16.111Z',
+#   stripeSessionIds: [ 'cs_attr_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-ABC12345',
+#   name: 'Test Partner',
+#   email: 't@example.com',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_attr_1' ],
+#   updatedAt: '2026-06-12T18:03:16.114Z'
+# }
+# Subtest: 5a. partner ref present → KV record contains code + session id
+ok 9 - 5a. partner ref present → KV record contains code + session id
+  ---
+  duration_ms: 10.470892
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'clean@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.122Z',
+#   updatedAt: '2026-06-12T18:03:16.122Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# Subtest: 5b. no partner ref → clean entitlement, no partner writes, no crash
+ok 10 - 5b. no partner ref → clean entitlement, no partner writes, no crash
+  ---
+  duration_ms: 8.221405
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.141Z',
+#   updatedAt: '2026-06-12T18:03:16.141Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# [webhook] Dropped malformed partner ref on session cs_test_1
+# Subtest: 5c. malformed/oversized partner ref → sanitized or rejected, never stored raw
+ok 11 - 5c. malformed/oversized partner ref → sanitized or rejected, never stored raw
+  ---
+  duration_ms: 18.676397
+  type: 'test'
+  ...
+# Subtest: 6. unknown event type → 2xx and ZERO side effects
+ok 12 - 6. unknown event type → 2xx and ZERO side effects
+  ---
+  duration_ms: 3.158061
+  type: 'test'
+  ...
+# [webhook] Idempotency check failed (KV unavailable): Error: KV error: 500 forced failure
+#     at kv (file:///tmp/repo/lib/db.js:21:22)
+#     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+#     at async claimEvent (file:///tmp/repo/lib/db.js:61:15)
+#     at async handler (file:///tmp/repo/api/webhook.js:63:12)
+# Subtest: 7. KV write failure → handler must return non-2xx so Stripe retries (200 = silent royalty loss)
+ok 13 - 7. KV write failure → handler must return non-2xx so Stripe retries (200 = silent royalty loss)
+  ---
+  duration_ms: 3.589836
+  type: 'test'
+  ...
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.155Z',
+#   updatedAt: '2026-06-12T18:03:16.155Z',
+#   stripeSessionIds: [ 'cs_test_1' ]
+# }
+# [webhook] Unregistered partner code, commission withheld: CAI-NEVERSEEN cs_test_1
+# Subtest: 8. unregistered/non-accredited partner code must NOT accrue commission (no gate = High finding)
+ok 14 - 8. unregistered/non-accredited partner code must NOT accrue commission (no gate = High finding)
+  ---
+  duration_ms: 8.715687
+  type: 'test'
+  ...
+# [webhook] Idempotency check failed (KV unavailable): Error: KV error: 500 forced failure
+#     at kv (file:///tmp/repo/lib/db.js:21:22)
+#     at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+#     at async claimEvent (file:///tmp/repo/lib/db.js:61:15)
+#     at async handler (file:///tmp/repo/api/webhook.js:63:12)
+# [webhook] Entitlement granted: {
+#   email: 'buyer@example.com',
+#   slugs: [ '*' ],
+#   grantedAt: '2026-06-12T18:03:16.168Z',
+#   updatedAt: '2026-06-12T18:03:16.168Z',
+#   stripeSessionIds: [ 'cs_retry_1' ]
+# }
+# [webhook] Partner commission recorded: {
+#   code: 'CAI-RETRY',
+#   name: 'Test Partner',
+#   email: 't@example.com',
+#   salesCount: 1,
+#   totalEarned: 240,
+#   sessions: [ 'cs_retry_1' ],
+#   updatedAt: '2026-06-12T18:03:16.172Z'
+# }
+# Subtest: 9. KV outage then recovery: redelivered event is processed (claims released), credited once
+ok 15 - 9. KV outage then recovery: redelivered event is processed (claims released), credited once
+  ---
+  duration_ms: 18.402452
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 437.326426

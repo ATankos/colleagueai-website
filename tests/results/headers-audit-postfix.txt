@@ -1,0 +1,93 @@
+
+=== audit-headers vs http://localhost:4173 — 82 checks, 4 FAIL ===
+PASS    Critical H1   /agents        HSTS present, max-age ≥ 15552000 :: max-age=63072000; includeSubDomains; preload
+PASS    Critical H2   /agents        CSP present :: default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://va.vercel-scripts.com https://*.inges
+FAIL    Medium   H2b  /agents        CSP avoids unsafe-inline/unsafe-eval :: unsafe-inline,unsafe-inline
+PASS    High     H3   /agents        X-Content-Type-Options: nosniff :: nosniff
+PASS    High     H4   /agents        X-Frame-Options or frame-ancestors :: SAMEORIGIN
+PASS    Medium   H5   /agents        Referrer-Policy present :: strict-origin-when-cross-origin
+PASS    Medium   H6   /agents        Permissions-Policy present :: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), micr
+PASS    Critical I2   /              no meta robots noindex :: index, follow, max-snippet:-1, max-image-preview:large
+PASS    High     C1   /              self-referencing canonical on www host :: declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/agents
+PASS    Critical P1   /              prerendered: >2KB body text + H1 (no-JS fetch) :: textBytes=16869 h1=true
+PASS    High     T1   /              title pairs brand with category (not bare brand) :: AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI
+PASS    High     S1   /              Organization JSON-LD present & parses :: Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod
+PASS    High     M1   /              no mojibake (double-encoded UTF-8) :: 0 mojibake sequences
+PASS    Critical I2   /agents        no meta robots noindex :: index, follow, max-snippet:-1, max-image-preview:large
+PASS    High     C1   /agents        self-referencing canonical on www host :: declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/agents
+PASS    Critical P1   /agents        prerendered: >2KB body text + H1 (no-JS fetch) :: textBytes=16869 h1=true
+PASS    High     T1   /agents        title pairs brand with category (not bare brand) :: AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI
+PASS    High     S1   /agents        Organization JSON-LD present & parses :: Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod
+PASS    Medium   S2   /agents        FAQPage JSON-LD on /agents :: Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod
+PASS    High     S3   /agents        Product JSON-LD on store page :: 36×Product, Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList
+PASS    High     M1   /agents        no mojibake (double-encoded UTF-8) :: 0 mojibake sequences
+PASS    High     L1   /agents        hreflang for 8 locales + x-default :: en,cs,es,pt,fr,de,pl,it,x-default
+PASS    Critical I2   /demo          no meta robots noindex :: none
+PASS    High     C1   /demo          self-referencing canonical on www host :: declared: https://www.colleagueai.ai/demo; expected: https://www.colleagueai.ai/demo
+FAIL    Critical P1   /demo          prerendered: >2KB body text + H1 (no-JS fetch) :: textBytes=275 h1=true
+PASS    High     T1   /demo          title pairs brand with category (not bare brand) :: Live Demo — Try a Certified Enterprise AI Agent | Colleague AI
+PASS    High     S1   /demo          Organization JSON-LD present & parses :: Organization
+PASS    High     M1   /demo          no mojibake (double-encoded UTF-8) :: 0 mojibake sequences
+PASS    Critical I2   /partners      no meta robots noindex :: index, follow
+PASS    High     C1   /partners      self-referencing canonical on www host :: declared: https://www.colleagueai.ai/partners; expected: https://www.colleagueai.ai/partners
+PASS    Critical P1   /partners      prerendered: >2KB body text + H1 (no-JS fetch) :: textBytes=4257 h1=true
+PASS    High     T1   /partners      title pairs brand with category (not bare brand) :: Partner Programme — Resell Certified Enterprise AI Agents | Colleague AI
+PASS    High     S1   /partners      Organization JSON-LD present & parses :: Organization
+PASS    High     M1   /partners      no mojibake (double-encoded UTF-8) :: 0 mojibake sequences
+OPEN    High     P0   /trust         route 404s pending page creation (FIXES §3) :: HTTP 404, noindex=true
+OPEN    High     P0   /terms         route 404s pending page creation (FIXES §3) :: HTTP 404, noindex=true
+OPEN    High     P0   /privacy       route 404s pending page creation (FIXES §3) :: HTTP 404, noindex=true
+OPEN    High     P0   /license       route 404s pending page creation (FIXES §3) :: HTTP 404, noindex=true
+PASS    Critical I2   /cs/agenti     no meta robots noindex :: index, follow, max-snippet:-1, max-image-preview:large
+FAIL    High     C1   /cs/agenti     self-referencing canonical on www host :: declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/cs/agenti
+PASS    Critical P1   /cs/agenti     prerendered: >2KB body text + H1 (no-JS fetch) :: textBytes=16869 h1=true
+PASS    High     T1   /cs/agenti     title pairs brand with category (not bare brand) :: AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI
+PASS    High     S1   /cs/agenti     Organization JSON-LD present & parses :: Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod
+PASS    High     M1   /cs/agenti     no mojibake (double-encoded UTF-8) :: 0 mojibake sequences
+PASS    High     L1   /cs/agenti     hreflang for 8 locales + x-default :: en,cs,es,pt,fr,de,pl,it,x-default
+PASS    Critical I2   /de/agenten    no meta robots noindex :: index, follow, max-snippet:-1, max-image-preview:large
+FAIL    High     C1   /de/agenten    self-referencing canonical on www host :: declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/de/agenten
+PASS    Critical P1   /de/agenten    prerendered: >2KB body text + H1 (no-JS fetch) :: textBytes=16869 h1=true
+PASS    High     T1   /de/agenten    title pairs brand with category (not bare brand) :: AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI
+PASS    High     S1   /de/agenten    Organization JSON-LD present & parses :: Organization,WebPage,CollectionPage,BreadcrumbList,DefinedTerm,FAQPage,ItemList,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Product,Prod
+PASS    High     M1   /de/agenten    no mojibake (double-encoded UTF-8) :: 0 mojibake sequences
+PASS    High     L1   /de/agenten    hreflang for 8 locales + x-default :: en,cs,es,pt,fr,de,pl,it,x-default
+PASS    High     C2   /              canonical does not 30x-redirect :: https://www.colleagueai.ai/agents → HTTP 200 
+PASS    High     C2   /demo          canonical does not 30x-redirect :: https://www.colleagueai.ai/demo → HTTP 200 
+PASS    High     C2   /partners      canonical does not 30x-redirect :: https://www.colleagueai.ai/partners → HTTP 200 
+PASS    Critical R1   /robots.txt    robots.txt exists :: HTTP 200
+PASS    Critical R2   /robots.txt    no blanket Disallow: / :: User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extende
+PASS    High     R3   /robots.txt    allows GPTBot :: 
+PASS    High     R3   /robots.txt    allows ClaudeBot :: 
+PASS    High     R3   /robots.txt    allows PerplexityBot :: 
+PASS    High     R3   /robots.txt    allows Google-Extended :: 
+PASS    Medium   R4   /robots.txt    references sitemap :: Sitemap: https://www.colleagueai.ai/sitemap.xml
+PASS    High     SM1  /sitemap.xml   sitemap.xml exists + parses as XML :: HTTP 200
+PASS    High     SM2  /sitemap.xml   sitemap includes all 8 locale variants of /agents :: 9 urls
+PASS    High     SM3  https://www.colleagueai.ai/agents sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/agents sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/partners sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/partners sitemap URL serves real (prerendered) content :: textBytes=4257
+PASS    High     SM3  https://www.colleagueai.ai/cs/agenti sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/cs/agenti sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/es/agentes sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/es/agentes sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/pt/agentes sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/pt/agentes sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/fr/agents sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/fr/agents sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/de/agenten sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/de/agenten sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/pl/agenci sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/pl/agenci sitemap URL serves real (prerendered) content :: textBytes=16869
+PASS    High     SM3  https://www.colleagueai.ai/it/agenti sitemap URL resolves 200 (no 404/redirect) :: HTTP 200
+PASS    High     SM4  https://www.colleagueai.ai/it/agenti sitemap URL serves real (prerendered) content :: textBytes=16869

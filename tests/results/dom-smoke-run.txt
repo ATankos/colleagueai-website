@@ -1,0 +1,289 @@
+TAP version 13
+# ReferenceError: ORDER is not defined
+#     at https://www.colleagueai.ai/agents:13:1
+#     at https://www.colleagueai.ai/agents:17:3
+#     at Script.runInContext (node:vm:149:12)
+#     at Object.runInContext (node:vm:301:6)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+# https://www.colleagueai.ai/agents:12
+# }
+# ^
+# SyntaxError: Unexpected token '}'
+#     at new Script (node:vm:117:7)
+#     at createScript (node:vm:269:10)
+#     at Object.runInContext (node:vm:300:10)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+#     at HTMLScriptElementImpl._poppedOffStackOfOpenElements (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:123:10)
+# ReferenceError: ORDER is not defined
+#     at https://www.colleagueai.ai/agents:13:1
+#     at https://www.colleagueai.ai/agents:17:3
+#     at Script.runInContext (node:vm:149:12)
+#     at Object.runInContext (node:vm:301:6)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+# https://www.colleagueai.ai/agents:12
+# }
+# ^
+# SyntaxError: Unexpected token '}'
+#     at new Script (node:vm:117:7)
+#     at createScript (node:vm:269:10)
+#     at Object.runInContext (node:vm:300:10)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+#     at HTMLScriptElementImpl._poppedOffStackOfOpenElements (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:123:10)
+# ReferenceError: ORDER is not defined
+#     at https://www.colleagueai.ai/agents?partner=TESTPARTNER:13:1
+#     at https://www.colleagueai.ai/agents?partner=TESTPARTNER:17:3
+#     at Script.runInContext (node:vm:149:12)
+#     at Object.runInContext (node:vm:301:6)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+# https://www.colleagueai.ai/agents?partner=TESTPARTNER:12
+# }
+# ^
+# SyntaxError: Unexpected token '}'
+#     at new Script (node:vm:117:7)
+#     at createScript (node:vm:269:10)
+#     at Object.runInContext (node:vm:300:10)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+#     at HTMLScriptElementImpl._poppedOffStackOfOpenElements (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:123:10)
+# ReferenceError: ORDER is not defined
+#     at https://www.colleagueai.ai/agents?partner=TESTPARTNER:13:1
+#     at https://www.colleagueai.ai/agents?partner=TESTPARTNER:17:3
+#     at Script.runInContext (node:vm:149:12)
+#     at Object.runInContext (node:vm:301:6)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+# https://www.colleagueai.ai/agents?partner=TESTPARTNER:12
+# }
+# ^
+# SyntaxError: Unexpected token '}'
+#     at new Script (node:vm:117:7)
+#     at createScript (node:vm:269:10)
+#     at Object.runInContext (node:vm:300:10)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+#     at HTMLScriptElementImpl._poppedOffStackOfOpenElements (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:123:10)
+# ReferenceError: ORDER is not defined
+#     at https://www.colleagueai.ai/agents?partner=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:13:1
+#     at https://www.colleagueai.ai/agents?partner=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:17:3
+#     at Script.runInContext (node:vm:149:12)
+#     at Object.runInContext (node:vm:301:6)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+# https://www.colleagueai.ai/agents?partner=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX:12
+# }
+# ^
+# SyntaxError: Unexpected token '}'
+#     at new Script (node:vm:117:7)
+#     at createScript (node:vm:269:10)
+#     at Object.runInContext (node:vm:300:10)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+#     at HTMLScriptElementImpl._poppedOffStackOfOpenElements (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:123:10)
+# ReferenceError: ORDER is not defined
+#     at https://www.colleagueai.ai/agents?partner=TESTPARTNER:13:1
+#     at https://www.colleagueai.ai/agents?partner=TESTPARTNER:17:3
+#     at Script.runInContext (node:vm:149:12)
+#     at Object.runInContext (node:vm:301:6)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+# https://www.colleagueai.ai/agents?partner=TESTPARTNER:12
+# }
+# ^
+# SyntaxError: Unexpected token '}'
+#     at new Script (node:vm:117:7)
+#     at createScript (node:vm:269:10)
+#     at Object.runInContext (node:vm:300:10)
+#     at processJavaScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:231:10)
+#     at HTMLScriptElementImpl._innerEval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:166:5)
+#     at /tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:107:12
+#     at ResourceQueue.push (/tmp/repo/node_modules/jsdom/lib/jsdom/browser/resources/resource-queue.js:53:16)
+#     at HTMLScriptElementImpl._fetchInternalScript (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:106:21)
+#     at HTMLScriptElementImpl._eval (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:160:12)
+#     at HTMLScriptElementImpl._poppedOffStackOfOpenElements (/tmp/repo/node_modules/jsdom/lib/jsdom/living/nodes/HTMLScriptElement-impl.js:123:10)
+# Subtest: Book a call links are rewritten off "\#" once JS runs (fallback to /demo)
+ok 1 - Book a call links are rewritten off "\#" once JS runs (fallback to /demo)
+  ---
+  duration_ms: 868.982303
+  type: 'test'
+  ...
+# Subtest: STORE config has no live price / scheduler / payment links (dead checkout)
+not ok 2 - STORE config has no live price / scheduler / payment links (dead checkout)
+  ---
+  duration_ms: 438.860769
+  type: 'test'
+  location: '/tmp/repo/tests/dom-smoke.test.mjs:30:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: STORE.price is null — Price renders empty / "on request"'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/dom-smoke.test.mjs:37:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: ?partner= is captured to localStorage and survives navigation (attribution capture)
+ok 3 - ?partner= is captured to localStorage and survives navigation (attribution capture)
+  ---
+  duration_ms: 350.004167
+  type: 'test'
+  ...
+# Subtest: partner code is appended to outbound demo/partners links
+not ok 4 - partner code is appended to outbound demo/partners links
+  ---
+  duration_ms: 274.66828
+  type: 'test'
+  location: '/tmp/repo/tests/dom-smoke.test.mjs:46:1'
+  failureType: 'testCodeFailure'
+  error: 'demo links missing partner param: https://www.colleagueai.ai/demo https://www.colleagueai.ai/demo'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/dom-smoke.test.mjs:50:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: oversized partner param is truncated to 64 chars client-side
+ok 5 - oversized partner param is truncated to 64 chars client-side
+  ---
+  duration_ms: 257.410164
+  type: 'test'
+  ...
+# Subtest: checkout handoff: pay CTA href carries partner + client_reference_id (revenue-critical)
+not ok 6 - checkout handoff: pay CTA href carries partner + client_reference_id (revenue-critical)
+  ---
+  duration_ms: 340.0994
+  type: 'test'
+  location: '/tmp/repo/tests/dom-smoke.test.mjs:58:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: pay CTA is href="#" — dead checkout (also: no price ⇒ request mode)'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: '#'
+  actual: '#'
+  operator: '!='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/dom-smoke.test.mjs:67:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: REGRESSION: i18n engine boots — language switcher populated and applyLang runs
+not ok 7 - REGRESSION: i18n engine boots — language switcher populated and applyLang runs
+  ---
+  duration_ms: 316.907712
+  type: 'test'
+  location: '/tmp/repo/tests/dom-smoke.test.mjs:70:1'
+  failureType: 'testCodeFailure'
+  error: 'DEFECT: language dropdown has 0 options — i18n init crashed (ORDER/NAMES undefined): Uncaught [ReferenceError: ORDER is not defined]'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/dom-smoke.test.mjs:77:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+# Subtest: REGRESSION: every inline script parses (AGENTS_CS block has stray closing brace)
+not ok 8 - REGRESSION: every inline script parses (AGENTS_CS block has stray closing brace)
+  ---
+  duration_ms: 8.109895
+  type: 'test'
+  location: '/tmp/repo/tests/dom-smoke.test.mjs:81:1'
+  failureType: 'testCodeFailure'
+  error: "DEFECT: inline script(s) with syntax errors never execute in ANY browser: script#12: Unexpected token '}'"
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected:
+  actual:
+    0: "script#12: Unexpected token '}'"
+  operator: 'deepEqual'
+  stack: |-
+    TestContext.<anonymous> (file:///tmp/repo/tests/dom-smoke.test.mjs:88:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..8
+# tests 8
+# suites 0
+# pass 3
+# fail 5
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 4078.281444

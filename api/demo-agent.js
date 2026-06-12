@@ -3,14 +3,28 @@ import Anthropic from '@anthropic-ai/sdk';
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const DEMO_MAX_CALLS = Number(process.env.DEMO_MAX_CALLS ?? 500);
-let totalCalls = 0;
+let totalCalls = 0; // in-memory fallback only — KV path uses the demo:global counter
 
+// Rate limiting: KV-backed (survives cold starts and scales across instances).
+// Falls back to per-instance memory only when no KV is configured (local dev).
+import { rateLimit } from '../lib/db.js';
+const HAS_KV = Boolean((process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL)
+  && (process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN));
 const requestLog = new Map();
-function isRateLimited(ip) {
+async function isRateLimited(ip) {
+  const max = 10, windowSec = 60;
+  if (HAS_KV) {
+    try {
+      const ipOk = await rateLimit(`demo:ip:${ip}`, max, windowSec);
+      const globalOk = await rateLimit('demo:global', DEMO_MAX_CALLS, 24 * 60 * 60);
+      return !(ipOk && globalOk);
+    } catch (err) {
+      console.error('[demo] KV rate-limit unavailable, failing closed:', err.message);
+      return true; // fail closed: protects the Anthropic budget over demo availability
+    }
+  }
   const now = Date.now();
-  const window = 60 * 1000;
-  const max = 10;
-  const timestamps = (requestLog.get(ip) ?? []).filter(t => now - t < window);
+  const timestamps = (requestLog.get(ip) ?? []).filter(t => now - t < windowSec * 1000);
   if (timestamps.length >= max) return true;
   timestamps.push(now);
   requestLog.set(ip, timestamps);
@@ -27,9 +41,11 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const ip = req.headers['x-forwarded-for'] ?? 'unknown';
-  if (isRateLimited(ip)) return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
-  if (totalCalls >= DEMO_MAX_CALLS) return res.status(503).json({ error: 'Demo quota reached for today. Check back soon!' });
-  totalCalls += 1;
+  if (await isRateLimited(ip)) return res.status(429).json({ error: 'Too many requests. Please wait a moment.' });
+  if (!HAS_KV) { // KV path already enforces the daily global cap inside isRateLimited
+    if (totalCalls >= DEMO_MAX_CALLS) return res.status(503).json({ error: 'Demo quota reached for today. Check back soon!' });
+    totalCalls += 1;
+  }
 
   const { origin = 'ZRH', destination = 'YYZ', departureDate, cabin = 'ECONOMY', preferences = 'Best value' } = req.body;
 
