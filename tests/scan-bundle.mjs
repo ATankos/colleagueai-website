@@ -5,7 +5,8 @@
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-const ROOT = new URL('../dist', import.meta.url).pathname;
+import { fileURLToPath } from 'node:url';
+const ROOT = fileURLToPath(new URL('../dist', import.meta.url));
 const PATTERNS = [
   ['Stripe live secret key', /sk_live_[0-9a-zA-Z]{10,}/],
   ['Stripe test secret key', /sk_test_[0-9a-zA-Z]{10,}/],

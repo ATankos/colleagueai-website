@@ -7,8 +7,9 @@
 import http from 'node:http';
 import { readFileSync, existsSync } from 'node:fs';
 import { join, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const ROOT = new URL('../dist', import.meta.url).pathname;
+const ROOT = fileURLToPath(new URL('../dist', import.meta.url));
 const cfg = JSON.parse(readFileSync(new URL('../vercel.json', import.meta.url)));
 const PORT = Number(process.argv[2] ?? 4173);
 const MIME = { '.html':'text/html; charset=utf-8', '.js':'text/javascript', '.css':'text/css',
