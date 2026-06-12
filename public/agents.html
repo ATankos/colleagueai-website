@@ -2591,7 +2591,7 @@ try{localStorage.setItem("cai_lang",l);}catch(e){}
 if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshCalcI18n();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}
 window.applyLang=applyLang;
 var sel=document.getElementById("langsel");
-ORDER.filter(function(c){return I18N[c];}).forEach(function(c){var o=document.createElement("option");o.value=c;o.textContent=NAMES[c];sel.appendChild(o);});
+ORDER.forEach(function(c){var o=document.createElement("option");o.value=c;o.textContent=NAMES[c];sel.appendChild(o);});
 var init="en";try{var u=new URLSearchParams(location.search).get("lang");var s=localStorage.getItem("cai_lang");var b=(navigator.language||"en").slice(0,2);init=u||s||b;}catch(e){}
 if(!I18N[init])init="en";sel.value=init;sel.addEventListener("change",function(){applyLang(sel.value);if(window.caiTrack)caiTrack('lang_change',{lang:sel.value});});
 applyLang(init);
