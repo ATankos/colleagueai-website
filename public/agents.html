@@ -2859,5 +2859,9 @@ window.__rebuildGAQuiz=function(){
   });
 };
 </script>
+<script>
+/* LANGNOW fix: re-sync the active language after locale agent content is loaded */
+(function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
+</script>
 </body>
 </html>
