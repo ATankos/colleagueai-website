@@ -10,6 +10,9 @@
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 <meta name="theme-color" content="#F5F0E8" />
 <link rel="canonical" href="https://www.colleagueai.ai/agents" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
+<link rel="manifest" href="/manifest.json" />
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="Colleague AI" />
@@ -217,6 +220,7 @@
     display:flex;flex-direction:column;min-height:188px;position:relative;
   }
   .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--line-soft)}
+  .card:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
   .card .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
   .badge{
     font-family:"JetBrains Mono",monospace;font-weight:600;font-size:11px;letter-spacing:.04em;
@@ -2460,7 +2464,7 @@ function render(){
     const _loc=window.LANGNOW||'en';const _ldata=(_loc!=='en'&&window['AGENTS_'+_loc.toUpperCase()]&&window['AGENTS_'+_loc.toUpperCase()][slug])||null;
     const cardDesc=_ldata?_ldata.desc:a.desc;
     const cardKpi=_ldata?_ldata.kpi:a.kpi;
-    return `<article class="card" data-i="${idx}" style="--bc:${TIERS[a.t].c}">
+    return `<article class="card" data-i="${idx}" tabindex="0" role="button" aria-label="${a.n} — CAI ${a.t}, open details" style="--bc:${TIERS[a.t].c}">
       <div class="top"><span class="badge">${a.t}</span><span class="pill">${a.dom}</span></div>
       <h3>${a.n}</h3>
       <p class="desc">${cardDesc}</p>
@@ -2486,7 +2490,7 @@ document.getElementById('search').addEventListener('input',e=>{fSearch=e.target.
 
 /* ---------- DRAWER ---------- */
 const drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
-function openDrawer(i){
+function openDrawer(i){window.__caiDi=i;
   const a=AGENTS[i];
   const dbadge=document.getElementById('d-badge');
   dbadge.textContent=a.t; dbadge.style.background=TIERS[a.t].c;
@@ -2520,8 +2524,9 @@ function openDrawer(i){
   if(window.caiTrack) caiTrack('agent_view',{agent:a.n,tier:a.t,pillar:a.p});
   document.getElementById('drawer').querySelector('.drawer-body').scrollTop=0;
 }
-function closeDrawer(){drawer.classList.remove('open');scrim.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
+function closeDrawer(){window.__caiDi=null;drawer.classList.remove('open');scrim.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
 grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openDrawer(+c.dataset.i);});
+grid.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const c=e.target.closest('.card');if(c){e.preventDefault();openDrawer(+c.dataset.i);}}});
 document.getElementById('dclose').addEventListener('click',closeDrawer);
 scrim.addEventListener('click',closeDrawer);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
@@ -2600,7 +2605,7 @@ document.querySelectorAll("[data-i18n]").forEach(function(e){var v=window.T(e.ge
 document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-html"));if(v!=null)e.innerHTML=v;});
 document.querySelectorAll("[data-i18n-ph]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-ph"));if(v!=null)e.setAttribute("placeholder",v);});
 try{localStorage.setItem("cai_lang",l);}catch(e){}
-if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshCalcI18n();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}
+if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshCalcI18n();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();var _dr=document.getElementById('drawer');if(_dr&&_dr.classList.contains('open')&&window.__caiDi!=null&&typeof openDrawer==='function'){openDrawer(window.__caiDi);}}
 window.applyLang=applyLang;
 var ORDER=["en","cs","de","fr","es","it","pt","pl"];
 var NAMES={en:"English",cs:"Čeština",de:"Deutsch",fr:"Français",es:"Español",it:"Italiano",pt:"Português",pl:"Polski"};
