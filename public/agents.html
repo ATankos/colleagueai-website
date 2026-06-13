@@ -2475,7 +2475,7 @@ document.getElementById('search').addEventListener('input',e=>{fSearch=e.target.
 
 /* ---------- DRAWER ---------- */
 const drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
-function openDrawer(i){
+function openDrawer(i){window.__caiDi=i;
   const a=AGENTS[i];
   const dbadge=document.getElementById('d-badge');
   dbadge.textContent=a.t; dbadge.style.background=TIERS[a.t].c;
@@ -2509,7 +2509,7 @@ function openDrawer(i){
   if(window.caiTrack) caiTrack('agent_view',{agent:a.n,tier:a.t,pillar:a.p});
   document.getElementById('drawer').querySelector('.drawer-body').scrollTop=0;
 }
-function closeDrawer(){drawer.classList.remove('open');scrim.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
+function closeDrawer(){window.__caiDi=null;drawer.classList.remove('open');scrim.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
 grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openDrawer(+c.dataset.i);});
 document.getElementById('dclose').addEventListener('click',closeDrawer);
 scrim.addEventListener('click',closeDrawer);
@@ -2588,7 +2588,7 @@ document.querySelectorAll("[data-i18n]").forEach(function(e){var v=window.T(e.ge
 document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-html"));if(v!=null)e.innerHTML=v;});
 document.querySelectorAll("[data-i18n-ph]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-ph"));if(v!=null)e.setAttribute("placeholder",v);});
 try{localStorage.setItem("cai_lang",l);}catch(e){}
-if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshCalcI18n();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}
+if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshCalcI18n();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();var _dr=document.getElementById('drawer');if(_dr&&_dr.classList.contains('open')&&window.__caiDi!=null&&typeof openDrawer==='function'){openDrawer(window.__caiDi);}}
 window.applyLang=applyLang;
 var sel=document.getElementById("langsel");
 ORDER.forEach(function(c){var o=document.createElement("option");o.value=c;o.textContent=NAMES[c];sel.appendChild(o);});
@@ -2849,6 +2849,10 @@ window.__rebuildGAQuiz=function(){
 </script>
 <script>
 /* LANGNOW fix: re-sync the active language after locale agent content is loaded */
+(function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
+</script>
+<script>
+/* LANGNOW fix: re-sync the active language once locale agent content is loaded */
 (function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
 </script>
 </body>
