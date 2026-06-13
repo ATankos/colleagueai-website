@@ -1,0 +1,5 @@
+Contact: mailto:hello@colleagueai.ai
+Expires: 2027-06-30T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://www.colleagueai.ai/.well-known/security.txt
+Policy: https://www.colleagueai.ai/trust
