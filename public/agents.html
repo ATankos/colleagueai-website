@@ -213,6 +213,7 @@
     display:flex;flex-direction:column;min-height:188px;position:relative;
   }
   .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--line-soft)}
+  .card:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
   .card .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
   .badge{
     font-family:"JetBrains Mono",monospace;font-weight:600;font-size:11px;letter-spacing:.04em;
@@ -2452,7 +2453,7 @@ function render(){
     const _loc=window.LANGNOW||'en';const _ldata=(_loc!=='en'&&window['AGENTS_'+_loc.toUpperCase()]&&window['AGENTS_'+_loc.toUpperCase()][slug])||null;
     const cardDesc=_ldata?_ldata.desc:a.desc;
     const cardKpi=_ldata?_ldata.kpi:a.kpi;
-    return `<article class="card" data-i="${idx}" style="--bc:${TIERS[a.t].c}">
+    return `<article class="card" data-i="${idx}" tabindex="0" role="button" aria-label="${a.n} — CAI ${a.t}, open details" style="--bc:${TIERS[a.t].c}">
       <div class="top"><span class="badge">${a.t}</span><span class="pill">${a.dom}</span></div>
       <h3>${a.n}</h3>
       <p class="desc">${cardDesc}</p>
@@ -2514,6 +2515,7 @@ function openDrawer(i){window.__caiDi=i;
 }
 function closeDrawer(){window.__caiDi=null;drawer.classList.remove('open');scrim.classList.remove('open');drawer.setAttribute('aria-hidden','true');}
 grid.addEventListener('click',e=>{const c=e.target.closest('.card');if(c)openDrawer(+c.dataset.i);});
+grid.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){const c=e.target.closest('.card');if(c){e.preventDefault();openDrawer(+c.dataset.i);}}});
 document.getElementById('dclose').addEventListener('click',closeDrawer);
 scrim.addEventListener('click',closeDrawer);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDrawer();});
