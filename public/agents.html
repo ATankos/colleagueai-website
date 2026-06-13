@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -2846,6 +2846,10 @@ window.__rebuildGAQuiz=function(){
     wrap.appendChild(opts);quiz.appendChild(wrap);
   });
 };
+</script>
+<script>
+/* LANGNOW fix: re-sync the active language after locale agent content is loaded */
+(function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
 </script>
 </body>
 </html>
