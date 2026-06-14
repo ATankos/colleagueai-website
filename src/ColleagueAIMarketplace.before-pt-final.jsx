@@ -841,7 +841,7 @@ const cs = {
 };
 
 const de = {
-  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Philosophie', pricing: 'Preise', contact: 'Contacto' },
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Philosophie', pricing: 'Preise', contact: 'Kontakt' },
   hero: {
     eyebrow: 'DER COLLEAGUE AI MARKETPLACE',
     h1a: 'KI-Agenten, die Sie',
@@ -937,7 +937,7 @@ const it = {
 };
 
 const pl = {
-  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofia', pricing: 'Cennik', contact: 'Contacto' },
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofia', pricing: 'Cennik', contact: 'Kontakt' },
   hero: {
     eyebrow: 'MARKETPLACE COLLEAGUE AI',
     h1a: 'Agenci AI, ktÃ³rych moÅ¼esz',
