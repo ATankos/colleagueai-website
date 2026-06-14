@@ -2871,5 +2871,17 @@ window.__rebuildGAQuiz=function(){
 /* LANGNOW fix: re-sync the active language once locale agent content is loaded */
 (function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
 </script>
+<div id="cai-privacy" class="cai-privacy" role="dialog" aria-label="Privacy notice" hidden>
+  <span>We use privacy-friendly, <strong>cookieless</strong> analytics — no personal tracking or ad cookies. See our <a href="/privacy">Privacy Policy</a>.</span>
+  <button id="cai-privacy-ok" type="button">Got it</button>
+</div>
+<style>
+.cai-privacy{position:fixed;left:16px;right:16px;bottom:16px;max-width:560px;margin:0 auto;background:#2B2A28;color:#F5F0E8;border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center;justify-content:space-between;font:14px/1.5 "Geist",system-ui,sans-serif;box-shadow:0 12px 40px rgba(43,42,40,.3);z-index:9999}
+.cai-privacy a{color:#E8A07F}
+.cai-privacy button{flex:none;background:#F5F0E8;color:#2B2A28;border:0;border-radius:999px;padding:8px 18px;font-weight:600;cursor:pointer}
+.cai-privacy button:hover{background:#fff}
+@media(max-width:520px){.cai-privacy{flex-direction:column;align-items:flex-start}}
+</style>
+<script>(function(){try{var k="cai-privacy-ack",el=document.getElementById("cai-privacy");if(!el)return;if(!localStorage.getItem(k))el.hidden=false;document.getElementById("cai-privacy-ok").addEventListener("click",function(){try{localStorage.setItem(k,"1")}catch(e){}el.hidden=true});}catch(e){}})();</script>
 </body>
 </html>
