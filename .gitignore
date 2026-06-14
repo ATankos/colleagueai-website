@@ -31,3 +31,8 @@ dist-ssr
 
 # Lighthouse CI
 /.lighthouseci/
+
+# Local environment files
+.env
+.env.local
+.env.*.local
