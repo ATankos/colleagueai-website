@@ -5,34 +5,22 @@ const MOJIBAKE_PATTERNS = ['Ã¡', 'Ã©', 'Ã­', 'Ä›', 'Å™', 'Å¡', 'Å
 async function switchToCzech(page) {
   await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 30000 })
 
-  const candidates = [
-    page.getByRole('button', { name: /^CS$/i }),
-    page.getByRole('button', { name: /Čeština|Česky|Czech|CS/i }),
-    page.getByText(/^CS$/i),
-    page.getByText(/Čeština|Česky|Czech/i),
-  ]
+  // The language options are inside a dropdown.
+  // The visible button is usually "EN ▾", then the menu contains "CS Čeština".
+  const langDropdown = page.locator('button[aria-haspopup="listbox"]').first()
+  await expect(langDropdown).toBeVisible({ timeout: 10000 })
+  await langDropdown.click()
 
-  let switched = false
+  const czechOption = page.getByRole('button', { name: /CS\s+Čeština|CS|Čeština/i }).first()
+  await expect(czechOption).toBeVisible({ timeout: 10000 })
+  await czechOption.click()
 
-  for (const candidate of candidates) {
-    try {
-      const count = await candidate.count()
-      if (count > 0) {
-        await candidate.first().click({ timeout: 5000 })
-        switched = true
-        break
-      }
-    } catch {
-      // Try next selector candidate.
-    }
-  }
+  // Confirm Czech rendered content appears.
+  await expect(page.getByText(/skutečně|Certifikovaní|Připraveni|Filozofie|Ceník/i).first()).toBeVisible({
+    timeout: 10000,
+  })
 
-  if (!switched) {
-    await page.screenshot({ path: 'test-results/czech-switch-missing.png', fullPage: true })
-    throw new Error('Could not find a Czech locale switcher. Expected button/text like CS, Česky, Čeština, or Czech.')
-  }
-
-  // Do not let remote/local font loading block the entire test for 30 seconds.
+  // Do not let font loading hang the full test.
   await Promise.race([
     page.evaluate(() => document.fonts && document.fonts.ready),
     page.waitForTimeout(5000),
