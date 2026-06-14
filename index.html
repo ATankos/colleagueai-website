@@ -3,9 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="/favicon.ico" sizes="any" />`r`n<link rel="icon" type="image/svg+xml" href="/favicon.svg" />`r`n<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="apple-touch-icon" href="/icon-192.png" />`r`n<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/icon-192.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
     <title>Live Demo — Try a Certified Enterprise AI Agent | Colleague AI</title>
     <meta
@@ -24,6 +28,11 @@
       content="Certified, audit-ready AI agents for finance, compliance, and operations. Built to work. Built to be trusted."
     />
 
+    <meta property="og:image" content="https://www.colleagueai.ai/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Colleague AI — the trust layer for enterprise AI." />
+
     <!-- Twitter card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Live Demo — Try a Certified Enterprise AI Agent | Colleague AI" />
@@ -31,30 +40,46 @@
       name="twitter:description"
       content="Certified, audit-ready AI agents for finance, compliance, and operations. Built to work. Built to be trusted."
     />
+    <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png" />
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
 </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F5F0E8;font-family:Georgia,'Times New Roman',serif"><div style="text-align:center"><div style="display:flex;gap:9px;justify-content:center;margin-bottom:16px"><span style="width:13px;height:13px;border-radius:50%;background:#C65D3A;display:inline-block"></span><span style="width:13px;height:13px;border-radius:50%;background:#2B2A28;display:inline-block"></span><span style="width:13px;height:13px;border-radius:50%;background:#C4A882;display:inline-block"></span></div><div style="font-size:30px;letter-spacing:-.01em;color:#2B2A28">colleague<span style="color:#C65D3A">ai</span></div></div></div></div>
 
     <noscript>
-      <div style="max-width: 640px; margin: 60px auto; padding: 40px 20px; font-family: system-ui, -apple-system, sans-serif; color: #1D1B1A; text-align: center; line-height: 1.5;">
-        <h1 style="font-size: 36px; font-weight: 500; margin: 0 0 16px; letter-spacing: -0.02em;">
-          Colleague<span style="color: #A8482A;">ai</span>
+      <div style="max-width: 800px; margin: 60px auto; padding: 40px 24px; font-family: system-ui, -apple-system, sans-serif; color: #1D1B1A; line-height: 1.6;">
+        <h1 style="font-size: 36px; font-weight: 500; margin: 0 0 8px; letter-spacing: -0.02em; text-align: center;">
+          Try a Certified Enterprise AI Agent — Live Demo
         </h1>
-        <p style="font-size: 18px; margin: 0 0 8px;">
-          Certified, audit-ready AI agents for finance, compliance, and operations.
+        <p style="font-size: 18px; text-align: center; color: #4A4641; margin: 0 0 40px;">
+          Colleague AI builds certified, audit-ready AI agents for finance, compliance, and operations.
+          Book a live demo to see any agent running in a sandboxed environment before you commit.
         </p>
-        <p style="font-size: 16px; color: #4A4641; margin: 24px 0;">
-          This site uses JavaScript to render. Please enable JavaScript in your browser, or get in touch directly:
-        </p>
-        <p style="font-size: 18px; margin: 16px 0;">
-          <a href="mailto:hello@colleagueai.ai" style="color: #A8482A; text-decoration: none; font-weight: 500;">
-            hello@colleagueai.ai
-          </a>
-        </p>
-      </div>
-    </noscript>
 
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
-</html>
+        <h2 style="font-size: 22px; font-weight: 500; margin: 32px 0 12px;">What you will see in the demo</h2>
+        <p>
+          During the 30-minute session a Colleague AI engineer walks you through one or more agents from the catalogue — typically chosen to match your industry and the use case your team has in mind.
+          You interact with the agent directly: upload a sample document, ask a compliance question, or trigger an audit workflow.
+          Every action the agent takes is logged in real time in the audit trail panel, so you can verify that nothing happens outside the permitted scope defined by the agent's CAI Score tier.
+        </p>
+
+        <h2 style="font-size: 22px; font-weight: 500; margin: 32px 0 12px;">The CAI Score framework</h2>
+        <p>
+          Every agent in the Colleague AI catalogue is evaluated against the CAI Score, a five-tier risk classification framework that defines what an agent is and is not permitted to do.
+          Tier L1 covers read-only informational agents. Tier L5 covers agents that act with full autonomy in well-defined, bounded domains.
+          The tier level is displayed on each agent's product page alongside the specific guardrails that enforce it.
+          Because the tier definitions are part of the product itself, your legal and compliance teams can review exactly what an agent does — before procurement.
+        </p>
+
+        <h2 style="font-size: 22px; font-weight: 500; margin: 32px 0 12px;">Who the demo is for</h2>
+        <p>
+          The live demo is designed for enterprise evaluation teams: finance directors, heads of compliance, IT security leads, and procurement managers who need to verify an AI tool against internal governance standards before approving it for deployment.
+          If you are a developer or partner, you can also book a technical session to review the API surface, deployment model, and integration options.
+        </p>
+
+        <h2 style="font-size: 22px; font-weight: 500; margin: 32px 0 12px;">Deployment and data handling</h2>
+        <p>
+          Colleague AI agents are designed to run in your environment, not ours.
+          The demo uses a sandboxed cloud instance with synthetic data.
+          In production, agents are deployed into your VPC or on-premise infrastructure so that no customer data ever leaves your perimeter.
+          There are no third-party AI model calls to external APIs in the data path: all inference run

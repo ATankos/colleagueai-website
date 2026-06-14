@@ -210,8 +210,13 @@ If the laptop is destroyed: clone the GitHub repo on any machine, run `npm insta
 
 ---
 
-## Document review log
+## 11. Upstash KV — data layer recovery
 
-| Date | Reviewer | Notes |
-|---|---|---|
-| 2026-05-18 | Alexandr | Initial version. People + service emails filled in. GitHub 2FA enabled. Open TODOs: confirm GitHub recovery codes location, enable Porkbun 2FA, enable Google 2FA + save recovery codes, confirm Porkbun auto-renew + expiry, invite Marek as repo collaborator. |
+Colleague AI uses Upstash Redis (REST API) for entitlements, partner records, idempotency locks, and rate-limit counters.
+
+### Credentials
+
+| Key | Purpose |
+|---|---|
+| `KV_REST_API_URL` | Upstash REST endpoint (`https://<database>.upstash.io`) — set in Vercel env vars |
+| `KV_REST_API_TOKEN` | Upsta
