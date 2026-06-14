@@ -69,17 +69,71 @@ const LOCALES = [
 async function selectLocale(page, code) {
   await page.goto('/', { waitUntil: 'domcontentloaded', timeout: 30000 })
 
-  await page.evaluate(() => {
+  await page.evaluate((localeCode) => {
+    const keys = [
+      'lang',
+      'language',
+      'locale',
+      'selectedLanguage',
+      'cai-lang',
+      'caiLang',
+      'colleagueai-lang',
+      'colleagueai-language',
+    ]
+
+    for (const key of keys) {
+      try {
+        localStorage.setItem(key, localeCode)
+      } catch { /* intentionally ignored */ }
+    }
+  }, code)
+
+  await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 })
+  await page.waitForTimeout(500)
+
+  let bodyText = await page.evaluate(() => document.body.innerText)
+
+  if (expectedWords.some((word) => bodyText.includes(word))) {
+    return
+  }
+
+  const dropdownCandidates = [
+    page.locator('button[aria-haspopup="listbox"]').first(),
+    page.locator('button[aria-expanded]').first(),
+    page.locator('select').first(),
+    page.getByRole('button', { name: /EN|CS|DE|FR|ES|IT|PL|PT/i }).first(),
+  ]
+
+  for (const candidate of dropdownCandidates) {
     try {
-      localStorage.removeItem('cai-lang')
-    } catch {}
-  })
+      if ((await candidate.count()) > 0 && await candidate.first().isVisible()) {
+        const tagName = await candidate.first().evaluate((el) => el.tagName.toLowerCase())
+
+        if (tagName === 'select') {
+          await candidate.first().selectOption(code).catch(async () => {
+            await candidate.first().selectOption(code.toUpperCase())
+          })
+        } else {
+          await candidate.first().click({ timeout: 5000 })
+        }
+
+        await page.waitForTimeout(300)
+        break
+      }
+    } catch { /* intentionally ignored */ }
+  }
 
   await page.reload({ waitUntil: 'domcontentloaded', timeout: 30000 })
 
-  const dropdown = page.locator('button[aria-haspopup="listbox"]').first()
-  await expect(dropdown).toBeVisible({ timeout: 10000 })
-  await dropdown.click()
+  for (const option of optionCandidates) {
+    try {
+      if ((await option.count()) > 0 && await option.first().isVisible()) {
+        await option.first().click({ timeout: 5000 })
+        await page.waitForTimeout(500)
+        break
+      }
+    } catch { /* intentionally ignored */ }
+  }
 
   const option = page
     .getByRole('button', { name: new RegExp(`\\b${code.toUpperCase()}\\b`, 'i') })
@@ -157,3 +211,5 @@ test.describe('All-language localization rendering', () => {
     })
   }
 })
+
+

@@ -1,12 +1,12 @@
-import { test, expect } from '@playwright/test'
+﻿import { test, expect } from '@playwright/test'
 
-// EDGE-CASE TESTS — run only on chromium (these are environment checks,
+// EDGE-CASE TESTS â€” run only on chromium (these are environment checks,
 // not rendering-engine checks; running on 5 browsers adds nothing).
-const onlyChromium = ({}, testInfo) =>
+const onlyChromium = (_page, testInfo) =>
   test.skip(testInfo.project.name !== 'chromium', 'Chromium only')
 
 // ------------------------------------------------------------------
-// TEST 1 — JavaScript disabled
+// TEST 1 â€” JavaScript disabled
 // ------------------------------------------------------------------
 // React SPAs typically render nothing without JS. We want at minimum:
 //   * a <noscript> message visible
@@ -16,7 +16,7 @@ const onlyChromium = ({}, testInfo) =>
 test.describe('Edge case: JavaScript disabled', () => {
   test('shows fallback content with contact info when JS is off', async ({ browser }, testInfo) => {
     onlyChromium({}, testInfo)
-    // Open a NEW context with JS disabled — original context unaffected
+    // Open a NEW context with JS disabled â€” original context unaffected
     const context = await browser.newContext({ javaScriptEnabled: false })
     const page = await context.newPage()
     await page.goto('/')
@@ -39,7 +39,7 @@ test.describe('Edge case: JavaScript disabled', () => {
 })
 
 // ------------------------------------------------------------------
-// TEST 2 — 200% browser zoom
+// TEST 2 â€” 200% browser zoom
 // ------------------------------------------------------------------
 // At 200% zoom (a WCAG 1.4.4 requirement), text must reflow without
 // horizontal scrolling. We assert no horizontal overflow at zoomed viewport.
@@ -47,7 +47,7 @@ test.describe('Edge case: JavaScript disabled', () => {
 test.describe('Edge case: 200% zoom', () => {
   test('content reflows at 200% zoom without horizontal scrolling', async ({ browser }, testInfo) => {
     onlyChromium({}, testInfo)
-    // Simulating 200% zoom by halving the viewport width — that's what 200%
+    // Simulating 200% zoom by halving the viewport width â€” that's what 200%
     // effectively does to the layout from a CSS perspective.
     const context = await browser.newContext({
       viewport: { width: 720, height: 900 }, // ~half of 1440x900
@@ -77,10 +77,10 @@ test.describe('Edge case: 200% zoom', () => {
 })
 
 // ------------------------------------------------------------------
-// TEST 3 — Slow 3G network
+// TEST 3 â€” Slow 3G network
 // ------------------------------------------------------------------
 // Site should still load and become interactive within a reasonable budget
-// (we use 20s as the ceiling — generous for true 3G).
+// (we use 20s as the ceiling â€” generous for true 3G).
 // Uses Chrome DevTools Protocol to throttle the network.
 
 test.describe('Edge case: slow 3G', () => {
@@ -109,10 +109,12 @@ test.describe('Edge case: slow 3G', () => {
 
     expect(
       elapsed,
-      `Hero took ${elapsed}ms to render on simulated slow 3G — exceeds 20s budget`
+      `Hero took ${elapsed}ms to render on simulated slow 3G â€” exceeds 20s budget`
     ).toBeLessThan(20000)
 
     console.log(`[3G] Hero visible after ${elapsed}ms`)
     await context.close()
   })
 })
+
+
