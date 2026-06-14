@@ -354,7 +354,7 @@ export default function ColleagueAIMarketplace() {
           </div>
         </div>
 
-        <a href="#" className="link-hover" style={{
+        <a href="/trust" className="link-hover" style={{
           display: 'inline-block', marginTop: '40px',
           color: '#E89270', fontSize: '15px', fontWeight: 500,
           borderBottom: '1px solid #E89270', paddingBottom: '2px',
@@ -653,8 +653,8 @@ export default function ColleagueAIMarketplace() {
             <span style={{ color: '#A8482A' }}>ai</span>
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
-            <a href="#" className="link-hover">{t.footer.privacy}</a>
-            <a href="#" className="link-hover">{t.footer.terms}</a>
+            <a href="/privacy" className="link-hover">{t.footer.privacy}</a>
+            <a href="/terms" className="link-hover">{t.footer.terms}</a>
           </div>
         </div>
       </footer>
