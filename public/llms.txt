@@ -12,7 +12,7 @@
 
 - [Agent Catalogue](https://www.colleagueai.ai/agents): all 36 certified agents with CAI Score tiers, ROI and compliance posture
 - [Live Demo](https://www.colleagueai.ai/demo): try an agent
-- [Partner Programme](https://www.colleagueai.ai/partners): referral and resale partnership with tracked attribution
+- [Partner Programme](https://www.colleagueai.ai/partners): referral and resale partnership with tracked attribution`r`n- [Trust Center](https://www.colleagueai.ai/trust): governance evidence, client-hosted architecture, subprocessors, security disclosure
 - [Sitemap](https://www.colleagueai.ai/sitemap.xml)
 
 ## Locales
