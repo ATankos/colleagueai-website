@@ -7,15 +7,7 @@
 <meta name="description" content="Adopt a Colleague AI agent, bring it to your clients, and earn 20% of every sale. Self-serve. No approval. Instant link.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.colleagueai.ai/partners">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://www.colleagueai.ai/partners">
-<meta property="og:title" content="Partner Programme — Resell Certified Enterprise AI Agents | Colleague AI">
-<meta property="og:description" content="Adopt a Colleague AI agent, bring it to your clients, and earn 20% of every sale. Self-serve. No approval. Instant link.">
 <meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Colleague AI Partner Programme — earn 20% on every agent sale.">
-<meta property="og:site_name" content="Colleague AI">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -426,4 +418,26 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
       fetch('/api/partner-register',{method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,email,code})}).catch(()=>{});
-    
+    }catch(e){
+      errEl.textContent='Something went wrong. Please try again.';
+      errEl.classList.add('show');
+    }
+    btn.textContent='Generate my partner link →'; btn.disabled=false;
+  });
+
+  /* Copy to clipboard */
+  copyBtn.addEventListener('click',function(){
+    const link=linkVal.textContent;
+    navigator.clipboard.writeText(link).then(()=>{
+      copyBtn.textContent='Copied!'; copyBtn.classList.add('copied');
+      setTimeout(()=>{copyBtn.textContent='Copy';copyBtn.classList.remove('copied');},2000);
+    }).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+      copyBtn.textContent='Copied!';setTimeout(()=>{copyBtn.textContent='Copy';},2000);
+    });
+  });
+})();
+</script>
+</body>
+</html>

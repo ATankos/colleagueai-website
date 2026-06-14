@@ -44,7 +44,7 @@
     {
       "source": "/",
       "destination": "/agents",
-      "permanent": false
+      "permanent": true
     }
   ],
   "rewrites": [

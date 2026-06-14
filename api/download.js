@@ -24,6 +24,7 @@
 
 import { AwsClient } from 'aws4fetch';  // install: npm i aws4fetch
 import { isEntitled } from '../lib/db.js';
+import { verifyDownload } from '../lib/downloadToken.js';
 
 const TTL = Number(process.env.SIGNED_URL_TTL_SECONDS ?? 900); // 15 min default
 
