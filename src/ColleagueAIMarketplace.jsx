@@ -752,7 +752,7 @@ const en = {
 };
 
 const cs = {
-  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofie', pricing: 'CenÃ­k', contact: 'Contacto' },
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofie', pricing: 'CenÃ­k', contact: 'Kontakt' },
   hero: {
     eyebrow: 'PÅ˜EDSTAVUJEME COLLEAGUE AI MARKETPLACE',
     h1a: 'AI agenti, kterÃ© lze',
@@ -828,7 +828,7 @@ const cs = {
       {
         tag: 'ENTERPRISE', name: 'Enterprise', price: 'Na mÃ­ru', period: '',
         features: ['NeomezenÃ½ poÄet agentÅ¯', 'PokrytÃ­ rizika L1â€“L5', 'White-label varianta', 'DedikovanÃ½ tÃ½m', 'Big 4 metodologie'],
-        cta: 'Contactoovat',
+        cta: 'Kontaktovat',
       },
     ],
   },
@@ -860,7 +860,7 @@ const de = {
   agents: en.agents,
   phil: en.phil,
   price: en.price,
-  contact: { eyebrow: 'Contacto', h2a: 'Bereit fÃ¼r', h2b: 'vertrauenswÃ¼rdige KI?' },
+  contact: { eyebrow: 'KONTAKT', h2a: 'Bereit fÃ¼r', h2b: 'vertrauenswÃ¼rdige KI?' },
   footer: { privacy: 'Datenschutz', terms: 'AGB' },
 };
 
@@ -956,7 +956,7 @@ const pl = {
   agents: en.agents,
   phil: en.phil,
   price: en.price,
-  contact: { eyebrow: 'SContactoUJ SIÄ˜', h2a: 'Gotowy na wdroÅ¼enie', h2b: 'godnego zaufania AI?' },
+  contact: { eyebrow: 'SKONTAKTUJ SIÄ˜', h2a: 'Gotowy na wdroÅ¼enie', h2b: 'godnego zaufania AI?' },
   footer: { privacy: 'PrywatnoÅ›Ä‡', terms: 'Warunki' },
 };
 
