@@ -32,13 +32,4 @@
 
 ## Production note
 
-A GitHub branch push does not automatically update the production website unless Vercel is configured to deploy that branch as production.
-
-Normally:
-
-1. Push branch to GitHub.
-2. Open pull request.
-3. Review tests.
-4. Merge to main.
-5. Vercel deploys main to production.
-6. Verify live site.
+This repository normally updates the live website after main is pushed and Vercel deploys the production branch.
