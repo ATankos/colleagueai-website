@@ -30,7 +30,7 @@ export default function ColleagueAIMarketplace() {
   }, []);
 
   useEffect(() => {
-    try { localStorage.setItem('cai-lang', lang); } catch {}
+    try { localStorage.setItem('cai-lang', lang); } catch { /* intentionally ignored */ }
   }, [lang]);
 
   useEffect(() => {
@@ -1005,6 +1005,8 @@ const pt = {
     terms: 'Termos',
   },
 }; const translations = { en, cs, de, fr, es, it, pl, pt };
+
+
 
 
 

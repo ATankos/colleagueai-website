@@ -34,7 +34,7 @@ async function selectLocale(page, code, expectedWords = []) {
     for (const key of keys) {
       try {
         localStorage.setItem(key, localeCode)
-      } catch {}
+      } catch { /* intentionally ignored */ }
     }
   }, code)
 
@@ -70,7 +70,7 @@ async function selectLocale(page, code, expectedWords = []) {
         await page.waitForTimeout(300)
         break
       }
-    } catch {}
+    } catch { /* intentionally ignored */ }
   }
 
   const optionCandidates = [
@@ -86,7 +86,7 @@ async function selectLocale(page, code, expectedWords = []) {
         await page.waitForTimeout(500)
         break
       }
-    } catch {}
+    } catch { /* intentionally ignored */ }
   }
 
   bodyText = await page.evaluate(() => document.body.innerText)
@@ -147,3 +147,5 @@ test.describe('All-language localization rendering', () => {
     })
   }
 })
+
+
