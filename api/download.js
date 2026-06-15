@@ -1,32 +1,23 @@
-/**
- * api/download.js — Gated download endpoint
+﻿/**
+ * api/download.js - Gated download endpoint
  *
- * GET /api/download?email=<email>&slug=<agent-slug>
+ * GET /api/download?email=<email>&slug=<agent-slug>&exp=<unix>&sig=<signature>
  *
- * Checks the entitlement record for the email.
+ * Checks a signed download token first.
+ * Then checks the entitlement record for the email.
  * If entitled: returns a signed, time-limited URL to the artifact in R2/S3.
  * If not entitled: returns 403.
- *
- * Required env vars (set in Vercel project settings, never in code):
- *   R2_ACCOUNT_ID       — Cloudflare account ID
- *   R2_ACCESS_KEY_ID    — R2 API token access key
- *   R2_SECRET_ACCESS_KEY — R2 API token secret
- *   R2_BUCKET_NAME      — e.g. "colleague-ai-artifacts"
- *   R2_PUBLIC_ENDPOINT  — e.g. "https://<account>.r2.cloudflarestorage.com"
- *
- * Alternatively use AWS S3 — swap the AwsClient calls for the AWS SDK.
- * Signed URLs expire after 15 minutes (configurable via SIGNED_URL_TTL_SECONDS).
- *
- * Artifact path convention in R2/S3:
- *   agents/<slug>/dossier.pdf
- *   agents/<slug>/connect-package.zip
  */
 
-import { AwsClient } from 'aws4fetch';  // install: npm i aws4fetch
+import { AwsClient } from 'aws4fetch';
 import { isEntitled } from '../lib/db.js';
 import { verifyDownload } from '../lib/downloadToken.js';
 
-const TTL = Number(process.env.SIGNED_URL_TTL_SECONDS ?? 900); // 15 min default
+const TTL = Number(process.env.SIGNED_URL_TTL_SECONDS ?? 900);
+
+function valueOf(input) {
+  return Array.isArray(input) ? input[0] : input;
+}
 
 function makeR2Client() {
   return new AwsClient({
@@ -43,34 +34,69 @@ async function signedUrl(slug, file = 'dossier.pdf') {
   const bucket = process.env.R2_BUCKET_NAME;
   const key = `agents/${slug}/${file}`;
   const url = new URL(`${endpoint}/${bucket}/${key}`);
+
   url.searchParams.set('X-Amz-Expires', String(TTL));
+
   const signed = await client.sign(new Request(url.toString(), { method: 'GET' }), {
     aws: { signQuery: true },
   });
+
   return signed.url;
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') return res.status(405).end('Method not allowed');
+  if (req.method !== 'GET') {
+    return res.status(405).end('Method not allowed');
+  }
 
-  const { email, slug, file = 'dossier.pdf' } = req.query;
+  const email = valueOf(req.query.email);
+  const slug = valueOf(req.query.slug);
+  const file = valueOf(req.query.file) || 'dossier.pdf';
+  const exp = valueOf(req.query.exp);
+  const sig = valueOf(req.query.sig);
 
   if (!email || !slug) {
     return res.status(400).json({ error: 'email and slug are required' });
   }
 
-  // Basic email format guard
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
-  // Validate file param — only allow known file types
   const allowedFiles = ['dossier.pdf', 'connect-package.zip'];
+
   if (!allowedFiles.includes(file)) {
     return res.status(400).json({ error: 'Invalid file requested' });
   }
 
+  if (!exp || !sig) {
+    return res.status(403).json({
+      error: 'Invalid download token',
+      reason: 'missing-token',
+    });
+  }
+
+  let token;
+
+  try {
+    token = verifyDownload({ email, slug, file, exp, sig });
+  } catch (err) {
+    console.error('[download] Token verification failed:', err);
+    return res.status(403).json({
+      error: 'Invalid download token',
+      reason: 'token-verification-failed',
+    });
+  }
+
+  if (!token.ok) {
+    return res.status(403).json({
+      error: 'Invalid download token',
+      reason: token.reason,
+    });
+  }
+
   let entitled;
+
   try {
     entitled = await isEntitled(email, slug);
   } catch (err) {
@@ -81,11 +107,12 @@ export default async function handler(req, res) {
   if (!entitled) {
     return res.status(403).json({
       error: 'Not entitled',
-      message: 'Purchase required — visit /agents to get access.',
+      message: 'Purchase required - visit /agents to get access.',
     });
   }
 
   let url;
+
   try {
     url = await signedUrl(slug, file);
   } catch (err) {
@@ -93,7 +120,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Could not generate download link' });
   }
 
-  // Redirect to the signed URL (browser follows the redirect and downloads the file)
   res.setHeader('Cache-Control', 'no-store');
-  res.redirect(302, url);
+  return res.redirect(302, url);
 }
