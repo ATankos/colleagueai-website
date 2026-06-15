@@ -1,0 +1,191 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow,noarchive" />
+  <title>ColleagueAI Legal Review Checklist</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 24px;
+      color: #1d1b1a;
+      background: #f8f4ed;
+    }
+    h1, h2, h3 { line-height: 1.2; }
+    h1 { font-size: 34px; margin-bottom: 8px; }
+    h2 { margin-top: 36px; border-top: 1px solid #ddd2c2; padding-top: 24px; }
+    code, pre {
+      background: #eee4d7;
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    .notice {
+      background: #fff7e8;
+      border: 1px solid #e2c083;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 24px 0;
+    }
+    .blocker {
+      background: #ffeceb;
+      border: 1px solid #e1a19b;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 24px 0;
+    }
+    li { margin-bottom: 6px; }
+  </style>
+</head>
+<body>
+  <h1>ColleagueAI Legal Review Checklist</h1>
+
+  <div class="notice">
+    <strong>Internal review page.</strong>
+    This checklist is for operational legal review before paid launch. It is not legal advice and should be reviewed by qualified counsel.
+  </div>
+
+  <div class="blocker">
+    <strong>Current legal launch status:</strong>
+    Paid commercial launch remains blocked until Terms, Privacy Policy, Licence Agreement, Partner Agreement, refund/withdrawal wording, and Stripe checkout wording are legally approved.
+  </div>
+
+  <h2>1. Documents to Review</h2>
+  <ul>
+    <li>Terms of Service</li>
+    <li>Privacy Policy</li>
+    <li>Licence Agreement</li>
+    <li>Partner / Affiliate Agreement</li>
+    <li>Cookie / tracking notice</li>
+    <li>Checkout and refund wording</li>
+    <li>Download / entitlement wording</li>
+    <li>AI-agent disclaimer and risk positioning</li>
+    <li>Partner fraud and commission rules</li>
+  </ul>
+
+  <h2>2. Terms of Service</h2>
+  <ul>
+    <li>Confirm legal entity name, registered address, and contact email.</li>
+    <li>Confirm governing law and jurisdiction.</li>
+    <li>Clarify whether customers are B2B, B2C, or both.</li>
+    <li>Define exactly what the customer receives after purchase.</li>
+    <li>Define one-time access, subscription, lifetime access, revocation, or time limitation.</li>
+    <li>Confirm refund, cancellation, and withdrawal wording.</li>
+    <li>Confirm limitation of liability and no guaranteed ROI/compliance result.</li>
+    <li>Remove all draft or placeholder wording before launch.</li>
+  </ul>
+
+  <h2>3. Privacy Policy</h2>
+  <ul>
+    <li>Identify the data controller.</li>
+    <li>List personal data collected: name, email, payment metadata, partner code, logs, analytics, support messages, demo-agent usage.</li>
+    <li>Identify legal bases for processing.</li>
+    <li>Identify processors: Vercel, Stripe, KV/Upstash, Cloudflare R2, Sentry, analytics provider, email provider if used.</li>
+    <li>Confirm retention periods, user rights, international transfers, and security measures.</li>
+    <li>Confirm AI-demo data handling and whether prompts are stored or sent to third-party AI providers.</li>
+    <li>Confirm Stripe payment wording does not imply ColleagueAI stores full card data.</li>
+  </ul>
+
+  <h2>4. Licence Agreement</h2>
+  <ul>
+    <li>Define licence type: non-exclusive, non-transferable, revocable or perpetual.</li>
+    <li>Define allowed use: internal business use, evaluation, client work, modification, redistribution.</li>
+    <li>Define prohibited use: resale, public redistribution, model training, reverse engineering, unlawful use.</li>
+    <li>Define ownership of ColleagueAI materials, customer data, and outputs.</li>
+    <li>Define update and support obligations, if any.</li>
+    <li>Confirm termination and download-entitlement rules.</li>
+  </ul>
+
+  <h2>5. Partner / Affiliate Agreement</h2>
+  <ul>
+    <li>Define partner eligibility and registration process.</li>
+    <li>Define commission rate, calculation base, payout timing, and clawback rules.</li>
+    <li>Confirm commission applies once per one-time purchase unless otherwise agreed.</li>
+    <li>Define fraud controls: self-referral, fake leads, coupon abuse, prohibited advertising, malformed partner codes.</li>
+    <li>Define termination, withholding, tax responsibility, and affiliate-disclosure obligations.</li>
+  </ul>
+
+  <h2>6. AI-Specific Review</h2>
+  <ul>
+    <li>Confirm AI agents are positioned as decision-support tools, not final decision-makers.</li>
+    <li>Confirm no claim of legal, medical, tax, investment, or regulated professional advice.</li>
+    <li>Confirm human review is required for high-impact outputs.</li>
+    <li>Confirm CAI Score does not imply official certification.</li>
+    <li>Confirm production-grade, safety, compliance, and ROI claims are supportable.</li>
+    <li>Confirm no claim that the system guarantees compliance with the EU AI Act, GDPR, financial regulation, or employment law.</li>
+  </ul>
+
+  <h2>7. Digital-Commerce Review</h2>
+  <ul>
+    <li>Confirm price display, VAT/tax handling, and payment terms.</li>
+    <li>Confirm refund and withdrawal wording before checkout.</li>
+    <li>Confirm immediate digital delivery consent where required.</li>
+    <li>Confirm receipt/invoice process.</li>
+    <li>Confirm support route for payment and download issues.</li>
+  </ul>
+
+  <h2>8. Data Protection and Security</h2>
+  <ul>
+    <li>Confirm no secrets are exposed in frontend code.</li>
+    <li>Confirm production secrets are stored only in Vercel, Stripe, Cloudflare, and Upstash dashboards.</li>
+    <li>Confirm signed download links are time-limited.</li>
+    <li>Confirm webhook verifies Stripe signatures.</li>
+    <li>Confirm entitlement and partner stores are protected.</li>
+    <li>Confirm logs do not expose secrets, card data, or sensitive customer inputs.</li>
+  </ul>
+
+  <h2>9. Stripe Launch Blocker</h2>
+  <ul>
+    <li>Add <code>STRIPE_SECRET_KEY</code> in Vercel Production.</li>
+    <li>Add <code>STRIPE_WEBHOOK_SECRET</code> in Vercel Production.</li>
+    <li>Configure webhook endpoint: <code>https://www.colleagueai.ai/api/webhook</code>.</li>
+    <li>Subscribe to <code>checkout.session.completed</code>.</li>
+    <li>Configure Payment Link metadata: <code>agent_slug = all</code>.</li>
+    <li>Complete test checkout.</li>
+    <li>Confirm webhook creates entitlement.</li>
+    <li>Confirm signed download link works for entitled customer.</li>
+    <li>Confirm unauthorized users cannot access artifacts.</li>
+  </ul>
+
+  <h2>10. Lawyer Sign-Off</h2>
+  <ul>
+    <li>[ ] Approved for public informational website</li>
+    <li>[ ] Approved for lead generation</li>
+    <li>[ ] Approved for partner registrations</li>
+    <li>[ ] Approved for paid digital sales</li>
+    <li>[ ] Approved for Stripe checkout</li>
+    <li>[ ] Approved for signed downloads</li>
+    <li>[ ] Approved for affiliate/partner commissions</li>
+  </ul>
+
+  <h2>11. AI Review Prompt for Counsel</h2>
+  <pre>
+You are reviewing ColleagueAI for legal launch readiness.
+
+Review the Terms of Service, Privacy Policy, Licence Agreement, Partner/Affiliate Agreement,
+checkout wording, refund wording, AI-agent disclaimers, and download/entitlement flow.
+
+Assess:
+1. Paid digital-content compliance
+2. Consumer/B2B wording
+3. GDPR/privacy compliance
+4. Stripe/payment/refund wording
+5. AI-risk and disclaimer wording
+6. Partner/affiliate fraud and commission terms
+7. Liability limitation
+8. Licence scope
+9. Download entitlement rules
+10. Missing launch blockers
+
+Return:
+- Launch approved / blocked / approved with restrictions
+- Critical legal blockers
+- Required text changes
+- Optional improvements
+- Final legal sign-off recommendation
+  </pre>
+</body>
+</html>
