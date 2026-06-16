@@ -254,7 +254,7 @@
   .drawer-close{position:absolute;top:24px;right:28px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--cream);cursor:pointer;font-size:17px;color:var(--graphite-soft);display:flex;align-items:center;justify-content:center;transition:all .2s}
   .drawer-close:hover{background:var(--graphite);color:var(--paper);border-color:var(--graphite)}
   .drawer-head .dtop{display:flex;gap:10px;align-items:center;margin-bottom:16px}
-  .drawer-head h3{font-family:"Fraunces",serif;font-weight:500;font-size:27px;line-height:1.1;letter-spacing:-.01em;max-width:88%}
+  .drawer-head h3,.drawer-head .drawer-title{font-family:"Fraunces",serif;font-weight:500;font-size:27px;line-height:1.1;letter-spacing:-.01em;max-width:88%}
   .drawer-head .dpath{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:12px}
   .drawer-body{padding:8px 34px 40px;overflow-y:auto;flex:1}
   .dblock{padding:22px 0;border-bottom:1px solid var(--line-soft)}
@@ -2113,6 +2113,87 @@ section{
   }
 </style>
 
+
+<style id="cai-wave-a11y-fixes">
+  :root {
+    --muted: #5f574e;
+    --graphite-soft: #3f3b36;
+  }
+
+  .pill,
+  .flabel,
+  .count,
+  .ladder-note,
+  .rung .auto .lbl,
+  .card .kpi .kl,
+  .card .open,
+  .drawer-head .dpath,
+  .d-foot-note,
+  .flow .ftitle .ftag,
+  .empty,
+  footer .fnote,
+  .flegal,
+  .pillar .plabel,
+  .ga-rlabel,
+  .ga-note,
+  .sc-cert,
+  .sc-tiername,
+  .tbadges span,
+  .pay-price-label,
+  .pay-secure,
+  .calc-in .ch-note,
+  .calc-out .ch-note,
+  .res-cell .rl,
+  .calc-disc {
+    color: #4f4942;
+  }
+
+  .card .kpi .kl,
+  .card .open,
+  .flabel,
+  .rung .auto .lbl,
+  .dblock .dl,
+  .drawer-head .dpath,
+  .d-foot-note,
+  .flow .ftitle .ftag,
+  .ga-rlabel,
+  .ga-note,
+  .sc-cert,
+  .sc-tiername,
+  .pay-secure,
+  .calc-in .ch-note,
+  .calc-out .ch-note,
+  .res-cell .rl,
+  .calc-disc,
+  .flegal {
+    font-size: 12px;
+  }
+
+  .pill {
+    font-size: 11.5px;
+  }
+
+  .card .desc,
+  .ga-opt,
+  .ga-gaps li,
+  .step .srole,
+  .d-pkg,
+  .pay-sub,
+  .pay-terms span {
+    color: #3f3b36;
+    font-size: 14px;
+  }
+
+  .adopt-band p {
+    color: #f3eee7;
+  }
+
+  .pay-cta.disabled,
+  .ga-run.disabled {
+    opacity: .62;
+  }
+</style>
+
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
@@ -2337,7 +2418,7 @@ section{
         <button class="chip pillar" data-pillar="sales" data-i18n="pillar_sales">Sales &amp; Marketing</button>
         <button class="chip pillar" data-pillar="corp" data-i18n="pillar_corp">Corporate</button>
       </div>
-      <input class="search" id="search" type="text" placeholder="Search agents…" data-i18n-ph="search_ph" />
+      <input class="search" id="search" type="text" placeholder="Search agents…" data-i18n-ph="search_ph" / aria-label="Search agents">
     </div>
     <div class="filters" style="margin-top:12px">
       <div class="fgroup">
