@@ -3047,7 +3047,7 @@ applyLang(init);
   });
 })();
 </script>
-<button id="toTop" aria-label="Back to top">↑</button>
+<button id="toTop" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
 <style>#toTop{position:fixed;right:20px;bottom:20px;z-index:90;width:44px;height:44px;border:none;border-radius:50%;background:var(--graphite);color:var(--paper);font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;box-shadow:0 6px 20px rgba(43,42,40,.25)}#toTop.show{opacity:1;pointer-events:auto}#toTop:hover{background:var(--terra)}</style>
 <script>addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',scrollY>600)})</script>
 
