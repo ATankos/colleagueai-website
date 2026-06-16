@@ -50,7 +50,9 @@
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+<noscript><link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,400..600&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" /></noscript>
 <script>try{document.documentElement.className+=' js';}catch(e){}</script>
 <style>
   :root{
@@ -182,7 +184,7 @@
   .rung:hover{transform:translateX(6px);box-shadow:var(--shadow)}
   .rung::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rc)}
   .rung .code{font-family:"JetBrains Mono",monospace;font-weight:600;font-size:26px;color:var(--rc);letter-spacing:-.02em}
-  .rung .body h4{font-family:"Fraunces",serif;font-weight:600;font-size:18px;margin-bottom:5px}
+  .rung .body h3{font-family:"Fraunces",serif;font-weight:600;font-size:18px;margin-bottom:5px}
   .rung .body p{font-size:14px;color:var(--graphite-soft);max-width:62ch}
   .rung .auto{text-align:right;min-width:130px}
   .rung .auto .lbl{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
@@ -2051,6 +2053,66 @@ section{
   }
 }
 </style>
+
+<style id="cai-a11y-performance-light-fixes">
+  #langsel,
+  #c-agent,
+  .cur-sel,
+  .chip,
+  .btn-p,
+  .btn-s,
+  .nav-try,
+  .nav-cta,
+  .hero-readiness-link,
+  .ga-run,
+  .ga-again,
+  .d-calc,
+  .pay-cta,
+  #cai-privacy-ok {
+    min-height: 44px;
+  }
+
+  .chip,
+  .btn-p,
+  .btn-s,
+  .nav-try,
+  .nav-cta,
+  .hero-readiness-link,
+  .ga-run,
+  .ga-again,
+  .d-calc,
+  .pay-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hint,
+  .ch-note,
+  .calc-disc,
+  .flabel,
+  .l {
+    color: #514b45;
+  }
+
+  @media (max-width: 760px) {
+    .filters {
+      gap: 10px;
+    }
+
+    .chip {
+      margin: 2px;
+      padding: 10px 14px;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+</style>
+
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
@@ -2226,27 +2288,27 @@ section{
     <div class="ladder reveal">
       <div class="rung" style="--rc:var(--t1)">
         <div class="code">L1</div>
-        <div class="body"><h4 data-i18n="t1_name">Assist</h4><p data-i18n="t1_desc">Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand.</p></div>
+        <div class="body"><h3 data-i18n="t1_name">Assist</h3><p data-i18n="t1_desc">Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand.</p></div>
         <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t1_role">Does everything</div></div>
       </div>
       <div class="rung" style="--rc:var(--t2)">
         <div class="code">L2</div>
-        <div class="body"><h4 data-i18n="t2_name">Draft</h4><p data-i18n="t2_desc">Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off.</p></div>
+        <div class="body"><h3 data-i18n="t2_name">Draft</h3><p data-i18n="t2_desc">Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off.</p></div>
         <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t2_role">Reviews &amp; approves</div></div>
       </div>
       <div class="rung" style="--rc:var(--t3)">
         <div class="code">L3</div>
-        <div class="body"><h4 data-i18n="t3_name">Operate</h4><p data-i18n="t3_desc">Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.</p></div>
+        <div class="body"><h3 data-i18n="t3_name">Operate</h3><p data-i18n="t3_desc">Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.</p></div>
         <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t3_role">Owns exceptions</div></div>
       </div>
       <div class="rung" style="--rc:var(--t4)">
         <div class="code">L4</div>
-        <div class="body"><h4 data-i18n="t4_name">Decide (supervised)</h4><p data-i18n="t4_desc">Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.</p></div>
+        <div class="body"><h3 data-i18n="t4_name">Decide (supervised)</h3><p data-i18n="t4_desc">Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.</p></div>
         <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t4_role">Stays accountable</div></div>
       </div>
       <div class="rung" style="--rc:var(--t5)">
         <div class="code">L5</div>
-        <div class="body"><h4 data-i18n="t5_name">Autonomous</h4><p data-i18n="t5_desc">Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today.</p></div>
+        <div class="body"><h3 data-i18n="t5_name">Autonomous</h3><p data-i18n="t5_desc">Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today.</p></div>
         <div class="auto"><div class="lbl" data-i18n="tier_human">Human role</div><div class="val" data-i18n="t5_role">Sets the rails</div></div>
       </div>
     </div>
@@ -2372,7 +2434,7 @@ section{
         <div class="field">
           <label for="c-cost"><span data-i18n="calc_cost">Loaded cost per person / year</span> <span class="hint" data-i18n="calc_cost_hint">(salary + overhead)</span></label>
           <div class="field-row">
-            <select id="c-cur" class="cur-sel"><option value="EUR">€ EUR</option><option value="USD">$ USD</option><option value="CZK">Kč CZK</option></select>
+            <select id="c-cur" class="cur-sel" aria-label="Currency for loaded cost"><option value="EUR">€ EUR</option><option value="USD">$ USD</option><option value="CZK">Kč CZK</option></select>
             <input type="number" id="c-cost" min="0" step="1000" value="45000" />
           </div>
         </div>
@@ -2387,7 +2449,7 @@ section{
         <div class="field" style="margin-bottom:0">
           <label for="c-inv" data-i18n="calc_inv">Your investment in this agent / year</label>
           <div class="field-row">
-            <select id="c-cur2" class="cur-sel" disabled><option>€ EUR</option></select>
+            <select id="c-cur2" class="cur-sel" disabled aria-label="Currency for investment"><option>€ EUR</option></select>
             <input type="number" id="c-inv" min="0" step="1000" value="18000" />
           </div>
         </div>
@@ -3047,7 +3109,7 @@ applyLang(init);
   });
 })();
 </script>
-<button id="toTop" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">↑</button>
+<button id="toTop" aria-label="Back to top">↑</button>
 <style>#toTop{position:fixed;right:20px;bottom:20px;z-index:90;width:44px;height:44px;border:none;border-radius:50%;background:var(--graphite);color:var(--paper);font-size:18px;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .3s;box-shadow:0 6px 20px rgba(43,42,40,.25)}#toTop.show{opacity:1;pointer-events:auto}#toTop:hover{background:var(--terra)}</style>
 <script>addEventListener('scroll',function(){var b=document.getElementById('toTop');if(b)b.classList.toggle('show',scrollY>600)})</script>
 
