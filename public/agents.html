@@ -2194,6 +2194,189 @@ section{
   }
 </style>
 
+
+<style id="cai-a11y-contrast-small-text-pass">
+  /*
+    Accessibility contrast + small text pass.
+    Scope: /agents only.
+    Purpose: reduce WAVE contrast and very-small-text findings without changing business logic.
+  */
+
+  :root {
+    --muted: #4b463f;
+    --graphite-soft: #36322e;
+    --terra: #994226;
+    --terra-deep: #74311d;
+    --line: #b5a996;
+  }
+
+  .nav-links a,
+  .hero-sub,
+  .hero-aside,
+  .sec-head p,
+  .princ p,
+  .rung .body p,
+  .card .desc,
+  .flow .fsub,
+  .deploy p,
+  .pillar p,
+  .ga-opt,
+  .ga-gaps li,
+  .pay-sub,
+  .pay-terms span,
+  .tbadges span,
+  .cred-c p,
+  .qa p,
+  .res-hero .rsub {
+    color: #36322e;
+  }
+
+  .eyebrow,
+  .stat .l,
+  .rung .auto .lbl,
+  .ladder-note,
+  .flabel,
+  .count,
+  .pill,
+  .card .kpi .kl,
+  .card .open,
+  .drawer-head .dpath,
+  .dblock .dl,
+  .d-foot-note,
+  .flow .ftitle .ftag,
+  .step .srole,
+  .empty,
+  footer .fnote,
+  .flegal,
+  .pillar .plabel,
+  .ga-rlabel,
+  .ga-note,
+  .sc-cert,
+  .sc-tiername,
+  .pay-price-label,
+  .pay-secure,
+  .field .hint,
+  .calc-in .ch-note,
+  .calc-out .ch-note,
+  .res-cell .rl,
+  .calc-disc,
+  .sc-badge {
+    color: #4b463f;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  .card .desc,
+  .ga-opt,
+  .ga-gaps li,
+  .step .srole,
+  .d-pkg,
+  .pay-sub,
+  .pay-terms span,
+  .res-hero .rsub {
+    font-size: 14px;
+  }
+
+  .badge,
+  .sc-tier,
+  .step .sbadge,
+  .pay-badge {
+    background: #2b2a28 !important;
+    color: #fff !important;
+  }
+
+  .nav-cta,
+  .btn-p,
+  .ga-run,
+  .pay-cta,
+  .ga-cta-p,
+  .d-demo {
+    background: #2b2a28 !important;
+    border-color: #2b2a28 !important;
+    color: #fff !important;
+  }
+
+  .nav-cta:hover,
+  .btn-p:hover,
+  .ga-run:hover,
+  .pay-cta:hover,
+  .ga-cta-p:hover,
+  .d-demo:hover {
+    background: #111 !important;
+    border-color: #111 !important;
+  }
+
+  .btn-s,
+  .ga-cta-s,
+  .d-calc,
+  .d-pkg,
+  .chip,
+  .ptag,
+  .sc-badge {
+    color: #2b2a28 !important;
+    border-color: #766b5f !important;
+  }
+
+  .chip {
+    background: #fffaf3;
+  }
+
+  .chip.active {
+    background: #2b2a28 !important;
+    border-color: #2b2a28 !important;
+    color: #fff !important;
+  }
+
+  .search,
+  #langsel,
+  .field input[type=number],
+  .field select {
+    color: #2b2a28;
+    border-color: #8f8475;
+    background-color: #fffaf3;
+  }
+
+  .search::placeholder {
+    color: #5a5148;
+    opacity: 1;
+  }
+
+  .adopt-band p,
+  .defstrip .dlabel,
+  .defstrip p,
+  .defstrip p strong,
+  .res-hero .rl,
+  .res-hero .rsub,
+  .res-cell .rl,
+  .res-cell .rv,
+  .res-cell .rv small,
+  .calc-out .ch-note,
+  .calc-disc,
+  .calc-disc strong {
+    color: #f4eee6 !important;
+  }
+
+  .roi-pos {
+    color: #b9f0d4 !important;
+  }
+
+  .pay-cta.disabled,
+  .ga-run.disabled {
+    opacity: .72;
+  }
+
+  @media (max-width: 720px) {
+    .card .desc,
+    .ga-opt,
+    .ga-gaps li,
+    .step .srole,
+    .pay-sub,
+    .pay-terms span {
+      font-size: 14.5px;
+    }
+  }
+</style>
+
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
