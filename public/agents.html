@@ -2418,7 +2418,7 @@ section{
         <button class="chip pillar" data-pillar="sales" data-i18n="pillar_sales">Sales &amp; Marketing</button>
         <button class="chip pillar" data-pillar="corp" data-i18n="pillar_corp">Corporate</button>
       </div>
-      <input class="search" id="search" type="text" placeholder="Search agents…" data-i18n-ph="search_ph" / aria-label="Search agents">
+      <input class="search" id="search" type="text" placeholder="Search agents…" data-i18n-ph="search_ph" aria-label="Search agents" />
     </div>
     <div class="filters" style="margin-top:12px">
       <div class="fgroup">
@@ -2753,7 +2753,7 @@ section{
   <div class="drawer-head">
     <button class="drawer-close" id="dclose" aria-label="Close">✕</button>
     <div class="dtop"><span class="badge" id="d-badge"></span><span class="pill" id="d-pill"></span></div>
-    <h3 id="d-name"></h3>
+    <div id="d-name" class="drawer-title" role="heading" aria-level="3"></div>
     <div class="dpath" id="d-path"></div>
   </div>
   <div class="drawer-body">
