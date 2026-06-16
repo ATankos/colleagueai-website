@@ -27,6 +27,10 @@
         {
           "key": "Content-Security-Policy",
           "value": "default-src 'self'; script-src 'self' 'sha256-40/5428oHICFs/qJlhsA+gEG3A0JlUOanzDuu9ElB5g=' 'sha256-6QUbTwLp0ESUFbQXHx3Pmp1WRMt2btA0iq9TdetNBMc=' 'sha256-7cxEqLyin7CAkZyB93ZoAVm1KlnFvtA1XzsssJ+hiTM=' 'sha256-8wnZeOQGy7GEYYrAB69d8vxpFmYvwIZVckP2C3Ulg08=' 'sha256-9RRuZBch7HODOywsC8p/N4NI5vjBYKnxAjifFZBAGx0=' 'sha256-DxdO0KMifr4qBxX++GTv0w7cNu8FeArRvitEZf1FSrE=' 'sha256-G8N3T7DrWLimAXdfQfeiniwAsf0hPxRM3txWmZ9TOHc=' 'sha256-KwqByHS5YhSE8Z2lo7ThBrc/0rP9g6+WNZNgJqvKe7s=' 'sha256-PKflX/7FfkfBQtmVaBrcxd1LZg84A40d4znIOJ953Z4=' 'sha256-PUwDxueemdhqpKJ9M7hqjtFdF9ofFrDHR40iLMqsFtE=' 'sha256-V+NjEGNwd1UukbHu1EB5LMd4KOAlIsIRwzHd1jG2QC0=' 'sha256-XzCPFiqHLHkj8uwA2Q5lapySLNnyAbfTADSYcEyN2BI=' 'sha256-beDOjJAIMCtVDBtaPoWhEqNL64WSh6vIGm+5FsCYhUE=' 'sha256-ff1H9rEZWvqvJrCWYkHAxEbWWXAN362R+VRXI1wW2OI=' 'sha256-g+keUGG8NMzMpvqs/Vhe+TGgcR6lIb0fgUxvk0yUu24=' 'sha256-iQOp0vOEB4E7HBcVCkQzCjlIQCnH8mk5xYGnO7XeS3M=' 'sha256-kGxuIcEYn1jKMtBEJVRj0YKtdV1+odCeZaRmCWzH0rY=' 'sha256-n/WbIGCaMXCm47pu0JDCFhmaCx3Xo/9n7j8jOjZz+Ic=' 'sha256-nRTNJCYyB2z9j3AoYVF95UqdJ/eGYR6YmhiNlgJg4VI=' 'sha256-p4XyFHeMzqwcI2IB7NbY9Z/KzXcxdMub4Ie7OMGbgd0=' 'sha256-uTzMUIWoOg7RlpFhaTTHUpB51OddUkI6NfGlqKHl2QU=' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "https://www.colleagueai.ai"
         }
       ]
     },
