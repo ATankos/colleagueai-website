@@ -4,6 +4,7 @@ import vm from 'node:vm'
 
 const SITE = 'https://www.colleagueai.ai'
 const DIST = path.resolve('dist')
+const PUBLIC = path.resolve('public')
 const LOCALES = [
   { code: 'en', og: 'en_US', title: 'Governed AI Agents | ColleagueAI' },
   { code: 'cs', og: 'cs_CZ', title: 'Řízení AI agenti | ColleagueAI' },
@@ -15,11 +16,12 @@ const LOCALES = [
   { code: 'pt', og: 'pt_PT', title: 'Agentes de IA governados | ColleagueAI' }
 ]
 
-const sourcePath = path.join(DIST, 'agents.html')
-const sitemapPath = path.join(DIST, 'sitemap.xml')
+const sourcePath = fs.existsSync(path.join(DIST, 'agents.html'))
+  ? path.join(DIST, 'agents.html')
+  : path.join(PUBLIC, 'agents.html')
 
 if (!fs.existsSync(sourcePath)) {
-  throw new Error('dist/agents.html not found. Run after vite build and generate-agent-pages.')
+  throw new Error('agents.html not found in dist or public.')
 }
 
 function escapeHtml(value) {
@@ -141,22 +143,34 @@ function localeSeoBlock(locale) {
   ].join('\n')
 }
 
-function writeRootAgents(baseHtml) {
-  let html = stripLocaleSeo(baseHtml)
-  html = html.replace('</head>', rootSeoBlock() + '\n</head>')
-  fs.writeFileSync(sourcePath, html, 'utf8')
-}
-
-function writeLocalePage(baseHtml, locale, i18n) {
+function localizedPage(baseHtml, locale, i18n) {
   let html = stripLocaleSeo(baseHtml)
   html = setHtmlLang(html, locale.code)
   html = html.replace(/<title>[\s\S]*?<\/title>/i, '<title>' + escapeHtml(locale.title) + '</title>')
   html = prerenderDataI18n(html, locale.code, i18n)
-  html = html.replace('</head>', localeSeoBlock(locale) + '\n</head>')
+  return html.replace('</head>', localeSeoBlock(locale) + '\n</head>')
+}
 
-  const dir = path.join(DIST, locale.code)
-  fs.mkdirSync(dir, { recursive: true })
-  fs.writeFileSync(path.join(dir, 'agents.html'), html, 'utf8')
+function rootAgentsPage(baseHtml) {
+  let html = stripLocaleSeo(baseHtml)
+  return html.replace('</head>', rootSeoBlock() + '\n</head>')
+}
+
+function writeFileEnsured(filePath, html) {
+  fs.mkdirSync(path.dirname(filePath), { recursive: true })
+  fs.writeFileSync(filePath, html, 'utf8')
+}
+
+function writeLocalizedFiles(targetDir, baseHtml, i18n) {
+  if (!fs.existsSync(targetDir)) fs.mkdirSync(targetDir, { recursive: true })
+
+  writeFileEnsured(path.join(targetDir, 'agents.html'), rootAgentsPage(baseHtml))
+
+  for (const locale of LOCALES) {
+    const html = localizedPage(baseHtml, locale, i18n)
+    writeFileEnsured(path.join(targetDir, locale.code, 'agents.html'), html)
+    writeFileEnsured(path.join(targetDir, locale.code, 'agents', 'index.html'), html)
+  }
 }
 
 function sitemapEntry(loc) {
@@ -175,7 +189,8 @@ function sitemapEntry(loc) {
   ].join('\n')
 }
 
-function updateSitemap() {
+function updateSitemap(targetDir) {
+  const sitemapPath = path.join(targetDir, 'sitemap.xml')
   let xml = fs.existsSync(sitemapPath)
     ? fs.readFileSync(sitemapPath, 'utf8')
     : '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n</urlset>\n'
@@ -191,14 +206,15 @@ function updateSitemap() {
     xml = xml.replace('</urlset>', entries + '\n</urlset>')
   }
 
-  fs.writeFileSync(sitemapPath, xml, 'utf8')
+  writeFileEnsured(sitemapPath, xml)
 }
 
 const baseHtml = fs.readFileSync(sourcePath, 'utf8')
 const i18n = extractI18n(baseHtml)
 
-writeRootAgents(baseHtml)
-for (const locale of LOCALES) writeLocalePage(baseHtml, locale, i18n)
-updateSitemap()
+writeLocalizedFiles(DIST, baseHtml, i18n)
+writeLocalizedFiles(PUBLIC, baseHtml, i18n)
+updateSitemap(DIST)
+updateSitemap(PUBLIC)
 
-console.log('[locale-pages] wrote ' + LOCALES.length + ' localized /agents pages and updated sitemap hreflang entries')
+console.log('[locale-pages] wrote localized /agents pages to dist and public, including clean-url index files')
