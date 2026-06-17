@@ -9,18 +9,15 @@
 <link rel="canonical" href="https://www.colleagueai.ai/partners">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="manifest" href="/manifest.json">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Geist:wght@300..700&family=JetBrains+Mono:wght@400..600&display=swap" rel="stylesheet">
 <style>
 :root{--cream:#F5F0E8;--cream-2:#EFE8DC;--paper:#FBF8F2;--graphite:#2B2A28;--graphite-soft:#54514C;--muted:#8A857C;--terra:#C65D3A;--terra-deep:#9E3D22;--line:#E2D9CB;--line-soft:#EAE2D4;--sand:#C99A5B;--shadow:0 1px 2px rgba(43,42,40,.04),0 8px 30px rgba(43,42,40,.06);--r:18px;--maxw:1100px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--graphite);font-family:"Geist",-apple-system,sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body{background:var(--cream);color:var(--graphite);font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,-apple-system,sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 ::selection{background:var(--terra);color:var(--paper)}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
-.eyebrow{font-family:"JetBrains Mono",monospace;font-size:11.5px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--terra)}
+.eyebrow{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11.5px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--terra)}
 section{padding:80px 0}
 .divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
 
@@ -29,7 +26,7 @@ header.nav{position:sticky;top:0;z-index:60;background:rgba(245,240,232,.82);bac
 header.nav.scrolled{border-bottom-color:var(--line)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
 .logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
-.logo-text{font-family:"Fraunces",serif;font-size:21px;font-weight:600;letter-spacing:-.01em;color:var(--graphite)}
+.logo-text{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:21px;font-weight:600;letter-spacing:-.01em;color:var(--graphite)}
 .logo-text .ai{color:var(--terra)}
 .logo-dots{display:flex;gap:5px;padding-left:1px}
 .logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
@@ -46,7 +43,7 @@ header.nav.scrolled{border-bottom-color:var(--line)}
 .hero{padding:100px 0 72px}
 .hero-inner{display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:center}
 @media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:40px}.hero{padding:72px 0 48px}}
-h1.hero-title{font-family:"Fraunces",serif;font-weight:340;font-size:clamp(38px,5.8vw,70px);line-height:1.03;letter-spacing:-.02em;margin:18px 0 0}
+h1.hero-title{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:340;font-size:clamp(38px,5.8vw,70px);line-height:1.03;letter-spacing:-.02em;margin:18px 0 0}
 h1.hero-title em{font-style:italic;color:var(--terra)}
 .hero-sub{font-size:clamp(16px,1.8vw,19px);color:var(--graphite-soft);max-width:48ch;margin-top:24px;line-height:1.55}
 .hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
@@ -55,36 +52,36 @@ h1.hero-title em{font-style:italic;color:var(--terra)}
 .btn-s{border:1px solid var(--graphite);padding:13px 26px;border-radius:100px;font-size:15px;transition:all .2s;display:inline-block}
 .btn-s:hover{background:var(--graphite);color:var(--paper)}
 .hero-card{background:var(--graphite);border-radius:var(--r);padding:30px 28px;color:var(--cream)}
-.hero-card .rate{font-family:"Fraunces",serif;font-size:clamp(52px,7vw,80px);font-weight:400;line-height:1;letter-spacing:-.03em;color:#fff}
+.hero-card .rate{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:clamp(52px,7vw,80px);font-weight:400;line-height:1;letter-spacing:-.03em;color:#fff}
 .hero-card .rate em{color:var(--terra);font-style:italic}
-.hero-card .rate-lbl{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#B9B0A2;margin-top:10px;display:block}
+.hero-card .rate-lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#B9B0A2;margin-top:10px;display:block}
 .hero-card .perks{margin-top:22px;display:flex;flex-direction:column;gap:9px}
 .hero-card .perk{display:flex;gap:10px;font-size:14px;color:#D9D3C8;line-height:1.45}
 .hero-card .perk::before{content:"✓";color:var(--terra);font-weight:700;flex-shrink:0}
 
 /* HOW IT WORKS */
 #how{background:var(--cream-2)}
-.sec-h{font-family:"Fraunces",serif;font-weight:360;font-size:clamp(28px,3.8vw,42px);line-height:1.08;letter-spacing:-.02em;margin-top:14px}
+.sec-h{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:360;font-size:clamp(28px,3.8vw,42px);line-height:1.08;letter-spacing:-.02em;margin-top:14px}
 .steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:48px}
 @media(max-width:720px){.steps-grid{grid-template-columns:1fr}}
 .step-cell{background:var(--paper);padding:32px 26px}
-.step-num{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--terra);letter-spacing:.1em;margin-bottom:16px}
-.step-cell h3{font-family:"Fraunces",serif;font-weight:560;font-size:21px;margin-bottom:10px;letter-spacing:-.01em}
+.step-num{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--terra);letter-spacing:.1em;margin-bottom:16px}
+.step-cell h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:560;font-size:21px;margin-bottom:10px;letter-spacing:-.01em}
 .step-cell p{font-size:14.5px;color:var(--graphite-soft);line-height:1.55}
-.step-tag{display:inline-block;margin-top:14px;font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--terra);background:rgba(198,93,58,.10);padding:5px 11px;border-radius:8px}
+.step-tag{display:inline-block;margin-top:14px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--terra);background:rgba(198,93,58,.10);padding:5px 11px;border-radius:8px}
 
 /* EARNINGS */
 .earnings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
 @media(max-width:760px){.earnings-grid{grid-template-columns:1fr}}
 .earn-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
-.earn-card .ag-name{font-family:"Fraunces",serif;font-size:17px;font-weight:560;margin-bottom:5px;line-height:1.2}
-.earn-card .ag-tag{font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.earn-card .ag-name{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:17px;font-weight:560;margin-bottom:5px;line-height:1.2}
+.earn-card .ag-tag{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
 .earn-card .price-row{display:flex;align-items:baseline;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line-soft);margin-top:10px}
-.earn-card .pr-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
-.earn-card .pr-val{font-family:"Fraunces",serif;font-size:22px;color:var(--graphite)}
+.earn-card .pr-lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.earn-card .pr-val{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:22px;color:var(--graphite)}
 .earn-card .you-earn{background:rgba(198,93,58,.08);border-radius:10px;padding:9px 13px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
-.earn-lbl{font-family:"JetBrains Mono",monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra)}
-.earn-val{font-family:"Fraunces",serif;font-size:20px;color:var(--terra);font-weight:500}
+.earn-lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra)}
+.earn-val{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:20px;color:var(--terra);font-weight:500}
 
 /* GENERATOR */
 #generate{background:var(--graphite);color:var(--cream)}
@@ -95,23 +92,23 @@ h1.hero-title em{font-style:italic;color:var(--terra)}
 @media(max-width:640px){.gen-card{padding:22px 18px}}
 .gen-field{margin-bottom:18px}
 .gen-field label{display:block;font-size:13px;font-weight:500;color:#D9D3C8;margin-bottom:7px}
-.gen-field input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:12px 14px;font-family:"Geist",sans-serif;font-size:15px;color:#fff;outline:none;transition:border-color .2s}
+.gen-field input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:12px 14px;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;color:#fff;outline:none;transition:border-color .2s}
 .gen-field input::placeholder{color:#7A7269}
 .gen-field input:focus{border-color:var(--terra)}
-.gen-btn{width:100%;background:var(--terra);color:#fff;border:none;border-radius:100px;padding:14px;font-family:"Geist",sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:4px}
+.gen-btn{width:100%;background:var(--terra);color:#fff;border:none;border-radius:100px;padding:14px;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:4px}
 .gen-btn:hover:not(:disabled){background:var(--terra-deep)}
 .gen-btn:disabled{opacity:.42;pointer-events:none}
 .gen-result{display:none;margin-top:26px;padding-top:26px;border-top:1px solid rgba(255,255,255,.12)}
 .gen-result.show{display:block}
-.gen-rl{font-family:"JetBrains Mono",monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:#E8A07F;margin-bottom:10px;display:block}
+.gen-rl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:#E8A07F;margin-bottom:10px;display:block}
 .link-box{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border-radius:12px;padding:12px 16px}
-.link-val{font-family:"JetBrains Mono",monospace;font-size:13px;color:#D9D3C8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.copy-btn{background:var(--terra);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex-shrink:0;transition:background .2s}
+.link-val{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:13px;color:#D9D3C8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{background:var(--terra);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex-shrink:0;transition:background .2s}
 .copy-btn:hover{background:var(--terra-deep)}
 .copy-btn.copied{background:#6E8B7B}
 .gen-code-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:10px 16px;background:rgba(0,0,0,.15);border-radius:10px}
-.gen-code-row .cl{font-family:"JetBrains Mono",monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9A9285}
-.gen-code-row .cv{font-family:"JetBrains Mono",monospace;font-size:14px;color:#E8A07F;font-weight:600}
+.gen-code-row .cl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9A9285}
+.gen-code-row .cv{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:14px;color:#E8A07F;font-weight:600}
 .gen-note{font-size:12.5px;color:#9A9285;margin-top:12px;line-height:1.5}
 .gen-error{color:#F28B72;font-size:13.5px;margin-top:8px;display:none}
 .gen-error.show{display:block}
@@ -119,24 +116,24 @@ h1.hero-title em{font-style:italic;color:var(--terra)}
 /* FAQ */
 .faq-list{margin-top:44px;border-top:1px solid var(--line)}
 .qa{border-bottom:1px solid var(--line)}
-.qa summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;font-family:"Fraunces",serif;font-weight:500;font-size:18px;letter-spacing:-.01em;line-height:1.3;transition:color .2s}
+.qa summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:18px;letter-spacing:-.01em;line-height:1.3;transition:color .2s}
 .qa summary::-webkit-details-marker{display:none}
 .qa summary:hover{color:var(--terra)}
-.qa summary::after{content:"+";position:absolute;right:8px;top:20px;font-family:"JetBrains Mono",monospace;font-size:22px;color:var(--terra);transition:transform .25s ease}
+.qa summary::after{content:"+";position:absolute;right:8px;top:20px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:22px;color:var(--terra);transition:transform .25s ease}
 .qa[open] summary::after{transform:rotate(45deg)}
 .qa p{font-size:15px;color:var(--graphite-soft);line-height:1.6;max-width:72ch;padding:0 44px 22px 0;margin-top:-4px}
 .qa a{color:var(--terra);text-decoration:underline}
 
 /* CTA BAND */
 .cta-band{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:80px 0;text-align:center}
-.cta-band h2{font-family:"Fraunces",serif;font-weight:340;font-size:clamp(28px,4.5vw,50px);line-height:1.06;letter-spacing:-.02em;max-width:20ch;margin:0 auto}
+.cta-band h2{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:340;font-size:clamp(28px,4.5vw,50px);line-height:1.06;letter-spacing:-.02em;max-width:20ch;margin:0 auto}
 .cta-band h2 em{font-style:italic;color:var(--terra)}
 .cta-btns{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap}
 
 /* FOOTER */
 footer{border-top:1px solid var(--line);padding:36px 0}
 .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
-.foot-note{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+.foot-note{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
 
 /* MOBILE */
 @media(max-width:640px){
@@ -149,7 +146,7 @@ footer{border-top:1px solid var(--line);padding:36px 0}
 }
 </style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
-<style>#langsel{font-family:"Geist",sans-serif;font-size:13px;font-weight:500;color:#2B2A28;border:1px solid var(--line);border-radius:100px;padding:7px 14px;cursor:pointer;transition:border-color .2s}#langsel:hover{border-color:var(--muted)}#langsel:focus{outline:none;border-color:var(--terra)}</style>
+<style>#langsel{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:13px;font-weight:500;color:#2B2A28;border:1px solid var(--line);border-radius:100px;padding:7px 14px;cursor:pointer;transition:border-color .2s}#langsel:hover{border-color:var(--muted)}#langsel:focus{outline:none;border-color:var(--terra)}</style>
 <style id="cai-visual-copy-polish">
 /* Conservative professional polish */
 :root{
@@ -191,6 +188,7 @@ section{
   .hero-sub{font-size:16px;line-height:1.6}
 }
 </style>
+  <meta name="cai-font-strategy" content="system-fonts-no-third-party-font-css">
 </head>
 <body>
 
@@ -311,7 +309,7 @@ section{
         </div>
       </div>
     </div>
-    <p style="font-size:11.5px;color:var(--muted);margin-top:16px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em">// Illustrative only. Actual prices vary by agent and region. Commission subject to partner terms.</p>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:16px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;letter-spacing:.02em">// Illustrative only. Actual prices vary by agent and region. Commission subject to partner terms.</p>
   </div>
 </section>
 
