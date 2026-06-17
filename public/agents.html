@@ -3453,12 +3453,65 @@ applyLang(init);
    Fires named events into whatever you wire up: GTM (dataLayer), gtag, Plausible, or PostHog.
    No tool is bundled — connect yours and these events flow automatically. Nothing fires until one is present. */
 (function(){
-  function track(ev, props){
+  const CAI_ALLOWED_EVENTS={
+    agent_view:1,
+    calculator_use:1,
+    checkout_open:1,
+    readiness_complete:1,
+    demo_click:1,
+    partner_click:1,
+    readiness_cta_click:1,
+    browse_catalogue_click:1,
+    license_click:1,
+    partner_referral:1
+  };
+  const CAI_ALLOWED_PROPS={
+    tier:1,
+    pillar:1,
+    level:1,
+    mode:1,
+    context:1,
+    partner_present:1,
+    score_bucket:1
+  };
+  function caiScoreBucket(v){
+    var n=Number(v);
+    if(!isFinite(n)) return undefined;
+    if(n<=3) return '0-3';
+    if(n<=7) return '4-7';
+    if(n<=11) return '8-11';
+    if(n<=15) return '12-15';
+    return '16-plus';
+  }
+  function caiSafeValue(v){
+    if(typeof v==='boolean') return v;
+    if(typeof v==='number') return String(v);
+    if(typeof v!=='string') return undefined;
+    var s=v.toLowerCase().replace(/[^a-z0-9_ .:-]/g,'').slice(0,48);
+    return s || undefined;
+  }
+  function caiPrivacySafeProps(props){
     props=props||{};
-    try{ (window.dataLayer=window.dataLayer||[]).push(Object.assign({event:ev}, props)); }catch(e){}
-    try{ if(typeof window.gtag==='function') window.gtag('event', ev, props); }catch(e){}
-    try{ if(typeof window.plausible==='function') window.plausible(ev, {props:props}); }catch(e){}
-    try{ if(window.posthog&&posthog.capture) posthog.capture(ev, props); }catch(e){}
+    var out={};
+    if('score' in props) out.score_bucket=caiScoreBucket(props.score);
+    if('partner' in props || window.__cai_partner) out.partner_present=!!(props.partner||window.__cai_partner);
+    Object.keys(props).forEach(function(k){
+      if(!CAI_ALLOWED_PROPS[k]) return;
+      var v=caiSafeValue(props[k]);
+      if(v!==undefined) out[k]=v;
+    });
+    out.path=location.pathname;
+    return out;
+  }
+  function track(ev, props){
+    if(!CAI_ALLOWED_EVENTS[ev]) return;
+    var safe=caiPrivacySafeProps(props);
+    try{
+      var payload={event:ev};
+      Object.keys(safe).forEach(function(k){payload[k]=safe[k];});
+      (window.dataLayer=window.dataLayer||[]).push(payload);
+    }catch(e){}
+    try{ if(typeof window.gtag==='function') window.gtag('event',ev,safe); }catch(e){}
   }
   window.caiTrack=track;
   // delegated tracking for links & buttons — survives DOM re-renders (catalogue, drawer)
@@ -3485,7 +3538,7 @@ applyLang(init);
     else { try{pid=localStorage.getItem(KEY)||'';}catch(e){} }
   }catch(e){}
   window.__cai_partner=pid||'';
-  if(window.__cai_partner && window.caiTrack) caiTrack('partner_referral',{partner:window.__cai_partner});
+  if(window.__cai_partner && window.caiTrack) caiTrack('partner_referral',{partner_present:true});
   if(!window.__cai_partner) return;
   // append &partner= to outbound demo / partner-apply links (checkout is handled in the payment script)
   document.querySelectorAll('a[href*="colleagueai.ai/demo"],a[href*="colleagueai.ai/partners"]').forEach(function(a){

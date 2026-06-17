@@ -10,11 +10,59 @@ import App from './App.jsx'
 // DSN is loaded from .env.local (local dev) or Vercel env vars (production).
 // If no DSN is set we silently skip init — useful for local dev when you
 // don't want test errors polluting your dashboard.
+function caiSentryScrubUrl(value) {
+  if (!value || typeof value !== 'string') return value
+  try {
+    const url = new URL(value)
+    return url.origin + url.pathname
+  } catch {
+    return value.split('?')[0].split('#')[0]
+  }
+}
+
+function caiSentryScrubObject(value, depth = 0) {
+  if (!value || depth > 4) return value
+  if (typeof value === 'string') {
+    return value
+      .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, '[Filtered]')
+      .replace(/([?&](email|name|company|partner|query|search|token|secret|password)=)[^&#]*/gi, '$1[Filtered]')
+  }
+  if (Array.isArray(value)) return value.map((item) => caiSentryScrubObject(item, depth + 1))
+  if (typeof value === 'object') {
+    const out = {}
+    for (const [key, item] of Object.entries(value)) {
+      if (/email|name|company|phone|token|secret|password|authorization|cookie|partner|query|search|form|input|message|description/i.test(key)) {
+        out[key] = '[Filtered]'
+      } else {
+        out[key] = caiSentryScrubObject(item, depth + 1)
+      }
+    }
+    return out
+  }
+  return value
+}
+
+function caiSentryBeforeSend(event) {
+  if (event.request) {
+    event.request.url = caiSentryScrubUrl(event.request.url)
+    delete event.request.query_string
+    delete event.request.cookies
+    delete event.request.headers
+    delete event.request.data
+  }
+  if (event.user) event.user = { id: 'anonymous' }
+  if (event.extra) event.extra = caiSentryScrubObject(event.extra)
+  if (event.contexts) event.contexts = caiSentryScrubObject(event.contexts)
+  if (event.breadcrumbs) event.breadcrumbs = event.breadcrumbs.map((b) => caiSentryScrubObject(b))
+  return event
+}
+
 const dsn = import.meta.env.VITE_SENTRY_DSN
 
 if (dsn) {
   Sentry.init({
     dsn,
+    beforeSend: caiSentryBeforeSend,
     // Tag events by environment so you can filter prod vs preview vs dev
     environment: import.meta.env.MODE,
 
@@ -26,16 +74,11 @@ if (dsn) {
     // Session Replay — record video-like sessions for diagnosis.
     // 10% of normal sessions, 100% of sessions that hit an error.
     // Free tier covers ~50 replays/month, so we sample conservatively.
-    replaysSessionSampleRate: 0.1,
-    replaysOnErrorSampleRate: 1.0,
+    replaysSessionSampleRate: 0,
+    replaysOnErrorSampleRate: 0,
 
     integrations: [
       Sentry.browserTracingIntegration(),
-      Sentry.replayIntegration({
-        // Mask all text + inputs by default to avoid capturing PII
-        maskAllText: true,
-        blockAllMedia: true,
-      }),
     ],
 
     // Send default PII (IP address, user agent) so we can debug environment-
