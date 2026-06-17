@@ -2373,6 +2373,24 @@ section{
 </style>
 
   <meta name="cai-font-strategy" content="system-fonts-no-third-party-font-css">
+
+<style id="cai-catalogue-render-budget">
+  .load-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .load-more-wrap[hidden] {
+    display: none;
+  }
+
+  .load-more-agents {
+    min-height: 44px;
+    cursor: pointer;
+  }
+</style>
+
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
@@ -2611,6 +2629,9 @@ section{
 
     <div class="count" id="count"></div>
     <div class="grid" id="grid"></div>
+    <div class="load-more-wrap" id="load-more-wrap" hidden>
+      <button id="load-more-agents" class="btn-s load-more-agents" type="button" aria-controls="grid">Load more agents</button>
+    </div>
   </div>
 </section>
 
@@ -3002,6 +3023,10 @@ const AGENTS=[{"n":"Reconciliation Root-Cause Agent","t":"L3","p":"ops","dom":"O
 /* ---------- RENDER ---------- */
 const grid=document.getElementById('grid');
 const countEl=document.getElementById('count');
+const loadMoreWrap=document.getElementById('load-more-wrap');
+const loadMoreBtn=document.getElementById('load-more-agents');
+const LOAD_STEP=12;
+let visibleLimit=LOAD_STEP;
 let fPillar='all', fTier='all', fSearch='';
 
 function tierClass(t){return t;}
@@ -3011,9 +3036,17 @@ function render(){
     (fTier==='all'||a.t===fTier) &&
     (fSearch===''||(a.n+a.desc+a.dom).toLowerCase().includes(fSearch))
   );
-  countEl.textContent=((window.T?T('count_tmpl'):'// {n} shown')).replace('{n}',list.length);
-  if(!list.length){grid.innerHTML='<div class="empty">No agents match these filters.</div>';return;}
-  grid.innerHTML=list.map((a,i)=>{
+  const shown=list.slice(0,visibleLimit);
+  const shownCount=shown.length;
+  const countText=((window.T?T('count_tmpl'):'// {n} shown')).replace('{n}',shownCount);
+  countEl.textContent=shownCount<list.length ? countText+' · '+list.length+' total' : countText;
+  if(loadMoreWrap)loadMoreWrap.hidden=shownCount>=list.length;
+  if(!list.length){
+    grid.innerHTML='<div class="empty">No agents match these filters.</div>';
+    if(loadMoreWrap)loadMoreWrap.hidden=true;
+    return;
+  }
+  grid.innerHTML=shown.map((a,i)=>{
     const idx=AGENTS.indexOf(a);
     const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
     const _loc=window.LANGNOW||'en';const _ldata=(_loc!=='en'&&window['AGENTS_'+_loc.toUpperCase()]&&window['AGENTS_'+_loc.toUpperCase()][slug])||null;
@@ -3035,13 +3068,14 @@ render();
 /* ---------- FILTERS ---------- */
 document.querySelectorAll('.chip.pillar').forEach(c=>c.addEventListener('click',()=>{
   document.querySelectorAll('.chip.pillar').forEach(x=>x.classList.remove('active'));
-  c.classList.add('active');fPillar=c.dataset.pillar;render();
+  c.classList.add('active');fPillar=c.dataset.pillar;visibleLimit=LOAD_STEP;render();
 }));
 document.querySelectorAll('.chip.tier').forEach(c=>c.addEventListener('click',()=>{
   document.querySelectorAll('.chip.tier').forEach(x=>x.classList.remove('active'));
-  c.classList.add('active');fTier=c.dataset.tier;render();
+  c.classList.add('active');fTier=c.dataset.tier;visibleLimit=LOAD_STEP;render();
 }));
-document.getElementById('search').addEventListener('input',e=>{fSearch=e.target.value.toLowerCase().trim();render();});
+document.getElementById('search').addEventListener('input',e=>{fSearch=e.target.value.toLowerCase().trim();visibleLimit=LOAD_STEP;render();});
+if(loadMoreBtn){loadMoreBtn.addEventListener('click',()=>{visibleLimit+=LOAD_STEP;render();});}
 
 /* ---------- DRAWER ---------- */
 const drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
