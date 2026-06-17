@@ -2414,6 +2414,35 @@ section{
 .factsheet-row dd{margin:0;font-size:13.6px;line-height:1.48;color:var(--graphite-soft)}
 @media(max-width:560px){.factsheet-row{grid-template-columns:1fr;gap:4px}}
 </style>
+
+<style id="cai-proof-demo-css">
+.proof-demo{padding:72px 0;border-top:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(19,35,57,.32),rgba(8,13,22,.08))}
+.proof-demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.82fr);gap:28px;align-items:start}
+.proof-demo-copy{max-width:780px}
+.proof-demo-kicker{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.proof-demo-copy h2{font-size:clamp(32px,5vw,58px);line-height:.96;margin:18px 0 14px}
+.proof-demo-copy p{color:var(--muted);font-size:17px;line-height:1.65}
+.proof-demo-note{margin-top:16px;padding:14px 16px;border-radius:18px;border:1px solid rgba(232,160,127,.22);background:rgba(232,160,127,.08);color:var(--muted);font-size:14px}
+.proof-demo-panel{border:1px solid rgba(255,255,255,.14);border-radius:28px;background:rgba(255,255,255,.055);box-shadow:0 24px 60px rgba(0,0,0,.24);overflow:hidden}
+.proof-demo-panel-head{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.proof-demo-case{font-size:13px;color:var(--muted);line-height:1.5}
+.proof-demo-badge{white-space:nowrap;border-radius:999px;padding:7px 10px;background:rgba(232,160,127,.14);border:1px solid rgba(232,160,127,.28);font-size:12px;color:#ffd8c6}
+.proof-demo-stage{padding:20px}
+.proof-demo-stage h3{font-size:24px;margin:0 0 8px}
+.proof-demo-stage p{margin:0;color:var(--muted);line-height:1.6}
+.proof-demo-evidence{margin:18px 0 0;padding:14px;border-radius:18px;background:rgba(0,0,0,.20);border:1px solid rgba(255,255,255,.10)}
+.proof-demo-evidence strong{display:block;margin-bottom:8px;color:var(--fg)}
+.proof-demo-evidence ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.6}
+.proof-demo-controls{display:flex;gap:10px;flex-wrap:wrap;padding:0 20px 20px}
+.proof-demo-controls button{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--fg);border-radius:999px;padding:11px 14px;cursor:pointer;font-weight:700}
+.proof-demo-controls button:hover{background:rgba(255,255,255,.13)}
+.proof-demo-controls button.primary{background:linear-gradient(135deg,#E8A07F,#F3C6A8);color:#15100d;border-color:transparent}
+.proof-demo-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:0 20px 20px}
+.proof-demo-dot{height:6px;border-radius:999px;background:rgba(255,255,255,.16)}
+.proof-demo-dot.active{background:#E8A07F}
+@media(max-width:900px){.proof-demo-grid{grid-template-columns:1fr}.proof-demo-steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
@@ -2930,6 +2959,52 @@ section{
 <div class="divider"></div>
 
 <!-- CTA -->
+
+<section id="proof-demo" class="proof-demo" aria-labelledby="proof-demo-title">
+  <div class="wrap proof-demo-grid">
+    <div class="proof-demo-copy">
+      <span class="proof-demo-kicker">First-party interactive proof</span>
+      <h2 id="proof-demo-title">See how a governed agent turns a reconciliation issue into auditable evidence.</h2>
+      <p>This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.</p>
+      <div class="proof-demo-note">
+        No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.
+      </div>
+    </div>
+
+    <div class="proof-demo-panel" data-proof-demo>
+      <div class="proof-demo-panel-head">
+        <div class="proof-demo-case">
+          <strong>Sample case</strong><br>
+          ERP invoice INV-2026-0148 · payment PAY-88421 · variance €18,420 · fictional counterparty
+        </div>
+        <span class="proof-demo-badge">CAI L3 · Human approval</span>
+      </div>
+      <div class="proof-demo-stage" aria-live="polite">
+        <h3 data-proof-title></h3>
+        <p data-proof-body></p>
+        <div class="proof-demo-evidence">
+          <strong>Evidence generated</strong>
+          <ul data-proof-evidence></ul>
+        </div>
+      </div>
+      <div class="proof-demo-controls">
+        <button type="button" data-proof-action="prev">Previous</button>
+        <button type="button" class="primary" data-proof-action="next">Next step</button>
+        <button type="button" data-proof-action="reset">Reset</button>
+      </div>
+      <div class="proof-demo-steps" aria-hidden="true">
+        <span class="proof-demo-dot"></span>
+        <span class="proof-demo-dot"></span>
+        <span class="proof-demo-dot"></span>
+        <span class="proof-demo-dot"></span>
+        <span class="proof-demo-dot"></span>
+        <span class="proof-demo-dot"></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
 <!-- PARTNER PROGRAM -->
 <section id="adopt" class="adopt-band">
   <div class="wrap">
@@ -3449,6 +3524,69 @@ applyLang(init);
 })();
 </script>
 <script>
+
+<script id="cai-proof-demo-script">
+(function(){
+  var root=document.getElementById('proof-demo');
+  if(!root) return;
+  var steps=[
+    {
+      title:'1. Detect the exception',
+      body:'The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.',
+      evidence:['Variance amount and source record IDs','Timestamped exception classification','CAI L3 handling requirement']
+    },
+    {
+      title:'2. Retrieve only permitted evidence',
+      body:'The package is designed for customer-tenant deployment, so retrieval can inherit approved identity, role, and source-system permissions.',
+      evidence:['ERP invoice reference','Payment reference','Permission-aware source list']
+    },
+    {
+      title:'3. Generate a root-cause hypothesis',
+      body:'The agent compares invoice, payment, credit-note, and timing signals to produce a reviewable hypothesis rather than an automatic final decision.',
+      evidence:['Matched transaction signals','Possible cause ranking','Confidence and limitation note']
+    },
+    {
+      title:'4. Build the review pack',
+      body:'The output is organized as a concise evidence pack for Finance Operations, including what changed, why it likely happened, and what still needs confirmation.',
+      evidence:['Root-cause summary','Supporting evidence bullets','Open questions for reviewer']
+    },
+    {
+      title:'5. Route to human approval',
+      body:'Because this is an L3 governed workflow, the package includes a named review checkpoint before closure or downstream action.',
+      evidence:['Reviewer checkpoint','Approval or rejection state','Exception handover note']
+    },
+    {
+      title:'6. Preserve audit trace',
+      body:'The final state is designed to preserve a clear trace of inputs, reasoning, human approval, and resolution status for later audit or management review.',
+      evidence:['Decision trail','Resolution status','Audit-ready summary']
+    }
+  ];
+  var idx=0;
+  var title=root.querySelector('[data-proof-title]');
+  var body=root.querySelector('[data-proof-body]');
+  var evidence=root.querySelector('[data-proof-evidence]');
+  var dots=[].slice.call(root.querySelectorAll('.proof-demo-dot'));
+  function render(){
+    var step=steps[idx];
+    title.textContent=step.title;
+    body.textContent=step.body;
+    evidence.innerHTML=step.evidence.map(function(item){return '<li>'+item+'</li>';}).join('');
+    dots.forEach(function(dot,i){dot.classList.toggle('active',i<=idx);});
+  }
+  root.addEventListener('click',function(e){
+    var btn=e.target.closest('[data-proof-action]');
+    if(!btn) return;
+    var action=btn.getAttribute('data-proof-action');
+    if(action==='next') idx=Math.min(steps.length-1,idx+1);
+    if(action==='prev') idx=Math.max(0,idx-1);
+    if(action==='reset') idx=0;
+    render();
+    if(window.caiTrack) window.caiTrack('demo_click',{context:'proof_demo'});
+  });
+  render();
+})();
+</script>
+
 /* ---------- ANALYTICS (provider-agnostic) ----------
    Fires named events into whatever you wire up: GTM (dataLayer), gtag, Plausible, or PostHog.
    No tool is bundled — connect yours and these events flow automatically. Nothing fires until one is present. */
