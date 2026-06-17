@@ -2391,6 +2391,20 @@ section{
   }
 </style>
 
+<style id="cai-enterprise-trust-css">
+.enterprise-arch{background:#F5F0E8;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.enterprise-arch .wrap{padding-top:72px;padding-bottom:72px}
+.arch-grid,.arch-proof,.buybuild{display:grid;gap:18px}
+.arch-grid,.buybuild{grid-template-columns:1fr 1fr}
+.arch-proof{grid-template-columns:repeat(3,1fr);margin-top:22px}
+@media(max-width:860px){.arch-grid,.arch-proof,.buybuild{grid-template-columns:1fr}}
+.arch-panel,.proof-card,.bb-cell{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px}
+.arch-panel.dark,.bb-cell.good{background:var(--graphite);color:var(--cream)}
+.arch-node{border:1px solid rgba(29,27,26,.12);border-radius:12px;padding:12px;margin-top:10px;background:rgba(255,255,255,.55)}
+.arch-panel.dark .arch-node{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.07)}
+.arch-panel p,.proof-card p,.buybuild li{font-size:14px;line-height:1.55;color:var(--graphite-soft)}
+.arch-panel.dark p,.bb-cell.good li{color:#D9D3C8}
+</style>
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
@@ -2465,6 +2479,27 @@ section{
 </section>
 
 <!-- THREE PILLARS -->
+<section id="tenant-architecture" class="enterprise-arch">
+  <div class="wrap">
+    <span class="eyebrow">Enterprise architecture</span>
+    <h2>Designed to run in your tenant, not in a shared AI data lake.</h2>
+    <p class="lead">ColleagueAI packages are designed for deployment inside the customer Microsoft and cloud boundary. Customer business data stays in the customer-controlled data plane; ColleagueAI provides the agent blueprint, CAI Score governance pattern, deployment guidance and versioning support.</p>
+    <div class="arch-grid">
+      <div class="arch-panel dark"><h3>Customer data plane</h3><p>The runtime, identity checks, retrieval and audit evidence are deployed against the customer environment.</p><div class="arch-node"><strong>Entra ID / Active Directory</strong><br>User identity, groups, conditional access and permissions.</div><div class="arch-node"><strong>M365, SharePoint, Teams, Outlook</strong><br>Business content remains under customer tenant controls.</div><div class="arch-node"><strong>Azure OpenAI or approved model endpoint</strong><br>Inference path selected by the customer deployment model.</div></div>
+      <div class="arch-panel"><h3>ColleagueAI package layer</h3><p>We package the repeatable agent design and governance controls so teams do not start from a blank prompt, workflow or audit model.</p><div class="arch-node"><strong>Deployable blueprint</strong><br>Workflow, prompts, controls and implementation pattern.</div><div class="arch-node"><strong>CAI Score classification</strong><br>Autonomy tier, human oversight model and risk notes.</div><div class="arch-node"><strong>No customer data by default</strong><br>Package delivery does not require ColleagueAI to process customer business content.</div></div>
+    </div>
+    <div class="arch-proof">
+      <div class="proof-card"><h4>Permission-aware retrieval</h4><p>RAG patterns should inherit the user’s existing Entra ID and M365 permissions. The agent should only retrieve or summarize content the user is already authorized to access.</p></div>
+      <div class="proof-card"><h4>Human oversight by tier</h4><p>L3 and L4 packages are designed with review, approval, escalation and audit evidence patterns.</p></div>
+      <div class="proof-card"><h4>Use-case dependent risk</h4><p>AI Act and regulated-use classification depends on customer process, data and deployment context. This is governance evidence, not a legal compliance guarantee.</p></div>
+    </div>
+    <div class="buybuild" aria-label="Build versus buy comparison">
+      <div class="bb-cell"><h3>Internal build from scratch</h3><ul><li>Discovery, prompt design and controls start from zero.</li><li>Security review repeats for each use case.</li><li>Audit logs and oversight are often added late.</li><li>Maintenance remains fully internal.</li></ul></div>
+      <div class="bb-cell good"><h3>ColleagueAI package</h3><ul><li>Deployable blueprint and governance model are structured up front.</li><li>CAI Score defines autonomy, oversight and risk posture.</li><li>Designed for pilot deployment in weeks, subject to environment readiness.</li><li>Evidence and handover materials are part of the package design.</li></ul></div>
+    </div>
+  </div>
+</section>
+
 <section id="pillars" class="pillars-sec">
   <div class="wrap">
     <div class="sec-head reveal">

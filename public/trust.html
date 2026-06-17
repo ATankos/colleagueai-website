@@ -185,6 +185,11 @@ section{
   }
 }
 </style>
+<style id="cai-trust-enterprise-proof-css">
+.trust-proof{border:1px solid #ded7cb;background:#fffaf2;border-radius:18px;padding:22px;margin:22px 0}
+.trust-proof h3{margin:0 0 10px;font-size:20px}
+.trust-proof li{margin:9px 0;line-height:1.5}
+</style>
 </head>
 <body>
 <main>
@@ -204,6 +209,15 @@ section{
 
 <h2>Architecture: where agents run, where data lives</h2>
 <p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to satisfy the EU AI Act, DORA and ISO/IEC 42001.</p>
+<div id="trust-tenant-architecture-proof" class="trust-proof">
+  <h3>Enterprise deployment proof points</h3>
+  <p>ColleagueAI is positioned as a governed agent-package layer, not a shared SaaS workspace for customer business content. In a standard enterprise deployment, the customer controls the tenant, identity boundary, data sources, model endpoint, runtime configuration and audit evidence.</p>
+  <ul>
+    <li><strong>Customer-controlled data plane:</strong> agents are designed to operate against the customer’s Microsoft/cloud estate.</li>
+    <li><strong>RBAC and data lineage:</strong> retrieval patterns should respect existing user permissions.</li>
+    <li><strong>Governance before automation:</strong> each package is mapped to a CAI autonomy tier, human oversight pattern and audit evidence expectation.</li>
+  </ul>
+</div>
 <h3>What this website itself processes</h3>
 <ul>
 <li><strong>Live demo</strong> (/demo): the messages you type are sent to Anthropic's API to generate responses, with per-IP and global rate limits. Don't paste confidential data into the demo.</li>
