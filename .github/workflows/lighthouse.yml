@@ -1,8 +1,7 @@
-# Runs Lighthouse CI on every Pull Request and on every push to main.
-# Blocks PR merge if Performance / Accessibility / Best Practices / SEO
-# drop below the thresholds defined in lighthouserc.cjs.
+﻿# Runs direct Lighthouse audits on every Pull Request and on every push to main.
+# The thresholds are enforced in scripts/run-lhci.mjs.
 
-name: Lighthouse CI
+name: Lighthouse
 
 on:
   pull_request:
@@ -12,36 +11,30 @@ on:
 
 jobs:
   lighthouse:
+    name: Lighthouse
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
 
     steps:
-      - name: Check out repo
-        uses: actions/checkout@v6
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v6
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: 24
+          cache: npm
 
-      - name: Install deps
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build production bundle
-        run: npm run build
-
-      - name: Run Lighthouse CI
-        run: npx lhci autorun
-        env:
-          # If a secret named LHCI_GITHUB_APP_TOKEN is added later, LHCI will
-          # also post a "Lighthouse" check directly into the PR UI. Optional.
-          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+      - name: Run Lighthouse
+        run: npm run lhci
 
       - name: Upload Lighthouse reports as artifacts
         if: always()
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v4
         with:
           name: lighthouse-reports
           path: .lighthouseci/
-          retention-days: 14
+          if-no-files-found: ignore
