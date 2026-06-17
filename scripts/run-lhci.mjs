@@ -79,7 +79,12 @@ function startServer() {
 
 function run(command, args) {
   return new Promise((resolve, reject) => {
-    const child = spawn(command, args, { stdio: 'inherit', shell: false })
+    const child = spawn(command, args, {
+      stdio: 'inherit',
+      shell: process.platform === 'win32',
+      windowsVerbatimArguments: false,
+    })
+
     child.on('error', reject)
     child.on('close', code => {
       if (code === 0) resolve()
