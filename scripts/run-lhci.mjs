@@ -81,7 +81,7 @@ function run(command, args) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: 'inherit',
-      shell: process.platform === 'win32',
+      shell: false,
       windowsVerbatimArguments: false,
     })
 
@@ -93,13 +93,29 @@ function run(command, args) {
   })
 }
 
-function lighthouseBin() {
-  return path.join(
-    root,
-    'node_modules',
-    '.bin',
-    process.platform === 'win32' ? 'lighthouse.cmd' : 'lighthouse',
-  )
+function lighthouseCliArgs(url, output, outputPath, profileName) {
+  const profileDir = path.join(root, 'node_modules', `.chrome-lighthouse-${profileName}`)
+
+  const chromeFlags = [
+    '--no-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+    '--disable-extensions',
+    '--no-first-run',
+    '--headless=new',
+    `--user-data-dir=${profileDir}`,
+  ].join(' ')
+
+  return [
+    path.join(root, 'node_modules', 'lighthouse', 'cli', 'index.js'),
+    url,
+    '--quiet',
+    '--preset=desktop',
+    '--throttling-method=provided',
+    `--chrome-flags=${chromeFlags}`,
+    `--output=${output}`,
+    `--output-path=${outputPath}`,
+  ]
 }
 
 function safeName(url) {
@@ -111,23 +127,12 @@ async function runAudit(url) {
   const name = safeName(url)
   const jsonPath = path.join(outDir, `${name}-report.json`)
   const htmlPath = path.join(outDir, `${name}-report.html`)
-  const chromeFlags = [
-    '--no-sandbox',
-    '--disable-dev-shm-usage',
-    '--headless=new',
-    '--user-data-dir=./node_modules/.chrome-lighthouse-profile',
-  ].join(' ')
 
-  const baseArgs = [
-    url,
-    '--quiet',
-    '--preset=desktop',
-    '--throttling-method=provided',
-    `--chrome-flags=${chromeFlags}`,
-  ]
+  await rm(path.join(root, 'node_modules', `.chrome-lighthouse-${name}-json`), { recursive: true, force: true })
+  await rm(path.join(root, 'node_modules', `.chrome-lighthouse-${name}-html`), { recursive: true, force: true })
 
-  await run(lighthouseBin(), [...baseArgs, '--output=json', `--output-path=${jsonPath}`])
-  await run(lighthouseBin(), [...baseArgs, '--output=html', `--output-path=${htmlPath}`])
+  await run(process.execPath, lighthouseCliArgs(url, 'json', jsonPath, `${name}-json`))
+  await run(process.execPath, lighthouseCliArgs(url, 'html', htmlPath, `${name}-html`))
 
   const report = JSON.parse(await readFile(jsonPath, 'utf8'))
   const failures = []
