@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-agent-pages.mjs",
+    "build": "vite build && node scripts/generate-agent-pages.mjs && node scripts/generate-locale-pages.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
