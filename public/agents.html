@@ -2405,6 +2405,15 @@ section{
 .arch-panel p,.proof-card p,.buybuild li{font-size:14px;line-height:1.55;color:var(--graphite-soft)}
 .arch-panel.dark p,.bb-cell.good li{color:#D9D3C8}
 </style>
+<style id="cai-agent-factsheet-css">
+.factsheet-block{border:1px solid rgba(198,93,58,.18);background:rgba(198,93,58,.055);border-radius:16px;padding:18px}
+.factsheet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 0}
+.factsheet-row{display:grid;grid-template-columns:145px 1fr;gap:12px;align-items:start;border-top:1px solid rgba(43,42,40,.08);padding-top:10px}
+.factsheet-row:first-child{border-top:0;padding-top:0}
+.factsheet-row dt{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--terra)}
+.factsheet-row dd{margin:0;font-size:13.6px;line-height:1.48;color:var(--graphite-soft)}
+@media(max-width:560px){.factsheet-row{grid-template-columns:1fr;gap:4px}}
+</style>
 </head>
 <body>
 <a href="#catalogue" class="skip-link">Skip to content</a>
@@ -3003,6 +3012,10 @@ section{
       <div class="dblock"><span class="dl" data-i18n="dr_value">Value · ROI</span><p id="d-roi"></p></div>
       <div class="dblock"><span class="dl" data-i18n="dr_kpi">KPI it moves</span><p id="d-kpi"></p></div>
     </div>
+    <div class="dblock factsheet-block">
+      <span class="dl">▣ Governance factsheet</span>
+      <dl class="factsheet-list" id="d-factsheet"></dl>
+    </div>
     <div class="dblock compliance-block"><span class="dl" data-i18n="dr_risk">⚖ Risk &amp; compliance</span><p id="d-comp"></p></div>
     <div class="dblock" style="border-bottom:none">
       <span class="dl" data-i18n="dr_get">⤓ Get this agent</span>
@@ -3114,6 +3127,47 @@ if(loadMoreBtn){loadMoreBtn.addEventListener('click',()=>{visibleLimit+=LOAD_STE
 
 /* ---------- DRAWER ---------- */
 const drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
+function caiEsc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(ch){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];});}
+function caiHumanOversight(t){
+  if(t==='L4') return 'Named senior owner reviews recommendations before supervised decision or action.';
+  if(t==='L3') return 'Named process owner monitors execution, exceptions and escalation outcomes.';
+  if(t==='L2') return 'Human reviews, edits and approves the generated draft before use.';
+  return 'Human accountability required according to the deployed workflow.';
+}
+function caiOutputType(t){
+  if(t==='L4') return 'Supervised decision support, recommendations and controlled action prompts.';
+  if(t==='L3') return 'Operational execution, routing, prioritisation and exception surfacing.';
+  if(t==='L2') return 'Draft content, scripts, summaries or structured work products for approval.';
+  return 'Use-case specific output defined during deployment.';
+}
+function caiInputCategory(a){
+  var dom=(a.dom||'').toLowerCase();
+  if(dom.indexOf('risk')>-1||dom.indexOf('security')>-1||dom.indexOf('compliance')>-1) return 'Customer-approved risk, security, compliance and control evidence sources.';
+  if(dom.indexOf('data')>-1||dom.indexOf('infrastructure')>-1) return 'Customer-approved data, infrastructure, wiki and operational knowledge sources.';
+  if(dom.indexOf('sales')>-1) return 'Customer-approved CRM, pipeline, opportunity and sales process sources.';
+  if(dom.indexOf('contract')>-1||dom.indexOf('legal')>-1) return 'Customer-approved contract, obligation and legal workflow sources.';
+  return 'Customer-approved business systems and documents connected during deployment.';
+}
+function caiFactsheetRows(a){
+  return [
+    ['Intended purpose', a.desc || 'Use-case specific enterprise agent package.'],
+    ['CAI autonomy tier', 'CAI '+a.t+' · '+(a.t==='L4'?'Decide (supervised)':a.t==='L3'?'Operate':a.t==='L2'?'Draft':'Classified during deployment')],
+    ['Human oversight', caiHumanOversight(a.t)],
+    ['Input data category', caiInputCategory(a)],
+    ['Output type', caiOutputType(a.t)],
+    ['Audit evidence', 'Designed to capture logs, approvals, exceptions, handover notes and review points according to the customer deployment model.'],
+    ['Known limitations', 'Output quality depends on source-data quality, connector configuration, permissions, process design and customer validation.'],
+    ['Risk classification', 'EU AI Act or regulated-use classification is customer-use-case dependent; this factsheet is governance evidence, not a legal compliance guarantee.']
+  ];
+}
+function renderGovernanceFactsheet(a){
+  var el=document.getElementById('d-factsheet');
+  if(!el) return;
+  el.innerHTML=caiFactsheetRows(a).map(function(row){
+    return '<div class="factsheet-row"><dt>'+caiEsc(row[0])+'</dt><dd>'+caiEsc(row[1])+'</dd></div>';
+  }).join('');
+}
+
 function openDrawer(i){window.__caiDi=i;
   const a=AGENTS[i];
   const dbadge=document.getElementById('d-badge');
@@ -3129,6 +3183,7 @@ function openDrawer(i){window.__caiDi=i;
   document.getElementById('d-pains').innerHTML=(a.pains||[]).map(p=>'<li>'+p+'</li>').join('');
   const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
   window.__cai_cur={a:a,slug:slug,tier:a.t};
+  renderGovernanceFactsheet(a);
   document.getElementById('d-doc').href='https://www.colleagueai.ai/docs/agents/'+slug+'.pdf';
   document.getElementById('d-cs').href='#';
   document.getElementById('d-m365').href='#';
