@@ -63,7 +63,7 @@ function makeEvent({ type = 'checkout.session.completed', id, sessionId = 'cs_te
     id: id ?? `evt_test_${++evtSeq}`,
     object: 'event', type,
     data: { object: { id: sessionId, object: 'checkout.session', amount_total: amount,
-      customer_details: { email }, metadata: { ...(partner ? { partner } : {}), ...metadata } } },
+      customer_details: { email }, metadata: { agent_slug: 'contract-summarisation-agent', ...(partner ? { partner } : {}), ...metadata } } },
   };
 }
 async function deliver(event, { sign = true, badSig = false, timestamp } = {}) {
