@@ -14,4 +14,4 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
-Sitemap: https://www.colleagueai
+Sitemap: https://www.colleagueai.ai/sitemap.xml
