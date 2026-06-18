@@ -2432,6 +2432,25 @@ section{
 @media(max-width:900px){.proof-demo-grid{grid-template-columns:1fr}.proof-demo-steps{grid-template-columns:repeat(3,1fr)}}
 </style>
 
+<!-- CAI launch-readiness checkout gate -->
+<meta name="cai-commercial-launch-status" content="demo-and-partner-interest-open;paid-checkout-gated">
+<style id="cai-launch-gate-css">
+  .cai-launch-gate{margin:48px auto 28px;padding:24px;border:1px solid rgba(29,27,26,.14);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.42));box-shadow:0 18px 44px rgba(29,27,26,.08)}
+  .cai-launch-gate .cai-lg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+  .cai-launch-gate .cai-lg-card{border:1px solid rgba(29,27,26,.12);border-radius:18px;padding:14px;background:rgba(255,255,255,.7)}
+  .cai-launch-gate .cai-lg-label{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#766f66;margin-bottom:6px}
+  .cai-launch-gate .cai-lg-value{font-weight:800;color:#1D1B1A}
+  .cai-launch-gate .cai-lg-note{margin-top:14px;color:#5d564f;font-size:14px;line-height:1.6}
+  .cai-launch-gate .cai-lg-pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:#1D1B1A;color:#F5F0E8;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+  .cai-launch-gate .cai-lg-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .cai-launch-gate .cai-lg-actions a{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:11px 16px;text-decoration:none;font-weight:800;border:1px solid rgba(29,27,26,.16)}
+  .cai-launch-gate .cai-lg-primary{background:#1D1B1A;color:#F5F0E8}
+  .cai-launch-gate .cai-lg-secondary{background:rgba(255,255,255,.65);color:#1D1B1A}
+  .cai-launch-toast{position:fixed;z-index:9999;left:50%;bottom:18px;transform:translateX(-50%);max-width:min(92vw,620px);padding:14px 18px;border-radius:18px;background:#1D1B1A;color:#F5F0E8;box-shadow:0 18px 44px rgba(0,0,0,.24);font-size:14px;line-height:1.45}
+  .cai-launch-toast[hidden]{display:none}
+  @media(max-width:860px){.cai-launch-gate .cai-lg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:560px){.cai-launch-gate{padding:18px}.cai-launch-gate .cai-lg-grid{grid-template-columns:1fr}}
+</style>
 <link rel="canonical" href="https://www.colleagueai.ai/cs/agents">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents">
@@ -3007,6 +3026,25 @@ section{
   </div>
 </section>
 
+
+<!-- CAI launch-readiness checkout gate -->
+<section id="launch-readiness-gate" class="cai-launch-gate" aria-labelledby="launch-readiness-title">
+  <span class="cai-lg-pill">Launch readiness gate</span>
+  <h2 id="launch-readiness-title">Demo and partner interest are open. Paid checkout remains gated.</h2>
+  <p class="cai-lg-note">ColleagueAI is ready for enterprise demos, partner conversations, and technical evaluation. Paid checkout is not enabled until legal review, refund wording, partner terms, Stripe test checkout, and webhook entitlement checks are completed.</p>
+  <div class="cai-lg-grid" aria-label="Commercial launch readiness status">
+    <div class="cai-lg-card"><span class="cai-lg-label">Demos</span><span class="cai-lg-value">Open</span></div>
+    <div class="cai-lg-card"><span class="cai-lg-label">Partner interest</span><span class="cai-lg-value">Open</span></div>
+    <div class="cai-lg-card"><span class="cai-lg-label">Paid checkout</span><span class="cai-lg-value">Disabled pending approval</span></div>
+    <div class="cai-lg-card"><span class="cai-lg-label">Stripe end-to-end</span><span class="cai-lg-value">Required before launch</span></div>
+  </div>
+  <p class="cai-lg-note">This page does not create a legal compliance guarantee. AI risk classification and deployment obligations remain customer-use-case dependent and must be confirmed during implementation.</p>
+  <div class="cai-lg-actions">
+    <a class="cai-lg-primary" href="/partners">Register partner interest</a>
+    <a class="cai-lg-secondary" href="/trust">Review trust architecture</a>
+    <a class="cai-lg-secondary" href="/legal-review-checklist.html" rel="nofollow">Internal launch checklist</a>
+  </div>
+</section>
 
 <!-- PARTNER PROGRAM -->
 <section id="adopt" class="adopt-band">
@@ -3757,5 +3795,56 @@ window.__rebuildGAQuiz=function(){
 @media(max-width:520px){.cai-privacy{flex-direction:column;align-items:flex-start}}
 </style>
 <script>(function(){try{var k="cai-privacy-ack",el=document.getElementById("cai-privacy");if(!el)return;if(!localStorage.getItem(k))el.hidden=false;document.getElementById("cai-privacy-ok").addEventListener("click",function(){try{localStorage.setItem(k,"1")}catch(e){}el.hidden=true});}catch(e){}})();</script>
+<script id="cai-launch-gate-script">
+(function(){
+  var COMMERCIAL_LAUNCH_ENABLED=false;
+  window.CAI_COMMERCIAL_LAUNCH_ENABLED=false;
+  document.documentElement.setAttribute('data-cai-paid-launch','disabled');
+  function isCheckoutLink(anchor){
+    if(!anchor) return false;
+    var href=(anchor.getAttribute('href')||'').toLowerCase();
+    var mode=(anchor.dataset&&anchor.dataset.mode||'').toLowerCase();
+    return mode==='checkout'||href.indexOf('/api/checkout')>-1||href.indexOf('/checkout')>-1||href.indexOf('checkout.stripe.com')>-1||href.indexOf('buy.stripe.com')>-1;
+  }
+  function showLaunchGateNotice(){
+    var toast=document.getElementById('cai-launch-toast');
+    if(!toast){
+      toast=document.createElement('div');
+      toast.id='cai-launch-toast';
+      toast.className='cai-launch-toast';
+      toast.setAttribute('role','status');
+      toast.setAttribute('aria-live','polite');
+      toast.hidden=true;
+      document.body.appendChild(toast);
+    }
+    toast.textContent='Paid checkout is not enabled yet. Demos and partner interest are open while legal review and Stripe end-to-end checks are completed.';
+    toast.hidden=false;
+    clearTimeout(window.__caiLaunchToastTimer);
+    window.__caiLaunchToastTimer=setTimeout(function(){toast.hidden=true;},5200);
+  }
+  function markCheckoutLinks(){
+    if(COMMERCIAL_LAUNCH_ENABLED) return;
+    document.querySelectorAll('a').forEach(function(anchor){
+      if(!isCheckoutLink(anchor)) return;
+      anchor.setAttribute('aria-disabled','true');
+      anchor.setAttribute('data-cai-launch-gated','true');
+      anchor.setAttribute('href','#launch-readiness-gate');
+      if(/buy|checkout|start/i.test(anchor.textContent||'')) anchor.textContent='Request demo / launch notification';
+    });
+  }
+  document.addEventListener('click',function(event){
+    var anchor=event.target&&event.target.closest?event.target.closest('a'):null;
+    if(!anchor||!isCheckoutLink(anchor)||COMMERCIAL_LAUNCH_ENABLED) return;
+    event.preventDefault();
+    markCheckoutLinks();
+    var gate=document.getElementById('launch-readiness-gate');
+    if(gate) gate.scrollIntoView({behavior:'smooth',block:'start'});
+    showLaunchGateNotice();
+    if(window.caiTrack) window.caiTrack('readiness_cta_click',{context:'paid_checkout_gated'});
+  },true);
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',markCheckoutLinks);
+  else markCheckoutLinks();
+})();
+</script>
 </body>
 </html>
