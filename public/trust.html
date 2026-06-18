@@ -190,8 +190,28 @@ section{
 .trust-proof h3{margin:0 0 10px;font-size:20px}
 .trust-proof li{margin:9px 0;line-height:1.5}
 </style>
+<style id="cai-trust-nav-css">
+  .cai-page-guide{max-width:1040px;margin:24px auto;padding:18px;border:1px solid rgba(29,27,26,.12);border-radius:22px;background:rgba(255,255,255,.68)}
+  .cai-page-guide h2{margin:0 0 8px;font-size:24px;letter-spacing:-.02em}
+  .cai-page-guide p{margin:0 0 12px;color:#5d564f;line-height:1.6}
+  .cai-page-guide .cai-guide-links{display:flex;flex-wrap:wrap;gap:8px}
+  .cai-page-guide a{border:1px solid rgba(29,27,26,.14);border-radius:999px;padding:8px 12px;text-decoration:none;color:#1D1B1A;background:rgba(255,255,255,.72);font-weight:800;font-size:13px}
+  @media(max-width:560px){.cai-page-guide{margin:16px 12px;padding:16px}.cai-page-guide a{font-size:12px}}
+</style>
 </head>
 <body>
+<section id="trust-page-guide" class="cai-page-guide" aria-labelledby="trust-page-guide-title">
+  <h2 id="trust-page-guide-title">Trust page guide</h2>
+  <p>Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.</p>
+  <div class="cai-guide-links" aria-label="Trust navigation">
+    <a href="#security">Security model</a>
+    <a href="#data">Data handling</a>
+    <a href="#governance">AI governance</a>
+    <a href="#privacy">Telemetry and privacy</a>
+    <a href="/agents#launch-readiness-gate">Launch gate</a>
+    <a href="/partners">Partner interest</a>
+  </div>
+</section>
 <main>
 <nav class="crumb"><a href="/agents">← Agent Catalogue</a></nav>
 <div class="eyebrow">Trust Center · Verify us — don't take our word</div>
