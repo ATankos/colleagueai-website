@@ -112,9 +112,12 @@ export default async function handler(req, res) {
       return res.status(200).json({ received: true, warning: 'No email found' });
     }
 
-    const slugs = session.metadata?.agent_slug
-      ? [session.metadata.agent_slug]
-      : ['*'];
+    const slug = session.metadata?.agent_slug;
+    if (!slug) {
+      console.warn('[webhook] No agent_slug on session — entitlement withheld:', session.id);
+      return res.status(200).json({ received: true, warning: 'agent_slug missing — entitlement withheld' });
+    }
+    const slugs = [slug];
 
     try {
       const entitlement = await grantEntitlement(email, slugs, session.id);
