@@ -25,7 +25,8 @@
     "edge-cases": "playwright test edge-cases.spec.js --project=chromium",
     "check": "npm run lint && npm run test:run",
     "check:e2e": "npm run lint && npm run test:run && playwright test",
-    "check:full": "npm run lint && npm run test:run && playwright test && npm run lhci"
+    "check:full": "npm run lint && npm run test:run && playwright test && npm run lhci",
+    "smoke:prod": "node scripts/smoke-production.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",
