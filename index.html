@@ -44,9 +44,8 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
 </head>
   <body>
-    <div id="root"><div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:#F5F0E8;font-family:Georgia,'Times New Roman',serif"><div style="text-align:center"><div style="display:flex;gap:9px;justify-content:center;margin-bottom:16px"><span style="width:13px;height:13px;border-radius:50%;background:#C65D3A;display:inline-block"></span><span style="width:13px;height:13px;border-radius:50%;background:#2B2A28;display:inline-block"></span><span style="width:13px;height:13px;border-radius:50%;background:#C4A882;display:inline-block"></span></div><div style="font-size:30px;letter-spacing:-.01em;color:#2B2A28">colleague<span style="color:#C65D3A">ai</span></div></div></div></div>
-
-    <noscript>
+    <div id="root">
+      <!-- Static, crawlable demo landing. React (src/main.jsx) clears #root and mounts the interactive <Demo /> on load. -->
       <div style="max-width: 800px; margin: 60px auto; padding: 40px 24px; font-family: system-ui, -apple-system, sans-serif; color: #1D1B1A; line-height: 1.6;">
         <h1 style="font-size: 36px; font-weight: 500; margin: 0 0 8px; letter-spacing: -0.02em; text-align: center;">
           Try a Certified Enterprise AI Agent — Live Demo
@@ -82,4 +81,10 @@
           Colleague AI agents are designed to run in your environment, not ours.
           The demo uses a sandboxed cloud instance with synthetic data.
           In production, agents are deployed into your VPC or on-premise infrastructure so that no customer data ever leaves your perimeter.
-          There are no third-party AI model calls to external APIs in the data path: all inference run
+          There are no third-party AI model calls to external APIs in the data path: all inference runs inside your environment.
+        </p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
