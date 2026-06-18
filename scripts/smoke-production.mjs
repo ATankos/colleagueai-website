@@ -42,7 +42,23 @@ function hasBrokenSectionHref(html) {
 }
 
 function hasGoogleFonts(html) {
-  return html.includes('fonts.googleapis.com') || html.includes('fonts.gstatic.com');
+  const allowedHosts = new Set(['fonts.googleapis.com', 'fonts.gstatic.com']);
+  const attrRegex = /\b(?:href|src)\s*=\s*(['"])(.*?)\1/gi;
+  let match;
+
+  while ((match = attrRegex.exec(html)) !== null) {
+    const candidate = match[2];
+    try {
+      const parsed = new URL(candidate, SITE);
+      if (allowedHosts.has(parsed.hostname)) {
+        return true;
+      }
+    } catch {
+      // Ignore malformed URLs in HTML and continue scanning.
+    }
+  }
+
+  return false;
 }
 
 function hasNoindex(html) {
