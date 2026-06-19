@@ -99,13 +99,14 @@ for (const file of files) {
     if (!ids.has(a)) warnings.push(`${rel}: nav/link anchor #${a} has no matching id in the page`);
   }
 
-  // 6. internal absolute links should resolve to a known route or an existing file
+  // 6. internal absolute links should resolve to a known route, a localized path, or a static file
   const internal = [...html.matchAll(/href="(\/[^"#?]*)/g)].map((m) => m[1]);
   for (const href of internal) {
-    if (href.startsWith('/api') || href.startsWith('/docs') || href.startsWith('/assets')) continue;
+    if (href.startsWith('/api') || href.startsWith('/docs') || href.startsWith('/assets') || href.startsWith('/.well-known')) continue;
+    const hasFileExt = /\.[a-z0-9]+$/i.test(href);                 // /favicon.svg, /manifest.json, /x.html → static files
+    const isLocale = /^\/(cs|de|fr|es|it|pl|pt|en)(\/|$)/.test(href);
     const clean = href.replace(/\/$/, '') || '/';
-    const asFile = href.endsWith('.html');
-    if (KNOWN_ROUTES.has(clean) || asFile || /^\/(cs|de|fr|es|it|pl|pt|en)(\/|$)/.test(href)) continue;
+    if (hasFileExt || isLocale || KNOWN_ROUTES.has(clean)) continue;
     warnings.push(`${rel}: internal link ${href} is not a known route (verify the rewrite exists)`);
   }
 }
