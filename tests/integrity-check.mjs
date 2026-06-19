@@ -92,6 +92,17 @@ for (const file of files) {
     }
   }
 
+  // 4b. truncated / garbled attributes — the trust-page CTA class of defect
+  //      (empty href/src, or a closing tag glued onto a stray quoted attribute,
+  //      e.g. </div>"/demo">). Tag-balance checks miss these entirely.
+  lines.forEach((ln, i) => {
+    const empty = ln.match(/\b(href|src)\s*=\s*(""|''|>|$)/);
+    if (empty) failures.push(`${rel}:${i + 1}: empty/missing ${empty[1]} attribute — "${ln.trim().slice(0, 60)}"`);
+    if (/<\/[a-z][\w-]*>"[^"]*">/i.test(ln)) {
+      failures.push(`${rel}:${i + 1}: garbled tag (stray quoted attribute after a closing tag) — "${ln.trim().slice(0, 60)}"`);
+    }
+  });
+
   // 5. in-page anchors must resolve to a real id in the same document
   const ids = new Set([...html.matchAll(/\sid="([^"]+)"/g)].map((m) => m[1]));
   const anchors = [...html.matchAll(/href="#([^"]+)"/g)].map((m) => m[1]);
