@@ -23,6 +23,9 @@ jobs:
 
       - run: npm run build
 
+      - name: HTML integrity gate (tag balance, leaked code, orphaned tags, anchors)
+        run: node tests/integrity-check.mjs
+
       - name: Unit tests
         run: npm run test:run
 
@@ -55,4 +58,31 @@ jobs:
         with:
           name: harness-results
           path: tests/results/
+          if-no-files-found: ignore
+
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Playwright browser (chromium)
+        run: npx playwright install --with-deps chromium
+
+      - name: Go-live e2e — real static pages, nav, drawer, demo, locales
+        run: npx playwright test golive.spec.js --project=chromium --project=mobile-chrome
+
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
           if-no-files-found: ignore
