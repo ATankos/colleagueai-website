@@ -2511,6 +2511,28 @@ section{
 <a href="#catalogue" class="skip-link">Skip to content</a>
 <style>.skip-link{position:absolute;left:-9999px;top:0;z-index:300;background:var(--graphite);color:var(--paper);padding:10px 16px;font:600 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;border-radius:0 0 8px 0}.skip-link:focus{left:0}</style>
 
+<style>
+.cainav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:38px;align-items:center;border:1px solid var(--line);border-radius:10px;background:transparent;cursor:pointer;margin-left:14px}
+.cainav-burger span{width:18px;height:2px;background:var(--graphite);display:block;transition:transform .25s,opacity .2s}
+.cainav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.cainav-burger.open span:nth-child(2){opacity:0}
+.cainav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.cainav-drawer{display:none;border-top:1px solid var(--line);background:rgba(245,240,232,.97)}
+.cainav-drawer.open{display:block}
+.cainav-drawer .wrap{padding-top:10px;padding-bottom:20px}
+.cainav-drawer a{display:block;font-size:16px;color:var(--graphite);padding:13px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:color .2s}
+.cainav-drawer a:hover{color:var(--terra)}
+.cainav-drawer .cainav-act{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.cainav-drawer .cainav-act a{border-bottom:none;text-align:center;padding:13px;border-radius:100px}
+.cainav-drawer .d-try{border:1px solid var(--line)}
+.cainav-drawer .d-cta{background:var(--graphite);color:var(--paper)}
+.cainav-drawer .d-cta:hover{background:var(--terra);color:var(--paper)}
+.nav-links a{position:relative}
+.nav-links a.cainav-spy.active{color:var(--graphite)}
+.nav-links a.cainav-spy.active::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;background:var(--terra);border-radius:2px}
+@media(max-width:860px){.cainav-burger{display:flex}}
+@media(min-width:861px){.cainav-drawer{display:none !important}}
+</style>
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
     <a href="https://www.colleagueai.ai/agents" class="logo" aria-label="Colleague AI home"><span class="logo-text">Colleague<span class="ai">AI</span></span><span class="logo-dots"><span></span><span></span><span></span></span></a>
@@ -2527,6 +2549,23 @@ section{
       <a href="/demo" class="nav-try" data-i18n="nav_try">Wypróbuj na żywo</a>
 <a href="https://www.colleagueai.ai/demo" id="nav-call-link" class="nav-cta" data-i18n="nav_demo">Zarezerwuj rozmówę</a>
     </nav>
+    <button class="cainav-burger" id="cainavBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="cainavDrawer"><span></span><span></span><span></span></button>
+  </div>
+  <div class="cainav-drawer" id="cainavDrawer">
+    <div class="wrap">
+      <a href="#philosophy" data-i18n="nav_philosophy">Filozofia</a>
+      <a href="#score" data-i18n="nav_score">Score</a>
+      <a href="#catalogue" data-i18n="nav_catalogue">Katalog</a>
+      <a href="#fit" data-i18n="nav_fit">Jak pasują</a>
+      <a href="#roi" data-i18n="nav_roi">ROI</a>
+      <a href="#deploy" data-i18n="nav_deploy">Wdrożenie</a>
+      <a href="#readiness" data-i18n="nav_readiness">Dojrzałość</a>
+      <a href="#faq" data-i18n="nav_faq">FAQ</a>
+      <div class="cainav-act">
+        <a class="d-try" href="/demo" data-i18n="nav_try">Wypróbuj na żywo</a>
+        <a class="d-cta" href="https://www.colleagueai.ai/demo" data-i18n="nav_demo">Zarezerwuj rozmówę</a>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -3968,5 +4007,34 @@ window.__rebuildGAQuiz=function(){
     <div class="cai-score-plain">Plain English: CAI Score helps buyers understand the delivery and governance effort before committing time, data access, or budget.</div>
   </div>
 </section>
+<script>
+(function(){
+  var burger=document.getElementById('cainavBurger');
+  var drawer=document.getElementById('cainavDrawer');
+  if(burger&&drawer){
+    burger.addEventListener('click',function(){
+      var open=drawer.classList.toggle('open');
+      burger.classList.toggle('open',open);
+      burger.setAttribute('aria-expanded',open?'true':'false');
+    });
+    drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){drawer.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');});});
+  }
+  var links=Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  var map=[];
+  links.forEach(function(a){var h=a.getAttribute('href');if(h&&h.length>1){var s=document.querySelector(h);if(s){a.classList.add('cainav-spy');map.push({a:a,s:s});}}});
+  if('IntersectionObserver' in window && map.length){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          map.forEach(function(x){x.a.classList.remove('active');});
+          for(var i=0;i<map.length;i++){if(map[i].s===e.target){map[i].a.classList.add('active');break;}}
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    map.forEach(function(x){io.observe(x.s);});
+  }
+})();
+</script>
 </body>
 </html>
+           
