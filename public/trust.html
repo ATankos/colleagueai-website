@@ -207,7 +207,7 @@ section{
     <a href="#security">Security model</a>
     <a href="#data">Data handling</a>
     <a href="#governance">AI governance</a>
-    <a href="#privacy">Telemetry and privacy</a>
+    <a href="#usage-intelligence-trust">Telemetry and privacy</a>
     <a href="/agents#launch-readiness-gate">Launch gate</a>
     <a href="/partners">Partner interest</a>
   </div>
@@ -218,7 +218,7 @@ section{
 <h1>The evidence, in one place.</h1>
 <p>In a category built on trust, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something — a third-party attestation, a public customer story — we say so instead of implying otherwise.</p>
 
-<h2>The CAI Score methodology</h2>
+<h2 id="governance">The CAI Score methodology</h2>
 <p>The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable — then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
 <h3>L1 · Assist</h3><p>Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.</p>
 <h3>L2 · Draft</h3><p>Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.</p>
@@ -227,7 +227,7 @@ section{
 <h3>L5 · Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today. Human role: sets the rails.</p>
 <p class="note">The current catalogue ships at L2–L4. L4 agents require senior sign-off before go-live. Classifications are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
 
-<h2>Architecture: where agents run, where data lives</h2>
+<h2 id="data">Architecture: where agents run, where data lives</h2>
 <p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to satisfy the EU AI Act, DORA and ISO/IEC 42001.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
   <h3>Enterprise deployment proof points</h3>
@@ -260,7 +260,7 @@ section{
 <tr><td>Google Fonts</td><td>Web fonts</td><td>Standard font requests</td></tr>
 </table>
 
-<h2>Security practices</h2>
+<h2 id="security">Security practices</h2>
 <ul>
 <li>TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.</li>
 <li>Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.</li>
@@ -272,7 +272,9 @@ section{
 <h2>Pilot programme</h2>
 <p>We're onboarding pilot customers now. Every engagement starts the same way the catalogue promises: the agent is validated on your own cases before go-live, its ROI is quantified up front, and the governance evidence is produced from day one — so your first deployment is also your proof. If you want to be one of the proofs we publish here, that's the deal: you get the pilot terms, we get the (anonymised, approved-by-you) case study.</p>
 <div class="cta">
-  <a class="btn btn-p" href=
+  <a class="btn btn-p" href="/demo">Book a pilot conversation</a>
+</div>"/demo">Book a pilot conversation</a>
+</div>
 
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">
   <div class="usage-intel__wrap">
