@@ -1,0 +1,248 @@
+const fs = require("fs");
+
+const LOCALES = ["cs","de","fr","es","it","pl","pt"];
+const DICT = {
+  "cs": {
+    "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTIVNÍ DŮKAZ PRVNÍ STRANY",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Podívejte se, jak řízený agent promění problém s rekonciliací v auditovatelné důkazy.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Tento statický průchod používá fiktivní finanční případ k ukázce provozního modelu balíčků ColleagueAI: vyhledávání s ohledem na oprávnění, analýzu kořenové příčiny, lidský dohled a důkazní stopu vhodnou ke kontrole.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Žádná demo platforma třetí strany, žádný volný text, žádné zachytávání osobních údajů a žádné session replay. Příklad je deterministický a záměrně sanitizovaný.",
+    "Sample case": "Ukázkový případ",
+    "ERP invoice INV-2026-0148": "ERP faktura INV-2026-0148",
+    "payment PAY-88421": "platba PAY-88421",
+    "variance €18,420": "rozdíl €18 420",
+    "fictional counterparty": "fiktivní protistrana",
+    "CAI L3 · Human approval": "CAI L3 · Schválení člověkem",
+    "1. Detect the exception": "1. Detekovat výjimku",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "Agent zjistí, že platba plně nesouhlasí s očekávanou částkou ERP faktury, a klasifikuje případ jako výjimku finanční kontroly.",
+    "Evidence generated": "Vygenerované důkazy",
+    "Variance amount and source record IDs": "Výše rozdílu a ID zdrojových záznamů",
+    "Timestamped exception classification": "Časově označená klasifikace výjimky",
+    "CAI L3 handling requirement": "Požadavek na zpracování CAI L3",
+    "Previous": "Předchozí",
+    "Next step": "Další krok",
+    "Reset": "Resetovat",
+    "Choose your path": "Vyberte si cestu",
+    "I need an AI agent use case": "Potřebuji use case pro AI agenta",
+    "I need governance assurance": "Potřebuji jistotu governance",
+    "I want to partner": "Chci se stát partnerem",
+    "Partner interest, not automatic affiliate approval": "Partnerský zájem, ne automatické affiliate schválení",
+    "Use this page to register interest and generate an initial partner reference. Approval, commission eligibility, attribution rules, and payment terms remain subject to the partner agreement and manual review.": "Tuto stránku použijte k registraci zájmu a vytvoření úvodní partnerské reference. Schválení, nárok na provizi, pravidla atribuce a platební podmínky zůstávají předmětem partnerské smlouvy a ruční kontroly.",
+    "Register interest": "Registrovat zájem",
+    "Review agent packages": "Prohlédnout balíčky agentů",
+    "Review trust architecture": "Prohlédnout trust architekturu",
+    "Checkout gate": "Checkout gate"
+  },
+  "de": {
+    "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTIVER FIRST-PARTY-NACHWEIS",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Sehen Sie, wie ein gesteuerter Agent ein Rekonziliationsproblem in auditierbare Nachweise umwandelt.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Diese statische Demonstration nutzt einen fiktiven Finanzfall, um das Betriebsmodell hinter ColleagueAI-Paketen zu zeigen: berechtigungsbewusste Abfrage, Root-Cause-Analyse, menschliche Aufsicht und eine prüfbare Evidenzspur.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Keine Demo-Plattform eines Drittanbieters, keine Freitexteingabe, keine Erfassung personenbezogener Daten und kein Session Replay. Das Beispiel ist deterministisch und absichtlich bereinigt.",
+    "Sample case": "Beispielfall",
+    "ERP invoice INV-2026-0148": "ERP-Rechnung INV-2026-0148",
+    "payment PAY-88421": "Zahlung PAY-88421",
+    "variance €18,420": "Abweichung €18.420",
+    "fictional counterparty": "fiktive Gegenpartei",
+    "CAI L3 · Human approval": "CAI L3 · Menschliche Freigabe",
+    "1. Detect the exception": "1. Ausnahme erkennen",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "Der Agent erkennt, dass die Zahlung nicht vollständig mit dem erwarteten ERP-Rechnungsbetrag übereinstimmt, und klassifiziert den Fall als Ausnahme der Finanzkontrolle.",
+    "Evidence generated": "Generierte Nachweise",
+    "Variance amount and source record IDs": "Abweichungsbetrag und IDs der Quelldatensätze",
+    "Timestamped exception classification": "Zeitgestempelte Ausnahmeklassifikation",
+    "CAI L3 handling requirement": "CAI-L3-Bearbeitungsanforderung",
+    "Previous": "Zurück",
+    "Next step": "Nächster Schritt",
+    "Reset": "Zurücksetzen",
+    "Choose your path": "Wählen Sie Ihren Weg",
+    "I need an AI agent use case": "Ich brauche einen KI-Agenten-Use-Case",
+    "I need governance assurance": "Ich brauche Governance-Sicherheit",
+    "I want to partner": "Ich möchte Partner werden",
+    "Partner interest, not automatic affiliate approval": "Partnerinteresse, keine automatische Affiliate-Freigabe",
+    "Use this page to register interest and generate an initial partner reference. Approval, commission eligibility, attribution rules, and payment terms remain subject to the partner agreement and manual review.": "Nutzen Sie diese Seite, um Interesse zu registrieren und eine erste Partnerreferenz zu erzeugen. Freigabe, Provisionsfähigkeit, Attributionsregeln und Zahlungsbedingungen bleiben der Partnervereinbarung und manuellen Prüfung vorbehalten.",
+    "Register interest": "Interesse registrieren",
+    "Review agent packages": "Agentenpakete prüfen",
+    "Review trust architecture": "Trust-Architektur prüfen",
+    "Checkout gate": "Checkout-Gate"
+  },
+  "fr": {
+    "FIRST-PARTY INTERACTIVE PROOF": "PREUVE INTERACTIVE FIRST-PARTY",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Découvrez comment un agent gouverné transforme un problème de rapprochement en preuve auditable.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Cette démonstration statique utilise un cas financier fictif pour montrer le modèle opérationnel des packages ColleagueAI : récupération tenant compte des permissions, analyse de cause racine, supervision humaine et piste de preuve exploitable pour revue.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Aucune plateforme de démo tierce, aucune saisie libre, aucune capture de données personnelles et aucun session replay. L’exemple est déterministe et conçu pour être expurgé.",
+    "Sample case": "Cas exemple",
+    "ERP invoice INV-2026-0148": "Facture ERP INV-2026-0148",
+    "payment PAY-88421": "paiement PAY-88421",
+    "variance €18,420": "écart €18 420",
+    "fictional counterparty": "contrepartie fictive",
+    "CAI L3 · Human approval": "CAI L3 · Approbation humaine",
+    "1. Detect the exception": "1. Détecter l’exception",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "L’agent identifie que le paiement ne se rapproche pas totalement du montant attendu de la facture ERP et classe le cas comme exception de contrôle financier.",
+    "Evidence generated": "Preuves générées",
+    "Variance amount and source record IDs": "Montant de l’écart et ID des enregistrements sources",
+    "Timestamped exception classification": "Classification de l’exception horodatée",
+    "CAI L3 handling requirement": "Exigence de traitement CAI L3",
+    "Previous": "Précédent",
+    "Next step": "Étape suivante",
+    "Reset": "Réinitialiser",
+    "Choose your path": "Choisissez votre parcours",
+    "I need an AI agent use case": "J’ai besoin d’un cas d’usage agent IA",
+    "I need governance assurance": "J’ai besoin d’assurance gouvernance",
+    "I want to partner": "Je veux devenir partenaire",
+    "Partner interest, not automatic affiliate approval": "Intérêt partenaire, pas d’approbation affiliate automatique",
+    "Register interest": "Enregistrer l’intérêt",
+    "Review agent packages": "Voir les packages agents",
+    "Review trust architecture": "Voir l’architecture de confiance",
+    "Checkout gate": "Gate de paiement"
+  },
+  "es": {
+    "FIRST-PARTY INTERACTIVE PROOF": "PRUEBA INTERACTIVA FIRST-PARTY",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Vea cómo un agente gobernado convierte un problema de conciliación en evidencia auditable.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Este recorrido estático utiliza un caso financiero ficticio para mostrar el modelo operativo detrás de los paquetes ColleagueAI: recuperación con control de permisos, análisis de causa raíz, supervisión humana y una trazabilidad de evidencia apta para revisión.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Sin plataforma demo de terceros, sin entrada de texto libre, sin captura de datos personales y sin session replay. El ejemplo es determinista y sanitizado por diseño.",
+    "Sample case": "Caso de ejemplo",
+    "ERP invoice INV-2026-0148": "Factura ERP INV-2026-0148",
+    "payment PAY-88421": "pago PAY-88421",
+    "variance €18,420": "diferencia €18.420",
+    "fictional counterparty": "contraparte ficticia",
+    "CAI L3 · Human approval": "CAI L3 · Aprobación humana",
+    "1. Detect the exception": "1. Detectar la excepción",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "El agente identifica que el pago no concilia completamente con el importe esperado de la factura ERP y clasifica el caso como una excepción de control financiero.",
+    "Evidence generated": "Evidencia generada",
+    "Variance amount and source record IDs": "Importe de diferencia e ID de registros fuente",
+    "Timestamped exception classification": "Clasificación de excepción con marca temporal",
+    "CAI L3 handling requirement": "Requisito de gestión CAI L3",
+    "Previous": "Anterior",
+    "Next step": "Siguiente paso",
+    "Reset": "Restablecer",
+    "Choose your path": "Elige tu camino",
+    "I need an AI agent use case": "Necesito un caso de uso de agente IA",
+    "I need governance assurance": "Necesito garantía de gobernanza",
+    "I want to partner": "Quiero ser partner",
+    "Partner interest, not automatic affiliate approval": "Interés de partner, no aprobación automática de afiliado",
+    "Register interest": "Registrar interés",
+    "Review agent packages": "Revisar paquetes de agentes",
+    "Review trust architecture": "Revisar arquitectura de confianza",
+    "Checkout gate": "Gate de checkout"
+  },
+  "it": {
+    "FIRST-PARTY INTERACTIVE PROOF": "PROVA INTERATTIVA FIRST-PARTY",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Scopri come un agente governato trasforma un problema di riconciliazione in evidenza auditabile.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Questo walkthrough statico usa un caso finanziario fittizio per mostrare il modello operativo dei pacchetti ColleagueAI: recupero consapevole dei permessi, analisi della causa radice, supervisione umana e traccia evidenziale adatta alla revisione.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Nessuna piattaforma demo di terze parti, nessun input libero, nessuna acquisizione di dati personali e nessun session replay. L’esempio è deterministico e sanitizzato per design.",
+    "Sample case": "Caso di esempio",
+    "ERP invoice INV-2026-0148": "Fattura ERP INV-2026-0148",
+    "payment PAY-88421": "pagamento PAY-88421",
+    "variance €18,420": "varianza €18.420",
+    "fictional counterparty": "controparte fittizia",
+    "CAI L3 · Human approval": "CAI L3 · Approvazione umana",
+    "1. Detect the exception": "1. Rilevare l’eccezione",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "L’agente identifica che il pagamento non riconcilia completamente con l’importo previsto della fattura ERP e classifica il caso come eccezione di controllo finanziario.",
+    "Evidence generated": "Evidenza generata",
+    "Variance amount and source record IDs": "Importo della varianza e ID dei record sorgente",
+    "Timestamped exception classification": "Classificazione dell’eccezione con timestamp",
+    "CAI L3 handling requirement": "Requisito di gestione CAI L3",
+    "Previous": "Precedente",
+    "Next step": "Passaggio successivo",
+    "Reset": "Reimposta",
+    "Choose your path": "Scegli il tuo percorso",
+    "I need an AI agent use case": "Mi serve un caso d’uso per un agente AI",
+    "I need governance assurance": "Mi serve assurance di governance",
+    "I want to partner": "Voglio diventare partner",
+    "Partner interest, not automatic affiliate approval": "Interesse partner, non approvazione affiliate automatica",
+    "Register interest": "Registra interesse",
+    "Review agent packages": "Rivedi pacchetti agenti",
+    "Review trust architecture": "Rivedi architettura trust",
+    "Checkout gate": "Gate di checkout"
+  },
+  "pl": {
+    "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTYWNY DOWÓD FIRST-PARTY",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Zobacz, jak zarządzany agent zamienia problem uzgodnienia w audytowalny materiał dowodowy.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Ten statyczny walkthrough wykorzystuje fikcyjny przypadek finansowy, aby pokazać model operacyjny pakietów ColleagueAI: pobieranie z uwzględnieniem uprawnień, analizę przyczyn źródłowych, nadzór człowieka i ścieżkę dowodową gotową do przeglądu.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Brak platformy demo stron trzecich, brak wejścia tekstu swobodnego, brak przechwytywania danych osobowych i brak session replay. Przykład jest deterministyczny i sanitizowany z założenia.",
+    "Sample case": "Przykładowy przypadek",
+    "ERP invoice INV-2026-0148": "Faktura ERP INV-2026-0148",
+    "payment PAY-88421": "płatność PAY-88421",
+    "variance €18,420": "różnica €18 420",
+    "fictional counterparty": "fikcyjna kontrahentka",
+    "CAI L3 · Human approval": "CAI L3 · Zatwierdzenie przez człowieka",
+    "1. Detect the exception": "1. Wykrycie wyjątku",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "Agent identyfikuje, że płatność nie uzgadnia się w pełni z oczekiwaną kwotą faktury ERP i klasyfikuje przypadek jako wyjątek kontroli finansowej.",
+    "Evidence generated": "Wygenerowane dowody",
+    "Variance amount and source record IDs": "Kwota różnicy i ID rekordów źródłowych",
+    "Timestamped exception classification": "Klasyfikacja wyjątku ze znacznikiem czasu",
+    "CAI L3 handling requirement": "Wymóg obsługi CAI L3",
+    "Previous": "Poprzedni",
+    "Next step": "Następny krok",
+    "Reset": "Resetuj",
+    "Choose your path": "Wybierz swoją ścieżkę",
+    "I need an AI agent use case": "Potrzebuję use case dla agenta AI",
+    "I need governance assurance": "Potrzebuję pewności governance",
+    "I want to partner": "Chcę zostać partnerem",
+    "Partner interest, not automatic affiliate approval": "Zainteresowanie partnerskie, nie automatyczna akceptacja affiliate",
+    "Register interest": "Zarejestruj zainteresowanie",
+    "Review agent packages": "Przejrzyj pakiety agentów",
+    "Review trust architecture": "Przejrzyj architekturę zaufania",
+    "Checkout gate": "Gate checkout"
+  },
+  "pt": {
+    "FIRST-PARTY INTERACTIVE PROOF": "PROVA INTERATIVA FIRST-PARTY",
+    "See how a governed agent turns a reconciliation issue into auditable evidence.": "Veja como um agente governado transforma um problema de reconciliação em evidência auditável.",
+    "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Este walkthrough estático usa um caso financeiro fictício para mostrar o modelo operacional dos pacotes ColleagueAI: recuperação com atenção a permissões, análise de causa raiz, supervisão humana e trilha de evidência adequada para revisão.",
+    "No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.": "Sem plataforma demo de terceiros, sem entrada de texto livre, sem captura de dados pessoais e sem session replay. O exemplo é determinístico e sanitizado por design.",
+    "Sample case": "Caso de exemplo",
+    "ERP invoice INV-2026-0148": "Fatura ERP INV-2026-0148",
+    "payment PAY-88421": "pagamento PAY-88421",
+    "variance €18,420": "diferença €18.420",
+    "fictional counterparty": "contraparte fictícia",
+    "CAI L3 · Human approval": "CAI L3 · Aprovação humana",
+    "1. Detect the exception": "1. Detectar a exceção",
+    "The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.": "O agente identifica que o pagamento não reconcilia totalmente com o valor esperado da fatura ERP e classifica o caso como uma exceção de controlo financeiro.",
+    "Evidence generated": "Evidência gerada",
+    "Variance amount and source record IDs": "Valor da diferença e IDs dos registos fonte",
+    "Timestamped exception classification": "Classificação da exceção com carimbo temporal",
+    "CAI L3 handling requirement": "Requisito de gestão CAI L3",
+    "Previous": "Anterior",
+    "Next step": "Próximo passo",
+    "Reset": "Repor",
+    "Choose your path": "Escolha seu caminho",
+    "I need an AI agent use case": "Preciso de um caso de uso de agente IA",
+    "I need governance assurance": "Preciso de garantia de governança",
+    "I want to partner": "Quero ser parceiro",
+    "Partner interest, not automatic affiliate approval": "Interesse de parceiro, não aprovação automática de afiliado",
+    "Register interest": "Registrar interesse",
+    "Review agent packages": "Revisar pacotes de agentes",
+    "Review trust architecture": "Revisar arquitetura de confiança",
+    "Checkout gate": "Gate de checkout"
+  }
+};
+
+function walk(dir) {
+  if (!fs.existsSync(dir)) return [];
+  const out = [];
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const p = dir + "/" + entry.name;
+    if (entry.isDirectory()) out.push(...walk(p));
+    if (entry.isFile() && p.endsWith(".html")) out.push(p);
+  }
+  return out;
+}
+
+function replaceAll(value, from, to) {
+  return value.split(from).join(to);
+}
+
+for (const root of ["public", "dist"]) {
+  for (const locale of LOCALES) {
+    const dict = DICT[locale];
+    for (const file of walk(root + "/" + locale)) {
+      let html = fs.readFileSync(file, "utf8");
+      const before = html;
+      const entries = Object.entries(dict).sort((a, b) => b[0].length - a[0].length);
+      for (const [from, to] of entries) html = replaceAll(html, from, to);
+      if (html !== before) {
+        fs.writeFileSync(file, html, "utf8");
+        console.log("[i18n-translate-visible-copy] patched", file);
+      }
+    }
+  }
+}
