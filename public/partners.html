@@ -197,8 +197,27 @@ section{
   .cai-page-guide a{border:1px solid rgba(29,27,26,.14);border-radius:999px;padding:8px 12px;text-decoration:none;color:#1D1B1A;background:rgba(255,255,255,.72);font-weight:800;font-size:13px}
   @media(max-width:560px){.cai-page-guide{margin:16px 12px;padding:16px}.cai-page-guide a{font-size:12px}}
 </style>
+<style id="cai-site-journey-css">
+  .cai-site-journey{max-width:1120px;margin:24px auto 10px;padding:0 18px}
+  .cai-site-journey-inner{border:1px solid rgba(29,27,26,.12);border-radius:24px;background:rgba(255,255,255,.72);box-shadow:0 14px 38px rgba(29,27,26,.07);padding:18px}
+  .cai-site-journey-title{margin:0 0 10px;font-size:22px;letter-spacing:-.02em;color:#1D1B1A}
+  .cai-site-journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .cai-site-journey-card{border:1px solid rgba(29,27,26,.12);border-radius:18px;padding:14px;text-decoration:none;background:rgba(255,255,255,.72);color:#1D1B1A}
+  .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
+  @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
+</style>
 </head>
 <body>
+<section id="cai-site-journey" class="cai-site-journey" aria-labelledby="cai-site-journey-title">
+  <div class="cai-site-journey-inner">
+    <h2 id="cai-site-journey-title" class="cai-site-journey-title">Choose your path</h2>
+    <div class="cai-site-journey-grid">
+      <a class="cai-site-journey-card" href="/agents#cai-buyer-path"><strong>I need an AI agent use case</strong><span>Browse packaged agents, factsheets, CAI Score, and the controlled demo path.</span></a>
+      <a class="cai-site-journey-card" href="/trust"><strong>I need governance assurance</strong><span>Review security, data handling, AI governance, telemetry, and launch gate status.</span></a>
+      <a class="cai-site-journey-card" href="/partners"><strong>I want to partner</strong><span>Register partner interest. Approval and commission eligibility remain agreement-based.</span></a>
+    </div>
+  </div>
+</section>
 <section id="partner-page-guide" class="cai-page-guide" aria-labelledby="partner-page-guide-title">
   <h2 id="partner-page-guide-title">Partner interest, not automatic affiliate approval</h2>
   <p>Use this page to register interest and generate an initial partner reference. Approval, commission eligibility, attribution rules, and payment terms remain subject to the partner agreement and manual review.</p>
