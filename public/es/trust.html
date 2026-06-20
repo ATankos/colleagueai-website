@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trust Center — AI Governance Evidence, Architecture &amp; Security | Colleague AI</title>
+<meta name="description" content="How Colleague AI is built to be verified: the CAI Score methodology, client-hosted architecture, what data we do and do not process, our subprocessors, and how to report a security issue.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/trust">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.colleagueai.ai/trust">
+<meta property="og:title" content="Trust Center — AI Governance Evidence, Architecture &amp; Security | Colleague AI">
+<meta property="og:description" content="The CAI Score methodology, client-hosted architecture, data flows, subprocessors, and responsible disclosure.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Colleague AI Trust Center — AI governance, architecture, and security.">
+<meta property="og:site_name" content="Colleague AI">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<style>
+body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
+main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
+.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#9A4B2F;text-decoration:none}
+.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
+h2{font-size:15px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;color:#8a857d;margin:40px 0 10px;text-transform:uppercase}
+h3{font-size:16.5px;margin:20px 0 6px}
+table{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}
+td,th{border:1px solid #d8d2c6;padding:8px 11px;text-align:left;vertical-align:top}
+th{background:#fff;font-weight:600}
+ul{margin:6px 0 0;padding-left:20px}
+.note{font-size:13px;color:#6b665e;background:#fff;border:1px solid #d8d2c6;border-radius:10px;padding:14px 16px;margin-top:14px}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:40px}
+.btn{display:inline-block;padding:12px 26px;border-radius:999px;text-decoration:none;font-size:14.5px}
+.btn-p{background:#1D1B1A;color:#F5F0E8}.btn-s{border:1.5px solid #1D1B1A;color:#1D1B1A}
+footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+a{color:#9A4B2F}
+</style>
+
+<style id="cai-visual-copy-polish">
+/* Conservative professional polish */
+:root{
+  --cai-card-shadow:0 18px 60px rgba(15,23,42,.12);
+  --cai-card-shadow-hover:0 24px 75px rgba(15,23,42,.18);
+}
+body{
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+section{
+  scroll-margin-top:96px;
+}
+.hero-title,h1{
+  letter-spacing:-.052em;
+  line-height:.98;
+}
+.hero-sub{
+  max-width:780px;
+  line-height:1.65;
+}
+.sec-h,h2{
+  letter-spacing:-.035em;
+  line-height:1.08;
+}
+.card,.agent-card,.trust-card,.panel,.tile,.tier,.flow,.qa,.step,.perk{
+  box-shadow:var(--cai-card-shadow);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover,.agent-card:hover,.trust-card:hover,.panel:hover,.tile:hover,.step:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--cai-card-shadow-hover);
+}
+.btn,.btn-s,.nav-cta,.nav-try,button{
+  letter-spacing:-.01em;
+}
+@media(max-width:760px){
+  .hero-title,h1{letter-spacing:-.04em}
+  .hero-sub{font-size:16px;line-height:1.6}
+}
+</style>
+
+<style id="cai-usage-intelligence-polish">
+.usage-intel{
+  margin:72px auto;
+  padding:0 22px;
+}
+.usage-intel__wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:34px;
+  border:1px solid rgba(148,163,184,.28);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 34%),
+    linear-gradient(135deg, rgba(15,23,42,.92), rgba(30,41,59,.86));
+  box-shadow:0 24px 90px rgba(15,23,42,.22);
+  color:#f8fafc;
+}
+.usage-intel__eyebrow{
+  margin:0 0 12px;
+  font-size:12px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:#67e8f9;
+  font-weight:800;
+}
+.usage-intel h2{
+  margin:0;
+  max-width:850px;
+  font-size:clamp(30px,4.5vw,58px);
+  line-height:1.02;
+  letter-spacing:-.05em;
+  color:#fff;
+}
+.usage-intel__lead{
+  max-width:820px;
+  margin:18px 0 0;
+  color:rgba(226,232,240,.88);
+  font-size:18px;
+  line-height:1.65;
+}
+.usage-intel__grid{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.usage-intel__card{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(15,23,42,.58);
+  border:1px solid rgba(226,232,240,.16);
+}
+.usage-intel__card strong{
+  display:block;
+  color:#fff;
+  margin-bottom:8px;
+  font-size:15px;
+}
+.usage-intel__card span{
+  color:rgba(226,232,240,.78);
+  font-size:13.5px;
+  line-height:1.5;
+}
+.usage-intel__note{
+  margin-top:20px;
+  color:rgba(226,232,240,.78);
+  font-size:13px;
+  line-height:1.55;
+}
+.usage-intel__split{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.usage-intel__list{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(15,23,42,.5);
+  border:1px solid rgba(226,232,240,.16);
+}
+.usage-intel__list h3{
+  margin:0 0 10px;
+  color:#fff;
+  font-size:16px;
+}
+.usage-intel__list ul{
+  margin:0;
+  padding-left:18px;
+  color:rgba(226,232,240,.82);
+  line-height:1.7;
+  font-size:14px;
+}
+@media(max-width:900px){
+  .usage-intel__grid,
+  .usage-intel__split{
+    grid-template-columns:1fr;
+  }
+  .usage-intel__wrap{
+    padding:26px;
+  }
+}
+</style>
+<style id="cai-trust-enterprise-proof-css">
+.trust-proof{border:1px solid #ded7cb;background:#fffaf2;border-radius:18px;padding:22px;margin:22px 0}
+.trust-proof h3{margin:0 0 10px;font-size:20px}
+.trust-proof li{margin:9px 0;line-height:1.5}
+</style>
+<style id="cai-trust-nav-css">
+  .cai-page-guide{max-width:1040px;margin:24px auto;padding:18px;border:1px solid rgba(29,27,26,.12);border-radius:22px;background:rgba(255,255,255,.68)}
+  .cai-page-guide h2{margin:0 0 8px;font-size:24px;letter-spacing:-.02em}
+  .cai-page-guide p{margin:0 0 12px;color:#5d564f;line-height:1.6}
+  .cai-page-guide .cai-guide-links{display:flex;flex-wrap:wrap;gap:8px}
+  .cai-page-guide a{border:1px solid rgba(29,27,26,.14);border-radius:999px;padding:8px 12px;text-decoration:none;color:#1D1B1A;background:rgba(255,255,255,.72);font-weight:800;font-size:13px}
+  @media(max-width:560px){.cai-page-guide{margin:16px 12px;padding:16px}.cai-page-guide a{font-size:12px}}
+</style>
+<style id="cai-site-journey-css">
+  .cai-site-journey{max-width:1120px;margin:24px auto 10px;padding:0 18px}
+  .cai-site-journey-inner{border:1px solid rgba(29,27,26,.12);border-radius:24px;background:rgba(255,255,255,.72);box-shadow:0 14px 38px rgba(29,27,26,.07);padding:18px}
+  .cai-site-journey-title{margin:0 0 10px;font-size:22px;letter-spacing:-.02em;color:#1D1B1A}
+  .cai-site-journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .cai-site-journey-card{border:1px solid rgba(29,27,26,.12);border-radius:18px;padding:14px;text-decoration:none;background:rgba(255,255,255,.72);color:#1D1B1A}
+  .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
+  @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
+</style>
+<!-- cai-global-hreflang:start -->
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/trust" />
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/trust" />
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/trust" />
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/trust" />
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/trust" />
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/trust" />
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/trust" />
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/trust" />
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/trust" />
+<link rel="canonical" href="https://www.colleagueai.ai/es/trust" />
+<!-- cai-global-hreflang:end -->
+<style id="cai-global-language-css">
+  .cai-global-language{max-width:1120px;margin:14px auto 0;padding:0 18px;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .cai-global-language-inner{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px solid rgba(29,27,26,.12);border-radius:18px;background:rgba(255,255,255,.78);padding:10px 12px;box-shadow:0 10px 24px rgba(29,27,26,.06)}
+  .cai-global-language-label{font-weight:800;color:#1D1B1A;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+  .cai-global-language-links{display:flex;flex-wrap:wrap;gap:7px}
+  .cai-global-language-links a{border:1px solid rgba(29,27,26,.16);border-radius:999px;padding:7px 10px;text-decoration:none;color:#1D1B1A;background:#fff;font-weight:800;font-size:12px}
+  .cai-global-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
+  @media(max-width:760px){.cai-global-language{padding:0 12px}.cai-global-language-inner{align-items:flex-start}.cai-global-language-links a{padding:8px 10px}}
+</style>
+</head>
+<body>
+<nav id="cai-global-language-switcher" class="cai-global-language" aria-label="Idioma">
+  <div class="cai-global-language-inner">
+    <span class="cai-global-language-label">Idioma</span>
+    <div class="cai-global-language-links"><a href="/en/trust" hreflang="en">EN</a><a href="/cs/trust" hreflang="cs">CS</a><a href="/de/trust" hreflang="de">DE</a><a href="/fr/trust" hreflang="fr">FR</a><a href="/es/trust" hreflang="es" aria-current="page">ES</a><a href="/it/trust" hreflang="it">IT</a><a href="/pl/trust" hreflang="pl">PL</a><a href="/pt/trust" hreflang="pt">PT</a></div>
+  </div>
+</nav>
+
+<section id="cai-site-journey" class="cai-site-journey" aria-labelledby="cai-site-journey-title">
+  <div class="cai-site-journey-inner">
+    <h2 id="cai-site-journey-title" class="cai-site-journey-title">Choose your path</h2>
+    <div class="cai-site-journey-grid">
+      <a class="cai-site-journey-card" href="/es/agents#cai-buyer-path"><strong>I need an AI agent use case</strong><span>Browse packaged agents, factsheets, CAI Score, and the controlled demo path.</span></a>
+      <a class="cai-site-journey-card" href="/es/trust"><strong>I need governance assurance</strong><span>Review security, data handling, AI governance, telemetry, and launch gate status.</span></a>
+      <a class="cai-site-journey-card" href="/es/partners"><strong>I want to partner</strong><span>Register partner interest. Approval and commission eligibility remain agreement-based.</span></a>
+    </div>
+  </div>
+</section>
+<section id="trust-page-guide" class="cai-page-guide" aria-labelledby="trust-page-guide-title">
+  <h2 id="trust-page-guide-title">Trust page guide</h2>
+  <p>Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.</p>
+  <div class="cai-guide-links" aria-label="Trust navigation">
+    <a href="#security">Security model</a>
+    <a href="#data">Data handling</a>
+    <a href="#governance">AI governance</a>
+    <a href="#usage-intelligence-trust">Telemetry and privacy</a>
+    <a href="/es/agents#launch-readiness-gate">Launch gate</a>
+    <a href="/es/partners">Partner interest</a>
+  </div>
+</section>
+<main>
+<nav class="crumb"><a href="/es/agents">← Agent Catalogue</a></nav>
+<div class="eyebrow">Trust Center · Verify us — don't take our word</div>
+<h1>The evidence, in one place.</h1>
+<p>In a category built on trust, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something — a third-party attestation, a public customer story — we say so instead of implying otherwise.</p>
+
+<h2 id="governance">The CAI Score methodology</h2>
+<p>The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable — then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
+<h3>L1 · Assist</h3><p>Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.</p>
+<h3>L2 · Draft</h3><p>Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.</p>
+<h3>L3 · Operate</h3><p>Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped. Human role: owns exceptions.</p>
+<h3>L4 · Decide (supervised)</h3><p>Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny. Human role: stays accountable.</p>
+<h3>L5 · Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today. Human role: sets the rails.</p>
+<p class="note">The current catalogue ships at L2–L4. L4 agents require senior sign-off before go-live. Classifications are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
+
+<h2 id="data">Architecture: where agents run, where data lives</h2>
+<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to satisfy the EU AI Act, DORA and ISO/IEC 42001.</p>
+<div id="trust-tenant-architecture-proof" class="trust-proof">
+  <h3>Enterprise deployment proof points</h3>
+  <p>ColleagueAI is positioned as a governed agent-package layer, not a shared SaaS workspace for customer business content. In a standard enterprise deployment, the customer controls the tenant, identity boundary, data sources, model endpoint, runtime configuration and audit evidence.</p>
+  <ul>
+    <li><strong>Customer-controlled data plane:</strong> agents are designed to operate against the customer’s Microsoft/cloud estate.</li>
+    <li><strong>RBAC and data lineage:</strong> retrieval patterns should respect existing user permissions.</li>
+    <li><strong>Governance before automation:</strong> each package is mapped to a CAI autonomy tier, human oversight pattern and audit evidence expectation.</li>
+  </ul>
+</div>
+<h3>What this website itself processes</h3>
+<ul>
+<li><strong>Live demo</strong> (/demo): the messages you type are sent to Anthropic's API to generate responses, with per-IP and global rate limits. Don't paste confidential data into the demo.</li>
+<li><strong>Purchases</strong>: payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.</li>
+<li><strong>Downloads</strong>: agent packages are delivered through signed, time-limited URLs (15-minute expiry).</li>
+<li><strong>ROI calculator &amp; readiness check</strong>: run entirely in your browser; nothing is sent or stored.</li>
+<li><strong>Partner links</strong>: a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.</li>
+</ul>
+
+<h2>Subprocessors</h2>
+<table>
+<tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
+<tr><td>Vercel</td><td>Website hosting, edge network, web analytics</td><td>Standard request logs, anonymous usage metrics</td></tr>
+<tr><td>Stripe</td><td>Payment processing</td><td>Payment details (held by Stripe), buyer email</td></tr>
+<tr><td>Upstash</td><td>Key-value store for entitlements and partner records</td><td>Buyer email, licensed agent slugs, partner codes</td></tr>
+<tr><td>Anthropic</td><td>LLM responses for the live demo</td><td>Demo conversation text</td></tr>
+<tr><td>Cloudflare R2</td><td>Storage and delivery of purchased agent packages</td><td>Package files (no personal data)</td></tr>
+<tr><td>Sentry</td><td>Error monitoring</td><td>Technical error context; text is masked in session diagnostics</td></tr>
+<tr><td>Plausible</td><td>Privacy-first analytics</td><td>Anonymous, cookieless usage statistics</td></tr>
+<tr><td>Google Fonts</td><td>Web fonts</td><td>Standard font requests</td></tr>
+</table>
+
+<h2 id="security">Security practices</h2>
+<ul>
+<li>TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.</li>
+<li>Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.</li>
+<li>Commission attribution is gated: only registered partner codes are credited, and referral values are sanitized before storage.</li>
+<li>Secrets live in the hosting platform's environment configuration — never in code, never in the client bundle (verified by an automated scan on every build).</li>
+<li>Responsible disclosure: see <a href="/.well-known/security.txt">security.txt</a> or write to <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. We respond to good-faith reports and won't pursue researchers acting in good faith.</li>
+</ul>
+
+<h2>Pilot programme</h2>
+<p>We're onboarding pilot customers now. Every engagement starts the same way the catalogue promises: the agent is validated on your own cases before go-live, its ROI is quantified up front, and the governance evidence is produced from day one — so your first deployment is also your proof. If you want to be one of the proofs we publish here, that's the deal: you get the pilot terms, we get the (anonymised, approved-by-you) case study.</p>
+<div class="cta">
+  <a class="btn btn-p" href="/demo">Book a pilot conversation</a>
+</div>
+
+<section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">
+  <div class="usage-intel__wrap">
+    <p class="usage-intel__eyebrow">Token metadata, not business content</p>
+    <h2 id="usage-intelligence-trust-title">CAI Token Economy Monitor: control AI cost before it scales.</h2>
+    <p class="usage-intel__lead">
+      ColleagueAI agent packages can include client-owned token economy monitoring that runs inside the client environment. The purpose is to help customers understand token consumption, estimated model/API cost, retries, oversized context, expensive model choices, and optimisation opportunities — while keeping prompts, outputs, documents, and business content out of ColleagueAI systems.
+    </p>
+    <div class="usage-intel__split">
+      <div class="usage-intel__list">
+        <h3>Designed to capture</h3>
+        <ul>
+          <li>Agent ID, workflow, CAI tier, model used, and run timestamp</li>
+          <li>Input tokens, output tokens, estimated cost, and budget indicators</li>
+          <li>Success, failure, retry, exception, and approval status</li>
+          <li>High-token workflows, repeated waste, and oversized context signals</li>
+          <li>Optimisation recommendations for prompt patterns, model tier, and context size</li>
+        </ul>
+      </div>
+      <div class="usage-intel__list">
+        <h3>Designed not to capture</h3>
+        <ul>
+          <li>Customer prompt content</li>
+          <li>Agent output content</li>
+          <li>Business documents or transaction records</li>
+          <li>Personal data or sensitive client data</li>
+          <li>Confidential customer business logic</li>
+        </ul>
+      </div>
+    </div>
+    <p class="usage-intel__note">
+      The result is practical AI cost governance: users understand their own consumption, finance sees cost before it becomes uncontrolled, and leadership can scale the agents that deliver measurable value.
+    </p>
+  </div>
+</section>

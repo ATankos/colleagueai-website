@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-agent-pages.mjs && node scripts/generate-locale-pages.mjs && node scripts/localize-agent-ux.mjs",
+    "build": "vite build && node scripts/generate-agent-pages.mjs && node scripts/generate-locale-pages.mjs && node scripts/localize-agent-ux.mjs && node scripts/generate-global-language-pages.cjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
@@ -23,10 +23,11 @@
     "lhci:report": "start .lighthouseci",
     "diacritics": "playwright test diacritics.spec.js",
     "edge-cases": "playwright test edge-cases.spec.js --project=chromium",
-    "check": "npm run lint && npm run test:run",
+    "check": "npm run lint && npm run test:run && npm run check:global-language",
     "check:e2e": "npm run lint && npm run test:run && playwright test",
     "check:full": "npm run lint && npm run test:run && playwright test && npm run lhci",
-    "smoke:prod": "node scripts/smoke-production.mjs"
+    "smoke:prod": "node scripts/smoke-production.mjs",
+    "check:global-language": "node scripts/check-global-language-navigation.cjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.104.1",

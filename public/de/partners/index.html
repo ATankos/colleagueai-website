@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Pilot Programme - Governed AI Agent Partnerships | ColleagueAI</title>
+<meta name="description" content="Apply for the ColleagueAI Partner Pilot Programme. Approved partners can refer, resell, or help deploy governed AI agent packages after onboarding.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.colleagueai.ai/partners">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="/manifest.json">
+<style>
+:root{--cream:#F5F0E8;--cream-2:#EFE8DC;--paper:#FBF8F2;--graphite:#2B2A28;--graphite-soft:#54514C;--muted:#8A857C;--terra:#C65D3A;--terra-deep:#9E3D22;--line:#E2D9CB;--line-soft:#EAE2D4;--sand:#C99A5B;--shadow:0 1px 2px rgba(43,42,40,.04),0 8px 30px rgba(43,42,40,.06);--r:18px;--maxw:1100px}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--graphite);font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,-apple-system,sans-serif;font-weight:400;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--terra);color:var(--paper)}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+.eyebrow{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11.5px;font-weight:500;text-transform:uppercase;letter-spacing:.22em;color:var(--terra)}
+section{padding:80px 0}
+.divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+/* NAV */
+header.nav{position:sticky;top:0;z-index:60;background:rgba(245,240,232,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid transparent;transition:border-color .3s}
+header.nav.scrolled{border-bottom-color:var(--line)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+.logo-text{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:21px;font-weight:600;letter-spacing:-.01em;color:var(--graphite)}
+.logo-text .ai{color:var(--terra)}
+.logo-dots{display:flex;gap:5px;padding-left:1px}
+.logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+.logo-dots span:nth-child(1){background:var(--terra)}
+.logo-dots span:nth-child(2){background:var(--graphite)}
+.logo-dots span:nth-child(3){background:#C4A882}
+.nav-right{display:flex;gap:16px;align-items:center}
+.nav-link{font-size:14px;color:var(--graphite-soft);transition:color .2s}
+.nav-link:hover{color:var(--graphite)}
+.nav-cta{font-size:13.5px;color:var(--paper);background:var(--graphite);padding:9px 18px;border-radius:100px;transition:transform .2s,background .2s}
+.nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
+
+/* HERO */
+.hero{padding:100px 0 72px}
+.hero-inner{display:grid;grid-template-columns:1fr 400px;gap:64px;align-items:center}
+@media(max-width:900px){.hero-inner{grid-template-columns:1fr;gap:40px}.hero{padding:72px 0 48px}}
+h1.hero-title{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:340;font-size:clamp(38px,5.8vw,70px);line-height:1.03;letter-spacing:-.02em;margin:18px 0 0}
+h1.hero-title em{font-style:italic;color:var(--terra)}
+.hero-sub{font-size:clamp(16px,1.8vw,19px);color:var(--graphite-soft);max-width:48ch;margin-top:24px;line-height:1.55}
+.hero-actions{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn-p{background:var(--graphite);color:var(--paper);padding:13px 26px;border-radius:100px;font-size:15px;transition:transform .2s,background .2s;display:inline-block}
+.btn-p:hover{background:var(--terra);transform:translateY(-2px)}
+.btn-s{border:1px solid var(--graphite);padding:13px 26px;border-radius:100px;font-size:15px;transition:all .2s;display:inline-block}
+.btn-s:hover{background:var(--graphite);color:var(--paper)}
+.hero-card{background:var(--graphite);border-radius:var(--r);padding:30px 28px;color:var(--cream)}
+.hero-card .rate{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:clamp(52px,7vw,80px);font-weight:400;line-height:1;letter-spacing:-.03em;color:#fff}
+.hero-card .rate em{color:var(--terra);font-style:italic}
+.hero-card .rate-lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.18em;color:#B9B0A2;margin-top:10px;display:block}
+.hero-card .perks{margin-top:22px;display:flex;flex-direction:column;gap:9px}
+.hero-card .perk{display:flex;gap:10px;font-size:14px;color:#D9D3C8;line-height:1.45}
+.hero-card .perk::before{content:"✓";color:var(--terra);font-weight:700;flex-shrink:0}
+
+/* HOW IT WORKS */
+#how{background:var(--cream-2)}
+.sec-h{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:360;font-size:clamp(28px,3.8vw,42px);line-height:1.08;letter-spacing:-.02em;margin-top:14px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:48px}
+@media(max-width:720px){.steps-grid{grid-template-columns:1fr}}
+.step-cell{background:var(--paper);padding:32px 26px}
+.step-num{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--terra);letter-spacing:.1em;margin-bottom:16px}
+.step-cell h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:560;font-size:21px;margin-bottom:10px;letter-spacing:-.01em}
+.step-cell p{font-size:14.5px;color:var(--graphite-soft);line-height:1.55}
+.step-tag{display:inline-block;margin-top:14px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.1em;color:var(--terra);background:rgba(198,93,58,.10);padding:5px 11px;border-radius:8px}
+
+/* EARNINGS */
+.earnings-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:44px}
+@media(max-width:760px){.earnings-grid{grid-template-columns:1fr}}
+.earn-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 20px}
+.earn-card .ag-name{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:17px;font-weight:560;margin-bottom:5px;line-height:1.2}
+.earn-card .ag-tag{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.earn-card .price-row{display:flex;align-items:baseline;justify-content:space-between;padding:11px 0;border-top:1px solid var(--line-soft);margin-top:10px}
+.earn-card .pr-lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+.earn-card .pr-val{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:22px;color:var(--graphite)}
+.earn-card .you-earn{background:rgba(198,93,58,.08);border-radius:10px;padding:9px 13px;margin-top:8px;display:flex;justify-content:space-between;align-items:center}
+.earn-lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--terra)}
+.earn-val{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:20px;color:var(--terra);font-weight:500}
+
+/* GENERATOR */
+#generate{background:var(--graphite);color:var(--cream)}
+#generate .eyebrow{color:var(--sand)}
+#generate .sec-h{color:#fff}
+#generate .sub{font-size:17px;color:#D9D3C8;max-width:52ch;margin-top:16px;line-height:1.55}
+.gen-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:34px;margin-top:44px;max-width:620px}
+@media(max-width:640px){.gen-card{padding:22px 18px}}
+.gen-field{margin-bottom:18px}
+.gen-field label{display:block;font-size:13px;font-weight:500;color:#D9D3C8;margin-bottom:7px}
+.gen-field input{width:100%;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);border-radius:10px;padding:12px 14px;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;color:#fff;outline:none;transition:border-color .2s}
+.gen-field input::placeholder{color:#7A7269}
+.gen-field input:focus{border-color:var(--terra)}
+.gen-btn{width:100%;background:var(--terra);color:#fff;border:none;border-radius:100px;padding:14px;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;margin-top:4px}
+.gen-btn:hover:not(:disabled){background:var(--terra-deep)}
+.gen-btn:disabled{opacity:.42;pointer-events:none}
+.gen-result{display:none;margin-top:26px;padding-top:26px;border-top:1px solid rgba(255,255,255,.12)}
+.gen-result.show{display:block}
+.gen-rl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;text-transform:uppercase;letter-spacing:.16em;color:#E8A07F;margin-bottom:10px;display:block}
+.link-box{display:flex;align-items:center;gap:10px;background:rgba(0,0,0,.25);border-radius:12px;padding:12px 16px}
+.link-val{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:13px;color:#D9D3C8;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{background:var(--terra);color:#fff;border:none;border-radius:8px;padding:7px 14px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;flex-shrink:0;transition:background .2s}
+.copy-btn:hover{background:var(--terra-deep)}
+.copy-btn.copied{background:#6E8B7B}
+.gen-code-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding:10px 16px;background:rgba(0,0,0,.15);border-radius:10px}
+.gen-code-row .cl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:#9A9285}
+.gen-code-row .cv{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:14px;color:#E8A07F;font-weight:600}
+.gen-note{font-size:12.5px;color:#9A9285;margin-top:12px;line-height:1.5}
+.gen-error{color:#F28B72;font-size:13.5px;margin-top:8px;display:none}
+.gen-error.show{display:block}
+
+/* FAQ */
+.faq-list{margin-top:44px;border-top:1px solid var(--line)}
+.qa{border-bottom:1px solid var(--line)}
+.qa summary{list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:18px;letter-spacing:-.01em;line-height:1.3;transition:color .2s}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover{color:var(--terra)}
+.qa summary::after{content:"+";position:absolute;right:8px;top:20px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:22px;color:var(--terra);transition:transform .25s ease}
+.qa[open] summary::after{transform:rotate(45deg)}
+.qa p{font-size:15px;color:var(--graphite-soft);line-height:1.6;max-width:72ch;padding:0 44px 22px 0;margin-top:-4px}
+.qa a{color:var(--terra);text-decoration:underline}
+
+/* CTA BAND */
+.cta-band{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:80px 0;text-align:center}
+.cta-band h2{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:340;font-size:clamp(28px,4.5vw,50px);line-height:1.06;letter-spacing:-.02em;max-width:20ch;margin:0 auto}
+.cta-band h2 em{font-style:italic;color:var(--terra)}
+.cta-btns{display:flex;gap:14px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+
+/* FOOTER */
+footer{border-top:1px solid var(--line);padding:36px 0}
+.foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.foot-note{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+/* MOBILE */
+@media(max-width:640px){
+  .wrap{padding:0 18px}
+  section{padding:52px 0}
+  .hero{padding:60px 0 40px}
+  .hero-actions,.cta-btns{flex-direction:column;align-items:stretch}
+  .hero-actions .btn-p,.hero-actions .btn-s,.cta-btns .btn-p,.cta-btns .btn-s{text-align:center}
+  .foot-inner{flex-direction:column;align-items:flex-start;gap:10px}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<style>#langsel{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:13px;font-weight:500;color:#2B2A28;border:1px solid var(--line);border-radius:100px;padding:7px 14px;cursor:pointer;transition:border-color .2s}#langsel:hover{border-color:var(--muted)}#langsel:focus{outline:none;border-color:var(--terra)}</style>
+<style id="cai-visual-copy-polish">
+/* Conservative professional polish */
+:root{
+  --cai-card-shadow:0 18px 60px rgba(15,23,42,.12);
+  --cai-card-shadow-hover:0 24px 75px rgba(15,23,42,.18);
+}
+body{
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+section{
+  scroll-margin-top:96px;
+}
+.hero-title,h1{
+  letter-spacing:-.052em;
+  line-height:.98;
+}
+.hero-sub{
+  max-width:780px;
+  line-height:1.65;
+}
+.sec-h,h2{
+  letter-spacing:-.035em;
+  line-height:1.08;
+}
+.card,.agent-card,.trust-card,.panel,.tile,.tier,.flow,.qa,.step,.perk{
+  box-shadow:var(--cai-card-shadow);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover,.agent-card:hover,.trust-card:hover,.panel:hover,.tile:hover,.step:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--cai-card-shadow-hover);
+}
+.btn,.btn-s,.nav-cta,.nav-try,button{
+  letter-spacing:-.01em;
+}
+@media(max-width:760px){
+  .hero-title,h1{letter-spacing:-.04em}
+  .hero-sub{font-size:16px;line-height:1.6}
+}
+</style>
+  <meta name="cai-font-strategy" content="system-fonts-no-third-party-font-css">
+<style id="cai-trust-nav-css">
+  .cai-page-guide{max-width:1040px;margin:24px auto;padding:18px;border:1px solid rgba(29,27,26,.12);border-radius:22px;background:rgba(255,255,255,.68)}
+  .cai-page-guide h2{margin:0 0 8px;font-size:24px;letter-spacing:-.02em}
+  .cai-page-guide p{margin:0 0 12px;color:#5d564f;line-height:1.6}
+  .cai-page-guide .cai-guide-links{display:flex;flex-wrap:wrap;gap:8px}
+  .cai-page-guide a{border:1px solid rgba(29,27,26,.14);border-radius:999px;padding:8px 12px;text-decoration:none;color:#1D1B1A;background:rgba(255,255,255,.72);font-weight:800;font-size:13px}
+  @media(max-width:560px){.cai-page-guide{margin:16px 12px;padding:16px}.cai-page-guide a{font-size:12px}}
+</style>
+<style id="cai-site-journey-css">
+  .cai-site-journey{max-width:1120px;margin:24px auto 10px;padding:0 18px}
+  .cai-site-journey-inner{border:1px solid rgba(29,27,26,.12);border-radius:24px;background:rgba(255,255,255,.72);box-shadow:0 14px 38px rgba(29,27,26,.07);padding:18px}
+  .cai-site-journey-title{margin:0 0 10px;font-size:22px;letter-spacing:-.02em;color:#1D1B1A}
+  .cai-site-journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .cai-site-journey-card{border:1px solid rgba(29,27,26,.12);border-radius:18px;padding:14px;text-decoration:none;background:rgba(255,255,255,.72);color:#1D1B1A}
+  .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
+  @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
+</style>
+<!-- cai-global-hreflang:start -->
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/partners" />
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/partners" />
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/partners" />
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/partners" />
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/partners" />
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/partners" />
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/partners" />
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/partners" />
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/partners" />
+<link rel="canonical" href="https://www.colleagueai.ai/de/partners" />
+<!-- cai-global-hreflang:end -->
+<style id="cai-global-language-css">
+  .cai-global-language{max-width:1120px;margin:14px auto 0;padding:0 18px;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  .cai-global-language-inner{display:flex;flex-wrap:wrap;align-items:center;gap:10px;border:1px solid rgba(29,27,26,.12);border-radius:18px;background:rgba(255,255,255,.78);padding:10px 12px;box-shadow:0 10px 24px rgba(29,27,26,.06)}
+  .cai-global-language-label{font-weight:800;color:#1D1B1A;font-size:13px;text-transform:uppercase;letter-spacing:.08em}
+  .cai-global-language-links{display:flex;flex-wrap:wrap;gap:7px}
+  .cai-global-language-links a{border:1px solid rgba(29,27,26,.16);border-radius:999px;padding:7px 10px;text-decoration:none;color:#1D1B1A;background:#fff;font-weight:800;font-size:12px}
+  .cai-global-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
+  @media(max-width:760px){.cai-global-language{padding:0 12px}.cai-global-language-inner{align-items:flex-start}.cai-global-language-links a{padding:8px 10px}}
+</style>
+</head>
+<body>
+<nav id="cai-global-language-switcher" class="cai-global-language" aria-label="Sprache">
+  <div class="cai-global-language-inner">
+    <span class="cai-global-language-label">Sprache</span>
+    <div class="cai-global-language-links"><a href="/en/partners" hreflang="en">EN</a><a href="/cs/partners" hreflang="cs">CS</a><a href="/de/partners" hreflang="de" aria-current="page">DE</a><a href="/fr/partners" hreflang="fr">FR</a><a href="/es/partners" hreflang="es">ES</a><a href="/it/partners" hreflang="it">IT</a><a href="/pl/partners" hreflang="pl">PL</a><a href="/pt/partners" hreflang="pt">PT</a></div>
+  </div>
+</nav>
+
+<section id="cai-site-journey" class="cai-site-journey" aria-labelledby="cai-site-journey-title">
+  <div class="cai-site-journey-inner">
+    <h2 id="cai-site-journey-title" class="cai-site-journey-title">Choose your path</h2>
+    <div class="cai-site-journey-grid">
+      <a class="cai-site-journey-card" href="/de/agents#cai-buyer-path"><strong>I need an AI agent use case</strong><span>Browse packaged agents, factsheets, CAI Score, and the controlled demo path.</span></a>
+      <a class="cai-site-journey-card" href="/de/trust"><strong>I need governance assurance</strong><span>Review security, data handling, AI governance, telemetry, and launch gate status.</span></a>
+      <a class="cai-site-journey-card" href="/de/partners"><strong>I want to partner</strong><span>Register partner interest. Approval and commission eligibility remain agreement-based.</span></a>
+    </div>
+  </div>
+</section>
+<section id="partner-page-guide" class="cai-page-guide" aria-labelledby="partner-page-guide-title">
+  <h2 id="partner-page-guide-title">Partner interest, not automatic affiliate approval</h2>
+  <p>Use this page to register interest and generate an initial partner reference. Approval, commission eligibility, attribution rules, and payment terms remain subject to the partner agreement and manual review.</p>
+  <div class="cai-guide-links" aria-label="Partner navigation">
+    <a href="#generate">Register interest</a>
+    <a href="/de/agents#cai-buyer-path">Review agent packages</a>
+    <a href="/de/trust">Review trust architecture</a>
+    <a href="/de/agents#launch-readiness-gate">Checkout gate</a>
+  </div>
+</section>
+
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="/de/agents" class="logo">
+      <span class="logo-text">colleague<span class="ai">ai</span></span>
+      <span class="logo-dots"><span></span><span></span><span></span></span>
+    </a>
+    <div class="nav-right"><select id="langsel" aria-label="Language"></select>
+      <a href="/de/agents" class="nav-link">Agent catalogue</a>
+      <a href="#generate" class="nav-cta">Register interest →</a>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-inner">
+      <div>
+        <span class="eyebrow">Partner Pilot Programme</span>
+        <h1 class="hero-title">Apply to partner.<br>Bring governed AI to <em>your clients.</em></h1>
+        <p class="hero-sub">Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.</p>
+        <div class="hero-actions">
+          <a href="#generate" class="btn-p">Register partner interest →</a>
+          <a href="/de/agents" class="btn-s">Browse the catalogue</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="rate">20<em>%</em></div>
+        <span class="rate-lbl">Of every agent sale you refer</span>
+        <div class="perks">
+          <div class="perk">Approved partner access after review</div>
+          <div class="perk">30-day attribution window per visitor</div>
+          <div class="perk">Applies to every agent in the catalogue</div>
+          <div class="perk">Tracking activated after commercial setup</div>
+          <div class="perk">Payout terms confirmed during onboarding</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="wrap">
+    <span class="eyebrow">How it works</span>
+    <h2 class="sec-h">Three steps. Approved partner process.</h2>
+    <div class="steps-grid">
+      <div class="step-cell">
+        <div class="step-num">01</div>
+        <h3>Register interest</h3>
+        <p>Enter your name and email. Your unique partner code is derived cryptographically from your email — deterministic, so you can always regenerate the same link.</p>
+        <span class="step-tag">30 seconds</span>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">02</div>
+        <h3>Share it</h3>
+        <p>Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you — automatically, through approved commercial setup.</p>
+        <span class="step-tag">30-day window</span>
+      </div>
+      <div class="step-cell">
+        <div class="step-num">03</div>
+        <h3>Earn</h3>
+        <p>When they buy any agent through your link, you earn 20% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts go monthly.</p>
+        <span class="step-tag">Paid monthly</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXAMPLE EARNINGS -->
+<section id="earnings">
+  <div class="wrap">
+    <span class="eyebrow">What you earn</span>
+    <h2 class="sec-h">One referral. Real numbers.</h2>
+    <p style="font-size:17px;color:var(--graphite-soft);margin-top:16px;max-width:52ch;line-height:1.55">Illustrative only. Commercial terms, attribution, and payout process are confirmed during partner onboarding.</p>
+    <div class="earnings-grid">
+      <div class="earn-card">
+        <div class="ag-name">Contract Summarisation Agent</div>
+        <div class="ag-tag">L4 · Legal & Procurement</div>
+        <div class="price-row">
+          <span class="pr-lbl">Agent price</span>
+          <span class="pr-val">€1,200</span>
+        </div>
+        <div class="you-earn">
+          <span class="earn-lbl">You earn</span>
+          <span class="earn-val">€240</span>
+        </div>
+      </div>
+      <div class="earn-card">
+        <div class="ag-name">Risk Control Oversight Agent</div>
+        <div class="ag-tag">L4 · Risk & Compliance</div>
+        <div class="price-row">
+          <span class="pr-lbl">Agent price</span>
+          <span class="pr-val">€1,500</span>
+        </div>
+        <div class="you-earn">
+          <span class="earn-lbl">You earn</span>
+          <span class="earn-val">€300</span>
+        </div>
+      </div>
+      <div class="earn-card">
+        <div class="ag-name">10 referrals in a year</div>
+        <div class="ag-tag">Mix of agents · avg. €1,200</div>
+        <div class="price-row">
+          <span class="pr-lbl">Total sales</span>
+          <span class="pr-val">€12,000</span>
+        </div>
+        <div class="you-earn">
+          <span class="earn-lbl">You earn</span>
+          <span class="earn-val">€2,400</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:16px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;letter-spacing:.02em">// Illustrative only. Actual prices vary by agent and region. Commission subject to partner terms.</p>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LINK GENERATOR -->
+<section id="generate">
+  <div class="wrap">
+    <span class="eyebrow">Register interest</span>
+    <h2 class="sec-h">Your unique partner link,<br>in 30 seconds.</h2>
+    <p class="sub">Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.</p>
+    <div class="gen-card">
+      <div class="gen-field">
+        <label for="g-name">Your name</label>
+        <input type="text" id="g-name" placeholder="e.g. Sarah Chen" autocomplete="name">
+      </div>
+      <div class="gen-field">
+        <label for="g-email">Work email</label>
+        <input type="email" id="g-email" placeholder="you@yourcompany.com" autocomplete="email">
+      </div>
+      <button class="gen-btn" id="gen-btn" disabled>Register partner interest →</button>
+      <div class="gen-error" id="gen-error"></div>
+      <div class="gen-result" id="gen-result">
+        <span class="gen-rl">Your partner link</span>
+        <div class="link-box">
+          <span class="link-val" id="gen-link-val"></span>
+          <button class="copy-btn" id="copy-link">Copy</button>
+        </div>
+        <div class="gen-code-row">
+          <span class="cl">Partner code</span>
+          <span class="cv" id="gen-code-val"></span>
+        </div>
+        <p class="gen-note">Use this area after partner approval to copy your registered partner details. Attribution and commission tracking are activated only after approval and commercial setup.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="wrap">
+    <span class="eyebrow">Questions</span>
+    <h2 class="sec-h">Common questions, direct answers.</h2>
+    <div class="faq-list">
+      <details class="qa"><summary>How does attribution work?</summary>
+        <p>When someone clicks your partner link, your code is saved in their browser for 30 days. If they buy any agent during that window — even days later, even if they return directly — the sale is credited to you. Attribution passes through our approved commercial setup metadata automatically.</p></details>
+      <details class="qa"><summary>When and how do I get paid?</summary>
+        <p>Commissions are tallied monthly. Once you have accumulated sales, we contact you at your registered email to arrange a bank transfer or other payment method. There is no minimum threshold — your first sale pays out.</p></details>
+      <details class="qa"><summary>Can I resell agents under my own brand?</summary>
+        <p>Yes. You can refer clients passively (they click your link and buy directly) or buy the agent licence yourself and deploy it for a client under a service agreement. Both routes earn you credit. Contact us at <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a> to discuss reseller terms.</p></details>
+      <details class="qa"><summary>What if my client has already seen Colleague AI?</summary>
+        <p>As long as they click your partner link before purchasing, you are credited. If they have already completed a purchase without your link, that sale cannot be attributed retroactively.</p></details>
+      <details class="qa"><summary>Is there a cap on how much I can earn?</summary>
+        <p>No cap. Refer one client or a hundred. Commission applies to every sale attributed to your code, at the same rate, with no volume tiers that reduce it.</p></details>
+      <details class="qa"><summary>What if I lose my partner link?</summary>
+        <p>Your code is derived deterministically from your email address. Come back to this page, enter the same name and email, and you get the exact same code and link every time.</p></details>
+      <details class="qa"><summary>Is there a formal partner agreement?</summary>
+        <p>By generating a link you accept that commissions are paid at the rate shown at the time of sale, apply only to completed and non-refunded purchases, and are non-transferable. A full written agreement is available on request at <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <div class="wrap">
+    <h2>Ready to bring enterprise AI to <em>your</em> clients?</h2>
+    <div class="cta-btns">
+      <a href="#generate" class="btn-p">Register partner interest →</a>
+      <a href="/de/agents" class="btn-s">Browse the catalogue</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap foot-inner">
+    <a href="/de/agents" class="logo">
+      <span class="logo-text" style="font-size:18px">colleague<span class="ai">ai</span></span>
+      <span class="logo-dots"><span></span><span></span><span></span></span>
+    </a>
+    <span class="foot-note">// Partner Pilot Programme · CAI Score™ · Updated June 2026</span>
+    <span class="foot-note" style="font-size:10.5px">© Colleague AI 2026 · <a href="https://www.colleagueai.ai/terms" style="text-decoration:underline">Terms</a> · <a href="mailto:hello@colleagueai.ai" style="text-decoration:underline">hello@colleagueai.ai</a></span>
+  </div>
+</footer>
+
+<script>
+/* Nav scroll */
+const _nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scrollY>10));
+
+/* Partner link generator */
+(function(){
+  const nameEl=document.getElementById('g-name');
+  const emailEl=document.getElementById('g-email');
+  const btn=document.getElementById('gen-btn');
+  const result=document.getElementById('gen-result');
+  const linkVal=document.getElementById('gen-link-val');
+  const codeVal=document.getElementById('gen-code-val');
+  const copyBtn=document.getElementById('copy-link');
+  const errEl=document.getElementById('gen-error');
+  const STORE_KEY='cai_partner_reg';
+
+  function validate(){
+    const name=nameEl.value.trim(), email=emailEl.value.trim();
+    btn.disabled=!(name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email));
+  }
+  nameEl.addEventListener('input',validate);
+  emailEl.addEventListener('input',validate);
+
+  /* Derive partner code: SHA-256 of lowercase email → first 8 hex chars → "CAI-XXXXXXXX" */
+  async function deriveCode(email){
+    const enc=new TextEncoder().encode(email.toLowerCase().trim());
+    const buf=await crypto.subtle.digest('SHA-256',enc);
+    const hex=Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    return 'CAI-'+hex.slice(0,8).toUpperCase();
+  }
+
+  /* Restore saved registration if present */
+  try{
+    const saved=JSON.parse(localStorage.getItem(STORE_KEY)||'null');
+    if(saved&&saved.code&&saved.email){
+      nameEl.value=saved.name||''; emailEl.value=saved.email||'';
+      validate(); showResult(saved.code);
+    }
+  }catch(e){}
+
+  function showResult(code){
+    const link='https://www.colleagueai.ai/agents?partner='+code;
+    linkVal.textContent=link; codeVal.textContent=code;
+    result.classList.add('show'); errEl.classList.remove('show');
+  }
+
+  btn.addEventListener('click',async function(){
+    const name=nameEl.value.trim(), email=emailEl.value.trim();
+    btn.disabled=true; btn.textContent='Generating…'; errEl.classList.remove('show');
+    try{
+      const code=await deriveCode(email);
+      try{localStorage.setItem(STORE_KEY,JSON.stringify({code,name,email}));}catch(e){}
+      showResult(code);
+      /* Register in backend — fire and forget */
+      fetch('/api/partner-register',{method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name,email,code})}).catch(()=>{});
+    }catch(e){
+      errEl.textContent='Something went wrong. Please try again.';
+      errEl.classList.add('show');
+    }
+    btn.textContent='Register partner interest →'; btn.disabled=false;
+  });
+
+  /* Copy to clipboard */
+  copyBtn.addEventListener('click',function(){
+    const link=linkVal.textContent;
+    navigator.clipboard.writeText(link).then(()=>{
+      copyBtn.textContent='Copied!'; copyBtn.classList.add('copied');
+      setTimeout(()=>{copyBtn.textContent='Copy';copyBtn.classList.remove('copied');},2000);
+    }).catch(()=>{
+      const ta=document.createElement('textarea');
+      ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+      copyBtn.textContent='Copied!';setTimeout(()=>{copyBtn.textContent='Copy';},2000);
+    });
+  });
+})();
+</script>
+<script>
+var I18N={"en":{"nav_catalogue":"Agent catalogue","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Partner with ColleagueAI<br>to bring governed AI agents to clients.","hero_sub":"The Partner Pilot Programme is for consultants, implementers, and advisors who work with teams that need practical AI automation with governance, audit evidence, and Microsoft/Azure deployment support.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner route confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"A simple approval process before commercial activity starts.","step1_h":"Register interest","step1_p":"Send your name and work email. We review fit, use case, and the partner route before activating commercial tracking.","step1_tag":"Review","step2_h":"Confirm partner setup","step2_p":"After approval, we confirm permitted materials, attribution rules, implementation responsibilities, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer, resell, or support deployment","step3_p":"Approved opportunities are handled under agreed partner terms. Commission, attribution, and payout process are confirmed before commercial activity starts.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Partner economics are agreed before launch.","earn_intro":"Commercial terms depend on the partner route, client setup, and scope of involvement. We confirm pricing, attribution, commission, and payout process during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Legal & Procurement","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Risk & Compliance","ag3_name":"10 referrals in a year","ag3_tag":"Mix of agents · avg. €1,200","pr_price":"Agent price","pr_total":"Total sales","earn_you":"You earn","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm the route.","gen_sub":"Use the form to register interest. We review the request, confirm fit, and activate the partner process only after approval.","gen_name_l":"Your name","gen_name_ph":"e.g. Sarah Chen","gen_email_l":"Work email","gen_btn":"Register partner interest ->","gen_rl":"Your partner link","copy_btn":"Copy","gen_code_l":"Partner code","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Questions","faq_h":"Partner questions, answered directly.","q1":"How does attribution work?","a1":"Attribution and tracking are activated after approval and commercial setup. The rules are confirmed during onboarding.","q2":"When and how do I get paid?","a2":"Payout timing, method, and eligibility are governed by the approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed commercial terms. Contact hello@colleagueai.ai to discuss the route.","q4":"What if my client has already seen Colleague AI?","a4":"As long as they click your partner link before purchasing, you are credited. If they have already completed a purchase without your link, that sale cannot be attributed retroactively.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"What if I lose my partner link?","a6":"Your code is derived deterministically from your email address. Come back to this page, enter the same name and email, and you get the exact same code and link every time.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Interested in bringing governed AI agents to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"cs":{"nav_catalogue":"Katalog agentů","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Právo a nákup","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Riziko a compliance","ag3_name":"10 doporučení za rok","ag3_tag":"Mix agentů · prům. €1 200","pr_price":"Cena agenta","pr_total":"Celkové prodeje","earn_you":"Vy získáte","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"Vaše jméno","gen_name_ph":"např. Jan Novák","gen_email_l":"Pracovní e-mail","gen_btn":"Register partner interest ->","gen_rl":"Váš partnerský odkaz","copy_btn":"Kopírovat","gen_code_l":"Partnerský kód","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Otázky","faq_h":"Časté otázky, přímé odpovědi.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"Co když můj klient už Colleague AI zná?","a4":"Dokud klikne na váš partnerský odkaz před nákupem, je vám připsán. Pokud již nákup dokončil bez vašeho odkazu, tento prodej nelze přiřadit zpětně.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"Co když ztratím svůj partnerský odkaz?","a6":"Váš kód je deterministicky odvozen z vaší e-mailové adresy. Vraťte se na tuto stránku, zadejte stejné jméno a e-mail a pokaždé získáte přesně stejný kód i odkaz.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"de":{"nav_catalogue":"Agenten-Katalog","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Recht & Einkauf","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Risiko & Compliance","ag3_name":"10 Empfehlungen pro Jahr","ag3_tag":"Mix aus Agenten · Ø €1.200","pr_price":"Agentenpreis","pr_total":"Gesamtumsatz","earn_you":"Sie verdienen","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"Ihr Name","gen_name_ph":"z. B. Sarah Chen","gen_email_l":"Geschäftliche E-Mail","gen_btn":"Register partner interest ->","gen_rl":"Ihr Partner-Link","copy_btn":"Kopieren","gen_code_l":"Partnercode","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Fragen","faq_h":"Häufige Fragen, klare Antworten.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"Was, wenn mein Kunde Colleague AI bereits kennt?","a4":"Solange er vor dem Kauf Ihren Partner-Link anklickt, werden Sie gutgeschrieben. Hat er bereits ohne Ihren Link gekauft, kann dieser Verkauf nicht nachträglich zugeordnet werden.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"Was, wenn ich meinen Partner-Link verliere?","a6":"Ihr Code wird deterministisch aus Ihrer E-Mail-Adresse abgeleitet. Kommen Sie auf diese Seite zurück, geben Sie denselben Namen und dieselbe E-Mail ein, und Sie erhalten jedes Mal genau denselben Code und Link.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"fr":{"nav_catalogue":"Catalogue d'agents","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Juridique & Achats","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Risque & Conformité","ag3_name":"10 recommandations par an","ag3_tag":"Mix d'agents · moy. 1 200 €","pr_price":"Prix de l'agent","pr_total":"Ventes totales","earn_you":"Vous gagnez","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"Votre nom","gen_name_ph":"ex. Sarah Chen","gen_email_l":"E-mail professionnel","gen_btn":"Register partner interest ->","gen_rl":"Votre lien partenaire","copy_btn":"Copier","gen_code_l":"Code partenaire","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Questions","faq_h":"Questions fréquentes, réponses directes.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"Et si mon client connaît déjà Colleague AI ?","a4":"Tant qu'il clique sur votre lien partenaire avant d'acheter, vous êtes crédité. S'il a déjà finalisé un achat sans votre lien, cette vente ne peut pas être attribuée rétroactivement.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"Et si je perds mon lien partenaire ?","a6":"Votre code est dérivé de façon déterministe de votre adresse e-mail. Revenez sur cette page, saisissez les mêmes nom et e-mail, et vous obtenez exactement le même code et le même lien à chaque fois.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"es":{"nav_catalogue":"Catálogo de agentes","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Legal y Compras","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Riesgo y Cumplimiento","ag3_name":"10 recomendaciones en un año","ag3_tag":"Mezcla de agentes · prom. €1.200","pr_price":"Precio del agente","pr_total":"Ventas totales","earn_you":"Tú ganas","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"Tu nombre","gen_name_ph":"p. ej. Sarah Chen","gen_email_l":"Correo de trabajo","gen_btn":"Register partner interest ->","gen_rl":"Tu enlace de partner","copy_btn":"Copiar","gen_code_l":"Código de partner","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Preguntas","faq_h":"Preguntas frecuentes, respuestas directas.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"¿Y si mi cliente ya conoce Colleague AI?","a4":"Mientras haga clic en tu enlace de partner antes de comprar, se te acredita. Si ya completó una compra sin tu enlace, esa venta no puede atribuirse de forma retroactiva.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"¿Y si pierdo mi enlace de partner?","a6":"Tu código se deriva de forma determinista de tu dirección de correo. Vuelve a esta página, introduce el mismo nombre y correo, y obtienes exactamente el mismo código y enlace cada vez.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"it":{"nav_catalogue":"Catalogo agenti","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Legale e Acquisti","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Rischio e Compliance","ag3_name":"10 segnalazioni in un anno","ag3_tag":"Mix di agenti · media €1.200","pr_price":"Prezzo dell'agente","pr_total":"Vendite totali","earn_you":"Tu guadagni","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"Il tuo nome","gen_name_ph":"es. Sarah Chen","gen_email_l":"E-mail di lavoro","gen_btn":"Register partner interest ->","gen_rl":"Il tuo link partner","copy_btn":"Copia","gen_code_l":"Codice partner","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Domande","faq_h":"Domande frequenti, risposte dirette.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"E se il mio cliente conosce già Colleague AI?","a4":"Finché clicca sul tuo link partner prima di acquistare, ti viene accreditato. Se ha già completato un acquisto senza il tuo link, quella vendita non può essere attribuita retroattivamente.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"E se perdo il mio link partner?","a6":"Il tuo codice è derivato in modo deterministico dal tuo indirizzo e-mail. Torna su questa pagina, inserisci lo stesso nome ed e-mail e ottieni esattamente lo stesso codice e link ogni volta.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"pt":{"nav_catalogue":"Catálogo de agentes","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Jurídico e Compras","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Risco e Conformidade","ag3_name":"10 recomendações num ano","ag3_tag":"Mistura de agentes · méd. €1.200","pr_price":"Preço do agente","pr_total":"Vendas totais","earn_you":"Você ganha","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"O seu nome","gen_name_ph":"ex. Sarah Chen","gen_email_l":"E-mail profissional","gen_btn":"Register partner interest ->","gen_rl":"O seu link de parceiro","copy_btn":"Copiar","gen_code_l":"Código de parceiro","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Perguntas","faq_h":"Perguntas frequentes, respostas diretas.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"E se o meu cliente já conhece a Colleague AI?","a4":"Desde que clique no seu link de parceiro antes de comprar, é creditado. Se já tiver concluído uma compra sem o seu link, essa venda não pode ser atribuída retroativamente.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"E se perder o meu link de parceiro?","a6":"O seu código é derivado de forma determinística do seu endereço de e-mail. Volte a esta página, introduza o mesmo nome e e-mail, e obtém exatamente o mesmo código e link sempre.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"},"pl":{"nav_catalogue":"Katalog agentów","nav_cta":"Register interest ->","hero_eyebrow":"Partner Pilot Programme","hero_title":"Apply to partner.<br>Bring governed AI to <em>your clients.</em>","hero_sub":"Approved partners can refer, resell, or help deploy ColleagueAI agent packages. Commercial terms, attribution, and payout process are confirmed during partner onboarding.","btn_link":"Register partner interest ->","btn_browse":"Browse the catalogue","rate_lbl":"Partner terms confirmed during onboarding","perk1":"Approved partner access after review","perk2":"Attribution rules confirmed during onboarding","perk3":"Available for approved partner routes","perk4":"Tracking activated after commercial setup","perk5":"Payout terms confirmed during onboarding","how_eyebrow":"How it works","how_h":"Three steps. Approved partner process.","step1_h":"Register interest","step1_p":"Submit your name and work email. We review partner fit, confirm the commercial route, and activate tracking only after approval.","step1_tag":"Review","step2_h":"Confirm setup","step2_p":"After approval, we confirm the partner route, permitted materials, attribution rules, and commercial terms.","step2_tag":"Onboarding","step3_h":"Refer or deploy","step3_p":"Approved partner opportunities are tracked after onboarding. Commission structure, attribution rules, and payout process are confirmed in partner terms.","step3_tag":"Approved terms","earn_eyebrow":"Partner economics","earn_h":"Illustrative only. Terms confirmed during onboarding.","earn_intro":"Illustrative partner economics only. Actual commercial terms, prices, and commission structure are confirmed during onboarding.","ag1_name":"Contract Summarisation Agent","ag1_tag":"L4 · Prawo i zakupy","ag2_name":"Risk Control Oversight Agent","ag2_tag":"L4 · Ryzyko i zgodność","ag3_name":"10 poleceń w ciągu roku","ag3_tag":"Mieszanka agentów · śr. €1200","pr_price":"Cena agenta","pr_total":"Sprzedaż łącznie","earn_you":"Zarabiasz","earn_disc":"// Illustrative only. Actual prices, commission structure, and payout terms are governed by approved partner terms.","gen_eyebrow":"Register interest","gen_h":"Register partner interest,<br>then confirm setup.","gen_sub":"Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.","gen_name_l":"Twoje imię","gen_name_ph":"np. Jan Kowalski","gen_email_l":"Służbowy e-mail","gen_btn":"Register partner interest ->","gen_rl":"Twój link partnerski","copy_btn":"Kopiuj","gen_code_l":"Kod partnerski","gen_note":"Partner attribution and commissions are activated only after approval and commercial setup. Share approved materials after onboarding.","faq_eyebrow":"Pytania","faq_h":"Częste pytania, bezpośrednie odpowiedzi.","q1":"How does attribution work?","a1":"Attribution and commission tracking are activated after approval and commercial setup. Rules are confirmed during partner onboarding.","q2":"When and how do I get paid?","a2":"Partner compensation is confirmed during onboarding. Payout timing, method, and eligibility are governed by approved partner terms.","q3":"Can I resell agents under my own brand?","a3":"Approved partners may refer, resell, or help deploy ColleagueAI agent packages under agreed partner terms. Contact us at <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a> to discuss the route.","q4":"Co, jeśli mój klient już zna Colleague AI?","a4":"Dopóki kliknie Twój link partnerski przed zakupem, otrzymujesz kredyt. Jeśli zakup został już sfinalizowany bez Twojego linku, tej sprzedaży nie można przypisać wstecznie.","q5":"Is there a cap on how much I can earn?","a5":"Commercial terms, eligibility, and any limits are confirmed in the approved partner agreement.","q6":"Co, jeśli zgubię swój link partnerski?","a6":"Twój kod jest deterministycznie wyprowadzany z Twojego adresu e-mail. Wróć na tę stronę, podaj to samo imię i e-mail, a za każdym razem otrzymasz dokładnie ten sam kod i link.","q7":"Is there a formal partner agreement?","a7":"Commercial participation requires approved partner terms. A written partner agreement is available during onboarding via <a href=\"mailto:hello@colleagueai.ai\">hello@colleagueai.ai</a>.","cta_h":"Ready to bring governed AI to <em>your</em> clients?","foot_note":"// Partner Pilot Programme - CAI Score - Updated June 2026"}};
+(function(){var CUR="en";
+function T(k){var d=I18N[CUR]||I18N.en;return d&&d[k]!=null?d[k]:(I18N.en[k]!=null?I18N.en[k]:null);}
+var en=I18N.en,rev={};Object.keys(en).forEach(function(k){var v=en[k];if(typeof v==="string")rev[v.replace(/\s+/g," ").trim()]=k;});
+document.querySelectorAll("h1,h2,h3,p,span,a,button,label,summary,div.perk").forEach(function(e){
+  if(e.querySelector("*")){var h=e.innerHTML.replace(/\s+/g," ").trim();for(var k in en){if(typeof en[k]==="string"&&en[k]===h){e.setAttribute("data-i18n-html",k);return;}}return;}
+  var t=e.textContent.replace(/\s+/g," ").trim();if(rev[t])e.setAttribute("data-i18n",rev[t]);
+});
+var ph=document.getElementById("g-name");if(ph)ph.setAttribute("data-i18n-ph","gen_name_ph");
+function applyLang(l){CUR=l;document.documentElement.lang=l;
+ document.querySelectorAll("[data-i18n]").forEach(function(e){var v=T(e.getAttribute("data-i18n"));if(v!=null)e.textContent=v;});
+ document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=T(e.getAttribute("data-i18n-html"));if(v!=null)e.innerHTML=v;});
+ document.querySelectorAll("[data-i18n-ph]").forEach(function(e){var v=T(e.getAttribute("data-i18n-ph"));if(v!=null)e.setAttribute("placeholder",v);});
+ try{localStorage.setItem("cai_lang",l);}catch(e){}}
+var ORDER=["en","cs","de","fr","es","it","pt","pl"],NAMES={en:"English",cs:"Čeština",de:"Deutsch",fr:"Français",es:"Español",it:"Italiano",pt:"Português",pl:"Polski"};
+var sel=document.getElementById("langsel");
+if(sel){ORDER.forEach(function(x){var o=document.createElement("option");o.value=x;o.textContent=NAMES[x];sel.appendChild(o);});
+var init="en";try{var u=new URLSearchParams(location.search).get("lang");var s=localStorage.getItem("cai_lang");var b=(navigator.language||"en").slice(0,2);init=u||s||b;}catch(e){}
+if(!I18N[init])init="en";sel.value=init;sel.addEventListener("change",function(){applyLang(sel.value);});applyLang(init);}
+})();
+</script>
+</body>
+</html>
