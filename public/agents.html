@@ -532,6 +532,7 @@
     #langsel{padding:6px 8px;font-size:12px}
     .nav-cta{padding:8px 14px;font-size:13px}
   }
+  .cai-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
 </style>
 <script type="application/ld+json">
 {
@@ -2492,6 +2493,15 @@ section{
     .cai-reader-section{margin:28px auto}
   }
 </style>
+<style id="cai-site-journey-css">
+  .cai-site-journey{max-width:1120px;margin:24px auto 10px;padding:0 18px}
+  .cai-site-journey-inner{border:1px solid rgba(29,27,26,.12);border-radius:24px;background:rgba(255,255,255,.72);box-shadow:0 14px 38px rgba(29,27,26,.07);padding:18px}
+  .cai-site-journey-title{margin:0 0 10px;font-size:22px;letter-spacing:-.02em;color:#1D1B1A}
+  .cai-site-journey-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .cai-site-journey-card{border:1px solid rgba(29,27,26,.12);border-radius:18px;padding:14px;text-decoration:none;background:rgba(255,255,255,.72);color:#1D1B1A}
+  .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
+  @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
+</style>
 <link rel="canonical" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents">
@@ -2505,6 +2515,16 @@ section{
 <meta name="cai-hreflang-locales" content="en,cs,de,fr,es,it,pl,pt">
 </head>
 <body>
+<section id="cai-site-journey" class="cai-site-journey" aria-labelledby="cai-site-journey-title">
+  <div class="cai-site-journey-inner">
+    <h2 id="cai-site-journey-title" class="cai-site-journey-title">Choose your path</h2>
+    <div class="cai-site-journey-grid">
+      <a class="cai-site-journey-card" href="/agents#cai-buyer-path"><strong>I need an AI agent use case</strong><span>Browse packaged agents, factsheets, CAI Score, and the controlled demo path.</span></a>
+      <a class="cai-site-journey-card" href="/trust"><strong>I need governance assurance</strong><span>Review security, data handling, AI governance, telemetry, and launch gate status.</span></a>
+      <a class="cai-site-journey-card" href="/partners"><strong>I want to partner</strong><span>Register partner interest. Approval and commission eligibility remain agreement-based.</span></a>
+    </div>
+  </div>
+</section>
 <a href="#catalogue" class="skip-link">Skip to content</a>
 <style>.skip-link{position:absolute;left:-9999px;top:0;z-index:300;background:var(--graphite);color:var(--paper);padding:10px 16px;font:600 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;border-radius:0 0 8px 0}.skip-link:focus{left:0}</style>
 
@@ -3171,6 +3191,7 @@ section{
   </div>
 </section>
 
+<section id="cai-language-guide" class="cai-reader-section" aria-labelledby="cai-language-guide-title"><div class="cai-reader-panel"><span class="cai-reader-kicker">Language</span><h2 id="cai-language-guide-title" class="cai-reader-title">Language: EN</h2><p class="cai-reader-lede">You are viewing the English agent guide. The buyer journey, CAI Score explanation, launch gate, and trust/partner navigation are available across all supported language pages.</p><div class="cai-reader-actions cai-language-links"><a href="/en/agents" hreflang="en" aria-current="page">EN</a><a href="/cs/agents" hreflang="cs">CS</a><a href="/de/agents" hreflang="de">DE</a><a href="/fr/agents" hreflang="fr">FR</a><a href="/es/agents" hreflang="es">ES</a><a href="/it/agents" hreflang="it">IT</a><a href="/pl/agents" hreflang="pl">PL</a><a href="/pt/agents" hreflang="pt">PT</a></div></div></section>
 <section id="cai-buyer-path" class="cai-reader-section" aria-labelledby="cai-buyer-path-title">
   <div class="cai-reader-panel">
     <span class="cai-reader-kicker">Buyer guide</span>
