@@ -590,7 +590,7 @@ export default function ColleagueAIMarketplace() {
                     }}>
                       <span style={{
                         position: 'absolute', left: 0,
-                        color: '#A8482A',
+                        color: tier.featured ? '#D9825F' : '#A8482A',
                       }}>â†’</span>
                       {f}
                     </li>
