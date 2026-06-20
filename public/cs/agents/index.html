@@ -3113,33 +3113,33 @@ section{
   <div class="wrap proof-demo-grid">
     <div class="proof-demo-copy">
       <span class="proof-demo-kicker">First-party interactive proof</span>
-      <h2 id="proof-demo-title">See how a governed agent turns a reconciliation issue into auditable evidence.</h2>
-      <p>This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.</p>
+      <h2 id="proof-demo-title">Podívejte se, jak řízený agent promění problém s rekonciliací v auditovatelné důkazy.</h2>
+      <p>Tento statický průchod používá fiktivní finanční případ k ukázce provozního modelu balíčků ColleagueAI: vyhledávání s ohledem na oprávnění, analýzu kořenové příčiny, lidský dohled a důkazní stopu vhodnou ke kontrole.</p>
       <div class="proof-demo-note">
-        No third-party demo platform, no free-text input, no personal data capture, and no session replay. The example is deterministic and sanitized by design.
+        Žádná demo platforma třetí strany, žádný volný text, žádné zachytávání osobních údajů a žádné session replay. Příklad je deterministický a záměrně sanitizovaný.
       </div>
     </div>
 
     <div class="proof-demo-panel" data-proof-demo>
       <div class="proof-demo-panel-head">
         <div class="proof-demo-case">
-          <strong>Sample case</strong><br>
-          ERP invoice INV-2026-0148 · payment PAY-88421 · variance €18,420 · fictional counterparty
+          <strong>Ukázkový případ</strong><br>
+          ERP faktura INV-2026-0148 · platba PAY-88421 · rozdíl €18 420 · fiktivní protistrana
         </div>
-        <span class="proof-demo-badge">CAI L3 · Human approval</span>
+        <span class="proof-demo-badge">CAI L3 · Schválení člověkem</span>
       </div>
       <div class="proof-demo-stage" aria-live="polite">
         <h3 data-proof-title></h3>
         <p data-proof-body></p>
         <div class="proof-demo-evidence">
-          <strong>Evidence generated</strong>
+          <strong>Vygenerované důkazy</strong>
           <ul data-proof-evidence></ul>
         </div>
       </div>
       <div class="proof-demo-controls">
-        <button type="button" data-proof-action="prev">Previous</button>
-        <button type="button" class="primary" data-proof-action="next">Next step</button>
-        <button type="button" data-proof-action="reset">Reset</button>
+        <button type="button" data-proof-action="prev">Předchozí</button>
+        <button type="button" class="primary" data-proof-action="next">Další krok</button>
+        <button type="button" data-proof-action="reset">Resetovat</button>
       </div>
       <div class="proof-demo-steps" aria-hidden="true">
         <span class="proof-demo-dot"></span>
@@ -3765,9 +3765,9 @@ applyLang(init);
   if(!root) return;
   var steps=[
     {
-      title:'1. Detect the exception',
-      body:'The agent identifies that the payment does not fully reconcile to the expected ERP invoice amount and classifies the case as a finance-control exception.',
-      evidence:['Variance amount and source record IDs','Timestamped exception classification','CAI L3 handling requirement']
+      title:'1. Detekovat výjimku',
+      body:'Agent zjistí, že platba plně nesouhlasí s očekávanou částkou ERP faktury, a klasifikuje případ jako výjimku finanční kontroly.',
+      evidence:['Výše rozdílu a ID zdrojových záznamů','Časově označená klasifikace výjimky','Požadavek na zpracování CAI L3']
     },
     {
       title:'2. Retrieve only permitted evidence',
