@@ -21,6 +21,10 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
   .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
   @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
 </style>
+
+
+
+
 <!-- cai-global-hreflang:start -->
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/terms" />
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/terms" />
@@ -42,6 +46,237 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
   .cai-global-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
   @media(max-width:760px){.cai-global-language{padding:0 12px}.cai-global-language-inner{align-items:flex-start}.cai-global-language-links a{padding:8px 10px}}
 </style>
+<style id="cai-url-locale-controller-css">
+html[data-cai-page="agents"] #cai-language-guide,
+html[data-cai-page="agents"] #cai-global-language-switcher,
+html[data-cai-page="agents"] #cai-site-journey,
+html[data-cai-page="agents"] #cai-buyer-path {
+  display: none !important;
+}
+</style>
+<script id="cai-url-locale-controller">
+(function () {
+  var LOCALES = ["en", "cs", "de", "fr", "es", "it", "pl", "pt"];
+  var PAGES = ["agents", "trust", "partners", "privacy", "terms"];
+  var LOCALE_LABELS = {
+    en: "English",
+    cs: "Čeština",
+    de: "Deutsch",
+    fr: "Français",
+    es: "Español",
+    it: "Italiano",
+    pl: "Polski",
+    pt: "Português"
+  };
+
+  function routeParts() {
+    return location.pathname.split("/").filter(Boolean);
+  }
+
+  function routeLocale() {
+    var parts = routeParts();
+    return LOCALES.indexOf(parts[0]) >= 0 ? parts[0] : "en";
+  }
+
+  function routePage() {
+    var parts = routeParts();
+    if (LOCALES.indexOf(parts[0]) >= 0) parts.shift();
+    var page = (parts[0] || "agents").toLowerCase();
+    return PAGES.indexOf(page) >= 0 ? page : "agents";
+  }
+
+  function normalizeLocale(value) {
+    value = String(value || "").trim().toLowerCase();
+    if (value === "cz" || value === "czech" || value === "čeština") return "cs";
+    if (value === "english") return "en";
+    if (value === "deutsch" || value === "german") return "de";
+    if (value === "français" || value === "french") return "fr";
+    if (value === "español" || value === "spanish") return "es";
+    if (value === "italiano" || value === "italian") return "it";
+    if (value === "polski" || value === "polish") return "pl";
+    if (value === "português" || value === "portuguese") return "pt";
+    return LOCALES.indexOf(value) >= 0 ? value : "";
+  }
+
+  function routeFor(locale) {
+    return "/" + locale + "/" + routePage() + location.search + location.hash;
+  }
+
+  function localeFromHref(href) {
+    if (!href) return "";
+    try {
+      var url = new URL(href, location.origin);
+      var parts = url.pathname.split("/").filter(Boolean);
+      return LOCALES.indexOf(parts[0]) >= 0 ? parts[0] : "";
+    } catch (error) {
+      var fallbackParts = String(href).split("/").filter(Boolean);
+      return LOCALES.indexOf(fallbackParts[0]) >= 0 ? fallbackParts[0] : "";
+    }
+  }
+
+  function storeLocale(locale) {
+    try {
+      [
+        "lang",
+        "language",
+        "locale",
+        "caiLang",
+        "cai_lang",
+        "caiLocale",
+        "cai_locale",
+        "colleagueaiLang",
+        "colleagueai_lang",
+        "colleagueaiLocale",
+        "colleagueai_locale"
+      ].forEach(function (key) {
+        localStorage.setItem(key, locale);
+      });
+    } catch (error) {}
+  }
+
+  var currentLocale = routeLocale();
+  var currentPage = routePage();
+
+  document.documentElement.lang = currentLocale;
+  document.documentElement.setAttribute("data-cai-route-locale", currentLocale);
+  document.documentElement.setAttribute("data-cai-page", currentPage);
+  window.__CAI_ROUTE_LOCALE = currentLocale;
+  window.__cai_route_locale = currentLocale;
+  window.__cai_locale = currentLocale;
+  window.caiLocaleUrlFor = routeFor;
+  storeLocale(currentLocale);
+
+  function isLanguageSelect(select) {
+    if (!select || select.tagName !== "SELECT") return false;
+    var text = [
+      select.id || "",
+      select.name || "",
+      select.className || "",
+      select.getAttribute("aria-label") || ""
+    ].join(" ");
+    if (/lang|language|locale|jazyk|idioma|sprache|langue/i.test(text)) return true;
+    return Array.prototype.some.call(select.options || [], function (option) {
+      return normalizeLocale(option.value);
+    });
+  }
+
+  function ensureLocaleOptions(select) {
+    var hasLocaleOptions = Array.prototype.some.call(select.options || [], function (option) {
+      return normalizeLocale(option.value);
+    });
+
+    if (hasLocaleOptions) return;
+
+    if (select.id === "langsel" || /lang|locale|jazyk/i.test(select.id + " " + select.name + " " + select.className)) {
+      select.innerHTML = "";
+      LOCALES.forEach(function (locale) {
+        var option = document.createElement("option");
+        option.value = locale;
+        option.textContent = LOCALE_LABELS[locale] || locale.toUpperCase();
+        select.appendChild(option);
+      });
+    }
+  }
+
+  function syncSelect(select) {
+    ensureLocaleOptions(select);
+    Array.prototype.forEach.call(select.options || [], function (option) {
+      var optionLocale = normalizeLocale(option.value);
+      if (optionLocale === currentLocale) {
+        option.selected = true;
+        select.value = option.value;
+      }
+    });
+    select.setAttribute("data-cai-route-locale-bound", "true");
+  }
+
+  function syncControls() {
+    storeLocale(currentLocale);
+
+    Array.prototype.forEach.call(document.querySelectorAll("select"), function (select) {
+      if (isLanguageSelect(select)) syncSelect(select);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll("a[href]"), function (link) {
+      var locale = localeFromHref(link.getAttribute("href"));
+      if (!locale) return;
+      link.setAttribute("href", routeFor(locale));
+      link.setAttribute("hreflang", locale);
+      link.setAttribute("data-cai-route-locale-link", locale);
+      if (locale === currentLocale) {
+        link.setAttribute("aria-current", "true");
+        link.classList.add("active", "is-active");
+      } else {
+        link.removeAttribute("aria-current");
+        link.classList.remove("active", "is-active");
+      }
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-locale], [data-lang], button"), function (element) {
+      var locale = normalizeLocale(
+        element.getAttribute("data-locale") ||
+        element.getAttribute("data-lang") ||
+        element.value ||
+        element.textContent
+      );
+      if (!locale) return;
+      element.setAttribute("data-cai-route-locale-link", locale);
+      if (locale === currentLocale) {
+        element.setAttribute("aria-current", "true");
+        element.classList.add("active", "is-active");
+      } else {
+        element.removeAttribute("aria-current");
+        element.classList.remove("active", "is-active");
+      }
+    });
+  }
+
+  document.addEventListener("click", function (event) {
+    var target = event.target.closest && event.target.closest("a[href], [data-locale], [data-lang], button");
+    if (!target) return;
+
+    var locale = normalizeLocale(
+      target.getAttribute("data-locale") ||
+      target.getAttribute("data-lang") ||
+      target.value ||
+      target.textContent
+    );
+
+    if (!locale && target.tagName === "A") locale = localeFromHref(target.getAttribute("href"));
+    if (!locale) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    storeLocale(locale);
+    location.assign(routeFor(locale));
+  }, true);
+
+  document.addEventListener("change", function (event) {
+    var target = event.target;
+    if (!isLanguageSelect(target)) return;
+
+    var locale = normalizeLocale(target.value);
+    if (!locale) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    storeLocale(locale);
+    location.assign(routeFor(locale));
+  }, true);
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", syncControls);
+  } else {
+    syncControls();
+  }
+
+  setTimeout(syncControls, 0);
+  setTimeout(syncControls, 250);
+  setTimeout(syncControls, 1000);
+})();
+</script>
 </head><body>
 <nav id="cai-global-language-switcher" class="cai-global-language" aria-label="Język">
   <div class="cai-global-language-inner">
