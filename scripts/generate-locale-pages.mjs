@@ -16,6 +16,10 @@ const LOCALES = [
   { code: 'pt', og: 'pt_PT', title: 'Agentes de IA governados | ColleagueAI' }
 ]
 
+// Localized pretty slug per locale = the single canonical URL for that locale.
+const AGENTS_SLUG = { en: 'agents', cs: 'agenti', de: 'agenten', fr: 'agents', es: 'agentes', it: 'agenti', pl: 'agenci', pt: 'agentes' }
+const localeAgentsUrl = (code) => SITE + '/' + code + '/' + AGENTS_SLUG[code]
+
 const sourcePath = fs.existsSync(path.join(DIST, 'agents.html'))
   ? path.join(DIST, 'agents.html')
   : path.join(PUBLIC, 'agents.html')
@@ -89,12 +93,13 @@ function extractI18n(html) {
 function alternateLinks() {
   return [
     '<link rel="alternate" hreflang="x-default" href="' + SITE + '/agents">',
-    ...LOCALES.map((locale) => '<link rel="alternate" hreflang="' + locale.code + '" href="' + SITE + '/' + locale.code + '/agents">')
+    ...LOCALES.map((locale) => '<link rel="alternate" hreflang="' + locale.code + '" href="' + localeAgentsUrl(locale.code) + '">')
   ].join('\n')
 }
 
 function stripLocaleSeo(html) {
   return html
+    .replace(/<!-- cai-global-hreflang:start -->[\s\S]*?<!-- cai-global-hreflang:end -->\s*/g, '')
     .replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, '')
     .replace(/<link\s+rel=["']alternate["'][^>]*>\s*/gi, '')
     .replace(/<meta\s+name=["']cai-static-locale["'][^>]*>\s*/gi, '')
@@ -134,7 +139,7 @@ function rootSeoBlock() {
 
 function localeSeoBlock(locale) {
   return [
-    '<link rel="canonical" href="' + SITE + '/' + locale.code + '/agents">',
+    '<link rel="canonical" href="' + localeAgentsUrl(locale.code) + '">',
     alternateLinks(),
     '<meta name="cai-static-locale" content="' + locale.code + '">',
     '<meta name="cai-static-i18n-prerender" content="data-i18n">',
@@ -177,7 +182,7 @@ function sitemapEntry(loc) {
   const today = new Date().toISOString().slice(0, 10)
   const alternates = [
     '    <xhtml:link rel="alternate" hreflang="x-default" href="' + SITE + '/agents" />',
-    ...LOCALES.map((locale) => '    <xhtml:link rel="alternate" hreflang="' + locale.code + '" href="' + SITE + '/' + locale.code + '/agents" />')
+    ...LOCALES.map((locale) => '    <xhtml:link rel="alternate" hreflang="' + locale.code + '" href="' + localeAgentsUrl(locale.code) + '" />')
   ].join('\n')
 
   return [
@@ -199,8 +204,8 @@ function updateSitemap(targetDir) {
     xml = xml.replace('<urlset ', '<urlset xmlns:xhtml="http://www.w3.org/1999/xhtml" ')
   }
 
-  const entries = LOCALES.map((locale) => sitemapEntry(SITE + '/' + locale.code + '/agents')).join('\n')
-  const missing = LOCALES.some((locale) => !xml.includes('/' + locale.code + '/agents'))
+  const entries = LOCALES.map((locale) => sitemapEntry(localeAgentsUrl(locale.code))).join('\n')
+  const missing = LOCALES.some((locale) => !xml.includes('/' + locale.code + '/' + AGENTS_SLUG[locale.code]))
 
   if (missing) {
     xml = xml.replace('</urlset>', entries + '\n</urlset>')

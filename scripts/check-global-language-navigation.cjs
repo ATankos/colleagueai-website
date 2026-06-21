@@ -2,6 +2,7 @@ const fs = require("fs");
 
 const LOCALES = ["en","cs","de","fr","es","it","pl","pt"];
 const PAGES = ["agents","trust","partners","privacy","terms"];
+const AGENTS_SLUG = { en:"agents", cs:"agenti", de:"agenten", fr:"agents", es:"agentes", it:"agenti", pl:"agenci", pt:"agentes" };
 const failures = [];
 
 function exists(file) { return fs.existsSync(file); }
@@ -38,7 +39,8 @@ for (const page of PAGES) {
 const sitemap = read("public/sitemap.xml");
 for (const page of PAGES) {
   for (const locale of LOCALES) {
-    const loc = "https://www.colleagueai.ai/" + locale + "/" + page;
+    const slug = page === "agents" ? AGENTS_SLUG[locale] : page;
+    const loc = "https://www.colleagueai.ai/" + locale + "/" + slug;
     if (!sitemap.includes(loc)) failures.push({ file: "public/sitemap.xml", issue: "missing localized sitemap route", expected: loc });
   }
 }
