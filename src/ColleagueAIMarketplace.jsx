@@ -92,6 +92,57 @@ export default function ColleagueAIMarketplace() {
           transform: scale(1.02);
         }
 
+
+        /* Layout polish: visual rhythm only, no copy/legal changes */
+        html { scroll-behavior: smooth; }
+
+        #hero {
+          min-height: min(760px, calc(100vh - 24px));
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        #marketplace {
+          padding: 112px 22px 92px !important;
+        }
+
+        #philosophy,
+        #contact {
+          padding: 112px 22px !important;
+        }
+
+        #trust,
+        #pricing {
+          margin: 18px !important;
+          border-radius: 28px !important;
+          box-shadow: 0 28px 90px rgba(29, 27, 26, 0.10);
+        }
+
+        .agent-card {
+          border-color: rgba(29, 27, 26, 0.07) !important;
+          box-shadow: 0 1px 2px rgba(29, 27, 26, 0.04), 0 12px 32px rgba(29, 27, 26, 0.05);
+        }
+
+        .agent-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 24px 56px rgba(29, 27, 26, 0.10);
+        }
+
+        #pricing [style*="padding: 36px 28px"] {
+          box-shadow: 0 1px 2px rgba(29, 27, 26, 0.05), 0 16px 40px rgba(29, 27, 26, 0.06);
+          transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #pricing [style*="padding: 36px 28px"]:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 24px 58px rgba(29, 27, 26, 0.10);
+        }
+
+        #trust [style*="max-width: 720px"] {
+          box-shadow: inset 0 1px 0 rgba(245, 240, 232, 0.08), 0 24px 70px rgba(0, 0, 0, 0.18);
+        }
+
         @media (max-width: 768px) {
           .hide-mobile { display: none !important; }
 
