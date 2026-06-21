@@ -94,6 +94,42 @@ export default function ColleagueAIMarketplace() {
 
         @media (max-width: 768px) {
           .hide-mobile { display: none !important; }
+
+          .cai-hero {
+            padding: 96px 18px 48px !important;
+          }
+
+          .cai-hero h1 {
+            font-size: clamp(42px, 13vw, 64px) !important;
+            line-height: 0.96 !important;
+          }
+
+          .cai-hero p {
+            font-size: 17px !important;
+            line-height: 1.5 !important;
+          }
+
+          #marketplace,
+          #philosophy,
+          #contact {
+            padding: 64px 18px !important;
+          }
+
+          #trust,
+          #pricing {
+            margin: 10px !important;
+            padding: 64px 20px !important;
+            border-radius: 20px !important;
+          }
+
+          .agent-card {
+            padding: 22px !important;
+          }
+
+          .filter-pill {
+            font-size: 12px !important;
+            padding: 9px 13px !important;
+          }
         }
 
         .lang-pill {
@@ -174,7 +210,6 @@ export default function ColleagueAIMarketplace() {
           }}>
             <a href="#marketplace" className="link-hover">{t.nav.marketplace}</a>
             <a href="#trust" className="link-hover">{t.nav.trust}</a>
-            <a href="#philosophy" className="link-hover">{t.nav.philosophy}</a>
             <a href="#pricing" className="link-hover">{t.nav.pricing}</a>
             <a href="#contact" className="link-hover">{t.nav.contact}</a>
           </div>
@@ -212,7 +247,7 @@ export default function ColleagueAIMarketplace() {
       </nav>
 
       {/* HERO TILE â€” Apple style */}
-      <section style={{
+      <section id="hero" className="cai-hero" style={{
         paddingTop: '120px', paddingBottom: '80px',
         textAlign: 'center', padding: '120px 22px 80px',
       }}>
@@ -279,6 +314,126 @@ export default function ColleagueAIMarketplace() {
           ))}
         </div>
       </section>
+
+      {/* MARKETPLACE â€” agent grid */}
+      <section id="marketplace" style={{ padding: '100px 22px' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          {/* Section header */}
+          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
+            <div className="mono" style={{
+              fontSize: '12px', color: '#A8482A', letterSpacing: '0.1em',
+              marginBottom: '20px',
+            }}>
+              {t.market.eyebrow}
+            </div>
+            <h2 className="fraunces" style={{
+              fontSize: 'clamp(40px, 5vw, 72px)', fontWeight: 500,
+              lineHeight: 1.05, letterSpacing: '-0.03em',
+              marginBottom: '20px',
+            }}>
+              {t.market.h2a} <span style={{ fontStyle: 'italic' }}>{t.market.h2b}</span>
+            </h2>
+            <p style={{
+              fontSize: '19px', color: '#4A4641', maxWidth: '560px',
+              margin: '0 auto', lineHeight: 1.4,
+            }}>
+              {t.market.sub}
+            </p>
+          </div>
+
+          {/* Filter pills */}
+          <div style={{
+            display: 'flex', gap: '8px', justifyContent: 'center',
+            marginBottom: '40px', flexWrap: 'wrap',
+          }}>
+            {t.market.filters.map((f) => (
+              <button
+                key={f.id}
+                onClick={() => setFilter(f.id)}
+                className="filter-pill"
+                style={{
+                  padding: '8px 18px', borderRadius: '999px',
+                  fontSize: '13px', fontWeight: 500,
+                  backgroundColor: filter === f.id ? '#1D1B1A' : 'transparent',
+                  color: filter === f.id ? '#F5F0E8' : '#1D1B1A',
+                  border: filter === f.id ? '1px solid #1D1B1A' : '1px solid rgba(29, 27, 26, 0.15)',
+                }}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Agent grid */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: '20px',
+          }}>
+            {filteredAgents.map((agent, i) => (
+              <div key={i} className="agent-card" style={{
+                backgroundColor: '#FFFFFF', borderRadius: '20px',
+                padding: '28px', cursor: 'pointer',
+                border: '1px solid rgba(29, 27, 26, 0.05)',
+                display: 'flex', flexDirection: 'column',
+                minHeight: '280px',
+              }}>
+                {/* Icon block */}
+                <div style={{
+                  width: '56px', height: '56px', borderRadius: '14px',
+                  backgroundColor: agent.color, marginBottom: '20px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontSize: '24px',
+                }}>
+                  {agent.icon}
+                </div>
+
+                {/* Score badge */}
+                <div style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '6px',
+                  marginBottom: '12px',
+                }}>
+                  <span className="mono" style={{
+                    fontSize: '10px', color: '#6B655E', letterSpacing: '0.05em',
+                  }}>CAI</span>
+                  <span className="fraunces" style={{
+                    fontSize: '13px', fontWeight: 500, color: agent.scoreColor,
+                  }}>{agent.score}</span>
+                  <span style={{
+                    fontSize: '10px', padding: '2px 8px', borderRadius: '4px',
+                    backgroundColor: 'rgba(29, 27, 26, 0.05)', color: '#6B655E',
+                  }}>{agent.risk}</span>
+                </div>
+
+                <h3 className="fraunces" style={{
+                  fontSize: '22px', fontWeight: 500, marginBottom: '8px',
+                  letterSpacing: '-0.01em',
+                }}>{agent.name}</h3>
+
+                <p style={{
+                  fontSize: '14px', lineHeight: 1.5, color: '#4A4641',
+                  flex: 1, marginBottom: '20px',
+                }}>{agent.desc}</p>
+
+                <div style={{
+                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+                  paddingTop: '16px', borderTop: '1px solid rgba(29, 27, 26, 0.06)',
+                }}>
+                  <div className="mono" style={{ fontSize: '11px', color: '#6B655E' }}>
+                    {agent.deployments}
+                  </div>
+                  <div style={{
+                    fontSize: '13px', color: '#A8482A', fontWeight: 500,
+                  }}>
+                    {t.market.viewDetails} â†’
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
 
       {/* TRUST TILE â€” dark, like Apple's Pro product blocks */}
       <section id="trust" style={{
@@ -361,125 +516,6 @@ export default function ColleagueAIMarketplace() {
         }}>
           {t.trustTile.cta} â†’
         </a>
-      </section>
-
-      {/* MARKETPLACE â€” agent grid */}
-      <section id="marketplace" style={{ padding: '100px 22px' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          {/* Section header */}
-          <div style={{ textAlign: 'center', marginBottom: '60px' }}>
-            <div className="mono" style={{
-              fontSize: '12px', color: '#A8482A', letterSpacing: '0.1em',
-              marginBottom: '20px',
-            }}>
-              {t.market.eyebrow}
-            </div>
-            <h2 className="fraunces" style={{
-              fontSize: 'clamp(40px, 5vw, 72px)', fontWeight: 500,
-              lineHeight: 1.05, letterSpacing: '-0.03em',
-              marginBottom: '20px',
-            }}>
-              {t.market.h2a} <span style={{ fontStyle: 'italic' }}>{t.market.h2b}</span>
-            </h2>
-            <p style={{
-              fontSize: '19px', color: '#4A4641', maxWidth: '560px',
-              margin: '0 auto', lineHeight: 1.4,
-            }}>
-              {t.market.sub}
-            </p>
-          </div>
-
-          {/* Filter pills */}
-          <div style={{
-            display: 'flex', gap: '8px', justifyContent: 'center',
-            marginBottom: '40px', flexWrap: 'wrap',
-          }}>
-            {t.market.filters.map((f) => (
-              <button
-                key={f.id}
-                onClick={() => setFilter(f.id)}
-                className="filter-pill"
-                style={{
-                  padding: '8px 18px', borderRadius: '999px',
-                  fontSize: '13px', fontWeight: 500,
-                  backgroundColor: filter === f.id ? '#1D1B1A' : 'transparent',
-                  color: filter === f.id ? '#F5F0E8' : '#1D1B1A',
-                  border: filter === f.id ? '1px solid #1D1B1A' : '1px solid rgba(29, 27, 26, 0.15)',
-                }}
-              >
-                {f.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Agent grid */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '20px',
-          }}>
-            {filteredAgents.map((agent, i) => (
-              <div key={i} className="agent-card" style={{
-                backgroundColor: '#FFFFFF', borderRadius: '20px',
-                padding: '28px', cursor: 'pointer',
-                border: '1px solid rgba(29, 27, 26, 0.05)',
-                display: 'flex', flexDirection: 'column',
-                minHeight: '280px',
-              }}>
-                {/* Icon block */}
-                <div style={{
-                  width: '56px', height: '56px', borderRadius: '14px',
-                  backgroundColor: agent.color, marginBottom: '20px',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: '24px',
-                }}>
-                  {agent.icon}
-                </div>
-
-                {/* Score badge */}
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '6px',
-                  marginBottom: '12px',
-                }}>
-                  <span className="mono" style={{
-                    fontSize: '10px', color: '#6B655E', letterSpacing: '0.05em',
-                  }}>CAI</span>
-                  <span className="fraunces" style={{
-                    fontSize: '13px', fontWeight: 500, color: agent.scoreColor,
-                  }}>{agent.score}</span>
-                  <span style={{
-                    fontSize: '10px', padding: '2px 8px', borderRadius: '4px',
-                    backgroundColor: 'rgba(29, 27, 26, 0.05)', color: '#6B655E',
-                  }}>{agent.risk}</span>
-                </div>
-
-                <h3 className="fraunces" style={{
-                  fontSize: '22px', fontWeight: 500, marginBottom: '8px',
-                  letterSpacing: '-0.01em',
-                }}>{agent.name}</h3>
-
-                <p style={{
-                  fontSize: '14px', lineHeight: 1.5, color: '#4A4641',
-                  flex: 1, marginBottom: '20px',
-                }}>{agent.desc}</p>
-
-                <div style={{
-                  display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                  paddingTop: '16px', borderTop: '1px solid rgba(29, 27, 26, 0.06)',
-                }}>
-                  <div className="mono" style={{ fontSize: '11px', color: '#6B655E' }}>
-                    {agent.deployments}
-                  </div>
-                  <div style={{
-                    fontSize: '13px', color: '#A8482A', fontWeight: 500,
-                  }}>
-                    {t.market.viewDetails} â†’
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       {/* PHILOSOPHY TILE â€” clean centered */}
