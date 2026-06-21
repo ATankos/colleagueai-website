@@ -2,6 +2,14 @@ const fs = require("fs");
 
 const locales = ["cs","de","fr","es","it","pl","pt"];
 const leakTokens = [
+  "TRUST PAGE GUIDE",
+  "Use this page to review the operating model behind ColleagueAI",
+  "Security model",
+  "Data handling",
+  "AI governance",
+  "Telemetry and privacy",
+  "Launch gate",
+  "Partner interest",
   "Choose your path",
   "I need an AI agent use case",
   "I need governance assurance",
