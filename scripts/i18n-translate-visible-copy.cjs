@@ -31,7 +31,16 @@ const DICT = {
     "Register interest": "Registrovat zájem",
     "Review agent packages": "Prohlédnout balíčky agentů",
     "Review trust architecture": "Prohlédnout trust architekturu",
-    "Checkout gate": "Checkout gate"
+    "Checkout gate": "Checkout gate",
+    "TRUST PAGE GUIDE": "PRŮVODCE TRUST STRÁNKOU",
+    "Trust page guide": "Průvodce stránkou Trust",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Tuto stránku použijte ke kontrole provozního modelu ColleagueAI: bezpečnosti, nakládání s daty, správy AI, telemetrie a připravenosti ke spuštění.",
+    "Security model": "Bezpečnostní model",
+    "Data handling": "Nakládání s daty",
+    "AI governance": "Správa AI",
+    "Telemetry and privacy": "Telemetrie a soukromí",
+    "Launch gate": "Brána spuštění",
+    "Partner interest": "Partnerský zájem"
   },
   "de": {
     "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTIVER FIRST-PARTY-NACHWEIS",
@@ -62,7 +71,16 @@ const DICT = {
     "Register interest": "Interesse registrieren",
     "Review agent packages": "Agentenpakete prüfen",
     "Review trust architecture": "Trust-Architektur prüfen",
-    "Checkout gate": "Checkout-Gate"
+    "Checkout gate": "Checkout-Gate",
+    "TRUST PAGE GUIDE": "TRUST-SEITENLEITFADEN",
+    "Trust page guide": "Leitfaden zur Trust-Seite",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Nutzen Sie diese Seite, um das Betriebsmodell hinter ColleagueAI zu prüfen: Sicherheit, Datenverarbeitung, Governance, Telemetrie und Launch-Bereitschaft.",
+    "Security model": "Sicherheitsmodell",
+    "Data handling": "Datenverarbeitung",
+    "AI governance": "KI-Governance",
+    "Telemetry and privacy": "Telemetrie und Datenschutz",
+    "Launch gate": "Launch-Gate",
+    "Partner interest": "Partnerinteresse"
   },
   "fr": {
     "FIRST-PARTY INTERACTIVE PROOF": "PREUVE INTERACTIVE FIRST-PARTY",
@@ -92,7 +110,16 @@ const DICT = {
     "Register interest": "Enregistrer l’intérêt",
     "Review agent packages": "Voir les packages agents",
     "Review trust architecture": "Voir l’architecture de confiance",
-    "Checkout gate": "Gate de paiement"
+    "Checkout gate": "Gate de paiement",
+    "TRUST PAGE GUIDE": "GUIDE DE LA PAGE TRUST",
+    "Trust page guide": "Guide de la page Trust",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Utilisez cette page pour examiner le modèle opérationnel de ColleagueAI : sécurité, traitement des données, gouvernance, télémétrie et préparation au lancement.",
+    "Security model": "Modèle de sécurité",
+    "Data handling": "Traitement des données",
+    "AI governance": "Gouvernance IA",
+    "Telemetry and privacy": "Télémétrie et confidentialité",
+    "Launch gate": "Gate de lancement",
+    "Partner interest": "Intérêt partenaire"
   },
   "es": {
     "FIRST-PARTY INTERACTIVE PROOF": "PRUEBA INTERACTIVA FIRST-PARTY",
@@ -122,7 +149,16 @@ const DICT = {
     "Register interest": "Registrar interés",
     "Review agent packages": "Revisar paquetes de agentes",
     "Review trust architecture": "Revisar arquitectura de confianza",
-    "Checkout gate": "Gate de checkout"
+    "Checkout gate": "Gate de checkout",
+    "TRUST PAGE GUIDE": "GUÍA DE LA PÁGINA TRUST",
+    "Trust page guide": "Guía de la página Trust",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Utilice esta página para revisar el modelo operativo detrás de ColleagueAI: seguridad, tratamiento de datos, gobernanza, telemetría y preparación para el lanzamiento.",
+    "Security model": "Modelo de seguridad",
+    "Data handling": "Tratamiento de datos",
+    "AI governance": "Gobernanza de IA",
+    "Telemetry and privacy": "Telemetría y privacidad",
+    "Launch gate": "Gate de lanzamiento",
+    "Partner interest": "Interés de partner"
   },
   "it": {
     "FIRST-PARTY INTERACTIVE PROOF": "PROVA INTERATTIVA FIRST-PARTY",
@@ -152,7 +188,16 @@ const DICT = {
     "Register interest": "Registra interesse",
     "Review agent packages": "Rivedi pacchetti agenti",
     "Review trust architecture": "Rivedi architettura trust",
-    "Checkout gate": "Gate di checkout"
+    "Checkout gate": "Gate di checkout",
+    "TRUST PAGE GUIDE": "GUIDA ALLA PAGINA TRUST",
+    "Trust page guide": "Guida alla pagina Trust",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Usa questa pagina per rivedere il modello operativo dietro ColleagueAI: sicurezza, gestione dei dati, governance, telemetria e readiness al lancio.",
+    "Security model": "Modello di sicurezza",
+    "Data handling": "Gestione dei dati",
+    "AI governance": "Governance AI",
+    "Telemetry and privacy": "Telemetria e privacy",
+    "Launch gate": "Gate di lancio",
+    "Partner interest": "Interesse partner"
   },
   "pl": {
     "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTYWNY DOWÓD FIRST-PARTY",
@@ -182,7 +227,16 @@ const DICT = {
     "Register interest": "Zarejestruj zainteresowanie",
     "Review agent packages": "Przejrzyj pakiety agentów",
     "Review trust architecture": "Przejrzyj architekturę zaufania",
-    "Checkout gate": "Gate checkout"
+    "Checkout gate": "Gate checkout",
+    "TRUST PAGE GUIDE": "PRZEWODNIK PO STRONIE TRUST",
+    "Trust page guide": "Przewodnik po stronie Trust",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Użyj tej strony, aby przejrzeć model operacyjny ColleagueAI: bezpieczeństwo, obsługę danych, governance, telemetrię i gotowość do uruchomienia.",
+    "Security model": "Model bezpieczeństwa",
+    "Data handling": "Obsługa danych",
+    "AI governance": "Governance AI",
+    "Telemetry and privacy": "Telemetria i prywatność",
+    "Launch gate": "Gate uruchomienia",
+    "Partner interest": "Zainteresowanie partnerskie"
   },
   "pt": {
     "FIRST-PARTY INTERACTIVE PROOF": "PROVA INTERATIVA FIRST-PARTY",
@@ -212,7 +266,16 @@ const DICT = {
     "Register interest": "Registrar interesse",
     "Review agent packages": "Revisar pacotes de agentes",
     "Review trust architecture": "Revisar arquitetura de confiança",
-    "Checkout gate": "Gate de checkout"
+    "Checkout gate": "Gate de checkout",
+    "TRUST PAGE GUIDE": "GUIA DA PÁGINA TRUST",
+    "Trust page guide": "Guia da página Trust",
+    "Use this page to review the operating model behind ColleagueAI: security, data handling, governance, telemetry, and launch readiness.": "Use esta página para rever o modelo operacional por trás da ColleagueAI: segurança, tratamento de dados, governança, telemetria e prontidão para lançamento.",
+    "Security model": "Modelo de segurança",
+    "Data handling": "Tratamento de dados",
+    "AI governance": "Governança de IA",
+    "Telemetry and privacy": "Telemetria e privacidade",
+    "Launch gate": "Gate de lançamento",
+    "Partner interest": "Interesse de parceiro"
   }
 };
 
