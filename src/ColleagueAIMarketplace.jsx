@@ -143,6 +143,23 @@ export default function ColleagueAIMarketplace() {
           box-shadow: inset 0 1px 0 rgba(245, 240, 232, 0.08), 0 24px 70px rgba(0, 0, 0, 0.18);
         }
 
+
+        /* Agent card clarity: hierarchy only, no copy/legal changes */
+        .agent-card h3 {
+          text-wrap: balance;
+        }
+
+        .agent-card p {
+          display: -webkit-box;
+          -webkit-line-clamp: 4;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+
+        .agent-card:hover p {
+          color: #1D1B1A !important;
+        }
+
         @media (max-width: 768px) {
           .hide-mobile { display: none !important; }
 
