@@ -49,7 +49,13 @@
       "source": "/",
       "destination": "/agents",
       "permanent": true
-    }
+    },
+    { "source": "/cs/agents", "destination": "/cs/agenti",  "permanent": true },
+    { "source": "/de/agents", "destination": "/de/agenten", "permanent": true },
+    { "source": "/es/agents", "destination": "/es/agentes", "permanent": true },
+    { "source": "/it/agents", "destination": "/it/agenti",  "permanent": true },
+    { "source": "/pl/agents", "destination": "/pl/agenci",  "permanent": true },
+    { "source": "/pt/agents", "destination": "/pt/agentes", "permanent": true }
   ],
   "rewrites": [
     {
@@ -85,32 +91,36 @@
       "destination": "/partner-agreement.html"
     },
     {
+      "source": "/en/agents",
+      "destination": "/en/agents.html"
+    },
+    {
       "source": "/cs/agenti",
-      "destination": "/agents.html?lang=cs"
+      "destination": "/cs/agents.html"
     },
     {
       "source": "/es/agentes",
-      "destination": "/agents.html?lang=es"
+      "destination": "/es/agents.html"
     },
     {
       "source": "/pt/agentes",
-      "destination": "/agents.html?lang=pt"
+      "destination": "/pt/agents.html"
     },
     {
       "source": "/fr/agents",
-      "destination": "/agents.html?lang=fr"
+      "destination": "/fr/agents.html"
     },
     {
       "source": "/de/agenten",
-      "destination": "/agents.html?lang=de"
+      "destination": "/de/agents.html"
     },
     {
       "source": "/pl/agenci",
-      "destination": "/agents.html?lang=pl"
+      "destination": "/pl/agents.html"
     },
     {
       "source": "/it/agenti",
-      "destination": "/agents.html?lang=it"
+      "destination": "/it/agents.html"
     },
     {
       "source": "/demo",

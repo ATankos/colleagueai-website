@@ -234,7 +234,8 @@ function writeLocalizedPage(page, locale, baseHtml) {
   let html = baseHtml;
   html = setHtmlLang(html, locale);
   html = localizePathLinks(html, locale);
-  html = insertHreflang(html, page, locale);
+  // agents canonical/hreflang are owned by generate-locale-pages.mjs (pretty slugs); only strip any stale block here.
+  html = page === "agents" ? removeHreflang(html) : insertHreflang(html, page, locale);
   html = insertSwitcher(html, page, locale);
   if (page === "agents") html = patchAgentLocalizedText(html, locale);
   write("public/" + locale + "/" + page + ".html", html);
@@ -248,12 +249,12 @@ function patchRootPage(page) {
   const file = "public/" + page + ".html";
   if (!exists(file)) return;
   let html = read(file);
-  html = insertHreflang(html, page, null);
+  html = page === "agents" ? removeHreflang(html) : insertHreflang(html, page, null);
   html = insertSwitcher(html, page, "en");
   write(file, html);
   if (exists("dist/" + page + ".html")) {
     let dist = read("dist/" + page + ".html");
-    dist = insertHreflang(dist, page, null);
+    dist = page === "agents" ? removeHreflang(dist) : insertHreflang(dist, page, null);
     dist = insertSwitcher(dist, page, "en");
     write("dist/" + page + ".html", dist);
   }
@@ -262,6 +263,7 @@ function updateSitemap() {
   const files = ["public/sitemap.xml", "dist/sitemap.xml"].filter(exists);
   const routes = [];
   for (const page of PAGES) {
+    if (page === "agents") continue; // agents sitemap entries owned by generate-locale-pages.mjs (pretty slugs)
     routes.push("/" + page);
     for (const locale of LOCALES) routes.push(pageUrl(locale, page));
   }

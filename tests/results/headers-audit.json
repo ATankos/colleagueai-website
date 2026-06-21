@@ -1,6 +1,6 @@
 {
   "BASE": "http://localhost:4173",
-  "date": "2026-06-12T20:49:34.627Z",
+  "date": "2026-06-21T17:10:14.442Z",
   "results": [
     {
       "id": "H1",
@@ -80,7 +80,7 @@
       "route": "/",
       "result": "PASS",
       "severity": "Critical",
-      "evidence": "textBytes=16869 h1=true"
+      "evidence": "textBytes=24913 h1=true"
     },
     {
       "id": "T1",
@@ -128,7 +128,7 @@
       "route": "/agents",
       "result": "PASS",
       "severity": "Critical",
-      "evidence": "textBytes=16869 h1=true"
+      "evidence": "textBytes=24913 h1=true"
     },
     {
       "id": "T1",
@@ -176,7 +176,7 @@
       "route": "/agents",
       "result": "PASS",
       "severity": "High",
-      "evidence": "en,cs,es,pt,fr,de,pl,it,x-default"
+      "evidence": "x-default,en,cs,de,fr,es,it,pl,pt,en,cs,de,fr,es,it,pl,pt,en,cs,de,fr,es,it,pl,pt"
     },
     {
       "id": "I2",
@@ -198,9 +198,9 @@
       "id": "P1",
       "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
       "route": "/demo",
-      "result": "FAIL",
+      "result": "PASS",
       "severity": "Critical",
-      "evidence": "textBytes=275 h1=true"
+      "evidence": "textBytes=2247 h1=true"
     },
     {
       "id": "T1",
@@ -248,7 +248,7 @@
       "route": "/partners",
       "result": "PASS",
       "severity": "Critical",
-      "evidence": "textBytes=4257 h1=true"
+      "evidence": "textBytes=4987 h1=true"
     },
     {
       "id": "T1",
@@ -256,7 +256,7 @@
       "route": "/partners",
       "result": "PASS",
       "severity": "High",
-      "evidence": "Partner Programme — Resell Certified Enterprise AI Agents | Colleague AI"
+      "evidence": "Partner Pilot Programme - Governed AI Agent Partnerships | ColleagueAI"
     },
     {
       "id": "S1",
@@ -275,36 +275,196 @@
       "evidence": "0 mojibake sequences"
     },
     {
-      "id": "P0",
-      "test": "route 404s pending page creation (FIXES §3)",
+      "id": "I2",
+      "test": "no meta robots noindex",
       "route": "/trust",
-      "result": "OPEN",
-      "severity": "High",
-      "evidence": "HTTP 404, noindex=true"
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow, max-snippet:-1"
     },
     {
-      "id": "P0",
-      "test": "route 404s pending page creation (FIXES §3)",
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/trust; expected: https://www.colleagueai.ai/trust"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/trust",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "textBytes=8092 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Trust Center — AI Governance Evidence, Architecture &amp; Security | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Organization"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
       "route": "/terms",
-      "result": "OPEN",
-      "severity": "High",
-      "evidence": "HTTP 404, noindex=true"
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow"
     },
     {
-      "id": "P0",
-      "test": "route 404s pending page creation (FIXES §3)",
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/terms",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/terms; expected: https://www.colleagueai.ai/terms"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/terms",
+      "result": "FAIL",
+      "severity": "Critical",
+      "evidence": "textBytes=1971 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/terms",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "Terms of Service | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/terms",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "no JSON-LD"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/terms",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
       "route": "/privacy",
-      "result": "OPEN",
-      "severity": "High",
-      "evidence": "HTTP 404, noindex=true"
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow"
     },
     {
-      "id": "P0",
-      "test": "route 404s pending page creation (FIXES §3)",
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/privacy",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "declared: https://www.colleagueai.ai/privacy; expected: https://www.colleagueai.ai/privacy"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/privacy",
+      "result": "FAIL",
+      "severity": "Critical",
+      "evidence": "textBytes=1905 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/privacy",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "Privacy Policy | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/privacy",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "no JSON-LD"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/privacy",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
+    },
+    {
+      "id": "I2",
+      "test": "no meta robots noindex",
       "route": "/license",
-      "result": "OPEN",
+      "result": "PASS",
+      "severity": "Critical",
+      "evidence": "index, follow"
+    },
+    {
+      "id": "C1",
+      "test": "self-referencing canonical on www host",
+      "route": "/license",
+      "result": "PASS",
       "severity": "High",
-      "evidence": "HTTP 404, noindex=true"
+      "evidence": "declared: https://www.colleagueai.ai/license; expected: https://www.colleagueai.ai/license"
+    },
+    {
+      "id": "P1",
+      "test": "prerendered: >2KB body text + H1 (no-JS fetch)",
+      "route": "/license",
+      "result": "FAIL",
+      "severity": "Critical",
+      "evidence": "textBytes=1280 h1=true"
+    },
+    {
+      "id": "T1",
+      "test": "title pairs brand with category (not bare brand)",
+      "route": "/license",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "Software & Agent Licence | Colleague AI"
+    },
+    {
+      "id": "S1",
+      "test": "Organization JSON-LD present & parses",
+      "route": "/license",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "no JSON-LD"
+    },
+    {
+      "id": "M1",
+      "test": "no mojibake (double-encoded UTF-8)",
+      "route": "/license",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "0 mojibake sequences"
     },
     {
       "id": "I2",
@@ -318,9 +478,9 @@
       "id": "C1",
       "test": "self-referencing canonical on www host",
       "route": "/cs/agenti",
-      "result": "FAIL",
+      "result": "PASS",
       "severity": "High",
-      "evidence": "declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/cs/agenti"
+      "evidence": "declared: https://www.colleagueai.ai/cs/agenti; expected: https://www.colleagueai.ai/cs/agenti"
     },
     {
       "id": "P1",
@@ -328,7 +488,7 @@
       "route": "/cs/agenti",
       "result": "PASS",
       "severity": "Critical",
-      "evidence": "textBytes=16869 h1=true"
+      "evidence": "textBytes=25204 h1=true"
     },
     {
       "id": "T1",
@@ -336,7 +496,7 @@
       "route": "/cs/agenti",
       "result": "PASS",
       "severity": "High",
-      "evidence": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI"
+      "evidence": "Řízení AI agenti | ColleagueAI"
     },
     {
       "id": "S1",
@@ -360,7 +520,7 @@
       "route": "/cs/agenti",
       "result": "PASS",
       "severity": "High",
-      "evidence": "en,cs,es,pt,fr,de,pl,it,x-default"
+      "evidence": "x-default,en,cs,de,fr,es,it,pl,pt,en,cs,de,fr,es,it,pl,pt,en,cs,de,fr,es,it,pl,pt"
     },
     {
       "id": "I2",
@@ -374,9 +534,9 @@
       "id": "C1",
       "test": "self-referencing canonical on www host",
       "route": "/de/agenten",
-      "result": "FAIL",
+      "result": "PASS",
       "severity": "High",
-      "evidence": "declared: https://www.colleagueai.ai/agents; expected: https://www.colleagueai.ai/de/agenten"
+      "evidence": "declared: https://www.colleagueai.ai/de/agenten; expected: https://www.colleagueai.ai/de/agenten"
     },
     {
       "id": "P1",
@@ -384,7 +544,7 @@
       "route": "/de/agenten",
       "result": "PASS",
       "severity": "Critical",
-      "evidence": "textBytes=16869 h1=true"
+      "evidence": "textBytes=28035 h1=true"
     },
     {
       "id": "T1",
@@ -392,7 +552,7 @@
       "route": "/de/agenten",
       "result": "PASS",
       "severity": "High",
-      "evidence": "AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents | Colleague AI"
+      "evidence": "Governed AI Agents | ColleagueAI"
     },
     {
       "id": "S1",
@@ -416,7 +576,7 @@
       "route": "/de/agenten",
       "result": "PASS",
       "severity": "High",
-      "evidence": "en,cs,es,pt,fr,de,pl,it,x-default"
+      "evidence": "x-default,en,cs,de,fr,es,it,pl,pt,en,cs,de,fr,es,it,pl,pt,en,cs,de,fr,es,it,pl,pt"
     },
     {
       "id": "C2",
@@ -443,6 +603,54 @@
       "evidence": "https://www.colleagueai.ai/partners → HTTP 200 "
     },
     {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/trust → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/terms",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/terms → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/privacy",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/privacy → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/license",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/license → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/cs/agenti",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/cs/agenti → HTTP 200 "
+    },
+    {
+      "id": "C2",
+      "test": "canonical does not 30x-redirect",
+      "route": "/de/agenten",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "https://www.colleagueai.ai/de/agenten → HTTP 200 "
+    },
+    {
       "id": "R1",
       "test": "robots.txt exists",
       "route": "/robots.txt",
@@ -456,7 +664,7 @@
       "route": "/robots.txt",
       "result": "PASS",
       "severity": "Critical",
-      "evidence": "User-agent: *\r\nAllow: /\r\n\r\nUser-agent: GPTBot\r\nAllow: /\r\n\r\nUser-agent: ClaudeBot\r\nAllow: /\r\n\r\nUser-agent: Google-Extende"
+      "evidence": "User-agent: *\r\nAllow: /\r\nDisallow: /api/\r\n\r\nUser-agent: GPTBot\r\nAllow: /\r\n\r\nUser-agent: ClaudeBot\r\nAllow: /\r\n\r\nUser-agen"
     },
     {
       "id": "R3",
@@ -512,7 +720,7 @@
       "route": "/sitemap.xml",
       "result": "PASS",
       "severity": "High",
-      "evidence": "9 urls"
+      "evidence": "84 urls"
     },
     {
       "id": "SM3",
@@ -528,7 +736,39 @@
       "route": "https://www.colleagueai.ai/agents",
       "result": "PASS",
       "severity": "High",
-      "evidence": "textBytes=16869"
+      "evidence": "textBytes=24913"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/demo",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=2247"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/trust",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=8092"
     },
     {
       "id": "SM3",
@@ -544,7 +784,87 @@
       "route": "https://www.colleagueai.ai/partners",
       "result": "PASS",
       "severity": "High",
-      "evidence": "textBytes=4257"
+      "evidence": "textBytes=4987"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/privacy",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/privacy",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "textBytes=1905"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/terms",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/terms",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "textBytes=1971"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/license",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/license",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "textBytes=1280"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/partner-agreement",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/partner-agreement",
+      "result": "FAIL",
+      "severity": "High",
+      "evidence": "textBytes=1114"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/en/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/en/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=24768"
     },
     {
       "id": "SM3",
@@ -560,55 +880,7 @@
       "route": "https://www.colleagueai.ai/cs/agenti",
       "result": "PASS",
       "severity": "High",
-      "evidence": "textBytes=16869"
-    },
-    {
-      "id": "SM3",
-      "test": "sitemap URL resolves 200 (no 404/redirect)",
-      "route": "https://www.colleagueai.ai/es/agentes",
-      "result": "PASS",
-      "severity": "High",
-      "evidence": "HTTP 200"
-    },
-    {
-      "id": "SM4",
-      "test": "sitemap URL serves real (prerendered) content",
-      "route": "https://www.colleagueai.ai/es/agentes",
-      "result": "PASS",
-      "severity": "High",
-      "evidence": "textBytes=16869"
-    },
-    {
-      "id": "SM3",
-      "test": "sitemap URL resolves 200 (no 404/redirect)",
-      "route": "https://www.colleagueai.ai/pt/agentes",
-      "result": "PASS",
-      "severity": "High",
-      "evidence": "HTTP 200"
-    },
-    {
-      "id": "SM4",
-      "test": "sitemap URL serves real (prerendered) content",
-      "route": "https://www.colleagueai.ai/pt/agentes",
-      "result": "PASS",
-      "severity": "High",
-      "evidence": "textBytes=16869"
-    },
-    {
-      "id": "SM3",
-      "test": "sitemap URL resolves 200 (no 404/redirect)",
-      "route": "https://www.colleagueai.ai/fr/agents",
-      "result": "PASS",
-      "severity": "High",
-      "evidence": "HTTP 200"
-    },
-    {
-      "id": "SM4",
-      "test": "sitemap URL serves real (prerendered) content",
-      "route": "https://www.colleagueai.ai/fr/agents",
-      "result": "PASS",
-      "severity": "High",
-      "evidence": "textBytes=16869"
+      "evidence": "textBytes=25204"
     },
     {
       "id": "SM3",
@@ -624,12 +896,12 @@
       "route": "https://www.colleagueai.ai/de/agenten",
       "result": "PASS",
       "severity": "High",
-      "evidence": "textBytes=16869"
+      "evidence": "textBytes=28035"
     },
     {
       "id": "SM3",
       "test": "sitemap URL resolves 200 (no 404/redirect)",
-      "route": "https://www.colleagueai.ai/pl/agenci",
+      "route": "https://www.colleagueai.ai/es/agentes",
       "result": "PASS",
       "severity": "High",
       "evidence": "HTTP 200"
@@ -637,10 +909,26 @@
     {
       "id": "SM4",
       "test": "sitemap URL serves real (prerendered) content",
-      "route": "https://www.colleagueai.ai/pl/agenci",
+      "route": "https://www.colleagueai.ai/es/agentes",
       "result": "PASS",
       "severity": "High",
-      "evidence": "textBytes=16869"
+      "evidence": "textBytes=27559"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/fr/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/fr/agents",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=28536"
     },
     {
       "id": "SM3",
@@ -656,7 +944,583 @@
       "route": "https://www.colleagueai.ai/it/agenti",
       "result": "PASS",
       "severity": "High",
-      "evidence": "textBytes=16869"
+      "evidence": "textBytes=27565"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/pl/agenci",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/pl/agenci",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=26598"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves 200 (no 404/redirect)",
+      "route": "https://www.colleagueai.ai/pt/agentes",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "HTTP 200"
+    },
+    {
+      "id": "SM4",
+      "test": "sitemap URL serves real (prerendered) content",
+      "route": "https://www.colleagueai.ai/pt/agentes",
+      "result": "PASS",
+      "severity": "High",
+      "evidence": "textBytes=27306"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/en/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/cs/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/de/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/fr/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/es/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/it/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pl/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pt/trust",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/en/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/cs/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/de/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/fr/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/es/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/it/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pl/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pt/partners",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/en/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/cs/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/de/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/fr/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/es/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/it/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pl/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pt/privacy",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/en/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/cs/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/de/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/fr/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/es/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/it/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pl/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/pt/terms",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/reconciliation-root-cause-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/service-desk-backlog-triage-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/four-eyes-control-assistant",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/operations-procedures-assistant",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/service-desk-support-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/service-request-automation-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/service-delivery-manager-copilot",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/service-review-pack-builder",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/escalation-triage-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/risk-event-capture-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/security-defect-triage-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/compliance-and-audit-action-tracker",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/cyber-security-reporting-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/due-diligence-data-search-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/risk-control-oversight-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/power-query-code-generator",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/infrastructure-wiki-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/maintenance-event-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/sales-qualification-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/sales-opportunity-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/sales-end-to-end-assistant",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/pipeline-reporting-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/content-and-comms-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/campaign-and-project-management-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/contract-obligations-review-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/sop-generation-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/acceptance-test-script-generator",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/supplier-meeting-minutes-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/monthly-reporting-automation-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/onboarding-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/development-and-career-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/people-ops-query-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/performance-management-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/contract-summarisation-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/signing-summary-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
+    },
+    {
+      "id": "SM3",
+      "test": "sitemap URL resolves",
+      "route": "https://www.colleagueai.ai/agents/leadership-reporting-agent",
+      "result": "BLOCKED",
+      "severity": "High",
+      "evidence": "fetch failed"
     }
   ]
 }
