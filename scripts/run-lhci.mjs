@@ -7,6 +7,7 @@ import path from 'node:path'
 const root = process.cwd()
 const distDir = path.join(root, 'dist')
 const outDir = path.join(root, '.lighthouseci')
+const lhciTmpDir = path.join(outDir, 'tmp')
 const port = 4173
 const host = '127.0.0.1'
 
@@ -77,7 +78,7 @@ function startServer() {
   })
 }
 
-function run(command, args) {
+function run(command, args, extraEnv = {}) {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, {
       stdio: 'inherit',
