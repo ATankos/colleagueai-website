@@ -251,6 +251,50 @@ export default function ColleagueAIMarketplace() {
         }
         .lang-option:hover { background: rgba(29, 27, 26, 0.06); }
         .lang-option.active { font-weight: 600; }
+
+        /* Mobile navigation polish: layout only, no copy/legal changes */
+        .mobile-quick-nav { display: none; }
+
+        @media (max-width: 768px) {
+          nav { height: 56px !important; padding: 0 16px !important; }
+
+          .mobile-quick-nav {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            z-index: 49;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 16px 10px;
+            background: rgba(245, 240, 232, 0.86);
+            backdrop-filter: saturate(180%) blur(18px);
+            -webkit-backdrop-filter: saturate(180%) blur(18px);
+            border-bottom: 1px solid rgba(29, 27, 26, 0.08);
+            scrollbar-width: none;
+          }
+
+          .mobile-quick-nav::-webkit-scrollbar { display: none; }
+
+          .mobile-quick-nav a {
+            min-height: 38px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 14px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            border: 1px solid rgba(29, 27, 26, 0.08);
+            color: #3A342F;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            white-space: nowrap;
+          }
+
+          .cai-hero { padding-top: 136px !important; }
+        }
       `}</style>
 
       {/* APPLE-STYLE NAV */}
