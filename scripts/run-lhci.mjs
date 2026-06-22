@@ -84,6 +84,7 @@ function run(command, args, extraEnv = {}) {
       stdio: 'inherit',
       shell: false,
       windowsVerbatimArguments: false,
+      env: { ...process.env, ...extraEnv },
     })
 
     child.on('error', reject)
@@ -132,8 +133,33 @@ async function runAudit(url) {
   await rm(path.join(root, 'node_modules', `.chrome-lighthouse-${name}-json`), { recursive: true, force: true })
   await rm(path.join(root, 'node_modules', `.chrome-lighthouse-${name}-html`), { recursive: true, force: true })
 
-  await run(process.execPath, lighthouseCliArgs(url, 'json', jsonPath, `${name}-json`))
-  await run(process.execPath, lighthouseCliArgs(url, 'html', htmlPath, `${name}-html`))
+  await rm(lhciTmpDir, { recursive: true, force: true })
+
+
+  await mkdir(lhciTmpDir, { recursive: true })
+
+
+
+  const lighthouseEnv = {
+
+
+    TMPDIR: lhciTmpDir,
+
+
+    TEMP: lhciTmpDir,
+
+
+    TMP: lhciTmpDir,
+
+
+  }
+
+
+
+  await run(process.execPath, lighthouseCliArgs(url, 'json', jsonPath, `${name}-json`), lighthouseEnv)
+
+
+  await run(process.execPath, lighthouseCliArgs(url, 'html', htmlPath, `${name}-html`), lighthouseEnv)
 
   const report = JSON.parse(await readFile(jsonPath, 'utf8'))
   const failures = []
