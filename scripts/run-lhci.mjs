@@ -95,6 +95,19 @@ function run(command, args, extraEnv = {}) {
   })
 }
 
+async function runLighthouse(command, args, outputPath, extraEnv = {}) {
+  try {
+    await run(command, args, extraEnv)
+    return
+  } catch (error) {
+    if (process.platform === 'win32' && outputPath && existsSync(outputPath)) {
+      console.warn(`[lighthouse] Chrome cleanup failed after the report was written. Continuing on Windows: ${error.message}`)
+      return
+    }
+    throw error
+  }
+}
+
 function lighthouseCliArgs(url, output, outputPath, profileName) {
   const profileDir = path.join(root, 'node_modules', `.chrome-lighthouse-${profileName}`)
 
@@ -156,10 +169,10 @@ async function runAudit(url) {
 
 
 
-  await run(process.execPath, lighthouseCliArgs(url, 'json', jsonPath, `${name}-json`), lighthouseEnv)
+  await runLighthouse(process.execPath, lighthouseCliArgs(url, 'json', jsonPath, `${name}-json`), jsonPath, lighthouseEnv)
 
 
-  await run(process.execPath, lighthouseCliArgs(url, 'html', htmlPath, `${name}-html`), lighthouseEnv)
+  await runLighthouse(process.execPath, lighthouseCliArgs(url, 'html', htmlPath, `${name}-html`), htmlPath, lighthouseEnv)
 
   const report = JSON.parse(await readFile(jsonPath, 'utf8'))
   const failures = []
