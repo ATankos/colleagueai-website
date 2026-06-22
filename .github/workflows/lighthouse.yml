@@ -28,9 +28,22 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Setup Chrome
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+
+
+
+      - name: Export Chrome path
+        shell: bash
+        run: |
+          echo "CHROME_PATH=${{ steps.setup-chrome.outputs.chrome-path }}" >> "$GITHUB_ENV"
+          "${{ steps.setup-chrome.outputs.chrome-path }}" --version
+
+
+
       - name: Run Lighthouse
         run: npm run lhci
-
       - name: Upload Lighthouse reports as artifacts
         if: always()
         uses: actions/upload-artifact@v7
