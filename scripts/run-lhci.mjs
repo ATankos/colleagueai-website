@@ -100,8 +100,8 @@ async function runLighthouse(command, args, outputPath, extraEnv = {}) {
     await run(command, args, extraEnv)
     return
   } catch (error) {
-    if (process.platform === 'win32' && outputPath && existsSync(outputPath)) {
-      console.warn(`[lighthouse] Chrome cleanup failed after the report was written. Continuing on Windows: ${error.message}`)
+    if (outputPath && existsSync(outputPath)) {
+      console.warn(`[lighthouse] Lighthouse exited non-zero after the report was written. Continuing so thresholds can be evaluated: ${error.message}`)
       return
     }
     throw error
