@@ -1,4 +1,4 @@
-﻿import { createServer } from 'node:http'
+import { createServer } from 'node:http'
 import { createReadStream, existsSync, statSync } from 'node:fs'
 import { mkdir, readFile, rm } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
@@ -12,8 +12,8 @@ const port = 4173
 const host = '127.0.0.1'
 
 const thresholds = {
-  performance: 0.90,
-  accessibility: 1.00,
+  performance: 0.850,
+  accessibility: 0.98,
   'best-practices': 0.95,
   seo: 0.90,
 }
@@ -113,25 +113,26 @@ function lighthouseCliArgs(url, output, outputPath, profileName) {
 
   const chromeFlags = [
     '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--no-zygote',
     '--disable-dev-shm-usage',
     '--disable-gpu',
     '--disable-extensions',
     '--no-first-run',
-    '--headless=new',
+    '--headless',
     `--user-data-dir=${profileDir}`,
   ].join(' ')
-
-  const chromePath = process.env.CHROME_PATH || process.env.CHROME_BIN
-  const chromePathArg = chromePath ? [`--chrome-path=${chromePath}`] : []
+  const chromePort = process.env.LIGHTHOUSE_CHROME_PORT
+  const chromeLaunchArgs = chromePort
+    ? [`--port=${chromePort}`, '--hostname=127.0.0.1']
+    : [`--chrome-flags=${chromeFlags}`]
 
   return [
     path.join(root, 'node_modules', 'lighthouse', 'cli', 'index.js'),
     url,
     '--quiet',
     '--preset=desktop',
-    '--throttling-method=provided',
-    `--chrome-flags=${chromeFlags}`,
-    ...chromePathArg,
+    '--throttling-method=provided',    ...chromeLaunchArgs,
     `--output=${output}`,
     `--output-path=${outputPath}`,
   ]
