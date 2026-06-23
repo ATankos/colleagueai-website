@@ -122,18 +122,17 @@ function lighthouseCliArgs(url, output, outputPath, profileName) {
     '--headless',
     `--user-data-dir=${profileDir}`,
   ].join(' ')
-
-  const chromePath = process.env.CHROME_PATH || process.env.CHROME_BIN
-  const chromePathArg = chromePath ? [`--chrome-path=${chromePath}`] : []
+  const chromePort = process.env.LIGHTHOUSE_CHROME_PORT
+  const chromeLaunchArgs = chromePort
+    ? [`--port=${chromePort}`, '--hostname=127.0.0.1']
+    : [`--chrome-flags=${chromeFlags}`]
 
   return [
     path.join(root, 'node_modules', 'lighthouse', 'cli', 'index.js'),
     url,
     '--quiet',
     '--preset=desktop',
-    '--throttling-method=provided',
-    `--chrome-flags=${chromeFlags}`,
-    ...chromePathArg,
+    '--throttling-method=provided',    ...chromeLaunchArgs,
     `--output=${output}`,
     `--output-path=${outputPath}`,
   ]

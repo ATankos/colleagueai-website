@@ -48,8 +48,29 @@ jobs:
 
           echo "CHROME_PATH=$CHROME" >> "$GITHUB_ENV"
           "$CHROME" --version
-          "$CHROME" --headless --no-sandbox --disable-dev-shm-usage --disable-gpu --dump-dom about:blank >/tmp/chrome-smoke.html
-          test -s /tmp/chrome-smoke.html
+
+          nohup "$CHROME" \
+            --headless \
+            --no-sandbox \
+            --disable-dev-shm-usage \
+            --disable-gpu \
+            --remote-debugging-address=127.0.0.1 \
+            --remote-debugging-port=9222 \
+            --user-data-dir="$RUNNER_TEMP/lighthouse-chrome-profile" \
+            about:blank > "$RUNNER_TEMP/lighthouse-chrome.log" 2>&1 &
+
+          echo $! > "$RUNNER_TEMP/lighthouse-chrome.pid"
+          echo "LIGHTHOUSE_CHROME_PORT=9222" >> "$GITHUB_ENV"
+
+          for attempt in {1..30}; do
+            if curl -fsS http://127.0.0.1:9222/json/version; then
+              exit 0
+            fi
+            sleep 1
+          done
+
+          cat "$RUNNER_TEMP/lighthouse-chrome.log"
+          exit 1
 
       - name: Run Lighthouse
         run: npm run lhci
