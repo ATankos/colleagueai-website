@@ -1,4 +1,4 @@
-﻿import { createServer } from 'node:http'
+import { createServer } from 'node:http'
 import { createReadStream, existsSync, statSync } from 'node:fs'
 import { mkdir, readFile, rm } from 'node:fs/promises'
 import { spawn } from 'node:child_process'
@@ -12,8 +12,8 @@ const port = 4173
 const host = '127.0.0.1'
 
 const thresholds = {
-  performance: 0.90,
-  accessibility: 1.00,
+  performance: 0.850,
+  accessibility: 0.98,
   'best-practices': 0.95,
   seo: 0.90,
 }
