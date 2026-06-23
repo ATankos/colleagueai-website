@@ -113,11 +113,13 @@ function lighthouseCliArgs(url, output, outputPath, profileName) {
 
   const chromeFlags = [
     '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--no-zygote',
     '--disable-dev-shm-usage',
     '--disable-gpu',
     '--disable-extensions',
     '--no-first-run',
-    '--headless=new',
+    '--headless',
     `--user-data-dir=${profileDir}`,
   ].join(' ')
 
