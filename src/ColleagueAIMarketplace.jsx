@@ -1,23 +1,9 @@
 ﻿import { useState, useEffect, useRef } from 'react';
+import { DEFAULT_LOCALE, LOCALES, getLocaleFromPath, localizedPath } from './i18n/locales.js';
 
-const LOCALES = [
-  { code: 'en', flag: 'ðŸ‡¬ðŸ‡§', name: 'English' },
-  { code: 'cs', flag: 'ðŸ‡¨ðŸ‡¿', name: 'ÄŒeÅ¡tina' },
-  { code: 'de', flag: 'ðŸ‡©ðŸ‡ª', name: 'Deutsch' },
-  { code: 'fr', flag: 'ðŸ‡«ðŸ‡·', name: 'FranÃ§ais' },
-  { code: 'es', flag: 'ðŸ‡ªðŸ‡¸', name: 'EspaÃ±ol' },
-  { code: 'it', flag: 'ðŸ‡®ðŸ‡¹', name: 'Italiano' },
-  { code: 'pl', flag: 'ðŸ‡µðŸ‡±', name: 'Polski' },
-  { code: 'sk', flag: 'ðŸ‡¸ðŸ‡°', name: 'SlovenÄina' },
-];
 
 export default function ColleagueAIMarketplace() {
-  const [lang, setLang] = useState(() => {
-    try {
-      const saved = localStorage.getItem('cai-lang');
-      return LOCALES.some(l => l.code === saved) ? saved : 'en';
-    } catch { return 'en'; }
-  });
+  const [lang, setLang] = useState(() => getLocaleFromPath(window.location.pathname));
   const [langOpen, setLangOpen] = useState(false);
   const langRef = useRef(null);
   const [scrolled, setScrolled] = useState(false);
@@ -334,7 +320,7 @@ export default function ColleagueAIMarketplace() {
               aria-expanded={langOpen}
             >
               <span>{LOCALES.find(l => l.code === lang)?.flag ?? 'ðŸŒ'}</span>
-              <span>{(LOCALES.find(l => l.code === lang)?.code ?? 'EN').toUpperCase()}</span>
+              <span>{(LOCALES.find(l => l.code === lang)?.code ?? DEFAULT_LOCALE.toUpperCase()).toUpperCase()}</span>
               <span style={{ fontSize: '8px', opacity: 0.55, marginLeft: '2px' }}>â–¾</span>
             </button>
             {langOpen && (
@@ -345,7 +331,11 @@ export default function ColleagueAIMarketplace() {
                     role="option"
                     aria-selected={lang === loc.code}
                     className={`lang-option${lang === loc.code ? ' active' : ''}`}
-                    onClick={() => { setLang(loc.code); setLangOpen(false); }}
+                    onClick={() => {
+                      setLang(loc.code);
+                      setLangOpen(false);
+                      window.location.assign(localizedPath(loc.code, window.location.pathname));
+                    }}
                   >
                     <span>{loc.flag}</span>
                     <span style={{ minWidth: '22px' }}>{loc.code.toUpperCase()}</span>
