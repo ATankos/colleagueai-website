@@ -814,7 +814,7 @@ function applyLang(l){CUR=l;document.documentElement.lang=l;
 var ORDER=["en","cs","de","fr","es","it","pt","pl"],NAMES={en:"English",cs:"Čeština",de:"Deutsch",fr:"Français",es:"Español",it:"Italiano",pt:"Português",pl:"Polski"};
 var sel=document.getElementById("langsel");
 if(sel){ORDER.forEach(function(x){var o=document.createElement("option");o.value=x;o.textContent=NAMES[x];sel.appendChild(o);});
-var init="en";try{var u=new URLSearchParams(location.search).get("lang");var s=localStorage.getItem("cai_lang");var b=(navigator.language||"en").slice(0,2);init=u||s||b;}catch(e){}
+var init="en";try{var parts=location.pathname.split("/").filter(Boolean);var pathLocale=I18N[parts[0]]?parts[0]:null;var queryLocale=new URLSearchParams(location.search).get("lang");var docLocale=(document.documentElement.getAttribute("lang")||"").slice(0,2);init=pathLocale||queryLocale||docLocale||"en";}catch(e){}
 if(!I18N[init])init="en";sel.value=init;sel.addEventListener("change",function(){applyLang(sel.value);});applyLang(init);}
 })();
 </script>
