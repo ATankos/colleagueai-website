@@ -1,6 +1,7 @@
 const fs = require("fs");
+const { SUPPORTED_LOCALE_CODES } = require("./i18n/config.cjs");
 
-const LOCALES = ["cs","de","fr","es","it","pl","pt"];
+const LOCALES = SUPPORTED_LOCALE_CODES.filter((locale) => locale !== "en");
 const DICT = {
   "cs": {
     "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTIVNÍ DŮKAZ PRVNÍ STRANY",
