@@ -65,10 +65,6 @@ const replacementKeys = [
 
 function replaceAll(html, from, to) { return html.split(from).join(to); }
 
-function languageGuide(locale, t) {
-  const links = Object.keys(locales).map((code) => '<a href="/' + code + '/agents" hreflang="' + code + '"' + (code === locale ? ' aria-current="page"' : '') + '>' + code.toUpperCase() + '</a>').join('');
-  return '<section id="cai-language-guide" class="cai-reader-section" aria-labelledby="cai-language-guide-title"><div class="cai-reader-panel"><span class="cai-reader-kicker">' + t.label + '</span><h2 id="cai-language-guide-title" class="cai-reader-title">' + t.label + ': ' + locale.toUpperCase() + '</h2><p class="cai-reader-lede">' + t.notice + '</p><div class="cai-reader-actions cai-language-links">' + links + '</div></div></section>';
-}
 
 function localizeFile(file, locale) {
   if (!fs.existsSync(file)) return;
@@ -77,9 +73,8 @@ function localizeFile(file, locale) {
   for (const [from, key] of replacementKeys) html = replaceAll(html, from, t[key]);
   html = replaceAll(html, '>Trust<', '>' + t.trust + '<');
   html = replaceAll(html, '>Partners<', '>' + t.partners + '<');
-  if (!html.includes('id="cai-language-guide"') && html.includes('<section id="cai-buyer-path"')) {
-    html = html.replace('<section id="cai-buyer-path"', languageGuide(locale, t) + '\n<section id="cai-buyer-path"');
-  }
+  // Consolidated to a single language switcher: strip any legacy language-guide panel.
+  html = html.replace(/<section id="cai-language-guide"[\s\S]*?<\/section>\s*/g, '');
   if (html.includes('id="cai-readable-nav-css"') && !html.includes('.cai-language-links a[aria-current="page"]')) {
     html = html.replace('</style>', '  .cai-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}\n</style>');
   }

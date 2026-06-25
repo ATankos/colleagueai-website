@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import vm from 'node:vm'
+import { createRequire } from 'node:module'
 
 const SITE = 'https://www.colleagueai.ai'
 const DIST = path.resolve('dist')
@@ -16,9 +17,11 @@ const LOCALES = [
   { code: 'pt', og: 'pt_PT', title: 'Agentes de IA governados | ColleagueAI' }
 ]
 
-// Localized pretty slug per locale = the single canonical URL for that locale.
-const AGENTS_SLUG = { en: 'agents', cs: 'agenti', de: 'agenten', fr: 'agents', es: 'agentes', it: 'agenti', pl: 'agenci', pt: 'agentes' }
-const localeAgentsUrl = (code) => SITE + '/' + code + '/' + AGENTS_SLUG[code]
+// Localized pretty slug per locale, sourced from the single slug map. Default locale is bare.
+const ROUTES = createRequire(import.meta.url)('../i18n.routes.json')
+const AGENTS_SLUG = Object.fromEntries(ROUTES.locales.map((l) => [l, ROUTES.slugs.agents[l]]))
+const agentsPath = (code) => (code === ROUTES.defaultLocale ? '/' + AGENTS_SLUG[code] : '/' + code + '/' + AGENTS_SLUG[code])
+const localeAgentsUrl = (code) => SITE + agentsPath(code)
 
 const sourcePath = fs.existsSync(path.join(DIST, 'agents.html'))
   ? path.join(DIST, 'agents.html')
