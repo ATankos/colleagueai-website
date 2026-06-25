@@ -41,14 +41,16 @@ function removeBlockById(html, tag, id) {
 }
 
 function injectController(html) {
-  html = removeBlockById(html, "script", "cai-url-locale-controller");
-  html = removeBlockById(html, "style", "cai-url-locale-controller-css");
+  html = html.replace(/\s*<style id="cai-url-locale-controller-css">[\s\S]*?<\/style>\s*/g, "\n");
+  html = html.replace(/\s*<script id="cai-url-locale-controller">[\s\S]*?<\/script>\s*/g, "\n");
+  html = html.replace(/\n{3,}/g, "\n\n");
 
   const headClose = html.indexOf("</head>");
   if (headClose >= 0) {
-    return html.slice(0, headClose) + CONTROLLER + "\n" + html.slice(headClose);
+    return html.slice(0, headClose).replace(/\s*$/, "\n") + CONTROLLER + "\n" + html.slice(headClose).replace(/^\s*/, "");
   }
-  return CONTROLLER + "\n" + html;
+
+  return CONTROLLER + "\n" + html.replace(/^\s*/, "");
 }
 
 for (const root of ROOTS) {
