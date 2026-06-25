@@ -2098,7 +2098,6 @@ section{
   }
 </style>
 
-
 <style id="cai-wave-a11y-fixes">
   :root {
     --muted: #5f574e;
@@ -2178,7 +2177,6 @@ section{
     opacity: .62;
   }
 </style>
-
 
 <style id="cai-a11y-contrast-small-text-pass">
   /*
@@ -2502,26 +2500,6 @@ section{
   .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
   @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <link rel="canonical" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents">
@@ -3389,7 +3367,6 @@ html[data-cai-page="agents"] #cai-buyer-path {
   </div>
 </section>
 
-
 <!-- CAI launch-readiness checkout gate -->
 <section id="cai-next-steps" class="cai-reader-section" aria-labelledby="cai-next-steps-title">
   <div class="cai-reader-panel">
@@ -3502,7 +3479,6 @@ html[data-cai-page="agents"] #cai-buyer-path {
     </div>
   </div>
 </section>
-
 
 <section id="usage-intelligence" class="usage-intel" aria-labelledby="usage-intelligence-title">
   <div class="usage-intel__wrap">
@@ -3837,7 +3813,7 @@ var ORDER=["en","cs","de","fr","es","it","pt","pl"];
 var NAMES={en:"English",cs:"Čeština",de:"Deutsch",fr:"Français",es:"Español",it:"Italiano",pt:"Português",pl:"Polski"};
 var sel=document.getElementById("langsel");
 ORDER.forEach(function(c){var o=document.createElement("option");o.value=c;o.textContent=NAMES[c];sel.appendChild(o);});
-var init="en";try{var u=new URLSearchParams(location.search).get("lang");var s=localStorage.getItem("cai_lang");var b=(navigator.language||"en").slice(0,2);init=u||s||b;}catch(e){}
+var init="en";try{var parts=location.pathname.split("/").filter(Boolean);var pathLocale=I18N[parts[0]]?parts[0]:null;var queryLocale=new URLSearchParams(location.search).get("lang");var docLocale=(document.documentElement.getAttribute("lang")||"").slice(0,2);init=pathLocale||queryLocale||docLocale||"en";}catch(e){}
 if(!I18N[init])init="en";sel.value=init;sel.addEventListener("change",function(){applyLang(sel.value);if(window.caiTrack)caiTrack('lang_change',{lang:sel.value});});
 applyLang(init);
 })();

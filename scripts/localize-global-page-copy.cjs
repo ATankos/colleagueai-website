@@ -1,6 +1,7 @@
 const fs = require("fs");
+const { SUPPORTED_LOCALE_CODES } = require("./i18n/config.cjs");
 
-const locales = ["cs","de","fr","es","it","pl","pt"];
+const locales = SUPPORTED_LOCALE_CODES.filter((locale) => locale !== "en");
 const translations = {
   "cs": {
     "Choose your path": "Vyberte si cestu",

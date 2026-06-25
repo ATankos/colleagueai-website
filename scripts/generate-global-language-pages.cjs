@@ -1,8 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const { LOCALES: LOCALE_CONFIG, GLOBAL_PAGES } = require("./i18n/config.cjs");
 
-const LOCALES = ["en","cs","de","fr","es","it","pl","pt"];
-const PAGES = ["agents","trust","partners","privacy","terms"];
+const LOCALES = LOCALE_CONFIG.map((locale) => locale.code);
+const PAGES = GLOBAL_PAGES;
 const SITE = "https://www.colleagueai.ai";
 const UI = {
   "en": {

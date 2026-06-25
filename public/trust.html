@@ -229,6 +229,81 @@ section{
 
 
 
+
+
+
+
+
+
+
+<style id="trust-page-readability-polish">
+  /* Trust page readability polish: layout only, no legal/compliance copy changes */
+  main {
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: clamp(18px, 4vw, 44px);
+  }
+
+  section {
+    scroll-margin-top: 84px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    line-height: 1.65;
+  }
+
+  #trust-page-guide-title {
+    margin-top: clamp(28px, 5vw, 56px);
+    margin-bottom: 14px;
+  }
+
+  #trust-page-guide-title + p {
+    max-width: 780px;
+  }
+
+  article,
+  .card,
+  [class*="card"],
+  [class*="guide"],
+  [class*="panel"] {
+    border-radius: 22px;
+  }
+
+  article,
+  [class*="guide"],
+  [class*="panel"] {
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding-inline: 18px;
+    }
+
+    #trust-page-guide-title {
+      margin-top: 32px;
+    }
+
+    article,
+    .card,
+    [class*="card"],
+    [class*="guide"],
+    [class*="panel"] {
+      border-radius: 18px;
+    }
+  }
+</style>
 <!-- cai-global-hreflang:start -->
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/trust" />
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/trust" />
@@ -492,6 +567,9 @@ html[data-cai-page="agents"] #cai-buyer-path {
 
 
 
+
+
+
 <section id="cai-site-journey" class="cai-site-journey" aria-labelledby="cai-site-journey-title">
   <div class="cai-site-journey-inner">
     <h2 id="cai-site-journey-title" class="cai-site-journey-title">Choose your path</h2>
@@ -530,7 +608,7 @@ html[data-cai-page="agents"] #cai-buyer-path {
 <p class="note">The current catalogue ships at L2–L4. L4 agents require senior sign-off before go-live. Classifications are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
 
 <h2 id="data">Architecture: where agents run, where data lives</h2>
-<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to satisfy the EU AI Act, DORA and ISO/IEC 42001.</p>
+<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to support governance and legal review against frameworks such as the EU AI Act, DORA and ISO/IEC 42001.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
   <h3>Enterprise deployment proof points</h3>
   <p>ColleagueAI is positioned as a governed agent-package layer, not a shared SaaS workspace for customer business content. In a standard enterprise deployment, the customer controls the tenant, identity boundary, data sources, model endpoint, runtime configuration and audit evidence.</p>
