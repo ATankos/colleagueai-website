@@ -28,6 +28,16 @@ function checkFile(file) {
   if (!html.includes('id="cai-url-locale-controller-css"')) {
     failures.push({ file, issue: "missing URL locale cleanup CSS" });
   }
+  // single-system invariants (URL is the only source of truth)
+  if (html.includes('"colleagueai_locale"')) {
+    failures.push({ file, issue: "legacy multi-key localStorage controller present" });
+  }
+  if (html.includes("location.assign(routeFor(")) {
+    failures.push({ file, issue: "legacy global click hijack present" });
+  }
+  if (!html.includes('localStorage.setItem("cai-lang"')) {
+    failures.push({ file, issue: "missing single write-only cai-lang key" });
+  }
 }
 
 for (const page of PAGES) {

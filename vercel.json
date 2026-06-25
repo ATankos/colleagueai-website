@@ -50,12 +50,196 @@
       "destination": "/agents",
       "permanent": true
     },
-    { "source": "/cs/agents", "destination": "/cs/agenti",  "permanent": true },
-    { "source": "/de/agents", "destination": "/de/agenten", "permanent": true },
-    { "source": "/es/agents", "destination": "/es/agentes", "permanent": true },
-    { "source": "/it/agents", "destination": "/it/agenti",  "permanent": true },
-    { "source": "/pl/agents", "destination": "/pl/agenci",  "permanent": true },
-    { "source": "/pt/agents", "destination": "/pt/agentes", "permanent": true }
+    {
+      "source": "/en/agents",
+      "destination": "/agents",
+      "permanent": true
+    },
+    {
+      "source": "/en/trust",
+      "destination": "/trust",
+      "permanent": true
+    },
+    {
+      "source": "/en/partners",
+      "destination": "/partners",
+      "permanent": true
+    },
+    {
+      "source": "/en/privacy",
+      "destination": "/privacy",
+      "permanent": true
+    },
+    {
+      "source": "/en/terms",
+      "destination": "/terms",
+      "permanent": true
+    },
+    {
+      "source": "/cs/agents",
+      "destination": "/cs/agenti",
+      "permanent": true
+    },
+    {
+      "source": "/cs/trust",
+      "destination": "/cs/duvera",
+      "permanent": true
+    },
+    {
+      "source": "/cs/partners",
+      "destination": "/cs/partneri",
+      "permanent": true
+    },
+    {
+      "source": "/cs/privacy",
+      "destination": "/cs/ochrana-soukromi",
+      "permanent": true
+    },
+    {
+      "source": "/cs/terms",
+      "destination": "/cs/podminky",
+      "permanent": true
+    },
+    {
+      "source": "/de/agents",
+      "destination": "/de/agenten",
+      "permanent": true
+    },
+    {
+      "source": "/de/trust",
+      "destination": "/de/vertrauen",
+      "permanent": true
+    },
+    {
+      "source": "/de/partners",
+      "destination": "/de/partner",
+      "permanent": true
+    },
+    {
+      "source": "/de/privacy",
+      "destination": "/de/datenschutz",
+      "permanent": true
+    },
+    {
+      "source": "/de/terms",
+      "destination": "/de/nutzungsbedingungen",
+      "permanent": true
+    },
+    {
+      "source": "/fr/trust",
+      "destination": "/fr/confiance",
+      "permanent": true
+    },
+    {
+      "source": "/fr/partners",
+      "destination": "/fr/partenaires",
+      "permanent": true
+    },
+    {
+      "source": "/fr/privacy",
+      "destination": "/fr/confidentialite",
+      "permanent": true
+    },
+    {
+      "source": "/fr/terms",
+      "destination": "/fr/conditions",
+      "permanent": true
+    },
+    {
+      "source": "/es/agents",
+      "destination": "/es/agentes",
+      "permanent": true
+    },
+    {
+      "source": "/es/trust",
+      "destination": "/es/confianza",
+      "permanent": true
+    },
+    {
+      "source": "/es/partners",
+      "destination": "/es/socios",
+      "permanent": true
+    },
+    {
+      "source": "/es/privacy",
+      "destination": "/es/privacidad",
+      "permanent": true
+    },
+    {
+      "source": "/es/terms",
+      "destination": "/es/terminos",
+      "permanent": true
+    },
+    {
+      "source": "/it/agents",
+      "destination": "/it/agenti",
+      "permanent": true
+    },
+    {
+      "source": "/it/trust",
+      "destination": "/it/fiducia",
+      "permanent": true
+    },
+    {
+      "source": "/it/partners",
+      "destination": "/it/partner",
+      "permanent": true
+    },
+    {
+      "source": "/it/terms",
+      "destination": "/it/termini",
+      "permanent": true
+    },
+    {
+      "source": "/pl/agents",
+      "destination": "/pl/agenci",
+      "permanent": true
+    },
+    {
+      "source": "/pl/trust",
+      "destination": "/pl/zaufanie",
+      "permanent": true
+    },
+    {
+      "source": "/pl/partners",
+      "destination": "/pl/partnerzy",
+      "permanent": true
+    },
+    {
+      "source": "/pl/privacy",
+      "destination": "/pl/prywatnosc",
+      "permanent": true
+    },
+    {
+      "source": "/pl/terms",
+      "destination": "/pl/warunki",
+      "permanent": true
+    },
+    {
+      "source": "/pt/agents",
+      "destination": "/pt/agentes",
+      "permanent": true
+    },
+    {
+      "source": "/pt/trust",
+      "destination": "/pt/confianca",
+      "permanent": true
+    },
+    {
+      "source": "/pt/partners",
+      "destination": "/pt/parceiros",
+      "permanent": true
+    },
+    {
+      "source": "/pt/privacy",
+      "destination": "/pt/privacidade",
+      "permanent": true
+    },
+    {
+      "source": "/pt/terms",
+      "destination": "/pt/termos",
+      "permanent": true
+    }
   ],
   "rewrites": [
     {
@@ -63,67 +247,203 @@
       "destination": "/agents.html"
     },
     {
-      "source": "/agents/:slug",
-      "destination": "/agents/:slug.html"
-    },
-    {
       "source": "/trust",
       "destination": "/trust.html"
-    },
-    {
-      "source": "/terms",
-      "destination": "/terms.html"
-    },
-    {
-      "source": "/license",
-      "destination": "/license.html"
-    },
-    {
-      "source": "/privacy",
-      "destination": "/privacy.html"
     },
     {
       "source": "/partners",
       "destination": "/partners.html"
     },
     {
-      "source": "/partner-agreement",
-      "destination": "/partner-agreement.html"
+      "source": "/privacy",
+      "destination": "/privacy.html"
     },
     {
-      "source": "/en/agents",
-      "destination": "/en/agents.html"
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/agents/:slug",
+      "destination": "/agents/:slug.html"
+    },
+    {
+      "source": "/license",
+      "destination": "/license.html"
+    },
+    {
+      "source": "/partner-agreement",
+      "destination": "/partner-agreement.html"
     },
     {
       "source": "/cs/agenti",
       "destination": "/cs/agents.html"
     },
     {
-      "source": "/es/agentes",
-      "destination": "/es/agents.html"
+      "source": "/cs/duvera",
+      "destination": "/cs/trust.html"
     },
     {
-      "source": "/pt/agentes",
-      "destination": "/pt/agents.html"
+      "source": "/cs/partneri",
+      "destination": "/cs/partners.html"
     },
     {
-      "source": "/fr/agents",
-      "destination": "/fr/agents.html"
+      "source": "/cs/ochrana-soukromi",
+      "destination": "/cs/privacy.html"
+    },
+    {
+      "source": "/cs/podminky",
+      "destination": "/cs/terms.html"
     },
     {
       "source": "/de/agenten",
       "destination": "/de/agents.html"
     },
     {
-      "source": "/pl/agenci",
-      "destination": "/pl/agents.html"
+      "source": "/de/vertrauen",
+      "destination": "/de/trust.html"
+    },
+    {
+      "source": "/de/partner",
+      "destination": "/de/partners.html"
+    },
+    {
+      "source": "/de/datenschutz",
+      "destination": "/de/privacy.html"
+    },
+    {
+      "source": "/de/nutzungsbedingungen",
+      "destination": "/de/terms.html"
+    },
+    {
+      "source": "/fr/agents",
+      "destination": "/fr/agents.html"
+    },
+    {
+      "source": "/fr/confiance",
+      "destination": "/fr/trust.html"
+    },
+    {
+      "source": "/fr/partenaires",
+      "destination": "/fr/partners.html"
+    },
+    {
+      "source": "/fr/confidentialite",
+      "destination": "/fr/privacy.html"
+    },
+    {
+      "source": "/fr/conditions",
+      "destination": "/fr/terms.html"
+    },
+    {
+      "source": "/es/agentes",
+      "destination": "/es/agents.html"
+    },
+    {
+      "source": "/es/confianza",
+      "destination": "/es/trust.html"
+    },
+    {
+      "source": "/es/socios",
+      "destination": "/es/partners.html"
+    },
+    {
+      "source": "/es/privacidad",
+      "destination": "/es/privacy.html"
+    },
+    {
+      "source": "/es/terminos",
+      "destination": "/es/terms.html"
     },
     {
       "source": "/it/agenti",
       "destination": "/it/agents.html"
     },
     {
+      "source": "/it/fiducia",
+      "destination": "/it/trust.html"
+    },
+    {
+      "source": "/it/partner",
+      "destination": "/it/partners.html"
+    },
+    {
+      "source": "/it/privacy",
+      "destination": "/it/privacy.html"
+    },
+    {
+      "source": "/it/termini",
+      "destination": "/it/terms.html"
+    },
+    {
+      "source": "/pl/agenci",
+      "destination": "/pl/agents.html"
+    },
+    {
+      "source": "/pl/zaufanie",
+      "destination": "/pl/trust.html"
+    },
+    {
+      "source": "/pl/partnerzy",
+      "destination": "/pl/partners.html"
+    },
+    {
+      "source": "/pl/prywatnosc",
+      "destination": "/pl/privacy.html"
+    },
+    {
+      "source": "/pl/warunki",
+      "destination": "/pl/terms.html"
+    },
+    {
+      "source": "/pt/agentes",
+      "destination": "/pt/agents.html"
+    },
+    {
+      "source": "/pt/confianca",
+      "destination": "/pt/trust.html"
+    },
+    {
+      "source": "/pt/parceiros",
+      "destination": "/pt/partners.html"
+    },
+    {
+      "source": "/pt/privacidade",
+      "destination": "/pt/privacy.html"
+    },
+    {
+      "source": "/pt/termos",
+      "destination": "/pt/terms.html"
+    },
+    {
       "source": "/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/cs/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/de/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/fr/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/es/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/it/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pl/demo",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/pt/demo",
       "destination": "/index.html"
     }
   ]

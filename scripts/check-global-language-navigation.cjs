@@ -1,53 +1,48 @@
 const fs = require("fs");
+const { SUPPORTED_LOCALE_CODES: LOCALES, GLOBAL_PAGES: PAGES, canonicalPath } = require("./i18n/config.cjs");
 
-const LOCALES = ["en","cs","de","fr","es","it","pl","pt"];
-const PAGES = ["agents","trust","partners","privacy","terms"];
-const AGENTS_SLUG = { en:"agents", cs:"agenti", de:"agenten", fr:"agents", es:"agentes", it:"agenti", pl:"agenci", pt:"agentes" };
+const SITE = "https://www.colleagueai.ai";
 const failures = [];
+const exists = (f) => fs.existsSync(f);
+const read = (f) => (exists(f) ? fs.readFileSync(f, "utf8") : "");
 
-function exists(file) { return fs.existsSync(file); }
-function read(file) { return exists(file) ? fs.readFileSync(file, "utf8") : ""; }
+function checkPage(file, page) {
+  const html = read(file);
+  if (!html) { failures.push({ file, issue: "missing localized page" }); return; }
+  // exactly one consolidated visible selector
+  if (!html.includes('id="langsel"')) failures.push({ file, issue: "missing single language selector (#langsel)" });
+  // legacy duplicate switchers must be gone
+  if (html.includes('id="cai-global-language-switcher"')) failures.push({ file, issue: "legacy generated nav switcher still present" });
+  if (html.includes('id="cai-language-guide"')) failures.push({ file, issue: "legacy language-guide panel still present" });
+  // single URL-locale controller present
+  if (!html.includes('id="cai-url-locale-controller"')) failures.push({ file, issue: "missing url-locale controller" });
+  // hreflang alternates use the canonical (translated) URL for every locale
+  for (const target of LOCALES) {
+    const needle = 'hreflang="' + target + '" href="' + SITE + canonicalPath(target, page) + '"';
+    if (!html.includes(needle)) failures.push({ file, issue: "missing/incorrect hreflang alternate", expected: needle });
+  }
+}
 
 for (const page of PAGES) {
-  const root = "public/" + page + ".html";
-  const rootHtml = read(root);
-  if (!rootHtml.includes('id="cai-global-language-switcher"')) {
-    failures.push({ file: root, issue: "missing global language switcher" });
-  }
+  checkPage("public/" + page + ".html", page);
   for (const locale of LOCALES) {
-    const files = ["public/" + locale + "/" + page + ".html", "public/" + locale + "/" + page + "/index.html"];
-    for (const file of files) {
-      const html = read(file);
-      if (!html) {
-        failures.push({ file, issue: "missing localized page" });
-        continue;
-      }
-      if (!html.includes('id="cai-global-language-switcher"')) {
-        failures.push({ file, issue: "missing global language switcher" });
-      }
-      for (const targetLocale of LOCALES) {
-        const link = "/" + targetLocale + "/" + page;
-        if (!html.includes(link)) failures.push({ file, issue: "missing same-page language link", expected: link });
-      }
-      if (page !== "agents" && LOCALES.every(l => html.includes("/" + l + "/agents"))) {
-        failures.push({ file, issue: "language switcher appears to send all locales to /agents" });
-      }
-    }
+    checkPage("public/" + locale + "/" + page + ".html", page);
+    checkPage("public/" + locale + "/" + page + "/index.html", page);
   }
 }
 
 const sitemap = read("public/sitemap.xml");
 for (const page of PAGES) {
   for (const locale of LOCALES) {
-    const slug = page === "agents" ? AGENTS_SLUG[locale] : page;
-    const loc = "https://www.colleagueai.ai/" + locale + "/" + slug;
+    const loc = SITE + canonicalPath(locale, page);
     if (!sitemap.includes(loc)) failures.push({ file: "public/sitemap.xml", issue: "missing localized sitemap route", expected: loc });
   }
 }
 
 if (failures.length) {
   console.error("Global language navigation check failed:");
-  console.table(failures);
+  console.table(failures.slice(0, 40));
+  console.error("total failures:", failures.length);
   process.exit(1);
 }
 console.log("Global language navigation check passed.");

@@ -1,0 +1,12 @@
+{
+  "defaultLocale": "en",
+  "locales": ["en", "cs", "de", "fr", "es", "it", "pl", "pt"],
+  "pages": ["agents", "trust", "partners", "privacy", "terms"],
+  "slugs": {
+    "agents":   { "en": "agents",   "cs": "agenti",           "de": "agenten",             "fr": "agents",          "es": "agentes",   "it": "agenti",  "pl": "agenci",     "pt": "agentes" },
+    "trust":    { "en": "trust",    "cs": "duvera",           "de": "vertrauen",           "fr": "confiance",       "es": "confianza", "it": "fiducia", "pl": "zaufanie",   "pt": "confianca" },
+    "partners": { "en": "partners", "cs": "partneri",         "de": "partner",             "fr": "partenaires",     "es": "socios",    "it": "partner", "pl": "partnerzy",  "pt": "parceiros" },
+    "privacy":  { "en": "privacy",  "cs": "ochrana-soukromi", "de": "datenschutz",         "fr": "confidentialite", "es": "privacidad","it": "privacy", "pl": "prywatnosc", "pt": "privacidade" },
+    "terms":    { "en": "terms",    "cs": "podminky",         "de": "nutzungsbedingungen", "fr": "conditions",      "es": "terminos",  "it": "termini", "pl": "warunki",    "pt": "termos" }
+  }
+}
