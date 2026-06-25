@@ -115,9 +115,9 @@ function replaceAllLiteral(value, from, to) {
 }
 
 function removeGeneratedLanguageSwitcher(html) {
-  html = html.replace(/\\n*<style id="cai-global-language-css">[\\s\\S]*?<\\/style>\\s*/g, "\\n");
-  html = html.replace(/\\n*<nav id="cai-global-language-switcher"[\\s\\S]*?<\\/nav>\\s*/g, "\\n");
-  return html.replace(/\\n{3,}/g, "\\n\\n");
+  html = html.replace(/\n*<style id="cai-global-language-css">[\s\S]*?<\/style>\s*/g, "\n");
+  html = html.replace(/\n*<nav id="cai-global-language-switcher"[\s\S]*?<\/nav>\s*/g, "\n");
+  return html.replace(/\n{3,}/g, "\n\n");
 }
 
 function applyTrustGovernanceCopy(html, locale) {
