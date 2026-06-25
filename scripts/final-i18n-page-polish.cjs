@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 const ROOTS = ["public", "dist"];
@@ -92,22 +92,19 @@ function walk(dir) {
   });
 }
 
-function localeFromFile(file) {
-  const normalized = file.replaceAll("\\\\", "/");
-  const parts = normalized.split("/");
-  for (const locale of LOCALIZED_LOCALES) {
-    if (parts.includes(locale)) return locale;
-  }
-  return "";
-}
-
 function isHtml(file) {
   return file.endsWith(".html");
 }
 
 function isTrust(file) {
-  const normalized = file.replaceAll("\\\\", "/");
+  const normalized = file.replaceAll("\\", "/");
   return normalized.endsWith("/trust.html") || normalized.endsWith("/trust/index.html");
+}
+
+function localeFromFile(file) {
+  const normalized = file.replaceAll("\\", "/");
+  const parts = normalized.split("/");
+  return LOCALIZED_LOCALES.find((locale) => parts.includes(locale)) || "";
 }
 
 function replaceAllLiteral(value, from, to) {
@@ -147,7 +144,7 @@ for (const root of ROOTS) {
       after = applyTrustGovernanceCopy(after, locale);
     }
 
-    after = after.replace(/\\n{3,}/g, "\\n\\n");
+    after = after.replace(/\n{3,}/g, "\n\n");
 
     if (after !== before) {
       fs.writeFileSync(file, after, "utf8");
