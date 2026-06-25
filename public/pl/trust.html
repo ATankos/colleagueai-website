@@ -1,20 +1,20 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Centrum zaufania â€” AI Governance Evidence, Architecture &amp; Security | Colleague AI</title>
+<title>Centrum zaufania - dowody governance AI, architektura i bezpieczenstwo | Colleague AI</title>
 <meta name="description" content="How Colleague AI is built to be verified: the CAI Score methodology, client-hosted architecture, what data we do and do not process, our subprocessors, and how to report a security issue.">
 <meta name="robots" content="index, follow, max-snippet:-1">
 <link rel="canonical" href="https://www.colleagueai.ai/trust">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.colleagueai.ai/trust">
-<meta property="og:title" content="Centrum zaufania â€” AI Governance Evidence, Architecture &amp; Security | Colleague AI">
+<meta property="og:title" content="Centrum zaufania — AI Governance Evidence, Architecture &amp; Security | Colleague AI">
 <meta property="og:description" content="Metodyka CAI Score, client-hosted architecture, data flows, subprocessors, and responsible disclosure.">
 <meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Colleague AI Centrum zaufania â€” Governance AI, architecture, and security.">
+<meta property="og:image:alt" content="Colleague AI Centrum zaufania — Governance AI, architecture, and security.">
 <meta property="og:site_name" content="Colleague AI">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
@@ -229,6 +229,10 @@ section{
 
 
 
+
+
+
+
 <!-- cai-global-hreflang:start -->
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/trust" />
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/trust" />
@@ -250,6 +254,76 @@ section{
   .cai-global-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
   @media(max-width:760px){.cai-global-language{padding:0 12px}.cai-global-language-inner{align-items:flex-start}.cai-global-language-links a{padding:8px 10px}}
 </style>
+
+<style id="trust-page-readability-polish">
+  /* Trust page readability polish: layout only, no legal/compliance copy changes */
+  main {
+    max-width: 1180px;
+    margin-inline: auto;
+    padding-inline: clamp(18px, 4vw, 44px);
+  }
+
+  section {
+    scroll-margin-top: 84px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p,
+  li {
+    line-height: 1.65;
+  }
+
+  #trust-page-guide-title {
+    margin-top: clamp(28px, 5vw, 56px);
+    margin-bottom: 14px;
+  }
+
+  #trust-page-guide-title + p {
+    max-width: 780px;
+  }
+
+  article,
+  .card,
+  [class*="card"],
+  [class*="guide"],
+  [class*="panel"] {
+    border-radius: 22px;
+  }
+
+  article,
+  [class*="guide"],
+  [class*="panel"] {
+    overflow-wrap: anywhere;
+  }
+
+  a {
+    text-underline-offset: 3px;
+  }
+
+  @media (max-width: 768px) {
+    main {
+      padding-inline: 18px;
+    }
+
+    #trust-page-guide-title {
+      margin-top: 32px;
+    }
+
+    article,
+    .card,
+    [class*="card"],
+    [class*="guide"],
+    [class*="panel"] {
+      border-radius: 18px;
+    }
+  }
+</style>
+
 <style id="cai-url-locale-controller-css">
 html[data-cai-page="agents"] #cai-language-guide,
 html[data-cai-page="agents"] #cai-global-language-switcher,
@@ -264,13 +338,13 @@ html[data-cai-page="agents"] #cai-buyer-path {
   var PAGES = ["agents", "trust", "partners", "privacy", "terms"];
   var LOCALE_LABELS = {
     en: "English",
-    cs: "ÄŒeÅ¡tina",
+    cs: "Čeština",
     de: "Deutsch",
-    fr: "FranÃ§ais",
-    es: "EspaÃ±ol",
+    fr: "Français",
+    es: "Español",
     it: "Italiano",
     pl: "Polski",
-    pt: "PortuguÃªs"
+    pt: "Português"
   };
 
   function routeParts() {
@@ -291,14 +365,14 @@ html[data-cai-page="agents"] #cai-buyer-path {
 
   function normalizeLocale(value) {
     value = String(value || "").trim().toLowerCase();
-    if (value === "cz" || value === "czech" || value === "ÄeÅ¡tina") return "cs";
+    if (value === "cz" || value === "czech" || value === "čeština") return "cs";
     if (value === "english") return "en";
     if (value === "deutsch" || value === "german") return "de";
-    if (value === "franÃ§ais" || value === "french") return "fr";
-    if (value === "espaÃ±ol" || value === "spanish") return "es";
+    if (value === "français" || value === "french") return "fr";
+    if (value === "español" || value === "spanish") return "es";
     if (value === "italiano" || value === "italian") return "it";
     if (value === "polski" || value === "polish") return "pl";
-    if (value === "portuguÃªs" || value === "portuguese") return "pt";
+    if (value === "português" || value === "portuguese") return "pt";
     return LOCALES.indexOf(value) >= 0 ? value : "";
   }
 
@@ -483,59 +557,61 @@ html[data-cai-page="agents"] #cai-buyer-path {
 </script>
 </head>
 <body>
-<nav id="cai-global-language-switcher" class="cai-global-language" aria-label="JÄ™zyk">
+<nav id="cai-global-language-switcher" class="cai-global-language" aria-label="Język">
   <div class="cai-global-language-inner">
-    <span class="cai-global-language-label">JÄ™zyk</span>
+    <span class="cai-global-language-label">Język</span>
     <div class="cai-global-language-links"><a href="/en/trust" hreflang="en">EN</a><a href="/cs/trust" hreflang="cs">CS</a><a href="/de/trust" hreflang="de">DE</a><a href="/fr/trust" hreflang="fr">FR</a><a href="/es/trust" hreflang="es">ES</a><a href="/it/trust" hreflang="it">IT</a><a href="/pl/trust" hreflang="pl" aria-current="page">PL</a><a href="/pt/trust" hreflang="pt">PT</a></div>
   </div>
 </nav>
 
 
 
+
+
 <section id="cai-site-journey" class="cai-site-journey" aria-labelledby="cai-site-journey-title">
   <div class="cai-site-journey-inner">
-    <h2 id="cai-site-journey-title" class="cai-site-journey-title">Wybierz swojÄ… Å›cieÅ¼kÄ™</h2>
+    <h2 id="cai-site-journey-title" class="cai-site-journey-title">Wybierz swoją ścieżkę</h2>
     <div class="cai-site-journey-grid">
-      <a class="cai-site-journey-card" href="/pl/agents#cai-buyer-path"><strong>PotrzebujÄ™ use case dla agenta AI</strong><span>PrzeglÄ…daj pakiety agentÃ³w, factsheety, CAI Score i kontrolowanÄ… Å›cieÅ¼kÄ™ demo.</span></a>
-      <a class="cai-site-journey-card" href="/pl/trust"><strong>PotrzebujÄ™ pewnoÅ›ci governance</strong><span>SprawdÅº bezpieczeÅ„stwo, obsÅ‚ugÄ™ danych, governance AI, telemetriÄ™ i status launch gate.</span></a>
-      <a class="cai-site-journey-card" href="/pl/partners"><strong>ChcÄ™ zostaÄ‡ partnerem</strong><span>Zarejestruj zainteresowanie partnerskie. Akceptacja i prowizje pozostajÄ… zaleÅ¼ne od umowy.</span></a>
+      <a class="cai-site-journey-card" href="/pl/agents#cai-buyer-path"><strong>Potrzebuję use case dla agenta AI</strong><span>Przeglądaj pakiety agentów, factsheety, CAI Score i kontrolowaną ścieżkę demo.</span></a>
+      <a class="cai-site-journey-card" href="/pl/trust"><strong>Potrzebuję pewności governance</strong><span>Sprawdź bezpieczeństwo, obsługę danych, governance AI, telemetrię i status launch gate.</span></a>
+      <a class="cai-site-journey-card" href="/pl/partners"><strong>Chcę zostać partnerem</strong><span>Zarejestruj zainteresowanie partnerskie. Akceptacja i prowizje pozostają zależne od umowy.</span></a>
     </div>
   </div>
 </section>
 <section id="trust-page-guide" class="cai-page-guide" aria-labelledby="trust-page-guide-title">
   <h2 id="trust-page-guide-title">Przewodnik po stronie Trust</h2>
-  <p>UÅ¼yj tej strony, aby przejrzeÄ‡ model operacyjny ColleagueAI: bezpieczeÅ„stwo, obsÅ‚ugÄ™ danych, governance, telemetriÄ™ i gotowoÅ›Ä‡ do uruchomienia.</p>
+  <p>Użyj tej strony, aby przejrzeć model operacyjny ColleagueAI: bezpieczeństwo, obsługę danych, governance, telemetrię i gotowość do uruchomienia.</p>
   <div class="cai-guide-links" aria-label="Trust navigation">
-    <a href="#security">Model bezpieczeÅ„stwa</a>
-    <a href="#data">ObsÅ‚uga danych</a>
+    <a href="#security">Model bezpieczeństwa</a>
+    <a href="#data">Obsługa danych</a>
     <a href="#governance">Governance AI</a>
-    <a href="#usage-intelligence-trust">Telemetria i prywatnoÅ›Ä‡</a>
+    <a href="#usage-intelligence-trust">Telemetria i prywatność</a>
     <a href="/pl/agents#launch-readiness-gate">Gate uruchomienia</a>
     <a href="/pl/partners">Zainteresowanie partnerskie</a>
   </div>
 </section>
 <main>
-<nav class="crumb"><a href="/pl/agents">â† Agent Katalog</a></nav>
-<div class="eyebrow">Centrum zaufania Â· Verify us â€” don't take our word</div>
+<nav class="crumb"><a href="/pl/agents">← Agent Katalog</a></nav>
+<div class="eyebrow">Centrum zaufania · Verify us — don't take our word</div>
 <h1>Dowody w jednym miejscu.</h1>
-<p>W kategorii opartej na zaufaniu, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something â€” a third-party attestation, a public customer story â€” we say so instead of implying otherwise.</p>
+<p>W kategorii opartej na zaufaniu, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something — a third-party attestation, a public customer story — we say so instead of implying otherwise.</p>
 
 <h2 id="governance">Metodyka CAI Score</h2>
-<p>The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable â€” then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
-<h3>L1 Â· Assist</h3><p>Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.</p>
-<h3>L2 Â· Draft</h3><p>Produces a work product â€” a document, a query, a report, an outreach message â€” for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.</p>
-<h3>L3 Â· Operate</h3><p>Executes routine, low-risk actions inside a bounded workflow â€” classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped. Human role: owns exceptions.</p>
-<h3>L4 Â· Decide (supervised)</h3><p>Supports decisions and controls in higher-stakes processes â€” compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny. Human role: stays accountable.</p>
-<h3>L5 Â· Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification â€” and not used by any agent in this catalogue today. Human role: sets the rails.</p>
-<p class="note">The current catalogue ships at L2â€“L4. L4 agents require senior sign-off before go-live. Klasyfikacjas are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
+<p>The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable — then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
+<h3>L1 · Assist</h3><p>Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.</p>
+<h3>L2 · Draft</h3><p>Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.</p>
+<h3>L3 · Operate</h3><p>Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped. Human role: owns exceptions.</p>
+<h3>L4 · Decide (supervised)</h3><p>Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny. Human role: stays accountable.</p>
+<h3>L5 · Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today. Human role: sets the rails.</p>
+<p class="note">The current catalogue ships at L2–L4. L4 agents require senior sign-off before go-live. Klasyfikacjas are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
 
 <h2 id="data">Architektura: gdzie dzialaja agenci i gdzie pozostaja dane</h2>
-<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate â€” your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to support governance and legal review against frameworks such as the EU AI Act, DORA and ISO/IEC 42001.</p>
+<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate — your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to support governance and legal review against frameworks such as the EU AI Act, DORA and ISO/IEC 42001.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
   <h3>Enterprise deployment proof points</h3>
   <p>ColleagueAI is positioned as a governed agent-package layer, not a shared SaaS workspace for customer business content. In a standard enterprise deployment, the customer controls the tenant, identity boundary, data sources, model endpoint, runtime configuration and audit evidence.</p>
   <ul>
-    <li><strong>Customer-controlled data plane:</strong> agents are designed to operate against the customerâ€™s Microsoft/cloud estate.</li>
+    <li><strong>Customer-controlled data plane:</strong> agents are designed to operate against the customer’s Microsoft/cloud estate.</li>
     <li><strong>RBAC and data lineage:</strong> retrieval patterns should respect existing user permissions.</li>
     <li><strong>Governance before automation:</strong> each package is mapped to a CAI autonomy tier, human oversight pattern and audit evidence expectation.</li>
   </ul>
@@ -567,12 +643,12 @@ html[data-cai-page="agents"] #cai-buyer-path {
 <li>TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.</li>
 <li>Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.</li>
 <li>Commission attribution is gated: only registered partner codes are credited, and referral values are sanitized before storage.</li>
-<li>Secrets live in the hosting platform's environment configuration â€” never in code, never in the client bundle (verified by an automated scan on every build).</li>
+<li>Secrets live in the hosting platform's environment configuration — never in code, never in the client bundle (verified by an automated scan on every build).</li>
 <li>Responsible disclosure: see <a href="/.well-known/security.txt">security.txt</a> or write to <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. We respond to good-faith reports and won't pursue researchers acting in good faith.</li>
 </ul>
 
 <h2>Program pilotazowy</h2>
-<p>We're onboarding pilot customers now. Every engagement starts the same way the catalogue promises: the agent is validated on your own cases before go-live, its ROI is quantified up front, and the governance evidence is produced from day one â€” so your first deployment is also your proof. If you want to be one of the proofs we publish here, that's the deal: you get the pilot terms, we get the (anonymised, approved-by-you) case study.</p>
+<p>We're onboarding pilot customers now. Every engagement starts the same way the catalogue promises: the agent is validated on your own cases before go-live, its ROI is quantified up front, and the governance evidence is produced from day one — so your first deployment is also your proof. If you want to be one of the proofs we publish here, that's the deal: you get the pilot terms, we get the (anonymised, approved-by-you) case study.</p>
 <div class="cta">
   <a class="btn btn-p" href="/demo">Umow rozmowe pilotazowa</a>
 </div>
@@ -582,7 +658,7 @@ html[data-cai-page="agents"] #cai-buyer-path {
     <p class="usage-intel__eyebrow">Token metadata, not business content</p>
     <h2 id="usage-intelligence-trust-title">CAI Token Economy Monitor: control AI cost before it scales.</h2>
     <p class="usage-intel__lead">
-      ColleagueAI agent packages can include client-owned token economy monitoring that runs inside the client environment. The purpose is to help customers understand token consumption, estimated model/API cost, retries, oversized context, expensive model choices, and optimisation opportunities â€” while keeping prompts, outputs, documents, and business content out of ColleagueAI systems.
+      ColleagueAI agent packages can include client-owned token economy monitoring that runs inside the client environment. The purpose is to help customers understand token consumption, estimated model/API cost, retries, oversized context, expensive model choices, and optimisation opportunities — while keeping prompts, outputs, documents, and business content out of ColleagueAI systems.
     </p>
     <div class="usage-intel__split">
       <div class="usage-intel__list">

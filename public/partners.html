@@ -228,6 +228,10 @@ section{
 
 
 
+
+
+
+
 <!-- cai-global-hreflang:start -->
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/partners" />
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/partners" />
@@ -263,13 +267,13 @@ html[data-cai-page="agents"] #cai-buyer-path {
   var PAGES = ["agents", "trust", "partners", "privacy", "terms"];
   var LOCALE_LABELS = {
     en: "English",
-    cs: "ÄŒeÅ¡tina",
+    cs: "Čeština",
     de: "Deutsch",
-    fr: "FranÃ§ais",
-    es: "EspaÃ±ol",
+    fr: "Français",
+    es: "Español",
     it: "Italiano",
     pl: "Polski",
-    pt: "PortuguÃªs"
+    pt: "Português"
   };
 
   function routeParts() {
@@ -290,14 +294,14 @@ html[data-cai-page="agents"] #cai-buyer-path {
 
   function normalizeLocale(value) {
     value = String(value || "").trim().toLowerCase();
-    if (value === "cz" || value === "czech" || value === "ÄeÅ¡tina") return "cs";
+    if (value === "cz" || value === "czech" || value === "čeština") return "cs";
     if (value === "english") return "en";
     if (value === "deutsch" || value === "german") return "de";
-    if (value === "franÃ§ais" || value === "french") return "fr";
-    if (value === "espaÃ±ol" || value === "spanish") return "es";
+    if (value === "français" || value === "french") return "fr";
+    if (value === "español" || value === "spanish") return "es";
     if (value === "italiano" || value === "italian") return "it";
     if (value === "polski" || value === "polish") return "pl";
-    if (value === "portuguÃªs" || value === "portuguese") return "pt";
+    if (value === "português" || value === "portuguese") return "pt";
     return LOCALES.indexOf(value) >= 0 ? value : "";
   }
 
@@ -488,6 +492,7 @@ html[data-cai-page="agents"] #cai-buyer-path {
     <div class="cai-global-language-links"><a href="/en/partners" hreflang="en" aria-current="page">EN</a><a href="/cs/partners" hreflang="cs">CS</a><a href="/de/partners" hreflang="de">DE</a><a href="/fr/partners" hreflang="fr">FR</a><a href="/es/partners" hreflang="es">ES</a><a href="/it/partners" hreflang="it">IT</a><a href="/pl/partners" hreflang="pl">PL</a><a href="/pt/partners" hreflang="pt">PT</a></div>
   </div>
 </nav>
+
 
 
 

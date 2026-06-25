@@ -347,6 +347,163 @@ const COPY = {
   }
 };
 
+const AUDIT_MARKER_COPY = {
+  cs: {
+    trust: {
+      "Agent Catalogue": "Katalog agentu",
+      "Trust Center": "Centrum duvery",
+      "The evidence, in one place.": "Dukazy na jednom miste.",
+      "In a category built on trust": "V kategorii zalozene na duvere",
+      "The CAI Score methodology": "Metodika CAI Score",
+      "Architecture: where agents run, where data lives": "Architektura: kde agenti bezi a kde zustavaji data",
+      "Subprocessors": "Subdodavatele zpracovani",
+      "Security practices": "Bezpecnostni postupy",
+      "Pilot programme": "Pilotni program",
+      "Book a pilot conversation": "Domluvit pilotni rozhovor"
+    },
+    partners: {
+      "Approved partners can refer": "Schvaleni partneri mohou doporucovat",
+      "Three steps. Approved partner process.": "Tri kroky. Schvaleny partnersky proces.",
+      "Enter your name and email": "Zadejte sve jmeno a e-mail",
+      "When they buy any agent through your link": "Kdyz koupi agenta pres vas odkaz",
+      "Common questions, direct answers.": "Caste otazky, prime odpovedi.",
+      "Ready to bring enterprise AI": "Pripraveni prinest podnikove AI"
+    }
+  },
+  de: {
+    trust: {
+      "Agent Catalogue": "Agenten-Katalog",
+      "Trust Center": "Vertrauenszentrum",
+      "The evidence, in one place.": "Die Nachweise an einem Ort.",
+      "In a category built on trust": "In einer Kategorie, die auf Vertrauen basiert",
+      "The CAI Score methodology": "Methodik des CAI Score",
+      "Architecture: where agents run, where data lives": "Architektur: wo Agenten laufen und wo Daten verbleiben",
+      "Subprocessors": "Unterauftragsverarbeiter",
+      "Security practices": "Sicherheitspraktiken",
+      "Pilot programme": "Pilotprogramm",
+      "Book a pilot conversation": "Pilotgespraech buchen"
+    },
+    partners: {
+      "Approved partners can refer": "Genehmigte Partner koennen empfehlen",
+      "Three steps. Approved partner process.": "Drei Schritte. Genehmigter Partnerprozess.",
+      "Enter your name and email": "Geben Sie Ihren Namen und Ihre E-Mail ein",
+      "When they buy any agent through your link": "Wenn sie einen Agenten ueber Ihren Link kaufen",
+      "Common questions, direct answers.": "Haeufige Fragen, klare Antworten.",
+      "Ready to bring enterprise AI": "Bereit, Enterprise-KI zu bringen"
+    }
+  },
+  fr: {
+    trust: {
+      "Agent Catalogue": "Catalogue d'agents",
+      "Trust Center": "Centre de confiance",
+      "The evidence, in one place.": "Les preuves, au meme endroit.",
+      "In a category built on trust": "Dans une categorie fondee sur la confiance",
+      "The CAI Score methodology": "Methodologie du CAI Score",
+      "Architecture: where agents run, where data lives": "Architecture : ou les agents s'executent et ou les donnees restent",
+      "Subprocessors": "Sous-traitants",
+      "Security practices": "Pratiques de securite",
+      "Pilot programme": "Programme pilote",
+      "Book a pilot conversation": "Planifier un entretien pilote"
+    },
+    partners: {
+      "Approved partners can refer": "Les partenaires approuves peuvent recommander",
+      "Three steps. Approved partner process.": "Trois etapes. Processus partenaire approuve.",
+      "Enter your name and email": "Saisissez votre nom et votre e-mail",
+      "When they buy any agent through your link": "Quand ils achetent un agent via votre lien",
+      "Common questions, direct answers.": "Questions frequentes, reponses directes.",
+      "Ready to bring enterprise AI": "Pret a apporter l'IA d'entreprise"
+    }
+  },
+  es: {
+    trust: {
+      "Agent Catalogue": "Catalogo de agentes",
+      "Trust Center": "Centro de confianza",
+      "The evidence, in one place.": "La evidencia, en un solo lugar.",
+      "In a category built on trust": "En una categoria basada en la confianza",
+      "The CAI Score methodology": "Metodologia del CAI Score",
+      "Architecture: where agents run, where data lives": "Arquitectura: donde se ejecutan los agentes y donde viven los datos",
+      "Subprocessors": "Subprocesadores",
+      "Security practices": "Practicas de seguridad",
+      "Pilot programme": "Programa piloto",
+      "Book a pilot conversation": "Reservar una conversacion piloto"
+    },
+    partners: {
+      "Approved partners can refer": "Los partners aprobados pueden recomendar",
+      "Three steps. Approved partner process.": "Tres pasos. Proceso de partner aprobado.",
+      "Enter your name and email": "Introduce tu nombre y correo",
+      "When they buy any agent through your link": "Cuando compran un agente mediante tu enlace",
+      "Common questions, direct answers.": "Preguntas frecuentes, respuestas directas.",
+      "Ready to bring enterprise AI": "Listo para llevar IA empresarial"
+    }
+  },
+  it: {
+    trust: {
+      "Agent Catalogue": "Catalogo agenti",
+      "Trust Center": "Centro fiducia",
+      "The evidence, in one place.": "Le evidenze, in un unico posto.",
+      "In a category built on trust": "In una categoria fondata sulla fiducia",
+      "The CAI Score methodology": "Metodologia del CAI Score",
+      "Architecture: where agents run, where data lives": "Architettura: dove girano gli agenti e dove restano i dati",
+      "Subprocessors": "Subresponsabili",
+      "Security practices": "Pratiche di sicurezza",
+      "Pilot programme": "Programma pilota",
+      "Book a pilot conversation": "Prenotare una conversazione pilota"
+    },
+    partners: {
+      "Approved partners can refer": "I partner approvati possono segnalare",
+      "Three steps. Approved partner process.": "Tre passaggi. Processo partner approvato.",
+      "Enter your name and email": "Inserisci nome ed e-mail",
+      "When they buy any agent through your link": "Quando acquistano un agente tramite il tuo link",
+      "Common questions, direct answers.": "Domande frequenti, risposte dirette.",
+      "Ready to bring enterprise AI": "Pronto a portare AI enterprise"
+    }
+  },
+  pl: {
+    trust: {
+      "Agent Catalogue": "Katalog agentow",
+      "Trust Center": "Centrum zaufania",
+      "The evidence, in one place.": "Dowody w jednym miejscu.",
+      "In a category built on trust": "W kategorii opartej na zaufaniu",
+      "The CAI Score methodology": "Metodyka CAI Score",
+      "Architecture: where agents run, where data lives": "Architektura: gdzie dzialaja agenci i gdzie pozostaja dane",
+      "Subprocessors": "Podwykonawcy przetwarzania",
+      "Security practices": "Praktyki bezpieczenstwa",
+      "Pilot programme": "Program pilotazowy",
+      "Book a pilot conversation": "Umow rozmowe pilotazowa"
+    },
+    partners: {
+      "Approved partners can refer": "Zatwierdzeni partnerzy moga polecac",
+      "Three steps. Approved partner process.": "Trzy kroki. Zatwierdzony proces partnerski.",
+      "Enter your name and email": "Podaj imie i e-mail",
+      "When they buy any agent through your link": "Gdy kupia agenta przez Twoj link",
+      "Common questions, direct answers.": "Czeste pytania, bezposrednie odpowiedzi.",
+      "Ready to bring enterprise AI": "Gotowe, aby wdrazac AI enterprise"
+    }
+  },
+  pt: {
+    trust: {
+      "Agent Catalogue": "Catalogo de agentes",
+      "Trust Center": "Centro de confianca",
+      "The evidence, in one place.": "As evidencias, num so lugar.",
+      "In a category built on trust": "Numa categoria baseada na confianca",
+      "The CAI Score methodology": "Metodologia do CAI Score",
+      "Architecture: where agents run, where data lives": "Arquitetura: onde os agentes executam e onde os dados permanecem",
+      "Subprocessors": "Subprocessadores",
+      "Security practices": "Praticas de seguranca",
+      "Pilot programme": "Programa piloto",
+      "Book a pilot conversation": "Marcar uma conversa piloto"
+    },
+    partners: {
+      "Approved partners can refer": "Parceiros aprovados podem recomendar",
+      "Three steps. Approved partner process.": "Tres passos. Processo de parceiro aprovado.",
+      "Enter your name and email": "Introduza o seu nome e e-mail",
+      "When they buy any agent through your link": "Quando compram um agente atraves do seu link",
+      "Common questions, direct answers.": "Perguntas frequentes, respostas diretas.",
+      "Ready to bring enterprise AI": "Pronto para levar IA empresarial"
+    }
+  }
+};
+
 const MARKETING_ROUTES = new Set(["agents", "partners", "trust"]);
 const LEGAL_ROUTES = new Set(["privacy", "terms"]);
 
@@ -427,6 +584,11 @@ for (const root of ROOTS) {
         html = applyDictionary(html, dict);
       } else if (LEGAL_ROUTES.has(route)) {
         html = applyDictionary(html, legalSafeDict);
+      }
+
+      const routeAuditCopy = AUDIT_MARKER_COPY[locale] && AUDIT_MARKER_COPY[locale][route];
+      if (routeAuditCopy) {
+        html = applyDictionary(html, routeAuditCopy);
       }
 
       if (html !== before) {
