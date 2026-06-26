@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-agent-pages.mjs && node scripts/generate-locale-pages.mjs && node scripts/localize-agent-ux.mjs && node scripts/generate-global-language-pages.cjs && node scripts/localize-global-page-copy.cjs && node scripts/i18n-translate-visible-copy.cjs && node scripts/localize-global-page-identity.cjs && node scripts/polish-trust-page-readability.cjs && node scripts/enforce-url-locale-controller.cjs && node scripts/final-i18n-page-polish.cjs",
+    "build": "vite build && node scripts/generate-agent-pages.mjs && node scripts/generate-locale-pages.mjs && node scripts/localize-agent-ux.mjs && node scripts/generate-global-language-pages.cjs && node scripts/localize-global-page-copy.cjs && node scripts/i18n-translate-visible-copy.cjs && node scripts/localize-global-page-identity.cjs && node scripts/polish-trust-page-readability.cjs && node scripts/enforce-url-locale-controller.cjs && node scripts/final-i18n-page-polish.cjs && node scripts/inject-fixed-backtop.cjs",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest",
