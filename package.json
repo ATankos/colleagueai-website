@@ -37,7 +37,9 @@
     "qa:site": "playwright test tests/e2e/full-site-qa.spec.ts",
     "qa:site:headed": "playwright test tests/e2e/full-site-qa.spec.ts --headed",
     "qa:golive": "playwright test tests/e2e/golive.spec.js",
-    "qa:backtop": "playwright test tests/e2e/back-to-top.spec.ts"
+    "qa:backtop": "playwright test tests/e2e/back-to-top.spec.ts",
+    "qa:e2e": "npm run qa:site",
+    "test:e2e": "npm run qa:site"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",

@@ -77,7 +77,7 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Go-live e2e — real static pages, nav, drawer, demo, locales
-        run: npx playwright test golive.spec.js --project=chromium --project=mobile-chrome
+        run: npm run qa:site golive.spec.js --project=chromium --project=mobile-chrome
 
       - name: Upload Playwright report
         if: always()
