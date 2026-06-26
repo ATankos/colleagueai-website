@@ -30,7 +30,14 @@
     "check:global-language": "node scripts/check-global-language-navigation.cjs",
     "check:localized-copy": "node scripts/check-localized-page-copy.cjs",
     "audit:i18n-visible": "node scripts/audit-visible-localized-copy.cjs",
-    "check:url-locale": "node scripts/check-url-locale-controller.cjs"
+    "check:url-locale": "node scripts/check-url-locale-controller.cjs",
+    "qa:static": "node scripts/qa-static-site-audit.cjs",
+    "qa:report": "playwright show-report",
+    "qa:all": "npm run build && npm run qa:static && npm run qa:site",
+    "qa:site": "playwright test tests/e2e/full-site-qa.spec.ts",
+    "qa:site:headed": "playwright test tests/e2e/full-site-qa.spec.ts --headed",
+    "qa:golive": "playwright test tests/e2e/golive.spec.js",
+    "qa:backtop": "playwright test tests/e2e/back-to-top.spec.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",
@@ -45,7 +52,7 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
     "@eslint/js": "^10.0.1",
-    "@playwright/test": "^1.61.0",
+    "@playwright/test": "^1.61.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
@@ -67,4 +74,4 @@
     "tmp": "^0.2.6",
     "uuid": "^11.1.1"
   }
-}
+}\n

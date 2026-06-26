@@ -1,4 +1,4 @@
-﻿const fs = require("fs");
+const fs = require("fs");
 const path = require("path");
 
 function walk(dir) {
@@ -24,10 +24,6 @@ const css = `<style id="cai-fixed-backtop-css">
   z-index: 2147483647 !important;
   cursor: pointer !important;
   display: none;
- 22px !important;
-  z-index: 2147483647 !important;
-  cursor: pointer !important;
-  display: none;
   align-items: center !important;
   justify-content: center !important;
 }
@@ -41,6 +37,28 @@ const js = `<script id="cai-fixed-backtop-js">
   function ready(fn) {
     if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
     else fn();
+  }
+
+  function forceTop() {
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    } catch (error) {
+      window.scrollTo(0, 0);
+    }
+
+    var nodes = [document.scrollingElement, document.documentElement, document.body];
+
+    try {
+      Array.prototype.forEach.call(document.querySelectorAll("*"), function (node) {
+        if (node && node.scrollTop > 0) nodes.push(node);
+      });
+    } catch (error) {}
+
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      nodes[i].scrollTop = 0;
+      nodes[i].scrollLeft = 0;
+    }
   }
 
   ready(function () {
@@ -61,7 +79,11 @@ const js = `<script id="cai-fixed-backtop-js">
     b.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
-      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      forceTop();
+      setTimeout(forceTop, 50);
+      setTimeout(forceTop, 200);
+      setTimeout(forceTop, 600);
     }, true);
 
     window.addEventListener("scroll", show, { passive: true });
@@ -77,9 +99,8 @@ for (const file of walk("dist")) {
   html = html.replace(/\n*<style id="cai-fixed-backtop-css">[\s\S]*?<\/style>\s*/g, "\n");
   html = html.replace(/\n*<script id="cai-fixed-backtop-js">[\s\S]*?<\/script>\s*/g, "\n");
 
-  const marker = "</head>";
-  if (html.includes(marker)) {
-    html = html.replace(marker, css + "\n" + js + "\n" + marker);
+  if (html.includes("</head>")) {
+    html = html.replace("</head>", css + "\n" + js + "\n</head>");
   }
 
   fs.writeFileSync(file, html, "utf8");
