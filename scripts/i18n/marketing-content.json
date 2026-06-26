@@ -1,0 +1,308 @@
+{
+ "Assist": {
+  "cs": "Asistuje",
+  "de": "Assistiert",
+  "fr": "Assiste",
+  "es": "Asiste",
+  "it": "Assiste",
+  "pt": "Assiste",
+  "pl": "Asystuje"
+ },
+ "Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand.": {
+  "cs": "Informuje a odpovídá. Neprovádí žádnou akci a nemění žádný záznam. Práci dělá člověk; agent ji jen pomáhá rychleji najít a pochopit.",
+  "de": "Informiert und antwortet. Führt keine Aktion aus und ändert keinen Datensatz. Die Arbeit macht der Mensch; der Agent macht sie nur schneller auffindbar und verständlicher.",
+  "fr": "Informe et répond. N’entreprend aucune action et ne modifie aucun enregistrement. L’humain fait le travail ; l’agent le rend simplement plus rapide à trouver et à comprendre.",
+  "es": "Informa y responde. No realiza ninguna acción ni cambia ningún registro. El trabajo lo hace la persona; el agente solo lo hace más rápido de encontrar y entender.",
+  "it": "Informa e risponde. Non compie alcuna azione e non modifica alcun record. Il lavoro lo fa la persona; l’agente lo rende solo più rapido da trovare e capire.",
+  "pt": "Informa e responde. Não realiza nenhuma ação nem altera nenhum registo. O trabalho é feito pela pessoa; o agente apenas o torna mais rápido de encontrar e entender.",
+  "pl": "Informuje i odpowiada. Nie podejmuje żadnego działania i nie zmienia żadnego rekordu. Pracę wykonuje człowiek; agent jedynie pomaga ją szybciej znaleźć i zrozumieć."
+ },
+ "Does everything": {
+  "cs": "Dělá vše",
+  "de": "Macht alles",
+  "fr": "Fait tout",
+  "es": "Hace todo",
+  "it": "Fa tutto",
+  "pt": "Faz tudo",
+  "pl": "Robi wszystko"
+ },
+ "Draft": {
+  "cs": "Navrhuje",
+  "de": "Entwirft",
+  "fr": "Rédige",
+  "es": "Redacta",
+  "it": "Redige",
+  "pt": "Redige",
+  "pl": "Redaguje"
+ },
+ "Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off.": {
+  "cs": "Vytváří pracovní výstup — dokument, dotaz, report, oslovovací zprávu — k revizi a schválení člověkem. Nic, co agent vytvoří, se nepoužije, dokud to člověk neschválí.",
+  "de": "Erstellt ein Arbeitsergebnis — ein Dokument, eine Abfrage, einen Bericht, eine Ansprache — zur Prüfung und Freigabe durch einen Menschen. Nichts, was der Agent erstellt, wird verwendet, bevor eine Person es freigibt.",
+  "fr": "Produit un livrable — un document, une requête, un rapport, un message de prospection — pour relecture et approbation par un humain. Rien de ce que produit l’agent n’est utilisé tant qu’une personne n’a pas validé.",
+  "es": "Produce un entregable — un documento, una consulta, un informe, un mensaje de contacto — para que una persona lo revise y apruebe. Nada de lo que crea el agente se usa hasta que alguien lo aprueba.",
+  "it": "Produce un prodotto di lavoro — un documento, una query, un report, un messaggio di contatto — perché una persona lo revisioni e approvi. Nulla di ciò che l’agente crea viene usato finché qualcuno non approva.",
+  "pt": "Produz um entregável — um documento, uma consulta, um relatório, uma mensagem de contacto — para uma pessoa rever e aprovar. Nada do que o agente cria é usado até alguém aprovar.",
+  "pl": "Tworzy produkt pracy — dokument, zapytanie, raport, wiadomość kontaktową — do przeglądu i zatwierdzenia przez człowieka. Nic, co agent stworzy, nie jest używane, dopóki ktoś nie zatwierdzi."
+ },
+ "Reviews & approves": {
+  "cs": "Reviduje a schvaluje",
+  "de": "Prüft & gibt frei",
+  "fr": "Relit et approuve",
+  "es": "Revisa y aprueba",
+  "it": "Revisiona e approva",
+  "pt": "Revê e aprova",
+  "pl": "Przegląda i zatwierdza"
+ },
+ "Operate": {
+  "cs": "Provádí",
+  "de": "Operiert",
+  "fr": "Opère",
+  "es": "Opera",
+  "it": "Opera",
+  "pt": "Opera",
+  "pl": "Działa"
+ },
+ "Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.": {
+  "cs": "Provádí rutinní, nízkoriziková jednání v ohraničeném workflow — klasifikuje, směruje, vyřizuje, loguje. Výjimky a cokoli neobvyklého předává člověku. Každá akce má časové razítko.",
+  "de": "Führt routinemäßige, risikoarme Aktionen in einem abgegrenzten Workflow aus — klassifizieren, weiterleiten, erledigen, protokollieren. Ausnahmen und alles Ungewöhnliche gehen an einen Menschen. Jede Aktion erhält einen Zeitstempel.",
+  "fr": "Exécute des actions routinières à faible risque dans un flux délimité — classer, router, traiter, journaliser. Les exceptions et tout ce qui sort de l’ordinaire sont confiés à un humain. Chaque action est horodatée.",
+  "es": "Ejecuta acciones rutinarias de bajo riesgo dentro de un flujo acotado — clasificar, enrutar, gestionar, registrar. Las excepciones y lo inusual se entregan a una persona. Cada acción lleva marca de tiempo.",
+  "it": "Esegue azioni di routine a basso rischio entro un flusso delimitato — classificare, instradare, evadere, registrare. Le eccezioni e tutto ciò che è insolito vengono passati a una persona. Ogni azione è marcata temporalmente.",
+  "pt": "Executa ações rotineiras de baixo risco dentro de um fluxo delimitado — classificar, encaminhar, tratar, registar. As exceções e tudo o que é incomum são entregues a uma pessoa. Cada ação recebe marca temporal.",
+  "pl": "Wykonuje rutynowe, niskoryzykowne działania w wyznaczonym przepływie — klasyfikuje, kieruje, realizuje, rejestruje. Wyjątki i wszystko nietypowe trafiają do człowieka. Każde działanie ma znacznik czasu."
+ },
+ "Owns exceptions": {
+  "cs": "Řeší výjimky",
+  "de": "Übernimmt Ausnahmen",
+  "fr": "Gère les exceptions",
+  "es": "Gestiona excepciones",
+  "it": "Gestisce le eccezioni",
+  "pt": "Trata exceções",
+  "pl": "Obsługuje wyjątki"
+ },
+ "Decide (supervised)": {
+  "cs": "Rozhoduje (pod dohledem)",
+  "de": "Entscheidet (überwacht)",
+  "fr": "Décide (supervisé)",
+  "es": "Decide (supervisado)",
+  "it": "Decide (supervisionato)",
+  "pt": "Decide (supervisionado)",
+  "pl": "Decyduje (pod nadzorem)"
+ },
+ "Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.": {
+  "cs": "Podporuje rozhodování a kontroly v procesech s vyšší mírou rizika — compliance, smlouvy, bezpečnost, princip čtyř očí. Za rozhodnutí zůstává odpovědný jmenovaný člověk; agent asistuje a vše dokládá. Postaveno pro audit vysoce rizikových procesů.",
+  "de": "Unterstützt Entscheidungen und Kontrollen in Prozessen mit höherem Risiko — Compliance, Verträge, Sicherheit, Vier-Augen-Prinzip. Ein benannter Mensch bleibt für die Entscheidung verantwortlich; der Agent unterstützt und belegt sie. Gebaut für die Prüfung von Hochrisikoprozessen.",
+  "fr": "Soutient les décisions et les contrôles dans des processus à enjeux élevés — conformité, contrats, sécurité, double regard. Un humain nommé reste responsable de la décision ; l’agent l’assiste et l’étaye. Conçu pour le contrôle des processus à haut risque.",
+  "es": "Apoya decisiones y controles en procesos de mayor riesgo — cumplimiento, contratos, seguridad, doble verificación. Una persona designada sigue siendo responsable de la decisión; el agente asiste y la evidencia. Diseñado para el escrutinio de procesos de alto riesgo.",
+  "it": "Supporta decisioni e controlli in processi a maggiore criticità — compliance, contratti, sicurezza, doppia verifica. Una persona designata resta responsabile della decisione; l’agente assiste e la documenta. Costruito per il controllo dei processi ad alto rischio.",
+  "pt": "Apoia decisões e controlos em processos de maior risco — conformidade, contratos, segurança, dupla verificação. Uma pessoa designada continua responsável pela decisão; o agente auxilia e a evidencia. Construído para o escrutínio de processos de alto risco.",
+  "pl": "Wspiera decyzje i kontrole w procesach o wyższej stawce — zgodność, umowy, bezpieczeństwo, zasada dwóch par oczu. Wyznaczona osoba pozostaje odpowiedzialna za decyzję; agent wspiera ją i dokumentuje. Zbudowany do kontroli procesów wysokiego ryzyka."
+ },
+ "Stays accountable": {
+  "cs": "Zůstává odpovědný",
+  "de": "Bleibt verantwortlich",
+  "fr": "Reste responsable",
+  "es": "Sigue siendo responsable",
+  "it": "Resta responsabile",
+  "pt": "Continua responsável",
+  "pl": "Pozostaje odpowiedzialny"
+ },
+ "Autonomous": {
+  "cs": "Autonomní",
+  "de": "Autonom",
+  "fr": "Autonome",
+  "es": "Autónomo",
+  "it": "Autonomo",
+  "pt": "Autónomo",
+  "pl": "Autonomiczny"
+ },
+ "Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today.": {
+  "cs": "Jedná samostatně v rámci pevných, předem schválených mantinelů. Vyhrazeno pro nejvyšší úroveň certifikace — a dnes ho nepoužívá žádný agent v tomto katalogu.",
+  "de": "Handelt eigenständig innerhalb fester, vorab genehmigter Leitplanken. Der höchsten Zertifizierungsstufe vorbehalten — und heute von keinem Agenten in diesem Katalog genutzt.",
+  "fr": "Agit de façon indépendante dans des garde-fous fermes et pré-approuvés. Réservé au plus haut niveau de certification — et utilisé aujourd’hui par aucun agent de ce catalogue.",
+  "es": "Actúa de forma independiente dentro de límites firmes y aprobados previamente. Reservado al nivel más alto de certificación — y hoy no lo usa ningún agente de este catálogo.",
+  "it": "Agisce in modo indipendente entro guardrail fermi e pre-approvati. Riservato al più alto livello di certificazione — e oggi non usato da alcun agente di questo catalogo.",
+  "pt": "Age de forma independente dentro de limites firmes e pré-aprovados. Reservado ao mais alto nível de certificação — e hoje não usado por nenhum agente deste catálogo.",
+  "pl": "Działa samodzielnie w obrębie twardych, wstępnie zatwierdzonych barier. Zarezerwowany dla najwyższego poziomu certyfikacji — i dziś nieużywany przez żadnego agenta w tym katalogu."
+ },
+ "Sets the rails": {
+  "cs": "Nastavuje mantinely",
+  "de": "Setzt die Leitplanken",
+  "fr": "Définit les garde-fous",
+  "es": "Fija los límites",
+  "it": "Imposta i guardrail",
+  "pt": "Define os limites",
+  "pl": "Ustala bariery"
+ },
+ "1. Detect the exception": {
+  "cs": "1. Rozpoznat výjimku",
+  "de": "1. Die Ausnahme erkennen",
+  "fr": "1. Détecter l’exception",
+  "es": "1. Detectar la excepción",
+  "it": "1. Rilevare l’eccezione",
+  "pl": "1. Wykryć wyjątek",
+  "pt": "1. Detetar a exceção"
+ },
+ "2. Retrieve only permitted evidence": {
+  "cs": "2. Načíst pouze povolené důkazy",
+  "de": "2. Nur zulässige Nachweise abrufen",
+  "fr": "2. Récupérer uniquement les preuves autorisées",
+  "es": "2. Recuperar solo evidencia permitida",
+  "it": "2. Recuperare solo le prove consentite",
+  "pl": "2. Pobrać tylko dozwolone dowody",
+  "pt": "2. Recuperar apenas evidências permitidas"
+ },
+ "3. Generate a root-cause hypothesis": {
+  "cs": "3. Vytvořit hypotézu hlavní příčiny",
+  "de": "3. Eine Ursachenhypothese erstellen",
+  "fr": "3. Générer une hypothèse de cause racine",
+  "es": "3. Generar una hipótesis de causa raíz",
+  "it": "3. Generare un’ipotesi sulla causa principale",
+  "pl": "3. Wygenerować hipotezę przyczyny źródłowej",
+  "pt": "3. Gerar uma hipótese de causa raiz"
+ },
+ "4. Build the review pack": {
+  "cs": "4. Sestavit kontrolní balíček",
+  "de": "4. Das Prüfpaket erstellen",
+  "fr": "4. Constituer le dossier de revue",
+  "es": "4. Crear el paquete de revisión",
+  "it": "4. Creare il pacchetto di revisione",
+  "pl": "4. Zbudować pakiet do przeglądu",
+  "pt": "4. Montar o pacote de revisão"
+ },
+ "5. Route to human approval": {
+  "cs": "5. Předat ke schválení člověku",
+  "de": "5. An die menschliche Freigabe weiterleiten",
+  "fr": "5. Acheminer vers l’approbation humaine",
+  "es": "5. Enviar a la aprobación humana",
+  "it": "5. Inoltrare all’approvazione umana",
+  "pl": "5. Skierować do zatwierdzenia przez człowieka",
+  "pt": "5. Encaminhar para aprovação humana"
+ },
+ "6. Preserve audit trace": {
+  "cs": "6. Zachovat auditní stopu",
+  "de": "6. Audit-Spur bewahren",
+  "fr": "6. Conserver la trace d’audit",
+  "es": "6. Conservar el rastro de auditoría",
+  "it": "6. Conservare la traccia di audit",
+  "pl": "6. Zachować ślad audytowy",
+  "pt": "6. Preservar o rasto de auditoria"
+ },
+ "Customer-approved CRM, pipeline, opportunity and sales process sources.": {
+  "cs": "Zákazníkem schválené zdroje CRM, pipeline, příležitostí a prodejních procesů.",
+  "de": "Vom Kunden genehmigte Quellen für CRM, Pipeline, Opportunities und Vertriebsprozesse.",
+  "fr": "Sources CRM, pipeline, opportunités et processus de vente approuvées par le client.",
+  "es": "Fuentes de CRM, pipeline, oportunidades y procesos de ventas aprobadas por el cliente.",
+  "it": "Fonti di CRM, pipeline, opportunità e processi di vendita approvate dal cliente.",
+  "pl": "Zatwierdzone przez klienta źródła CRM, pipeline’u, szans i procesów sprzedaży.",
+  "pt": "Fontes de CRM, pipeline, oportunidades e processos de vendas aprovadas pelo cliente."
+ },
+ "Customer-approved business systems and documents connected during deployment.": {
+  "cs": "Zákazníkem schválené podnikové systémy a dokumenty připojené během nasazení.",
+  "de": "Vom Kunden genehmigte Geschäftssysteme und Dokumente, die während der Bereitstellung verbunden werden.",
+  "fr": "Systèmes métier et documents approuvés par le client, connectés lors du déploiement.",
+  "es": "Sistemas empresariales y documentos aprobados por el cliente, conectados durante la implementación.",
+  "it": "Sistemi aziendali e documenti approvati dal cliente, collegati durante il deployment.",
+  "pl": "Zatwierdzone przez klienta systemy biznesowe i dokumenty podłączone podczas wdrożenia.",
+  "pt": "Sistemas empresariais e documentos aprovados pelo cliente, ligados durante a implementação."
+ },
+ "Customer-approved contract, obligation and legal workflow sources.": {
+  "cs": "Zákazníkem schválené zdroje smluv, závazků a právních workflow.",
+  "de": "Vom Kunden genehmigte Quellen für Verträge, Verpflichtungen und juristische Workflows.",
+  "fr": "Sources de contrats, d’obligations et de flux juridiques approuvées par le client.",
+  "es": "Fuentes de contratos, obligaciones y flujos de trabajo legales aprobadas por el cliente.",
+  "it": "Fonti di contratti, obblighi e flussi di lavoro legali approvate dal cliente.",
+  "pl": "Zatwierdzone przez klienta źródła umów, zobowiązań i prawnych przepływów pracy.",
+  "pt": "Fontes de contratos, obrigações e fluxos de trabalho jurídicos aprovadas pelo cliente."
+ },
+ "Customer-approved data, infrastructure, wiki and operational knowledge sources.": {
+  "cs": "Zákazníkem schválené zdroje dat, infrastruktury, wiki a provozních znalostí.",
+  "de": "Vom Kunden genehmigte Quellen für Daten, Infrastruktur, Wiki und operatives Wissen.",
+  "fr": "Sources de données, d’infrastructure, de wiki et de connaissances opérationnelles approuvées par le client.",
+  "es": "Fuentes de datos, infraestructura, wiki y conocimiento operativo aprobadas por el cliente.",
+  "it": "Fonti di dati, infrastruttura, wiki e conoscenza operativa approvate dal cliente.",
+  "pl": "Zatwierdzone przez klienta źródła danych, infrastruktury, wiki i wiedzy operacyjnej.",
+  "pt": "Fontes de dados, infraestrutura, wiki e conhecimento operacional aprovadas pelo cliente."
+ },
+ "Customer-approved risk, security, compliance and control evidence sources.": {
+  "cs": "Zákazníkem schválené zdroje důkazů o riziku, bezpečnosti, compliance a kontrolách.",
+  "de": "Vom Kunden genehmigte Nachweisquellen für Risiko, Sicherheit, Compliance und Kontrollen.",
+  "fr": "Sources de preuves de risque, de sécurité, de conformité et de contrôle approuvées par le client.",
+  "es": "Fuentes de evidencia de riesgo, seguridad, cumplimiento y control aprobadas por el cliente.",
+  "it": "Fonti di evidenza su rischio, sicurezza, compliance e controlli approvate dal cliente.",
+  "pl": "Zatwierdzone przez klienta źródła dowodów dotyczących ryzyka, bezpieczeństwa, zgodności i kontroli.",
+  "pt": "Fontes de evidência de risco, segurança, conformidade e controlo aprovadas pelo cliente."
+ },
+ "Draft content, scripts, summaries or structured work products for approval.": {
+  "cs": "Návrhy obsahu, skripty, shrnutí nebo strukturované pracovní výstupy ke schválení.",
+  "de": "Entwurfsinhalte, Skripte, Zusammenfassungen oder strukturierte Arbeitsergebnisse zur Freigabe.",
+  "fr": "Contenus en brouillon, scripts, résumés ou livrables structurés à approuver.",
+  "es": "Borradores de contenido, scripts, resúmenes o productos de trabajo estructurados para aprobación.",
+  "it": "Bozze di contenuti, script, riepiloghi o prodotti di lavoro strutturati da approvare.",
+  "pl": "Szkice treści, skrypty, podsumowania lub uporządkowane produkty pracy do zatwierdzenia.",
+  "pt": "Conteúdos em rascunho, scripts, resumos ou produtos de trabalho estruturados para aprovação."
+ },
+ "Human accountability required according to the deployed workflow.": {
+  "cs": "Vyžadována lidská odpovědnost podle nasazeného workflow.",
+  "de": "Menschliche Verantwortung gemäß dem eingesetzten Workflow erforderlich.",
+  "fr": "Responsabilité humaine requise selon le flux de travail déployé.",
+  "es": "Se requiere responsabilidad humana según el flujo de trabajo implementado.",
+  "it": "Responsabilità umana richiesta in base al flusso di lavoro implementato.",
+  "pl": "Wymagana odpowiedzialność człowieka zgodnie z wdrożonym przepływem pracy.",
+  "pt": "Responsabilidade humana exigida de acordo com o fluxo de trabalho implementado."
+ },
+ "Human reviews, edits and approves the generated draft before use.": {
+  "cs": "Člověk zkontroluje, upraví a schválí vygenerovaný návrh před použitím.",
+  "de": "Ein Mensch prüft, bearbeitet und genehmigt den generierten Entwurf vor der Nutzung.",
+  "fr": "Un humain examine, modifie et approuve le brouillon généré avant utilisation.",
+  "es": "Una persona revisa, edita y aprueba el borrador generado antes de usarlo.",
+  "it": "Una persona rivede, modifica e approva la bozza generata prima dell’uso.",
+  "pl": "Człowiek sprawdza, edytuje i zatwierdza wygenerowany szkic przed użyciem.",
+  "pt": "Uma pessoa revê, edita e aprova o rascunho gerado antes da utilização."
+ },
+ "Named process owner monitors execution, exceptions and escalation outcomes.": {
+  "cs": "Jmenovaný vlastník procesu monitoruje provádění, výjimky a výsledky eskalací.",
+  "de": "Benannter Prozessverantwortlicher überwacht Ausführung, Ausnahmen und Eskalationsergebnisse.",
+  "fr": "Un responsable de processus désigné surveille l’exécution, les exceptions et les résultats d’escalade.",
+  "es": "Un responsable de proceso designado supervisa la ejecución, las excepciones y los resultados de escalado.",
+  "it": "Un responsabile di processo designato monitora esecuzione, eccezioni ed esiti delle escalation.",
+  "pl": "Wyznaczony właściciel procesu monitoruje wykonanie, wyjątki i wyniki eskalacji.",
+  "pt": "Um responsável de processo designado monitoriza a execução, as exceções e os resultados de escalonamento."
+ },
+ "Named senior owner reviews recommendations before supervised decision or action.": {
+  "cs": "Jmenovaný vedoucí vlastník přezkoumá doporučení před dohlíženým rozhodnutím nebo akcí.",
+  "de": "Benannter leitender Verantwortlicher prüft Empfehlungen vor überwachter Entscheidung oder Aktion.",
+  "fr": "Un responsable senior désigné examine les recommandations avant toute décision ou action supervisée.",
+  "es": "Un responsable sénior designado revisa las recomendaciones antes de una decisión o acción supervisada.",
+  "it": "Un responsabile senior designato esamina le raccomandazioni prima di una decisione o azione supervisionata.",
+  "pl": "Wyznaczony starszy właściciel przegląda rekomendacje przed nadzorowaną decyzją lub działaniem.",
+  "pt": "Um responsável sénior designado analisa as recomendações antes de uma decisão ou ação supervisionada."
+ },
+ "Operational execution, routing, prioritisation and exception surfacing.": {
+  "cs": "Operativní provádění, směrování, prioritizace a vynořování výjimek.",
+  "de": "Operative Ausführung, Weiterleitung, Priorisierung und Aufzeigen von Ausnahmen.",
+  "fr": "Exécution opérationnelle, routage, priorisation et remontée des exceptions.",
+  "es": "Ejecución operativa, enrutamiento, priorización y detección de excepciones.",
+  "it": "Esecuzione operativa, instradamento, prioritizzazione ed evidenziazione delle eccezioni.",
+  "pl": "Operacyjne wykonanie, kierowanie, priorytetyzacja i ujawnianie wyjątków.",
+  "pt": "Execução operacional, encaminhamento, priorização e identificação de exceções."
+ },
+ "Supervised decision support, recommendations and controlled action prompts.": {
+  "cs": "Dohlížená podpora rozhodování, doporučení a řízené výzvy k akci.",
+  "de": "Überwachte Entscheidungsunterstützung, Empfehlungen und kontrollierte Aktionsaufforderungen.",
+  "fr": "Aide à la décision supervisée, recommandations et invites d’action contrôlées.",
+  "es": "Soporte de decisiones supervisado, recomendaciones e indicaciones de acción controladas.",
+  "it": "Supporto decisionale supervisionato, raccomandazioni e richieste di azione controllate.",
+  "pl": "Nadzorowane wsparcie decyzji, rekomendacje i kontrolowane monity o działanie.",
+  "pt": "Apoio à decisão supervisionado, recomendações e solicitações de ação controladas."
+ },
+ "Use-case specific output defined during deployment.": {
+  "cs": "Výstup specifický pro daný případ užití, definovaný během nasazení.",
+  "de": "Anwendungsfallspezifische Ausgabe, die während der Bereitstellung definiert wird.",
+  "fr": "Sortie spécifique au cas d’usage, définie lors du déploiement.",
+  "es": "Salida específica del caso de uso, definida durante la implementación.",
+  "it": "Output specifico del caso d’uso, definito durante il deployment.",
+  "pl": "Wynik specyficzny dla przypadku użycia, zdefiniowany podczas wdrożenia.",
+  "pt": "Saída específica do caso de uso, definida durante a implementação."
+ }
+}
