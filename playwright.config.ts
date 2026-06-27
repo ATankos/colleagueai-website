@@ -20,7 +20,7 @@ export default defineConfig({
   },
   webServer: {
     command: "node scripts/playwright-static-server.cjs public 4173",
-    url: "http://127.0.0.1:4173/",
+    url: "http://127.0.0.1:4173/agents",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,
   },
