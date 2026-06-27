@@ -36,6 +36,41 @@ function enBaseFor(file) {
   for (const l of LOCALES) n = n.replace("/" + l + "/", "/");
   return n;
 }
+
+function balanced(str, marker) {
+  const i = str.indexOf(marker); if (i < 0) return null;
+  let j = i + marker.length;
+  while (j < str.length && str[j] !== "[" && str[j] !== "{") j++;
+  if (j >= str.length) return null;
+  const open = str[j], close = open === "[" ? "]" : "}";
+  let depth = 0, inStr = false, esc = false;
+  for (let k = j; k < str.length; k++) {
+    const c = str[k];
+    if (inStr) { if (esc) esc = false; else if (c === "\\") esc = true; else if (c === '"') inStr = false; continue; }
+    if (c === '"') { inStr = true; continue; }
+    if (c === open) depth++;
+    else if (c === close) { depth--; if (depth === 0) return str.slice(j, k + 1); }
+  }
+  return null;
+}
+function slugify(n){ return String(n||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+function localizeCatalogue(s, loc) {
+  try {
+    const ag = balanced(s, "AGENTS="); const tj = balanced(s, "AGENTS_" + loc.toUpperCase() + "=");
+    if (!ag || !tj) return s;
+    const agents = JSON.parse(ag), tr = JSON.parse(tj);
+    for (const a of agents) {
+      const t = tr[slugify(a.n)]; if (!t) continue;
+      for (const fld of ["desc","kpi","fit"]) {
+        if (a[fld] && t[fld] && a[fld] !== t[fld]) {
+          s = s.split('"' + fld + '":' + JSON.stringify(a[fld])).join('"' + fld + '":' + JSON.stringify(t[fld]));
+        }
+      }
+    }
+  } catch (e) {}
+  return s;
+}
+
 let changed = 0, frozen = 0;
 for (const root of ROOTS) {
   for (const file of walk(root)) {
@@ -56,6 +91,16 @@ for (const root of ROOTS) {
         return full;
       });
     }
+    // 3b) ensure the catalogue/factsheet use the already-present per-locale agent data
+    if (/AGENTS_/.test(s) && s.indexOf("cai-langnow-fix") < 0) {
+      const js = '<script id="cai-langnow-fix">(function(){function go(){try{var L="' + loc + '";window.LANGNOW=L;var D=window["AGENTS_"+L.toUpperCase()];if(D&&window.AGENTS){window.AGENTS.forEach(function(a){var g=(a.n||a.name||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");if(D[g]){for(var k in D[g])a[k]=D[g][k];}});}if(typeof render==="function"){render();}}catch(e){}}if(document.readyState!=="loading"){go();}else{document.addEventListener("DOMContentLoaded",go);}})();<\/script>';
+      if (s.indexOf("</body>") >= 0) s = s.replace("</body>", js + "</body>"); else s += js;
+    }
+    // localize agent catalogue data (factsheet reads a.desc directly from AGENTS)
+    s = localizeCatalogue(s, loc);
+    // factsheet panel header
+    const ghdr = dict["Governance factsheet"] && dict["Governance factsheet"][loc];
+    if (ghdr) s = s.split("▣ Governance factsheet").join("▣ " + ghdr);
     if (s !== before) { fs.writeFileSync(file, s, "utf8"); changed++; }
   }
 }

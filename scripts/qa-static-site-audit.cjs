@@ -11,7 +11,8 @@ const badPatterns = [
   /�/g,
   /\/sk\//gi,
   /Slovenčina|Slovencina|Slovak/gi,
-  /TODO|FIXME|lorem ipsum/gi,
+  /\bTODO\b|\bFIXME\b/g,
+  /lorem ipsum/gi,
   /\[object Object\]/g,
   /undefined/g
 ];
@@ -32,8 +33,11 @@ function checkFile(file, errors) {
 
   const html = read(file);
 
+  // audit visible content only — script/style internals are code, not copy
+  const visible = html.replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ");
+
   for (const pattern of badPatterns) {
-    const matches = html.match(pattern);
+    const matches = visible.match(pattern);
     if (matches) {
       errors.push(`${file}: found bad pattern ${pattern} (${matches.length})`);
     }

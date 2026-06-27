@@ -304,5 +304,86 @@
   "it": "Output specifico del caso d’uso, definito durante il deployment.",
   "pl": "Wynik specyficzny dla przypadku użycia, zdefiniowany podczas wdrożenia.",
   "pt": "Saída específica do caso de uso, definida durante a implementação."
+ },
+ "Intended purpose": {
+  "cs": "Zamýšlený účel",
+  "de": "Verwendungszweck",
+  "fr": "Objectif visé",
+  "es": "Propósito previsto",
+  "it": "Scopo previsto",
+  "pl": "Przeznaczenie",
+  "pt": "Finalidade prevista"
+ },
+ "CAI autonomy tier": {
+  "cs": "Úroveň autonomie CAI",
+  "de": "CAI-Autonomiestufe",
+  "fr": "Niveau d’autonomie CAI",
+  "es": "Nivel de autonomía CAI",
+  "it": "Livello di autonomia CAI",
+  "pl": "Poziom autonomii CAI",
+  "pt": "Nível de autonomia CAI"
+ },
+ "Human oversight": {
+  "cs": "Lidský dohled",
+  "de": "Menschliche Aufsicht",
+  "fr": "Supervision humaine",
+  "es": "Supervisión humana",
+  "it": "Supervisione umana",
+  "pl": "Nadzór człowieka",
+  "pt": "Supervisão humana"
+ },
+ "Input data category": {
+  "cs": "Kategorie vstupních dat",
+  "de": "Eingabedatenkategorie",
+  "fr": "Catégorie de données d’entrée",
+  "es": "Categoría de datos de entrada",
+  "it": "Categoria dati di input",
+  "pl": "Kategoria danych wejściowych",
+  "pt": "Categoria de dados de entrada"
+ },
+ "Output type": {
+  "cs": "Typ výstupu",
+  "de": "Ausgabetyp",
+  "fr": "Type de sortie",
+  "es": "Tipo de salida",
+  "it": "Tipo di output",
+  "pl": "Typ wyjścia",
+  "pt": "Tipo de saída"
+ },
+ "Audit evidence": {
+  "cs": "Auditní důkazy",
+  "de": "Audit-Nachweise",
+  "fr": "Preuves d’audit",
+  "es": "Evidencia de auditoría",
+  "it": "Evidenze di audit",
+  "pl": "Dowody audytowe",
+  "pt": "Evidências de auditoria"
+ },
+ "Known limitations": {
+  "cs": "Známá omezení",
+  "de": "Bekannte Einschränkungen",
+  "fr": "Limites connues",
+  "es": "Limitaciones conocidas",
+  "it": "Limitazioni note",
+  "pl": "Znane ograniczenia",
+  "pt": "Limitações conhecidas"
+ },
+ "Risk classification": {
+  "cs": "Klasifikace rizik",
+  "de": "Risikoklassifizierung",
+  "fr": "Classification des risques",
+  "es": "Clasificación de riesgo",
+  "it": "Classificazione del rischio",
+  "pl": "Klasyfikacja ryzyka",
+  "pt": "Classificação de risco"
+ },
+ "Governance factsheet": {
+  "cs": "Factsheet governance",
+  "de": "Governance-Factsheet",
+  "fr": "Fiche de gouvernance",
+  "es": "Ficha de gobernanza",
+  "it": "Scheda di governance",
+  "pl": "Karta governance",
+  "pt": "Ficha de governança"
  }
 }
