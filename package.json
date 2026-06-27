@@ -39,7 +39,8 @@
     "qa:golive": "playwright test tests/e2e/golive.spec.js",
     "qa:backtop": "playwright test tests/e2e/back-to-top.spec.ts",
     "qa:e2e": "npm run qa:site",
-    "test:e2e": "npm run qa:site"
+    "test:e2e": "npm run qa:site",
+    "postbuild": "node scripts/inject-fixed-backtop.cjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.105.0",
