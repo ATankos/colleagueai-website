@@ -34,10 +34,10 @@
     "qa:static": "node scripts/qa-static-site-audit.cjs",
     "qa:report": "playwright show-report",
     "qa:all": "npm run build && npm run qa:static && npm run qa:site",
-    "qa:site": "playwright test tests/e2e/full-site-qa.spec.ts",
+    "qa:site": "npm run build && playwright test tests/e2e/full-site-qa.spec.ts",
     "qa:site:headed": "playwright test tests/e2e/full-site-qa.spec.ts --headed",
     "qa:golive": "playwright test tests/e2e/golive.spec.js",
-    "qa:backtop": "playwright test tests/e2e/back-to-top.spec.ts",
+    "qa:backtop": "npm run build && playwright test tests/e2e/back-to-top.spec.ts",
     "qa:e2e": "npm run qa:site",
     "test:e2e": "npm run qa:site",
     "postbuild": "node scripts/inject-fixed-backtop.cjs"

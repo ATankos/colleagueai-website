@@ -19,10 +19,10 @@ export default defineConfig({
     video: "retain-on-failure"
   },
   webServer: {
-    command: "npm run preview -- --host 127.0.0.1 --port 4173",
-    url: "http://127.0.0.1:4173",
+    command: "node scripts/playwright-static-server.cjs public 4173",
+    url: "http://127.0.0.1:4173/",
     reuseExistingServer: !process.env.CI,
-    timeout: 300_000
+    timeout: 120_000,
   },
   projects: [
     {
