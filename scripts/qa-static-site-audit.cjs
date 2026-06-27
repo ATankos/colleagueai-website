@@ -34,7 +34,9 @@ function checkFile(file, errors) {
   const html = read(file);
 
   // audit visible content only — script/style internals are code, not copy
-  const visible = html.replace(/<script[\s\S]*?<\/script>/gi, " ").replace(/<style[\s\S]*?<\/style>/gi, " ");
+  const visible = html
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, " ")
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, " ");
 
   for (const pattern of badPatterns) {
     const matches = visible.match(pattern);
