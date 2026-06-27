@@ -1,4 +1,4 @@
-const fs = require("fs");
+﻿const fs = require("fs");
 const path = require("path");
 
 function walk(dir) {
@@ -26,6 +26,7 @@ const css = `<style id="cai-fixed-backtop-css">
   display: none;
   align-items: center !important;
   justify-content: center !important;
+  line-height: 1 !important;
 }
 #cai-fixed-backtop[data-show="true"] {
   display: flex !important;
@@ -40,53 +41,94 @@ const js = `<script id="cai-fixed-backtop-js">
   }
 
   function forceTop() {
+    var previousHtmlBehavior = document.documentElement && document.documentElement.style.scrollBehavior;
+    var previousBodyBehavior = document.body && document.body.style.scrollBehavior;
+
+    if (document.documentElement) document.documentElement.style.scrollBehavior = "auto";
+    if (document.body) document.body.style.scrollBehavior = "auto";
+
     try {
+      window.scrollTo(0, 0);
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     } catch (error) {
-      window.scrollTo(0, 0);
+      try { window.scrollTo(0, 0); } catch (innerError) {}
     }
 
     var nodes = [document.scrollingElement, document.documentElement, document.body];
 
     try {
       Array.prototype.forEach.call(document.querySelectorAll("*"), function (node) {
-        if (node && node.scrollTop > 0) nodes.push(node);
+        if (!node) return;
+        if (node.scrollTop > 0 || node.scrollLeft > 0 || node.scrollHeight > node.clientHeight) {
+          nodes.push(node);
+        }
       });
     } catch (error) {}
 
     for (var i = 0; i < nodes.length; i += 1) {
       if (!nodes[i]) continue;
-      nodes[i].scrollTop = 0;
-      nodes[i].scrollLeft = 0;
+      try {
+        nodes[i].scrollTop = 0;
+        nodes[i].scrollLeft = 0;
+      } catch (error) {}
     }
+
+    if (document.documentElement) document.documentElement.style.scrollBehavior = previousHtmlBehavior || "";
+    if (document.body) document.body.style.scrollBehavior = previousBodyBehavior || "";
+  }
+
+  function currentScrollY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
   }
 
   ready(function () {
     var b = document.getElementById("cai-fixed-backtop");
+
     if (!b) {
       b = document.createElement("button");
       b.id = "cai-fixed-backtop";
-      b.type = "button";
+      b.type = " document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+
+  ready(function () {
+   button";
       b.textContent = "↑";
       b.setAttribute("aria-label", "Back to top");
       document.body.appendChild(b);
     }
 
     function show() {
-      b.setAttribute("data-show", window.scrollY > 200 ? "true" : "false");
+      b.setAttribute("data-show", currentScrollY() > 120 ? "true" : "false");
     }
 
-    b.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
+    function handle(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        if (event.stopImmediatePropagation) event.stopImmediatePropagation();
+      }
 
       forceTop();
+      requestAnimationFrame(forceTop);
       setTimeout(forceTop, 50);
-      setTimeout(forceTop, 200);
-      setTimeout(forceTop, 600);
-    }, true);
+      setTimeout(forceTop, 150);
+      setTimeout(forceTop, 400);
+      setTimeout(show, 450);
+    }
+
+    b.onclick = handle;
+    b.addEventListener("click", handle, true);
+    b.addEventListener("pointerup", handle, true);
+    b.addEventListener("touchend", handle, true);
 
     window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
     show();
   });
 })();
@@ -96,6 +138,7 @@ for (const file of walk("dist")) {
   if (!file.endsWith(".html")) continue;
 
   let html = fs.readFileSync(file, "utf8");
+
   html = html.replace(/\n*<style id="cai-fixed-backtop-css">[\s\S]*?<\/style>\s*/g, "\n");
   html = html.replace(/\n*<script id="cai-fixed-backtop-js">[\s\S]*?<\/script>\s*/g, "\n");
 
@@ -106,4 +149,4 @@ for (const file of walk("dist")) {
   fs.writeFileSync(file, html, "utf8");
 }
 
-console.log("Injected fixed back-to-top button into dist HTML");
+console.log("Injected robust fixed back-to-top button into dist HTML");
