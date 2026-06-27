@@ -790,5 +790,1310 @@
   "it": " Le cifre sono generate dai tuoi dati e da ipotesi predefinite modificabili (ore annue a tempo pieno pari a 1.840). Illustrano un valore potenziale e non costituiscono una garanzia, un preventivo o una consulenza finanziaria.",
   "pl": " Liczby są generowane na podstawie Twoich danych i edytowalnych założeń domyślnych (roczne godziny w pełnym wymiarze przyjęto jako 1840). Ilustrują potencjalną wartość i nie stanowią gwarancji, oferty ani porady finansowej.",
   "pt": " Os valores são gerados a partir dos seus dados e de pressupostos predefinidos editáveis (horas anuais a tempo inteiro consideradas como 1.840). Ilustram o valor potencial e não constituem garantia, orçamento ou aconselhamento financeiro."
+ },
+ "Enterprise architecture": {
+  "cs": "Podniková architektura",
+  "de": "Enterprise-Architektur",
+  "fr": "Architecture d'entreprise",
+  "es": "Arquitectura empresarial",
+  "it": "Architettura aziendale",
+  "pl": "Architektura korporacyjna",
+  "pt": "Arquitetura empresarial"
+ },
+ "Customer data plane": {
+  "cs": "Datová rovina zákazníka",
+  "de": "Kundendatenebene",
+  "fr": "Plan de données client",
+  "es": "Plano de datos del cliente",
+  "it": "Piano dati del cliente",
+  "pl": "Płaszczyzna danych klienta",
+  "pt": "Plano de dados do cliente"
+ },
+ "ColleagueAI package layer": {
+  "cs": "Vrstva balíčků ColleagueAI",
+  "de": "ColleagueAI-Paketebene",
+  "fr": "Couche de packages ColleagueAI",
+  "es": "Capa de paquetes de ColleagueAI",
+  "it": "Livello dei pacchetti ColleagueAI",
+  "pl": "Warstwa pakietów ColleagueAI",
+  "pt": "Camada de pacotes ColleagueAI"
+ },
+ "Deployable blueprint": {
+  "cs": "Nasaditelný návrh",
+  "de": "Bereitstellbarer Blueprint",
+  "fr": "Blueprint déployable",
+  "es": "Blueprint desplegable",
+  "it": "Blueprint distribuibile",
+  "pl": "Wdrażalny projekt",
+  "pt": "Blueprint implementável"
+ },
+ "CAI Score classification": {
+  "cs": "Klasifikace CAI Score",
+  "de": "CAI-Score-Klassifizierung",
+  "fr": "Classification CAI Score",
+  "es": "Clasificación CAI Score",
+  "it": "Classificazione CAI Score",
+  "pl": "Klasyfikacja CAI Score",
+  "pt": "Classificação CAI Score"
+ },
+ "Permission-aware retrieval": {
+  "cs": "Vyhledávání respektující oprávnění",
+  "de": "Berechtigungsbewusstes Retrieval",
+  "fr": "Recherche tenant compte des permissions",
+  "es": "Recuperación consciente de permisos",
+  "it": "Recupero consapevole delle autorizzazioni",
+  "pl": "Wyszukiwanie uwzględniające uprawnienia",
+  "pt": "Recuperação consciente de permissões"
+ },
+ "Use-case dependent risk": {
+  "cs": "Riziko závislé na případu užití",
+  "de": "Anwendungsfallabhängiges Risiko",
+  "fr": "Risque dépendant du cas d'usage",
+  "es": "Riesgo dependiente del caso de uso",
+  "it": "Rischio dipendente dal caso d'uso",
+  "pl": "Ryzyko zależne od przypadku użycia",
+  "pt": "Risco dependente do caso de uso"
+ },
+ "ColleagueAI package": {
+  "cs": "Balíček ColleagueAI",
+  "de": "ColleagueAI-Paket",
+  "fr": "Package ColleagueAI",
+  "es": "Paquete de ColleagueAI",
+  "it": "Pacchetto ColleagueAI",
+  "pl": "Pakiet ColleagueAI",
+  "pt": "Pacote ColleagueAI"
+ },
+ "Load more agents": {
+  "cs": "Načíst další agenty",
+  "de": "Weitere Agenten laden",
+  "fr": "Charger plus d'agents",
+  "es": "Cargar más agentes",
+  "it": "Carica altri agenti",
+  "pl": "Załaduj więcej agentów",
+  "pt": "Carregar mais agentes"
+ },
+ "Estimate only.": {
+  "cs": "Pouze odhad.",
+  "de": "Nur Schätzung.",
+  "fr": "Estimation seulement.",
+  "es": "Solo estimación.",
+  "it": "Solo stima.",
+  "pl": "Tylko szacunek.",
+  "pt": "Apenas estimativa."
+ },
+ "First-party interactive proof": {
+  "cs": "Interaktivní důkaz z první ruky",
+  "de": "Interaktiver Nachweis aus erster Hand",
+  "fr": "Preuve interactive de première partie",
+  "es": "Prueba interactiva propia",
+  "it": "Prova interattiva di prima parte",
+  "pl": "Interaktywny dowód z pierwszej ręki",
+  "pt": "Prova interativa primária"
+ },
+ "Read trust architecture": {
+  "cs": "Přečíst architekturu důvěry",
+  "de": "Trust-Architektur lesen",
+  "fr": "Lire l'architecture de confiance",
+  "es": "Leer la arquitectura de confianza",
+  "it": "Leggi l'architettura di fiducia",
+  "pl": "Przeczytaj architekturę zaufania",
+  "pt": "Ler a arquitetura de confiança"
+ },
+ "Launch readiness gate": {
+  "cs": "Brána připravenosti ke spuštění",
+  "de": "Startbereitschafts-Gate",
+  "fr": "Verrou de préparation au lancement",
+  "es": "Puerta de preparación para el lanzamiento",
+  "it": "Gate di prontezza al lancio",
+  "pl": "Bramka gotowości do startu",
+  "pt": "Porta de prontidão para o lançamento"
+ },
+ "Paid checkout": {
+  "cs": "Placená pokladna",
+  "de": "Bezahl-Checkout",
+  "fr": "Paiement",
+  "es": "Pago",
+  "it": "Checkout a pagamento",
+  "pl": "Płatny checkout",
+  "pt": "Checkout pago"
+ },
+ "Disabled pending approval": {
+  "cs": "Zakázáno do schválení",
+  "de": "Deaktiviert bis zur Genehmigung",
+  "fr": "Désactivé jusqu'à approbation",
+  "es": "Deshabilitado hasta su aprobación",
+  "it": "Disabilitato in attesa di approvazione",
+  "pl": "Wyłączone do zatwierdzenia",
+  "pt": "Desativado até aprovação"
+ },
+ "Stripe end-to-end": {
+  "cs": "Stripe od začátku do konce",
+  "de": "Stripe Ende-zu-Ende",
+  "fr": "Stripe de bout en bout",
+  "es": "Stripe de extremo a extremo",
+  "it": "Stripe end-to-end",
+  "pl": "Stripe od końca do końca",
+  "pt": "Stripe de ponta a ponta"
+ },
+ "Required before launch": {
+  "cs": "Vyžadováno před spuštěním",
+  "de": "Vor dem Start erforderlich",
+  "fr": "Requis avant le lancement",
+  "es": "Requerido antes del lanzamiento",
+  "it": "Richiesto prima del lancio",
+  "pl": "Wymagane przed startem",
+  "pt": "Necessário antes do lançamento"
+ },
+ "Got it": {
+  "cs": "Rozumím",
+  "de": "Verstanden",
+  "fr": "Compris",
+  "es": "Entendido",
+  "it": "Ho capito",
+  "pl": "Rozumiem",
+  "pt": "Entendido"
+ },
+ "Open": {
+  "cs": "Otevřeno",
+  "de": "Offen",
+  "fr": "Ouvert",
+  "es": "Abierto",
+  "it": "Aperto",
+  "pl": "Otwarte",
+  "pt": "Aberto"
+ },
+ "Risk classification, human oversight, logging, and transparency are core to the CAI Score. The framework is designed to support EU AI Act, DORA, and ISO/IEC 42001 evidence work, subject to client implementation and legal review.": {
+  "cs": "Klasifikace rizik, lidský dohled, protokolování a transparentnost jsou jádrem CAI Score. Rámec je navržen tak, aby podporoval práci s důkazy podle EU AI Act, DORA a ISO/IEC 42001, s výhradou implementace u zákazníka a právní revize.",
+  "de": "Risikoklassifizierung, menschliche Aufsicht, Protokollierung und Transparenz bilden den Kern des CAI Score. Das Rahmenwerk ist darauf ausgelegt, die Nachweisarbeit für EU AI Act, DORA und ISO/IEC 42001 zu unterstützen, vorbehaltlich der Implementierung beim Kunden und einer rechtlichen Prüfung.",
+  "fr": "La classification des risques, la supervision humaine, la journalisation et la transparence sont au cœur du CAI Score. Le cadre est conçu pour soutenir le travail de preuve EU AI Act, DORA et ISO/IEC 42001, sous réserve de l'implémentation chez le client et d'une revue juridique.",
+  "es": "La clasificación de riesgos, la supervisión humana, el registro y la transparencia son el núcleo del CAI Score. El marco está diseñado para respaldar el trabajo de evidencia de EU AI Act, DORA e ISO/IEC 42001, sujeto a la implementación del cliente y a una revisión legal.",
+  "it": "La classificazione dei rischi, la supervisione umana, la registrazione e la trasparenza sono al centro del CAI Score. Il framework è progettato per supportare il lavoro di evidenza per EU AI Act, DORA e ISO/IEC 42001, soggetto all'implementazione del cliente e a una revisione legale.",
+  "pl": "Klasyfikacja ryzyka, nadzór ludzki, rejestrowanie i przejrzystość stanowią rdzeń CAI Score. Ramy zaprojektowano tak, aby wspierały prace dowodowe dla EU AI Act, DORA i ISO/IEC 42001, z zastrzeżeniem wdrożenia u klienta i przeglądu prawnego.",
+  "pt": "A classificação de risco, a supervisão humana, o registo e a transparência são o núcleo do CAI Score. O framework foi concebido para apoiar o trabalho de evidência do EU AI Act, DORA e ISO/IEC 42001, sujeito à implementação no cliente e a revisão jurídica."
+ },
+ "The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable — then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.": {
+  "cs": "CAI Score je certifikační rámec pro AI agenty: pětistupňová klasifikace rizik, která přesně definuje, kolik agent dělá sám a kde zůstává odpovědný jmenovaný člověk — a poté to doloží pro audit. Čtěte zdola nahoru: čím vyšší stupeň, tím více agent smí dělat a tím více lidského dohledu, protokolování a odpovědnosti rámec kolem něj zabuduje.",
+  "de": "Der CAI Score ist ein Zertifizierungsrahmen für KI-Agenten: eine fünfstufige Risikoklassifizierung, die genau definiert, wie viel ein Agent eigenständig tut und wo ein benannter Mensch verantwortlich bleibt — und dies dann für das Audit belegt. Von unten nach oben lesen: je höher die Stufe, desto mehr darf ein Agent, und desto mehr menschliche Aufsicht, Protokollierung und Verantwortlichkeit baut der Rahmen um ihn herum ein.",
+  "fr": "Le CAI Score est un cadre de certification pour agents IA : une classification des risques à cinq niveaux qui définit précisément ce qu'un agent fait seul et où un humain nommé reste responsable — puis l'étaye pour l'audit. À lire de bas en haut : plus le niveau est élevé, plus un agent peut agir, et plus le cadre intègre autour de lui de supervision humaine, de journalisation et de responsabilité.",
+  "es": "El CAI Score es un marco de certificación para agentes de IA: una clasificación de riesgos de cinco niveles que define exactamente cuánto hace un agente por sí solo y dónde un humano nombrado sigue siendo responsable, y luego lo evidencia para la auditoría. Léalo de abajo hacia arriba: cuanto más alto el nivel, más puede hacer un agente y más supervisión humana, registro y responsabilidad incorpora el marco a su alrededor.",
+  "it": "Il CAI Score è un framework di certificazione per agenti IA: una classificazione del rischio a cinque livelli che definisce esattamente quanto un agente fa da solo e dove un essere umano nominato resta responsabile — e poi lo documenta per l'audit. Leggilo dal basso verso l'alto: più alto è il livello, più un agente può fare, e più supervisione umana, registrazione e responsabilità il framework integra intorno ad esso.",
+  "pl": "CAI Score to ramy certyfikacji dla agentów AI: pięciopoziomowa klasyfikacja ryzyka, która precyzyjnie określa, ile agent robi samodzielnie i gdzie odpowiedzialny pozostaje wyznaczony człowiek — a następnie dokumentuje to na potrzeby audytu. Czytaj od dołu do góry: im wyższy poziom, tym więcej agent może zrobić i tym więcej nadzoru ludzkiego, rejestrowania i odpowiedzialności ramy wbudowują wokół niego.",
+  "pt": "O CAI Score é um framework de certificação para agentes de IA: uma classificação de risco de cinco níveis que define exatamente quanto um agente faz sozinho e onde um humano nomeado permanece responsável — e depois comprova-o para auditoria. Leia de baixo para cima: quanto mais alto o nível, mais um agente pode fazer, e mais supervisão humana, registo e responsabilidade o framework incorpora à sua volta."
+ },
+ "L1 · Assist": {
+  "cs": "L1 · Asistuje",
+  "de": "L1 · Assistiert",
+  "fr": "L1 · Assiste",
+  "es": "L1 · Asiste",
+  "it": "L1 · Assiste",
+  "pl": "L1 · Asystuje",
+  "pt": "L1 · Assiste"
+ },
+ "Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.": {
+  "cs": "Informuje a odpovídá. Neprovádí žádnou akci a nemění žádný záznam. Práci dělá člověk; agent ji jen zrychluje při hledání a porozumění. Role člověka: dělá vše.",
+  "de": "Informiert und antwortet. Führt keine Aktion aus und ändert keinen Datensatz. Die Arbeit macht der Mensch; der Agent macht sie nur schneller auffindbar und verständlicher. Rolle des Menschen: macht alles.",
+  "fr": "Informe et répond. N'entreprend aucune action et ne modifie aucun enregistrement. L'humain fait le travail ; l'agent le rend simplement plus rapide à trouver et à comprendre. Rôle de l'humain : fait tout.",
+  "es": "Informa y responde. No realiza ninguna acción ni modifica ningún registro. El humano hace el trabajo; el agente solo lo hace más rápido de encontrar y entender. Rol del humano: hace todo.",
+  "it": "Informa e risponde. Non intraprende alcuna azione e non modifica alcun record. Il lavoro lo fa l'essere umano; l'agente lo rende solo più rapido da trovare e comprendere. Ruolo dell'essere umano: fa tutto.",
+  "pl": "Informuje i odpowiada. Nie podejmuje żadnych działań i nie zmienia żadnych zapisów. Pracę wykonuje człowiek; agent jedynie przyspiesza jej znajdowanie i zrozumienie. Rola człowieka: robi wszystko.",
+  "pt": "Informa e responde. Não executa qualquer ação e não altera qualquer registo. O trabalho é feito pelo humano; o agente apenas o torna mais rápido de encontrar e compreender. Papel do humano: faz tudo."
+ },
+ "L2 · Draft": {
+  "cs": "L2 · Navrhuje",
+  "de": "L2 · Entwirft",
+  "fr": "L2 · Rédige",
+  "es": "L2 · Redacta",
+  "it": "L2 · Redige",
+  "pl": "L2 · Tworzy projekt",
+  "pt": "L2 · Elabora"
+ },
+ "Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.": {
+  "cs": "Vytváří pracovní výstup — dokument, dotaz, zprávu, oslovovací zprávu — k revizi a schválení člověkem. Nic, co agent vytvoří, se nepoužije, dokud to osoba neschválí. Role člověka: reviduje &amp; schvaluje.",
+  "de": "Erstellt ein Arbeitsergebnis — ein Dokument, eine Abfrage, einen Bericht, eine Ansprache — zur Prüfung und Freigabe durch einen Menschen. Nichts, was der Agent erstellt, wird verwendet, bevor eine Person es freigibt. Rolle des Menschen: prüft &amp; gibt frei.",
+  "fr": "Produit un livrable — un document, une requête, un rapport, un message de prospection — pour relecture et approbation par un humain. Rien de ce que produit l'agent n'est utilisé tant qu'une personne n'a pas validé. Rôle de l'humain : relit &amp; approuve.",
+  "es": "Produce un entregable — un documento, una consulta, un informe, un mensaje de prospección — para que un humano lo revise y apruebe. Nada de lo que produce el agente se usa hasta que una persona lo valida. Rol del humano: revisa &amp; aprueba.",
+  "it": "Produce un risultato di lavoro — un documento, una query, un report, un messaggio di contatto — per la revisione e l'approvazione di un essere umano. Nulla di ciò che l'agente produce viene usato finché una persona non lo approva. Ruolo dell'essere umano: revisiona &amp; approva.",
+  "pl": "Tworzy produkt pracy — dokument, zapytanie, raport, wiadomość kontaktową — do przeglądu i zatwierdzenia przez człowieka. Nic, co agent stworzy, nie jest używane, dopóki osoba tego nie zatwierdzi. Rola człowieka: przegląda &amp; zatwierdza.",
+  "pt": "Produz um resultado de trabalho — um documento, uma consulta, um relatório, uma mensagem de contacto — para revisão e aprovação por um humano. Nada do que o agente produz é usado até que uma pessoa o aprove. Papel do humano: revê &amp; aprova."
+ },
+ "L3 · Operate": {
+  "cs": "L3 · Operuje",
+  "de": "L3 · Operiert",
+  "fr": "L3 · Opère",
+  "es": "L3 · Opera",
+  "it": "L3 · Opera",
+  "pl": "L3 · Operuje",
+  "pt": "L3 · Opera"
+ },
+ "Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped. Human role: owns exceptions.": {
+  "cs": "Provádí rutinní akce s nízkým rizikem v ohraničeném workflow — klasifikovat, směrovat, vyřídit, protokolovat. Výjimky a cokoli neobvyklého se předává člověku. Každá akce má časové razítko. Role člověka: řeší výjimky.",
+  "de": "Führt routinemäßige, risikoarme Aktionen in einem abgegrenzten Workflow aus — klassifizieren, weiterleiten, erledigen, protokollieren. Ausnahmen und alles Ungewöhnliche gehen an einen Menschen. Jede Aktion erhält einen Zeitstempel. Rolle des Menschen: übernimmt Ausnahmen.",
+  "fr": "Exécute des actions routinières à faible risque dans un flux délimité — classer, router, traiter, journaliser. Les exceptions et tout ce qui sort de l'ordinaire sont confiés à un humain. Chaque action est horodatée. Rôle de l'humain : gère les exceptions.",
+  "es": "Ejecuta acciones rutinarias de bajo riesgo dentro de un flujo delimitado — clasificar, enrutar, tramitar, registrar. Las excepciones y todo lo inusual se pasan a un humano. Cada acción lleva marca de tiempo. Rol del humano: gestiona las excepciones.",
+  "it": "Esegue azioni di routine a basso rischio all'interno di un flusso delimitato — classificare, instradare, evadere, registrare. Le eccezioni e tutto ciò che è insolito vengono passati a un essere umano. Ogni azione è marcata temporalmente. Ruolo dell'essere umano: gestisce le eccezioni.",
+  "pl": "Wykonuje rutynowe, niskiego ryzyka działania w obrębie ograniczonego przepływu pracy — klasyfikowanie, kierowanie, realizacja, rejestrowanie. Wyjątki i wszystko nietypowe są przekazywane człowiekowi. Każde działanie ma znacznik czasu. Rola człowieka: zajmuje się wyjątkami.",
+  "pt": "Executa ações de rotina de baixo risco dentro de um fluxo delimitado — classificar, encaminhar, tratar, registar. As exceções e tudo o que é invulgar são entregues a um humano. Cada ação recebe um carimbo de data/hora. Papel do humano: trata das exceções."
+ },
+ "L4 · Decide (supervised)": {
+  "cs": "L4 · Rozhoduje (pod dohledem)",
+  "de": "L4 · Entscheidet (überwacht)",
+  "fr": "L4 · Décide (supervisé)",
+  "es": "L4 · Decide (supervisado)",
+  "it": "L4 · Decide (supervisionato)",
+  "pl": "L4 · Decyduje (nadzorowany)",
+  "pt": "L4 · Decide (supervisionado)"
+ },
+ "Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny. Human role: stays accountable.": {
+  "cs": "Podporuje rozhodnutí a kontroly v procesech s vyšším rizikem — compliance, smlouvy, bezpečnost, čtyři oči. Jmenovaný člověk zůstává odpovědný za rozhodnutí; agent ho podporuje a dokládá. Postaveno pro kontrolu vysoce rizikových procesů. Role člověka: zůstává odpovědný.",
+  "de": "Unterstützt Entscheidungen und Kontrollen in Prozessen mit höherem Risiko — Compliance, Verträge, Sicherheit, Vier-Augen-Prinzip. Ein benannter Mensch bleibt für die Entscheidung verantwortlich; der Agent unterstützt und belegt sie. Gebaut für die Prüfung von Hochrisikoprozessen. Rolle des Menschen: bleibt verantwortlich.",
+  "fr": "Soutient les décisions et les contrôles dans des processus à enjeux élevés — conformité, contrats, sécurité, double regard. Un humain nommé reste responsable de la décision ; l'agent l'assiste et l'étaye. Conçu pour le contrôle des processus à haut risque. Rôle de l'humain : reste responsable.",
+  "es": "Apoya decisiones y controles en procesos de mayor riesgo — cumplimiento, contratos, seguridad, doble verificación. Un humano nombrado sigue siendo responsable de la decisión; el agente la asiste y la evidencia. Diseñado para el escrutinio de procesos de alto riesgo. Rol del humano: sigue siendo responsable.",
+  "it": "Supporta decisioni e controlli in processi a maggior rischio — conformità, contratti, sicurezza, doppio controllo. Un essere umano nominato resta responsabile della decisione; l'agente la assiste e la documenta. Costruito per il controllo di processi ad alto rischio. Ruolo dell'essere umano: resta responsabile.",
+  "pl": "Wspiera decyzje i mechanizmy kontroli w procesach o wyższej stawce — zgodność, umowy, bezpieczeństwo, zasada dwóch par oczu. Wyznaczony człowiek pozostaje odpowiedzialny za decyzję; agent ją wspiera i dokumentuje. Zbudowany do kontroli procesów wysokiego ryzyka. Rola człowieka: pozostaje odpowiedzialny.",
+  "pt": "Apoia decisões e controlos em processos de maior risco — conformidade, contratos, segurança, dupla verificação. Um humano nomeado permanece responsável pela decisão; o agente apoia-a e comprova-a. Construído para o escrutínio de processos de alto risco. Papel do humano: permanece responsável."
+ },
+ "L5 · Autonomous": {
+  "cs": "L5 · Autonomní",
+  "de": "L5 · Autonom",
+  "fr": "L5 · Autonome",
+  "es": "L5 · Autónomo",
+  "it": "L5 · Autonomo",
+  "pl": "L5 · Autonomiczny",
+  "pt": "L5 · Autónomo"
+ },
+ "Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification — and not used by any agent in this catalogue today. Human role: sets the rails.": {
+  "cs": "Jedná nezávisle v pevných, předem schválených mantinelech. Vyhrazeno pro nejvyšší úroveň certifikace — a dnes je nevyužívá žádný agent v tomto katalogu. Role člověka: nastavuje mantinely.",
+  "de": "Handelt eigenständig innerhalb fester, vorab genehmigter Leitplanken. Der höchsten Zertifizierungsstufe vorbehalten — und heute von keinem Agenten in diesem Katalog genutzt. Rolle des Menschen: setzt die Leitplanken.",
+  "fr": "Agit de façon indépendante dans des garde-fous fermes et pré-approuvés. Réservé au plus haut niveau de certification — et utilisé aujourd'hui par aucun agent de ce catalogue. Rôle de l'humain : définit les garde-fous.",
+  "es": "Actúa de forma independiente dentro de barreras firmes y preaprobadas. Reservado para el nivel más alto de certificación — y hoy no lo usa ningún agente de este catálogo. Rol del humano: define las barreras.",
+  "it": "Agisce in modo indipendente entro guardrail fissi e pre-approvati. Riservato al massimo livello di certificazione — e oggi non utilizzato da alcun agente di questo catalogo. Ruolo dell'essere umano: definisce i guardrail.",
+  "pl": "Działa niezależnie w ramach sztywnych, wstępnie zatwierdzonych barier. Zarezerwowane dla najwyższego poziomu certyfikacji — i dziś nieużywane przez żadnego agenta w tym katalogu. Rola człowieka: ustala bariery.",
+  "pt": "Atua de forma independente dentro de limites rígidos e pré-aprovados. Reservado para o nível mais alto de certificação — e hoje não utilizado por nenhum agente deste catálogo. Papel do humano: define os limites."
+ },
+ "Enterprise deployment proof points": {
+  "cs": "Doklady připravenosti pro podnikové nasazení",
+  "de": "Nachweise für die Enterprise-Bereitstellung",
+  "fr": "Points de preuve du déploiement en entreprise",
+  "es": "Puntos de prueba de despliegue empresarial",
+  "it": "Punti di prova della distribuzione enterprise",
+  "pl": "Dowody gotowości wdrożenia korporacyjnego",
+  "pt": "Pontos de prova da implementação empresarial"
+ },
+ "ColleagueAI is positioned as a governed agent-package layer, not a shared SaaS workspace for customer business content. In a standard enterprise deployment, the customer controls the tenant, identity boundary, data sources, model endpoint, runtime configuration and audit evidence.": {
+  "cs": "ColleagueAI je pozicováno jako vrstva řízených balíčků agentů, nikoli jako sdílený SaaS pracovní prostor pro obchodní obsah zákazníka. Při standardním podnikovém nasazení zákazník kontroluje tenant, hranici identity, zdroje dat, koncový bod modelu, konfiguraci runtime a auditní důkazy.",
+  "de": "ColleagueAI ist als Ebene für governance-konforme Agentenpakete positioniert, nicht als gemeinsam genutzter SaaS-Arbeitsbereich für Geschäftsinhalte des Kunden. Bei einer Standard-Enterprise-Bereitstellung kontrolliert der Kunde den Mandanten, die Identitätsgrenze, die Datenquellen, den Modell-Endpunkt, die Runtime-Konfiguration und die Audit-Nachweise.",
+  "fr": "ColleagueAI se positionne comme une couche de packages d'agents gouvernés, et non comme un espace de travail SaaS partagé pour le contenu métier du client. Dans un déploiement d'entreprise standard, le client contrôle le tenant, le périmètre d'identité, les sources de données, le point de terminaison du modèle, la configuration d'exécution et les preuves d'audit.",
+  "es": "ColleagueAI se posiciona como una capa de paquetes de agentes gobernados, no como un espacio de trabajo SaaS compartido para el contenido de negocio del cliente. En un despliegue empresarial estándar, el cliente controla el tenant, el límite de identidad, las fuentes de datos, el endpoint del modelo, la configuración de ejecución y la evidencia de auditoría.",
+  "it": "ColleagueAI è posizionato come un livello di pacchetti di agenti governati, non come uno spazio di lavoro SaaS condiviso per i contenuti aziendali del cliente. In una distribuzione enterprise standard, il cliente controlla il tenant, il perimetro di identità, le fonti dati, l'endpoint del modello, la configurazione del runtime e le evidenze di audit.",
+  "pl": "ColleagueAI jest pozycjonowane jako warstwa nadzorowanych pakietów agentów, a nie współdzielony obszar roboczy SaaS dla treści biznesowych klienta. W standardowym wdrożeniu korporacyjnym klient kontroluje tenant, granicę tożsamości, źródła danych, punkt końcowy modelu, konfigurację środowiska uruchomieniowego i dowody audytu.",
+  "pt": "A ColleagueAI está posicionada como uma camada de pacotes de agentes governados, não como um espaço de trabalho SaaS partilhado para conteúdo de negócio do cliente. Numa implementação empresarial padrão, o cliente controla o tenant, a fronteira de identidade, as fontes de dados, o endpoint do modelo, a configuração de runtime e as evidências de auditoria."
+ },
+ "Customer-controlled data plane:": {
+  "cs": "Datová rovina řízená zákazníkem:",
+  "de": "Vom Kunden kontrollierte Datenebene:",
+  "fr": "Plan de données contrôlé par le client :",
+  "es": "Plano de datos controlado por el cliente:",
+  "it": "Piano dati controllato dal cliente:",
+  "pl": "Płaszczyzna danych kontrolowana przez klienta:",
+  "pt": "Plano de dados controlado pelo cliente:"
+ },
+ "agents are designed to operate against the customer’s Microsoft/cloud estate.": {
+  "cs": "agenti jsou navrženi tak, aby pracovali proti prostředí Microsoft/cloud zákazníka.",
+  "de": "Agenten sind so konzipiert, dass sie gegen die Microsoft-/Cloud-Umgebung des Kunden arbeiten.",
+  "fr": "les agents sont conçus pour fonctionner sur le parc Microsoft/cloud du client.",
+  "es": "los agentes están diseñados para operar contra el entorno Microsoft/nube del cliente.",
+  "it": "gli agenti sono progettati per operare sull'ambiente Microsoft/cloud del cliente.",
+  "pl": "agenci są zaprojektowani do działania w środowisku Microsoft/chmury klienta.",
+  "pt": "os agentes são concebidos para operar contra o ambiente Microsoft/nuvem do cliente."
+ },
+ "RBAC and data lineage:": {
+  "cs": "RBAC a původ dat:",
+  "de": "RBAC und Datenherkunft:",
+  "fr": "RBAC et traçabilité des données :",
+  "es": "RBAC y linaje de datos:",
+  "it": "RBAC e lineage dei dati:",
+  "pl": "RBAC i pochodzenie danych:",
+  "pt": "RBAC e linhagem de dados:"
+ },
+ "retrieval patterns should respect existing user permissions.": {
+  "cs": "vyhledávací vzory by měly respektovat stávající oprávnění uživatelů.",
+  "de": "Retrieval-Muster sollten die bestehenden Benutzerberechtigungen respektieren.",
+  "fr": "les modèles de recherche doivent respecter les autorisations existantes des utilisateurs.",
+  "es": "los patrones de recuperación deben respetar los permisos de usuario existentes.",
+  "it": "i pattern di recupero dovrebbero rispettare le autorizzazioni utente esistenti.",
+  "pl": "wzorce wyszukiwania powinny respektować istniejące uprawnienia użytkowników.",
+  "pt": "os padrões de recuperação devem respeitar as permissões de utilizador existentes."
+ },
+ "each package is mapped to a CAI autonomy tier, human oversight pattern and audit evidence expectation.": {
+  "cs": "každý balíček je namapován na stupeň autonomie CAI, vzor lidského dohledu a očekávání auditních důkazů.",
+  "de": "Jedes Paket ist einer CAI-Autonomiestufe, einem Muster der menschlichen Aufsicht und einer Erwartung an Audit-Nachweise zugeordnet.",
+  "fr": "chaque package est associé à un niveau d'autonomie CAI, à un modèle de supervision humaine et à une attente de preuves d'audit.",
+  "es": "cada paquete se asigna a un nivel de autonomía CAI, un patrón de supervisión humana y una expectativa de evidencia de auditoría.",
+  "it": "ogni pacchetto è mappato a un livello di autonomia CAI, a un modello di supervisione umana e a un'aspettativa di evidenze di audit.",
+  "pl": "każdy pakiet jest przypisany do poziomu autonomii CAI, wzorca nadzoru ludzkiego i oczekiwań dotyczących dowodów audytu.",
+  "pt": "cada pacote é mapeado para um nível de autonomia CAI, um padrão de supervisão humana e uma expectativa de evidências de auditoria."
+ },
+ "What this website itself processes": {
+  "cs": "Co tato webová stránka sama zpracovává",
+  "de": "Was diese Website selbst verarbeitet",
+  "fr": "Ce que ce site web traite lui-même",
+  "es": "Lo que este sitio web procesa en sí",
+  "it": "Cosa elabora questo sito web stesso",
+  "pl": "Co przetwarza sama ta strona internetowa",
+  "pt": "O que este próprio site processa"
+ },
+ "Live demo": {
+  "cs": "Živé demo",
+  "de": "Live-Demo",
+  "fr": "Démo en direct",
+  "es": "Demo en vivo",
+  "it": "Demo dal vivo",
+  "pl": "Demo na żywo",
+  "pt": "Demonstração ao vivo"
+ },
+ "(/demo): the messages you type are sent to Anthropic's API to generate responses, with per-IP and global rate limits. Don't paste confidential data into the demo.": {
+  "cs": "(/demo): zprávy, které napíšete, jsou odesílány do API společnosti Anthropic za účelem generování odpovědí, s limity počtu požadavků na IP i globálně. Nevkládejte do dema důvěrná data.",
+  "de": "(/demo): Die von Ihnen eingegebenen Nachrichten werden zur Generierung von Antworten an die API von Anthropic gesendet, mit Ratenbegrenzungen pro IP und global. Geben Sie keine vertraulichen Daten in die Demo ein.",
+  "fr": "(/demo) : les messages que vous saisissez sont envoyés à l'API d'Anthropic pour générer des réponses, avec des limites de débit par IP et globales. Ne collez pas de données confidentielles dans la démo.",
+  "es": "(/demo): los mensajes que escribe se envían a la API de Anthropic para generar respuestas, con límites de tasa por IP y globales. No pegue datos confidenciales en la demo.",
+  "it": "(/demo): i messaggi che digiti vengono inviati all'API di Anthropic per generare risposte, con limiti di frequenza per IP e globali. Non incollare dati riservati nella demo.",
+  "pl": "(/demo): wiadomości, które wpiszesz, są wysyłane do API firmy Anthropic w celu generowania odpowiedzi, z limitami liczby żądań na IP i globalnymi. Nie wklejaj poufnych danych do dema.",
+  "pt": "(/demo): as mensagens que escreve são enviadas para a API da Anthropic para gerar respostas, com limites de taxa por IP e globais. Não cole dados confidenciais na demonstração."
+ },
+ ": payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.": {
+  "cs": ": platba je plně zpracována přes Stripe; nikdy nevidíme údaje o kartě. Po nákupu ukládáme váš e-mail, slugy licencovaných agentů a ID relace Stripe, abychom vám mohli uvolnit stažení.",
+  "de": ": Die Zahlung wird vollständig über Stripe abgewickelt; wir sehen niemals Kartendaten. Nach einem Kauf speichern wir Ihre E-Mail-Adresse, die Slugs der lizenzierten Agenten und die Stripe-Sitzungs-ID, damit wir Ihnen die Downloads freigeben können.",
+  "fr": ": le paiement est entièrement géré par Stripe ; nous ne voyons jamais les détails de la carte. Après un achat, nous stockons votre e-mail, les slugs des agents sous licence et l'identifiant de session Stripe, afin de pouvoir vous débloquer les téléchargements.",
+  "es": ": el pago lo gestiona íntegramente Stripe; nunca vemos los datos de la tarjeta. Tras una compra almacenamos su correo electrónico, los slugs de los agentes con licencia y el id de sesión de Stripe, para poder habilitarle las descargas.",
+  "it": ": il pagamento è gestito interamente da Stripe; non vediamo mai i dati della carta. Dopo un acquisto memorizziamo la tua email, gli slug degli agenti concessi in licenza e l'id sessione Stripe, così da poterti rilasciare i download.",
+  "pl": ": płatność jest obsługiwana w całości przez Stripe; nigdy nie widzimy danych karty. Po zakupie przechowujemy Twój e-mail, slugi licencjonowanych agentów oraz identyfikator sesji Stripe, aby udostępnić Ci pliki do pobrania.",
+  "pt": ": o pagamento é tratado inteiramente pela Stripe; nunca vemos os dados do cartão. Após uma compra, armazenamos o seu e-mail, os slugs dos agentes licenciados e o id de sessão Stripe, para podermos libertar-lhe as transferências."
+ },
+ ": agent packages are delivered through signed, time-limited URLs (15-minute expiry).": {
+  "cs": ": balíčky agentů jsou doručovány prostřednictvím podepsaných, časově omezených URL (platnost 15 minut).",
+  "de": ": Agentenpakete werden über signierte, zeitlich begrenzte URLs (15 Minuten Gültigkeit) ausgeliefert.",
+  "fr": ": les packages d'agents sont livrés via des URL signées et à durée limitée (expiration de 15 minutes).",
+  "es": ": los paquetes de agentes se entregan mediante URL firmadas y de tiempo limitado (caducidad de 15 minutos).",
+  "it": ": i pacchetti agente vengono consegnati tramite URL firmati e a tempo limitato (scadenza di 15 minuti).",
+  "pl": ": pakiety agentów są dostarczane za pomocą podpisanych adresów URL o ograniczonym czasie (wygaśnięcie po 15 minutach).",
+  "pt": ": os pacotes de agentes são entregues através de URLs assinados e com tempo limitado (validade de 15 minutos)."
+ },
+ "ROI calculator &amp; readiness check": {
+  "cs": "Kalkulačka ROI &amp; kontrola připravenosti",
+  "de": "ROI-Rechner &amp; Reifegrad-Check",
+  "fr": "Calculateur de ROI &amp; test de maturité",
+  "es": "Calculadora de ROI &amp; comprobación de preparación",
+  "it": "Calcolatore ROI &amp; verifica di prontezza",
+  "pl": "Kalkulator ROI &amp; sprawdzenie gotowości",
+  "pt": "Calculadora de ROI &amp; verificação de prontidão"
+ },
+ ": run entirely in your browser; nothing is sent or stored.": {
+  "cs": ": běží zcela ve vašem prohlížeči; nic se neodesílá ani neukládá.",
+  "de": ": Läuft vollständig in Ihrem Browser; nichts wird gesendet oder gespeichert.",
+  "fr": ": s'exécute entièrement dans votre navigateur ; rien n'est envoyé ni stocké.",
+  "es": ": se ejecuta íntegramente en su navegador; no se envía ni almacena nada.",
+  "it": ": viene eseguito interamente nel tuo browser; nulla viene inviato o memorizzato.",
+  "pl": ": działa w całości w Twojej przeglądarce; nic nie jest wysyłane ani przechowywane.",
+  "pt": ": é executado inteiramente no seu navegador; nada é enviado ou armazenado."
+ },
+ "Partner links": {
+  "cs": "Partnerské odkazy",
+  "de": "Partner-Links",
+  "fr": "Liens partenaires",
+  "es": "Enlaces de socios",
+  "it": "Link partner",
+  "pl": "Linki partnerskie",
+  "pt": "Ligações de parceiro"
+ },
+ ": a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.": {
+  "cs": ": partnerský kód z doporučovacího odkazu se uchovává ve vašem prohlížeči (30 dní) a připojuje se k nákupu pro přiřazení provize.",
+  "de": ": Ein Partnercode aus einem Empfehlungslink wird in Ihrem Browser gespeichert (30 Tage) und einem Kauf zur Provisionszuordnung zugeordnet.",
+  "fr": ": un code partenaire issu d'un lien de parrainage est conservé dans votre navigateur (30 jours) et rattaché à un achat pour l'attribution de la commission.",
+  "es": ": un código de socio de un enlace de referencia se guarda en su navegador (30 días) y se asocia a una compra para la atribución de la comisión.",
+  "it": ": un codice partner da un link di referral viene conservato nel tuo browser (30 giorni) e collegato a un acquisto per l'attribuzione della commissione.",
+  "pl": ": kod partnerski z linku polecającego jest przechowywany w Twojej przeglądarce (30 dni) i przypisywany do zakupu w celu przyznania prowizji.",
+  "pt": ": um código de parceiro de uma ligação de referência é mantido no seu navegador (30 dias) e associado a uma compra para atribuição de comissão."
+ },
+ "Data involved": {
+  "cs": "Zapojená data",
+  "de": "Beteiligte Daten",
+  "fr": "Données concernées",
+  "es": "Datos implicados",
+  "it": "Dati coinvolti",
+  "pl": "Zaangażowane dane",
+  "pt": "Dados envolvidos"
+ },
+ "Website hosting, edge network, web analytics": {
+  "cs": "Hosting webu, edge síť, webová analytika",
+  "de": "Website-Hosting, Edge-Netzwerk, Web-Analyse",
+  "fr": "Hébergement du site, réseau edge, analyse web",
+  "es": "Alojamiento web, red edge, analítica web",
+  "it": "Hosting del sito, rete edge, analisi web",
+  "pl": "Hosting strony, sieć edge, analityka internetowa",
+  "pt": "Alojamento do site, rede edge, analítica web"
+ },
+ "Standard request logs, anonymous usage metrics": {
+  "cs": "Standardní protokoly požadavků, anonymní metriky používání",
+  "de": "Standard-Anfrageprotokolle, anonyme Nutzungsmetriken",
+  "fr": "Journaux de requêtes standard, métriques d'usage anonymes",
+  "es": "Registros de solicitudes estándar, métricas de uso anónimas",
+  "it": "Log delle richieste standard, metriche di utilizzo anonime",
+  "pl": "Standardowe dzienniki żądań, anonimowe metryki użycia",
+  "pt": "Registos de pedidos padrão, métricas de uso anónimas"
+ },
+ "Payment processing": {
+  "cs": "Zpracování plateb",
+  "de": "Zahlungsabwicklung",
+  "fr": "Traitement des paiements",
+  "es": "Procesamiento de pagos",
+  "it": "Elaborazione dei pagamenti",
+  "pl": "Przetwarzanie płatności",
+  "pt": "Processamento de pagamentos"
+ },
+ "Payment details (held by Stripe), buyer email": {
+  "cs": "Platební údaje (uchovává Stripe), e-mail kupujícího",
+  "de": "Zahlungsdaten (von Stripe gehalten), E-Mail des Käufers",
+  "fr": "Détails de paiement (détenus par Stripe), e-mail de l'acheteur",
+  "es": "Datos de pago (en poder de Stripe), correo del comprador",
+  "it": "Dati di pagamento (detenuti da Stripe), email dell'acquirente",
+  "pl": "Dane płatności (przechowywane przez Stripe), e-mail kupującego",
+  "pt": "Dados de pagamento (detidos pela Stripe), e-mail do comprador"
+ },
+ "Key-value store for entitlements and partner records": {
+  "cs": "Úložiště klíč-hodnota pro oprávnění a partnerské záznamy",
+  "de": "Key-Value-Speicher für Berechtigungen und Partnerdatensätze",
+  "fr": "Magasin clé-valeur pour les droits et les enregistrements partenaires",
+  "es": "Almacén clave-valor para derechos y registros de socios",
+  "it": "Archivio chiave-valore per diritti e record dei partner",
+  "pl": "Magazyn klucz-wartość dla uprawnień i rekordów partnerskich",
+  "pt": "Armazenamento chave-valor para direitos e registos de parceiros"
+ },
+ "Buyer email, licensed agent slugs, partner codes": {
+  "cs": "E-mail kupujícího, slugy licencovaných agentů, partnerské kódy",
+  "de": "E-Mail des Käufers, Slugs der lizenzierten Agenten, Partnercodes",
+  "fr": "E-mail de l'acheteur, slugs des agents sous licence, codes partenaires",
+  "es": "Correo del comprador, slugs de agentes con licencia, códigos de socios",
+  "it": "Email dell'acquirente, slug degli agenti in licenza, codici partner",
+  "pl": "E-mail kupującego, slugi licencjonowanych agentów, kody partnerskie",
+  "pt": "E-mail do comprador, slugs dos agentes licenciados, códigos de parceiro"
+ },
+ "LLM responses for the live demo": {
+  "cs": "Odpovědi LLM pro živé demo",
+  "de": "LLM-Antworten für die Live-Demo",
+  "fr": "Réponses LLM pour la démo en direct",
+  "es": "Respuestas del LLM para la demo en vivo",
+  "it": "Risposte LLM per la demo dal vivo",
+  "pl": "Odpowiedzi LLM dla dema na żywo",
+  "pt": "Respostas do LLM para a demonstração ao vivo"
+ },
+ "Demo conversation text": {
+  "cs": "Text konverzace v demu",
+  "de": "Demo-Konversationstext",
+  "fr": "Texte de conversation de la démo",
+  "es": "Texto de conversación de la demo",
+  "it": "Testo della conversazione demo",
+  "pl": "Tekst rozmowy w demie",
+  "pt": "Texto de conversa da demonstração"
+ },
+ "Storage and delivery of purchased agent packages": {
+  "cs": "Ukládání a doručování zakoupených balíčků agentů",
+  "de": "Speicherung und Auslieferung gekaufter Agentenpakete",
+  "fr": "Stockage et livraison des packages d'agents achetés",
+  "es": "Almacenamiento y entrega de paquetes de agentes comprados",
+  "it": "Archiviazione e consegna dei pacchetti agente acquistati",
+  "pl": "Przechowywanie i dostarczanie zakupionych pakietów agentów",
+  "pt": "Armazenamento e entrega de pacotes de agentes comprados"
+ },
+ "Package files (no personal data)": {
+  "cs": "Soubory balíčku (žádná osobní data)",
+  "de": "Paketdateien (keine personenbezogenen Daten)",
+  "fr": "Fichiers du package (aucune donnée personnelle)",
+  "es": "Archivos del paquete (sin datos personales)",
+  "it": "File del pacchetto (nessun dato personale)",
+  "pl": "Pliki pakietu (brak danych osobowych)",
+  "pt": "Ficheiros do pacote (sem dados pessoais)"
+ },
+ "Error monitoring": {
+  "cs": "Monitorování chyb",
+  "de": "Fehlerüberwachung",
+  "fr": "Surveillance des erreurs",
+  "es": "Monitoreo de errores",
+  "it": "Monitoraggio degli errori",
+  "pl": "Monitorowanie błędów",
+  "pt": "Monitorização de erros"
+ },
+ "Technical error context; text is masked in session diagnostics": {
+  "cs": "Technický kontext chyby; text je maskován v diagnostice relace",
+  "de": "Technischer Fehlerkontext; Text wird in der Sitzungsdiagnose maskiert",
+  "fr": "Contexte technique de l'erreur ; le texte est masqué dans les diagnostics de session",
+  "es": "Contexto técnico del error; el texto se enmascara en los diagnósticos de sesión",
+  "it": "Contesto tecnico dell'errore; il testo è mascherato nella diagnostica di sessione",
+  "pl": "Techniczny kontekst błędu; tekst jest maskowany w diagnostyce sesji",
+  "pt": "Contexto técnico do erro; o texto é mascarado nos diagnósticos de sessão"
+ },
+ "Privacy-first analytics": {
+  "cs": "Analytika s důrazem na soukromí",
+  "de": "Datenschutzorientierte Analyse",
+  "fr": "Analyse axée sur la confidentialité",
+  "es": "Analítica centrada en la privacidad",
+  "it": "Analisi orientata alla privacy",
+  "pl": "Analityka stawiająca prywatność na pierwszym miejscu",
+  "pt": "Analítica focada na privacidade"
+ },
+ "Anonymous, cookieless usage statistics": {
+  "cs": "Anonymní statistiky používání bez cookies",
+  "de": "Anonyme, cookielose Nutzungsstatistiken",
+  "fr": "Statistiques d'usage anonymes et sans cookies",
+  "es": "Estadísticas de uso anónimas y sin cookies",
+  "it": "Statistiche di utilizzo anonime e senza cookie",
+  "pl": "Anonimowe statystyki użycia bez plików cookie",
+  "pt": "Estatísticas de uso anónimas e sem cookies"
+ },
+ "Web fonts": {
+  "cs": "Webová písma",
+  "de": "Web-Schriften",
+  "fr": "Polices web",
+  "es": "Fuentes web",
+  "it": "Web font",
+  "pl": "Czcionki internetowe",
+  "pt": "Fontes web"
+ },
+ "Standard font requests": {
+  "cs": "Standardní požadavky na písma",
+  "de": "Standard-Schriftanfragen",
+  "fr": "Requêtes de polices standard",
+  "es": "Solicitudes de fuentes estándar",
+  "it": "Richieste di font standard",
+  "pl": "Standardowe żądania czcionek",
+  "pt": "Pedidos de fontes padrão"
+ },
+ "TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.": {
+  "cs": "TLS všude s HTTP Strict Transport Security (max-age 2 roky, preload) a Content-Security-Policy omezující, odkud lze načítat kód a obsah, plus zásady nosniff, frame-ancestors, referrer a permissions.",
+  "de": "TLS überall mit HTTP Strict Transport Security (2 Jahre max-age, preload) und einer Content-Security-Policy, die einschränkt, von wo Code und Inhalte geladen werden dürfen, plus nosniff-, frame-ancestors-, Referrer- und Permissions-Richtlinien.",
+  "fr": "TLS partout avec HTTP Strict Transport Security (max-age de 2 ans, preload) et une Content-Security-Policy restreignant les origines de chargement du code et du contenu, plus des politiques nosniff, frame-ancestors, referrer et permissions.",
+  "es": "TLS en todas partes con HTTP Strict Transport Security (max-age de 2 años, preload) y una Content-Security-Policy que restringe desde dónde se pueden cargar código y contenido, además de políticas nosniff, frame-ancestors, referrer y permissions.",
+  "it": "TLS ovunque con HTTP Strict Transport Security (max-age di 2 anni, preload) e una Content-Security-Policy che limita da dove possono essere caricati codice e contenuti, oltre a policy nosniff, frame-ancestors, referrer e permissions.",
+  "pl": "TLS wszędzie z HTTP Strict Transport Security (max-age 2 lata, preload) oraz Content-Security-Policy ograniczającą, skąd można ładować kod i treści, a także zasady nosniff, frame-ancestors, referrer i permissions.",
+  "pt": "TLS em todo o lado com HTTP Strict Transport Security (max-age de 2 anos, preload) e uma Content-Security-Policy que restringe de onde código e conteúdo podem ser carregados, além de políticas nosniff, frame-ancestors, referrer e permissions."
+ },
+ "Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.": {
+  "cs": "Webhooky Stripe jsou ověřovány proti svému kryptografickému podpisu s vynucením okna pro replay, zpracovávány idempotentně (znovu doručená událost se nikdy nemůže aplikovat dvakrát) a selhání úložiště vedou k opakování namísto tiché ztráty.",
+  "de": "Stripe-Webhooks werden gegen ihre kryptografische Signatur mit Replay-Fenster-Durchsetzung verifiziert, idempotent verarbeitet (ein erneut zugestelltes Ereignis kann nie doppelt angewendet werden), und Speicherfehler führen zu Wiederholungen statt zu stillem Verlust.",
+  "fr": "Les webhooks Stripe sont vérifiés par rapport à leur signature cryptographique avec application d'une fenêtre anti-rejeu, traités de manière idempotente (un événement redélivré ne peut jamais s'appliquer deux fois), et les échecs de stockage entraînent des reprises plutôt qu'une perte silencieuse.",
+  "es": "Los webhooks de Stripe se verifican contra su firma criptográfica con aplicación de ventana anti-repetición, se procesan de forma idempotente (un evento reenviado nunca puede aplicarse dos veces) y los fallos de almacenamiento provocan reintentos en lugar de pérdidas silenciosas.",
+  "it": "I webhook di Stripe vengono verificati rispetto alla loro firma crittografica con applicazione di una finestra anti-replay, elaborati in modo idempotente (un evento riconsegnato non può mai essere applicato due volte) e i guasti di archiviazione causano nuovi tentativi anziché perdite silenziose.",
+  "pl": "Webhooki Stripe są weryfikowane względem ich podpisu kryptograficznego z egzekwowaniem okna anty-replay, przetwarzane idempotentnie (ponownie dostarczone zdarzenie nigdy nie może zostać zastosowane dwukrotnie), a awarie magazynu powodują ponawianie zamiast cichej utraty.",
+  "pt": "Os webhooks da Stripe são verificados em relação à sua assinatura criptográfica com imposição de janela anti-repetição, processados de forma idempotente (um evento reentregue nunca pode ser aplicado duas vezes), e as falhas de armazenamento causam novas tentativas em vez de perda silenciosa."
+ },
+ "Commission attribution is gated: only registered partner codes are credited, and referral values are sanitized before storage.": {
+  "cs": "Přiřazení provizí je podmíněno: kreditovány jsou pouze registrované partnerské kódy a hodnoty doporučení jsou před uložením sanitizovány.",
+  "de": "Die Provisionszuordnung ist abgesichert: Nur registrierte Partnercodes werden gutgeschrieben, und Empfehlungswerte werden vor der Speicherung bereinigt.",
+  "fr": "L'attribution des commissions est verrouillée : seuls les codes partenaires enregistrés sont crédités, et les valeurs de parrainage sont assainies avant stockage.",
+  "es": "La atribución de comisiones está restringida: solo se acreditan los códigos de socio registrados y los valores de referencia se sanean antes de almacenarse.",
+  "it": "L'attribuzione delle commissioni è vincolata: vengono accreditati solo i codici partner registrati e i valori di referral vengono sanificati prima dell'archiviazione.",
+  "pl": "Przypisywanie prowizji jest ograniczone: kredytowane są tylko zarejestrowane kody partnerskie, a wartości poleceń są oczyszczane przed zapisaniem.",
+  "pt": "A atribuição de comissões é restrita: apenas os códigos de parceiro registados são creditados, e os valores de referência são sanitizados antes do armazenamento."
+ },
+ "Secrets live in the hosting platform's environment configuration — never in code, never in the client bundle (verified by an automated scan on every build).": {
+  "cs": "Tajné klíče žijí v konfiguraci prostředí hostingové platformy — nikdy v kódu, nikdy v klientském balíčku (ověřeno automatickým skenem při každém buildu).",
+  "de": "Geheimnisse liegen in der Umgebungskonfiguration der Hosting-Plattform — niemals im Code, niemals im Client-Bundle (bei jedem Build durch einen automatischen Scan verifiziert).",
+  "fr": "Les secrets résident dans la configuration d'environnement de la plateforme d'hébergement — jamais dans le code, jamais dans le bundle client (vérifié par une analyse automatisée à chaque build).",
+  "es": "Los secretos residen en la configuración de entorno de la plataforma de alojamiento — nunca en el código, nunca en el paquete cliente (verificado por un escaneo automatizado en cada compilación).",
+  "it": "I segreti risiedono nella configurazione dell'ambiente della piattaforma di hosting — mai nel codice, mai nel bundle client (verificato da una scansione automatica a ogni build).",
+  "pl": "Sekrety znajdują się w konfiguracji środowiska platformy hostingowej — nigdy w kodzie, nigdy w pakiecie klienckim (weryfikowane automatycznym skanem przy każdym buildzie).",
+  "pt": "Os segredos residem na configuração de ambiente da plataforma de alojamento — nunca no código, nunca no pacote cliente (verificado por uma análise automatizada em cada build)."
+ },
+ "Responsible disclosure: see": {
+  "cs": "Odpovědné zveřejnění: viz",
+  "de": "Verantwortungsvolle Offenlegung: siehe",
+  "fr": "Divulgation responsable : voir",
+  "es": "Divulgación responsable: consulte",
+  "it": "Divulgazione responsabile: vedi",
+  "pl": "Odpowiedzialne ujawnianie: zobacz",
+  "pt": "Divulgação responsável: ver"
+ },
+ "or write to": {
+  "cs": "nebo napište na",
+  "de": "oder schreiben Sie an",
+  "fr": "ou écrivez à",
+  "es": "o escriba a",
+  "it": "o scrivi a",
+  "pl": "lub napisz na",
+  "pt": "ou escreva para"
+ },
+ ". We respond to good-faith reports and won't pursue researchers acting in good faith.": {
+  "cs": ". Reagujeme na zprávy podané v dobré víře a nebudeme stíhat výzkumníky jednající v dobré víře.",
+  "de": ". Wir reagieren auf in gutem Glauben gemeldete Hinweise und gehen nicht gegen Forschende vor, die in gutem Glauben handeln.",
+  "fr": ". Nous répondons aux signalements de bonne foi et ne poursuivrons pas les chercheurs agissant de bonne foi.",
+  "es": ". Respondemos a los informes de buena fe y no perseguiremos a los investigadores que actúen de buena fe.",
+  "it": ". Rispondiamo alle segnalazioni in buona fede e non perseguiremo i ricercatori che agiscono in buona fede.",
+  "pl": ". Odpowiadamy na zgłoszenia w dobrej wierze i nie będziemy ścigać badaczy działających w dobrej wierze.",
+  "pt": ". Respondemos a relatos de boa-fé e não processaremos investigadores que ajam de boa-fé."
+ },
+ "We're onboarding pilot customers now. Every engagement starts the same way the catalogue promises: the agent is validated on your own cases before go-live, its ROI is quantified up front, and the governance evidence is produced from day one — so your first deployment is also your proof. If you want to be one of the proofs we publish here, that's the deal: you get the pilot terms, we get the (anonymised, approved-by-you) case study.": {
+  "cs": "Právě onboardujeme pilotní zákazníky. Každá spolupráce začíná stejně, jak slibuje katalog: agent je ověřen na vašich vlastních případech před spuštěním, jeho ROI je předem vyčísleno a důkazy governance vznikají od prvního dne — takže vaše první nasazení je zároveň vaším důkazem. Pokud chcete být jedním z důkazů, které zde publikujeme, dohoda zní takto: vy získáte pilotní podmínky, my získáme (anonymizovanou, vámi schválenou) případovou studii.",
+  "de": "Wir nehmen gerade Pilotkunden auf. Jede Zusammenarbeit beginnt so, wie der Katalog es verspricht: Der Agent wird vor dem Go-live an Ihren eigenen Fällen validiert, sein ROI wird vorab beziffert und die Governance-Nachweise entstehen ab dem ersten Tag — so ist Ihre erste Bereitstellung zugleich Ihr Nachweis. Wenn Sie einer der Nachweise sein möchten, die wir hier veröffentlichen, lautet der Deal: Sie erhalten die Pilotkonditionen, wir erhalten die (anonymisierte, von Ihnen freigegebene) Fallstudie.",
+  "fr": "Nous intégrons des clients pilotes en ce moment. Chaque engagement commence comme le catalogue le promet : l'agent est validé sur vos propres cas avant la mise en service, son ROI est chiffré en amont et les preuves de gouvernance sont produites dès le premier jour — votre premier déploiement est donc aussi votre preuve. Si vous voulez être l'une des preuves que nous publions ici, le marché est le suivant : vous obtenez les conditions pilotes, nous obtenons l'étude de cas (anonymisée et approuvée par vous).",
+  "es": "Estamos incorporando clientes piloto ahora. Cada compromiso comienza igual que promete el catálogo: el agente se valida en sus propios casos antes de la puesta en marcha, su ROI se cuantifica por adelantado y la evidencia de gobernanza se produce desde el primer día — de modo que su primer despliegue es también su prueba. Si desea ser una de las pruebas que publicamos aquí, el trato es este: usted obtiene las condiciones piloto, nosotros obtenemos el caso de éxito (anonimizado y aprobado por usted).",
+  "it": "Stiamo integrando clienti pilota in questo momento. Ogni collaborazione inizia come promette il catalogo: l'agente viene validato sui tuoi casi prima del go-live, il suo ROI viene quantificato in anticipo e le evidenze di governance vengono prodotte dal primo giorno — così la tua prima distribuzione è anche la tua prova. Se vuoi essere una delle prove che pubblichiamo qui, l'accordo è questo: tu ottieni le condizioni pilota, noi otteniamo il caso di studio (anonimizzato e approvato da te).",
+  "pl": "Właśnie wdrażamy klientów pilotażowych. Każda współpraca zaczyna się tak, jak obiecuje katalog: agent jest walidowany na Twoich własnych przypadkach przed uruchomieniem, jego ROI jest z góry skwantyfikowany, a dowody governance powstają od pierwszego dnia — więc Twoje pierwsze wdrożenie jest zarazem Twoim dowodem. Jeśli chcesz być jednym z dowodów, które tu publikujemy, układ jest taki: Ty otrzymujesz warunki pilotażowe, my otrzymujemy (zanonimizowane, zatwierdzone przez Ciebie) studium przypadku.",
+  "pt": "Estamos a integrar clientes-piloto agora. Cada colaboração começa como o catálogo promete: o agente é validado nos seus próprios casos antes do go-live, o seu ROI é quantificado à partida e as evidências de governança são produzidas desde o primeiro dia — por isso a sua primeira implementação é também a sua prova. Se quiser ser uma das provas que publicamos aqui, o acordo é este: você obtém as condições-piloto, nós obtemos o estudo de caso (anonimizado e aprovado por si)."
+ },
+ "Token metadata, not business content": {
+  "cs": "Metadata tokenů, nikoli obchodní obsah",
+  "de": "Token-Metadaten, keine Geschäftsinhalte",
+  "fr": "Métadonnées de tokens, pas de contenu métier",
+  "es": "Metadatos de tokens, no contenido de negocio",
+  "it": "Metadati dei token, non contenuti aziendali",
+  "pl": "Metadane tokenów, nie treść biznesowa",
+  "pt": "Metadados de tokens, não conteúdo de negócio"
+ },
+ "CAI Token Economy Monitor: control AI cost before it scales.": {
+  "cs": "CAI Token Economy Monitor: ovládněte náklady na AI dříve, než narostou.",
+  "de": "CAI Token Economy Monitor: KI-Kosten kontrollieren, bevor sie skalieren.",
+  "fr": "CAI Token Economy Monitor : maîtrisez le coût de l'IA avant qu'il ne s'envole.",
+  "es": "CAI Token Economy Monitor: controle el coste de la IA antes de que escale.",
+  "it": "CAI Token Economy Monitor: controlla i costi dell'IA prima che aumentino.",
+  "pl": "CAI Token Economy Monitor: kontroluj koszty AI, zanim wzrosną.",
+  "pt": "CAI Token Economy Monitor: controle o custo da IA antes que ele aumente."
+ },
+ "ColleagueAI agent packages can include client-owned token economy monitoring that runs inside the client environment. The purpose is to help customers understand token consumption, estimated model/API cost, retries, oversized context, expensive model choices, and optimisation opportunities — while keeping prompts, outputs, documents, and business content out of ColleagueAI systems.": {
+  "cs": "Balíčky agentů ColleagueAI mohou zahrnovat monitorování ekonomiky tokenů vlastněné klientem, které běží v prostředí klienta. Účelem je pomoci zákazníkům porozumět spotřebě tokenů, odhadovaným nákladům na model/API, opakováním, nadměrnému kontextu, nákladným volbám modelů a příležitostem k optimalizaci — a přitom ponechat prompty, výstupy, dokumenty a obchodní obsah mimo systémy ColleagueAI.",
+  "de": "ColleagueAI-Agentenpakete können eine kundeneigene Token-Ökonomie-Überwachung enthalten, die in der Kundenumgebung läuft. Der Zweck besteht darin, Kunden zu helfen, Tokenverbrauch, geschätzte Modell-/API-Kosten, Wiederholungen, übergroßen Kontext, teure Modellwahl und Optimierungsmöglichkeiten zu verstehen — während Prompts, Ausgaben, Dokumente und Geschäftsinhalte außerhalb der ColleagueAI-Systeme bleiben.",
+  "fr": "Les packages d'agents ColleagueAI peuvent inclure une surveillance de l'économie des tokens détenue par le client, qui s'exécute dans l'environnement du client. L'objectif est d'aider les clients à comprendre la consommation de tokens, le coût estimé des modèles/API, les relances, le contexte surdimensionné, les choix de modèles coûteux et les opportunités d'optimisation — tout en gardant les prompts, sorties, documents et contenus métier hors des systèmes ColleagueAI.",
+  "es": "Los paquetes de agentes de ColleagueAI pueden incluir una monitorización de la economía de tokens propiedad del cliente que se ejecuta dentro del entorno del cliente. El propósito es ayudar a los clientes a comprender el consumo de tokens, el coste estimado de modelo/API, los reintentos, el contexto sobredimensionado, las elecciones de modelo costosas y las oportunidades de optimización — manteniendo los prompts, salidas, documentos y contenido de negocio fuera de los sistemas de ColleagueAI.",
+  "it": "I pacchetti agente ColleagueAI possono includere un monitoraggio dell'economia dei token di proprietà del cliente che viene eseguito nell'ambiente del cliente. Lo scopo è aiutare i clienti a comprendere il consumo di token, il costo stimato di modello/API, i nuovi tentativi, il contesto sovradimensionato, le scelte di modello costose e le opportunità di ottimizzazione — mantenendo prompt, output, documenti e contenuti aziendali fuori dai sistemi ColleagueAI.",
+  "pl": "Pakiety agentów ColleagueAI mogą obejmować należące do klienta monitorowanie ekonomii tokenów, działające w środowisku klienta. Celem jest pomóc klientom zrozumieć zużycie tokenów, szacowany koszt modelu/API, ponowienia, nadmiarowy kontekst, kosztowne wybory modeli i możliwości optymalizacji — przy jednoczesnym pozostawieniu promptów, wyników, dokumentów i treści biznesowych poza systemami ColleagueAI.",
+  "pt": "Os pacotes de agentes ColleagueAI podem incluir uma monitorização da economia de tokens propriedade do cliente que é executada dentro do ambiente do cliente. O objetivo é ajudar os clientes a compreender o consumo de tokens, o custo estimado de modelo/API, as repetições, o contexto sobredimensionado, as escolhas de modelo dispendiosas e as oportunidades de otimização — mantendo prompts, saídas, documentos e conteúdo de negócio fora dos sistemas da ColleagueAI."
+ },
+ "Designed to capture": {
+  "cs": "Navrženo k zachycení",
+  "de": "Zur Erfassung konzipiert",
+  "fr": "Conçu pour capturer",
+  "es": "Diseñado para capturar",
+  "it": "Progettato per acquisire",
+  "pl": "Zaprojektowane do przechwytywania",
+  "pt": "Concebido para capturar"
+ },
+ "Agent ID, workflow, CAI tier, model used, and run timestamp": {
+  "cs": "ID agenta, workflow, stupeň CAI, použitý model a časové razítko běhu",
+  "de": "Agenten-ID, Workflow, CAI-Stufe, verwendetes Modell und Ausführungszeitstempel",
+  "fr": "ID de l'agent, workflow, niveau CAI, modèle utilisé et horodatage d'exécution",
+  "es": "ID del agente, flujo de trabajo, nivel CAI, modelo usado y marca de tiempo de ejecución",
+  "it": "ID dell'agente, workflow, livello CAI, modello usato e timestamp di esecuzione",
+  "pl": "ID agenta, przepływ pracy, poziom CAI, użyty model i znacznik czasu uruchomienia",
+  "pt": "ID do agente, fluxo de trabalho, nível CAI, modelo usado e carimbo de data/hora da execução"
+ },
+ "Input tokens, output tokens, estimated cost, and budget indicators": {
+  "cs": "Vstupní tokeny, výstupní tokeny, odhadované náklady a ukazatele rozpočtu",
+  "de": "Eingabe-Token, Ausgabe-Token, geschätzte Kosten und Budgetindikatoren",
+  "fr": "Tokens d'entrée, tokens de sortie, coût estimé et indicateurs de budget",
+  "es": "Tokens de entrada, tokens de salida, coste estimado e indicadores de presupuesto",
+  "it": "Token di input, token di output, costo stimato e indicatori di budget",
+  "pl": "Tokeny wejściowe, tokeny wyjściowe, szacowany koszt i wskaźniki budżetu",
+  "pt": "Tokens de entrada, tokens de saída, custo estimado e indicadores de orçamento"
+ },
+ "Success, failure, retry, exception, and approval status": {
+  "cs": "Stav úspěchu, selhání, opakování, výjimky a schválení",
+  "de": "Erfolgs-, Fehler-, Wiederholungs-, Ausnahme- und Freigabestatus",
+  "fr": "Statut de succès, d'échec, de relance, d'exception et d'approbation",
+  "es": "Estado de éxito, fallo, reintento, excepción y aprobación",
+  "it": "Stato di successo, fallimento, nuovo tentativo, eccezione e approvazione",
+  "pl": "Status powodzenia, niepowodzenia, ponowienia, wyjątku i zatwierdzenia",
+  "pt": "Estado de sucesso, falha, repetição, exceção e aprovação"
+ },
+ "High-token workflows, repeated waste, and oversized context signals": {
+  "cs": "Workflow s vysokým počtem tokenů, opakované plýtvání a signály nadměrného kontextu",
+  "de": "Workflows mit hohem Tokenverbrauch, wiederholte Verschwendung und Signale für übergroßen Kontext",
+  "fr": "Workflows à forte consommation de tokens, gaspillage répété et signaux de contexte surdimensionné",
+  "es": "Flujos de trabajo con muchos tokens, desperdicio repetido y señales de contexto sobredimensionado",
+  "it": "Workflow ad alto consumo di token, sprechi ripetuti e segnali di contesto sovradimensionato",
+  "pl": "Przepływy pracy o dużej liczbie tokenów, powtarzające się marnotrawstwo i sygnały nadmiarowego kontekstu",
+  "pt": "Fluxos de trabalho com muitos tokens, desperdício repetido e sinais de contexto sobredimensionado"
+ },
+ "Optimisation recommendations for prompt patterns, model tier, and context size": {
+  "cs": "Doporučení k optimalizaci vzorů promptů, stupně modelu a velikosti kontextu",
+  "de": "Optimierungsempfehlungen für Prompt-Muster, Modellstufe und Kontextgröße",
+  "fr": "Recommandations d'optimisation pour les modèles de prompt, le niveau de modèle et la taille du contexte",
+  "es": "Recomendaciones de optimización para patrones de prompt, nivel de modelo y tamaño de contexto",
+  "it": "Raccomandazioni di ottimizzazione per pattern di prompt, livello del modello e dimensione del contesto",
+  "pl": "Rekomendacje optymalizacji wzorców promptów, poziomu modelu i rozmiaru kontekstu",
+  "pt": "Recomendações de otimização para padrões de prompt, nível de modelo e tamanho do contexto"
+ },
+ "Designed not to capture": {
+  "cs": "Navrženo tak, aby nezachycovalo",
+  "de": "So konzipiert, dass nichts erfasst wird",
+  "fr": "Conçu pour ne pas capturer",
+  "es": "Diseñado para no capturar",
+  "it": "Progettato per non acquisire",
+  "pl": "Zaprojektowane tak, aby nie przechwytywać",
+  "pt": "Concebido para não capturar"
+ },
+ "Customer prompt content": {
+  "cs": "Obsah promptů zákazníka",
+  "de": "Inhalt von Kunden-Prompts",
+  "fr": "Contenu des prompts du client",
+  "es": "Contenido de los prompts del cliente",
+  "it": "Contenuto dei prompt del cliente",
+  "pl": "Treść promptów klienta",
+  "pt": "Conteúdo dos prompts do cliente"
+ },
+ "Agent output content": {
+  "cs": "Obsah výstupů agenta",
+  "de": "Inhalt von Agenten-Ausgaben",
+  "fr": "Contenu des sorties de l'agent",
+  "es": "Contenido de las salidas del agente",
+  "it": "Contenuto degli output dell'agente",
+  "pl": "Treść wyników agenta",
+  "pt": "Conteúdo das saídas do agente"
+ },
+ "Business documents or transaction records": {
+  "cs": "Obchodní dokumenty nebo záznamy transakcí",
+  "de": "Geschäftsdokumente oder Transaktionsdatensätze",
+  "fr": "Documents métier ou enregistrements de transactions",
+  "es": "Documentos de negocio o registros de transacciones",
+  "it": "Documenti aziendali o record di transazioni",
+  "pl": "Dokumenty biznesowe lub zapisy transakcji",
+  "pt": "Documentos de negócio ou registos de transações"
+ },
+ "Personal data or sensitive client data": {
+  "cs": "Osobní data nebo citlivá data klienta",
+  "de": "Personenbezogene Daten oder sensible Kundendaten",
+  "fr": "Données personnelles ou données client sensibles",
+  "es": "Datos personales o datos sensibles del cliente",
+  "it": "Dati personali o dati sensibili del cliente",
+  "pl": "Dane osobowe lub wrażliwe dane klienta",
+  "pt": "Dados pessoais ou dados sensíveis do cliente"
+ },
+ "Confidential customer business logic": {
+  "cs": "Důvěrná obchodní logika zákazníka",
+  "de": "Vertrauliche Geschäftslogik des Kunden",
+  "fr": "Logique métier confidentielle du client",
+  "es": "Lógica de negocio confidencial del cliente",
+  "it": "Logica aziendale riservata del cliente",
+  "pl": "Poufna logika biznesowa klienta",
+  "pt": "Lógica de negócio confidencial do cliente"
+ },
+ "The result is practical AI cost governance: users understand their own consumption, finance sees cost before it becomes uncontrolled, and leadership can scale the agents that deliver measurable value.": {
+  "cs": "Výsledkem je praktické řízení nákladů na AI: uživatelé rozumějí vlastní spotřebě, finance vidí náklady dříve, než se vymknou kontrole, a vedení může škálovat agenty, kteří přinášejí měřitelnou hodnotu.",
+  "de": "Das Ergebnis ist eine praktische KI-Kostensteuerung: Nutzer verstehen ihren eigenen Verbrauch, die Finanzabteilung sieht Kosten, bevor sie außer Kontrolle geraten, und die Führung kann die Agenten skalieren, die messbaren Wert liefern.",
+  "fr": "Le résultat est une gouvernance pratique des coûts de l'IA : les utilisateurs comprennent leur propre consommation, la finance voit le coût avant qu'il ne devienne incontrôlé, et la direction peut déployer à grande échelle les agents qui apportent une valeur mesurable.",
+  "es": "El resultado es una gobernanza práctica del coste de la IA: los usuarios entienden su propio consumo, finanzas ve el coste antes de que se descontrole y la dirección puede escalar los agentes que aportan valor medible.",
+  "it": "Il risultato è una governance pratica dei costi dell'IA: gli utenti comprendono il proprio consumo, la funzione finance vede i costi prima che diventino incontrollati e la leadership può scalare gli agenti che offrono valore misurabile.",
+  "pl": "Rezultatem jest praktyczne zarządzanie kosztami AI: użytkownicy rozumieją własne zużycie, finanse widzą koszt, zanim wymknie się spod kontroli, a kierownictwo może skalować agentów, którzy dostarczają mierzalną wartość.",
+  "pt": "O resultado é uma governança prática do custo da IA: os utilizadores compreendem o seu próprio consumo, a área financeira vê o custo antes de se descontrolar, e a liderança pode escalar os agentes que entregam valor mensurável."
+ },
+ "Governance before automation:": {
+  "cs": "Governance před automatizací:",
+  "de": "Governance vor Automatisierung:",
+  "fr": "La gouvernance avant l'automatisation :",
+  "es": "Gobernanza antes de la automatización:",
+  "it": "Governance prima dell'automazione:",
+  "pl": "Governance przed automatyzacją:",
+  "pt": "Governança antes da automação:"
+ },
+ "The current catalogue ships at L2–L4. L4 agents require senior sign-off before go-live. Classifications are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.": {
+  "cs": "Aktuální katalog je dodáván na stupních L2–L4. Agenti L4 vyžadují před spuštěním souhlas vedení. Klasifikace přiděluje Colleague AI v rámci tohoto rámce; zatím není zapojen žádný externí posuzovatel a netvrdíme, že máme atestace třetích stran, které nemáme.",
+  "de": "Der aktuelle Katalog wird auf den Stufen L2–L4 ausgeliefert. L4-Agenten erfordern vor dem Go-live eine Freigabe durch die Leitung. Die Klassifizierungen werden von Colleague AI im Rahmen dieses Frameworks vergeben; bislang ist kein externer Prüfer beteiligt, und wir behaupten keine Drittanbieter-Attestierungen, die wir nicht besitzen.",
+  "fr": "Le catalogue actuel est livré aux niveaux L2–L4. Les agents L4 requièrent une validation de la direction avant la mise en service. Les classifications sont attribuées par Colleague AI dans ce cadre ; aucun évaluateur externe n'est encore engagé, et nous ne revendiquons pas d'attestations de tiers que nous ne détenons pas.",
+  "es": "El catálogo actual se entrega en los niveles L2–L4. Los agentes L4 requieren la aprobación de la dirección antes de la puesta en marcha. Las clasificaciones las asigna Colleague AI dentro de este marco; aún no se ha contratado a ningún evaluador externo y no afirmamos tener certificaciones de terceros que no poseemos.",
+  "it": "Il catalogo attuale viene fornito ai livelli L2–L4. Gli agenti L4 richiedono l'approvazione della dirigenza prima del go-live. Le classificazioni sono assegnate da Colleague AI nell'ambito di questo framework; non è ancora coinvolto alcun valutatore esterno e non rivendichiamo attestazioni di terze parti che non possediamo.",
+  "pl": "Bieżący katalog jest dostarczany na poziomach L2–L4. Agenci L4 wymagają zgody kierownictwa przed uruchomieniem. Klasyfikacje przydziela Colleague AI w ramach tych ram; nie zaangażowano jeszcze żadnego zewnętrznego oceniającego i nie twierdzimy, że posiadamy atestacje stron trzecich, których nie mamy.",
+  "pt": "O catálogo atual é fornecido nos níveis L2–L4. Os agentes L4 requerem aprovação da direção antes do go-live. As classificações são atribuídas pela Colleague AI no âmbito deste framework; ainda não está envolvido qualquer avaliador externo e não reivindicamos atestações de terceiros que não possuímos."
+ },
+ "Agent catalogue": {
+  "cs": "Katalog agentů",
+  "de": "Agentenkatalog",
+  "fr": "Catalogue d'agents",
+  "es": "Catálogo de agentes",
+  "it": "Catalogo agenti",
+  "pl": "Katalog agentów",
+  "pt": "Catálogo de agentes"
+ },
+ "Of every agent sale you refer": {
+  "cs": "Z každého prodeje agenta, který doporučíte",
+  "de": "Von jedem Agentenverkauf, den Sie vermitteln",
+  "fr": "De chaque vente d'agent que vous parrainez",
+  "es": "De cada venta de agente que recomiende",
+  "it": "Di ogni vendita di agente che segnali",
+  "pl": "Od każdej sprzedaży agenta, którą polecisz",
+  "pt": "De cada venda de agente que indicar"
+ },
+ "How it works": {
+  "cs": "Jak to funguje",
+  "de": "So funktioniert es",
+  "fr": "Comment ça marche",
+  "es": "Cómo funciona",
+  "it": "Come funziona",
+  "pl": "Jak to działa",
+  "pt": "Como funciona"
+ },
+ "30 seconds": {
+  "cs": "30 sekund",
+  "de": "30 Sekunden",
+  "fr": "30 secondes",
+  "es": "30 segundos",
+  "it": "30 secondi",
+  "pl": "30 sekund",
+  "pt": "30 segundos"
+ },
+ "30-day window": {
+  "cs": "30denní okno",
+  "de": "30-Tage-Fenster",
+  "fr": "Fenêtre de 30 jours",
+  "es": "Ventana de 30 días",
+  "it": "Finestra di 30 giorni",
+  "pl": "Okno 30 dni",
+  "pt": "Janela de 30 dias"
+ },
+ "Paid monthly": {
+  "cs": "Vypláceno měsíčně",
+  "de": "Monatlich ausgezahlt",
+  "fr": "Payé mensuellement",
+  "es": "Pago mensual",
+  "it": "Pagato mensilmente",
+  "pl": "Wypłacane miesięcznie",
+  "pt": "Pago mensalmente"
+ },
+ "What you earn": {
+  "cs": "Co vyděláte",
+  "de": "Was Sie verdienen",
+  "fr": "Ce que vous gagnez",
+  "es": "Lo que gana",
+  "it": "Quanto guadagni",
+  "pl": "Ile zarabiasz",
+  "pt": "Quanto ganha"
+ },
+ "One referral. Real numbers.": {
+  "cs": "Jedno doporučení. Reálná čísla.",
+  "de": "Eine Empfehlung. Echte Zahlen.",
+  "fr": "Un parrainage. Des chiffres réels.",
+  "es": "Una recomendación. Números reales.",
+  "it": "Una segnalazione. Numeri reali.",
+  "pl": "Jedno polecenie. Realne liczby.",
+  "pt": "Uma indicação. Números reais."
+ },
+ "Illustrative only. Commercial terms, attribution, and payout process are confirmed during partner onboarding.": {
+  "cs": "Pouze ilustrativní. Obchodní podmínky, přiřazení a proces výplaty jsou potvrzeny během onboardingu partnera.",
+  "de": "Nur zur Veranschaulichung. Geschäftsbedingungen, Zuordnung und Auszahlungsprozess werden während des Partner-Onboardings bestätigt.",
+  "fr": "À titre indicatif uniquement. Les conditions commerciales, l'attribution et le processus de paiement sont confirmés lors de l'intégration du partenaire.",
+  "es": "Solo ilustrativo. Los términos comerciales, la atribución y el proceso de pago se confirman durante la incorporación del socio.",
+  "it": "Solo a scopo illustrativo. I termini commerciali, l'attribuzione e il processo di pagamento vengono confermati durante l'onboarding del partner.",
+  "pl": "Wyłącznie poglądowe. Warunki handlowe, przypisanie i proces wypłaty są potwierdzane podczas onboardingu partnera.",
+  "pt": "Apenas ilustrativo. Os termos comerciais, a atribuição e o processo de pagamento são confirmados durante o onboarding do parceiro."
+ },
+ "Agent price": {
+  "cs": "Cena agenta",
+  "de": "Agentenpreis",
+  "fr": "Prix de l'agent",
+  "es": "Precio del agente",
+  "it": "Prezzo dell'agente",
+  "pl": "Cena agenta",
+  "pt": "Preço do agente"
+ },
+ "You earn": {
+  "cs": "Vyděláte",
+  "de": "Sie verdienen",
+  "fr": "Vous gagnez",
+  "es": "Usted gana",
+  "it": "Guadagni",
+  "pl": "Zarabiasz",
+  "pt": "Você ganha"
+ },
+ "10 referrals in a year": {
+  "cs": "10 doporučení za rok",
+  "de": "10 Empfehlungen pro Jahr",
+  "fr": "10 parrainages en un an",
+  "es": "10 recomendaciones en un año",
+  "it": "10 segnalazioni in un anno",
+  "pl": "10 poleceń w ciągu roku",
+  "pt": "10 indicações num ano"
+ },
+ "Mix of agents · avg. €1,200": {
+  "cs": "Mix agentů · prům. €1,200",
+  "de": "Agenten-Mix · Ø €1,200",
+  "fr": "Mix d'agents · moy. €1,200",
+  "es": "Mezcla de agentes · prom. €1,200",
+  "it": "Mix di agenti · media €1,200",
+  "pl": "Miks agentów · śr. €1,200",
+  "pt": "Mistura de agentes · méd. €1,200"
+ },
+ "Total sales": {
+  "cs": "Celkové prodeje",
+  "de": "Gesamtumsatz",
+  "fr": "Ventes totales",
+  "es": "Ventas totales",
+  "it": "Vendite totali",
+  "pl": "Łączna sprzedaż",
+  "pt": "Vendas totais"
+ },
+ "// Illustrative only. Actual prices vary by agent and region. Commission subject to partner terms.": {
+  "cs": "// Pouze ilustrativní. Skutečné ceny se liší podle agenta a regionu. Provize podléhá partnerským podmínkám.",
+  "de": "// Nur zur Veranschaulichung. Tatsächliche Preise variieren je nach Agent und Region. Provision unterliegt den Partnerbedingungen.",
+  "fr": "// À titre indicatif uniquement. Les prix réels varient selon l'agent et la région. Commission soumise aux conditions partenaires.",
+  "es": "// Solo ilustrativo. Los precios reales varían según el agente y la región. Comisión sujeta a los términos de socio.",
+  "it": "// Solo a scopo illustrativo. I prezzi effettivi variano in base all'agente e alla regione. Commissione soggetta ai termini per i partner.",
+  "pl": "// Wyłącznie poglądowe. Rzeczywiste ceny różnią się w zależności od agenta i regionu. Prowizja podlega warunkom partnerskim.",
+  "pt": "// Apenas ilustrativo. Os preços reais variam consoante o agente e a região. Comissão sujeita aos termos de parceiro."
+ },
+ "Your unique partner link,": {
+  "cs": "Váš jedinečný partnerský odkaz,",
+  "de": "Ihr einzigartiger Partner-Link,",
+  "fr": "Votre lien partenaire unique,",
+  "es": "Su enlace de socio único,",
+  "it": "Il tuo link partner univoco,",
+  "pl": "Twój unikalny link partnerski,",
+  "pt": "A sua ligação de parceiro única,"
+ },
+ "in 30 seconds.": {
+  "cs": "za 30 sekund.",
+  "de": "in 30 Sekunden.",
+  "fr": "en 30 secondes.",
+  "es": "en 30 segundos.",
+  "it": "in 30 secondi.",
+  "pl": "w 30 sekund.",
+  "pt": "em 30 segundos."
+ },
+ "Register your interest with your name and work email. We review partner fit, confirm commercial terms, and activate tracking after approval.": {
+  "cs": "Zaregistrujte svůj zájem se svým jménem a pracovním e-mailem. Posoudíme vhodnost partnera, potvrdíme obchodní podmínky a po schválení aktivujeme sledování.",
+  "de": "Registrieren Sie Ihr Interesse mit Ihrem Namen und Ihrer geschäftlichen E-Mail-Adresse. Wir prüfen die Partnereignung, bestätigen die Geschäftsbedingungen und aktivieren das Tracking nach der Genehmigung.",
+  "fr": "Enregistrez votre intérêt avec votre nom et votre e-mail professionnel. Nous évaluons l'adéquation du partenaire, confirmons les conditions commerciales et activons le suivi après approbation.",
+  "es": "Registre su interés con su nombre y correo electrónico de trabajo. Revisamos la idoneidad del socio, confirmamos los términos comerciales y activamos el seguimiento tras la aprobación.",
+  "it": "Registra il tuo interesse con il tuo nome e la tua email di lavoro. Valutiamo l'idoneità del partner, confermiamo i termini commerciali e attiviamo il tracciamento dopo l'approvazione.",
+  "pl": "Zarejestruj swoje zainteresowanie, podając imię i służbowy e-mail. Sprawdzamy dopasowanie partnera, potwierdzamy warunki handlowe i aktywujemy śledzenie po zatwierdzeniu.",
+  "pt": "Registe o seu interesse com o seu nome e e-mail profissional. Avaliamos a adequação do parceiro, confirmamos os termos comerciais e ativamos o rastreio após aprovação."
+ },
+ "Your name": {
+  "cs": "Vaše jméno",
+  "de": "Ihr Name",
+  "fr": "Votre nom",
+  "es": "Su nombre",
+  "it": "Il tuo nome",
+  "pl": "Twoje imię",
+  "pt": "O seu nome"
+ },
+ "Work email": {
+  "cs": "Pracovní e-mail",
+  "de": "Geschäftliche E-Mail",
+  "fr": "E-mail professionnel",
+  "es": "Correo de trabajo",
+  "it": "Email di lavoro",
+  "pl": "Służbowy e-mail",
+  "pt": "E-mail profissional"
+ },
+ "Your partner link": {
+  "cs": "Váš partnerský odkaz",
+  "de": "Ihr Partner-Link",
+  "fr": "Votre lien partenaire",
+  "es": "Su enlace de socio",
+  "it": "Il tuo link partner",
+  "pl": "Twój link partnerski",
+  "pt": "A sua ligação de parceiro"
+ },
+ "Partner code": {
+  "cs": "Partnerský kód",
+  "de": "Partnercode",
+  "fr": "Code partenaire",
+  "es": "Código de socio",
+  "it": "Codice partner",
+  "pl": "Kod partnerski",
+  "pt": "Código de parceiro"
+ },
+ "Use this area after partner approval to copy your registered partner details. Attribution and commission tracking are activated only after approval and commercial setup.": {
+  "cs": "Tuto oblast použijte po schválení partnera ke zkopírování svých registrovaných partnerských údajů. Přiřazení a sledování provizí se aktivují až po schválení a obchodním nastavení.",
+  "de": "Verwenden Sie diesen Bereich nach der Partnergenehmigung, um Ihre registrierten Partnerdaten zu kopieren. Zuordnung und Provisions-Tracking werden erst nach Genehmigung und kommerzieller Einrichtung aktiviert.",
+  "fr": "Utilisez cette zone après l'approbation du partenaire pour copier vos informations de partenaire enregistrées. L'attribution et le suivi des commissions ne sont activés qu'après approbation et configuration commerciale.",
+  "es": "Use esta área tras la aprobación del socio para copiar sus datos de socio registrados. La atribución y el seguimiento de comisiones se activan solo tras la aprobación y la configuración comercial.",
+  "it": "Usa quest'area dopo l'approvazione del partner per copiare i tuoi dati partner registrati. L'attribuzione e il tracciamento delle commissioni vengono attivati solo dopo l'approvazione e la configurazione commerciale.",
+  "pl": "Użyj tego obszaru po zatwierdzeniu partnera, aby skopiować swoje zarejestrowane dane partnerskie. Przypisywanie i śledzenie prowizji są aktywowane dopiero po zatwierdzeniu i konfiguracji komercyjnej.",
+  "pt": "Utilize esta área após a aprovação do parceiro para copiar os seus dados de parceiro registados. A atribuição e o rastreio de comissões só são ativados após a aprovação e a configuração comercial."
+ },
+ "How does attribution work?": {
+  "cs": "Jak funguje přiřazení?",
+  "de": "Wie funktioniert die Zuordnung?",
+  "fr": "Comment fonctionne l'attribution ?",
+  "es": "¿Cómo funciona la atribución?",
+  "it": "Come funziona l'attribuzione?",
+  "pl": "Jak działa przypisywanie?",
+  "pt": "Como funciona a atribuição?"
+ },
+ "When someone clicks your partner link, your code is saved in their browser for 30 days. If they buy any agent during that window — even days later, even if they return directly — the sale is credited to you. Attribution passes through our approved commercial setup metadata automatically.": {
+  "cs": "Když někdo klikne na váš partnerský odkaz, váš kód se uloží do jeho prohlížeče na 30 dní. Pokud během tohoto okna koupí jakéhokoli agenta — i o několik dní později, i když se vrátí přímo — je prodej připsán vám. Přiřazení probíhá automaticky prostřednictvím metadat našeho schváleného obchodního nastavení.",
+  "de": "Wenn jemand auf Ihren Partner-Link klickt, wird Ihr Code 30 Tage lang in seinem Browser gespeichert. Kauft die Person in diesem Zeitraum einen Agenten — auch Tage später, auch bei direkter Rückkehr — wird der Verkauf Ihnen gutgeschrieben. Die Zuordnung erfolgt automatisch über die Metadaten unserer genehmigten kommerziellen Einrichtung.",
+  "fr": "Lorsqu'une personne clique sur votre lien partenaire, votre code est enregistré dans son navigateur pendant 30 jours. Si elle achète un agent durant cette période — même des jours plus tard, même si elle revient directement — la vente vous est créditée. L'attribution passe automatiquement par les métadonnées de notre configuration commerciale approuvée.",
+  "es": "Cuando alguien hace clic en su enlace de socio, su código se guarda en su navegador durante 30 días. Si compra cualquier agente durante esa ventana — incluso días después, incluso si vuelve directamente — la venta se le acredita a usted. La atribución pasa automáticamente por los metadatos de nuestra configuración comercial aprobada.",
+  "it": "Quando qualcuno fa clic sul tuo link partner, il tuo codice viene salvato nel suo browser per 30 giorni. Se acquista un agente durante quel periodo — anche giorni dopo, anche se torna direttamente — la vendita viene accreditata a te. L'attribuzione passa automaticamente attraverso i metadati della nostra configurazione commerciale approvata.",
+  "pl": "Gdy ktoś kliknie Twój link partnerski, jego kod zostaje zapisany w jego przeglądarce na 30 dni. Jeśli w tym okresie kupi dowolnego agenta — nawet kilka dni później, nawet jeśli wróci bezpośrednio — sprzedaż zostaje przypisana Tobie. Przypisanie odbywa się automatycznie poprzez metadane naszej zatwierdzonej konfiguracji komercyjnej.",
+  "pt": "Quando alguém clica na sua ligação de parceiro, o seu código é guardado no navegador dessa pessoa durante 30 dias. Se comprar qualquer agente durante essa janela — mesmo dias depois, mesmo que regresse diretamente — a venda é-lhe creditada. A atribuição passa automaticamente pelos metadados da nossa configuração comercial aprovada."
+ },
+ "When and how do I get paid?": {
+  "cs": "Kdy a jak dostanu zaplaceno?",
+  "de": "Wann und wie werde ich bezahlt?",
+  "fr": "Quand et comment suis-je payé ?",
+  "es": "¿Cuándo y cómo cobro?",
+  "it": "Quando e come vengo pagato?",
+  "pl": "Kiedy i jak otrzymam zapłatę?",
+  "pt": "Quando e como sou pago?"
+ },
+ "Commissions are tallied monthly. Once you have accumulated sales, we contact you at your registered email to arrange a bank transfer or other payment method. There is no minimum threshold — your first sale pays out.": {
+  "cs": "Provize se sčítají měsíčně. Jakmile nasbíráte prodeje, kontaktujeme vás na vašem registrovaném e-mailu a domluvíme bankovní převod nebo jiný způsob platby. Neexistuje žádný minimální práh — vyplácí se už první prodej.",
+  "de": "Provisionen werden monatlich abgerechnet. Sobald Sie Verkäufe gesammelt haben, kontaktieren wir Sie unter Ihrer registrierten E-Mail-Adresse, um eine Banküberweisung oder eine andere Zahlungsmethode zu vereinbaren. Es gibt keine Mindestschwelle — bereits Ihr erster Verkauf wird ausgezahlt.",
+  "fr": "Les commissions sont calculées mensuellement. Une fois des ventes accumulées, nous vous contactons à votre e-mail enregistré pour organiser un virement bancaire ou un autre moyen de paiement. Il n'y a pas de seuil minimum — votre première vente est payée.",
+  "es": "Las comisiones se contabilizan mensualmente. Una vez que haya acumulado ventas, le contactamos en su correo registrado para organizar una transferencia bancaria u otro método de pago. No hay umbral mínimo — su primera venta se paga.",
+  "it": "Le commissioni vengono conteggiate mensilmente. Una volta accumulate le vendite, ti contattiamo all'email registrata per organizzare un bonifico bancario o un altro metodo di pagamento. Non c'è una soglia minima — già la tua prima vendita viene pagata.",
+  "pl": "Prowizje są naliczane miesięcznie. Gdy zgromadzisz sprzedaż, kontaktujemy się z Tobą na zarejestrowany e-mail, aby ustalić przelew bankowy lub inną metodę płatności. Nie ma minimalnego progu — wypłacana jest już Twoja pierwsza sprzedaż.",
+  "pt": "As comissões são contabilizadas mensalmente. Assim que tiver acumulado vendas, contactamo-lo no seu e-mail registado para combinar uma transferência bancária ou outro método de pagamento. Não há limite mínimo — a sua primeira venda é paga."
+ },
+ "Can I resell agents under my own brand?": {
+  "cs": "Mohu prodávat agenty pod vlastní značkou?",
+  "de": "Kann ich Agenten unter meiner eigenen Marke weiterverkaufen?",
+  "fr": "Puis-je revendre des agents sous ma propre marque ?",
+  "es": "¿Puedo revender agentes bajo mi propia marca?",
+  "it": "Posso rivendere gli agenti con il mio marchio?",
+  "pl": "Czy mogę odsprzedawać agentów pod własną marką?",
+  "pt": "Posso revender agentes sob a minha própria marca?"
+ },
+ "Yes. You can refer clients passively (they click your link and buy directly) or buy the agent licence yourself and deploy it for a client under a service agreement. Both routes earn you credit. Contact us at": {
+  "cs": "Ano. Klienty můžete doporučovat pasivně (kliknou na váš odkaz a koupí přímo) nebo si sami koupit licenci agenta a nasadit ji pro klienta na základě servisní smlouvy. Obě cesty vám přinášejí kredit. Kontaktujte nás na",
+  "de": "Ja. Sie können Kunden passiv vermitteln (sie klicken auf Ihren Link und kaufen direkt) oder die Agentenlizenz selbst erwerben und sie für einen Kunden im Rahmen eines Dienstleistungsvertrags bereitstellen. Beide Wege bringen Ihnen eine Gutschrift. Kontaktieren Sie uns unter",
+  "fr": "Oui. Vous pouvez parrainer des clients de manière passive (ils cliquent sur votre lien et achètent directement) ou acheter vous-même la licence de l'agent et la déployer pour un client dans le cadre d'un contrat de service. Les deux voies vous créditent. Contactez-nous à",
+  "es": "Sí. Puede recomendar clientes de forma pasiva (hacen clic en su enlace y compran directamente) o comprar usted mismo la licencia del agente y desplegarla para un cliente bajo un acuerdo de servicio. Ambas vías le otorgan crédito. Contáctenos en",
+  "it": "Sì. Puoi segnalare i clienti in modo passivo (cliccano sul tuo link e acquistano direttamente) oppure acquistare tu stesso la licenza dell'agente e distribuirla per un cliente nell'ambito di un contratto di servizio. Entrambe le strade ti danno credito. Contattaci a",
+  "pl": "Tak. Możesz polecać klientów pasywnie (klikają Twój link i kupują bezpośrednio) albo samodzielnie kupić licencję agenta i wdrożyć ją dla klienta na podstawie umowy serwisowej. Obie drogi przynoszą Ci kredyt. Skontaktuj się z nami pod",
+  "pt": "Sim. Pode indicar clientes passivamente (clicam na sua ligação e compram diretamente) ou comprar você mesmo a licença do agente e implementá-la para um cliente ao abrigo de um contrato de serviço. Ambos os caminhos lhe dão crédito. Contacte-nos em"
+ },
+ "to discuss reseller terms.": {
+  "cs": "a probereme podmínky pro prodejce.",
+  "de": "um die Wiederverkäuferbedingungen zu besprechen.",
+  "fr": "pour discuter des conditions de revente.",
+  "es": "para hablar de los términos de reventa.",
+  "it": "per discutere i termini di rivendita.",
+  "pl": "aby omówić warunki odsprzedaży.",
+  "pt": "para discutir os termos de revenda."
+ },
+ "What if my client has already seen Colleague AI?": {
+  "cs": "Co když můj klient už Colleague AI viděl?",
+  "de": "Was ist, wenn mein Kunde Colleague AI bereits gesehen hat?",
+  "fr": "Que se passe-t-il si mon client a déjà vu Colleague AI ?",
+  "es": "¿Qué pasa si mi cliente ya ha visto Colleague AI?",
+  "it": "E se il mio cliente ha già visto Colleague AI?",
+  "pl": "Co jeśli mój klient już widział Colleague AI?",
+  "pt": "E se o meu cliente já viu a Colleague AI?"
+ },
+ "As long as they click your partner link before purchasing, you are credited. If they have already completed a purchase without your link, that sale cannot be attributed retroactively.": {
+  "cs": "Dokud kliknou na váš partnerský odkaz před nákupem, je vám připsán kredit. Pokud již dokončili nákup bez vašeho odkazu, tento prodej nelze přiřadit zpětně.",
+  "de": "Solange sie vor dem Kauf auf Ihren Partner-Link klicken, werden Sie gutgeschrieben. Wenn sie bereits einen Kauf ohne Ihren Link abgeschlossen haben, kann dieser Verkauf nicht rückwirkend zugeordnet werden.",
+  "fr": "Tant qu'ils cliquent sur votre lien partenaire avant d'acheter, vous êtes crédité. S'ils ont déjà finalisé un achat sans votre lien, cette vente ne peut pas être attribuée rétroactivement.",
+  "es": "Siempre que hagan clic en su enlace de socio antes de comprar, se le acredita. Si ya completaron una compra sin su enlace, esa venta no puede atribuirse retroactivamente.",
+  "it": "Finché fanno clic sul tuo link partner prima di acquistare, ti viene accreditato. Se hanno già completato un acquisto senza il tuo link, quella vendita non può essere attribuita retroattivamente.",
+  "pl": "Dopóki klikną Twój link partnerski przed zakupem, otrzymujesz kredyt. Jeśli już dokonali zakupu bez Twojego linku, ta sprzedaż nie może zostać przypisana wstecznie.",
+  "pt": "Desde que cliquem na sua ligação de parceiro antes de comprar, é-lhe creditado. Se já tiverem concluído uma compra sem a sua ligação, essa venda não pode ser atribuída retroativamente."
+ },
+ "Is there a cap on how much I can earn?": {
+  "cs": "Existuje strop, kolik mohu vydělat?",
+  "de": "Gibt es eine Obergrenze für meinen Verdienst?",
+  "fr": "Y a-t-il un plafond sur ce que je peux gagner ?",
+  "es": "¿Hay un límite en cuánto puedo ganar?",
+  "it": "C'è un tetto massimo a quanto posso guadagnare?",
+  "pl": "Czy istnieje limit tego, ile mogę zarobić?",
+  "pt": "Existe um limite para quanto posso ganhar?"
+ },
+ "No cap. Refer one client or a hundred. Commission applies to every sale attributed to your code, at the same rate, with no volume tiers that reduce it.": {
+  "cs": "Žádný strop. Doporučte jednoho klienta nebo sto. Provize platí pro každý prodej přiřazený vašemu kódu, ve stejné sazbě, bez objemových úrovní, které by ji snižovaly.",
+  "de": "Keine Obergrenze. Vermitteln Sie einen Kunden oder hundert. Die Provision gilt für jeden Ihrem Code zugeordneten Verkauf, zum gleichen Satz, ohne mengenabhängige Stufen, die sie reduzieren.",
+  "fr": "Aucun plafond. Parrainez un client ou cent. La commission s'applique à chaque vente attribuée à votre code, au même taux, sans paliers de volume qui la réduisent.",
+  "es": "Sin límite. Recomiende a un cliente o a cien. La comisión se aplica a cada venta atribuida a su código, al mismo porcentaje, sin tramos de volumen que la reduzcan.",
+  "it": "Nessun tetto. Segnala un cliente o cento. La commissione si applica a ogni vendita attribuita al tuo codice, alla stessa percentuale, senza fasce di volume che la riducano.",
+  "pl": "Bez limitu. Poleć jednego klienta lub stu. Prowizja obowiązuje dla każdej sprzedaży przypisanej do Twojego kodu, w tej samej stawce, bez progów wolumenowych, które ją obniżają.",
+  "pt": "Sem limite. Indique um cliente ou cem. A comissão aplica-se a cada venda atribuída ao seu código, à mesma taxa, sem escalões de volume que a reduzam."
+ },
+ "What if I lose my partner link?": {
+  "cs": "Co když ztratím svůj partnerský odkaz?",
+  "de": "Was ist, wenn ich meinen Partner-Link verliere?",
+  "fr": "Que se passe-t-il si je perds mon lien partenaire ?",
+  "es": "¿Qué pasa si pierdo mi enlace de socio?",
+  "it": "E se perdo il mio link partner?",
+  "pl": "Co jeśli zgubię swój link partnerski?",
+  "pt": "E se eu perder a minha ligação de parceiro?"
+ },
+ "Your code is derived deterministically from your email address. Come back to this page, enter the same name and email, and you get the exact same code and link every time.": {
+  "cs": "Váš kód je deterministicky odvozen z vaší e-mailové adresy. Vraťte se na tuto stránku, zadejte stejné jméno a e-mail a pokaždé získáte úplně stejný kód a odkaz.",
+  "de": "Ihr Code wird deterministisch aus Ihrer E-Mail-Adresse abgeleitet. Kehren Sie auf diese Seite zurück, geben Sie denselben Namen und dieselbe E-Mail-Adresse ein, und Sie erhalten jedes Mal genau denselben Code und Link.",
+  "fr": "Votre code est dérivé de manière déterministe de votre adresse e-mail. Revenez sur cette page, saisissez le même nom et le même e-mail, et vous obtenez exactement le même code et le même lien à chaque fois.",
+  "es": "Su código se deriva de forma determinista de su dirección de correo electrónico. Vuelva a esta página, introduzca el mismo nombre y correo, y obtendrá exactamente el mismo código y enlace cada vez.",
+  "it": "Il tuo codice è derivato in modo deterministico dal tuo indirizzo email. Torna a questa pagina, inserisci lo stesso nome ed email e ottieni ogni volta esattamente lo stesso codice e link.",
+  "pl": "Twój kod jest wyprowadzany deterministycznie z Twojego adresu e-mail. Wróć na tę stronę, wpisz to samo imię i e-mail, a za każdym razem otrzymasz dokładnie ten sam kod i link.",
+  "pt": "O seu código é derivado de forma determinística do seu endereço de e-mail. Volte a esta página, introduza o mesmo nome e e-mail, e obtém exatamente o mesmo código e ligação de cada vez."
+ },
+ "Is there a formal partner agreement?": {
+  "cs": "Existuje formální partnerská smlouva?",
+  "de": "Gibt es eine formelle Partnervereinbarung?",
+  "fr": "Existe-t-il un accord de partenariat formel ?",
+  "es": "¿Hay un acuerdo de socio formal?",
+  "it": "Esiste un accordo di partnership formale?",
+  "pl": "Czy istnieje formalna umowa partnerska?",
+  "pt": "Existe um acordo de parceria formal?"
+ },
+ "By generating a link you accept that commissions are paid at the rate shown at the time of sale, apply only to completed and non-refunded purchases, and are non-transferable. A full written agreement is available on request at": {
+  "cs": "Vygenerováním odkazu přijímáte, že provize jsou vypláceny ve výši uvedené v době prodeje, vztahují se pouze na dokončené a nevrácené nákupy a jsou nepřenosné. Úplná písemná smlouva je k dispozici na vyžádání na",
+  "de": "Mit der Generierung eines Links akzeptieren Sie, dass Provisionen zu dem zum Verkaufszeitpunkt angezeigten Satz gezahlt werden, nur für abgeschlossene und nicht erstattete Käufe gelten und nicht übertragbar sind. Eine vollständige schriftliche Vereinbarung ist auf Anfrage erhältlich unter",
+  "fr": "En générant un lien, vous acceptez que les commissions soient payées au taux indiqué au moment de la vente, ne s'appliquent qu'aux achats finalisés et non remboursés, et soient non transférables. Un accord écrit complet est disponible sur demande à",
+  "es": "Al generar un enlace, acepta que las comisiones se pagan al porcentaje mostrado en el momento de la venta, se aplican solo a compras completadas y no reembolsadas, y son intransferibles. Un acuerdo escrito completo está disponible a petición en",
+  "it": "Generando un link accetti che le commissioni siano pagate alla percentuale mostrata al momento della vendita, si applichino solo agli acquisti completati e non rimborsati e siano non trasferibili. Un accordo scritto completo è disponibile su richiesta a",
+  "pl": "Generując link, akceptujesz, że prowizje są wypłacane według stawki pokazanej w momencie sprzedaży, dotyczą wyłącznie zakończonych i niezwróconych zakupów oraz są nieprzenoszalne. Pełna pisemna umowa jest dostępna na żądanie pod",
+  "pt": "Ao gerar uma ligação, aceita que as comissões são pagas à taxa apresentada no momento da venda, se aplicam apenas a compras concluídas e não reembolsadas, e são intransmissíveis. Um acordo escrito completo está disponível mediante pedido em"
+ },
+ "Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you — automatically, through approved commercial setup.": {
+  "cs": "Pošlete odkaz klientům, vložte jej do nabídek, přidejte jej na svůj web. Kdokoli klikne a koupí do 30 dnů, je připsán vám — automaticky, prostřednictvím schváleného obchodního nastavení.",
+  "de": "Senden Sie den Link an Kunden, betten Sie ihn in Angebote ein, fügen Sie ihn Ihrer Website hinzu. Jeder, der innerhalb von 30 Tagen klickt und kauft, wird Ihnen gutgeschrieben — automatisch, über die genehmigte kommerzielle Einrichtung.",
+  "fr": "Envoyez le lien à vos clients, intégrez-le dans vos propositions, ajoutez-le à votre site web. Toute personne qui clique et achète dans les 30 jours vous est créditée — automatiquement, via la configuration commerciale approuvée.",
+  "es": "Envíe el enlace a los clientes, insértelo en propuestas, añádalo a su sitio web. Cualquiera que haga clic y compre en un plazo de 30 días se le acredita a usted — automáticamente, mediante la configuración comercial aprobada.",
+  "it": "Invia il link ai clienti, incorporalo nelle proposte, aggiungilo al tuo sito web. Chiunque clicchi e acquisti entro 30 giorni viene accreditato a te — automaticamente, tramite la configurazione commerciale approvata.",
+  "pl": "Wyślij link klientom, umieść go w ofertach, dodaj go do swojej witryny. Każdy, kto kliknie i kupi w ciągu 30 dni, jest przypisany Tobie — automatycznie, poprzez zatwierdzoną konfigurację komercyjną.",
+  "pt": "Envie a ligação a clientes, incorpore-a em propostas, adicione-a ao seu site. Qualquer pessoa que clique e compre no prazo de 30 dias é-lhe creditada — automaticamente, através da configuração comercial aprovada."
+ },
+ "Approved partner access after review": {
+  "cs": "Schválený přístup partnera po posouzení",
+  "de": "Genehmigter Partnerzugang nach Prüfung",
+  "fr": "Accès partenaire approuvé après examen",
+  "es": "Acceso de socio aprobado tras revisión",
+  "it": "Accesso partner approvato dopo la revisione",
+  "pl": "Zatwierdzony dostęp partnera po weryfikacji",
+  "pt": "Acesso de parceiro aprovado após revisão"
+ },
+ "30-day attribution window per visitor": {
+  "cs": "30denní okno přiřazení na návštěvníka",
+  "de": "30-Tage-Zuordnungsfenster pro Besucher",
+  "fr": "Fenêtre d'attribution de 30 jours par visiteur",
+  "es": "Ventana de atribución de 30 días por visitante",
+  "it": "Finestra di attribuzione di 30 giorni per visitatore",
+  "pl": "30-dniowe okno przypisania na odwiedzającego",
+  "pt": "Janela de atribuição de 30 dias por visitante"
+ },
+ "Applies to every agent in the catalogue": {
+  "cs": "Platí pro každého agenta v katalogu",
+  "de": "Gilt für jeden Agenten im Katalog",
+  "fr": "S'applique à chaque agent du catalogue",
+  "es": "Se aplica a todos los agentes del catálogo",
+  "it": "Si applica a ogni agente del catalogo",
+  "pl": "Dotyczy każdego agenta w katalogu",
+  "pt": "Aplica-se a todos os agentes do catálogo"
+ },
+ "Tracking activated after commercial setup": {
+  "cs": "Sledování aktivováno po obchodním nastavení",
+  "de": "Tracking nach kommerzieller Einrichtung aktiviert",
+  "fr": "Suivi activé après configuration commerciale",
+  "es": "Seguimiento activado tras la configuración comercial",
+  "it": "Tracciamento attivato dopo la configurazione commerciale",
+  "pl": "Śledzenie aktywowane po konfiguracji komercyjnej",
+  "pt": "Rastreio ativado após configuração comercial"
+ },
+ "Payout terms confirmed during onboarding": {
+  "cs": "Podmínky výplaty potvrzeny během onboardingu",
+  "de": "Auszahlungsbedingungen werden während des Onboardings bestätigt",
+  "fr": "Conditions de paiement confirmées lors de l'intégration",
+  "es": "Términos de pago confirmados durante la incorporación",
+  "it": "Termini di pagamento confermati durante l'onboarding",
+  "pl": "Warunki wypłaty potwierdzane podczas onboardingu",
+  "pt": "Termos de pagamento confirmados durante o onboarding"
+ },
+ " agents are designed to operate against the customer’s Microsoft/cloud estate.": {
+  "cs": " agenti jsou navrženi tak, aby pracovali proti prostředí Microsoft/cloud zákazníka.",
+  "de": " Agenten sind so konzipiert, dass sie gegen die Microsoft-/Cloud-Umgebung des Kunden arbeiten.",
+  "fr": " les agents sont conçus pour fonctionner sur le parc Microsoft/cloud du client.",
+  "es": " los agentes están diseñados para operar contra el entorno Microsoft/nube del cliente.",
+  "it": " gli agenti sono progettati per operare sull'ambiente Microsoft/cloud del cliente.",
+  "pl": " agenci są zaprojektowani do działania w środowisku Microsoft/chmury klienta.",
+  "pt": " os agentes são concebidos para operar contra o ambiente Microsoft/nuvem do cliente."
+ },
+ " retrieval patterns should respect existing user permissions.": {
+  "cs": " vyhledávací vzory by měly respektovat stávající oprávnění uživatelů.",
+  "de": " Retrieval-Muster sollten die bestehenden Benutzerberechtigungen respektieren.",
+  "fr": " les modèles de recherche doivent respecter les autorisations existantes des utilisateurs.",
+  "es": " los patrones de recuperación deben respetar los permisos de usuario existentes.",
+  "it": " i pattern di recupero dovrebbero rispettare le autorizzazioni utente esistenti.",
+  "pl": " wzorce wyszukiwania powinny respektować istniejące uprawnienia użytkowników.",
+  "pt": " os padrões de recuperação devem respeitar as permissões de utilizador existentes."
+ },
+ " each package is mapped to a CAI autonomy tier, human oversight pattern and audit evidence expectation.": {
+  "cs": " každý balíček je namapován na stupeň autonomie CAI, vzor lidského dohledu a očekávání auditních důkazů.",
+  "de": " Jedes Paket ist einer CAI-Autonomiestufe, einem Muster der menschlichen Aufsicht und einer Erwartung an Audit-Nachweise zugeordnet.",
+  "fr": " chaque package est associé à un niveau d'autonomie CAI, à un modèle de supervision humaine et à une attente de preuves d'audit.",
+  "es": " cada paquete se asigna a un nivel de autonomía CAI, un patrón de supervisión humana y una expectativa de evidencia de auditoría.",
+  "it": " ogni pacchetto è mappato a un livello di autonomia CAI, a un modello di supervisione umana e a un'aspettativa di evidenze di audit.",
+  "pl": " każdy pakiet jest przypisany do poziomu autonomii CAI, wzorca nadzoru ludzkiego i oczekiwań dotyczących dowodów audytu.",
+  "pt": " cada pacote é mapeado para um nível de autonomia CAI, um padrão de supervisão humana e uma expectativa de evidências de auditoria."
+ },
+ " (/demo): the messages you type are sent to Anthropic's API to generate responses, with per-IP and global rate limits. Don't paste confidential data into the demo.": {
+  "cs": " (/demo): zprávy, které napíšete, jsou odesílány do API společnosti Anthropic za účelem generování odpovědí, s limity počtu požadavků na IP i globálně. Nevkládejte do dema důvěrná data.",
+  "de": " (/demo): Die von Ihnen eingegebenen Nachrichten werden zur Generierung von Antworten an die API von Anthropic gesendet, mit Ratenbegrenzungen pro IP und global. Geben Sie keine vertraulichen Daten in die Demo ein.",
+  "fr": " (/demo) : les messages que vous saisissez sont envoyés à l'API d'Anthropic pour générer des réponses, avec des limites de débit par IP et globales. Ne collez pas de données confidentielles dans la démo.",
+  "es": " (/demo): los mensajes que escribe se envían a la API de Anthropic para generar respuestas, con límites de tasa por IP y globales. No pegue datos confidenciales en la demo.",
+  "it": " (/demo): i messaggi che digiti vengono inviati all'API di Anthropic per generare risposte, con limiti di frequenza per IP e globali. Non incollare dati riservati nella demo.",
+  "pl": " (/demo): wiadomości, które wpiszesz, są wysyłane do API firmy Anthropic w celu generowania odpowiedzi, z limitami liczby żądań na IP i globalnymi. Nie wklejaj poufnych danych do dema.",
+  "pt": " (/demo): as mensagens que escreve são enviadas para a API da Anthropic para gerar respostas, com limites de taxa por IP e globais. Não cole dados confidenciais na demonstração."
+ },
+ "Responsible disclosure: see ": {
+  "cs": "Odpovědné zveřejnění: viz ",
+  "de": "Verantwortungsvolle Offenlegung: siehe ",
+  "fr": "Divulgation responsable : voir ",
+  "es": "Divulgación responsable: consulte ",
+  "it": "Divulgazione responsabile: vedi ",
+  "pl": "Odpowiedzialne ujawnianie: zobacz ",
+  "pt": "Divulgação responsável: ver "
+ },
+ " or write to ": {
+  "cs": " nebo napište na ",
+  "de": " oder schreiben Sie an ",
+  "fr": " ou écrivez à ",
+  "es": " o escriba a ",
+  "it": " o scrivi a ",
+  "pl": " lub napisz na ",
+  "pt": " ou escreva para "
+ },
+ "\n      ColleagueAI agent packages can include client-owned token economy monitoring that runs inside the client environment. The purpose is to help customers understand token consumption, estimated model/API cost, retries, oversized context, expensive model choices, and optimisation opportunities — while keeping prompts, outputs, documents, and business content out of ColleagueAI systems.\n    ": {
+  "cs": "\n      Balíčky agentů ColleagueAI mohou zahrnovat monitorování ekonomiky tokenů vlastněné klientem, které běží v prostředí klienta. Účelem je pomoci zákazníkům porozumět spotřebě tokenů, odhadovaným nákladům na model/API, opakováním, nadměrnému kontextu, nákladným volbám modelů a příležitostem k optimalizaci — a přitom ponechat prompty, výstupy, dokumenty a obchodní obsah mimo systémy ColleagueAI.\n    ",
+  "de": "\n      ColleagueAI-Agentenpakete können eine kundeneigene Token-Ökonomie-Überwachung enthalten, die in der Kundenumgebung läuft. Der Zweck besteht darin, Kunden zu helfen, Tokenverbrauch, geschätzte Modell-/API-Kosten, Wiederholungen, übergroßen Kontext, teure Modellwahl und Optimierungsmöglichkeiten zu verstehen — während Prompts, Ausgaben, Dokumente und Geschäftsinhalte außerhalb der ColleagueAI-Systeme bleiben.\n    ",
+  "fr": "\n      Les packages d'agents ColleagueAI peuvent inclure une surveillance de l'économie des tokens détenue par le client, qui s'exécute dans l'environnement du client. L'objectif est d'aider les clients à comprendre la consommation de tokens, le coût estimé des modèles/API, les relances, le contexte surdimensionné, les choix de modèles coûteux et les opportunités d'optimisation — tout en gardant les prompts, sorties, documents et contenus métier hors des systèmes ColleagueAI.\n    ",
+  "es": "\n      Los paquetes de agentes de ColleagueAI pueden incluir una monitorización de la economía de tokens propiedad del cliente que se ejecuta dentro del entorno del cliente. El propósito es ayudar a los clientes a comprender el consumo de tokens, el coste estimado de modelo/API, los reintentos, el contexto sobredimensionado, las elecciones de modelo costosas y las oportunidades de optimización — manteniendo los prompts, salidas, documentos y contenido de negocio fuera de los sistemas de ColleagueAI.\n    ",
+  "it": "\n      I pacchetti agente ColleagueAI possono includere un monitoraggio dell'economia dei token di proprietà del cliente che viene eseguito nell'ambiente del cliente. Lo scopo è aiutare i clienti a comprendere il consumo di token, il costo stimato di modello/API, i nuovi tentativi, il contesto sovradimensionato, le scelte di modello costose e le opportunità di ottimizzazione — mantenendo prompt, output, documenti e contenuti aziendali fuori dai sistemi ColleagueAI.\n    ",
+  "pl": "\n      Pakiety agentów ColleagueAI mogą obejmować należące do klienta monitorowanie ekonomii tokenów, działające w środowisku klienta. Celem jest pomóc klientom zrozumieć zużycie tokenów, szacowany koszt modelu/API, ponowienia, nadmiarowy kontekst, kosztowne wybory modeli i możliwości optymalizacji — przy jednoczesnym pozostawieniu promptów, wyników, dokumentów i treści biznesowych poza systemami ColleagueAI.\n    ",
+  "pt": "\n      Os pacotes de agentes ColleagueAI podem incluir uma monitorização da economia de tokens propriedade do cliente que é executada dentro do ambiente do cliente. O objetivo é ajudar os clientes a compreender o consumo de tokens, o custo estimado de modelo/API, as repetições, o contexto sobredimensionado, as escolhas de modelo dispendiosas e as oportunidades de otimização — mantendo prompts, saídas, documentos e conteúdo de negócio fora dos sistemas da ColleagueAI.\n    "
+ },
+ "\n      The result is practical AI cost governance: users understand their own consumption, finance sees cost before it becomes uncontrolled, and leadership can scale the agents that deliver measurable value.\n    ": {
+  "cs": "\n      Výsledkem je praktické řízení nákladů na AI: uživatelé rozumějí vlastní spotřebě, finance vidí náklady dříve, než se vymknou kontrole, a vedení může škálovat agenty, kteří přinášejí měřitelnou hodnotu.\n    ",
+  "de": "\n      Das Ergebnis ist eine praktische KI-Kostensteuerung: Nutzer verstehen ihren eigenen Verbrauch, die Finanzabteilung sieht Kosten, bevor sie außer Kontrolle geraten, und die Führung kann die Agenten skalieren, die messbaren Wert liefern.\n    ",
+  "fr": "\n      Le résultat est une gouvernance pratique des coûts de l'IA : les utilisateurs comprennent leur propre consommation, la finance voit le coût avant qu'il ne devienne incontrôlé, et la direction peut déployer à grande échelle les agents qui apportent une valeur mesurable.\n    ",
+  "es": "\n      El resultado es una gobernanza práctica del coste de la IA: los usuarios entienden su propio consumo, finanzas ve el coste antes de que se descontrole y la dirección puede escalar los agentes que aportan valor medible.\n    ",
+  "it": "\n      Il risultato è una governance pratica dei costi dell'IA: gli utenti comprendono il proprio consumo, la funzione finance vede i costi prima che diventino incontrollati e la leadership può scalare gli agenti che offrono valore misurabile.\n    ",
+  "pl": "\n      Rezultatem jest praktyczne zarządzanie kosztami AI: użytkownicy rozumieją własne zużycie, finanse widzą koszt, zanim wymknie się spod kontroli, a kierownictwo może skalować agentów, którzy dostarczają mierzalną wartość.\n    ",
+  "pt": "\n      O resultado é uma governança prática do custo da IA: os utilizadores compreendem o seu próprio consumo, a área financeira vê o custo antes de se descontrolar, e a liderança pode escalar os agentes que entregam valor mensurável.\n    "
+ },
+ "Yes. You can refer clients passively (they click your link and buy directly) or buy the agent licence yourself and deploy it for a client under a service agreement. Both routes earn you credit. Contact us at ": {
+  "cs": "Ano. Klienty můžete doporučovat pasivně (kliknou na váš odkaz a koupí přímo) nebo si sami koupit licenci agenta a nasadit ji pro klienta na základě servisní smlouvy. Obě cesty vám přinášejí kredit. Kontaktujte nás na ",
+  "de": "Ja. Sie können Kunden passiv vermitteln (sie klicken auf Ihren Link und kaufen direkt) oder die Agentenlizenz selbst erwerben und sie für einen Kunden im Rahmen eines Dienstleistungsvertrags bereitstellen. Beide Wege bringen Ihnen eine Gutschrift. Kontaktieren Sie uns unter ",
+  "fr": "Oui. Vous pouvez parrainer des clients de manière passive (ils cliquent sur votre lien et achètent directement) ou acheter vous-même la licence de l'agent et la déployer pour un client dans le cadre d'un contrat de service. Les deux voies vous créditent. Contactez-nous à ",
+  "es": "Sí. Puede recomendar clientes de forma pasiva (hacen clic en su enlace y compran directamente) o comprar usted mismo la licencia del agente y desplegarla para un cliente bajo un acuerdo de servicio. Ambas vías le otorgan crédito. Contáctenos en ",
+  "it": "Sì. Puoi segnalare i clienti in modo passivo (cliccano sul tuo link e acquistano direttamente) oppure acquistare tu stesso la licenza dell'agente e distribuirla per un cliente nell'ambito di un contratto di servizio. Entrambe le strade ti danno credito. Contattaci a ",
+  "pl": "Tak. Możesz polecać klientów pasywnie (klikają Twój link i kupują bezpośrednio) albo samodzielnie kupić licencję agenta i wdrożyć ją dla klienta na podstawie umowy serwisowej. Obie drogi przynoszą Ci kredyt. Skontaktuj się z nami pod ",
+  "pt": "Sim. Pode indicar clientes passivamente (clicam na sua ligação e compram diretamente) ou comprar você mesmo a licença do agente e implementá-la para um cliente ao abrigo de um contrato de serviço. Ambos os caminhos lhe dão crédito. Contacte-nos em "
+ },
+ " to discuss reseller terms.": {
+  "cs": " a probereme podmínky pro prodejce.",
+  "de": " um die Wiederverkäuferbedingungen zu besprechen.",
+  "fr": " pour discuter des conditions de revente.",
+  "es": " para hablar de los términos de reventa.",
+  "it": " per discutere i termini di rivendita.",
+  "pl": " aby omówić warunki odsprzedaży.",
+  "pt": " para discutir os termos de revenda."
+ },
+ "By generating a link you accept that commissions are paid at the rate shown at the time of sale, apply only to completed and non-refunded purchases, and are non-transferable. A full written agreement is available on request at ": {
+  "cs": "Vygenerováním odkazu přijímáte, že provize jsou vypláceny ve výši uvedené v době prodeje, vztahují se pouze na dokončené a nevrácené nákupy a jsou nepřenosné. Úplná písemná smlouva je k dispozici na vyžádání na ",
+  "de": "Mit der Generierung eines Links akzeptieren Sie, dass Provisionen zu dem zum Verkaufszeitpunkt angezeigten Satz gezahlt werden, nur für abgeschlossene und nicht erstattete Käufe gelten und nicht übertragbar sind. Eine vollständige schriftliche Vereinbarung ist auf Anfrage erhältlich unter ",
+  "fr": "En générant un lien, vous acceptez que les commissions soient payées au taux indiqué au moment de la vente, ne s'appliquent qu'aux achats finalisés et non remboursés, et soient non transférables. Un accord écrit complet est disponible sur demande à ",
+  "es": "Al generar un enlace, acepta que las comisiones se pagan al porcentaje mostrado en el momento de la venta, se aplican solo a compras completadas y no reembolsadas, y son intransferibles. Un acuerdo escrito completo está disponible a petición en ",
+  "it": "Generando un link accetti che le commissioni siano pagate alla percentuale mostrata al momento della vendita, si applichino solo agli acquisti completati e non rimborsati e siano non trasferibili. Un accordo scritto completo è disponibile su richiesta a ",
+  "pl": "Generując link, akceptujesz, że prowizje są wypłacane według stawki pokazanej w momencie sprzedaży, dotyczą wyłącznie zakończonych i niezwróconych zakupów oraz są nieprzenoszalne. Pełna pisemna umowa jest dostępna na żądanie pod ",
+  "pt": "Ao gerar uma ligação, aceita que as comissões são pagas à taxa apresentada no momento da venda, se aplicam apenas a compras concluídas e não reembolsadas, e são intransmissíveis. Um acordo escrito completo está disponível mediante pedido em "
  }
 }
