@@ -1,66 +1,133 @@
-function isBackToTopControl(target) {
-  const control = target?.closest?.("button, a, [role='button'], [data-scroll-top], [data-back-to-top]");
-  if (!control) return null;
-
-  const text = String(control.textContent || "").trim();
-  const attrs = [
-    control.id || "",
-    control.className || "",
-    control.getAttribute("aria-label") || "",
-    control.getAttribute("title") || "",
-    control.getAttribute("href") || "",
-    control.getAttribute("data-scroll-top") || "",
-    control.getAttribute("data-back-to-top") || ""
-  ].join(" ").toLowerCase();
-
-  if (text === "↑" || text === "⬆" || text === "^") return control;
-  if (/back[-_\\s]?to[-_\\s]?top|scroll[-_\\s]?to[-_\\s]?top|scrolltop|to[-_\\s]?top/.test(attrs)) return control;
-
-  return null;
-}
-
-function scrollPageToTop(event) {
-  const control = isBackToTopControl(event.target);
-  if (!control) return;
-
-  event.preventDefault();
-  event.stopPropagation();
-
-  try {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  } catch {
-    window.scrollTo(0, 0);
+﻿(function () {
+  function onReady(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback);
+    } else {
+      callback();
+    }
   }
-}
 
-function prepareBackToTopControls() {
-  document.querySelectorAll("button, a, [role='button'], [data-scroll-top], [data-back-to-top]").forEach((control) => {
-    if (!isBackToTopControl(control)) return;
+  function currentScrollY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
 
-    if (control.tagName === "BUTTON" && !control.getAttribute("type")) {
-      control.setAttribute("type", "button");
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtmlBehavior = html ? html.style.scrollBehavior : "";
+    var oldBodyBehavior = body ? body.style.scrollBehavior : "";
+
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+
+    try {
+      window.scrollTo(0, 0);
+    } catch (error) {}
+
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    } catch (error) {}
+
+    var nodes = [document.scrollingElement, html, body];
+
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+
+      try {
+        nodes[i].scrollTop = 0;
+        nodes[i].scrollLeft = 0;
+      } catch (error) {}
     }
 
-    if (!control.getAttribute("aria-label")) {
-      control.setAttribute("aria-label", "Back to top");
+    if (html) html.style.scrollBehavior = oldHtmlBehavior || "";
+    if (body) body.style.scrollBehavior = oldBodyBehavior || "";
+  }
+
+  function ensureStyle() {
+    if (document.getElementById("cai-fixed-backtop-css")) return;
+
+    var style = document.createElement("style");
+    style.id = "cai-fixed-backtop-css";
+    style.textContent = [
+      "#cai-fixed-backtop {",
+      "position: fixed !important;",
+      "right: 22px !important;",
+      "bottom: 22px !important;",
+      "width: 48px !important;",
+      "height: 48px !important;",
+      "border: 0 !important;",
+      "border-radius: 999px !important;",
+      "background: #1d1b1a !important;",
+      "color: #fff !important;",
+      "font-size: 22px !important;",
+      "z-index: 2147483647 !important;",
+      "cursor: pointer !important;",
+      "display: none !important;",
+      "align-items: center !important;",
+      "justify-content: center !important;",
+      "line-height: 1 !important;",
+      "}",
+      "#cai-fixed-backtop[data-show='true'] {",
+      "display: flex !important;",
+      "}"
+    ].join("\n");
+
+    document.head.appendChild(style);
+  }
+
+  function ensureButton() {
+    var button = document.getElementById("cai-fixed-backtop");
+
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Back to top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
     }
 
-    control.style.pointerEvents = "auto";
-    control.style.cursor = "pointer";
-    control.style.zIndex = "2147483647";
+    return button;
+  }
+
+  onReady(function () {
+    ensureStyle();
+
+    var button = ensureButton();
+
+    function updateVisibility() {
+      button.setAttribute("data-show", currentScrollY() > 120 ? "true" : "false");
+    }
+
+    function handleClick(event) {
+      if (event) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      forceTop();
+
+      if (window.requestAnimationFrame) {
+        window.requestAnimationFrame(forceTop);
+      }
+
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(updateVisibility, 450);
+    }
+
+    button.addEventListener("click", handleClick, true);
+    button.addEventListener("pointerup", handleClick, true);
+    button.addEventListener("touchend", handleClick, true);
+
+    window.addEventListener("scroll", updateVisibility, { passive: true });
+    window.addEventListener("load", updateVisibility);
+
+    updateVisibility();
   });
-}
-
-if (typeof window !== "undefined" && typeof document !== "undefined") {
-  document.addEventListener("click", scrollPageToTop, true);
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", prepareBackToTopControls);
-  } else {
-    prepareBackToTopControls();
-  }
-
-  window.addEventListener("load", prepareBackToTopControls);
-  setTimeout(prepareBackToTopControls, 250);
-  setTimeout(prepareBackToTopControls, 1000);
-}
+})();
