@@ -39,7 +39,7 @@ function findFile(urlPath) {
 
   clean = clean.replace(/^\/+/, "");
 
-  if (!clean) clean = "index.html";
+  if (!clean) clean = "agents.html";
 
   const candidates = [
     clean,
