@@ -1,7 +1,7 @@
 /**
  * api/partner-register.js — Self-serve partner registration
  *
- * POST { name, email, code }
+ * POST { name, email, code, consent }
  *   → stores the partner record in KV
  *   → returns { ok: true, code, link }
  *
@@ -35,10 +35,13 @@ export default async function handler(req, res) {
 
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { name, email, code } = req.body ?? {};
+  const { name, email, code, consent } = req.body ?? {};
 
   if (!name || !email || !code) {
     return res.status(400).json({ error: 'name, email and code are required' });
+  }
+  if (consent !== true && consent !== 'true') {
+    return res.status(400).json({ error: 'GDPR consent is required' });
   }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Invalid email address' });
@@ -54,7 +57,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const record = await registerPartner({ code, name: name.trim(), email });
+    const record = await registerPartner({ code, name: name.trim(), email, consent: true, consentAt: new Date().toISOString() });
     const link = `https://www.colleagueai.ai/agents?partner=${code}`;
     res.setHeader('Access-Control-Allow-Origin', 'https://www.colleagueai.ai');
     return res.status(200).json({ ok: true, code, link, registeredAt: record.registeredAt });
