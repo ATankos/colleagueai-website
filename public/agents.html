@@ -4212,9 +4212,32 @@ window.__rebuildGAQuiz=function(){
   document.documentElement.setAttribute('data-cai-paid-launch','disabled');
   function isCheckoutLink(anchor){
     if(!anchor) return false;
-    var href=(anchor.getAttribute('href')||'').toLowerCase();
-    var mode=(anchor.dataset&&anchor.dataset.mode||'').toLowerCase();
-    return mode==='checkout'||href.indexOf('/api/checkout')>-1||href.indexOf('/checkout')>-1||href.indexOf('checkout.stripe.com')>-1||href.indexOf('buy.stripe.com')>-1;
+
+    var rawHref = anchor.getAttribute('href') || '';
+    var mode = (anchor.dataset && anchor.dataset.mode || '').toLowerCase();
+
+    if(mode === 'checkout') return true;
+
+    try{
+      var parsed = new URL(rawHref, window.location.origin);
+      var host = parsed.hostname.toLowerCase();
+      var path = parsed.pathname.toLowerCase();
+      var isSameOrigin = parsed.origin === window.location.origin;
+
+      if(isSameOrigin && (
+        path === '/checkout' ||
+        path.indexOf('/checkout/') === 0 ||
+        path === '/api/checkout' ||
+        path.indexOf('/api/checkout/') === 0
+      )){
+        return true;
+      }
+
+      return parsed.protocol === 'https:' &&
+        (host === 'checkout.stripe.com' || host === 'buy.stripe.com');
+    }catch(e){
+      return false;
+    }
   }
   function showLaunchGateNotice(){
     var toast=document.getElementById('cai-launch-toast');
