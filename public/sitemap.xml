@@ -220,4 +220,9 @@
   <url>
     <loc>https://www.colleagueai.ai/pt/terms</loc>
   </url>
+  <url>
+    <loc>https://www.colleagueai.ai/imprint</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
