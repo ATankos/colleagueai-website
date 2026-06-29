@@ -3504,7 +3504,7 @@ function render(){
   }
   grid.innerHTML=shown.map((a,i)=>{
     const idx=AGENTS.indexOf(a);
-    const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const slug=(function(value){var input=String(value||"").toLowerCase();var out="";function dash(){if(out&&out.charAt(out.length-1)!=="-")out+="-";}for(var i=0;i<input.length;i++){var ch=input.charAt(i);var c=ch.charCodeAt(0);if(ch==="&"){dash();out+="and";continue;}if((c>=97&&c<=122)||(c>=48&&c<=57)){out+=ch;}else{dash();}}while(out.charAt(out.length-1)==="-"){out=out.slice(0,-1);}return out;})(a.n);
     const _loc=window.LANGNOW||'en';const _ldata=(_loc!=='en'&&window['AGENTS_'+_loc.toUpperCase()]&&window['AGENTS_'+_loc.toUpperCase()][slug])||null;
     const cardDesc=_ldata?_ldata.desc:a.desc;
     const cardKpi=_ldata?_ldata.kpi:a.kpi;
@@ -3589,7 +3589,7 @@ function openDrawer(i){window.__caiDi=i;
   document.getElementById('d-kpi').innerHTML=a.kpi;
   document.getElementById('d-comp').textContent=a.comp;
   document.getElementById('d-pains').innerHTML=(a.pains||[]).map(p=>'<li>'+p+'</li>').join('');
-  const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const slug=(function(value){var input=String(value||"").toLowerCase();var out="";function dash(){if(out&&out.charAt(out.length-1)!=="-")out+="-";}for(var i=0;i<input.length;i++){var ch=input.charAt(i);var c=ch.charCodeAt(0);if(ch==="&"){dash();out+="and";continue;}if((c>=97&&c<=122)||(c>=48&&c<=57)){out+=ch;}else{dash();}}while(out.charAt(out.length-1)==="-"){out=out.slice(0,-1);}return out;})(a.n);
   window.__cai_cur={a:a,slug:slug,tier:a.t};
   renderGovernanceFactsheet(a);
   document.getElementById('d-doc').href='https://www.colleagueai.ai/docs/agents/'+slug+'.pdf';
@@ -3957,7 +3957,7 @@ applyLang(init);
     if(typeof v==='boolean') return v;
     if(typeof v==='number') return String(v);
     if(typeof v!=='string') return undefined;
-    var s=v.toLowerCase().replace(/[^a-z0-9_ .:-]/g,'').slice(0,48);
+    var s=(function(value){var input=String(value||"").toLowerCase();var out="";for(var i=0;i<input.length&&out.length<48;i++){var ch=input.charAt(i);var c=ch.charCodeAt(0);if((c>=97&&c<=122)||(c>=48&&c<=57)||ch==="_"||ch===" "||ch==="."||ch===":"||ch==="-"){out+=ch;}}return out;})(v);
     return s || undefined;
   }
   function caiPrivacySafeProps(props){
@@ -4189,7 +4189,7 @@ window.__rebuildGAQuiz=function(){
   var IDS=["tenant-architecture","cai-next-steps","launch-readiness-gate","cai-who-for","cai-buyer-path","cai-score-guide"];
   var KEYS=Object.keys(SRC).sort(function(a,b){return SRC[b].length-SRC[a].length;});
   var ORIG={};
-  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function esc(s){var t=document.createElement('template');t.textContent=String(s);return t.innerHTML;}
   function apply(lang){
     IDS.forEach(function(id){
       var sec=document.getElementById(id); if(!sec) return;

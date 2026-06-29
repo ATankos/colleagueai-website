@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html data-cai-page="agents" lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Governed AI Agents | ColleagueAI</title>
-<meta name="description" content="36 certified enterprise AI agents scored on the CAI Score (L1–L5). See where each fits your process, its ROI, KPI, and risk &amp; compliance posture. Audit-ready. EU AI Act-aligned. Runs in your environment." />
+<meta name="description" content="Explore governed AI agents for finance, operations, risk, compliance, legal, procurement, HR, and enterprise workflows.">
 <meta name="author" content="Colleague AI" />
 <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
 <meta name="theme-color" content="#F5F0E8" />
@@ -15,11 +15,11 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
 <link rel="manifest" href="/manifest.json" />
 <!-- Open Graph -->
-<meta property="og:type" content="website" />
-<meta property="og:site_name" content="Colleague AI" />
-<meta property="og:title" content="AI Agent Catalogue — Certified, Risk-Tiered Enterprise AI Agents" />
-<meta property="og:description" content="The trust layer for enterprise AI. 36 audit-ready agents, each scored on the CAI Score (L1–L5). Run in your environment, not ours." />
-<meta property="og:url" content="https://www.colleagueai.ai/agents" />
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:title" content="AI Agent Catalogue | ColleagueAI">
+<meta property="og:description" content="Explore governed AI agents for finance, operations, risk, compliance, legal, procurement, HR, and enterprise workflows.">
+<meta property="og:url" content="https://www.colleagueai.ai/agents">
 <meta property="og:locale:alternate" content="cs" />
 <meta property="og:locale:alternate" content="es" />
 <meta property="og:locale:alternate" content="pt" />
@@ -28,9 +28,9 @@
 <meta property="og:locale:alternate" content="pl" />
 <meta property="og:locale:alternate" content="it" />
 <!-- Twitter -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="AI Agent Catalogue — Colleague AI" />
-<meta name="twitter:description" content="36 certified, risk-tiered enterprise AI agents on the CAI Score (L1–L5). Audit-ready and EU AI Act-aligned." />
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AI Agent Catalogue | ColleagueAI">
+<meta name="twitter:description" content="Explore governed AI agents for finance, operations, risk, compliance, legal, procurement, HR, and enterprise workflows.">
 <meta property="og:image" content="https://www.colleagueai.ai/og-image.png" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
@@ -2500,9 +2500,9 @@ section{
   .cai-site-journey-card strong{display:block;margin-bottom:4px}.cai-site-journey-card span{display:block;color:#625b54;font-size:13.5px;line-height:1.45}
   @media(max-width:760px){.cai-site-journey-grid{grid-template-columns:1fr}.cai-site-journey{margin-top:14px;padding:0 12px}}
 </style>
-<link rel="canonical" href="https://www.colleagueai.ai/en/agents">
+<link rel="canonical" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents">
-<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents">
 <link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti">
 <link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten">
 <link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents">
@@ -2515,235 +2515,138 @@ section{
 <meta property="og:locale" content="en_US">
 <script id="cai-static-locale-seed">(function(){window.__CAI_STATIC_LOCALE="en";try{localStorage.setItem("cai_lang","en");localStorage.setItem("cai_locale","en");}catch(e){}})();</script>
 <style id="cai-url-locale-controller-css">
-html[data-cai-page="agents"] #cai-language-guide,
-html[data-cai-page="agents"] #cai-global-language-switcher,
 html[data-cai-page="agents"] #cai-site-journey,
-html[data-cai-page="agents"] #cai-buyer-path {
-  display: none !important;
-}
+html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
+.cai-langsel { margin: 14px auto 0; max-width: 1120px; padding: 0 18px; }
+.cai-langsel select { font: 500 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #2B2A28; border: 1px solid rgba(29,27,26,.18); border-radius: 100px; padding: 7px 12px; background: #fff; cursor: pointer; }
 </style>
 <script id="cai-url-locale-controller">
 (function () {
-  var LOCALES = ["en", "cs", "de", "fr", "es", "it", "pl", "pt"];
-  var PAGES = ["agents", "trust", "partners", "privacy", "terms"];
-  var LOCALE_LABELS = {
-    en: "English",
-    cs: "Čeština",
-    de: "Deutsch",
-    fr: "Français",
-    es: "Español",
-    it: "Italiano",
-    pl: "Polski",
-    pt: "Português"
-  };
-
-  function routeParts() {
-    return location.pathname.split("/").filter(Boolean);
+  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"}}};
+  var parts = location.pathname.split("/").filter(Boolean);
+  var hasLocale = D.locales.indexOf(parts[0]) >= 0;
+  var locale = hasLocale ? parts[0] : D.def;
+  var rest = hasLocale ? parts.slice(1) : parts;
+  function pageFromSlug(slug) { for (var p in D.slugs) { var m = D.slugs[p]; for (var l in m) { if (m[l] === slug) return p; } } return null; }
+  var page = rest.length ? pageFromSlug(rest[0]) : null;
+  function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
+  function urlFor(loc) {
+    if (page) return canonical(loc, page) + location.search + location.hash;
+    var tail = "/" + rest.join("/");
+    var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
+    return base + location.search + location.hash;
   }
-
-  function routeLocale() {
-    var parts = routeParts();
-    return LOCALES.indexOf(parts[0]) >= 0 ? parts[0] : "en";
+  var el = document.documentElement;
+  el.lang = locale;
+  el.setAttribute("data-cai-route-locale", locale);
+  // URL path is the single source of truth. One write-only key for cross-surface
+  // parity only; never read to redirect, never set ahead of the URL path.
+  try { localStorage.setItem("cai-lang", locale); } catch (e) {}
+  function sync() {
+    var list = document.querySelectorAll("#langsel");
+    for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
+    var sel = document.getElementById("langsel");
+    if (!sel) return;
+    var want = D.locales.join("|");
+    var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
+    if (have !== want || sel.getAttribute("data-cai-locale-bound") !== "true") {
+      var fresh = sel.cloneNode(false);
+      D.locales.forEach(function (l) { var o = document.createElement("option"); o.value = l; o.textContent = D.labels[l] || l.toUpperCase(); fresh.appendChild(o); });
+      fresh.setAttribute("data-cai-locale-bound", "true");
+      fresh.value = locale;
+      if (!sel.parentNode) return;
+      sel.parentNode.replaceChild(fresh, sel);
+      fresh.addEventListener("change", function () { var t = fresh.value; if (D.locales.indexOf(t) < 0) return; try { localStorage.setItem("cai-lang", t); } catch (e) {} location.assign(urlFor(t)); });
+    } else { sel.value = locale; }
   }
-
-  function routePage() {
-    var parts = routeParts();
-    if (LOCALES.indexOf(parts[0]) >= 0) parts.shift();
-    var page = (parts[0] || "agents").toLowerCase();
-    return PAGES.indexOf(page) >= 0 ? page : "agents";
-  }
-
-  function normalizeLocale(value) {
-    value = String(value || "").trim().toLowerCase();
-    if (value === "cz" || value === "czech" || value === "čeština") return "cs";
-    if (value === "english") return "en";
-    if (value === "deutsch" || value === "german") return "de";
-    if (value === "français" || value === "french") return "fr";
-    if (value === "español" || value === "spanish") return "es";
-    if (value === "italiano" || value === "italian") return "it";
-    if (value === "polski" || value === "polish") return "pl";
-    if (value === "português" || value === "portuguese") return "pt";
-    return LOCALES.indexOf(value) >= 0 ? value : "";
-  }
-
-  function routeFor(locale) {
-    return "/" + locale + "/" + routePage() + location.search + location.hash;
-  }
-
-  function localeFromHref(href) {
-    if (!href) return "";
-    try {
-      var url = new URL(href, location.origin);
-      var parts = url.pathname.split("/").filter(Boolean);
-      return LOCALES.indexOf(parts[0]) >= 0 ? parts[0] : "";
-    } catch (error) {
-      var fallbackParts = String(href).split("/").filter(Boolean);
-      return LOCALES.indexOf(fallbackParts[0]) >= 0 ? fallbackParts[0] : "";
-    }
-  }
-
-  function storeLocale(locale) {
-    try {
-      [
-        "lang",
-        "language",
-        "locale",
-        "caiLang",
-        "cai_lang",
-        "caiLocale",
-        "cai_locale",
-        "colleagueaiLang",
-        "colleagueai_lang",
-        "colleagueaiLocale",
-        "colleagueai_locale"
-      ].forEach(function (key) {
-        localStorage.setItem(key, locale);
-      });
-    } catch (error) {}
-  }
-
-  var currentLocale = routeLocale();
-  var currentPage = routePage();
-
-  document.documentElement.lang = currentLocale;
-  document.documentElement.setAttribute("data-cai-route-locale", currentLocale);
-  document.documentElement.setAttribute("data-cai-page", currentPage);
-  window.__CAI_ROUTE_LOCALE = currentLocale;
-  window.__cai_route_locale = currentLocale;
-  window.__cai_locale = currentLocale;
-  window.caiLocaleUrlFor = routeFor;
-  storeLocale(currentLocale);
-
-  function isLanguageSelect(select) {
-    if (!select || select.tagName !== "SELECT") return false;
-    var text = [
-      select.id || "",
-      select.name || "",
-      select.className || "",
-      select.getAttribute("aria-label") || ""
-    ].join(" ");
-    if (/lang|language|locale|jazyk|idioma|sprache|langue/i.test(text)) return true;
-    return Array.prototype.some.call(select.options || [], function (option) {
-      return normalizeLocale(option.value);
-    });
-  }
-
-  function ensureLocaleOptions(select) {
-    var hasLocaleOptions = Array.prototype.some.call(select.options || [], function (option) {
-      return normalizeLocale(option.value);
-    });
-
-    if (hasLocaleOptions) return;
-
-    if (select.id === "langsel" || /lang|locale|jazyk/i.test(select.id + " " + select.name + " " + select.className)) {
-      select.innerHTML = "";
-      LOCALES.forEach(function (locale) {
-        var option = document.createElement("option");
-        option.value = locale;
-        option.textContent = LOCALE_LABELS[locale] || locale.toUpperCase();
-        select.appendChild(option);
-      });
-    }
-  }
-
-  function syncSelect(select) {
-    ensureLocaleOptions(select);
-    Array.prototype.forEach.call(select.options || [], function (option) {
-      var optionLocale = normalizeLocale(option.value);
-      if (optionLocale === currentLocale) {
-        option.selected = true;
-        select.value = option.value;
-      }
-    });
-    select.setAttribute("data-cai-route-locale-bound", "true");
-  }
-
-  function syncControls() {
-    storeLocale(currentLocale);
-
-    Array.prototype.forEach.call(document.querySelectorAll("select"), function (select) {
-      if (isLanguageSelect(select)) syncSelect(select);
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll("a[href]"), function (link) {
-      var locale = localeFromHref(link.getAttribute("href"));
-      if (!locale) return;
-      link.setAttribute("href", routeFor(locale));
-      link.setAttribute("hreflang", locale);
-      link.setAttribute("data-cai-route-locale-link", locale);
-      if (locale === currentLocale) {
-        link.setAttribute("aria-current", "true");
-        link.classList.add("active", "is-active");
-      } else {
-        link.removeAttribute("aria-current");
-        link.classList.remove("active", "is-active");
-      }
-    });
-
-    Array.prototype.forEach.call(document.querySelectorAll("[data-locale], [data-lang], button"), function (element) {
-      var locale = normalizeLocale(
-        element.getAttribute("data-locale") ||
-        element.getAttribute("data-lang") ||
-        element.value ||
-        element.textContent
-      );
-      if (!locale) return;
-      element.setAttribute("data-cai-route-locale-link", locale);
-      if (locale === currentLocale) {
-        element.setAttribute("aria-current", "true");
-        element.classList.add("active", "is-active");
-      } else {
-        element.removeAttribute("aria-current");
-        element.classList.remove("active", "is-active");
-      }
-    });
-  }
-
-  document.addEventListener("click", function (event) {
-    var target = event.target.closest && event.target.closest("a[href], [data-locale], [data-lang], button");
-    if (!target) return;
-
-    var locale = normalizeLocale(
-      target.getAttribute("data-locale") ||
-      target.getAttribute("data-lang") ||
-      target.value ||
-      target.textContent
-    );
-
-    if (!locale && target.tagName === "A") locale = localeFromHref(target.getAttribute("href"));
-    if (!locale) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    storeLocale(locale);
-    location.assign(routeFor(locale));
-  }, true);
-
-  document.addEventListener("change", function (event) {
-    var target = event.target;
-    if (!isLanguageSelect(target)) return;
-
-    var locale = normalizeLocale(target.value);
-    if (!locale) return;
-
-    event.preventDefault();
-    event.stopPropagation();
-    event.stopImmediatePropagation();
-    storeLocale(locale);
-    location.assign(routeFor(locale));
-  }, true);
-
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", syncControls);
-  } else {
-    syncControls();
-  }
-
-  setTimeout(syncControls, 0);
-  setTimeout(syncControls, 250);
-  setTimeout(syncControls, 1000);
+  function boot() { sync(); setTimeout(sync, 0); setTimeout(sync, 250); setTimeout(sync, 1000); }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
 })();
+</script>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
 </script>
 </head>
 <body>
@@ -2751,9 +2654,9 @@ html[data-cai-page="agents"] #cai-buyer-path {
   <div class="cai-site-journey-inner">
     <h2 id="cai-site-journey-title" class="cai-site-journey-title">Choose your path</h2>
     <div class="cai-site-journey-grid">
-      <a class="cai-site-journey-card" href="/en/agents#cai-buyer-path"><strong>I need an AI agent use case</strong><span>Browse packaged agents, factsheets, CAI Score, and the controlled demo path.</span></a>
-      <a class="cai-site-journey-card" href="/en/trust"><strong>I need governance assurance</strong><span>Review security, data handling, AI governance, telemetry, and launch gate status.</span></a>
-      <a class="cai-site-journey-card" href="/en/partners"><strong>I want to partner</strong><span>Register partner interest. Approval and commission eligibility remain agreement-based.</span></a>
+      <a class="cai-site-journey-card" href="/agents#cai-buyer-path"><strong>I need an AI agent use case</strong><span>Browse packaged agents, factsheets, CAI Score, and the controlled demo path.</span></a>
+      <a class="cai-site-journey-card" href="/trust"><strong>I need governance assurance</strong><span>Review security, data handling, AI governance, telemetry, and launch gate status.</span></a>
+      <a class="cai-site-journey-card" href="/partners"><strong>I want to partner</strong><span>Register partner interest. Approval and commission eligibility remain agreement-based.</span></a>
     </div>
   </div>
 </section>
@@ -3367,8 +3270,8 @@ html[data-cai-page="agents"] #cai-buyer-path {
       <div class="cai-reader-card"><strong>4. Propose blueprint</strong><span>We outline deployment approach, delivery steps, and remaining legal/Stripe gates.</span></div>
     </div>
     <div class="cai-reader-actions">
-      <a class="cai-reader-primary" href="/en/partners">Register partner interest</a>
-      <a class="cai-reader-secondary" href="/en/trust">Read trust architecture</a>
+      <a class="cai-reader-primary" href="/partners">Register partner interest</a>
+      <a class="cai-reader-secondary" href="/trust">Read trust architecture</a>
       <a class="cai-reader-secondary" href="#launch-readiness-gate">See checkout gate</a>
     </div>
   </div>
@@ -3386,8 +3289,8 @@ html[data-cai-page="agents"] #cai-buyer-path {
   </div>
   <p class="cai-lg-note">This page does not create a legal compliance guarantee. AI risk classification and deployment obligations remain customer-use-case dependent and must be confirmed during implementation.</p>
   <div class="cai-lg-actions">
-    <a class="cai-lg-primary" href="/en/partners">Register partner interest</a>
-    <a class="cai-lg-secondary" href="/en/trust">Review trust architecture</a>
+    <a class="cai-lg-primary" href="/partners">Register partner interest</a>
+    <a class="cai-lg-secondary" href="/trust">Review trust architecture</a>
     <a class="cai-lg-secondary" href="/legal-review-checklist.html" rel="nofollow">Internal launch checklist</a>
   </div>
 </section>
@@ -3422,7 +3325,6 @@ html[data-cai-page="agents"] #cai-buyer-path {
   </div>
 </section>
 
-<section id="cai-language-guide" class="cai-reader-section" aria-labelledby="cai-language-guide-title"><div class="cai-reader-panel"><span class="cai-reader-kicker">Language</span><h2 id="cai-language-guide-title" class="cai-reader-title">Language: EN</h2><p class="cai-reader-lede">You are viewing the English agent guide. The buyer journey, CAI Score explanation, launch gate, and trust/partner navigation are available across all supported language pages.</p><div class="cai-reader-actions cai-language-links"><a href="/en/agents" hreflang="en" aria-current="page">EN</a><a href="/cs/agents" hreflang="cs">CS</a><a href="/de/agents" hreflang="de">DE</a><a href="/fr/agents" hreflang="fr">FR</a><a href="/es/agents" hreflang="es">ES</a><a href="/it/agents" hreflang="it">IT</a><a href="/pl/agents" hreflang="pl">PL</a><a href="/pt/agents" hreflang="pt">PT</a></div></div></section>
 <section id="cai-buyer-path" class="cai-reader-section" aria-labelledby="cai-buyer-path-title">
   <div class="cai-reader-panel">
     <span class="cai-reader-kicker">Buyer guide</span>
@@ -3436,8 +3338,8 @@ html[data-cai-page="agents"] #cai-buyer-path {
     </div>
     <div class="cai-reader-actions">
       <a class="cai-reader-primary" href="#catalogue">Browse agent catalogue</a>
-      <a class="cai-reader-secondary" href="/en/trust">Review trust architecture</a>
-      <a class="cai-reader-secondary" href="/en/partners">Register partner interest</a>
+      <a class="cai-reader-secondary" href="/trust">Review trust architecture</a>
+      <a class="cai-reader-secondary" href="/partners">Register partner interest</a>
     </div>
   </div>
 </section>
@@ -3494,13 +3396,11 @@ html[data-cai-page="agents"] #cai-buyer-path {
     <p class="usage-intel__note" data-i18n="usage_note">This is not employee surveillance. It is client-owned AI cost intelligence: metadata that helps users, finance, operations, and leadership reduce token waste and scale the agents that deliver value.</p>
   </div>
 </section>
-<footer>
-  <div class="wrap foot-inner">
+<footer><div class="wrap foot-inner">
     <a href="https://www.colleagueai.ai/agents" class="logo" aria-label="Colleague AI home"><span class="logo-text">Colleague<span class="ai">AI</span></span><span class="logo-dots"><span></span><span></span><span></span></span></a>
     <span class="fnote" data-i18n="foot_note">// The trust layer for enterprise AI · CAI Score™ · Updated June 2026</span>
     <span class="flegal" data-i18n-html="foot_legal">© Colleague AI 2026 · Proprietary. Agents are licensed per tenant and may not be redistributed, resold or reverse-engineered. · <a href="https://www.colleagueai.ai/terms" target="_blank" rel="noopener">Terms</a> · <a href="https://www.colleagueai.ai/license" target="_blank" rel="noopener">Licence</a></span>
-  </div>
-</footer>
+  </div> · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/imprint">Legal notice</a> · <a href="/license">License</a> · <a href="/partner-agreement">Partner Agreement</a></footer>
 
 <!-- DRAWER -->
 <div class="scrim" id="scrim"></div>
@@ -3607,7 +3507,7 @@ function render(){
   }
   grid.innerHTML=shown.map((a,i)=>{
     const idx=AGENTS.indexOf(a);
-    const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+    const slug=(function(value){var input=String(value||"").toLowerCase();var out="";function dash(){if(out&&out.charAt(out.length-1)!=="-")out+="-";}for(var i=0;i<input.length;i++){var ch=input.charAt(i);var c=ch.charCodeAt(0);if(ch==="&"){dash();out+="and";continue;}if((c>=97&&c<=122)||(c>=48&&c<=57)){out+=ch;}else{dash();}}while(out.charAt(out.length-1)==="-"){out=out.slice(0,-1);}return out;})(a.n);
     const _loc=window.LANGNOW||'en';const _ldata=(_loc!=='en'&&window['AGENTS_'+_loc.toUpperCase()]&&window['AGENTS_'+_loc.toUpperCase()][slug])||null;
     const cardDesc=_ldata?_ldata.desc:a.desc;
     const cardKpi=_ldata?_ldata.kpi:a.kpi;
@@ -3692,7 +3592,7 @@ function openDrawer(i){window.__caiDi=i;
   document.getElementById('d-kpi').innerHTML=a.kpi;
   document.getElementById('d-comp').textContent=a.comp;
   document.getElementById('d-pains').innerHTML=(a.pains||[]).map(p=>'<li>'+p+'</li>').join('');
-  const slug=a.n.toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  const slug=(function(value){var input=String(value||"").toLowerCase();var out="";function dash(){if(out&&out.charAt(out.length-1)!=="-")out+="-";}for(var i=0;i<input.length;i++){var ch=input.charAt(i);var c=ch.charCodeAt(0);if(ch==="&"){dash();out+="and";continue;}if((c>=97&&c<=122)||(c>=48&&c<=57)){out+=ch;}else{dash();}}while(out.charAt(out.length-1)==="-"){out=out.slice(0,-1);}return out;})(a.n);
   window.__cai_cur={a:a,slug:slug,tier:a.t};
   renderGovernanceFactsheet(a);
   document.getElementById('d-doc').href='https://www.colleagueai.ai/docs/agents/'+slug+'.pdf';
@@ -4060,7 +3960,7 @@ applyLang(init);
     if(typeof v==='boolean') return v;
     if(typeof v==='number') return String(v);
     if(typeof v!=='string') return undefined;
-    var s=v.toLowerCase().replace(/[^a-z0-9_ .:-]/g,'').slice(0,48);
+    var s=(function(value){var input=String(value||"").toLowerCase();var out="";for(var i=0;i<input.length&&out.length<48;i++){var ch=input.charAt(i);var c=ch.charCodeAt(0);if((c>=97&&c<=122)||(c>=48&&c<=57)||ch==="_"||ch===" "||ch==="."||ch===":"||ch==="-"){out+=ch;}}return out;})(v);
     return s || undefined;
   }
   function caiPrivacySafeProps(props){
@@ -4179,7 +4079,7 @@ window.__rebuildGAQuiz=function(){
 (function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
 </script>
 <div id="cai-privacy" class="cai-privacy" role="dialog" aria-label="Privacy notice" hidden>
-  <span>We use privacy-friendly, <strong>cookieless</strong> analytics — no personal tracking or ad cookies. See our <a href="/en/privacy">Privacy Policy</a>.</span>
+  <span>We use privacy-friendly, <strong>cookieless</strong> analytics — no personal tracking or ad cookies. See our <a href="/privacy">Privacy Policy</a>.</span>
   <button id="cai-privacy-ok" type="button">Got it</button>
 </div>
 <style>
@@ -4292,7 +4192,7 @@ window.__rebuildGAQuiz=function(){
   var IDS=["tenant-architecture","cai-next-steps","launch-readiness-gate","cai-who-for","cai-buyer-path","cai-score-guide"];
   var KEYS=Object.keys(SRC).sort(function(a,b){return SRC[b].length-SRC[a].length;});
   var ORIG={};
-  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function esc(s){var t=document.createElement('template');t.textContent=String(s);return t.innerHTML;}
   function apply(lang){
     IDS.forEach(function(id){
       var sec=document.getElementById(id); if(!sec) return;
