@@ -706,6 +706,13 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
   const errEl=document.getElementById('gen-error');
   const STORE_KEY='cai_partner_reg';
 
+  function trackEvent(name,props){
+    const safeProps=props||{};
+    try{if(window.va&&typeof window.va.track==='function')window.va.track(name,safeProps);}catch(e){}
+    try{if(typeof window.plausible==='function')window.plausible(name,{props:safeProps});}catch(e){}
+    try{if(window.dataLayer&&typeof window.dataLayer.push==='function')window.dataLayer.push(Object.assign({event:name},safeProps));}catch(e){}
+  }
+
   function validate(){
     const name=nameEl.value.trim(), email=emailEl.value.trim();
     btn.disabled=!(name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)&&consentEl.checked);
@@ -739,6 +746,7 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
 
   btn.addEventListener('click',async function(){
     const name=nameEl.value.trim(), email=emailEl.value.trim();
+    trackEvent('partner_register_attempt',{surface:'partners'});
     btn.disabled=true; btn.textContent='Generatingâ€¦'; errEl.classList.remove('show');
     try{
       const code=await deriveCode(email);
@@ -750,6 +758,7 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
         body:JSON.stringify({name,email,code,consent:true})}).catch(()=>{});
     }catch(e){
       result.classList.remove('show');
+      trackEvent('partner_register_failure',{surface:'partners'});
       errEl.textContent=(e&&e.message)?e.message:'Something went wrong. Please try again.';
       errEl.classList.add('show');
     }
