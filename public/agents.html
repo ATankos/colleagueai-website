@@ -37,7 +37,17 @@
 <meta property="og:image:alt" content="Colleague AI — the trust layer for enterprise AI. Certified, risk-tiered AI agents on the CAI Score." />
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png" />
 <!-- Hreflang -->
-<script>function isAllowedStripeCheckoutUrl(value){
+<script>function isApprovedCheckoutHost(value){
+  try{
+    var parsed = new URL(String(value || ''), window.location.origin);
+    if (parsed.protocol !== 'https:') return false;
+    var host = parsed.hostname.toLowerCase();
+    return host === 'buy.stripe.com' || host === 'checkout.stripe.com';
+  }catch(e){
+    return false;
+  }
+}
+function isAllowedStripeCheckoutUrl(value){
   try{
     var parsed=new URL(String(value||''), window.location.origin);
     return parsed.protocol==='https:' &&
