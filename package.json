@@ -44,14 +44,14 @@
     "ci:e2e": "npm run build && node scripts/run-playwright-static.cjs tests/e2e/full-site-qa.spec.ts --project=chromium-desktop --workers=1 --reporter=line"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.105.0",
-    "@sentry/react": "^10.59.0",
+    "@anthropic-ai/sdk": "^0.106.0",
+    "@sentry/react": "^10.62.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "aws4fetch": "^1.0.20",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
-    "stripe": "^22.2.2"
+    "stripe": "^22.3.0"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.3",
