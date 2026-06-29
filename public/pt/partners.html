@@ -725,7 +725,7 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
   /* Restore saved registration if present */
   try{
     const saved=JSON.parse(localStorage.getItem(STORE_KEY)||'null');
-    if(saved&&saved.code&&saved.email){
+    if(saved&&saved.code&&saved.email&&saved.registeredAt){
       nameEl.value=saved.name||''; emailEl.value=saved.email||'';
       validate(); showResult(saved.code);
     }
@@ -749,7 +749,8 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({name,email,code,consent:true})}).catch(()=>{});
     }catch(e){
-      errEl.textContent='Something went wrong. Please try again.';
+      result.classList.remove('show');
+      errEl.textContent=(e&&e.message)?e.message:'Something went wrong. Please try again.';
       errEl.classList.add('show');
     }
     btn.textContent='Registrar interesse de parceiro â†’'; btn.disabled=false;
