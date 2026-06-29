@@ -725,7 +725,7 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
   /* Restore saved registration if present */
   try{
     const saved=JSON.parse(localStorage.getItem(STORE_KEY)||'null');
-    if(saved&&saved.code&&saved.email){
+    if(saved&&saved.code&&saved.email&&saved.registeredAt){
       nameEl.value=saved.name||''; emailEl.value=saved.email||'';
       validate(); showResult(saved.code);
     }
@@ -742,14 +742,19 @@ window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scr
     btn.disabled=true; btn.textContent='Generating…'; errEl.classList.remove('show');
     try{
       const code=await deriveCode(email);
-      try{localStorage.setItem(STORE_KEY,JSON.stringify({code,name,email,consent:true}));}catch(e){}
-      showResult(code);
-      /* Register in backend — fire and forget */
-      fetch('/api/partner-register',{method:'POST',
+      const response=await fetch('/api/partner-register',{method:'POST',
         headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({name,email,code,consent:true})}).catch(()=>{});
+        body:JSON.stringify({name,email,code,consent:true})});
+      let payload={};
+      try{payload=await response.json();}catch(e){}
+      if(!response.ok||!payload.ok){
+        throw new Error(payload.error||'Registration failed. Please try again.');
+      }
+      try{localStorage.setItem(STORE_KEY,JSON.stringify({code,name,email,consent:true,registeredAt:payload.registeredAt||new Date().toISOString()}));}catch(e){}
+      showResult(code);
     }catch(e){
-      errEl.textContent='Something went wrong. Please try again.';
+      result.classList.remove('show');
+      errEl.textContent=(e&&e.message)?e.message:'Something went wrong. Please try again.';
       errEl.classList.add('show');
     }
     btn.textContent='Register partner interest →'; validate();
