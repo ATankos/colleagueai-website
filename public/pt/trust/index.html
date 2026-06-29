@@ -602,30 +602,30 @@ html[data-cai-page="agents"] #cai-buyer-path {
 <li><strong>Live demo</strong> (/demo): the messages you type are sent to Anthropic's API to generate responses, with per-IP and global rate limits. Don't paste confidential data into the demo.</li>
 <li><strong>Purchases</strong>: payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.</li>
 <li><strong>Downloads</strong>: agent packages are delivered through signed, time-limited URLs (15-minute expiry).</li>
-<li><strong>ROI calculator &amp; readiness check</strong>: run entirely in your browser; nothing is sent or stored.</li>
-<li><strong>Partner links</strong>: a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.</li>
+<li><strong>Calculadora de ROI e verificação de prontidão</strong>: executadas inteiramente no seu navegador; nada é enviado ou armazenado.</li>
+<li><strong>Links de parceiro</strong>: um código de parceiro de um link de referência é mantido no seu navegador durante 30 dias e associado a uma compra para atribuição de comissão.</li>
 </ul>
 
 <h2>Subprocessadores</h2>
 <table>
 <tr><th>Provider</th><th>Purpose</th><th>Data involved</th></tr>
 <tr><td>Vercel</td><td>Website hosting, edge network, web analytics</td><td>Standard request logs, anonymous usage metrics</td></tr>
-<tr><td>Stripe</td><td>Payment processing</td><td>Payment details (held by Stripe), buyer email</td></tr>
-<tr><td>Upstash</td><td>Key-value store for entitlements and partner records</td><td>Buyer email, licensed agent slugs, partner codes</td></tr>
-<tr><td>Anthropic</td><td>LLM responses for the live demo</td><td>Demo conversation text</td></tr>
-<tr><td>Cloudflare R2</td><td>Storage and delivery of purchased agent packages</td><td>Package files (no personal data)</td></tr>
-<tr><td>Sentry</td><td>Error monitoring</td><td>Technical error context; text is masked in session diagnostics</td></tr>
-<tr><td>Plausible</td><td>Privacy-first analytics</td><td>Anonymous, cookieless usage statistics</td></tr>
-<tr><td>Google Fonts</td><td>Web fonts</td><td>Standard font requests</td></tr>
+<tr><td>Stripe</td><td>Processamento de pagamentos</td><td>Detalhes de pagamento mantidos pela Stripe, e-mail do comprador</td></tr>
+<tr><td>Upstash</td><td>Armazenamento chave-valor para direitos de acesso e registos de parceiros</td><td>E-mail do comprador, identificadores dos agentes licenciados, códigos de parceiro</td></tr>
+<tr><td>Anthropic</td><td>Respostas de LLM para a demonstração ao vivo</td><td>Texto da conversa da demonstração</td></tr>
+<tr><td>Cloudflare R2</td><td>Armazenamento e entrega de pacotes de agentes adquiridos</td><td>Ficheiros dos pacotes, sem dados pessoais</td></tr>
+<tr><td>Sentry</td><td>Monitorização de erros</td><td>Contexto técnico de erro; o texto é mascarado nos diagnósticos de sessão</td></tr>
+<tr><td>Plausible</td><td>Analítica com privacidade por defeito</td><td>Estatísticas de utilização anónimas e sem cookies</td></tr>
+<tr><td>Google Fonts</td><td>Fontes web</td><td>Pedidos padrão de fontes</td></tr>
 </table>
 
 <h2 id="security">Praticas de seguranca</h2>
 <ul>
 <li>TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.</li>
-<li>Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.</li>
-<li>Commission attribution is gated: only registered partner codes are credited, and referral values are sanitized before storage.</li>
-<li>Secrets live in the hosting platform's environment configuration — never in code, never in the client bundle (verified by an automated scan on every build).</li>
-<li>Responsible disclosure: see <a href="/.well-known/security.txt">security.txt</a> or write to <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. We respond to good-faith reports and won't pursue researchers acting in good faith.</li>
+<li>Os webhooks da Stripe são verificados pela respetiva assinatura criptográfica, com aplicação de uma janela contra repetição, processados de forma idempotente — um evento reenviado nunca pode ser aplicado duas vezes — e falhas de armazenamento originam novas tentativas em vez de perda silenciosa.</li>
+<li>A atribuição de comissões é controlada: apenas códigos de parceiro registados são creditados, e os valores de referência são sanitizados antes do armazenamento.</li>
+<li>Os segredos ficam na configuração de ambiente da plataforma de alojamento — nunca no código, nunca no pacote enviado ao cliente, verificado por uma análise automatizada em cada build.</li>
+<li>Divulgação responsável: consulte <a href="/.well-known/security.txt">security.txt</a> ou escreva para <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. Respondemos a relatos feitos de boa-fé e não tomaremos medidas contra investigadores que atuem de boa-fé.</li>
 </ul>
 
 <h2>Programa piloto</h2>
