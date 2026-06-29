@@ -3531,10 +3531,10 @@ html[data-cai-page="agents"] #cai-buyer-path {
     <div class="dblock" style="border-bottom:none">
       <span class="dl" data-i18n="dr_get">⤓ Get this agent</span>
       <div class="d-actions">
-        <a class="d-demo" id="d-doc" href="#" target="_blank" rel="noopener" style="width:100%;justify-content:center" data-i18n="dr_doc">⤓ Download agent dossier (PDF)</a>
+        <a class="d-demo" id="d-doc" href="/partners" style="width:100%;justify-content:center" data-i18n="dr_doc">⤓ Download agent dossier (PDF)</a>
         <div class="d-actions-row">
-          <a class="d-pkg" id="d-cs" href="#" target="_blank" rel="noopener" data-i18n="dr_cs">⤓ Copilot Studio package</a>
-          <a class="d-pkg" id="d-m365" href="#" target="_blank" rel="noopener" data-i18n="dr_m365">⤓ Microsoft 365 Copilot package</a>
+          <a class="d-pkg" id="d-cs" href="/partners" data-i18n="dr_cs">⤓ Copilot Studio package</a>
+          <a class="d-pkg" id="d-m365" href="/partners" data-i18n="dr_m365">⤓ Microsoft 365 Copilot package</a>
         </div>
         <button class="d-calc" id="d-calc" type="button" data-i18n="dr_calc">＝ Calculate ROI for this agent</button>
       </div>
@@ -3696,8 +3696,8 @@ function openDrawer(i){window.__caiDi=i;
   window.__cai_cur={a:a,slug:slug,tier:a.t};
   renderGovernanceFactsheet(a);
   document.getElementById('d-doc').href='https://www.colleagueai.ai/docs/agents/'+slug+'.pdf';
-  document.getElementById('d-cs').href='#';
-  document.getElementById('d-m365').href='#';
+  document.getElementById('d-cs').href='/partners';
+  document.getElementById('d-m365').href='/partners';
   document.getElementById('d-demo').href='https://www.colleagueai.ai/demo?agent='+encodeURIComponent(a.n)+'&tier='+a.t;
   document.getElementById('d-calc').onclick=function(){closeDrawer();if(window.openCalcFor)window.openCalcFor(a.n);};
   drawer.classList.add('open'); scrim.classList.add('open'); drawer.setAttribute('aria-hidden','false');if(!window.__caiDrawerOpen){window.__caiTrigger=document.activeElement;window.__caiDrawerOpen=true;var _dc=document.getElementById('dclose');if(_dc){setTimeout(function(){_dc.focus();},0);}}
@@ -3817,7 +3817,7 @@ applyLang(init);
     price:null,                     // e.g. 1200  — leave null to show "Pricing on request"
     perAgentPrice:{},               // optional overrides by slug, e.g. {"contract-summarisation-agent":2400}
     checkoutBase:'https://www.colleagueai.ai/checkout', // your Stripe Payment Link / checkout endpoint
-    paymentLinks:{},                // optional per-slug full checkout URLs, e.g. {"reconciliation-root-cause-agent":"https://buy.stripe.com/xxx"}
+    paymentLinks:{},                // optional per-slug full checkout URLs, e.g. {"reconciliation-root-cause-agent":"<live Stripe checkout URL>"}
     gate:{ copilotStudio:true, m365:true, dossier:false  }, // which downloads require payment
     schedulerUrl:'YOUR_SCHEDULER_URL'
   };
