@@ -233,6 +233,6 @@ display: flex !important;
 © Colleague AI 2026 · <a href="/es/terminos">Términos</a> · <a href="/es/privacidad">Privacidad</a> · <a href="/es/reembolso">Reembolsos</a> · <a href="/license">Licencia</a> · <a href="/partner-agreement">Acuerdo de partner</a> · <a href="/imprint">Aviso legal</a> · <a href="/es/contacto">Contacto</a>
 <div class="co">Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha, Czech Republic · IČO 29540852 · Městský soud v Praze, C 448176 · hello@colleagueai.ai</div>
 </div></footer>
-<script>document.getElementById("homelang").addEventListener("change",function(){location.href=this.value;});</script>
+<script>document.getElementById("homelang").addEventListener("change",function(){var v=this.value;var allowed={"/":1,"/es":1,"/cs":1};try{var u=new URL(v,location.origin);var p=u.pathname.replace(/\/+$/,"")||"/";if(u.origin===location.origin&&allowed[p]){location.href=u.pathname+u.search+u.hash;return;}}catch(e){}location.href="/es";});</script>
 </body>
 </html>
