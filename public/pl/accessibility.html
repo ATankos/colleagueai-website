@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<title>Deklaracja dostępności | ColleagueAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index,follow">
+<meta name="description" content="Deklaracja dostępności ColleagueAI: cel WCAG 2.1 AA, znane ograniczenia i sposób zgłaszania barier.">
+<link rel="canonical" href="https://www.colleagueai.ai/pl/dostepnosc">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/accessibility">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/pristupnost">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/barrierefreiheit">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/accessibilite">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/accesibilidad">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/accessibilita">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/dostepnosc">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/acessibilidade">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+.cai-hdr{position:sticky;top:0;z-index:90;background:rgba(34,33,31,.97);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.cai-hdr-in{max-width:1120px;margin:0 auto;padding:0 22px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.cai-hdr a{text-decoration:none}
+.cai-hdr-logo{font-family:ui-serif,Georgia,serif;font-size:22px;font-weight:600;color:#F5F0E8!important}
+.cai-hdr-logo b{color:#E8825A}
+.cai-hdr-links{display:flex;gap:22px;align-items:center}
+.cai-hdr-links .ch-l{color:#CFC8BB;font-size:14px;font-weight:500}
+.cai-hdr-links .ch-l:hover{color:#fff}
+.cai-hdr-links .ch-cta{background:#C65D3A;color:#fff;font-weight:600;font-size:13.5px;padding:9px 20px;border-radius:100px}
+.cai-hdr-burger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;width:42px;height:38px;align-items:center;justify-content:center;cursor:pointer}
+.cai-hdr-burger span{display:block;width:18px;height:2px;background:#F5F0E8}
+.cai-hdr-mnav{display:none;background:#22211F;padding:8px 22px 16px}
+.cai-hdr-mnav a{display:block;color:#CFC8BB;font-size:16px;padding:10px 0}
+.cai-hdr-mnav.open{display:block}
+@media(max-width:760px){.cai-hdr-links .ch-l{display:none}.cai-hdr-burger{display:flex}}
+</style><style>
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#2B2A28;line-height:1.65}
+main{max-width:860px;margin:0 auto;padding:48px 24px 80px}
+.kick{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#C65D3A}
+h1{font-family:ui-serif,Georgia,serif;font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.1;margin:12px 0 12px;letter-spacing:-.02em}
+.lead{font-size:17px;color:#4A4641;max-width:680px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:34px 0}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+.card{background:#FBF8F2;border:1px solid #E2D9CB;border-radius:16px;padding:24px}
+.card .n{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:#C65D3A;font-weight:700}
+.card h2{font-size:17px;margin:8px 0 6px}
+.card p{font-size:14.5px;color:#4A4641;margin:0}
+.note{background:#FBF8F2;border:1px solid #E2D9CB;border-left:3px solid #C65D3A;border-radius:12px;padding:16px 20px;font-size:14.5px;color:#4A4641;margin:26px 0}
+a{color:#C65D3A}
+footer{max-width:860px;margin:0 auto;padding:0 24px 48px;font-size:13px;color:#8A857C}
+footer a{color:#8A857C}
+h2.sec{font-size:19px;margin:34px 0 8px}
+p.b{font-size:15.5px;color:#4A4641}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+<body>
+<header class="cai-hdr"><div class="cai-hdr-in"><a href="/pl" class="logo cai-hdr-logo">Colleague<b>AI</b></a><nav class="cai-hdr-links"><a class="ch-l" href="/pl/agenci">Katalog</a><a class="ch-l" href="/pl/zaufanie">Zaufanie</a><a class="ch-l" href="/pl/partnerzy">Partnerzy</a><a class="ch-l" href="/pl/kontakt">Kontakt</a><a class="ch-cta" href="/demo">Umów demo</a><button class="cai-hdr-burger" onclick="document.getElementById('caihdrm').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button></div><nav class="cai-hdr-mnav" id="caihdrm"><a href="/pl/agenci">Katalog</a><a href="/pl/zaufanie">Zaufanie</a><a href="/pl/partnerzy">Partnerzy</a><a href="/pl/kontakt">Kontakt</a></nav></header>
+<main>
+<span class="kick">Dostępność</span>
+<h1>Zbudowane tak, aby każdy mógł z tego korzystać.</h1>
+<p class="b">Colleague AI s.r.o. zobowiązuje się udostępnić colleagueai.ai zgodnie z Europejskim Aktem o Dostępności i WCAG 2.1 na poziomie AA. Strony używają struktury semantycznej, elementów dostępnych z klawiatury, widocznego fokusu, wystarczającego kontrastu i stylów przyjaznych ograniczeniu ruchu.</p>
+<p class="b">Znane ograniczenia: interaktywne filtry katalogu i kalkulator ROI są ulepszane pod kątem komunikatów dla czytników ekranu, a część PDF-ów factsheetów nie jest jeszcze otagowana dla technologii asystujących. Mamy to w planie.</p>
+<h2 class="sec">Napotkałeś barierę?</h2>
+<p class="b">Napisz na <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. Opisz stronę i używaną technologię asystującą; odpowiadamy w 5 dni roboczych i priorytetowo traktujemy bariery blokujące zadania.</p>
+<div class="note">Ostatni przegląd: lipiec 2026</div>
+</main>
+<footer>© Colleague AI 2026 · <a href="/pl/warunki">Warunki</a> · <a href="/pl/prywatnosc">Prywatność</a> · <a href="/pl/zwroty">Zwroty</a> · <a href="/imprint">Nota prawna</a> · <a href="/pl/kontakt">Kontakt</a></footer>
+</body>
+</html>

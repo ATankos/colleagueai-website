@@ -238,6 +238,70 @@
   ],
   "rewrites": [
     {
+      "source": "/pt/acessibilidade",
+      "destination": "/pt/accessibility.html"
+    },
+    {
+      "source": "/pt/ia-responsavel",
+      "destination": "/pt/responsible-ai.html"
+    },
+    {
+      "source": "/pl/dostepnosc",
+      "destination": "/pl/accessibility.html"
+    },
+    {
+      "source": "/pl/odpowiedzialna-ai",
+      "destination": "/pl/responsible-ai.html"
+    },
+    {
+      "source": "/it/accessibilita",
+      "destination": "/it/accessibility.html"
+    },
+    {
+      "source": "/it/ia-responsabile",
+      "destination": "/it/responsible-ai.html"
+    },
+    {
+      "source": "/es/accesibilidad",
+      "destination": "/es/accessibility.html"
+    },
+    {
+      "source": "/es/ia-responsable",
+      "destination": "/es/responsible-ai.html"
+    },
+    {
+      "source": "/fr/accessibilite",
+      "destination": "/fr/accessibility.html"
+    },
+    {
+      "source": "/fr/ia-responsable",
+      "destination": "/fr/responsible-ai.html"
+    },
+    {
+      "source": "/de/barrierefreiheit",
+      "destination": "/de/accessibility.html"
+    },
+    {
+      "source": "/de/verantwortungsvolle-ki",
+      "destination": "/de/responsible-ai.html"
+    },
+    {
+      "source": "/cs/pristupnost",
+      "destination": "/cs/accessibility.html"
+    },
+    {
+      "source": "/cs/odpovedna-ai",
+      "destination": "/cs/responsible-ai.html"
+    },
+    {
+      "source": "/accessibility",
+      "destination": "/accessibility.html"
+    },
+    {
+      "source": "/responsible-ai",
+      "destination": "/responsible-ai.html"
+    },
+    {
       "source": "/pt/contacto",
       "destination": "/pt/contact.html"
     },
