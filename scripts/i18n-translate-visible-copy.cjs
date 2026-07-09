@@ -91,7 +91,6 @@ const DICT = {
     "ch-l\" href=\"/de/agenten\">Catalogue<": "ch-l\" href=\"/de/agenten\">Katalog<",
     "ch-l\" href=\"/de/vertrauen\">Trust<": "ch-l\" href=\"/de/vertrauen\">Vertrauen<",
     "ch-l\" href=\"/de/partner\">Partners<": "ch-l\" href=\"/de/partner\">Partner<",
-    "ch-l\" href=\"/contact\">Contact<": "ch-l\" href=\"/de/kontakt\">Kontakt<",
     "ch-cta\" href=\"/demo\">Book a demo<": "ch-cta\" href=\"/demo\">Termin vereinbaren<",
     "href=\"/de/agenten\">Catalogue</a><a href=\"/de/vertrauen\">Trust</a><a href=\"/de/partner\">Partners</a><a href=\"/contact\">Contact</a>": "href=\"/de/agenten\">Katalog</a><a href=\"/de/vertrauen\">Vertrauen</a><a href=\"/de/partner\">Partner</a><a href=\"/de/kontakt\">Kontakt</a>",
     "ch-l\" href=\"/agents\">Catalogue<": "ch-l\" href=\"/de/agenten\">Katalog<",
