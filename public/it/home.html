@@ -38,8 +38,33 @@ header{position:sticky;top:0;z-index:50;background:rgba(34,33,31,.97);backdrop-f
 .cta{background:var(--terra);color:#fff!important;font-weight:600;padding:10px 22px;border-radius:100px}
 .cta:hover{background:#fff;color:var(--graphite)!important}
 .lang{border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px}
-@media(max-width:820px){.links a:not(.cta):not(.lang){display:none}}
-.hero{padding:88px 0 64px;text-align:center}
+.burger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;width:42px;height:38px;align-items:center;justify-content:center;cursor:pointer}
+.burger span{display:block;width:18px;height:2px;background:#F5F0E8}
+.mnav{display:none;background:#22211F;border-top:1px solid rgba(255,255,255,.08);padding:10px 22px 18px}
+.mnav a{display:block;color:#CFC8BB;font-size:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.mnav.open{display:block}
+@media(max-width:820px){.links a:not(.cta):not(.lang){display:none}.burger{display:flex}}
+.hero{padding:72px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.25fr .85fr;gap:48px;align-items:center}
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-card{max-width:420px;margin:8px auto 0}}
+.hero-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 18px 44px rgba(43,42,40,.08)}
+.hero-card .hc-top{display:flex;justify-content:space-between;align-items:center;font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.hero-card .hc-tier{background:var(--terra);color:#fff;border-radius:8px;padding:3px 9px;font-weight:700}
+.hero-card h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:19px;margin:14px 0 4px}
+.hero-card .hc-op{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.hero-card ul{list-style:none;margin:0;padding:0}
+.hero-card li{font-size:13.5px;color:var(--soft);padding:7px 0;border-top:1px solid var(--line)}
+.hero-card li::before{content:"✓ ";color:var(--terra);font-weight:700}
+.hero-card .hc-ready{display:inline-block;margin-top:14px;font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--terra);border:1px solid rgba(198,93,58,.35);border-radius:100px;padding:5px 12px}
+.platforms{margin-top:52px;text-align:center}
+.platforms .pl-label{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.platforms .pl-row{display:flex;gap:14px 30px;justify-content:center;flex-wrap:wrap;margin-top:12px;font-size:14px;font-weight:600;color:var(--soft)}
+.hiw{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:38px}
+@media(max-width:820px){.hiw{grid-template-columns:1fr}}
+.hiw .hs{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 22px}
+.hiw .hs .n{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--terra);font-weight:700}
+.hiw .hs h3{font-size:17px;margin:8px 0 6px}
+.hiw .hs p{font-size:14px;color:var(--soft);margin:0}
 .kicker{font-family:ui-monospace,Consolas,monospace;font-size:12.5px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--terra)}
 h1{font-family:ui-serif,Georgia,serif;font-weight:400;font-size:clamp(38px,6vw,64px);line-height:1.05;letter-spacing:-.02em;margin:18px auto 20px;max-width:820px}
 h1 em{font-style:italic;color:var(--terra)}
@@ -171,15 +196,30 @@ display: flex !important;
 <a href="/it/agenti">Catalogo</a><a href="/it/agenti#score">CAI Score</a><a href="/it/fiducia">Fiducia</a><a href="/it/partner">Partner</a><a href="/it/contatti">Contatti</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/">English</option><option value="/cs">Čeština</option><option value="/de">Deutsch</option><option value="/fr">Français</option><option value="/es">Español</option><option value="/it" selected>Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
 <a class="cta" href="/demo">Prenota una demo</a>
+<button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
-</div></header>
+</div>
+<nav class="mnav" id="mnav"><a href="/it/agenti">Catalogo</a><a href="/it/fiducia">Fiducia</a><a href="/it/partner">Partner</a><a href="/it/contatti">Contatti</a></nav>
+</header>
 
 <section class="hero wrap">
+<div class="hero-grid">
+<div>
 <span class="kicker">Il livello di fiducia per l'IA aziendale</span>
 <h1>Agenti IA che i vostri auditor<br>approveranno <em>davvero</em>.</h1>
-<p class="sub">36 pacchetti di agenti governati per finanza, operations, rischio, compliance e service – ognuno con livello di rischio CAI Score, un umano responsabile nominato ed evidenze di audit integrate. Nel vostro tenant Microsoft.</p>
-<div class="btns"><a class="btn p" href="/it/agenti">Sfoglia il catalogo</a><a class="btn s" href="/demo">Prenota una demo</a></div>
-<div class="stats">
+<p class="sub" style="margin-left:0">36 pacchetti di agenti governati per finanza, operations, rischio, compliance e service – ognuno con livello di rischio CAI Score, un umano responsabile nominato ed evidenze di audit integrate. Nel vostro tenant Microsoft.</p>
+<div class="btns" style="justify-content:flex-start"><a class="btn p" href="/it/agenti">Sfoglia il catalogo</a><a class="btn s" href="/demo">Prenota una demo</a></div>
+</div>
+<aside class="hero-card" aria-hidden="true">
+<div class="hc-top"><span>Certificato secondo il CAI Score™</span><span class="hc-tier">L3</span></div>
+<h3>Reconciliation Root-Cause Agent</h3>
+<div class="hc-op">CAI · Opera</div>
+<ul><li>Supervisione umana designata</li><li>Traccia di audit completa</li><li>I dati restano nel vostro tenant</li><li>Allineato a EU AI Act + DORA</li></ul>
+<span class="hc-ready">Pronto per l’audit</span>
+</aside>
+</div>
+<div class="platforms"><span class="pl-label">Consegnato pronto per</span><div class="pl-row"><span>Microsoft Copilot Studio</span><span>Power Automate</span><span>Azure</span><span>Microsoft 365</span><span>Teams</span></div></div>
+<div class="stats" style="margin-top:34px">
 <div class="stat"><div class="n">36</div><div class="l">Agenti pronti per la produzione</div></div>
 <div class="stat"><div class="n">5</div><div class="l">Pilastri funzionali</div></div>
 <div class="stat"><div class="n">L2–L4</div><div class="l">Livelli CAI attivi</div></div>
@@ -193,6 +233,11 @@ display: flex !important;
 <a class="card" href="/it/agenti"><span class="num">01</span><h3>Mi serve un agente IA per un processo</h3><p>Sfogli gli agenti per funzione e livello di autonomia, esamini factsheet e valore, e calcoli il ROI con i propri numeri.</p><span class="go">Apri il catalogo →</span></a>
 <a class="card" href="/it/fiducia"><span class="num">02</span><h3>Mi servono garanzie di governance</h3><p>Modello di sicurezza, gestione dati, governance IA, telemetria ed evidenze di audit – tutto ciò che risk e compliance chiederanno, in un unico posto.</p><span class="go">Apri il centro fiducia →</span></a>
 <a class="card" href="/it/partner"><span class="num">03</span><h3>Voglio diventare partner</h3><p>Raccomandi, rivenda o implementi i pacchetti ColleagueAI presso i suoi clienti, con materiali brand-safe e attribuzione tracciata.</p><span class="go">Programma partner →</span></a>
+</div>
+<div class="hiw">
+<div class="hs"><span class="n">01 · Connettere</span><h3>Colleghi al suo tenant</h3><p>I pacchetti arrivano precostruiti per Microsoft Copilot Studio, Power Automate e Azure. Nessuna ricostruzione, nessun dato lascia il suo ambiente.</p></div>
+<div class="hs"><span class="n">02 · Certificare</span><h3>Classificare sul CAI Score</h3><p>Ogni agente riceve un livello di rischio e un ruolo umano nominato prima di toccare un processo reale.</p></div>
+<div class="hs"><span class="n">03 · Operare</span><h3>Operare con evidenze</h3><p>Le azioni sono registrate, con timestamp e attribuibili. La risposta per l'audit esiste prima che qualcuno la chieda.</p></div>
 </div>
 </section>
 
@@ -233,6 +278,10 @@ display: flex !important;
 © Colleague AI 2026 · <a href="/it/termini">Termini</a> · <a href="/it/privacy">Privacy</a> · <a href="/it/rimborso">Rimborsi</a> · <a href="/license">Licenza</a> · <a href="/partner-agreement">Accordo partner</a> · <a href="/imprint">Note legali</a> · <a href="/it/contatti">Contatti</a>
 <div class="co">Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha, Czech Republic · IČO 29540852 · Městský soud v Praze, C 448176 · hello@colleagueai.ai</div>
 </div></footer>
-<script>document.getElementById("homelang").addEventListener("change",function(){location.href=this.value;});</script>
+<script>
+document.getElementById("homelang").addEventListener("change",function(){location.href=this.value;});
+var _b=document.getElementById("burger"),_m=document.getElementById("mnav");
+if(_b){_b.addEventListener("click",function(){var o=_m.classList.toggle("open");_b.setAttribute("aria-expanded",o?"true":"false");});}
+</script>
 </body>
 </html>

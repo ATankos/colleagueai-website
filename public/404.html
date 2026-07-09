@@ -1,17 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="utf-8">
+<title>Page not found | ColleagueAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
-<title>Page not found — Colleague AI</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>
-  body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#F5F0E8;color:#1D1B1A;display:grid;place-items:center;min-height:100vh}
-  main{text-align:center;padding:40px;max-width:560px}
-  h1{font-size:42px;margin:0 0 8px}
-  p{color:#555;line-height:1.6}
-  a.btn{display:inline-block;margin-top:18px;padding:12px 26px;background:#1D1B1A;color:#F5F0E8;border-radius:999px;text-decoration:none}
-  .code{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8a857d;letter-spacing:.04em;margin-bottom:14px}
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#2B2A28;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.code{font-family:ui-monospace,Consolas,monospace;font-size:13px;letter-spacing:.18em;color:#C65D3A;font-weight:700}
+h1{font-family:ui-serif,Georgia,serif;font-weight:400;font-size:clamp(32px,6vw,52px);margin:14px 0 10px;letter-spacing:-.02em}
+p{color:#4A4641;max-width:440px;margin:0 0 28px}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+a.b{background:#C65D3A;color:#fff;text-decoration:none;font-weight:600;font-size:14.5px;padding:12px 26px;border-radius:100px}
+a.g{border:1.5px solid #2B2A28;color:#2B2A28;text-decoration:none;font-weight:600;font-size:14.5px;padding:12px 26px;border-radius:100px}
+.logo{position:fixed;top:22px;left:50%;transform:translateX(-50%);font-family:ui-serif,Georgia,serif;font-size:22px;font-weight:600;color:#2B2A28;text-decoration:none}
+.logo b{color:#C65D3A}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -100,12 +104,10 @@ display: flex !important;
 </script>
 </head>
 <body>
-<main>
-  <div class="code">// HTTP 404</div>
-  <h1>Page not found.</h1>
-  <p>The page you are looking for does not exist or has moved. The agent catalogue is the best place to start.</p>
-  <a class="btn" href="https://www.colleagueai.ai/agents">Browse the agent catalogue →</a>
-  <p style="font-size:13px;margin-top:22px">Or email <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a></p>
-</main>
+<a class="logo" href="/">Colleague<b>AI</b></a>
+<span class="code">404</span>
+<h1>This page moved or never existed.</h1>
+<p>The agent catalogue, trust centre and everything else are one click away.</p>
+<div class="row"><a class="b" href="/">Go to the homepage</a><a class="g" href="/agents">Browse the catalogue</a></div>
 </body>
 </html>

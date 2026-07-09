@@ -2581,6 +2581,7 @@ header.nav.scrolled{border-bottom-color:rgba(255,255,255,.12)}
 .foot-links{font-size:13px;color:var(--muted);margin-top:10px}
 .foot-links a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 .foot-company{font-size:12px;color:var(--muted);margin-top:8px}
+.nav-links a[href^="#"].active{color:#fff;text-decoration:underline;text-underline-offset:7px;text-decoration-color:var(--terra);text-decoration-thickness:2px}
 @media(max-width:860px){
   .nav-links{gap:16px}
 }
@@ -4309,6 +4310,26 @@ window.__rebuildGAQuiz=function(){
 })();
 </script>
 <!-- CAI-I18N-X END -->
+<script>
+/* scrollspy: highlight the section currently in view in the top nav */
+(function(){
+  var ids=["philosophy","score","catalogue","fit","roi","deploy","readiness","faq"];
+  var links={};
+  document.querySelectorAll(".nav-links a[href^='#']").forEach(function(a){links[a.getAttribute("href").slice(1)]=a;});
+  var current=null;
+  function setActive(id){
+    if(current===id) return;
+    current=id;
+    Object.keys(links).forEach(function(k){links[k].classList.toggle("active",k===id);});
+  }
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) setActive(e.target.id); });
+    },{rootMargin:"-35% 0px -55% 0px"});
+    ids.forEach(function(id){var el=document.getElementById(id); if(el) io.observe(el);});
+  }
+})();
+</script>
 <script id="cai-langnow-fix">(function(){function go(){try{var L="fr";window.LANGNOW=L;var D=window["AGENTS_"+L.toUpperCase()];if(D&&window.AGENTS){window.AGENTS.forEach(function(a){var g=(a.n||a.name||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");if(D[g]){for(var k in D[g])a[k]=D[g][k];}});}if(typeof render==="function"){render();}}catch(e){}}if(document.readyState!=="loading"){go();}else{document.addEventListener("DOMContentLoaded",go);}})();</script></body>
 </html>
            
