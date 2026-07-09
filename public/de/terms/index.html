@@ -161,6 +161,42 @@ display: flex !important;
 </script>
 </head><body>
 <div class="cai-langsel"><select id="langsel" aria-label="Language"></select></div>
+<!-- cai-site-header:start -->
+<style>
+.cai-hdr{position:sticky;top:0;z-index:90;background:rgba(34,33,31,.97);backdrop-filter:blur(12px);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+.cai-hdr-in{max-width:1120px;margin:0 auto;padding:0 22px;height:64px;display:flex;align-items:center;justify-content:space-between}
+.cai-hdr a{text-decoration:none}
+.cai-hdr-logo{font-family:ui-serif,Georgia,serif;font-size:22px;font-weight:600;color:#F5F0E8!important}
+.cai-hdr-logo b{color:#E8825A;font-weight:600}
+.cai-hdr-links{display:flex;gap:22px;align-items:center}
+.cai-hdr-links .ch-l{color:#CFC8BB;font-size:14px;font-weight:500}
+.cai-hdr-links .ch-l:hover{color:#fff}
+.cai-hdr-links .ch-cta{background:#C65D3A;color:#fff;font-weight:600;font-size:13.5px;padding:9px 20px;border-radius:100px}
+.cai-hdr-links .ch-cta:hover{background:#fff;color:#2B2A28}
+.cai-hdr-burger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;width:42px;height:38px;align-items:center;justify-content:center;cursor:pointer}
+.cai-hdr-burger span{display:block;width:18px;height:2px;background:#F5F0E8}
+.cai-hdr-mnav{display:none;background:#22211F;border-top:1px solid rgba(255,255,255,.08);padding:8px 22px 16px}
+.cai-hdr-mnav a{display:block;color:#CFC8BB;font-size:16px;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.cai-hdr-mnav.open{display:block}
+@media(max-width:760px){.cai-hdr-links .ch-l{display:none}.cai-hdr-burger{display:flex}}
+</style>
+<header class="cai-hdr">
+  <div class="cai-hdr-in">
+    <a href="/" class="logo cai-hdr-logo">Colleague<b>AI</b></a>
+    <nav class="cai-hdr-links">
+      <a class="ch-l" href="/de/agenten">Katalog</a>
+      <a class="ch-l" href="/de/vertrauen">Vertrauen</a>
+      <a class="ch-l" href="/de/partner">Partner</a>
+      <a class="ch-l" href="/de/kontakt">Kontakt</a>
+      <a class="ch-cta" href="/demo">Termin vereinbaren</a>
+      <button class="cai-hdr-burger" onclick="var m=document.getElementById('caihdrm');m.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+  <nav class="cai-hdr-mnav" id="caihdrm">
+    <a href="/de/agenten">Katalog</a><a href="/de/vertrauen">Trust</a><a href="/de/partner">Partners</a><a href="/de/kontakt">Kontakt</a>
+  </nav>
+</header>
+<!-- cai-site-header:end -->
 <main>
 <nav class="crumb"><a href="/de/agenten">← Agent Katalog</a></nav><div class="eyebrow">Legal</div><h1>Nutzungsbedingungen</h1>
 <div class="draft"><strong>DRAFT — pending legal review.</strong> Illustrative scaffolding, not legal advice; have it reviewed and finalised by qualified counsel before relying on it.</div>

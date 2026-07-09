@@ -1,45 +1,22 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Something went wrong | ColleagueAI</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex">
-  <style>
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #0b1020;
-      color: #f8fafc;
-      display: grid;
-      min-height: 100vh;
-      place-items: center;
-      padding: 24px;
-    }
-    main {
-      max-width: 680px;
-      text-align: center;
-    }
-    h1 {
-      font-size: clamp(32px, 6vw, 56px);
-      margin-bottom: 16px;
-    }
-    p {
-      color: #cbd5e1;
-      font-size: 18px;
-      line-height: 1.6;
-    }
-    a {
-      display: inline-block;
-      margin-top: 24px;
-      padding: 12px 18px;
-      border-radius: 999px;
-      background: #f8fafc;
-      color: #0b1020;
-      text-decoration: none;
-      font-weight: 700;
-    }
-  </style>
+<meta charset="utf-8">
+<title>Server error | ColleagueAI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#2B2A28;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.code{font-family:ui-monospace,Consolas,monospace;font-size:13px;letter-spacing:.18em;color:#C65D3A;font-weight:700}
+h1{font-family:ui-serif,Georgia,serif;font-weight:400;font-size:clamp(32px,6vw,52px);margin:14px 0 10px;letter-spacing:-.02em}
+p{color:#4A4641;max-width:440px;margin:0 0 28px}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+a.b{background:#C65D3A;color:#fff;text-decoration:none;font-weight:600;font-size:14.5px;padding:12px 26px;border-radius:100px}
+a.g{border:1.5px solid #2B2A28;color:#2B2A28;text-decoration:none;font-weight:600;font-size:14.5px;padding:12px 26px;border-radius:100px}
+.logo{position:fixed;top:22px;left:50%;transform:translateX(-50%);font-family:ui-serif,Georgia,serif;font-size:22px;font-weight:600;color:#2B2A28;text-decoration:none}
+.logo b{color:#C65D3A}
+</style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
 position: fixed !important;
@@ -127,10 +104,10 @@ display: flex !important;
 </script>
 </head>
 <body>
-  <main>
-    <h1>Something went wrong</h1>
-    <p>The page could not be loaded. Please return to the main site or contact us if the issue continues.</p>
-    <a href="/">Back to ColleagueAI</a>
-  </main>
+<a class="logo" href="/">Colleague<b>AI</b></a>
+<span class="code">500</span>
+<h1>Something broke on our side. It is logged and we are on it.</h1>
+<p>The agent catalogue, trust centre and everything else are one click away.</p>
+<div class="row"><a class="b" href="/">Go to the homepage</a><a class="g" href="/agents">Browse the catalogue</a></div>
 </body>
 </html>
