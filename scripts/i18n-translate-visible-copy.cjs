@@ -77,6 +77,14 @@ const DICT = {
     "Partner interest": "Partnerský zájem"
   },
   "de": {
+    "href=\"/refund\"": "href=\"/de/rueckerstattung\"",
+    "href=\"/contact\"": "href=\"/de/kontakt\"",
+    "href=\"/\" class=\"logo\"": "href=\"/de\" class=\"logo\"",
+    ">Refund Policy<": ">Rückerstattung<",
+    ">Contact<": ">Kontakt<",
+    ">Terms<": ">Bedingungen<",
+    ">Privacy<": ">Datenschutz<",
+    ">Legal notice<": ">Impressum<",
     "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTIVER FIRST-PARTY-NACHWEIS",
     "See how a governed finance agent turns a reconciliation issue into reviewable evidence.": "Sehen Sie, wie ein gesteuerter Finanz-Agent eine Abstimmungsdifferenz in prüfbare Nachweise verwandelt.",
     "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Diese statische Demonstration nutzt einen fiktiven Finanzfall, um das Betriebsmodell hinter ColleagueAI-Paketen zu zeigen: berechtigungsbewusste Abfrage, Root-Cause-Analyse, menschliche Aufsicht und eine prüfbare Evidenzspur.",
@@ -142,6 +150,14 @@ const DICT = {
     "Partner interest": "Partnerinteresse"
   },
   "fr": {
+    "href=\"/refund\"": "href=\"/fr/remboursement\"",
+    "href=\"/contact\"": "href=\"/fr/contact\"",
+    "href=\"/\" class=\"logo\"": "href=\"/fr\" class=\"logo\"",
+    ">Refund Policy<": ">Remboursement<",
+    ">Contact<": ">Contact<",
+    ">Terms<": ">Conditions<",
+    ">Privacy<": ">Confidentialité<",
+    ">Legal notice<": ">Mentions légales<",
     "FIRST-PARTY INTERACTIVE PROOF": "PREUVE INTERACTIVE FIRST-PARTY",
     "See how a governed finance agent turns a reconciliation issue into reviewable evidence.": "Voyez comment un agent financier gouverné transforme un écart de rapprochement en preuves vérifiables.",
     "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Cette démonstration statique utilise un cas financier fictif pour montrer le modèle opérationnel des packages ColleagueAI : récupération tenant compte des permissions, analyse de cause racine, supervision humaine et piste de preuve exploitable pour revue.",
@@ -206,6 +222,14 @@ const DICT = {
     "Partner interest": "Intérêt partenaire"
   },
   "es": {
+    "href=\"/refund\"": "href=\"/es/reembolso\"",
+    "href=\"/contact\"": "href=\"/es/contacto\"",
+    "href=\"/\" class=\"logo\"": "href=\"/es\" class=\"logo\"",
+    ">Refund Policy<": ">Reembolsos<",
+    ">Contact<": ">Contacto<",
+    ">Terms<": ">Términos<",
+    ">Privacy<": ">Privacidad<",
+    ">Legal notice<": ">Aviso legal<",
     "FIRST-PARTY INTERACTIVE PROOF": "PRUEBA INTERACTIVA FIRST-PARTY",
     "See how a governed finance agent turns a reconciliation issue into reviewable evidence.": "Vea cómo un agente financiero gobernado convierte una incidencia de conciliación en evidencia revisable.",
     "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Este recorrido estático utiliza un caso financiero ficticio para mostrar el modelo operativo detrás de los paquetes ColleagueAI: recuperación con control de permisos, análisis de causa raíz, supervisión humana y una trazabilidad de evidencia apta para revisión.",
@@ -270,6 +294,14 @@ const DICT = {
     "Partner interest": "Interés de partner"
   },
   "it": {
+    "href=\"/refund\"": "href=\"/it/rimborso\"",
+    "href=\"/contact\"": "href=\"/it/contatti\"",
+    "href=\"/\" class=\"logo\"": "href=\"/it\" class=\"logo\"",
+    ">Refund Policy<": ">Rimborsi<",
+    ">Contact<": ">Contatti<",
+    ">Terms<": ">Termini<",
+    ">Privacy<": ">Privacy<",
+    ">Legal notice<": ">Note legali<",
     "FIRST-PARTY INTERACTIVE PROOF": "PROVA INTERATTIVA FIRST-PARTY",
     "See how a governed finance agent turns a reconciliation issue into reviewable evidence.": "Scopra come un agente finanziario governato trasforma un problema di riconciliazione in evidenze verificabili.",
     "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Questo walkthrough statico usa un caso finanziario fittizio per mostrare il modello operativo dei pacchetti ColleagueAI: recupero consapevole dei permessi, analisi della causa radice, supervisione umana e traccia evidenziale adatta alla revisione.",
@@ -334,6 +366,14 @@ const DICT = {
     "Partner interest": "Interesse partner"
   },
   "pl": {
+    "href=\"/refund\"": "href=\"/pl/zwroty\"",
+    "href=\"/contact\"": "href=\"/pl/kontakt\"",
+    "href=\"/\" class=\"logo\"": "href=\"/pl\" class=\"logo\"",
+    ">Refund Policy<": ">Zwroty<",
+    ">Contact<": ">Kontakt<",
+    ">Terms<": ">Warunki<",
+    ">Privacy<": ">Prywatność<",
+    ">Legal notice<": ">Nota prawna<",
     "FIRST-PARTY INTERACTIVE PROOF": "INTERAKTYWNY DOWÓD FIRST-PARTY",
     "See how a governed finance agent turns a reconciliation issue into reviewable evidence.": "Zobacz, jak nadzorowany agent finansowy zamienia rozbieżność w uzgodnieniach w weryfikowalne dowody.",
     "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Ten statyczny walkthrough wykorzystuje fikcyjny przypadek finansowy, aby pokazać model operacyjny pakietów ColleagueAI: pobieranie z uwzględnieniem uprawnień, analizę przyczyn źródłowych, nadzór człowieka i ścieżkę dowodową gotową do przeglądu.",
@@ -398,6 +438,14 @@ const DICT = {
     "Partner interest": "Zainteresowanie partnerskie"
   },
   "pt": {
+    "href=\"/refund\"": "href=\"/pt/reembolso\"",
+    "href=\"/contact\"": "href=\"/pt/contacto\"",
+    "href=\"/\" class=\"logo\"": "href=\"/pt\" class=\"logo\"",
+    ">Refund Policy<": ">Reembolsos<",
+    ">Contact<": ">Contacto<",
+    ">Terms<": ">Termos<",
+    ">Privacy<": ">Privacidade<",
+    ">Legal notice<": ">Aviso legal<",
     "FIRST-PARTY INTERACTIVE PROOF": "PROVA INTERATIVA FIRST-PARTY",
     "See how a governed finance agent turns a reconciliation issue into reviewable evidence.": "Veja como um agente financeiro governado transforma uma divergência de reconciliação em evidência verificável.",
     "This static walkthrough uses a fictional finance case to show the operating model behind ColleagueAI packages: permission-aware retrieval, root-cause analysis, human oversight, and an evidence trail suitable for review.": "Este walkthrough estático usa um caso financeiro fictício para mostrar o modelo operacional dos pacotes ColleagueAI: recuperação com atenção a permissões, análise de causa raiz, supervisão humana e trilha de evidência adequada para revisão.",

@@ -15,7 +15,9 @@ if (fs.existsSync(path.join(dist, "index.html"))) {
 if (fs.existsSync(path.join(dist, "home.html"))) {
   fs.copyFileSync(path.join(dist, "home.html"), path.join(dist, "index.html"));
 }
-if (fs.existsSync(path.join(dist, "cs", "home.html"))) {
-  fs.copyFileSync(path.join(dist, "cs", "home.html"), path.join(dist, "cs", "index.html"));
+for (const loc of ["cs", "de", "fr", "es", "it", "pl", "pt"]) {
+  if (fs.existsSync(path.join(dist, loc, "home.html"))) {
+    fs.copyFileSync(path.join(dist, loc, "home.html"), path.join(dist, loc, "index.html"));
+  }
 }
 console.log("[finalize-home] homepage installed at / and /cs; demo SPA at /demo.html");

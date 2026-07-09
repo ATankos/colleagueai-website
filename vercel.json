@@ -238,6 +238,54 @@
   ],
   "rewrites": [
     {
+      "source": "/pt/contacto",
+      "destination": "/pt/contact.html"
+    },
+    {
+      "source": "/pt/reembolso",
+      "destination": "/pt/refund.html"
+    },
+    {
+      "source": "/pl/kontakt",
+      "destination": "/pl/contact.html"
+    },
+    {
+      "source": "/pl/zwroty",
+      "destination": "/pl/refund.html"
+    },
+    {
+      "source": "/it/contatti",
+      "destination": "/it/contact.html"
+    },
+    {
+      "source": "/it/rimborso",
+      "destination": "/it/refund.html"
+    },
+    {
+      "source": "/es/contacto",
+      "destination": "/es/contact.html"
+    },
+    {
+      "source": "/es/reembolso",
+      "destination": "/es/refund.html"
+    },
+    {
+      "source": "/fr/contact",
+      "destination": "/fr/contact.html"
+    },
+    {
+      "source": "/fr/remboursement",
+      "destination": "/fr/refund.html"
+    },
+    {
+      "source": "/de/kontakt",
+      "destination": "/de/contact.html"
+    },
+    {
+      "source": "/de/rueckerstattung",
+      "destination": "/de/refund.html"
+    },
+    {
       "source": "/refund",
       "destination": "/refund.html"
     },
