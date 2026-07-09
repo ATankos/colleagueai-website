@@ -279,7 +279,15 @@ display: flex !important;
 <div class="co">Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha, Czech Republic · IČO 29540852 · Městský soud v Praze, C 448176 · hello@colleagueai.ai</div>
 </div></footer>
 <script>
-document.getElementById("homelang").addEventListener("change",function(){location.href=this.value;});
+/* language switch: selectedIndex maps into a constant route table, so no DOM value ever reaches location.href */
+(function(){
+  var ROUTES=["/","/cs","/de","/fr","/es","/it","/pl","/pt"];
+  var sel=document.getElementById("homelang");
+  sel.addEventListener("change",function(){
+    var route=ROUTES[sel.selectedIndex];
+    if(route) location.href=route;
+  });
+})();
 var _b=document.getElementById("burger"),_m=document.getElementById("mnav");
 if(_b){_b.addEventListener("click",function(){var o=_m.classList.toggle("open");_b.setAttribute("aria-expanded",o?"true":"false");});}
 </script>
