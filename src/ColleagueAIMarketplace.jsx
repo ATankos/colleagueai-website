@@ -321,7 +321,7 @@ export default function ColleagueAIMarketplace() {
             >
               <span>{LOCALES.find(l => l.code === lang)?.flag ?? 'ðŸŒ'}</span>
               <span>{(LOCALES.find(l => l.code === lang)?.code ?? DEFAULT_LOCALE.toUpperCase()).toUpperCase()}</span>
-              <span style={{ fontSize: '8px', opacity: 0.55, marginLeft: '2px' }}>â–¾</span>
+              <span style={{ fontSize: '8px', opacity: 0.55, marginLeft: '2px' }}>▮¾</span>
             </button>
             {langOpen && (
               <div className="lang-dropdown" role="listbox">
@@ -348,7 +348,7 @@ export default function ColleagueAIMarketplace() {
         </div>
       </nav>
 
-      {/* HERO TILE â€” Apple style */}
+      {/* HERO TILE,  Apple style */}
       <section id="hero" className="cai-hero" style={{
         paddingTop: '120px', paddingBottom: '80px',
         textAlign: 'center', padding: '120px 22px 80px',
@@ -387,13 +387,13 @@ export default function ColleagueAIMarketplace() {
             borderRadius: '999px', fontSize: '15px', fontWeight: 500,
             display: 'inline-flex', alignItems: 'center', gap: '8px',
           }}>
-            {t.hero.cta1} <span>â†’</span>
+            {t.hero.cta1} <span>→</span>
           </a>
           <a href="#trust" className="link-hover" style={{
             padding: '14px 28px', color: '#A8482A', fontSize: '15px', fontWeight: 500,
             display: 'inline-flex', alignItems: 'center', gap: '8px',
           }}>
-            {t.hero.cta2} <span>â†’</span>
+            {t.hero.cta2} <span>→</span>
           </a>
         </div>
 
@@ -417,7 +417,7 @@ export default function ColleagueAIMarketplace() {
         </div>
       </section>
 
-      {/* MARKETPLACE â€” agent grid */}
+      {/* MARKETPLACE,  agent grid */}
       <section id="marketplace" style={{ padding: '100px 22px' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           {/* Section header */}
@@ -527,7 +527,7 @@ export default function ColleagueAIMarketplace() {
                   <div style={{
                     fontSize: '13px', color: '#A8482A', fontWeight: 500,
                   }}>
-                    {t.market.viewDetails} â†’
+                    {t.market.viewDetails} →
                   </div>
                 </div>
               </div>
@@ -537,7 +537,7 @@ export default function ColleagueAIMarketplace() {
       </section>
 
 
-      {/* TRUST TILE â€” dark, like Apple's Pro product blocks */}
+      {/* TRUST TILE,  dark, like Apple's Pro product blocks */}
       <section id="trust" style={{
         margin: '16px', borderRadius: '24px',
         backgroundColor: '#1D1B1A', color: '#F5F0E8',
@@ -616,11 +616,11 @@ export default function ColleagueAIMarketplace() {
           color: '#E89270', fontSize: '15px', fontWeight: 500,
           borderBottom: '1px solid #E89270', paddingBottom: '2px',
         }}>
-          {t.trustTile.cta} â†’
+          {t.trustTile.cta} →
         </a>
       </section>
 
-      {/* PHILOSOPHY TILE â€” clean centered */}
+      {/* PHILOSOPHY TILE,  clean centered */}
       <section id="philosophy" style={{
         padding: '120px 22px', textAlign: 'center',
       }}>
@@ -644,7 +644,7 @@ export default function ColleagueAIMarketplace() {
             fontSize: '11px', color: '#6B655E', marginTop: '32px',
             letterSpacing: '0.1em',
           }}>
-            â€” {t.phil.attr}
+           ,  {t.phil.attr}
           </div>
         </div>
       </section>
@@ -729,7 +729,7 @@ export default function ColleagueAIMarketplace() {
                       <span style={{
                         position: 'absolute', left: 0,
                         color: tier.featured ? '#D9825F' : '#A8482A',
-                      }}>â†’</span>
+                      }}>→</span>
                       {f}
                     </li>
                   ))}
@@ -772,7 +772,7 @@ export default function ColleagueAIMarketplace() {
           backgroundColor: '#1D1B1A', color: '#F5F0E8',
           borderRadius: '999px', fontSize: '16px', fontWeight: 500,
         }}>
-          hello@colleagueai.ai â†’
+          hello@colleagueai.ai →
         </a>
       </section>
 
@@ -785,7 +785,7 @@ export default function ColleagueAIMarketplace() {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           fontSize: '12px', color: '#6B655E', flexWrap: 'wrap', gap: '20px',
         }}>
-          <div className="mono">Â© 2026 COLLEAGUE AI Â· PRAHA, CZ</div>
+          <div className="mono">Â© 2026 COLLEAGUE AI · PRAHA, CZ</div>
           <div style={{ fontSize: '14px' }}>
             <span style={{ color: '#1D1B1A' }}>colleague</span>
             <span style={{ color: '#A8482A' }}>ai</span>
@@ -821,7 +821,7 @@ const en = {
     h2b: 'The FICO of AI.',
     sub: 'Every agent we ship comes with a certified risk score, audit trail, and the documentation enterprises need to deploy with confidence.',
     scoreTitle: 'Finance Reconciliation Agent',
-    scoreSub: 'Certified for production Â· Risk Level 2',
+    scoreSub: 'Certified for production · Risk Level 2',
     metrics: [
       { label: 'CONTROLS', value: '42 / 42' },
       { label: 'AUDIT TRAIL', value: 'Full' },
@@ -844,19 +844,19 @@ const en = {
     viewDetails: 'View details',
   },
   agents: [
-    { name: 'Month-End Close', category: 'finance', icon: 'â—', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automates the full month-end close cycle: accruals, reconciliations, and reporting with built-in approvals.', deployments: '8 DEPLOYMENTS', scoreColor: '#A8482A' },
-    { name: 'AR Reconciliation', category: 'finance', icon: 'â—‘', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Matches invoices, payments, and remittances across systems. Flags exceptions for human review.', deployments: '5 DEPLOYMENTS', scoreColor: '#A8482A' },
-    { name: 'Vendor Master Data', category: 'sap', icon: 'â–£', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'Creates, validates, and maintains SAP vendor master records with KYC and duplicate detection.', deployments: '6 DEPLOYMENTS', scoreColor: '#1D1B1A' },
-    { name: 'Material Master', category: 'sap', icon: 'â–¤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Manages SAP material master with classification, pricing, and cross-plant consistency checks.', deployments: '4 DEPLOYMENTS', scoreColor: '#A8482A' },
-    { name: 'Entity Hierarchy', category: 'legal', icon: 'â—‡', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'Maintains legal entity hierarchies, ownership chains, and corporate governance records.', deployments: '3 DEPLOYMENTS', scoreColor: '#A8482A' },
-    { name: 'KYC Workflow', category: 'legal', icon: 'â—ˆ', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC for new business relationships. Documentation-ready for regulators.', deployments: '4 DEPLOYMENTS', scoreColor: '#1D1B1A' },
-    { name: 'EU AI Act Compliance', category: 'compliance', icon: 'â—†', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Maps your AI systems to EU AI Act risk categories. Generates required documentation automatically.', deployments: '2 DEPLOYMENTS', scoreColor: '#1D1B1A' },
-    { name: 'GDPR DPIA Generator', category: 'compliance', icon: 'â—Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'Produces Data Protection Impact Assessments with full audit trail and DPO sign-off workflow.', deployments: '3 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'Month-End Close', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automates the full month-end close cycle: accruals, reconciliations, and reporting with built-in approvals.', deployments: '8 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'AR Reconciliation', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Matches invoices, payments, and remittances across systems. Flags exceptions for human review.', deployments: '5 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'Vendor Master Data', category: 'sap', icon: '▣', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'Creates, validates, and maintains SAP vendor master records with KYC and duplicate detection.', deployments: '6 DEPLOYMENTS', scoreColor: '#1D1B1A' },
+    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Manages SAP material master with classification, pricing, and cross-plant consistency checks.', deployments: '4 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'Entity Hierarchy', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'Maintains legal entity hierarchies, ownership chains, and corporate governance records.', deployments: '3 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'KYC Workflow', category: 'legal', icon: '◈', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC for new business relationships. Documentation-ready for regulators.', deployments: '4 DEPLOYMENTS', scoreColor: '#1D1B1A' },
+    { name: 'EU AI Act Compliance', category: 'compliance', icon: '◆', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Maps your AI systems to EU AI Act risk categories. Generates required documentation automatically.', deployments: '2 DEPLOYMENTS', scoreColor: '#1D1B1A' },
+    { name: 'GDPR DPIA Generator', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'Produces Data Protection Impact Assessments with full audit trail and DPO sign-off workflow.', deployments: '3 DEPLOYMENTS', scoreColor: '#A8482A' },
   ],
   phil: {
     eyebrow: 'OUR PHILOSOPHY',
     quote: "If a use case shouldn't be automated, we say so. If a client wants speed over safety in a regulated process, we walk. The trust we're building is worth more than any single deal.",
-    attr: 'COLLEAGUE AI Â· OPERATING PRINCIPLE',
+    attr: 'COLLEAGUE AI · OPERATING PRINCIPLE',
   },
   price: {
     eyebrow: 'PRICING',
@@ -865,18 +865,18 @@ const en = {
     popular: 'MOST POPULAR',
     tiers: [
       {
-        tag: 'STARTER', name: 'Starter', price: 'â‚¬2,400', period: '/month',
-        features: ['1 certified agent', 'L1â€“L2 risk only', 'Standard support', 'Quarterly review'],
+        tag: 'STARTER', name: 'Starter', price: '€2,400', period: '/month',
+        features: ['1 certified agent', 'L1-L2 risk only', 'Standard support', 'Quarterly review'],
         cta: 'Get started',
       },
       {
-        tag: 'BUSINESS', name: 'Business', price: 'â‚¬8,500', period: '/month', featured: true,
-        features: ['Up to 5 agents', 'L1â€“L3 risk coverage', 'CAI Score certification', 'E&O insurance bundle', 'Priority support'],
+        tag: 'BUSINESS', name: 'Business', price: '€8,500', period: '/month', featured: true,
+        features: ['Up to 5 agents', 'L1-L3 risk coverage', 'CAI Score certification', 'E&O insurance bundle', 'Priority support'],
         cta: 'Talk to sales',
       },
       {
         tag: 'ENTERPRISE', name: 'Enterprise', price: 'Custom', period: '',
-        features: ['Unlimited agents', 'L1â€“L5 risk coverage', 'White-label option', 'Dedicated team', 'Big 4 methodology'],
+        features: ['Unlimited agents', 'L1-L5 risk coverage', 'White-label option', 'Dedicated team', 'Big 4 methodology'],
         cta: 'Contact us',
       },
     ],
@@ -910,7 +910,7 @@ const cs = {
     h2b: 'FICO pro AI.',
     sub: 'KaÅ¾dÃ½ agent, kterÃ©ho dodÃ¡me, pÅ™ichÃ¡zÃ­ s certifikovanÃ½m rizikovÃ½m skÃ³re, audit trailem a dokumentacÃ­, kterou podnik potÅ™ebuje k bezpeÄnÃ©mu nasazenÃ­.',
     scoreTitle: 'Agent pro rekonciliaci financÃ­',
-    scoreSub: 'CertifikovÃ¡no pro produkci Â· Riziko L2',
+    scoreSub: 'CertifikovÃ¡no pro produkci · Riziko L2',
     metrics: [
       { label: 'KONTROLY', value: '42 / 42' },
       { label: 'AUDIT TRAIL', value: 'PlnÃ½' },
@@ -933,19 +933,19 @@ const cs = {
     viewDetails: 'Detaily',
   },
   agents: [
-    { name: 'MÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rka', category: 'finance', icon: 'â—', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automatizuje celÃ½ cyklus mÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rky: ÄasovÃ© rozliÅ¡enÃ­, rekonciliace a reporting s integrovanÃ½m schvalovÃ¡nÃ­m.', deployments: '8 NASAZENÃ', scoreColor: '#A8482A' },
-    { name: 'AR rekonciliace', category: 'finance', icon: 'â—‘', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'PÃ¡ruje faktury, platby a remitance napÅ™Ã­Ä systÃ©my. OznaÄuje vÃ½jimky pro lidskou kontrolu.', deployments: '5 NASAZENÃ', scoreColor: '#A8482A' },
-    { name: 'Vendor Master Data', category: 'sap', icon: 'â–£', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'VytvÃ¡Å™Ã­, validuje a udrÅ¾uje zÃ¡znamy SAP vendor master s KYC a detekcÃ­ duplicit.', deployments: '6 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'Material Master', category: 'sap', icon: 'â–¤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Spravuje SAP material master s klasifikacÃ­, cenÃ­ky a kontrolami konzistence napÅ™Ã­Ä zÃ¡vody.', deployments: '4 NASAZENÃ', scoreColor: '#A8482A' },
-    { name: 'Hierarchie entit', category: 'legal', icon: 'â—‡', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'UdrÅ¾uje hierarchie prÃ¡vnÃ­ch entit, vlastnickÃ© Å™etÄ›zce a zÃ¡znamy korporÃ¡tnÃ­ governance.', deployments: '3 NASAZENÃ', scoreColor: '#A8482A' },
-    { name: 'KYC workflow', category: 'legal', icon: 'â—ˆ', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC pro novÃ© obchodnÃ­ vztahy. Dokumentace pÅ™ipravenÃ¡ pro regulÃ¡tora.', deployments: '4 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'EU AI Act compliance', category: 'compliance', icon: 'â—†', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Mapuje vaÅ¡e AI systÃ©my do rizikovÃ½ch kategoriÃ­ EU AI Act. Automaticky generuje povinnou dokumentaci.', deployments: '2 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'GDPR DPIA generÃ¡tor', category: 'compliance', icon: 'â—Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'VytvÃ¡Å™Ã­ PosouzenÃ­ vlivu na ochranu osobnÃ­ch ÃºdajÅ¯ s plnÃ½m audit trailem a workflow pro DPO.', deployments: '3 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'MÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rka', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automatizuje celÃ½ cyklus mÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rky: ÄasovÃ© rozliÅ¡enÃ­, rekonciliace a reporting s integrovanÃ½m schvalovÃ¡nÃ­m.', deployments: '8 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'AR rekonciliace', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'PÃ¡ruje faktury, platby a remitance napÅ™Ã­Ä systÃ©my. OznaÄuje vÃ½jimky pro lidskou kontrolu.', deployments: '5 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'Vendor Master Data', category: 'sap', icon: '▣', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'VytvÃ¡Å™Ã­, validuje a udrÅ¾uje zÃ¡znamy SAP vendor master s KYC a detekcÃ­ duplicit.', deployments: '6 NASAZENÃ', scoreColor: '#1D1B1A' },
+    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Spravuje SAP material master s klasifikacÃ­, cenÃ­ky a kontrolami konzistence napÅ™Ã­Ä zÃ¡vody.', deployments: '4 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'Hierarchie entit', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'UdrÅ¾uje hierarchie prÃ¡vnÃ­ch entit, vlastnickÃ© Å™etÄ›zce a zÃ¡znamy korporÃ¡tnÃ­ governance.', deployments: '3 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'KYC workflow', category: 'legal', icon: '◈', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC pro novÃ© obchodnÃ­ vztahy. Dokumentace pÅ™ipravenÃ¡ pro regulÃ¡tora.', deployments: '4 NASAZENÃ', scoreColor: '#1D1B1A' },
+    { name: 'EU AI Act compliance', category: 'compliance', icon: '◆', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Mapuje vaÅ¡e AI systÃ©my do rizikovÃ½ch kategoriÃ­ EU AI Act. Automaticky generuje povinnou dokumentaci.', deployments: '2 NASAZENÃ', scoreColor: '#1D1B1A' },
+    { name: 'GDPR DPIA generÃ¡tor', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'VytvÃ¡Å™Ã­ PosouzenÃ­ vlivu na ochranu osobnÃ­ch ÃºdajÅ¯ s plnÃ½m audit trailem a workflow pro DPO.', deployments: '3 NASAZENÃ', scoreColor: '#A8482A' },
   ],
   phil: {
     eyebrow: 'NAÅ E FILOZOFIE',
     quote: 'Pokud nÄ›co automatizovat nelze nebo by se nemÄ›lo, Å™ekneme to. Pokud klient poÅ¾aduje rychlost pÅ™ed bezpeÄnostÃ­ v regulovanÃ©m procesu, odejdeme. DÅ¯vÄ›ra, kterou budujeme, mÃ¡ vÄ›tÅ¡Ã­ hodnotu neÅ¾ jakÃ¡koli jednotlivÃ¡ zakÃ¡zka.',
-    attr: 'COLLEAGUE AI Â· PROVOZNÃ PRINCIP',
+    attr: 'COLLEAGUE AI · PROVOZNÃ PRINCIP',
   },
   price: {
     eyebrow: 'CENÃK',
@@ -954,18 +954,18 @@ const cs = {
     popular: 'NEJOBLÃBENÄšJÅ Ã',
     tiers: [
       {
-        tag: 'STARTER', name: 'Starter', price: 'â‚¬2 400', period: '/mÄ›sÃ­c',
-        features: ['1 certifikovanÃ½ agent', 'Pouze riziko L1â€“L2', 'StandardnÃ­ podpora', 'KvartÃ¡lnÃ­ revize'],
+        tag: 'STARTER', name: 'Starter', price: '€2 400', period: '/mÄ›sÃ­c',
+        features: ['1 certifikovanÃ½ agent', 'Pouze riziko L1-L2', 'StandardnÃ­ podpora', 'KvartÃ¡lnÃ­ revize'],
         cta: 'ZaÄÃ­t',
       },
       {
-        tag: 'BUSINESS', name: 'Business', price: 'â‚¬8 500', period: '/mÄ›sÃ­c', featured: true,
-        features: ['AÅ¾ 5 agentÅ¯', 'PokrytÃ­ rizika L1â€“L3', 'CAI Score certifikace', 'E&O pojiÅ¡tÄ›nÃ­ v cenÄ›', 'PrioritnÃ­ podpora'],
+        tag: 'BUSINESS', name: 'Business', price: '€8 500', period: '/mÄ›sÃ­c', featured: true,
+        features: ['AÅ¾ 5 agentÅ¯', 'PokrytÃ­ rizika L1-L3', 'CAI Score certifikace', 'E&O pojiÅ¡tÄ›nÃ­ v cenÄ›', 'PrioritnÃ­ podpora'],
         cta: 'Mluvit s obchodem',
       },
       {
         tag: 'ENTERPRISE', name: 'Enterprise', price: 'Na mÃ­ru', period: '',
-        features: ['NeomezenÃ½ poÄet agentÅ¯', 'PokrytÃ­ rizika L1â€“L5', 'White-label varianta', 'DedikovanÃ½ tÃ½m', 'Big 4 metodologie'],
+        features: ['NeomezenÃ½ poÄet agentÅ¯', 'PokrytÃ­ rizika L1-L5', 'White-label varianta', 'DedikovanÃ½ tÃ½m', 'Big 4 metodologie'],
         cta: 'Kontaktovat',
       },
     ],

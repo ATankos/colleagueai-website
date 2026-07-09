@@ -24,33 +24,38 @@ const translations = {
     eyebrow: 'LIVE AGENT DEMO',
     h1a: 'Try it before you',
     h1b: 'buy it.',
-    sub: 'A live Colleague AI agent â€” running on real AI, explaining its reasoning in plain language.',
-    back: 'â† Back',
+    sub: 'A live Colleague AI agent, running on real AI, explaining its reasoning in plain language.',
+    back: '← Back',
     agentCategory: 'Travel / Procurement',
-    agentDesc: 'Analyses available flights against your stated preferences â€” price, duration, layover comfort, and risk â€” and explains its recommendation in plain language. The same reasoning engine we embed in enterprise procurement workflows.',
+    agentDesc: 'Analyses available flights against your stated preferences (price, duration, layover comfort, and risk) and explains its recommendation in plain language. The same reasoning engine we embed in enterprise procurement workflows.',
     roiLabel: 'ANNUAL SAVINGS',
-    roiValue: 'â‚¬18,400 per 10-person team',
-    roiSub: '45 min saved per booking Â· â‚¬60/hr blended rate Â· 340 trips/yr',
+    roiValue: '€18,400 per 10-person team',
+    roiSub: '45 min saved per booking · €60/hr blended rate · 340 trips/yr',
     complianceLabel: 'COMPLIANCE',
-    complianceValue: 'Full audit log Â· Policy enforcement',
+    complianceValue: 'Full audit log · Policy enforcement',
     complianceSub: 'Every decision recorded, timestamped, and explainable for internal audit',
     riskLabel: 'RISK RATING',
-    riskValue: 'L1 â€” Low risk',
-    riskSub: 'Read-only advisory Â· No autonomous spend Â· Human approval required',
+    riskValue: 'L1, Low risk',
+    riskSub: 'Read-only advisory · No autonomous spend · Human approval required',
     reviewedLabel: 'REVIEWED BY',
+    bookEyebrow: 'ENTERPRISE DEMO',
+    bookTitle: 'Book a guided enterprise demo',
+    bookSub: 'A 30-minute session with a ColleagueAI engineer: any agent from the catalogue, running on a sandboxed case from your industry, with the audit trail on screen.',
+    bookCta: 'Book your demo',
+    bookNote: 'We reply within one business day.',
     downloadEyebrow: 'DOWNLOAD',
     downloadTitle: 'Install on your computer',
-    downloadSub: 'Download the desktop app and the AI Flight Advisor runs directly on your machine â€” no browser needed.',
+    downloadSub: 'Download the desktop app and the AI Flight Advisor runs directly on your machine, no browser needed.',
     downloadWin: 'Download for Windows',
     downloadMac: 'Download for Mac',
     downloadWinShort: 'Windows',
     downloadMacShort: 'Mac',
     downloadMacAlt: 'Mac version',
     downloadWinAlt: 'Windows version',
-    downloadFree: 'Free Â· No account needed Â· v0.1.0',
+    downloadFree: 'Free · No account needed · v0.1.0',
     demoEyebrow: 'LIVE REASONING ENGINE',
     demoTitle: 'Run the agent on your search',
-    demoSub: 'Mock flight data Â· Agent reasoning is real Â· Not a booking tool',
+    demoSub: 'Mock flight data · Agent reasoning is real · Not a booking tool',
     quickRoutes: 'Quick routes',
     labelFrom: 'From',
     labelTo: 'To',
@@ -61,83 +66,88 @@ const translations = {
     cabinEconomy: 'Economy',
     cabinPremium: 'Premium Economy',
     cabinBusiness: 'Business',
-    runBtn: 'Run agent â†’',
-    runningBtn: 'Agent is reasoningâ€¦',
+    runBtn: 'Run agent →',
+    runningBtn: 'Agent is reasoning…',
     thinkingLabel: 'AGENT REASONING',
     rankedLabel: 'AGENT RANKED',
     rankedSuffix: 'OPTIONS',
     shareBtn: 'Share results',
     shareCopied: 'Link copied!',
     footerNote: 'This is a live demo of Colleague AI\'s reasoning engine.',
-    footerLink: 'See all agents â†’',
+    footerLink: 'See all agents →',
     verdictLabels: { RECOMMENDED: 'Recommended', ALTERNATIVE: 'Alternative', AVOID: 'Avoid' },
   },
   cs: {
-    eyebrow: 'Å½IVÃ UKÃZKA AGENTA',
-    h1a: 'VyzkouÅ¡ejte pÅ™ed',
-    h1b: 'nÃ¡kupem.',
-    sub: 'Å½ivÃ½ agent Colleague AI â€” bÄ›Å¾Ã­ na skuteÄnÃ© AI a vysvÄ›tluje svÃ© uvaÅ¾ovÃ¡nÃ­ srozumitelnÃ½m jazykem.',
-    back: 'â† ZpÄ›t',
-    agentCategory: 'CestovÃ¡nÃ­ / NÃ¡kup',
-    agentDesc: 'Analyzuje dostupnÃ© lety podle vaÅ¡ich preferencÃ­ â€” cena, dÃ©lka letu, pohodlÃ­ pÅ™estupu a riziko â€” a doporuÄenÃ­ vysvÄ›tluje srozumitelnÄ›. StejnÃ½ reasoning engine, kterÃ½ nasazujeme v podnikovÃ½ch nÃ¡kupnÃ­ch procesech.',
-    roiLabel: 'ROÄŒNÃ ÃšSPORA',
-    roiValue: 'â‚¬18 400 na tÃ½m 10 lidÃ­',
-    roiSub: '45 min uÅ¡etÅ™eno na rezervaci Â· sazba â‚¬60/hod Â· 340 cest/rok',
+    eyebrow: 'ŽIVÁ UKÁZKA AGENTA',
+    h1a: 'Vyzkoušejte před',
+    h1b: 'nákupem.',
+    sub: 'Živý agent Colleague AI, běží na skutečné AI a vysvětluje své uvažování srozumitelným jazykem.',
+    back: '← Zpět',
+    agentCategory: 'Cestování / Nákup',
+    agentDesc: 'Analyzuje dostupné lety podle vašich preferencí (cena, délka letu, pohodlí přestupu a riziko) a doporučení vysvětluje srozumitelně. Stejný reasoning engine, který nasazujeme v podnikových nákupních procesech.',
+    roiLabel: 'ROČNÍ ÚSPORA',
+    roiValue: '€18 400 na tým 10 lidí',
+    roiSub: '45 min ušetřeno na rezervaci · sazba €60/hod · 340 cest/rok',
     complianceLabel: 'COMPLIANCE',
-    complianceValue: 'ÃšplnÃ½ audit log Â· VynucenÃ­ politik',
-    complianceSub: 'KaÅ¾dÃ© rozhodnutÃ­ je zaznamenÃ¡no, oznaÄeno ÄasovÃ½m razÃ­tkem a vysvÄ›tlitelnÃ© pro internÃ­ audit',
-    riskLabel: 'HODNOCENÃ RIZIKA',
-    riskValue: 'L1 â€” NÃ­zkÃ© riziko',
-    riskSub: 'Pouze poradnÃ­ funkce Â· Bez autonomnÃ­ch vÃ½dajÅ¯ Â· VyÅ¾aduje schvÃ¡lenÃ­ ÄlovÄ›kem',
-    reviewedLabel: 'OVÄšÅ˜ENO',
-    downloadEyebrow: 'STAÅ½ENÃ',
-    downloadTitle: 'Nainstalujte do poÄÃ­taÄe',
-    downloadSub: 'StÃ¡hnÄ›te desktopovou aplikaci a AI Flight Advisor pobÄ›Å¾Ã­ pÅ™Ã­mo na vaÅ¡em poÄÃ­taÄi â€” bez prohlÃ­Å¾eÄe.',
-    downloadWin: 'StÃ¡hnout pro Windows',
-    downloadMac: 'StÃ¡hnout pro Mac',
+    complianceValue: 'Úplný audit log · Vynucení politik',
+    complianceSub: 'Každé rozhodnutí je zaznamenáno, označeno časovým razítkem a vysvětlitelné pro interní audit',
+    riskLabel: 'HODNOCENÍ RIZIKA',
+    riskValue: 'L1, Nízké riziko',
+    riskSub: 'Pouze poradní funkce · Bez autonomních výdajů · Vyžaduje schválení člověkem',
+    reviewedLabel: 'OVĚŘENO',
+    bookEyebrow: 'PODNIKOVÁ UKÁZKA',
+    bookTitle: 'Objednejte si řízenou podnikovou ukázku',
+    bookSub: '30minutová schůzka s inženýrem ColleagueAI: kterýkoli agent z katalogu na sandboxovém případu z vašeho oboru, s auditní stopou na obrazovce.',
+    bookCta: 'Objednat ukázku',
+    bookNote: 'Odpovídáme do jednoho pracovního dne.',
+    downloadEyebrow: 'STAŽENÍ',
+    downloadTitle: 'Nainstalujte do počítače',
+    downloadSub: 'Stáhněte desktopovou aplikaci a AI Flight Advisor poběží přímo na vašem počítači, bez prohlížeče.',
+    downloadWin: 'Stáhnout pro Windows',
+    downloadMac: 'Stáhnout pro Mac',
     downloadWinShort: 'Windows',
     downloadMacShort: 'Mac',
     downloadMacAlt: 'Verze pro Mac',
     downloadWinAlt: 'Verze pro Windows',
-    downloadFree: 'Zdarma Â· Bez registrace Â· v0.1.0',
-    demoEyebrow: 'Å½IVÃ REASONING ENGINE',
-    demoTitle: 'SpusÅ¥te agenta na vlastnÃ­m hledÃ¡nÃ­',
-    demoSub: 'TestovacÃ­ data letÅ¯ Â· UvaÅ¾ovÃ¡nÃ­ agenta je skuteÄnÃ© Â· NenÃ­ to rezervaÄnÃ­ nÃ¡stroj',
-    quickRoutes: 'RychlÃ© trasy',
+    downloadFree: 'Zdarma · Bez registrace · v0.1.0',
+    demoEyebrow: 'ŽIVÝ REASONING ENGINE',
+    demoTitle: 'Spusťte agenta na vlastním hledání',
+    demoSub: 'Testovací data letů · Uvažování agenta je skutečné · Není to rezervační nástroj',
+    quickRoutes: 'Rychlé trasy',
     labelFrom: 'Odkud',
     labelTo: 'Kam',
     labelDate: 'Datum',
-    labelCabin: 'TÅ™Ã­da',
-    labelPrefs: 'VaÅ¡e preference',
-    prefsDefault: 'NejlevnÄ›jÅ¡Ã­ moÅ¾nost, ale vyhnÄ›te se noÄnÃ­m pÅ™estupÅ¯m a velmi krÃ¡tkÃ½m spojÅ¯m.',
-    cabinEconomy: 'EkonomickÃ¡',
-    cabinPremium: 'PrÃ©miovÃ¡ ekonomickÃ¡',
+    labelCabin: 'Třída',
+    labelPrefs: 'Vaše preference',
+    prefsDefault: 'Nejlevnější možnost, ale vyhněte se nočním přestupům a velmi krátkým spojům.',
+    cabinEconomy: 'Ekonomická',
+    cabinPremium: 'Prémiová ekonomická',
     cabinBusiness: 'Business',
-    runBtn: 'Spustit agenta â†’',
-    runningBtn: 'Agent pÅ™emÃ½Å¡lÃ­â€¦',
-    thinkingLabel: 'UVAÅ½OVÃNÃ AGENTA',
-    rankedLabel: 'AGENT SEÅ˜ADIL',
-    rankedSuffix: 'MOÅ½NOSTI',
-    shareBtn: 'SdÃ­let vÃ½sledky',
-    shareCopied: 'Odkaz zkopÃ­rovÃ¡n!',
-    footerNote: 'Toto je Å¾ivÃ¡ ukÃ¡zka reasoning engine od Colleague AI.',
-    footerLink: 'Zobrazit vÅ¡echny agenty â†’',
-    verdictLabels: { RECOMMENDED: 'DoporuÄeno', ALTERNATIVE: 'Alternativa', AVOID: 'NevhodnÃ©' },
+    runBtn: 'Spustit agenta →',
+    runningBtn: 'Agent přemýšlí…',
+    thinkingLabel: 'UVAŽOVÁNÍ AGENTA',
+    rankedLabel: 'AGENT SEŘADIL',
+    rankedSuffix: 'MOŽNOSTI',
+    shareBtn: 'Sdílet výsledky',
+    shareCopied: 'Odkaz zkopírován!',
+    footerNote: 'Toto je živá ukázka reasoning engine od Colleague AI.',
+    footerLink: 'Zobrazit všechny agenty →',
+    verdictLabels: { RECOMMENDED: 'Doporučeno', ALTERNATIVE: 'Alternativa', AVOID: 'Nevhodné' },
   },
 };
 
 const AGENT = {
   id: 'PKG-TRV-0001',
-  icon: 'âœˆ',
+  icon: '✈',
   iconBg: '#FFE8DC',
   name: 'AI Flight Advisor',
   risk: 'L1',
   score: 'A',
   scoreColor: '#A8482A',
-  price: 'â‚¬0',
+  price: '€0',
   priceSub: 'free demo',
   reviewer: 'Colleague AI',
-  reviewed: 'KvÄ›ten 2026 / May 2026',
+  reviewed: 'Květen 2026 / May 2026',
 };
 
 const VERDICT_STYLES = {
@@ -341,12 +351,12 @@ const os = detectOS();
                 background: '#1D1B1A', color: '#F5F0E8', border: 0,
                 borderRadius: '999px', padding: '6px 16px',
                 fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-              }}>â¬‡ Install app</button>
+              }}>⬇ Install app</button>
             )}
-            {installed && <span style={{ fontSize: '12px', color: '#A8482A', fontWeight: 600 }}>âœ“ Installed</span>}
+            {installed && <span style={{ fontSize: '12px', color: '#A8482A', fontWeight: 600 }}>✓ Installed</span>}
             <div className="mono" style={{ display: 'flex', gap: '2px', fontSize: '11px' }}>
               <button onClick={() => setLang('en')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'en' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'en' ? 600 : 400 }}>EN</button>
-              <span style={{ color: '#6B655E' }}>Â·</span>
+              <span style={{ color: '#6B655E' }}>·</span>
               <button onClick={() => setLang('cs')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'cs' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'cs' ? 600 : 400 }}>CS</button>
             </div>
             <a href="/" style={{ fontSize: '12px', color: '#6B655E', textDecoration: 'none' }}>{t.back}</a>
@@ -367,6 +377,15 @@ const os = detectOS();
           <p style={{ fontSize: '16px', color: '#6B655E', maxWidth: '480px', margin: '0 auto', lineHeight: 1.6 }}>
             {t.sub}
           </p>
+        </div>
+
+        {/* ENTERPRISE DEMO BOOKING */}
+        <div style={{ background: '#1D1B1A', color: '#F5F0E8', borderRadius: '18px', padding: '28px 26px', marginBottom: '44px', textAlign: 'center' }}>
+          <div className="mono" style={{ fontSize: '10px', color: '#E8A07F', letterSpacing: '0.14em', marginBottom: '10px' }}>{t.bookEyebrow}</div>
+          <h2 className="fraunces" style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 500, margin: '0 0 8px', letterSpacing: '-0.02em' }}>{t.bookTitle}</h2>
+          <p style={{ fontSize: '14.5px', color: '#C9C0B2', maxWidth: '560px', margin: '0 auto 18px', lineHeight: 1.6 }}>{t.bookSub}</p>
+          <a href={'mailto:hello@colleagueai.ai?subject=' + encodeURIComponent('Enterprise demo request')} style={{ display: 'inline-block', background: '#C65D3A', color: '#fff', textDecoration: 'none', fontWeight: 600, fontSize: '14.5px', padding: '12px 28px', borderRadius: '999px' }}>{t.bookCta}</a>
+          <div style={{ fontSize: '12px', color: '#8A857C', marginTop: '10px' }}>hello@colleagueai.ai · {t.bookNote}</div>
         </div>
 
         {/* AGENT CARD */}
@@ -400,7 +419,7 @@ const os = detectOS();
             {t.agentDesc}
           </p>
 
-          {/* ROI + Compliance + Risk â€” three buying reasons */}
+          {/* ROI + Compliance + Risk, three buying reasons */}
           <div className="grid2" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
             {/* ROI */}
             <div style={{ background: '#F0FAF4', border: '1px solid rgba(22,101,52,0.1)', borderRadius: '12px', padding: '14px' }}>
@@ -427,7 +446,7 @@ const os = detectOS();
             <span className="mono" style={{ fontSize: '9px', color: '#6B655E', letterSpacing: '0.08em', flexShrink: 0 }}>AUDIT TRAIL</span>
             {['Decision log', 'Timestamp', 'Reasoning saved', 'Exportable PDF', 'No shadow IT'].map((badge, i) => (
               <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#4A4641' }}>
-                <span style={{ color: '#166534', fontWeight: 700 }}>âœ“</span> {badge}
+                <span style={{ color: '#166534', fontWeight: 700 }}>✓</span> {badge}
               </span>
             ))}
           </div>
@@ -451,7 +470,7 @@ const os = detectOS();
           <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
             {os === 'windows' && (
               <a href={DOWNLOADS.windows} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#F5F0E8', color: '#1D1B1A', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none' }}>
-                <span>âŠž</span> {t.downloadWin}
+                <span>⊞</span> {t.downloadWin}
               </a>
             )}
             {os === 'mac' && (
@@ -462,7 +481,7 @@ const os = detectOS();
             {os === 'other' && (
               <>
                 <a href={DOWNLOADS.windows} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#F5F0E8', color: '#1D1B1A', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none' }}>
-                  <span>âŠž</span> {t.downloadWinShort}
+                  <span>⊞</span> {t.downloadWinShort}
                 </a>
                 <a href={DOWNLOADS.mac} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(245,240,232,0.1)', color: '#F5F0E8', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', border: '1px solid rgba(245,240,232,0.2)' }}>
                   <span></span> {t.downloadMacShort}
@@ -476,7 +495,7 @@ const os = detectOS();
             )}
             {os === 'mac' && (
               <a href={DOWNLOADS.windows} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(245,240,232,0.1)', color: '#A39B91', padding: '14px 28px', borderRadius: '12px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', border: '1px solid rgba(245,240,232,0.12)' }}>
-                <span>âŠž</span> {t.downloadWinAlt}
+                <span>⊞</span> {t.downloadWinAlt}
               </a>
             )}
           </div>
@@ -499,7 +518,7 @@ const os = detectOS();
             <span className="mono" style={{ fontSize: '10px', color: '#6B655E', letterSpacing: '0.06em', flexShrink: 0 }}>{t.quickRoutes}:</span>
             {QUICK_ROUTES.map((r) => (
               <button key={r.from + r.to} className="quick-route-btn" onClick={() => applyQuickRoute(r.from, r.to)}>
-                {r.from} â†’ {r.to}
+                {r.from} → {r.to}
               </button>
             ))}
           </div>
@@ -572,7 +591,7 @@ const os = detectOS();
                   fontSize: '12px', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit',
                   transition: 'all 0.2s',
                 }}>
-                  {shareCopied ? 'âœ“' : 'â†—'} {shareCopied ? t.shareCopied : t.shareBtn}
+                  {shareCopied ? '✓' : '↗'} {shareCopied ? t.shareCopied : t.shareBtn}
                 </button>
               </div>
 
@@ -595,7 +614,7 @@ const os = detectOS();
                       </span>
                     </div>
                     <div style={{ fontSize: '13px', color: '#6B655E', marginBottom: '8px' }}>
-                      {r.route} Â· {r.departure} â†’ {r.arrival} Â· {r.duration} Â· {r.stops} stop(s)
+                      {r.route} · {r.departure} → {r.arrival} · {r.duration} · {r.stops} stop(s)
                     </div>
                     <div style={{ fontSize: '15px', fontWeight: 600, marginBottom: '8px', color: '#1D1B1A' }}>{r.price}</div>
                     <p style={{ fontSize: '13px', color: '#4A4641', lineHeight: 1.5 }}>{r.reason}</p>

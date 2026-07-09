@@ -1,5 +1,7 @@
 ﻿# ColleagueAI
 
+Full machine-readable catalogue: https://www.colleagueai.ai/llms-full.txt
+
 ColleagueAI provides governed AI agents and AI controls for enterprise operations, finance, risk, compliance, legal, procurement, HR, sales, and service workflows.
 
 ## Primary pages
