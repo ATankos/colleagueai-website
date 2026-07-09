@@ -311,4 +311,22 @@
     <changefreq>monthly</changefreq>
     <priority>0.2</priority>
   </url>
+  <url>
+    <loc>https://www.colleagueai.ai/</loc>
+  </url>
+  <url>
+    <loc>https://www.colleagueai.ai/cs</loc>
+  </url>
+  <url>
+    <loc>https://www.colleagueai.ai/refund</loc>
+  </url>
+  <url>
+    <loc>https://www.colleagueai.ai/contact</loc>
+  </url>
+  <url>
+    <loc>https://www.colleagueai.ai/cs/vraceni-penez</loc>
+  </url>
+  <url>
+    <loc>https://www.colleagueai.ai/cs/kontakt</loc>
+  </url>
 </urlset>
