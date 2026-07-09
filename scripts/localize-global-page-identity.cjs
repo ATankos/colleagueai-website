@@ -7,9 +7,9 @@ const ROOTS = ["public", "dist"];
 
 const IDENTITY = {
   cs: {
-    trustTitle: "Centrum důvěry – důkazy AI governance, architektura a bezpečnost | Colleague AI",
+    trustTitle: "Centrum důvěry, důkazy AI governance, architektura a bezpečnost | Colleague AI",
     trustH1: "Důkazy na jednom místě.",
-    partnersTitle: "Partnerský pilotní program – partnerství pro řízené AI agenty | ColleagueAI",
+    partnersTitle: "Partnerský pilotní program, partnerství pro řízené AI agenty | ColleagueAI",
     partnerApply: "Požádejte o partnerství.",
     partnerBring: "Přineste svým klientům řízenou AI.",
     privacy: "Zásady ochrany osobních údajů",
@@ -25,18 +25,18 @@ const IDENTITY = {
     terms: "Nutzungsbedingungen"
   },
   fr: {
-    trustTitle: "Centre de confiance – preuves de gouvernance IA, architecture et sécurité | Colleague AI",
+    trustTitle: "Centre de confiance, preuves de gouvernance IA, architecture et sécurité | Colleague AI",
     trustH1: "Les preuves, au même endroit.",
-    partnersTitle: "Programme pilote partenaires – partenariats d'agents IA gouvernés | ColleagueAI",
+    partnersTitle: "Programme pilote partenaires, partenariats d'agents IA gouvernés | ColleagueAI",
     partnerApply: "Demander un partenariat.",
     partnerBring: "Apportez une IA gouvernée à vos clients.",
     privacy: "Politique de confidentialité",
     terms: "Conditions d'utilisation"
   },
   es: {
-    trustTitle: "Centro de confianza – evidencia de gobernanza de IA, arquitectura y seguridad | Colleague AI",
+    trustTitle: "Centro de confianza, evidencia de gobernanza de IA, arquitectura y seguridad | Colleague AI",
     trustH1: "La evidencia, en un solo lugar.",
-    partnersTitle: "Programa piloto de partners – alianzas para agentes de IA gobernados | ColleagueAI",
+    partnersTitle: "Programa piloto de partners, alianzas para agentes de IA gobernados | ColleagueAI",
     partnerApply: "Solicitar ser partner.",
     partnerBring: "Lleva IA gobernada a tus clientes.",
     privacy: "Política de privacidad",
@@ -52,18 +52,18 @@ const IDENTITY = {
     terms: "Termini di servizio"
   },
   pl: {
-    trustTitle: "Centrum zaufania – dowody governance AI, architektura i bezpieczeństwo | Colleague AI",
+    trustTitle: "Centrum zaufania, dowody governance AI, architektura i bezpieczeństwo | Colleague AI",
     trustH1: "Dowody w jednym miejscu.",
-    partnersTitle: "Pilotażowy program partnerski – partnerstwa dla zarządzanych agentów AI | ColleagueAI",
+    partnersTitle: "Pilotażowy program partnerski, partnerstwa dla zarządzanych agentów AI | ColleagueAI",
     partnerApply: "Zglos chec partnerstwa.",
     partnerBring: "Dostarczaj klientom zarzadzana AI.",
     privacy: "Polityka prywatności",
     terms: "Warunki korzystania z usługi"
   },
   pt: {
-    trustTitle: "Centro de confiança – evidências de governança de IA, arquitetura e segurança | Colleague AI",
+    trustTitle: "Centro de confiança, evidências de governança de IA, arquitetura e segurança | Colleague AI",
     trustH1: "As evidencias, em um so lugar.",
-    partnersTitle: "Programa piloto de parceiros – parcerias para agentes de IA governados | ColleagueAI",
+    partnersTitle: "Programa piloto de parceiros, parcerias para agentes de IA governados | ColleagueAI",
     partnerApply: "Candidate-se como parceiro.",
     partnerBring: "Leve IA governada aos seus clientes.",
     privacy: "Política de privacidade",
@@ -109,10 +109,10 @@ const COPY = {
     "Three steps": "Tři kroky",
     "Three steps. Approved partner process.": "Tři kroky. Proces schváleného partnera.",
     "Register interest": "Registrovat zájem",
-    "Enter your name and email. Your unique partner code is derived cryptographically from your email – deterministic, so you can always regenerate the same link.": "Zadejte jméno a e-mail. Váš unikátní partnerský kód se kryptograficky odvozuje z e-mailu, deterministicky, takže stejný odkaz můžete kdykoli znovu vygenerovat.",
+    "Enter your name and email. Your unique partner code is derived cryptographically from your email, deterministic, so you can always regenerate the same link.": "Zadejte jméno a e-mail. Váš unikátní partnerský kód se kryptograficky odvozuje z e-mailu, deterministicky, takže stejný odkaz můžete kdykoli znovu vygenerovat.",
     "30 SECONDS": "30 SEKUND",
     "Share it": "Sdílet odkaz",
-    "Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you – automatically, through approved commercial setup.": "Pošlete odkaz klientům, vložte jej do nabídek nebo na web. Každý, kdo klikne a nakoupí do 30 dnů, je automaticky přiřazen vám přes schválené obchodní nastavení.",
+    "Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you, automatically, through approved commercial setup.": "Pošlete odkaz klientům, vložte jej do nabídek nebo na web. Každý, kdo klikne a nakoupí do 30 dnů, je automaticky přiřazen vám přes schválené obchodní nastavení.",
     "30-DAY WINDOW": "30DENNÍ OKNO",
     "When they buy any agent through your link, you earn 20% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts go monthly.": "Když přes váš odkaz koupí jakéhokoli agenta, získáte 20 % z prodeje. Bez limitů a bez úrovní, které snižují sazbu. Každý prodej je evidován. Výplaty probíhají měsíčně.",
     "PAID MONTHLY": "VYPLÁCENO MĚSÍČNĚ"
@@ -232,10 +232,10 @@ const COPY = {
     "Three steps": "Tres pasos",
     "Three steps. Approved partner process.": "Tres pasos. Proceso de partner aprobado.",
     "Register interest": "Registrar interés",
-    "Enter your name and email. Your unique partner code is derived cryptographically from your email – deterministic, so you can always regenerate the same link.": "Introduce tu nombre y email. Tu código único de partner se deriva criptográficamente de tu email, de forma determinista, para que siempre puedas regenerar el mismo enlace.",
+    "Enter your name and email. Your unique partner code is derived cryptographically from your email, deterministic, so you can always regenerate the same link.": "Introduce tu nombre y email. Tu código único de partner se deriva criptográficamente de tu email, de forma determinista, para que siempre puedas regenerar el mismo enlace.",
     "30 SECONDS": "30 SEGUNDOS",
     "Share it": "Compártelo",
-    "Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you – automatically, through approved commercial setup.": "Envía el enlace a clientes, inclúyelo en propuestas o agrégalo a tu web. Quien haga clic y compre dentro de 30 días se te atribuye automáticamente mediante configuración comercial aprobada.",
+    "Send the link to clients, embed it in proposals, add it to your website. Anyone who clicks and buys within 30 days is credited to you, automatically, through approved commercial setup.": "Envía el enlace a clientes, inclúyelo en propuestas o agrégalo a tu web. Quien haga clic y compre dentro de 30 días se te atribuye automáticamente mediante configuración comercial aprobada.",
     "30-DAY WINDOW": "VENTANA DE 30 DÍAS",
     "When they buy any agent through your link, you earn 20% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts go monthly.": "Cuando compran cualquier agente a través de tu enlace, ganas el 20 % de la venta. Sin límites ni niveles que reduzcan tu porcentaje. Cada venta queda registrada. Los pagos son mensuales.",
     "PAID MONTHLY": "PAGO MENSUAL"

@@ -1,5 +1,5 @@
 /**
- * scripts/generate-agent-pages.mjs — build step: prerender one page per agent.
+ * scripts/generate-agent-pages.mjs: build step: prerender one page per agent.
  * Reads the canonical AGENTS data from public/agents.html (single source of truth),
  * writes dist/agents/<slug>.html (EN v1) and regenerates dist/sitemap.xml with the
  * 36 agent URLs added. Runs after `vite build` (see package.json "build").
@@ -33,12 +33,12 @@ const TIER = { L1: 'Assist', L2: 'Draft', L3: 'Operate', L4: 'Decide (supervised
 const PILLAR = { ops: 'Operations & Service Delivery', risk: 'Risk, Security & Compliance', data: 'Data & Infrastructure', sales: 'Sales & Marketing', corp: 'Corporate' };
 const BASE = 'https://www.colleagueai.ai';
 const TIER_DESC = { // verbatim from the CAI Score section of /agents (locked copy, reused not rewritten)
-  L2: ['Produces a work product — a document, a query, a report, an outreach message — for a human to review and approve. Nothing the agent makes is used until a person signs off.', 'Reviews & approves'],
-  L3: ['Executes routine, low-risk actions inside a bounded workflow — classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.', 'Owns exceptions'],
-  L4: ['Supports decisions and controls in higher-stakes processes — compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.', 'Stays accountable'],
+  L2: ['Produces a work product (a document, a query, a report, an outreach message) for a human to review and approve. Nothing the agent makes is used until a person signs off.', 'Reviews & approves'],
+  L3: ['Executes routine, low-risk actions inside a bounded workflow: classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.', 'Owns exceptions'],
+  L4: ['Supports decisions and controls in higher-stakes processes: compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.', 'Stays accountable'],
 };
-const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, certify it on the CAI Score, and it runs in your own tenant — no rebuild, no data leaving your walls.';
-const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane — scores, policies and audit metadata. No customer data is ever processed on our side. Your data stays in your tenant.';
+const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, certify it on the CAI Score, and it runs in your own tenant: no rebuild, no data leaving your walls.';
+const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. No customer data is ever processed on our side. Your data stays in your tenant.';
 
 
 function page(a) {
@@ -66,13 +66,13 @@ function page(a) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(a.n)} — Certified ${esc(a.t)} Enterprise AI Agent | Colleague AI</title>
+<title>${esc(a.n)} | Certified ${esc(a.t)} Enterprise AI Agent | Colleague AI</title>
 <meta name="description" content="${esc(a.desc)}">
 <meta name="robots" content="index, follow, max-snippet:-1">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(a.n)} — Certified ${esc(a.t)} Enterprise AI Agent | Colleague AI">
+<meta property="og:title" content="${esc(a.n)} | Certified ${esc(a.t)} Enterprise AI Agent | Colleague AI">
 <meta property="og:description" content="${esc(a.desc)}">
 <meta property="og:image" content="${BASE}/og-image.png">
 <meta property="og:site_name" content="Colleague AI">
@@ -116,7 +116,7 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
 <section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
 <section><h2>What you get</h2><ul><li>Copilot Studio connect package</li><li>Microsoft 365 Copilot package</li><li>Agent dossier (PDF)</li></ul><p>One-time purchase. Your connect packages unlock as soon as secure checkout completes.</p></section>
-<section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score — a five-tier risk classification from L1 to L5 — documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
+<section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
 <div class="cta">
   <a class="btn btn-p" href="/agents#catalogue">Get this agent →</a>
   <a class="btn btn-s" href="/demo">See it in a live demo</a>
