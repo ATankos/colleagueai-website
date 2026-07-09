@@ -7,14 +7,14 @@ const SITE = 'https://www.colleagueai.ai'
 const DIST = path.resolve('dist')
 const PUBLIC = path.resolve('public')
 const LOCALES = [
-  { code: 'en', og: 'en_US', title: 'Governed AI Agents | ColleagueAI' },
-  { code: 'cs', og: 'cs_CZ', title: 'Řízení AI agenti | ColleagueAI' },
-  { code: 'de', og: 'de_DE', title: 'Governed AI Agents | ColleagueAI' },
-  { code: 'fr', og: 'fr_FR', title: 'Agents IA gouvernés | ColleagueAI' },
-  { code: 'es', og: 'es_ES', title: 'Agentes de IA gobernados | ColleagueAI' },
-  { code: 'it', og: 'it_IT', title: 'Agenti IA governati | ColleagueAI' },
-  { code: 'pl', og: 'pl_PL', title: 'Nadzorowani agenci AI | ColleagueAI' },
-  { code: 'pt', og: 'pt_PT', title: 'Agentes de IA governados | ColleagueAI' }
+  { code: 'en', og: 'en_US', title: 'Governed AI Agents | ColleagueAI', desc: 'Explore governed AI agents for finance, operations, risk, compliance, legal, procurement, HR, and enterprise workflows.' },
+  { code: 'cs', og: 'cs_CZ', title: 'Katalog AI agentů | ColleagueAI', desc: 'Prozkoumejte řízené AI agenty pro finance, provoz, rizika, compliance, právo, nákup, HR a podnikové procesy.' },
+  { code: 'de', og: 'de_DE', title: 'Governed AI Agents | ColleagueAI', desc: 'Entdecken Sie governed AI-Agenten für Finanzen, Betrieb, Risiko, Compliance, Recht, Einkauf, HR und Unternehmensprozesse.' },
+  { code: 'fr', og: 'fr_FR', title: 'Agents IA gouvernés | ColleagueAI', desc: "Découvrez des agents IA gouvernés pour la finance, les opérations, le risque, la conformité, le juridique, les achats, les RH et les processus d'entreprise." },
+  { code: 'es', og: 'es_ES', title: 'Agentes de IA gobernados | ColleagueAI', desc: 'Explore agentes de IA gobernados para finanzas, operaciones, riesgo, cumplimiento, legal, compras, RR. HH. y procesos empresariales.' },
+  { code: 'it', og: 'it_IT', title: 'Agenti IA governati | ColleagueAI', desc: 'Esplori agenti IA governati per finanza, operations, rischio, compliance, legale, procurement, HR e processi aziendali.' },
+  { code: 'pl', og: 'pl_PL', title: 'Nadzorowani agenci AI | ColleagueAI', desc: 'Poznaj nadzorowanych agentów AI dla finansów, operacji, ryzyka, compliance, prawa, zakupów, HR i procesów biznesowych.' },
+  { code: 'pt', og: 'pt_PT', title: 'Agentes de IA governados | ColleagueAI', desc: 'Explore agentes de IA governados para finanças, operações, risco, compliance, jurídico, compras, RH e processos empresariais.' }
 ]
 
 // Localized pretty slug per locale, sourced from the single slug map. Default locale is bare.
@@ -123,13 +123,24 @@ function prerenderDataI18n(html, code, i18n) {
   const dict = i18n && i18n[code]
   if (!dict) return html
 
-  return html.replace(/(<([a-z0-9-]+)(?=[^>]*\sdata-i18n=["']([^"']+)["'])[^>]*>)([\s\S]*?)(<\/\2>)/gi, (match, open, tag, key, body, close) => {
+  html = html.replace(/(<([a-z0-9-]+)(?=[^>]*\sdata-i18n=["']([^"']+)["'])[^>]*>)([\s\S]*?)(<\/\2>)/gi, (match, open, tag, key, body, close) => {
     if (!Object.prototype.hasOwnProperty.call(dict, key)) return match
     const value = dict[key]
     if (typeof value !== 'string') return match
     if (/[<>]/.test(body.trim())) return match
     return open + escapeHtml(value) + close
   })
+
+  // data-i18n-html elements carry markup (e.g. the hero H1) — prerender them with the raw localized HTML
+  html = html.replace(/(<([a-z0-9-]+)(?=[^>]*\sdata-i18n-html=["']([^"']+)["'])[^>]*>)([\s\S]*?)(<\/\2>)/gi, (match, open, tag, key, body, close) => {
+    if (!Object.prototype.hasOwnProperty.call(dict, key)) return match
+    const value = dict[key]
+    if (typeof value !== 'string') return match
+    if (/<\/?(section|div|script|style)\b/i.test(body)) return match
+    return open + value + close
+  })
+
+  return html
 }
 
 function rootSeoBlock() {
@@ -155,6 +166,13 @@ function localizedPage(baseHtml, locale, i18n) {
   let html = stripLocaleSeo(baseHtml)
   html = setHtmlLang(html, locale.code)
   html = html.replace(/<title>[\s\S]*?<\/title>/i, '<title>' + escapeHtml(locale.title) + '</title>')
+  if (locale.desc) {
+    html = html.replace(/(<meta name="description" content=")[^"]*(">)/i, '$1' + escapeHtml(locale.desc) + '$2')
+    html = html.replace(/(<meta property="og:description" content=")[^"]*(">)/i, '$1' + escapeHtml(locale.desc) + '$2')
+    html = html.replace(/(<meta name="twitter:description" content=")[^"]*(">)/i, '$1' + escapeHtml(locale.desc) + '$2')
+  }
+  html = html.replace(/(<meta property="og:title" content=")[^"]*(">)/i, '$1' + escapeHtml(locale.title) + '$2')
+  html = html.replace(/(<meta name="twitter:title" content=")[^"]*(">)/i, '$1' + escapeHtml(locale.title) + '$2')
   html = prerenderDataI18n(html, locale.code, i18n)
   return html.replace('</head>', localeSeoBlock(locale) + '\n</head>')
 }
