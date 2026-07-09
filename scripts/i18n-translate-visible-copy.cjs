@@ -506,7 +506,6 @@ const DICT = {
     "ch-l\" href=\"/pt/agentes\">Catalogue<": "ch-l\" href=\"/pt/agentes\">Catálogo<",
     "ch-l\" href=\"/pt/confianca\">Trust<": "ch-l\" href=\"/pt/confianca\">Confiança<",
     "ch-l\" href=\"/pt/parceiros\">Partners<": "ch-l\" href=\"/pt/parceiros\">Parceiros<",
-    "ch-l\" href=\"/contact\">Contact<": "ch-l\" href=\"/pt/contacto\">Contacto<",
     "ch-cta\" href=\"/demo\">Book a demo<": "ch-cta\" href=\"/demo\">Marcar uma demo<",
     "href=\"/pt/agentes\">Catalogue</a><a href=\"/pt/confianca\">Trust</a><a href=\"/pt/parceiros\">Partners</a><a href=\"/contact\">Contact</a>": "href=\"/pt/agentes\">Catálogo</a><a href=\"/pt/confianca\">Confiança</a><a href=\"/pt/parceiros\">Parceiros</a><a href=\"/pt/contacto\">Contacto</a>",
     "ch-l\" href=\"/agents\">Catalogue<": "ch-l\" href=\"/pt/agentes\">Catálogo<",
