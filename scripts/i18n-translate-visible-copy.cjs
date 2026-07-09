@@ -424,7 +424,6 @@ const DICT = {
     "ch-l\" href=\"/pl/agenci\">Catalogue<": "ch-l\" href=\"/pl/agenci\">Katalog<",
     "ch-l\" href=\"/pl/zaufanie\">Trust<": "ch-l\" href=\"/pl/zaufanie\">Zaufanie<",
     "ch-l\" href=\"/pl/partnerzy\">Partners<": "ch-l\" href=\"/pl/partnerzy\">Partnerzy<",
-    "ch-l\" href=\"/contact\">Contact<": "ch-l\" href=\"/pl/kontakt\">Kontakt<",
     "ch-cta\" href=\"/demo\">Book a demo<": "ch-cta\" href=\"/demo\">Umów demo<",
     "href=\"/pl/agenci\">Catalogue</a><a href=\"/pl/zaufanie\">Trust</a><a href=\"/pl/partnerzy\">Partners</a><a href=\"/contact\">Contact</a>": "href=\"/pl/agenci\">Katalog</a><a href=\"/pl/zaufanie\">Zaufanie</a><a href=\"/pl/partnerzy\">Partnerzy</a><a href=\"/pl/kontakt\">Kontakt</a>",
     "ch-l\" href=\"/agents\">Catalogue<": "ch-l\" href=\"/pl/agenci\">Katalog<",
