@@ -42,6 +42,9 @@ jobs:
       - name: i18n integrity
         run: node tests/audit-i18n.mjs
 
+      - name: Locale smoke (scripts execute in every language)
+        run: node --test tests/locale-smoke.test.mjs
+
       - name: Secret scan of build output
         run: node tests/scan-bundle.mjs
 
