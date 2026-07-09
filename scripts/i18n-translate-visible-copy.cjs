@@ -8,7 +8,6 @@ const DICT = {
     "ch-l\" href=\"/cs/duvera\">Trust<": "ch-l\" href=\"/cs/duvera\">Důvěra<",
     "ch-l\" href=\"/cs/partneri\">Partners<": "ch-l\" href=\"/cs/partneri\">Partneři<",
     "ch-l\" href=\"/contact\">Contact<": "ch-l\" href=\"/cs/kontakt\">Kontakt<",
-    "ch-cta\" href=\"/demo\">Book a demo<": "ch-cta\" href=\"/demo\">Domluvit schůzku<",
     "href=\"/cs/agenti\">Catalogue</a><a href=\"/cs/duvera\">Trust</a><a href=\"/cs/partneri\">Partners</a><a href=\"/contact\">Contact</a>": "href=\"/cs/agenti\">Katalog</a><a href=\"/cs/duvera\">Důvěra</a><a href=\"/cs/partneri\">Partneři</a><a href=\"/cs/kontakt\">Kontakt</a>",
     "ch-l\" href=\"/agents\">Catalogue<": "ch-l\" href=\"/cs/agenti\">Katalog<",
     "ch-l\" href=\"/trust\">Trust<": "ch-l\" href=\"/cs/duvera\">Důvěra<",
