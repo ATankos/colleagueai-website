@@ -4,6 +4,8 @@ const { SUPPORTED_LOCALE_CODES } = require("./i18n/config.cjs");
 const LOCALES = SUPPORTED_LOCALE_CODES.filter((locale) => locale !== "en");
 const DICT = {
   "cs": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/cs/odpovedna-ai\">Odpovědná AI<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/cs/pristupnost\">Přístupnost<",
     "ch-l\" href=\"/cs/agenti\">Catalogue<": "ch-l\" href=\"/cs/agenti\">Katalog<",
     "ch-l\" href=\"/cs/duvera\">Trust<": "ch-l\" href=\"/cs/duvera\">Důvěra<",
     "ch-l\" href=\"/cs/partneri\">Partners<": "ch-l\" href=\"/cs/partneri\">Partneři<",
@@ -87,6 +89,8 @@ const DICT = {
     "Partner interest": "Partnerský zájem"
   },
   "de": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/de/verantwortungsvolle-ki\">Verantwortungsvolle KI<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/de/barrierefreiheit\">Barrierefreiheit<",
     "ch-l\" href=\"/de/agenten\">Catalogue<": "ch-l\" href=\"/de/agenten\">Katalog<",
     "ch-l\" href=\"/de/vertrauen\">Trust<": "ch-l\" href=\"/de/vertrauen\">Vertrauen<",
     "ch-l\" href=\"/de/partner\">Partners<": "ch-l\" href=\"/de/partner\">Partner<",
@@ -170,6 +174,8 @@ const DICT = {
     "Partner interest": "Partnerinteresse"
   },
   "fr": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/fr/ia-responsable\">IA responsable<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/fr/accessibilite\">Accessibilité<",
     "ch-l\" href=\"/fr/agents\">Catalogue<": "ch-l\" href=\"/fr/agents\">Catalogue<",
     "ch-l\" href=\"/fr/confiance\">Trust<": "ch-l\" href=\"/fr/confiance\">Confiance<",
     "ch-l\" href=\"/fr/partenaires\">Partners<": "ch-l\" href=\"/fr/partenaires\">Partenaires<",
@@ -253,6 +259,8 @@ const DICT = {
     "Partner interest": "Intérêt partenaire"
   },
   "es": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/es/ia-responsable\">IA responsable<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/es/accesibilidad\">Accesibilidad<",
     "ch-l\" href=\"/es/agentes\">Catalogue<": "ch-l\" href=\"/es/agentes\">Catálogo<",
     "ch-l\" href=\"/es/confianza\">Trust<": "ch-l\" href=\"/es/confianza\">Confianza<",
     "ch-l\" href=\"/es/socios\">Partners<": "ch-l\" href=\"/es/socios\">Partners<",
@@ -337,6 +345,8 @@ const DICT = {
     "Partner interest": "Interés de partner"
   },
   "it": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/it/ia-responsabile\">IA responsabile<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/it/accessibilita\">Accessibilità<",
     "ch-l\" href=\"/it/agenti\">Catalogue<": "ch-l\" href=\"/it/agenti\">Catalogo<",
     "ch-l\" href=\"/it/fiducia\">Trust<": "ch-l\" href=\"/it/fiducia\">Fiducia<",
     "ch-l\" href=\"/it/partner\">Partners<": "ch-l\" href=\"/it/partner\">Partner<",
@@ -420,6 +430,8 @@ const DICT = {
     "Partner interest": "Interesse partner"
   },
   "pl": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/pl/odpowiedzialna-ai\">Odpowiedzialna AI<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/pl/dostepnosc\">Dostępność<",
     "ch-l\" href=\"/pl/agenci\">Catalogue<": "ch-l\" href=\"/pl/agenci\">Katalog<",
     "ch-l\" href=\"/pl/zaufanie\">Trust<": "ch-l\" href=\"/pl/zaufanie\">Zaufanie<",
     "ch-l\" href=\"/pl/partnerzy\">Partners<": "ch-l\" href=\"/pl/partnerzy\">Partnerzy<",
@@ -502,6 +514,8 @@ const DICT = {
     "Partner interest": "Zainteresowanie partnerskie"
   },
   "pt": {
+    "href=\"/responsible-ai\">Responsible AI<": "href=\"/pt/ia-responsavel\">IA responsável<",
+    "href=\"/accessibility\">Accessibility<": "href=\"/pt/acessibilidade\">Acessibilidade<",
     "ch-l\" href=\"/pt/agentes\">Catalogue<": "ch-l\" href=\"/pt/agentes\">Catálogo<",
     "ch-l\" href=\"/pt/confianca\">Trust<": "ch-l\" href=\"/pt/confianca\">Confiança<",
     "ch-l\" href=\"/pt/parceiros\">Partners<": "ch-l\" href=\"/pt/parceiros\">Parceiros<",

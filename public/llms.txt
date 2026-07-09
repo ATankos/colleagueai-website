@@ -12,6 +12,10 @@ ColleagueAI provides governed AI agents and AI controls for enterprise operation
 - https://www.colleagueai.ai/imprint
 - https://www.colleagueai.ai/license
 - https://www.colleagueai.ai/partner-agreement
+- https://www.colleagueai.ai/responsible-ai
+- https://www.colleagueai.ai/accessibility
+- https://www.colleagueai.ai/refund
+- https://www.colleagueai.ai/contact
 
 ## What ColleagueAI offers
 
