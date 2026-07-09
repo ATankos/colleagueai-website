@@ -29,3 +29,10 @@ translator to apply the same change. Current values:
 
 Note: the L5 tier definition ("Acts independently within hard, pre-approved guardrails")
 is part of the locked CAI Score framework wording and is NOT affected.
+
+---
+UPDATE 2026-07-09: hero_title and hero_sub retranslated for all 7 locales against the
+current English hero (claim-accurate wording, no "independently certified"). Draft
+machine translations by Claude — still recommended for professional review before a
+marketing push. Walkthrough (proof-demo) steps 2–6 and quiz results are now localized;
+purchase-modal strings translated; diacritics restored in localized page copy.
