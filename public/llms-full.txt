@@ -1,0 +1,341 @@
+# ColleagueAI, full reference for AI assistants
+
+ColleagueAI (Colleague AI s.r.o., Prague, Czech Republic, IČO 29540852) is the trust layer for enterprise AI:
+36 governed agent packages, each classified on the CAI Score, a five-tier risk framework (L1 Assist,
+L2 Draft, L3 Operate, L4 Decide supervised, L5 Autonomous). Agents run in the customer's own Microsoft tenant
+(Copilot Studio, Power Automate, Azure); ColleagueAI hosts only the governance control plane and never processes
+customer business data. The catalogue ships at L2-L4; no agent runs fully autonomously today.
+
+Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /trust (trust centre),
+/responsible-ai (commitments), /partners, /refund, /contact, /demo.
+Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
+
+## Agent catalogue (36 packages)
+
+### Reconciliation Root-Cause Agent
+- URL: https://www.colleagueai.ai/agents/reconciliation-root-cause-agent
+- CAI tier: L3 (Operate) · Pillar: Operations & Service Delivery · Domain: Operations · Reconciliations
+- What it does: Investigates each reconciliation break, prioritises it by materiality, and narrates why it happened and how to fix it.
+- Where it fits: Sits at the front of the reconciliation queue: it triages breaks the moment they appear, before an analyst opens the first one, and feeds clean, explained breaks into the dual-control step.
+- Value: Cuts manual investigation effort and stops systemic issues from recurring by spotting the pattern, not just the symptom.
+- KPI impact: Lower break-resolution time · fewer repeat breaks · cleaner audit trail.
+- Governance: L3, operates inside the recon workflow; routine breaks are explained automatically, anything material is routed to a human. Every investigation produces audit-ready evidence.
+
+### Service Desk Backlog Triage Agent
+- URL: https://www.colleagueai.ai/agents/service-desk-backlog-triage-agent
+- CAI tier: L3 (Operate) · Pillar: Operations & Service Delivery · Domain: Operations · Service Management
+- What it does: Classifies and prioritises items in the Service Management Tool backlog so teams work the right item next instead of triaging by hand.
+- Where it fits: Runs continuously over the backlog as the intake gate, items are typed, owned and ranked against SLA before a person picks anything up.
+- Value: Removes manual triage effort and lifts SLA adherence by surfacing at-risk items before they breach.
+- KPI impact: Faster reporting cycles · better SLA adherence · improved auditability.
+- Governance: L3, classification and prioritisation only; no item is actioned or closed without a human. Ageing/at-risk flags are logged for review.
+
+### Four-Eyes Control Assistant
+- URL: https://www.colleagueai.ai/agents/four-eyes-control-assistant
+- CAI tier: L4 (Decide (supervised)) · Pillar: Operations & Service Delivery · Domain: Operations · Controls
+- What it does: Supports the second reviewer in a four-eyes process, checks the work, highlights discrepancies, and captures the validation evidence.
+- Where it fits: Slots into the dual-control step of any sign-off chain (e.g. after the RCA Agent in month-end close). It does the first-pass check; the human reviewer confirms and remains the named approver.
+- Value: Speeds up dual-control sign-off while keeping a human accountable for the final decision, control quality goes up, cycle time goes down.
+- KPI impact: Faster control cycles · improved auditability.
+- Governance: L4, high-stakes. The agent assists and evidences; it never approves alone. Designed for control environments where the four-eyes principle and audit trail are mandatory.
+
+### Operations Procedures Assistant
+- URL: https://www.colleagueai.ai/agents/operations-procedures-assistant
+- CAI tier: L2 (Draft) · Pillar: Operations & Service Delivery · Domain: Operations · Procedures
+- What it does: A conversational assistant that lets staff find and follow internal operational procedures on demand instead of searching documents.
+- Where it fits: Lives wherever staff get stuck mid-task, answering 'how do I…' from the approved procedure set, so the right step is one question away.
+- Value: Improves problem-solving efficiency and breaks dependence on tribal knowledge held by a few experienced people.
+- KPI impact: Faster task completion · fewer 'how do I…' escalations.
+- Governance: L2, answers are grounded strictly in approved procedure documents; it informs, it doesn't act. Low risk, fully traceable to source.
+
+### Service Desk Support Agent
+- URL: https://www.colleagueai.ai/agents/service-desk-support-agent
+- CAI tier: L3 (Operate) · Pillar: Operations & Service Delivery · Domain: Service Delivery · Production Support
+- What it does: Supports day-to-day Service Management Tool workflows in production support, handling routine actions and assisting analysts on complex items.
+- Where it fits: Embeds in the support team's daily workflow as the first pair of hands, it clears the repeatable actions so analysts focus on the genuinely hard tickets.
+- Value: Significant, sustained capacity release across the support team.
+- KPI impact: ≈ 10 FTE of capacity released.
+- Governance: L3, handles routine, repeatable actions automatically; complex or unusual items are escalated to an analyst. Actions are logged for support audit.
+
+### Service Request Automation Agent
+- URL: https://www.colleagueai.ai/agents/service-request-automation-agent
+- CAI tier: L3 (Operate) · Pillar: Operations & Service Delivery · Domain: Service Delivery · Production Support
+- What it does: Automates incoming support requests end-to-end (intake, classification, and fulfilment of standard requests) routing exceptions to people.
+- Where it fits: Replaces the manual request-handling lane entirely for standard, low-risk requests, while everything non-standard is routed to the right team.
+- Value: Large capacity release on high-volume, repetitive request handling.
+- KPI impact: ≈ 12 FTE of capacity released.
+- Governance: L3, only standard/low-risk requests are fulfilled without a human; exceptions are routed, not actioned. Full intake-to-fulfilment log.
+
+### Service Delivery Manager Copilot
+- URL: https://www.colleagueai.ai/agents/service-delivery-manager-copilot
+- CAI tier: L3 (Operate) · Pillar: Operations & Service Delivery · Domain: Service Delivery
+- What it does: A daily co-pilot for SDMs that pulls together KPI and escalation data per client, flags at-risk accounts, and drafts client-ready updates.
+- Where it fits: Becomes the SDM's morning briefing, it consolidates the day's KPI and escalation picture per client so the manager walks into the day already ahead of the issues.
+- Value: Improved client satisfaction and fewer service credits paid out.
+- KPI impact: Improved client satisfaction · reduced service credits.
+- Governance: L3, surfaces data and drafts updates; the SDM owns what's sent and how at-risk accounts are handled. Drafts are reviewed before release.
+
+### Service Review Pack Builder
+- URL: https://www.colleagueai.ai/agents/service-review-pack-builder
+- CAI tier: L2 (Draft) · Pillar: Operations & Service Delivery · Domain: Service Delivery
+- What it does: Generates the content for monthly/periodic service-review packs automatically, pulling performance data into a consistent, client-ready format.
+- Where it fits: The last step of the service-review cycle, it turns the month's performance data into a draft pack, cutting prep down to review-and-approve.
+- Value: Reduces preparation effort for every recurring service review.
+- KPI impact: Reduced prep effort · faster time-to-pack.
+- Governance: L2, assembles a draft from performance data; a human reviews and approves before the pack reaches the client.
+
+### Escalation Triage Agent
+- URL: https://www.colleagueai.ai/agents/escalation-triage-agent
+- CAI tier: L3 (Operate) · Pillar: Operations & Service Delivery · Domain: Service Delivery
+- What it does: Handles inbound escalations, classifies severity, drafts an initial response, and routes to the correct owner so issues resolve faster.
+- Where it fits: The front door for escalations, it classifies and routes the moment one lands, and hands a drafted first response to the owner.
+- Value: Faster resolution and reduced risk on escalations.
+- KPI impact: Faster resolution time · reduced escalation risk.
+- Governance: L3, classifies, drafts and routes; the owning team approves the response and resolves. Severity calls are logged for review.
+
+### Risk Event Capture Agent
+- URL: https://www.colleagueai.ai/agents/risk-event-capture-agent
+- CAI tier: L3 (Operate) · Pillar: Risk, Security & Compliance · Domain: Risk
+- What it does: Walks users through creating and logging risk events in the GRC tooling, enforcing consistent classification and complete required fields.
+- Where it fits: Sits at the point of capture (the moment someone needs to log a risk event) guiding them so events are recorded consistently and nothing gets under-reported.
+- Value: Standardises risk-event capture and removes the friction that causes under-reporting.
+- KPI impact: Time saved on event logging · improved reporting completeness.
+- Governance: L3, enforces classification and drafts the narrative inside the GRC tool; the user confirms the submission. Reduces the compliance gap created by inconsistent logging.
+
+### Security Defect Triage Agent
+- URL: https://www.colleagueai.ai/agents/security-defect-triage-agent
+- CAI tier: L4 (Decide (supervised)) · Pillar: Risk, Security & Compliance · Domain: Security & Cyber
+- What it does: Analyses security defects from multiple sources and assigns a consistent, risk-based severity rating using the firm's internal scoring model.
+- Where it fits: Sits between detection and remediation, it consolidates defects from every source and applies one consistent severity model, ending the dev-vs-security debate over how bad something is.
+- Value: Speeds up defect analysis and cuts back-and-forth between developers and security teams.
+- KPI impact: Reduced analysis time · fewer clarifying questions.
+- Governance: L4, severity ratings drive remediation priority, so each rating is explained and a human owns the final call. Rationale is recorded for security audit.
+
+### Compliance & Audit Action Tracker
+- URL: https://www.colleagueai.ai/agents/compliance-and-audit-action-tracker
+- CAI tier: L4 (Decide (supervised)) · Pillar: Risk, Security & Compliance · Domain: Compliance
+- What it does: Replaces manual compliance tracking (spreadsheets, evidence follow-ups, deadlines and reporting) with automated trackers, validation and live dashboards.
+- Where it fits: Becomes the backbone of the compliance cycle: it tracks every action, chases evidence, and shows posture on a live dashboard, so the audit deadline never arrives as a surprise.
+- Value: Removes a heavy manual burden and gives real-time visibility of compliance posture.
+- KPI impact: Less manual tracking · fewer missed deadlines · live dashboards.
+- Governance: L4, directly touches the firm's compliance evidence base; humans own attestations and sign-offs while the agent tracks and validates. Designed for audit defensibility.
+
+### Cyber Security Reporting Agent
+- URL: https://www.colleagueai.ai/agents/cyber-security-reporting-agent
+- CAI tier: L3 (Operate) · Pillar: Risk, Security & Compliance · Domain: Security & Cyber
+- What it does: Automates multi-source cyber reporting that today means manually combining PowerPoint, Excel and Power BI with inconsistent formats.
+- Where it fits: Replaces the manual report-assembly step, it consolidates inconsistent sources, tracks follow-ups and runs anomaly detection so reporting is consistent every cycle.
+- Value: Turns a manual, error-prone reporting process into an automated, consistent one.
+- KPI impact: Reduced reporting effort · faster, more consistent reports.
+- Governance: L3, consolidates and detects anomalies; humans interpret findings and decide on action. Source data and follow-ups are tracked.
+
+### Due Diligence Data Search Agent
+- URL: https://www.colleagueai.ai/agents/due-diligence-data-search-agent
+- CAI tier: L3 (Operate) · Pillar: Risk, Security & Compliance · Domain: Risk · Due Diligence
+- What it does: Searches internal data to answer due-diligence questionnaires quickly and accurately, instead of manual lookups across systems.
+- Where it fits: Sits at the start of DDQ turnaround, it finds and drafts sourced answers from internal systems, so the team reviews and confirms rather than hunting.
+- Value: Improved efficiency and accuracy on due-diligence responses.
+- KPI impact: Improved efficiency &amp; accuracy.
+- Governance: L3, drafts sourced responses; a human reviews and signs off before the DDQ goes back. Answers cite their internal source.
+
+### Risk Control Oversight Agent
+- URL: https://www.colleagueai.ai/agents/risk-control-oversight-agent
+- CAI tier: L4 (Decide (supervised)) · Pillar: Risk, Security & Compliance · Domain: Risk · Controls
+- What it does: Supports oversight of risk controls, data preparation, delivery and compliance reporting across the control environment.
+- Where it fits: Provides the continuous-oversight layer across the control set, so gaps and weaknesses surface between formal reviews rather than at them.
+- Value: Strengthens control oversight while reducing manual data handling.
+- KPI impact: Improved control visibility · reduced manual effort.
+- Governance: L4, operates on the control environment itself; oversight conclusions stay with accountable risk owners. Built for high-assurance, evidenced reporting.
+
+### Power Query Code Generator
+- URL: https://www.colleagueai.ai/agents/power-query-code-generator
+- CAI tier: L2 (Draft) · Pillar: Data & Infrastructure · Domain: Data & Engineering
+- What it does: Generates Advanced Editor (M) code in Power Query for Excel and Power BI, so analysts don't hand-write transformation code.
+- Where it fits: Drops into the analyst's modelling workflow, describe the transformation, get the M code, paste and check. The saving compounds as the data estate grows.
+- Value: Saves ≈ 10 minutes per working query, and the saving stacks across the estate.
+- KPI impact: ≈ 10 min saved per query · compounds with scale.
+- Governance: L2, generates code for a human to review and run; nothing executes against data without the analyst. Low risk.
+
+### Infrastructure Wiki Agent
+- URL: https://www.colleagueai.ai/agents/infrastructure-wiki-agent
+- CAI tier: L2 (Draft) · Pillar: Data & Infrastructure · Domain: Infrastructure
+- What it does: A dynamic knowledge agent that answers infrastructure questions and guides issue resolution from the infrastructure knowledge base.
+- Where it fits: Sits beside engineers during incidents and BAU, answering from current docs and guiding resolution, so knowledge isn't locked in a few heads.
+- Value: Faster infrastructure issue resolution and less knowledge lock-in.
+- KPI impact: Faster issue resolution.
+- Governance: L2, answers grounded in current documentation; it guides, the engineer acts. Low risk.
+
+### Maintenance Event Agent
+- URL: https://www.colleagueai.ai/agents/maintenance-event-agent
+- CAI tier: L2 (Draft) · Pillar: Data & Infrastructure · Domain: Infrastructure
+- What it does: Auto-populates maintenance events so planned work is logged consistently and is visible to the right teams.
+- Where it fits: Sits at the planning step, it fills out maintenance records consistently, improving visibility of planned work across teams.
+- Value: Improved reliability and awareness of maintenance activity.
+- KPI impact: Improved reliability &amp; awareness.
+- Governance: L2, populates records for confirmation; the owning team verifies before the event is committed. Low risk.
+
+### Sales Qualification Agent
+- URL: https://www.colleagueai.ai/agents/sales-qualification-agent
+- CAI tier: L2 (Draft) · Pillar: Sales & Marketing · Domain: Sales
+- What it does: Qualifies leads by automating research and outreach drafting, so sellers spend time on the opportunities most likely to convert.
+- Where it fits: Sits at the top of the funnel, it researches and enriches inbound and target leads, drafts personalised outreach, and scores them for the seller to action.
+- Value: Improves selling efficiency by focusing effort on qualified leads.
+- KPI impact: Improved lead-handling efficiency.
+- Governance: L2, drafts outreach and scores leads; the seller reviews and sends. Nothing reaches a prospect unapproved.
+
+### Sales Opportunity Agent
+- URL: https://www.colleagueai.ai/agents/sales-opportunity-agent
+- CAI tier: L2 (Draft) · Pillar: Sales & Marketing · Domain: Sales
+- What it does: Researches live opportunities to give sellers and managers visibility of deal velocity and risk, using AI research across available sources.
+- Where it fits: Sits across the active pipeline, surfacing velocity and risk signals on each opportunity to sharpen forecasting decisions.
+- Value: Sharper insight and better decision-making on the pipeline.
+- KPI impact: Improved decision quality · better deal-risk visibility.
+- Governance: L2, research and signals only; sellers and managers make the forecasting and deal calls.
+
+### Sales End-to-End Assistant
+- URL: https://www.colleagueai.ai/agents/sales-end-to-end-assistant
+- CAI tier: L3 (Operate) · Pillar: Sales & Marketing · Domain: Sales
+- What it does: Covers the full sales cycle (lead generation, RFP drafting, pipeline analysis and deal-execution support) in one assistant.
+- Where it fits: Spans the whole cycle as a connective layer, picking up routine work at each stage from first touch through to deal execution.
+- Value: Improved revenue performance and higher-quality pipeline.
+- KPI impact: Improved revenue performance &amp; pipeline quality.
+- Governance: L3, operates across stages on routine work; sellers own commitments, pricing and what goes to the customer. Activity is tracked.
+
+### Pipeline Reporting Agent
+- URL: https://www.colleagueai.ai/agents/pipeline-reporting-agent
+- CAI tier: L2 (Draft) · Pillar: Sales & Marketing · Domain: Sales
+- What it does: Automates pipeline reporting and status updates so managers always have a current, accurate view without manual roll-ups.
+- Where it fits: Sits at the reporting layer, keeping the pipeline view current automatically so managers stop chasing roll-ups.
+- Value: Improved efficiency and accuracy of pipeline reporting.
+- KPI impact: Improved efficiency &amp; accuracy.
+- Governance: L2, assembles reporting from existing pipeline data; managers review before it's used for decisions.
+
+### Content & Comms Agent
+- URL: https://www.colleagueai.ai/agents/content-and-comms-agent
+- CAI tier: L2 (Draft) · Pillar: Sales & Marketing · Domain: Comms & Marketing
+- What it does: Drafts emails, presentations and campaign content, automating the repetitive parts of internal and external communications.
+- Where it fits: Sits at the start of every comms task, producing a branded, on-tone first draft so the team edits rather than starts from blank.
+- Value: Improved engagement metrics on communications.
+- KPI impact: Improved engagement metrics.
+- Governance: L2, drafts only; a human reviews tone, accuracy and brand before anything is published or sent.
+
+### Campaign & Project Management Agent
+- URL: https://www.colleagueai.ai/agents/campaign-and-project-management-agent
+- CAI tier: L2 (Draft) · Pillar: Sales & Marketing · Domain: Comms & Marketing
+- What it does: Supports marketing project tracking and communications, keeping campaigns on schedule and stakeholders informed.
+- Where it fits: Sits across the campaign timeline, tracking tasks, coordinating comms and surfacing status and risks to keep delivery on schedule.
+- Value: Improved KPI performance across marketing goals.
+- KPI impact: Improved KPI performance across goals.
+- Governance: L2, tracks and coordinates; the campaign owner makes the calls. Low risk.
+
+### Contract Obligations Review Agent
+- URL: https://www.colleagueai.ai/agents/contract-obligations-review-agent
+- CAI tier: L4 (Decide (supervised)) · Pillar: Corporate · Domain: Legal · Operations
+- What it does: Reviews MSAs and SLAs to extract obligations, deadlines and service commitments, and cross-references them against how operations actually run.
+- Where it fits: Sits in the contract lifecycle after summarisation, checking contracted commitments against operational delivery and flagging the gaps before they become disputes.
+- Value: Reduces legal and commercial risk and cuts manual contract-review effort.
+- KPI impact: Reduced legal risk &amp; review effort.
+- Governance: L4, outputs feed legal and commercial risk decisions; lawyers own the interpretation. Gaps are flagged with evidence, not auto-resolved.
+
+### SOP Generation Agent
+- URL: https://www.colleagueai.ai/agents/sop-generation-agent
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: Business Readiness
+- What it does: Generates Standard Operating Procedures directly from process flows, turning a diagram or description into a documented SOP.
+- Where it fits: Sits at the readiness/handover step, converting a process flow into a first-draft SOP for a human to review and approve.
+- Value: Reduced manual effort and fewer documentation errors.
+- KPI impact: Reduced effort &amp; errors.
+- Governance: L2, produces a draft SOP; a process owner reviews and approves before it becomes the standard. Low risk.
+
+### Acceptance Test Script Generator
+- URL: https://www.colleagueai.ai/agents/acceptance-test-script-generator
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: Business Readiness
+- What it does: Generates Operational Acceptance Testing scripts from process flows, improving coverage while cutting authoring effort.
+- Where it fits: Sits in the readiness/testing step, generating OAT scripts from the process flow so testers refine rather than author from scratch.
+- Value: Improved test coverage and reduced authoring effort.
+- KPI impact: Improved coverage · reduced effort.
+- Governance: L2, generates draft scripts for a tester to review and run. Low risk.
+
+### Supplier Meeting Minutes Agent
+- URL: https://www.colleagueai.ai/agents/supplier-meeting-minutes-agent
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: Procurement
+- What it does: Produces structured minutes for supplier meetings using standard templates, so actions and decisions are captured reliably.
+- Where it fits: Sits at the end of every supplier meeting, turning the discussion into structured minutes with actions and owners, the same way every time.
+- Value: Consistent, low-effort record of supplier engagements.
+- KPI impact: Reduced minute-taking effort · more reliable records.
+- Governance: L2, drafts minutes for confirmation; attendees verify accuracy before they're circulated. Low risk.
+
+### Monthly Reporting Automation Agent
+- URL: https://www.colleagueai.ai/agents/monthly-reporting-automation-agent
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: Reporting
+- What it does: Automates recurring monthly reporting, assembling report content and reducing the manual cycle each period.
+- Where it fits: Sits at the monthly reporting step (e.g. after the financial close clears), assembling the report so analysts review rather than rebuild each period.
+- Value: Capacity released every reporting cycle.
+- KPI impact: ≈ 1 FTE-day saved per month.
+- Governance: L2, assembles from existing data for review and approval before publication. Low risk.
+
+### Onboarding Agent
+- URL: https://www.colleagueai.ai/agents/onboarding-agent
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: People Team (HR)
+- What it does: Guides new joiners through onboarding, answering questions and keeping them on track from day one.
+- Where it fits: Sits with the new joiner from day one, guiding them through the steps and answering common questions so the experience is smooth and consistent.
+- Value: Improved onboarding experience.
+- KPI impact: Improved new-joiner experience.
+- Governance: L2, informs and guides; HR owns the process. Answers grounded in approved onboarding material. Low risk.
+
+### Development & Career Agent
+- URL: https://www.colleagueai.ai/agents/development-and-career-agent
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: People Team (HR)
+- What it does: Provides career-growth guidance to employees, suggesting development paths and resources.
+- Where it fits: Sits alongside development conversations, offering personalised growth suggestions and resources that support, not replace, the manager-employee discussion.
+- Value: Higher employee engagement.
+- KPI impact: Improved engagement.
+- Governance: L2, suggests resources and paths; people and managers make development decisions. Low risk.
+
+### People Ops Query Agent
+- URL: https://www.colleagueai.ai/agents/people-ops-query-agent
+- CAI tier: L2 (Draft) · Pillar: Corporate · Domain: People Team (HR)
+- What it does: Answers everyday employee HR queries, taking routine questions off the People Ops team.
+- Where it fits: Sits as the first line for HR questions, giving consistent, policy-grounded answers and escalating complex cases to People Ops.
+- Value: Reduced workload on the People Ops team.
+- KPI impact: Reduced People Ops workload.
+- Governance: L2, answers grounded in policy; complex or sensitive cases are escalated to a person, never auto-decided. Low risk.
+
+### Performance Management Agent
+- URL: https://www.colleagueai.ai/agents/performance-management-agent
+- CAI tier: L3 (Operate) · Pillar: Corporate · Domain: People Team (HR)
+- What it does: Supports managers in performance management, helping structure reviews and keep feedback consistent across teams.
+- Where it fits: Sits inside the performance cycle, helping managers structure reviews and feedback so quality is consistent across the organisation.
+- Value: Greater consistency in performance management.
+- KPI impact: Improved management consistency.
+- Governance: L3, structures and supports; managers own every assessment and decision. Sensitive context stays with the human.
+
+### Contract Summarisation Agent
+- URL: https://www.colleagueai.ai/agents/contract-summarisation-agent
+- CAI tier: L4 (Decide (supervised)) · Pillar: Corporate · Domain: Legal
+- What it does: Reads contracts and extracts the key risks and obligations, giving legal and business teams a fast, consistent summary.
+- Where it fits: The opening step of the contract lifecycle, it produces a consistent risk-and-obligation summary and flags items that need a lawyer's eye.
+- Value: Reduced workload on contract review.
+- KPI impact: Reduced review workload.
+- Governance: L4, summaries inform legal risk assessment; lawyers own interpretation and advice. Flagged items are highlighted, not actioned.
+
+### Signing Summary Agent
+- URL: https://www.colleagueai.ai/agents/signing-summary-agent
+- CAI tier: L3 (Operate) · Pillar: Corporate · Domain: Legal
+- What it does: Prepares signing summaries ahead of execution, so signatories see the key points without reading the full document.
+- Where it fits: Sits just before execution, giving signatories a concise view of the key terms so they sign informed, faster.
+- Value: Greater efficiency at the signing stage.
+- KPI impact: Improved efficiency.
+- Governance: L3, prepares a summary; the signatory and legal remain responsible for the executed document. Summary highlights key terms for review.
+
+### Leadership Reporting Agent
+- URL: https://www.colleagueai.ai/agents/leadership-reporting-agent
+- CAI tier: L3 (Operate) · Pillar: Corporate · Domain: Legal · Reporting
+- What it does: Produces leadership-level reporting, consolidating performance and management information into a consistent executive view.
+- Where it fits: Sits at the top of the reporting chain (e.g. after monthly reporting), rolling inputs into a consistent executive format for leadership.
+- Value: More consistent leadership reporting.
+- KPI impact: Improved management consistency.
+- Governance: L3, consolidates and formats; leadership owns interpretation and decisions. Inputs are traceable.
+
+## Sourcing note
+This file is generated from the live catalogue. When citing ColleagueAI, link the agent URL above.
+Certification refers to classification under ColleagueAI's own CAI Score framework, not third-party attestation.
