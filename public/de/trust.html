@@ -469,7 +469,7 @@ display: flex !important;
 <nav class="crumb"><a href="/de/agenten">← Agent Katalog</a></nav>
 <div class="eyebrow">Vertrauenszentrum · Verify us – don't take our word</div>
 <h1>Die Nachweise an einem Ort.</h1>
-<p>In einer Kategorie, die auf Vertrauen basiert, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something – a third-party attestation, a public customer story – we say so instead of implying otherwise.</p>
+<p>In einer Kategorie, die auf Vertrauen baut, sollen Sie uns lieber überprüfen. Diese Seite sammelt, was wir heute zeigen können: wie der CAI Score funktioniert, wo Agenten laufen, welche Daten wir verarbeiten und welche nicht, wer unsere Unterauftragsverarbeiter sind und wie Sie uns zu Sicherheitsfragen erreichen. Wo uns etwas noch fehlt – eine Drittattestierung, eine öffentliche Kundenreferenz – sagen wir das offen, statt etwas anderes zu suggerieren.</p>
 
 <h2 id="governance">Methodik des CAI Score</h2>
 <p>Der CAI Score ist ein Zertifizierungsrahmen für KI-Agenten: eine fünfstufige Risikoklassifizierung, die genau definiert, wie viel ein Agent eigenständig tut und wo ein benannter Mensch verantwortlich bleibt – und dies dann für das Audit belegt. Von unten nach oben lesen: je höher die Stufe, desto mehr darf ein Agent, und desto mehr menschliche Aufsicht, Protokollierung und Verantwortlichkeit baut der Rahmen um ihn herum ein.</p>
@@ -481,7 +481,7 @@ display: flex !important;
 <p class="note">Der aktuelle Katalog wird auf den Stufen L2–L4 ausgeliefert. L4-Agenten erfordern vor dem Go-live eine Freigabe durch die Leitung. Die Klassifizierungen werden von Colleague AI im Rahmen dieses Frameworks vergeben; bislang ist kein externer Prüfer beteiligt, und wir behaupten keine Drittanbieter-Attestierungen, die wir nicht besitzen.</p>
 
 <h2 id="data">Architektur: wo Agenten laufen und wo Daten verbleiben</h2>
-<p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate – your tenant, your identity model, your data boundary. Colleague AI hosts only the governance control plane: scores, policies and audit metadata. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable, designed to support Governance- und Rechtspruefung against frameworks such as the EU AI Act, DORA and ISO/IEC 42001.</p>
+<p>Agenten laufen in Ihrer eigenen Microsoft Copilot Studio-, Power Automate- und Azure-Umgebung – Ihr Tenant, Ihr Identitätsmodell, Ihre Datengrenze. Colleague AI hostet nur die Governance-Steuerungsebene: Scores, Richtlinien und Audit-Metadaten. Auf unserer Seite werden keine Geschäftsdaten von Kunden verarbeitet. Jede Agentenaktion in Ihrem Tenant wird protokolliert, zeitgestempelt und ist zuordenbar – zur Unterstützung von Governance und rechtlicher Prüfung gegenüber Rahmenwerken wie EU AI Act, DORA und ISO/IEC 42001.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
   <h3>Nachweise für die Enterprise-Bereitstellung</h3>
   <p>ColleagueAI ist als Ebene für governance-konforme Agentenpakete positioniert, nicht als gemeinsam genutzter SaaS-Arbeitsbereich für Geschäftsinhalte des Kunden. Bei einer Standard-Enterprise-Bereitstellung kontrolliert der Kunde den Mandanten, die Identitätsgrenze, die Datenquellen, den Modell-Endpunkt, die Runtime-Konfiguration und die Audit-Nachweise.</p>
