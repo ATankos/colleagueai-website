@@ -36,3 +36,6 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+
+# internal IP, keep out of the public website repo (move to a private repo)
+caef/

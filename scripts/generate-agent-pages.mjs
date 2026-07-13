@@ -79,15 +79,15 @@ function page(a) {
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
 <style>
-body{margin:0;font-family:'Inter',system-ui,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:760px;margin:0 auto;padding:48px 24px 80px}
-.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#9A4B2F;text-decoration:none}
-.eyebrow{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#C65D3A;text-decoration:none}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
 h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
 .meta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 30px}
 .chip{font-size:12.5px;padding:5px 13px;border:1px solid #d8d2c6;border-radius:999px;background:#fff}
-.chip strong{color:#9A4B2F}
-h2{font-size:15px;font-family:'JetBrains Mono',monospace;letter-spacing:.04em;color:#8a857d;margin:34px 0 8px;text-transform:uppercase}
+.chip strong{color:#C65D3A}
+h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#8a857d;margin:34px 0 8px;text-transform:uppercase}
 section p{margin:0}
 ul{margin:6px 0 0;padding-left:20px}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:44px}
