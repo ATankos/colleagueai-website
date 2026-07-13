@@ -6,48 +6,48 @@ const LOCALIZED_LOCALES = ["cs", "de", "fr", "es", "it", "pl", "pt"];
 
 const TRUST_GOVERNANCE_COPY = {
   cs: {
-    "Governance": "Rizeni a dohled",
-    "Governance evidence": "Dukazy pro rizeni a dohled",
-    "Governance from day one": "Rizeni a dohled od prvniho dne",
-    "Built for governance": "Navrzeno pro rizeni a dohled",
-    "Governance-ready": "Pripraveno pro rizeni a dohled",
-    "governance review": "kontrolu rizeni a dohledu",
-    "governance and legal review": "rizeni, dohled a pravni kontrolu",
-    "designed to support governance and legal review": "navrzeno pro podporu rizeni, dohledu a pravni kontroly",
-    "designed to support governance/legal review": "navrzeno pro podporu rizeni, dohledu a pravni kontroly"
+    "Governance": "Řízení a dohled",
+    "Governance evidence": "Důkazy pro řízení a dohled",
+    "Governance from day one": "Řízení a dohled od prvního dne",
+    "Built for governance": "Navrženo pro řízení a dohled",
+    "Governance-ready": "Připraveno pro řízení a dohled",
+    "governance review": "kontrolu řízení a dohledu",
+    "governance and legal review": "řízení, dohled a právní kontrolu",
+    "designed to support governance and legal review": "navrženo pro podporu řízení, dohledu a právní kontroly",
+    "designed to support governance/legal review": "navrženo pro podporu řízení, dohledu a právní kontroly"
   },
   de: {
     "Governance": "Governance",
     "Governance evidence": "Governance-Nachweise",
     "Governance from day one": "Governance ab dem ersten Tag",
-    "Built for governance": "Fuer Governance entwickelt",
-    "Governance-ready": "Governance-faehig",
-    "governance review": "Governance-Pruefung",
-    "governance and legal review": "Governance- und Rechtspruefung",
-    "designed to support governance and legal review": "entwickelt zur Unterstuetzung von Governance- und Rechtspruefungen",
-    "designed to support governance/legal review": "entwickelt zur Unterstuetzung von Governance- und Rechtspruefungen"
+    "Built for governance": "Für Governance entwickelt",
+    "Governance-ready": "Governance-fähig",
+    "governance review": "Governance-Prüfung",
+    "governance and legal review": "Governance- und Rechtsprüfung",
+    "designed to support governance and legal review": "entwickelt zur Unterstützung von Governance- und Rechtsprüfungen",
+    "designed to support governance/legal review": "entwickelt zur Unterstützung von Governance- und Rechtsprüfungen"
   },
   fr: {
     "Governance": "Gouvernance",
     "Governance evidence": "Preuves de gouvernance",
-    "Governance from day one": "Gouvernance des le premier jour",
-    "Built for governance": "Concu pour la gouvernance",
-    "Governance-ready": "Pret pour la gouvernance",
+    "Governance from day one": "Gouvernance dès le premier jour",
+    "Built for governance": "Conçu pour la gouvernance",
+    "Governance-ready": "Prêt pour la gouvernance",
     "governance review": "revue de gouvernance",
     "governance and legal review": "revue de gouvernance et juridique",
-    "designed to support governance and legal review": "concu pour soutenir la revue de gouvernance et juridique",
-    "designed to support governance/legal review": "concu pour soutenir la revue de gouvernance et juridique"
+    "designed to support governance and legal review": "conçu pour soutenir la revue de gouvernance et juridique",
+    "designed to support governance/legal review": "conçu pour soutenir la revue de gouvernance et juridique"
   },
   es: {
     "Governance": "Gobernanza",
     "Governance evidence": "Evidencia de gobernanza",
-    "Governance from day one": "Gobernanza desde el primer dia",
+    "Governance from day one": "Gobernanza desde el primer día",
     "Built for governance": "Creado para la gobernanza",
     "Governance-ready": "Preparado para gobernanza",
-    "governance review": "revision de gobernanza",
-    "governance and legal review": "revision de gobernanza y legal",
-    "designed to support governance and legal review": "disenado para apoyar la revision de gobernanza y legal",
-    "designed to support governance/legal review": "disenado para apoyar la revision de gobernanza y legal"
+    "governance review": "revisión de gobernanza",
+    "governance and legal review": "revisión de gobernanza y legal",
+    "designed to support governance and legal review": "diseñado para apoyar la revisión de gobernanza y legal",
+    "designed to support governance/legal review": "diseñado para apoyar la revisión de gobernanza y legal"
   },
   it: {
     "Governance": "Governance",
@@ -61,26 +61,26 @@ const TRUST_GOVERNANCE_COPY = {
     "designed to support governance/legal review": "progettato per supportare la revisione di governance e legale"
   },
   pl: {
-    "Governance": "Nadzor i lad organizacyjny",
+    "Governance": "Nadzór i ład organizacyjny",
     "Governance evidence": "Dowody dla nadzoru",
-    "Governance from day one": "Nadzor od pierwszego dnia",
-    "Built for governance": "Zaprojektowane pod nadzor",
+    "Governance from day one": "Nadzór od pierwszego dnia",
+    "Built for governance": "Zaprojektowane pod nadzór",
     "Governance-ready": "Gotowe do nadzoru",
-    "governance review": "przeglad nadzoru",
-    "governance and legal review": "przeglad nadzoru i prawny",
-    "designed to support governance and legal review": "zaprojektowane tak, aby wspierac przeglad nadzoru i prawny",
-    "designed to support governance/legal review": "zaprojektowane tak, aby wspierac przeglad nadzoru i prawny"
+    "governance review": "przegląd nadzoru",
+    "governance and legal review": "przegląd nadzoru i prawny",
+    "designed to support governance and legal review": "zaprojektowane tak, aby wspierać przegląd nadzoru i prawny",
+    "designed to support governance/legal review": "zaprojektowane tak, aby wspierać przegląd nadzoru i prawny"
   },
   pt: {
-    "Governance": "Governanca",
-    "Governance evidence": "Evidencias de governanca",
-    "Governance from day one": "Governanca desde o primeiro dia",
-    "Built for governance": "Criado para governanca",
-    "Governance-ready": "Pronto para governanca",
-    "governance review": "revisao de governanca",
-    "governance and legal review": "revisao de governanca e legal",
-    "designed to support governance and legal review": "concebido para apoiar a revisao de governanca e legal",
-    "designed to support governance/legal review": "concebido para apoiar a revisao de governanca e legal"
+    "Governance": "Governança",
+    "Governance evidence": "Evidências de governança",
+    "Governance from day one": "Governança desde o primeiro dia",
+    "Built for governance": "Criado para governança",
+    "Governance-ready": "Pronto para governança",
+    "governance review": "revisão de governança",
+    "governance and legal review": "revisão de governança e legal",
+    "designed to support governance and legal review": "concebido para apoiar a revisão de governança e legal",
+    "designed to support governance/legal review": "concebido para apoiar a revisão de governança e legal"
   }
 };
 
@@ -117,6 +117,22 @@ function removeGeneratedLanguageSwitcher(html) {
   return html.replace(/\n{3,}/g, "\n\n");
 }
 
+const FINAL_LOCALE_FIXES = {
+  cs: {
+    "v Centrum důvěry": "v Centru důvěry",
+    "dodavatelů Správa AI": "dodavatelů nástrojů pro správu AI"
+  }
+};
+
+function applyFinalLocaleFixes(html, locale) {
+  const dictionary = FINAL_LOCALE_FIXES[locale];
+  if (!dictionary) return html;
+  for (const [from, to] of Object.entries(dictionary)) {
+    html = replaceAllLiteral(html, from, to);
+  }
+  return html;
+}
+
 function applyTrustGovernanceCopy(html, locale) {
   const dictionary = TRUST_GOVERNANCE_COPY[locale];
   if (!dictionary) return html;
@@ -142,6 +158,9 @@ for (const root of ROOTS) {
     const locale = localeFromFile(file);
     if (locale && isTrust(file)) {
       after = applyTrustGovernanceCopy(after, locale);
+    }
+    if (locale) {
+      after = applyFinalLocaleFixes(after, locale);
     }
 
     after = after.replace(/\n{3,}/g, "\n\n");
