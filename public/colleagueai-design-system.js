@@ -377,45 +377,55 @@
   languageSelect.addEventListener(
     "change",
     () => {
-      const value = String(
+      const targetLanguage = String(
         languageSelect.value || ""
-      ).trim();
+      )
+        .trim()
+        .toLowerCase();
 
-      if (!value) {
-        return;
-      }
+      /*
+       * Every navigation destination below is a fixed,
+       * same-origin literal. Browser-controlled text is
+       * never copied into a URL or reinterpreted as HTML.
+       */
+      switch (targetLanguage) {
+        case "en":
+          window.location.assign("/");
+          break;
 
-      if (
-        supportedLanguages.includes(
-          value.toLowerCase()
-        )
-      ) {
-        const targetLanguage =
-          value.toLowerCase();
+        case "cs":
+          window.location.assign("/cs/");
+          break;
 
-        const parts = location.pathname
-          .split("/")
-          .filter(Boolean);
+        case "de":
+          window.location.assign("/de/");
+          break;
 
-        if (
-          supportedLanguages.includes(parts[0])
-        ) {
-          parts.shift();
-        }
+        case "fr":
+          window.location.assign("/fr/");
+          break;
 
-        const suffix = parts.length
-          ? `/${parts.join("/")}`
-          : "/";
+        case "es":
+          window.location.assign("/es/");
+          break;
 
-        location.assign(
-          targetLanguage === "en"
-            ? suffix
-            : `/${targetLanguage}${suffix}`
-        );
+        case "it":
+          window.location.assign("/it/");
+          break;
+
+        case "pl":
+          window.location.assign("/pl/");
+          break;
+
+        case "pt":
+          window.location.assign("/pt/");
+          break;
+
+        default:
+          break;
       }
     }
   );
-
   const menuButton =
     header.querySelector(".cai-menu-button");
 
