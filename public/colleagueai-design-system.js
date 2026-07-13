@@ -386,14 +386,6 @@
       }
 
       if (
-        /^https?:\/\//i.test(value) ||
-        value.startsWith("/")
-      ) {
-        location.assign(value);
-        return;
-      }
-
-      if (
         supportedLanguages.includes(
           value.toLowerCase()
         )
