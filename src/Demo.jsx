@@ -143,7 +143,7 @@ const AGENT = {
   name: 'AI Flight Advisor',
   risk: 'L1',
   score: 'A',
-  scoreColor: '#A8482A',
+  scoreColor: '#C65D3A',
   price: '€0',
   priceSub: 'free demo',
   reviewer: 'Colleague AI',
@@ -168,8 +168,8 @@ function ScoreBar({ score, animate }) {
   return (
     <div style={{ marginTop: '10px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-        <span style={{ fontSize: '11px', color: '#6B655E', fontFamily: "'JetBrains Mono', monospace" }}>SCORE</span>
-        <span style={{ fontSize: '11px', fontWeight: 700, color, fontFamily: "'JetBrains Mono', monospace" }}>{score}/100</span>
+        <span style={{ fontSize: '11px', color: '#6B655E', fontFamily: "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace" }}>SCORE</span>
+        <span style={{ fontSize: '11px', fontWeight: 700, color, fontFamily: "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace" }}>{score}/100</span>
       </div>
       <div style={{ height: '4px', borderRadius: '999px', background: 'rgba(29,27,26,0.08)', overflow: 'hidden' }}>
         <div style={{
@@ -310,22 +310,22 @@ const os = detectOS();
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { -webkit-font-smoothing: antialiased; }
-        .fraunces { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        .fraunces { font-family: ui-serif,Georgia,Cambria,'Times New Roman',Times,serif; font-variation-settings: 'opsz' 144; }
+        .mono { font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; }
         .demo-input { width: 100%; border: 1px solid rgba(29,27,26,0.12); border-radius: 10px; padding: 10px 14px; font-size: 15px; background: #FAF6EC; color: #1D1B1A; font-family: inherit; }
-        .demo-input:focus { outline: 2px solid #A8482A; outline-offset: 2px; }
+        .demo-input:focus { outline: 2px solid #C65D3A; outline-offset: 2px; }
         .result-card { background: #fff; border: 1px solid rgba(29,27,26,0.06); border-radius: 16px; padding: 20px; margin-top: 14px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .result-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(29,27,26,0.10); }
+        .result-card:hover { transform: translateY(-2px); box-shadow: none; }
         .result-card-enter { animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
         @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .quick-route-btn { background: rgba(29,27,26,0.05); border: 1px solid rgba(29,27,26,0.08); border-radius: 999px; padding: 5px 14px; font-size: 12px; font-family: 'JetBrains Mono', monospace; color: #4A4641; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-        .quick-route-btn:hover { background: rgba(168,72,42,0.08); border-color: rgba(168,72,42,0.2); color: #A8482A; }
+        .quick-route-btn { background: rgba(29,27,26,0.05); border: 1px solid rgba(29,27,26,0.08); border-radius: 999px; padding: 5px 14px; font-size: 12px; font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; color: #4A4641; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+        .quick-route-btn:hover { background: rgba(168,72,42,0.08); border-color: rgba(168,72,42,0.2); color: #C65D3A; }
         .install-btn { transition: all 0.2s ease; }
         .install-btn:hover { transform: scale(1.02); }
-        .stream-text { font-family: 'JetBrains Mono', monospace; font-size: 11px; line-height: 1.6; color: #6B655E; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow-y: auto; }
+        .stream-text { font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; font-size: 11px; line-height: 1.6; color: #6B655E; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow-y: auto; }
         .stream-text::-webkit-scrollbar { width: 4px; }
         .stream-text::-webkit-scrollbar-thumb { background: rgba(29,27,26,0.15); border-radius: 2px; }
-        .cursor-blink { display: inline-block; width: 2px; height: 12px; background: #A8482A; margin-left: 2px; animation: blink 1s step-end infinite; vertical-align: middle; }
+        .cursor-blink { display: inline-block; width: 2px; height: 12px; background: #C65D3A; margin-left: 2px; animation: blink 1s step-end infinite; vertical-align: middle; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr !important; } }
       `}</style>
@@ -343,7 +343,7 @@ const os = detectOS();
       }}>
         <div style={{ maxWidth: '1024px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <a href="/" style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em', color: 'inherit', textDecoration: 'none' }}>
-            colleague<span style={{ color: '#A8482A' }}>ai</span>
+            colleague<span style={{ color: '#C65D3A' }}>ai</span>
           </a>
           <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {installPrompt && !installed && (
@@ -353,7 +353,7 @@ const os = detectOS();
                 fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
               }}>⬇ Install app</button>
             )}
-            {installed && <span style={{ fontSize: '12px', color: '#A8482A', fontWeight: 600 }}>✓ Installed</span>}
+            {installed && <span style={{ fontSize: '12px', color: '#C65D3A', fontWeight: 600 }}>✓ Installed</span>}
             <div className="mono" style={{ display: 'flex', gap: '2px', fontSize: '11px' }}>
               <button onClick={() => setLang('en')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'en' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'en' ? 600 : 400 }}>EN</button>
               <span style={{ color: '#6B655E' }}>·</span>
@@ -368,7 +368,7 @@ const os = detectOS();
 
         {/* EYEBROW */}
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '14px' }}>
+          <div className="mono" style={{ fontSize: '10px', color: '#C65D3A', letterSpacing: '0.12em', marginBottom: '14px' }}>
             {t.eyebrow}
           </div>
           <h1 className="fraunces" style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '14px' }}>
@@ -457,7 +457,7 @@ const os = detectOS();
           background: '#1D1B1A', borderRadius: '20px', padding: '32px 28px',
           marginBottom: '24px', textAlign: 'center',
         }}>
-          <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '12px' }}>
+          <div className="mono" style={{ fontSize: '10px', color: '#C65D3A', letterSpacing: '0.12em', marginBottom: '12px' }}>
             {t.downloadEyebrow}
           </div>
           <h3 className="fraunces" style={{ fontSize: '24px', fontWeight: 500, letterSpacing: '-0.02em', color: '#F5F0E8', marginBottom: '8px' }}>
@@ -508,7 +508,7 @@ const os = detectOS();
         {/* LIVE DEMO SECTION */}
         <div style={{ background: '#fff', borderRadius: '20px', padding: '28px', border: '1px solid rgba(29,27,26,0.05)', boxShadow: '0 4px 24px rgba(29,27,26,0.06)' }}>
           <div style={{ marginBottom: '20px' }}>
-            <div className="mono" style={{ fontSize: '10px', color: '#A8482A', letterSpacing: '0.12em', marginBottom: '8px' }}>{t.demoEyebrow}</div>
+            <div className="mono" style={{ fontSize: '10px', color: '#C65D3A', letterSpacing: '0.12em', marginBottom: '8px' }}>{t.demoEyebrow}</div>
             <h3 className="fraunces" style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em' }}>{t.demoTitle}</h3>
             <p style={{ fontSize: '13px', color: '#6B655E', marginTop: '4px' }}>{t.demoSub}</p>
           </div>
@@ -566,7 +566,7 @@ const os = detectOS();
           {/* STREAMING THINKING BOX */}
           {loading && streamText && (
             <div style={{ marginTop: '20px', background: '#F5F0E8', borderRadius: '12px', padding: '16px' }}>
-              <div className="mono" style={{ fontSize: '9px', color: '#A8482A', letterSpacing: '0.1em', marginBottom: '8px' }}>
+              <div className="mono" style={{ fontSize: '9px', color: '#C65D3A', letterSpacing: '0.1em', marginBottom: '8px' }}>
                 {t.thinkingLabel}
               </div>
               <div ref={el => { if (el) el.scrollTop = el.scrollHeight; }} className="stream-text">
@@ -575,7 +575,7 @@ const os = detectOS();
             </div>
           )}
 
-          {error && <p style={{ color: '#A8482A', fontSize: '14px', marginTop: '14px', textAlign: 'center' }}>{error}</p>}
+          {error && <p style={{ color: '#C65D3A', fontSize: '14px', marginTop: '14px', textAlign: 'center' }}>{error}</p>}
 
           {results.length > 0 && (
             <div style={{ marginTop: '24px', borderTop: '1px solid rgba(29,27,26,0.06)', paddingTop: '24px' }}>
@@ -607,7 +607,7 @@ const os = detectOS();
                       <span style={{
                         background: vs.bg, color: vs.color,
                         fontSize: '10px', fontWeight: 700, padding: '3px 10px',
-                        borderRadius: '999px', fontFamily: "'JetBrains Mono', monospace",
+                        borderRadius: '999px', fontFamily: "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace",
                         letterSpacing: '0.04em', flexShrink: 0,
                       }}>
                         {t.verdictLabels[verdict] ?? verdict}
@@ -628,7 +628,7 @@ const os = detectOS();
 
         {/* FOOTER NOTE */}
         <p style={{ textAlign: 'center', fontSize: '12px', color: '#A39B91', marginTop: '32px' }}>
-          {t.footerNote} <a href="/" style={{ color: '#A8482A' }}>{t.footerLink}</a>
+          {t.footerNote} <a href="/" style={{ color: '#C65D3A' }}>{t.footerLink}</a>
         </p>
       </div>
     </div>

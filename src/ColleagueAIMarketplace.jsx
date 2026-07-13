@@ -44,8 +44,8 @@ export default function ColleagueAIMarketplace() {
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { -webkit-font-smoothing: antialiased; }
 
-        .fraunces { font-family: 'Fraunces', serif; font-variation-settings: 'opsz' 144; }
-        .mono { font-family: 'JetBrains Mono', monospace; }
+        .fraunces { font-family: ui-serif,Georgia,Cambria,'Times New Roman',Times,serif; font-variation-settings: 'opsz' 144; }
+        .mono { font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; }
 
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -194,7 +194,7 @@ export default function ColleagueAIMarketplace() {
           padding: 4px 10px;
           border-radius: 999px;
           border: 1px solid rgba(29, 27, 26, 0.20);
-          font-family: 'JetBrains Mono', monospace;
+          font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;
           font-size: 11px;
           font-weight: 500;
           color: #1D1B1A;
@@ -225,7 +225,7 @@ export default function ColleagueAIMarketplace() {
           gap: 8px;
           width: 100%;
           padding: 8px 14px;
-          font-family: 'JetBrains Mono', monospace;
+          font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace;
           font-size: 11px;
           font-weight: 400;
           color: #1D1B1A;
@@ -300,7 +300,7 @@ export default function ColleagueAIMarketplace() {
         }}>
           <div style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em' }}>
             <span>colleague</span>
-            <span style={{ color: '#A8482A' }}>ai</span>
+            <span style={{ color: '#C65D3A' }}>ai</span>
           </div>
 
           <div className="hide-mobile" style={{
@@ -354,7 +354,7 @@ export default function ColleagueAIMarketplace() {
         textAlign: 'center', padding: '120px 22px 80px',
       }}>
         <div className="fade-up mono" style={{
-          fontSize: '12px', color: '#A8482A', letterSpacing: '0.05em',
+          fontSize: '12px', color: '#C65D3A', letterSpacing: '0.05em',
           marginBottom: '20px', animationDelay: '0.1s',
         }}>
           {t.hero.eyebrow}
@@ -390,7 +390,7 @@ export default function ColleagueAIMarketplace() {
             {t.hero.cta1} <span>→</span>
           </a>
           <a href="#trust" className="link-hover" style={{
-            padding: '14px 28px', color: '#A8482A', fontSize: '15px', fontWeight: 500,
+            padding: '14px 28px', color: '#C65D3A', fontSize: '15px', fontWeight: 500,
             display: 'inline-flex', alignItems: 'center', gap: '8px',
           }}>
             {t.hero.cta2} <span>→</span>
@@ -423,7 +423,7 @@ export default function ColleagueAIMarketplace() {
           {/* Section header */}
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <div className="mono" style={{
-              fontSize: '12px', color: '#A8482A', letterSpacing: '0.1em',
+              fontSize: '12px', color: '#C65D3A', letterSpacing: '0.1em',
               marginBottom: '20px',
             }}>
               {t.market.eyebrow}
@@ -525,7 +525,7 @@ export default function ColleagueAIMarketplace() {
                     {agent.deployments}
                   </div>
                   <div style={{
-                    fontSize: '13px', color: '#A8482A', fontWeight: 500,
+                    fontSize: '13px', color: '#C65D3A', fontWeight: 500,
                   }}>
                     {t.market.viewDetails} →
                   </div>
@@ -545,7 +545,7 @@ export default function ColleagueAIMarketplace() {
         position: 'relative', overflow: 'hidden',
       }}>
         <div className="mono" style={{
-          fontSize: '12px', color: '#E89270', letterSpacing: '0.1em',
+          fontSize: '12px', color: '#E8A07F', letterSpacing: '0.1em',
           marginBottom: '24px',
         }}>
           {t.trustTile.eyebrow}
@@ -556,7 +556,7 @@ export default function ColleagueAIMarketplace() {
           lineHeight: 1.05, letterSpacing: '-0.03em',
           marginBottom: '28px', maxWidth: '900px', margin: '0 auto 28px',
         }}>
-          {t.trustTile.h2a} <span style={{ fontStyle: 'italic', color: '#E89270' }}>{t.trustTile.h2b}</span>
+          {t.trustTile.h2a} <span style={{ fontStyle: 'italic', color: '#E8A07F' }}>{t.trustTile.h2b}</span>
         </h2>
 
         <p style={{
@@ -576,7 +576,7 @@ export default function ColleagueAIMarketplace() {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
             <div className="fraunces" style={{
-              fontSize: '88px', fontWeight: 500, color: '#E89270',
+              fontSize: '88px', fontWeight: 500, color: '#E8A07F',
               letterSpacing: '-0.04em', lineHeight: 1,
             }}>A+</div>
             <div style={{ flex: 1 }}>
@@ -613,8 +613,8 @@ export default function ColleagueAIMarketplace() {
 
         <a href="/trust" className="link-hover" style={{
           display: 'inline-block', marginTop: '40px',
-          color: '#E89270', fontSize: '15px', fontWeight: 500,
-          borderBottom: '1px solid #E89270', paddingBottom: '2px',
+          color: '#E8A07F', fontSize: '15px', fontWeight: 500,
+          borderBottom: '1px solid #E8A07F', paddingBottom: '2px',
         }}>
           {t.trustTile.cta} →
         </a>
@@ -626,7 +626,7 @@ export default function ColleagueAIMarketplace() {
       }}>
         <div style={{ maxWidth: '780px', margin: '0 auto' }}>
           <div className="mono" style={{
-            fontSize: '12px', color: '#A8482A', letterSpacing: '0.1em',
+            fontSize: '12px', color: '#C65D3A', letterSpacing: '0.1em',
             marginBottom: '24px',
           }}>
             {t.phil.eyebrow}
@@ -657,7 +657,7 @@ export default function ColleagueAIMarketplace() {
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '60px' }}>
             <div className="mono" style={{
-              fontSize: '12px', color: '#A8482A', letterSpacing: '0.1em',
+              fontSize: '12px', color: '#C65D3A', letterSpacing: '0.1em',
               marginBottom: '20px',
             }}>
               {t.price.eyebrow}
@@ -684,7 +684,7 @@ export default function ColleagueAIMarketplace() {
                 {tier.featured && (
                   <div className="mono" style={{
                     position: 'absolute', top: '20px', right: '20px',
-                    fontSize: '10px', color: '#E89270', letterSpacing: '0.1em',
+                    fontSize: '10px', color: '#E8A07F', letterSpacing: '0.1em',
                   }}>
                     {t.price.popular}
                   </div>
@@ -728,7 +728,7 @@ export default function ColleagueAIMarketplace() {
                     }}>
                       <span style={{
                         position: 'absolute', left: 0,
-                        color: tier.featured ? '#D9825F' : '#A8482A',
+                        color: tier.featured ? '#D9825F' : '#C65D3A',
                       }}>→</span>
                       {f}
                     </li>
@@ -754,7 +754,7 @@ export default function ColleagueAIMarketplace() {
         padding: '120px 22px', textAlign: 'center',
       }}>
         <div className="mono" style={{
-          fontSize: '12px', color: '#A8482A', letterSpacing: '0.1em',
+          fontSize: '12px', color: '#C65D3A', letterSpacing: '0.1em',
           marginBottom: '24px',
         }}>
           {t.contact.eyebrow}
@@ -788,7 +788,7 @@ export default function ColleagueAIMarketplace() {
           <div className="mono">Â© 2026 COLLEAGUE AI · PRAHA, CZ</div>
           <div style={{ fontSize: '14px' }}>
             <span style={{ color: '#1D1B1A' }}>colleague</span>
-            <span style={{ color: '#A8482A' }}>ai</span>
+            <span style={{ color: '#C65D3A' }}>ai</span>
           </div>
           <div style={{ display: 'flex', gap: '20px' }}>
             <a href="/privacy" className="link-hover">{t.footer.privacy}</a>
@@ -844,14 +844,14 @@ const en = {
     viewDetails: 'View details',
   },
   agents: [
-    { name: 'Month-End Close', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automates the full month-end close cycle: accruals, reconciliations, and reporting with built-in approvals.', deployments: '8 DEPLOYMENTS', scoreColor: '#A8482A' },
-    { name: 'AR Reconciliation', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Matches invoices, payments, and remittances across systems. Flags exceptions for human review.', deployments: '5 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'Month-End Close', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automates the full month-end close cycle: accruals, reconciliations, and reporting with built-in approvals.', deployments: '8 DEPLOYMENTS', scoreColor: '#C65D3A' },
+    { name: 'AR Reconciliation', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Matches invoices, payments, and remittances across systems. Flags exceptions for human review.', deployments: '5 DEPLOYMENTS', scoreColor: '#C65D3A' },
     { name: 'Vendor Master Data', category: 'sap', icon: '▣', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'Creates, validates, and maintains SAP vendor master records with KYC and duplicate detection.', deployments: '6 DEPLOYMENTS', scoreColor: '#1D1B1A' },
-    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Manages SAP material master with classification, pricing, and cross-plant consistency checks.', deployments: '4 DEPLOYMENTS', scoreColor: '#A8482A' },
-    { name: 'Entity Hierarchy', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'Maintains legal entity hierarchies, ownership chains, and corporate governance records.', deployments: '3 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Manages SAP material master with classification, pricing, and cross-plant consistency checks.', deployments: '4 DEPLOYMENTS', scoreColor: '#C65D3A' },
+    { name: 'Entity Hierarchy', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'Maintains legal entity hierarchies, ownership chains, and corporate governance records.', deployments: '3 DEPLOYMENTS', scoreColor: '#C65D3A' },
     { name: 'KYC Workflow', category: 'legal', icon: '◈', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC for new business relationships. Documentation-ready for regulators.', deployments: '4 DEPLOYMENTS', scoreColor: '#1D1B1A' },
     { name: 'EU AI Act Compliance', category: 'compliance', icon: '◆', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Maps your AI systems to EU AI Act risk categories. Generates required documentation automatically.', deployments: '2 DEPLOYMENTS', scoreColor: '#1D1B1A' },
-    { name: 'GDPR DPIA Generator', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'Produces Data Protection Impact Assessments with full audit trail and DPO sign-off workflow.', deployments: '3 DEPLOYMENTS', scoreColor: '#A8482A' },
+    { name: 'GDPR DPIA Generator', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'Produces Data Protection Impact Assessments with full audit trail and DPO sign-off workflow.', deployments: '3 DEPLOYMENTS', scoreColor: '#C65D3A' },
   ],
   phil: {
     eyebrow: 'OUR PHILOSOPHY',
@@ -933,14 +933,14 @@ const cs = {
     viewDetails: 'Detaily',
   },
   agents: [
-    { name: 'MÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rka', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automatizuje celÃ½ cyklus mÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rky: ÄasovÃ© rozliÅ¡enÃ­, rekonciliace a reporting s integrovanÃ½m schvalovÃ¡nÃ­m.', deployments: '8 NASAZENÃ', scoreColor: '#A8482A' },
-    { name: 'AR rekonciliace', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'PÃ¡ruje faktury, platby a remitance napÅ™Ã­Ä systÃ©my. OznaÄuje vÃ½jimky pro lidskou kontrolu.', deployments: '5 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'MÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rka', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automatizuje celÃ½ cyklus mÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rky: ÄasovÃ© rozliÅ¡enÃ­, rekonciliace a reporting s integrovanÃ½m schvalovÃ¡nÃ­m.', deployments: '8 NASAZENÃ', scoreColor: '#C65D3A' },
+    { name: 'AR rekonciliace', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'PÃ¡ruje faktury, platby a remitance napÅ™Ã­Ä systÃ©my. OznaÄuje vÃ½jimky pro lidskou kontrolu.', deployments: '5 NASAZENÃ', scoreColor: '#C65D3A' },
     { name: 'Vendor Master Data', category: 'sap', icon: '▣', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'VytvÃ¡Å™Ã­, validuje a udrÅ¾uje zÃ¡znamy SAP vendor master s KYC a detekcÃ­ duplicit.', deployments: '6 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Spravuje SAP material master s klasifikacÃ­, cenÃ­ky a kontrolami konzistence napÅ™Ã­Ä zÃ¡vody.', deployments: '4 NASAZENÃ', scoreColor: '#A8482A' },
-    { name: 'Hierarchie entit', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'UdrÅ¾uje hierarchie prÃ¡vnÃ­ch entit, vlastnickÃ© Å™etÄ›zce a zÃ¡znamy korporÃ¡tnÃ­ governance.', deployments: '3 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Spravuje SAP material master s klasifikacÃ­, cenÃ­ky a kontrolami konzistence napÅ™Ã­Ä zÃ¡vody.', deployments: '4 NASAZENÃ', scoreColor: '#C65D3A' },
+    { name: 'Hierarchie entit', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'UdrÅ¾uje hierarchie prÃ¡vnÃ­ch entit, vlastnickÃ© Å™etÄ›zce a zÃ¡znamy korporÃ¡tnÃ­ governance.', deployments: '3 NASAZENÃ', scoreColor: '#C65D3A' },
     { name: 'KYC workflow', category: 'legal', icon: '◈', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC pro novÃ© obchodnÃ­ vztahy. Dokumentace pÅ™ipravenÃ¡ pro regulÃ¡tora.', deployments: '4 NASAZENÃ', scoreColor: '#1D1B1A' },
     { name: 'EU AI Act compliance', category: 'compliance', icon: '◆', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Mapuje vaÅ¡e AI systÃ©my do rizikovÃ½ch kategoriÃ­ EU AI Act. Automaticky generuje povinnou dokumentaci.', deployments: '2 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'GDPR DPIA generÃ¡tor', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'VytvÃ¡Å™Ã­ PosouzenÃ­ vlivu na ochranu osobnÃ­ch ÃºdajÅ¯ s plnÃ½m audit trailem a workflow pro DPO.', deployments: '3 NASAZENÃ', scoreColor: '#A8482A' },
+    { name: 'GDPR DPIA generÃ¡tor', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'VytvÃ¡Å™Ã­ PosouzenÃ­ vlivu na ochranu osobnÃ­ch ÃºdajÅ¯ s plnÃ½m audit trailem a workflow pro DPO.', deployments: '3 NASAZENÃ', scoreColor: '#C65D3A' },
   ],
   phil: {
     eyebrow: 'NAÅ E FILOZOFIE',
