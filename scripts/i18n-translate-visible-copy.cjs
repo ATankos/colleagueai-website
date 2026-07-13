@@ -6,9 +6,6 @@ const DICT = {
   "cs": {
     "v Centrum důvěry": "v Centru důvěry",
     "dodavatelů Správa AI": "dodavatelů AI governance",
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Vytvořeno pro kupující, kteří potřebují řízené výsledky, nikoli další generický sandbox agentů.",
-    "AI governance, risk, and internal audit stakeholders.": "Zainteresované strany v oblasti správy AI, rizik a interního auditu.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Na této stránce si vyberete obchodní případ užití, pochopíte profil governance, prohlédnete si factsheet agenta a vyžádáte si ukázku. Produkční přístup se uvolňuje přes řízenou ukázku a obchodní nastavení.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Postaveno pro kupující, kteří potřebují kontrolované obchodní výsledky, ne další generické hřiště na agenty.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Na této stránce si vyberete obchodní případ užití, pochopíte profil governance, prohlédnete si factsheet agenta a vyžádáte si ukázku. Produkční přístup se uvolňuje přes řízenou ukázku a obchodní nastavení.",
     "AI governance, risk, and internal audit stakeholders.": "Stakeholdeři AI governance, rizik a interního auditu.",
@@ -102,9 +99,6 @@ const DICT = {
     "Partner interest": "Partnerský zájem"
   },
   "de": {
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Entwickelt für Käufer, die kontrollierte Ergebnisse benötigen, nicht eine weitere generische Agenten-Sandbox.",
-    "AI governance, risk, and internal audit stakeholders.": "Stakeholder aus KI-Governance, Risiko und interner Revision.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Nutzen Sie diese Seite, um einen Business Use Case zu wählen, das Governance-Profil zu verstehen, das Factsheet des Agenten zu prüfen und eine Demo anzufragen. Der Produktionszugriff wird über eine begleitete Demo und die kommerzielle Einrichtung freigegeben.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Gebaut für Käufer, die kontrollierte Geschäftsergebnisse brauchen, nicht noch einen generischen Agenten-Sandkasten.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Nutzen Sie diese Seite, um einen Business Use Case zu wählen, das Governance-Profil zu verstehen, das Factsheet des Agenten zu prüfen und eine Demo anzufragen. Der Produktionszugriff wird über eine begleitete Demo und die kommerzielle Einrichtung freigegeben.",
     "AI governance, risk, and internal audit stakeholders.": "Stakeholder aus KI-Governance, Risiko und interner Revision.",
@@ -201,9 +195,6 @@ const DICT = {
     "Partner interest": "Partnerinteresse"
   },
   "fr": {
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Conçu pour les acheteurs qui ont besoin de résultats gouvernés, pas d'un énième bac à sable d'agents générique.",
-    "AI governance, risk, and internal audit stakeholders.": "Parties prenantes de la gouvernance de l'IA, du risque et de l'audit interne.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Utilisez cette page pour choisir un cas d'usage métier, comprendre le profil de gouvernance, consulter la fiche de l'agent et demander une démo. L'accès en production est accordé via une démo guidée et la mise en place commerciale.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Conçu pour les acheteurs qui veulent des résultats métier maîtrisés, pas un énième bac à sable d'agents générique.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Utilisez cette page pour choisir un cas d'usage métier, comprendre le profil de gouvernance, consulter la fiche de l'agent et demander une démo. L'accès en production est accordé via une démo guidée et la mise en place commerciale.",
     "AI governance, risk, and internal audit stakeholders.": "Parties prenantes gouvernance IA, risque et audit interne.",
@@ -300,9 +291,6 @@ const DICT = {
     "Partner interest": "Intérêt partenaire"
   },
   "es": {
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Creado para compradores que necesitan resultados gobernados, no otro sandbox de agentes genérico.",
-    "AI governance, risk, and internal audit stakeholders.": "Partes interesadas de gobernanza de IA, riesgo y auditoría interna.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Use esta página para elegir un caso de uso de negocio, comprender el perfil de gobernanza, revisar el factsheet del agente y solicitar una demo. El acceso a producción se habilita mediante una demo guiada y la configuración comercial.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Hecho para compradores que necesitan resultados de negocio controlados, no otro sandbox genérico de agentes.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Use esta página para elegir un caso de uso de negocio, comprender el perfil de gobernanza, revisar el factsheet del agente y solicitar una demo. El acceso a producción se habilita mediante una demo guiada y la configuración comercial.",
     "AI governance, risk, and internal audit stakeholders.": "Responsables de gobernanza de IA, riesgo y auditoría interna.",
@@ -395,9 +383,6 @@ const DICT = {
     "Partner interest": "Interés de partner"
   },
   "it": {
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Realizzato per acquirenti che hanno bisogno di risultati governati, non di un altro sandbox di agenti generico.",
-    "AI governance, risk, and internal audit stakeholders.": "Stakeholder di governance dell'IA, rischio e audit interno.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Usi questa pagina per scegliere un caso d'uso aziendale, comprendere il profilo di governance, esaminare il factsheet dell'agente e richiedere una demo. L'accesso in produzione viene rilasciato tramite una demo guidata e la configurazione commerciale.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Fatto per buyer che vogliono risultati di business controllati, non l'ennesima sandbox generica di agenti.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Usi questa pagina per scegliere un caso d'uso aziendale, comprendere il profilo di governance, esaminare il factsheet dell'agente e richiedere una demo. L'accesso in produzione viene rilasciato tramite una demo guidata e la configurazione commerciale.",
     "AI governance, risk, and internal audit stakeholders.": "Stakeholder di governance IA, rischio e audit interno.",
@@ -494,9 +479,6 @@ const DICT = {
     "Partner interest": "Interesse partner"
   },
   "pl": {
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Stworzone dla kupujących, którzy potrzebują nadzorowanych wyników, a nie kolejnego generycznego sandboxa agentów.",
-    "AI governance, risk, and internal audit stakeholders.": "Interesariusze w obszarze nadzoru AI, ryzyka i audytu wewnętrznego.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Użyj tej strony, aby wybrać biznesowy przypadek użycia, poznać profil nadzoru, przejrzeć factsheet agenta i poprosić o demo. Dostęp produkcyjny jest udzielany po prowadzonym demo i konfiguracji handlowej.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Zbudowane dla kupujących, którzy potrzebują kontrolowanych wyników biznesowych, a nie kolejnej generycznej piaskownicy agentów.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Użyj tej strony, aby wybrać biznesowy przypadek użycia, poznać profil nadzoru, przejrzeć factsheet agenta i poprosić o demo. Dostęp produkcyjny jest udzielany po prowadzonym demo i konfiguracji handlowej.",
     "AI governance, risk, and internal audit stakeholders.": "Interesariusze governance AI, ryzyka i audytu wewnętrznego.",
@@ -593,9 +575,6 @@ const DICT = {
     "Partner interest": "Zainteresowanie partnerskie"
   },
   "pt": {
-    "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Criado para compradores que precisam de resultados governados, não de mais um sandbox de agentes genérico.",
-    "AI governance, risk, and internal audit stakeholders.": "Partes interessadas em governação de IA, risco e auditoria interna.",
-    "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Use esta página para escolher um caso de uso de negócio, compreender o perfil de governação, rever o factsheet do agente e pedir uma demonstração. O acesso à produção é libertado através de uma demonstração guiada e da configuração comercial.",
     "Built for buyers who need controlled business outcomes, not another generic agent sandbox.": "Feito para compradores que precisam de resultados de negócio controlados, não de mais uma sandbox genérica de agentes.",
     "Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Production access is released through a guided demo and commercial setup.": "Use esta página para escolher um caso de uso de negócio, compreender o perfil de governação, rever o factsheet do agente e pedir uma demonstração. O acesso à produção é libertado através de uma demonstração guiada e da configuração comercial.",
     "AI governance, risk, and internal audit stakeholders.": "Stakeholders de governação de IA, risco e auditoria interna.",
