@@ -203,7 +203,20 @@
 
       mobileLanguage.addEventListener("change", function () {
         if (mobileLanguage.value) {
-          window.location.href = mobileLanguage.value;
+          var targetUrl;
+
+          try {
+            targetUrl = new URL(mobileLanguage.value, window.location.href);
+          } catch (e) {
+            return;
+          }
+
+          if (
+            targetUrl.protocol === "http:" ||
+            targetUrl.protocol === "https:"
+          ) {
+            window.location.href = targetUrl.href;
+          }
         }
       });
 
