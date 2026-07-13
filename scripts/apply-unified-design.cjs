@@ -154,15 +154,21 @@ for (const htmlFile of htmlFiles) {
     "utf8"
   );
 
-  html = repairEncoding(html)
-    .replace(
-      /<link[^>]+(?:colleagueai-mobile-fix|colleagueai-responsive-fix|colleagueai-design-system)[^>]*>\s*/gi,
-      ""
-    )
-    .replace(
-      /<script[^>]+(?:colleagueai-mobile-fix|colleagueai-responsive-fix|colleagueai-design-system)[^>]*><\/script>\s*/gi,
-      ""
-    );
+  html = repairEncoding(html);
+
+  let previousHtml;
+  do {
+    previousHtml = html;
+    html = html
+      .replace(
+        /<link[^>]+(?:colleagueai-mobile-fix|colleagueai-responsive-fix|colleagueai-design-system)[^>]*>\s*/gi,
+        ""
+      )
+      .replace(
+        /<script[^>]+(?:colleagueai-mobile-fix|colleagueai-responsive-fix|colleagueai-design-system)[^>]*><\/script>\s*/gi,
+        ""
+      );
+  } while (html !== previousHtml);
 
   if (!/<meta\s+charset=/i.test(html)) {
     if (/<head[^>]*>/i.test(html)) {
