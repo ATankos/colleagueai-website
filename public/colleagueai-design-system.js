@@ -56,7 +56,7 @@
 
   const labelsByLanguage = {
     en: {
-      catalogue: "Agents",
+      catalogue: "Catalogue",
       score: "CAI Score",
       trust: "Trust",
       partners: "Partners",
@@ -67,7 +67,7 @@
     },
 
     cs: {
-      catalogue: "Agenti",
+      catalogue: "Katalog",
       score: "CAI Score",
       trust: "Důvěra",
       partners: "Partneři",
@@ -78,7 +78,7 @@
     },
 
     de: {
-      catalogue: "Agenten",
+      catalogue: "Katalog",
       score: "CAI Score",
       trust: "Vertrauen",
       partners: "Partner",
@@ -89,7 +89,7 @@
     },
 
     fr: {
-      catalogue: "Agents",
+      catalogue: "Catalogue",
       score: "CAI Score",
       trust: "Confiance",
       partners: "Partenaires",
@@ -100,7 +100,7 @@
     },
 
     es: {
-      catalogue: "Agentes",
+      catalogue: "Catálogo",
       score: "CAI Score",
       trust: "Confianza",
       partners: "Socios",
@@ -111,7 +111,7 @@
     },
 
     it: {
-      catalogue: "Agenti",
+      catalogue: "Catalogo",
       score: "CAI Score",
       trust: "Fiducia",
       partners: "Partner",
@@ -122,7 +122,7 @@
     },
 
     pl: {
-      catalogue: "Agenci",
+      catalogue: "Katalog",
       score: "CAI Score",
       trust: "Zaufanie",
       partners: "Partnerzy",
@@ -133,7 +133,7 @@
     },
 
     pt: {
-      catalogue: "Agentes",
+      catalogue: "Catálogo",
       score: "CAI Score",
       trust: "Confiança",
       partners: "Parceiros",
@@ -236,6 +236,10 @@
       key: "partners",
       href: route("/partners")
     },
+    {
+      key: "contact",
+      href: `${route("/")}#contact`
+    }
   ];
 
   const header = document.createElement("header");

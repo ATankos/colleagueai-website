@@ -41,9 +41,7 @@
     "qa:e2e": "npm run ci:e2e",
     "test:e2e": "npm run ci:e2e",
     "postbuild": "node scripts/inject-fixed-backtop.cjs && node scripts/finalize-home.cjs && node scripts/apply-unified-design.cjs",
-    "ci:e2e": "npm run build && node scripts/run-playwright-static.cjs tests/e2e/full-site-qa.spec.ts --project=chromium-desktop --workers=1 --reporter=line",
-    "buyer:apply": "node scripts/refactor-buyer-journey.cjs",
-    "buyer:check": "node scripts/check-buyer-journey.cjs"
+    "ci:e2e": "npm run build && node scripts/run-playwright-static.cjs tests/e2e/full-site-qa.spec.ts --project=chromium-desktop --workers=1 --reporter=line"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.111.0",
