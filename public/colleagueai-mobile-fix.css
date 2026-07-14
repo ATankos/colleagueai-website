@@ -435,3 +435,25 @@ textarea:focus-visible {
     transition-duration: 0.01ms !important;
   }
 }
+/* Mobile fix: make the horizontal nav strip (Agents page pills) scroll properly */
+@media (max-width: 767px) {
+  .cai-reader-nav .cai-reader-shell,
+  .cai-scroll-navigation {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 12px;
+    padding-right: 28px !important;
+  }
+  .cai-reader-nav .cai-reader-shell > a,
+  .cai-scroll-navigation > a {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .cai-reader-nav { position: relative; }
+  .cai-reader-nav::after {
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 32px;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(245,240,232,0), rgba(245,240,232,.92));
+  }
+}
