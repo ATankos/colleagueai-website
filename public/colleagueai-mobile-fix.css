@@ -457,3 +457,12 @@ textarea:focus-visible {
     background: linear-gradient(90deg, rgba(245,240,232,0), rgba(245,240,232,.92));
   }
 }
+
+/* Home hamburger menu: the desktop-nav hide rule (header nav > a) was also hiding
+   the mobile menu's OWN links. Keep them visible when the menu is open. */
+@media (max-width: 767px) {
+  .mnav > a:not(.cai-mobile-demo),
+  .mobile-nav > a:not(.cai-mobile-demo) {
+    display: block !important;
+  }
+}
