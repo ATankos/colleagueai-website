@@ -466,3 +466,7 @@ textarea:focus-visible {
     display: block !important;
   }
 }
+
+
+/* Keep the wordmark on one line (no "Colleague / AI" wrap) */
+header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !important; }
