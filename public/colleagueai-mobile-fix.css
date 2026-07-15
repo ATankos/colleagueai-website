@@ -470,3 +470,14 @@ textarea:focus-visible {
 
 /* Keep the wordmark on one line (no "Colleague / AI" wrap) */
 header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !important; }
+
+
+/* Show the section links inside the header menu on mobile.
+   The desktop-nav hide rule (header nav > a) was also hiding the links inside
+   the cai-hdr / cainav menus, so on non-home pages the menu opened empty. */
+@media (max-width: 767px) {
+  .cai-hdr-mnav > a:not(.cai-mobile-demo),
+  .cainav-drawer a:not(.cai-mobile-demo) {
+    display: block !important;
+  }
+}
