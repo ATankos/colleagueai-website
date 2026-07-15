@@ -364,3 +364,20 @@
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",run);else run();
 })();
+
+
+/* === ColleagueAI - remove duplicate stacked header (added 2026-07) ======
+   Some pages render two <header> bars. Keep the one with the real nav menu;
+   hide the rest, so every page has one clean header like the home page. */
+(function(){
+  function dedupeHeaders(){
+    var hs=[].slice.call(document.querySelectorAll('header'));
+    if(hs.length<2)return;
+    var keep=hs.filter(function(h){return h.querySelector('.cai-hdr-mnav, .mnav, .cainav-drawer');})[0]
+          || hs.filter(function(h){return h.querySelector('.cai-hdr-burger, .burger, .cainav-burger');})[0];
+    if(!keep)return;
+    hs.forEach(function(h){ if(h!==keep){ h.style.display='none'; h.setAttribute('data-cai-dupe-header','1'); } });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',dedupeHeaders);
+  else dedupeHeaders();
+})();
