@@ -326,3 +326,41 @@
     start();
   }
 }());
+
+/* === ColleagueAI - unified mobile navigation (added 2026-07) ============
+   Runs on every page & language via this shared script. Guarantees the
+   hamburger menu always contains the site sections, so users can reach any
+   section from anywhere. Locale-correct links; skips items already present. */
+(function () {
+  var MENU = {
+    en: { items: [["/agents","Catalogue"],["/agents#score","CAI Score"],["/trust","Trust"],["/partners","Partners"],["/contact","Contact"]], demo: ["/demo","Book a demo"] },
+    cs: { items: [["/cs/agenti","Katalog"],["/cs/agenti#score","CAI Score"],["/cs/duvera","Trust"],["/cs/partneri","Partners"],["/cs/kontakt","Kontakt"]], demo: ["/demo","Domluvit sch\u016Fzku"] },
+    de: { items: [["/de/agenten","Katalog"],["/de/agenten#score","CAI Score"],["/de/vertrauen","Trust"],["/de/partner","Partners"],["/de/kontakt","Kontakt"]], demo: ["/demo","Termin vereinbaren"] },
+    es: { items: [["/es/agentes","Cat\u00E1logo"],["/es/agentes#score","CAI Score"],["/es/confianza","Trust"],["/es/socios","Partners"],["/es/contacto","Contacto"]], demo: ["/demo","Reservar una demo"] },
+    fr: { items: [["/fr/agents","Catalogue"],["/fr/agents#score","CAI Score"],["/fr/confiance","Confiance"],["/fr/partenaires","Partenaires"],["/fr/contact","Contact"]], demo: ["/demo","R\u00E9server une d\u00E9mo"] },
+    it: { items: [["/it/agenti","Catalogo"],["/it/agenti#score","CAI Score"],["/it/fiducia","Trust"],["/it/partner","Partners"],["/it/contatti","Contatti"]], demo: ["/demo","Prenota una demo"] },
+    pl: { items: [["/pl/agenci","Katalog"],["/pl/agenci#score","CAI Score"],["/pl/zaufanie","Trust"],["/pl/partnerzy","Partners"],["/pl/kontakt","Kontakt"]], demo: ["/demo","Um\u00F3w demo"] },
+    pt: { items: [["/pt/agentes","Cat\u00E1logo"],["/pt/agentes#score","CAI Score"],["/pt/confianca","Trust"],["/pt/parceiros","Partners"],["/pt/contacto","Contacto"]], demo: ["/demo","Marcar uma demo"] }
+  };
+  function locale(){var m=location.pathname.match(/^\/(cs|de|es|fr|it|pl|pt)(\/|$)/);return m?m[1]:"en";}
+  function norm(h){return (h||"").replace(location.origin,"").replace(/\/$/,"").toLowerCase();}
+  function run(){
+    var cfg=MENU[locale()]||MENU.en;
+    var menu=document.querySelector(".mnav, .cai-hdr-mnav, .cainav-drawer, .mobile-nav, [data-mobile-nav]");
+    if(!menu)return;
+    var have={};[].forEach.call(menu.querySelectorAll("a"),function(a){have[norm(a.getAttribute("href"))]=true;});
+    var tmpl=menu.querySelector("a");
+    var added=[];
+    cfg.items.concat([cfg.demo]).forEach(function(p){
+      if(have[norm(p[0])])return;
+      var a=tmpl?tmpl.cloneNode(false):document.createElement("a");
+      a.removeAttribute("id");
+      a.className=((a.className||"")+" cai-unav-link").trim();
+      a.setAttribute("href",p[0]);
+      a.textContent=p[1];
+      added.push(a);
+    });
+    added.slice().reverse().forEach(function(a){menu.insertBefore(a,menu.firstChild);});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",run);else run();
+})();
