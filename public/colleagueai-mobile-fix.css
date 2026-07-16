@@ -492,3 +492,7 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
     display: block !important;
   }
 }
+
+
+/* Agents hamburger: reveal the drawer when toggled open */
+#cainavDrawer.cai-open, .cainav-drawer.cai-open { display: block !important; }

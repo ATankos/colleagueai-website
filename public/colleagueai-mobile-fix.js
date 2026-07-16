@@ -381,3 +381,18 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',dedupeHeaders);
   else dedupeHeaders();
 })();
+
+
+/* === Agents page: make the hamburger open its menu (added 2026-07) ========
+   The Agents drawer already contains all the links, but its burger had no
+   working handler and the drawer had no open-style, so it never appeared. */
+(function(){
+  function fix(){
+    var b=document.querySelector('.cainav-burger');
+    var m=document.getElementById('cainavDrawer')||document.querySelector('.cainav-drawer');
+    if(!b||!m||b.getAttribute('data-cai-toggle'))return;
+    b.setAttribute('data-cai-toggle','1');
+    b.addEventListener('click',function(){m.classList.toggle('cai-open');});
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
+})();
