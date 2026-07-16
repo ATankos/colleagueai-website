@@ -496,29 +496,3 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 
 /* Agents hamburger: reveal the drawer when toggled open */
 #cainavDrawer.cai-open, .cainav-drawer.cai-open { display: block !important; }
-
-
-/* === ONE unified header (matches the landing-page dark bar) === */
-.cai-uni-header{position:sticky;top:0;z-index:2000;background:rgba(34,33,31,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-.cai-uni-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;max-width:1200px;margin:0 auto;padding:0 20px}
-.cai-uni-logo{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-family:ui-serif,Georgia,serif;font-size:22px;font-weight:600;color:#F5F0E8;white-space:nowrap}
-.cai-uni-logo b{color:#E8A07F;font-weight:600}
-.cai-uni-dots{display:inline-flex;gap:4px}
-.cai-uni-dots i{width:5px;height:5px;border-radius:50%;background:#E8A07F;display:block}
-.cai-uni-dots i:nth-child(2){background:#CFC8BB}
-.cai-uni-dots i:nth-child(3){background:#8A857C}
-.cai-uni-links{display:flex;align-items:center;gap:20px}
-.cai-uni-links a{color:#CFC8BB;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
-.cai-uni-links a:hover{color:#fff}
-.cai-uni-lang{background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 12px;font-size:13px;cursor:pointer}
-.cai-uni-lang option{color:#1d1b1a;background:#fff}
-.cai-uni-demo{color:#22211F !important;background:#E8A07F;border-radius:100px;padding:8px 16px;font-weight:700}
-.cai-uni-burger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;width:42px;height:38px;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}
-.cai-uni-burger span{display:block;width:18px;height:2px;background:#F5F0E8}
-.cai-uni-mnav{display:none;background:#22211F;border-top:1px solid rgba(255,255,255,.08);padding:8px 20px 18px}
-.cai-uni-mnav.open{display:block}
-.cai-uni-mnav a{display:block;color:#CFC8BB;font-size:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none}
-.cai-uni-mnav .cai-uni-demo{margin-top:12px;text-align:center;padding:13px;border-bottom:none}
-.cai-uni-mlang{padding-top:14px}
-.cai-uni-mlang .cai-uni-lang{width:100%;min-height:44px;font-size:16px}
-@media (max-width:860px){ .cai-uni-links{display:none} .cai-uni-burger{display:flex} }

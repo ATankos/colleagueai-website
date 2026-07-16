@@ -6,10 +6,10 @@ const path = require("path");
 const distDirectory = path.join(process.cwd(), "dist");
 
 const cssTag =
-  '<link id="cai-mobile-fix-css" rel="stylesheet" href="/colleagueai-mobile-fix.css?v=20260716u">';
+  '<link id="cai-mobile-fix-css" rel="stylesheet" href="/colleagueai-mobile-fix.css?v=20260713">';
 
 const jsTag =
-  '<script id="cai-mobile-fix-js" src="/colleagueai-mobile-fix.js?v=20260716u" defer></script>';
+  '<script id="cai-mobile-fix-js" src="/colleagueai-mobile-fix.js?v=20260713" defer></script>';
 
 const textRepairs = [
   ["â„¢", "™"],
