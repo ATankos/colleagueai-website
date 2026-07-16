@@ -396,3 +396,37 @@
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
 })();
+
+
+/* === ColleagueAI - ONE unified header on every page (verified 2026-07) === */
+(function () {
+  var MENU = {
+    en: { home:"/",   items:[["/agents","Catalogue"],["/agents#score","CAI Score"],["/trust","Trust"],["/partners","Partners"],["/contact","Contact"]], demo:["/demo","Book a demo"] },
+    cs: { home:"/cs", items:[["/cs/agenti","Katalog"],["/cs/agenti#score","CAI Score"],["/cs/duvera","Trust"],["/cs/partneri","Partners"],["/cs/kontakt","Kontakt"]], demo:["/demo","Domluvit sch\u016Fzku"] },
+    de: { home:"/de", items:[["/de/agenten","Katalog"],["/de/agenten#score","CAI Score"],["/de/vertrauen","Trust"],["/de/partner","Partners"],["/de/kontakt","Kontakt"]], demo:["/demo","Termin vereinbaren"] },
+    es: { home:"/es", items:[["/es/agentes","Cat\u00E1logo"],["/es/agentes#score","CAI Score"],["/es/confianza","Trust"],["/es/socios","Partners"],["/es/contacto","Contacto"]], demo:["/demo","Reservar una demo"] },
+    fr: { home:"/fr", items:[["/fr/agents","Catalogue"],["/fr/agents#score","CAI Score"],["/fr/confiance","Confiance"],["/fr/partenaires","Partenaires"],["/fr/contact","Contact"]], demo:["/demo","R\u00E9server une d\u00E9mo"] },
+    it: { home:"/it", items:[["/it/agenti","Catalogo"],["/it/agenti#score","CAI Score"],["/it/fiducia","Trust"],["/it/partner","Partners"],["/it/contatti","Contatti"]], demo:["/demo","Prenota una demo"] },
+    pl: { home:"/pl", items:[["/pl/agenci","Katalog"],["/pl/agenci#score","CAI Score"],["/pl/zaufanie","Trust"],["/pl/partnerzy","Partners"],["/pl/kontakt","Kontakt"]], demo:["/demo","Um\u00F3w demo"] },
+    pt: { home:"/pt", items:[["/pt/agentes","Cat\u00E1logo"],["/pt/agentes#score","CAI Score"],["/pt/confianca","Trust"],["/pt/parceiros","Partners"],["/pt/contacto","Contacto"]], demo:["/demo","Marcar uma demo"] }
+  };
+  var LANGS = [["/","English"],["/cs","\u010Ce\u0161tina"],["/de","Deutsch"],["/fr","Fran\u00E7ais"],["/es","Espa\u00F1ol"],["/it","Italiano"],["/pl","Polski"],["/pt","Portugu\u00EAs"]];
+  function locale(){ var m=location.pathname.match(/^\/(cs|de|es|fr|it|pl|pt)(\/|$)/); return m?m[1]:"en"; }
+  function build(){
+    if(document.querySelector(".cai-uni-header"))return;
+    var loc=locale(), cfg=MENU[loc]||MENU.en;
+    var links=cfg.items.map(function(p){return '<a href="'+p[0]+'">'+p[1]+"</a>";}).join("");
+    var demo='<a class="cai-uni-demo" href="'+cfg.demo[0]+'">'+cfg.demo[1]+"</a>";
+    var opts=LANGS.map(function(l){var s=((l[0]==="/"&&loc==="en")||l[0]==="/"+loc)?" selected":"";return '<option value="'+l[0]+'"'+s+">"+l[1]+"</option>";}).join("");
+    var lang='<select class="cai-uni-lang" aria-label="Language">'+opts+"</select>";
+    var h=document.createElement("header"); h.className="cai-uni-header";
+    h.innerHTML='<div class="cai-uni-bar"><a class="cai-uni-logo" href="'+cfg.home+'">Colleague<b>AI</b></a><nav class="cai-uni-links">'+links+lang+demo+'</nav><button class="cai-uni-burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button></div><nav class="cai-uni-mnav">'+links+demo+'<div class="cai-uni-mlang">'+lang+"</div></nav>";
+    [].forEach.call(document.querySelectorAll("header"),function(el){el.style.display="none";el.setAttribute("data-cai-old-header","1");});
+    document.body.insertBefore(h,document.body.firstChild);
+    var b=h.querySelector(".cai-uni-burger"), m=h.querySelector(".cai-uni-mnav");
+    b.addEventListener("click",function(){var o=m.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");});
+    m.addEventListener("click",function(e){if(e.target.tagName==="A")m.classList.remove("open");});
+    [].forEach.call(h.querySelectorAll(".cai-uni-lang"),function(sel){sel.addEventListener("change",function(){if(this.value)location.href=this.value;});});
+  }
+  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",build); else build();
+})();
