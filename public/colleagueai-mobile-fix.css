@@ -522,3 +522,6 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 
 /* Design consistency: primary buttons use the terracotta accent everywhere */
 .btn-p, .nav-cta { background:#c65d3a !important; border-color:#c65d3a !important; color:#fff !important; }
+
+/* Show section links inside the unified mobile menu */
+@media (max-width:767px){ .cai-uni-mnav.open a { display:block !important; } }
