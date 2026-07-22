@@ -555,9 +555,10 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 }
 .btns .btn.s:hover { background: #000000 !important; border-color: #000000 !important; }
 
-/* Important information was too faint: strengthen the 36 / 5 / L2-L4 stat
-   labels and numbers so they read as the headline facts they are. */
-.stats .l { color: #6b655e !important; font-weight: 600 !important; }
+/* Important information was too faint: strengthen the "ships prebuilt for"
+   label and the 36 / 5 / L2-L4 stat labels/numbers so they read as the
+   headline facts they are. */
+.stats .l, .pl-label { color: #6b655e !important; font-weight: 600 !important; }
 .stats .n { color: #22211F !important; }
 
 /* Contact page: the company-identification block should not look like a boxed
@@ -577,3 +578,28 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 /* Trust page: hide the stray in-page language selector that made the page look
    unfinished - the header already provides a language switch. */
 [data-cai-page="trust"] .cai-langsel { display: none !important; }
+
+/* One canonical table style for every content table (reviewer: the tables were
+   all styled differently and looked bland). Every table is wrapped in
+   .cai-table-scroll by the shared script, so this harmonises them site-wide -
+   consistent cream header with a terracotta accent bar, uniform cell borders,
+   the same font and padding everywhere. */
+.cai-table-scroll > table { border-collapse: collapse !important; width: 100%; }
+.cai-table-scroll > table thead th,
+.cai-table-scroll > table tr:first-child th {
+  background: #f3ede3 !important;
+  color: #22211F !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  padding: 12px 14px !important;
+  border-bottom: 2px solid #c65d3a !important;
+  font-family: var(--cai-ui-font) !important;
+}
+.cai-table-scroll > table td,
+.cai-table-scroll > table tbody th {
+  padding: 11px 14px !important;
+  border-bottom: 1px solid #e6ddce !important;
+  color: #2b2a28 !important;
+  vertical-align: top;
+}
+.cai-table-scroll > table tbody tr:last-child td { border-bottom: 0 !important; }
