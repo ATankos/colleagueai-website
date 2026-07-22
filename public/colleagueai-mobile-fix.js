@@ -432,3 +432,23 @@
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",build); else build();
 })();
+
+
+/* === ColleagueAI - keep "Book a demo" in the current language (added 2026-07)
+   The demo route is localised (/cs/demo, /de/demo ... are all valid per
+   vercel.json), but most links point at the English "/demo", so a Czech visitor
+   who clicks "Domluvit schuzku" lands on the English demo. Rewrite every /demo
+   link to the current locale, re-running after the shared header is injected. */
+(function () {
+  function loc(){ var m = location.pathname.match(/^\/(cs|de|es|fr|it|pl|pt)(\/|$)/); return m ? m[1] : "en"; }
+  function fixDemoLinks(){
+    var l = loc();
+    if (l === "en") return;
+    var links = document.querySelectorAll('a[href="/demo"], a[href^="/demo#"], a[href^="/demo?"]');
+    Array.prototype.forEach.call(links, function (a) {
+      a.setAttribute("href", "/" + l + a.getAttribute("href"));
+    });
+  }
+  function run(){ fixDemoLinks(); setTimeout(fixDemoLinks, 0); setTimeout(fixDemoLinks, 400); }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
+})();

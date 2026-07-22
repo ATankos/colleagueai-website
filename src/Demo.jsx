@@ -191,7 +191,9 @@ export default function Demo() {
   const [installPrompt, setInstallPrompt] = useState(null);
   const [installed, setInstalled] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState('en');
+  const [lang, setLang] = useState(
+    typeof window !== 'undefined' && /^\/cs(\/|$)/.test(window.location.pathname) ? 'cs' : 'en'
+  );
   const [origin, setOrigin] = useState('ZRH');
   const [destination, setDestination] = useState('YYZ');
   const [visibleCards, setVisibleCards] = useState([]);
