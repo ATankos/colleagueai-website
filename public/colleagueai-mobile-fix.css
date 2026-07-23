@@ -525,3 +525,123 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 
 /* Show section links inside the unified mobile menu */
 @media (max-width:767px){ .cai-uni-mnav.open a { display:block !important; } }
+
+
+/* =========================================================================
+   Design-review pass (reviewer feedback) - brand colour & consistency
+   ========================================================================= */
+
+/* Unify the brand orange everywhere: the logo "AI" accent and every
+   "Book a demo" CTA use the darker terracotta (#c65d3a), never the pale peach,
+   so the home page and all sub-pages match. */
+.logo b, header .logo b, .cai-hdr-logo b, .cai-uni-logo b { color: #c65d3a !important; }
+
+.cai-uni-demo, a.cai-mobile-demo {
+  background: #c65d3a !important;
+  border-color: #c65d3a !important;
+  color: #ffffff !important;
+}
+.cai-uni-demo:hover, a.cai-mobile-demo:hover {
+  background: #b34e2d !important;
+  border-color: #b34e2d !important;
+}
+
+/* Home hero: make the secondary "Book a demo" a solid dark button
+   (reviewer preferred the dark version over the pale outline). */
+.btns .btn.s {
+  background: #22211F !important;
+  border-color: #22211F !important;
+  color: #F5F0E8 !important;
+}
+.btns .btn.s:hover { background: #000000 !important; border-color: #000000 !important; }
+
+/* Important information was too faint: strengthen the "ships prebuilt for"
+   label and the 36 / 5 / L2-L4 stat labels/numbers so they read as the
+   headline facts they are. */
+.stats .l, .pl-label { color: #6b655e !important; font-weight: 600 !important; }
+.stats .n { color: #22211F !important; }
+
+/* Contact page: the company-identification block should not look like a boxed
+   card/table - flatten it (reviewer: "don't put this in a table"). */
+[data-cai-page="contact"] .card:has(dl) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 6px;
+}
+[data-cai-page="contact"] .card:has(dl) dl {
+  border-top: 1px solid rgba(29, 27, 26, 0.12);
+  padding-top: 14px;
+}
+
+/* Trust page: hide the stray in-page language selector that made the page look
+   unfinished - the header already provides a language switch. */
+[data-cai-page="trust"] .cai-langsel { display: none !important; }
+
+/* One canonical table style for every content table (reviewer: the tables were
+   all styled differently and looked bland). Every table is wrapped in
+   .cai-table-scroll by the shared script, so this harmonises them site-wide -
+   consistent cream header with a terracotta accent bar, uniform cell borders,
+   the same font and padding everywhere. */
+.cai-table-scroll > table { border-collapse: collapse !important; width: 100%; }
+.cai-table-scroll > table thead th,
+.cai-table-scroll > table tr:first-child th {
+  background: #f3ede3 !important;
+  color: #22211F !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  padding: 12px 14px !important;
+  border-bottom: 2px solid #c65d3a !important;
+  font-family: var(--cai-ui-font) !important;
+}
+.cai-table-scroll > table td,
+.cai-table-scroll > table tbody th {
+  padding: 11px 14px !important;
+  border-bottom: 1px solid #e6ddce !important;
+  color: #2b2a28 !important;
+  vertical-align: top;
+}
+.cai-table-scroll > table tbody tr:last-child td { border-bottom: 0 !important; }
+
+
+/* =========================================================================
+   Design-system normalisation (first-visit feedback: sections used
+   inconsistent heading weights, colours and label styles, so the site felt
+   like three type systems bolted together). Bring every page onto one system.
+   ========================================================================= */
+
+/* Section eyebrows: always terracotta, uppercase, same weight and tracking.
+   (Trust and some sections rendered them grey and lower-case.)
+   NB: .pl-label is deliberately excluded - it keeps its neutral treatment. */
+.eyebrow, .kicker, .overline,
+[class*="eyebrow"], [class*="kicker"], [class*="overline"] {
+  color: #c65d3a !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  font-family: var(--cai-technical-font) !important;
+}
+
+/* Page & section headings: one elegant light Georgia weight everywhere.
+   (Static pages fell back to the browser default bold.) Colour is left to each
+   page so headings on dark panels stay light. */
+h1 { font-weight: 400 !important; letter-spacing: -0.02em; }
+h2 { font-weight: 400 !important; }
+
+/* Trust used grey, uppercase h2s as pseudo-labels, which read as a different
+   system. Bring them back to normal dark section headings like every other page. */
+[data-cai-page="trust"] h2 {
+  color: #22211F !important;
+  text-transform: none !important;
+  font-size: clamp(22px, 3vw, 26px) !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Buttons: the same weight and size across the static pages and the app.
+   (Trust's CTA was lighter and smaller than the others.) */
+.btn, .btn-p, .btn-s, .btn.p, .btn.s,
+.cta, .ch-cta, .cai-uni-demo, .nav-cta {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}

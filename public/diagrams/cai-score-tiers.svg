@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 600" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif">
+  <defs>
+    <style>
+      .serif{font-family:Georgia,'Times New Roman',serif}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    </style>
+  </defs>
+  <rect width="940" height="600" fill="#FBF8F2"/>
+
+  <!-- Header -->
+  <text x="60" y="58" class="mono" font-size="13" letter-spacing="3" fill="#c65d3a">THE CAI SCORE</text>
+  <text x="60" y="98" class="serif" font-size="34" fill="#22211F">Five tiers of autonomy — each with a named human.</text>
+  <text x="60" y="126" font-size="15" fill="#68635b">Read bottom-up: the higher the tier, the more the agent does, and the more oversight is built in.</text>
+
+  <!-- Autonomy axis -->
+  <line x1="46" y1="172" x2="46" y2="556" stroke="#d8d2c6" stroke-width="1.5"/>
+  <polygon points="46,166 41,178 51,178" fill="#c65d3a"/>
+  <text x="30" y="370" class="mono" font-size="11" letter-spacing="2" fill="#8a857c" transform="rotate(-90 30 370)" text-anchor="middle">MORE  AUTONOMY</text>
+
+  <!-- Tier rows (L5 top -> L1 bottom) -->
+  <!-- L5 -->
+  <g>
+    <rect x="70" y="168" width="810" height="68" rx="10" fill="#c65d3a"/>
+    <text x="96" y="204" class="serif" font-size="24" fill="#fff">L5</text>
+    <text x="150" y="199" class="serif" font-size="19" fill="#fff">Autonomous</text>
+    <text x="150" y="221" font-size="13.5" fill="#f3ded4">Acts independently within hard, pre-approved guardrails. Highest certification — held to the strictest bar.</text>
+  </g>
+  <!-- L4 -->
+  <g>
+    <rect x="70" y="244" width="810" height="68" rx="10" fill="#d07e57"/>
+    <text x="96" y="280" class="serif" font-size="24" fill="#fff">L4</text>
+    <text x="150" y="275" class="serif" font-size="19" fill="#fff">Decide · supervised</text>
+    <text x="150" y="297" font-size="13.5" fill="#fbeee6">Supports decisions in higher-stakes work — compliance, contracts, security. A named human stays accountable.</text>
+  </g>
+  <!-- L3 -->
+  <g>
+    <rect x="70" y="320" width="810" height="68" rx="10" fill="#e3b79c"/>
+    <text x="96" y="356" class="serif" font-size="24" fill="#22211F">L3</text>
+    <text x="150" y="351" class="serif" font-size="19" fill="#22211F">Operate</text>
+    <text x="150" y="373" font-size="13.5" fill="#5c4a3f">Executes routine, low-risk actions in a bounded workflow — classify, route, fulfil, log. Exceptions escalate.</text>
+  </g>
+  <!-- L2 -->
+  <g>
+    <rect x="70" y="396" width="810" height="68" rx="10" fill="#ecd9c9"/>
+    <text x="96" y="432" class="serif" font-size="24" fill="#22211F">L2</text>
+    <text x="150" y="427" class="serif" font-size="19" fill="#22211F">Draft</text>
+    <text x="150" y="449" font-size="13.5" fill="#68635b">Produces a work product — a document, query, report or message — for a human to review and approve.</text>
+  </g>
+  <!-- L1 -->
+  <g>
+    <rect x="70" y="472" width="810" height="68" rx="10" fill="#f0e9dd"/>
+    <text x="96" y="508" class="serif" font-size="24" fill="#22211F">L1</text>
+    <text x="150" y="503" class="serif" font-size="19" fill="#22211F">Assist</text>
+    <text x="150" y="525" font-size="13.5" fill="#68635b">Informs and answers. Takes no action and changes no record — the human does the work, faster.</text>
+  </g>
+
+  <!-- Right caption -->
+  <text x="880" y="566" class="mono" font-size="11" letter-spacing="1.5" fill="#8a857c" text-anchor="end">EVERY TIER · NAMED HUMAN · AUDIT TRAIL</text>
+</svg>
