@@ -188,10 +188,7 @@ export default function Demo() {
   const [results, setResults] = useState([]);
   const [streamText, setStreamText] = useState('');
   const [error, setError] = useState('');
-  const [installPrompt, setInstallPrompt] = useState(null);
-  const [installed, setInstalled] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [lang, setLang] = useState(
+  const [lang] = useState(
     typeof window !== 'undefined' && /^\/cs(\/|$)/.test(window.location.pathname) ? 'cs' : 'en'
   );
   const [origin, setOrigin] = useState('ZRH');
@@ -200,14 +197,6 @@ export default function Demo() {
   const [shareCopied, setShareCopied] = useState(false);
 const os = detectOS();
   const t = translations[lang];
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener('scroll', onScroll);
-    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); setInstallPrompt(e); });
-    window.addEventListener('appinstalled', () => setInstalled(true));
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
 
   // Animate cards in one by one
   useEffect(() => {
@@ -229,14 +218,6 @@ const os = detectOS();
       timers.forEach(timer => clearTimeout(timer));
     };
   }, [results]);
-
-  async function handleInstall() {
-    if (!installPrompt) return;
-    installPrompt.prompt();
-    const { outcome } = await installPrompt.userChoice;
-    if (outcome === 'accepted') setInstalled(true);
-    setInstallPrompt(null);
-  }
 
   function applyQuickRoute(from, to) {
     setOrigin(from);
@@ -307,7 +288,7 @@ const os = detectOS();
   }
 
   return (
-    <div style={{ backgroundColor: '#F5F0E8', color: '#1D1B1A', fontFamily: "'Geist', -apple-system, sans-serif", minHeight: '100vh' }}>
+    <div style={{ backgroundColor: '#F5F0E8', color: '#1D1B1A', fontFamily: "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif", minHeight: '100vh' }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -322,8 +303,6 @@ const os = detectOS();
         @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
         .quick-route-btn { background: rgba(29,27,26,0.05); border: 1px solid rgba(29,27,26,0.08); border-radius: 999px; padding: 5px 14px; font-size: 12px; font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; color: #4A4641; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
         .quick-route-btn:hover { background: rgba(168,72,42,0.08); border-color: rgba(168,72,42,0.2); color: #C65D3A; }
-        .install-btn { transition: all 0.2s ease; }
-        .install-btn:hover { transform: scale(1.02); }
         .stream-text { font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; font-size: 11px; line-height: 1.6; color: #6B655E; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow-y: auto; }
         .stream-text::-webkit-scrollbar { width: 4px; }
         .stream-text::-webkit-scrollbar-thumb { background: rgba(29,27,26,0.15); border-radius: 2px; }
@@ -332,41 +311,7 @@ const os = detectOS();
         @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr !important; } }
       `}</style>
 
-      {/* NAV */}
-      <nav style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
-        padding: '0 22px', height: '48px',
-        backgroundColor: scrolled ? 'rgba(245,240,232,0.72)' : 'rgba(245,240,232,0.5)',
-        backdropFilter: 'saturate(180%) blur(20px)',
-        WebkitBackdropFilter: 'saturate(180%) blur(20px)',
-        transition: 'all 0.3s ease',
-        display: 'flex', justifyContent: 'center', alignItems: 'center',
-        borderBottom: '1px solid rgba(29,27,26,0.06)',
-      }}>
-        <div style={{ maxWidth: '1024px', width: '100%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <a href="/" style={{ fontSize: '17px', fontWeight: 500, letterSpacing: '-0.02em', color: 'inherit', textDecoration: 'none' }}>
-            colleague<span style={{ color: '#C65D3A' }}>ai</span>
-          </a>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            {installPrompt && !installed && (
-              <button className="install-btn" onClick={handleInstall} style={{
-                background: '#1D1B1A', color: '#F5F0E8', border: 0,
-                borderRadius: '999px', padding: '6px 16px',
-                fontSize: '12px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit',
-              }}>⬇ Install app</button>
-            )}
-            {installed && <span style={{ fontSize: '12px', color: '#C65D3A', fontWeight: 600 }}>✓ Installed</span>}
-            <div className="mono" style={{ display: 'flex', gap: '2px', fontSize: '11px' }}>
-              <button onClick={() => setLang('en')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'en' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'en' ? 600 : 400 }}>EN</button>
-              <span style={{ color: '#6B655E' }}>·</span>
-              <button onClick={() => setLang('cs')} style={{ padding: '4px 8px', background: 'none', border: 'none', cursor: 'pointer', fontFamily: 'inherit', color: lang === 'cs' ? '#1D1B1A' : '#6B655E', fontWeight: lang === 'cs' ? 600 : 400 }}>CS</button>
-            </div>
-            <a href="/" style={{ fontSize: '12px', color: '#6B655E', textDecoration: 'none' }}>{t.back}</a>
-          </div>
-        </div>
-      </nav>
-
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '80px 24px 60px' }}>
+      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px 60px' }}>
 
         {/* EYEBROW */}
         <div style={{ textAlign: 'center', marginBottom: '40px' }}>
