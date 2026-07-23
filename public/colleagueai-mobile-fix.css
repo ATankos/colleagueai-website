@@ -603,3 +603,45 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
   vertical-align: top;
 }
 .cai-table-scroll > table tbody tr:last-child td { border-bottom: 0 !important; }
+
+
+/* =========================================================================
+   Design-system normalisation (first-visit feedback: sections used
+   inconsistent heading weights, colours and label styles, so the site felt
+   like three type systems bolted together). Bring every page onto one system.
+   ========================================================================= */
+
+/* Section eyebrows: always terracotta, uppercase, same weight and tracking.
+   (Trust and some sections rendered them grey and lower-case.)
+   NB: .pl-label is deliberately excluded - it keeps its neutral treatment. */
+.eyebrow, .kicker, .overline,
+[class*="eyebrow"], [class*="kicker"], [class*="overline"] {
+  color: #c65d3a !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  font-family: var(--cai-technical-font) !important;
+}
+
+/* Page & section headings: one elegant light Georgia weight everywhere.
+   (Static pages fell back to the browser default bold.) Colour is left to each
+   page so headings on dark panels stay light. */
+h1 { font-weight: 400 !important; letter-spacing: -0.02em; }
+h2 { font-weight: 400 !important; }
+
+/* Trust used grey, uppercase h2s as pseudo-labels, which read as a different
+   system. Bring them back to normal dark section headings like every other page. */
+[data-cai-page="trust"] h2 {
+  color: #22211F !important;
+  text-transform: none !important;
+  font-size: clamp(22px, 3vw, 26px) !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Buttons: the same weight and size across the static pages and the app.
+   (Trust's CTA was lighter and smaller than the others.) */
+.btn, .btn-p, .btn-s, .btn.p, .btn.s,
+.cta, .ch-cta, .cai-uni-demo, .nav-cta {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}
