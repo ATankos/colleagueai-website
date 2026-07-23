@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 600" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif">
+  <defs><style>.serif{font-family:Georgia,'Times New Roman',serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style></defs>
+  <rect width="940" height="600" fill="#FBF8F2"/>
+  <text x="60" y="56" class="mono" font-size="13" letter-spacing="3" fill="#c65d3a">CAI SCORE</text>
+  <text x="60" y="94" class="serif" font-size="23" fill="#22211F">O CAI Score é um framework de certificação para agentes de IA: uma…</text>
+  <line x1="46" y1="172" x2="46" y2="540" stroke="#d8d2c6" stroke-width="1.5"/>
+  <polygon points="46,166 41,178 51,178" fill="#c65d3a"/>
+  <rect x="70" y="168" width="810" height="68" rx="10" fill="#c65d3a"/>
+  <text x="150" y="199" class="serif" font-size="19" fill="#fff">L5 · Autónomo</text>
+  <text x="150" y="221" font-size="13" fill="#f3ded4">Atua de forma independente dentro de limites rígidos e pré-aprovados. Reservado para o nível…</text>
+  <rect x="70" y="244" width="810" height="68" rx="10" fill="#d07e57"/>
+  <text x="150" y="275" class="serif" font-size="19" fill="#fff">L4 · Decide (supervisionado)</text>
+  <text x="150" y="297" font-size="13" fill="#fbeee6">Apoia decisões e controlos em processos de maior risco, conformidade, contratos, segurança,…</text>
+  <rect x="70" y="320" width="810" height="68" rx="10" fill="#e3b79c"/>
+  <text x="150" y="351" class="serif" font-size="19" fill="#22211F">L3 · Opera</text>
+  <text x="150" y="373" font-size="13" fill="#5c4a3f">Executa ações de rotina de baixo risco dentro de um fluxo delimitado, classificar, encaminhar,…</text>
+  <rect x="70" y="396" width="810" height="68" rx="10" fill="#ecd9c9"/>
+  <text x="150" y="427" class="serif" font-size="19" fill="#22211F">L2 · Elabora</text>
+  <text x="150" y="449" font-size="13" fill="#68635b">Produz um resultado de trabalho (um documento, uma consulta, um relatório, uma mensagem de…</text>
+  <rect x="70" y="472" width="810" height="68" rx="10" fill="#f0e9dd"/>
+  <text x="150" y="503" class="serif" font-size="19" fill="#22211F">L1 · Assiste</text>
+  <text x="150" y="525" font-size="13" fill="#68635b">Informa e responde. Não executa qualquer ação e não altera qualquer registo. O trabalho é feito…</text>
+</svg>
