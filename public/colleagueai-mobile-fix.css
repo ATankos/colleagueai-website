@@ -645,3 +645,24 @@ h2 { font-weight: 400 !important; }
   font-weight: 600 !important;
   font-size: 15px !important;
 }
+
+
+/* =========================================================================
+   Brand mark: restore the three dots under the header wordmark, on every
+   header (home, static, injected), every page and language, mobile included.
+   Uses an inline-SVG background so the three brand colours render exactly;
+   overflow:visible keeps the dots from being clipped by the header.
+   ========================================================================= */
+header a.logo, header .cai-hdr-logo, .cai-uni-logo { position: relative; overflow: visible; }
+header a.logo::after,
+header .cai-hdr-logo::after,
+.cai-uni-logo::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  bottom: -8px;
+  width: 22px;
+  height: 6px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='6'%3E%3Ccircle cx='3' cy='3' r='3' fill='%23c65d3a'/%3E%3Ccircle cx='12' cy='3' r='3' fill='%23f5f0e8'/%3E%3Ccircle cx='21' cy='3' r='3' fill='%23c4a882'/%3E%3C/svg%3E") no-repeat;
+}
