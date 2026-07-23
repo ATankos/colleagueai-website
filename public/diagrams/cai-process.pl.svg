@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 320" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif">
+  <defs><style>.serif{font-family:Georgia,'Times New Roman',serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style></defs>
+  <rect width="960" height="320" fill="#FBF8F2"/>
+  <text x="60" y="66" class="serif" font-size="22" fill="#22211F">Colleague<tspan fill="#c65d3a">AI</tspan></text>
+  <path d="M328 195 h26" stroke="#c65d3a" stroke-width="2" fill="none"/>
+  <polygon points="360,195 350,190 350,200" fill="#c65d3a"/>
+  <path d="M640 195 h26" stroke="#c65d3a" stroke-width="2" fill="none"/>
+  <polygon points="672,195 662,190 662,200" fill="#c65d3a"/>
+  <rect x="60" y="120" width="256" height="150" rx="14" fill="#ffffff" stroke="#e6ddce" stroke-width="1.5"/>
+  <circle cx="94" cy="158" r="18" fill="#c65d3a"/>
+  <text x="94" y="164" class="mono" font-size="14" fill="#ffffff" text-anchor="middle">01</text>
+  <text x="124" y="164" class="mono" font-size="12" letter-spacing="2" fill="#8a857c">POŁĄCZ</text>
+  <text x="82" y="216" class="serif" font-size="20" fill="#22211F">Podłącz do swojego tenanta</text>
+  <rect x="372" y="120" width="256" height="150" rx="14" fill="#ffffff" stroke="#e6ddce" stroke-width="1.5"/>
+  <circle cx="406" cy="158" r="18" fill="#c65d3a"/>
+  <text x="406" y="164" class="mono" font-size="14" fill="#ffffff" text-anchor="middle">02</text>
+  <text x="436" y="164" class="mono" font-size="12" letter-spacing="2" fill="#8a857c">CERTYFIKUJ</text>
+  <text x="394" y="216" class="serif" font-size="20" fill="#22211F">Klasyfikacja wg CAI Score</text>
+  <rect x="684" y="120" width="256" height="150" rx="14" fill="#22211F"/>
+  <circle cx="718" cy="158" r="18" fill="#E8A07F"/>
+  <text x="718" y="164" class="mono" font-size="14" fill="#22211F" text-anchor="middle">03</text>
+  <text x="748" y="164" class="mono" font-size="12" letter-spacing="2" fill="#cbb8a6">URUCHOM</text>
+  <text x="706" y="216" class="serif" font-size="20" fill="#F5F0E8">Działaj z dowodami</text>
+</svg>
