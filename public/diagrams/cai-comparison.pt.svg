@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 520" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif">
+  <defs><style>.serif{font-family:Georgia,'Times New Roman',serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}</style></defs>
+  <rect width="940" height="520" fill="#FBF8F2"/>
+  <text x="50" y="56" class="serif" font-size="22" fill="#22211F">Colleague<tspan fill="#c65d3a">AI</tspan></text>
+  <rect x="690" y="120" width="206" height="316" rx="14" fill="#fbf1ec" stroke="#c65d3a" stroke-width="2"/>
+  <text x="474" y="150" class="mono" font-size="12" letter-spacing="1" fill="#8a857c" text-anchor="middle">CONSTRUÇÃO INTERNA</text>
+  <text x="622" y="150" class="mono" font-size="12" letter-spacing="1" fill="#8a857c" text-anchor="middle">PLATAFORMA GENÉRICA</text>
+  <text x="792" y="150" class="serif" font-size="18" fill="#c65d3a" text-anchor="middle" font-weight="bold">ColleagueAI</text>
+  <text x="50" y="196" font-size="14" fill="#22211F">Tempo até um piloto</text>
+  <text x="474" y="196" font-size="12.5" fill="#68635b" text-anchor="middle">Meses, de um prompt vazio</text>
+  <text x="622" y="196" font-size="12.5" fill="#68635b" text-anchor="middle">Semanas, governação depois</text>
+  <text x="706" y="196" font-size="13" fill="#c65d3a">✓</text>
+  <text x="722" y="196" font-size="12.5" fill="#22211F">Semanas, governação inc…</text>
+  <line x1="50" y1="214" x2="898" y2="214" stroke="#ece4d7" stroke-width="1"/>
+  <text x="50" y="240" font-size="14" fill="#22211F">Classificação de risco</text>
+  <text x="474" y="240" font-size="12.5" fill="#68635b" text-anchor="middle">Por conta própria</text>
+  <text x="622" y="240" font-size="12.5" fill="#68635b" text-anchor="middle">No máximo, logging básico</text>
+  <text x="706" y="240" font-size="13" fill="#c65d3a">✓</text>
+  <text x="722" y="240" font-size="12.5" fill="#22211F">Nível CAI Score por age…</text>
+  <line x1="50" y1="258" x2="898" y2="258" stroke="#ece4d7" stroke-width="1"/>
+  <text x="50" y="284" font-size="14" fill="#22211F">Responsabilidade humana</text>
+  <text x="474" y="284" font-size="12.5" fill="#68635b" text-anchor="middle">Ad hoc</text>
+  <text x="622" y="284" font-size="12.5" fill="#68635b" text-anchor="middle">Raramente definida</text>
+  <text x="706" y="284" font-size="13" fill="#c65d3a">✓</text>
+  <text x="722" y="284" font-size="12.5" fill="#22211F">Papel humano em cada ní…</text>
+  <line x1="50" y1="302" x2="898" y2="302" stroke="#ece4d7" stroke-width="1"/>
+  <text x="50" y="328" font-size="14" fill="#22211F">Evidência de auditoria</text>
+  <text x="474" y="328" font-size="12.5" fill="#68635b" text-anchor="middle">Montada a posteriori</text>
+  <text x="622" y="328" font-size="12.5" fill="#68635b" text-anchor="middle">Parcial</text>
+  <text x="706" y="328" font-size="13" fill="#c65d3a">✓</text>
+  <text x="722" y="328" font-size="12.5" fill="#22211F">Gerada por defeito</text>
+  <line x1="50" y1="346" x2="898" y2="346" stroke="#ece4d7" stroke-width="1"/>
+  <text x="50" y="372" font-size="14" fill="#22211F">Prova de ROI</text>
+  <text x="474" y="372" font-size="12.5" fill="#68635b" text-anchor="middle">O seu business case</text>
+  <text x="622" y="372" font-size="12.5" fill="#68635b" text-anchor="middle">Promessas do fornecedor</text>
+  <text x="706" y="372" font-size="13" fill="#c65d3a">✓</text>
+  <text x="722" y="372" font-size="12.5" fill="#22211F">Calculadora + validação</text>
+  <line x1="50" y1="390" x2="898" y2="390" stroke="#ece4d7" stroke-width="1"/>
+  <text x="50" y="416" font-size="14" fill="#22211F">Onde vivem os seus dados</text>
+  <text x="474" y="416" font-size="12.5" fill="#68635b" text-anchor="middle">O seu tenant</text>
+  <text x="622" y="416" font-size="12.5" fill="#68635b" text-anchor="middle">Cloud do fornecedor</text>
+  <text x="706" y="416" font-size="13" fill="#c65d3a">✓</text>
+  <text x="722" y="416" font-size="12.5" fill="#22211F">Seu tenant, nunca proce…</text>
+  <line x1="50" y1="434" x2="898" y2="434" stroke="#ece4d7" stroke-width="1"/>
+</svg>
