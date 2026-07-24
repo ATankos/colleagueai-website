@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+﻿import { useState } from 'react';
 
 const DOWNLOADS = {
   windows: 'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague.AI.0.1.0.exe',
@@ -11,13 +11,6 @@ function detectOS() {
   if (ua.includes('Mac')) return 'mac';
   return 'other';
 }
-
-const QUICK_ROUTES = [
-  { from: 'ZRH', to: 'YYZ' },
-  { from: 'PRG', to: 'LHR' },
-  { from: 'VIE', to: 'JFK' },
-  { from: 'FRA', to: 'SIN' },
-];
 
 const translations = {
   en: {
@@ -150,142 +143,12 @@ const AGENT = {
   reviewed: 'Květen 2026 / May 2026',
 };
 
-const VERDICT_STYLES = {
-  RECOMMENDED: { bg: '#DCFCE7', color: '#166534' },
-  ALTERNATIVE:  { bg: '#FEF9C3', color: '#854D0E' },
-  AVOID:        { bg: '#FFE4E6', color: '#9F1239' },
-};
-
-function ScoreBar({ score, animate }) {
-  const [width, setWidth] = useState(0);
-  useEffect(() => {
-    if (!animate) return;
-    const t = setTimeout(() => setWidth(score), 80);
-    return () => clearTimeout(t);
-  }, [animate, score]);
-
-  const color = score >= 75 ? '#166534' : score >= 50 ? '#854D0E' : '#9F1239';
-  return (
-    <div style={{ marginTop: '10px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
-        <span style={{ fontSize: '11px', color: '#6B655E', fontFamily: "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace" }}>SCORE</span>
-        <span style={{ fontSize: '11px', fontWeight: 700, color, fontFamily: "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace" }}>{score}/100</span>
-      </div>
-      <div style={{ height: '4px', borderRadius: '999px', background: 'rgba(29,27,26,0.08)', overflow: 'hidden' }}>
-        <div style={{
-          height: '100%', borderRadius: '999px',
-          background: color,
-          width: `${width}%`,
-          transition: 'width 0.8s cubic-bezier(0.22, 1, 0.36, 1)',
-        }} />
-      </div>
-    </div>
-  );
-}
-
 export default function Demo() {
-  const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState([]);
-  const [streamText, setStreamText] = useState('');
-  const [error, setError] = useState('');
   const [lang] = useState(
     typeof window !== 'undefined' && /^\/cs(\/|$)/.test(window.location.pathname) ? 'cs' : 'en'
   );
-  const [origin, setOrigin] = useState('ZRH');
-  const [destination, setDestination] = useState('YYZ');
-  const [visibleCards, setVisibleCards] = useState([]);
-  const [shareCopied, setShareCopied] = useState(false);
 const os = detectOS();
   const t = translations[lang];
-
-  // Animate cards in one by one
-  useEffect(() => {
-    if (results.length === 0) return;
-
-    const timers = [];
-
-    timers.push(setTimeout(() => {
-      setVisibleCards([]);
-    }, 0));
-
-    results.forEach((_, i) => {
-      timers.push(setTimeout(() => {
-        setVisibleCards(prev => [...prev, i]);
-      }, i * 180 + 50));
-    });
-
-    return () => {
-      timers.forEach(timer => clearTimeout(timer));
-    };
-  }, [results]);
-
-  function applyQuickRoute(from, to) {
-    setOrigin(from);
-    setDestination(to);
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-    setResults([]);
-    setStreamText('');
-    setVisibleCards([]);
-
-    const formData = new FormData(e.target);
-    const payload = Object.fromEntries(formData.entries());
-    payload.origin = origin;
-    payload.destination = destination;
-
-    try {
-      const res = await fetch('/api/demo-agent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        const data = await res.json().catch(() => ({}));
-        throw new Error(data.error ?? 'Search failed');
-      }
-
-      // SSE streaming
-      const reader = res.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = '';
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop(); // keep incomplete line in buffer
-        for (const line of lines) {
-          if (!line.startsWith('data: ')) continue;
-          try {
-            const json = JSON.parse(line.slice(6));
-            if (json.chunk) setStreamText(prev => prev + json.chunk);
-            if (json.done) setResults(json.results ?? []);
-            if (json.error) throw new Error(json.error);
-          } catch (parseErr) {
-            if (parseErr.message !== 'Unexpected token') throw parseErr;
-          }
-        }
-      }
-    } catch (err) {
-      setError(err.message || 'Something went wrong. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  function handleShare() {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
-      setShareCopied(true);
-      setTimeout(() => setShareCopied(false), 2000);
-    });
-  }
 
   return (
     <div style={{ backgroundColor: '#F5F0E8', color: '#1D1B1A', fontFamily: "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif", minHeight: '100vh' }}>
@@ -452,126 +315,6 @@ const os = detectOS();
           </p>
         </div>
 
-        {/* LIVE DEMO SECTION */}
-        <div style={{ background: '#fff', borderRadius: '20px', padding: '28px', border: '1px solid rgba(29,27,26,0.05)', boxShadow: '0 4px 24px rgba(29,27,26,0.06)' }}>
-          <div style={{ marginBottom: '20px' }}>
-            <div className="mono" style={{ fontSize: '10px', color: '#C65D3A', letterSpacing: '0.12em', marginBottom: '8px' }}>{t.demoEyebrow}</div>
-            <h3 className="fraunces" style={{ fontSize: '20px', fontWeight: 500, letterSpacing: '-0.02em' }}>{t.demoTitle}</h3>
-            <p style={{ fontSize: '13px', color: '#6B655E', marginTop: '4px' }}>{t.demoSub}</p>
-          </div>
-
-          {/* QUICK ROUTES */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '20px', flexWrap: 'wrap' }}>
-            <span className="mono" style={{ fontSize: '10px', color: '#6B655E', letterSpacing: '0.06em', flexShrink: 0 }}>{t.quickRoutes}:</span>
-            {QUICK_ROUTES.map((r) => (
-              <button key={r.from + r.to} className="quick-route-btn" onClick={() => applyQuickRoute(r.from, r.to)}>
-                {r.from} → {r.to}
-              </button>
-            ))}
-          </div>
-
-          <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '16px' }}>
-            <div className="grid2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelFrom}</label>
-                <input name="origin" className="demo-input" placeholder="ZRH" value={origin} onChange={e => setOrigin(e.target.value)} required />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelTo}</label>
-                <input name="destination" className="demo-input" placeholder="YYZ" value={destination} onChange={e => setDestination(e.target.value)} required />
-              </div>
-            </div>
-            <div className="grid2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelDate}</label>
-                <input name="departureDate" type="date" className="demo-input" required />
-              </div>
-              <div>
-                <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelCabin}</label>
-                <select name="cabin" className="demo-input">
-                  <option value="ECONOMY">{t.cabinEconomy}</option>
-                  <option value="PREMIUM_ECONOMY">{t.cabinPremium}</option>
-                  <option value="BUSINESS">{t.cabinBusiness}</option>
-                </select>
-              </div>
-            </div>
-            <div>
-              <label style={{ display: 'block', fontSize: '12px', fontWeight: 600, color: '#4A4641', marginBottom: '6px' }}>{t.labelPrefs}</label>
-              <textarea name="preferences" className="demo-input" style={{ minHeight: '72px', resize: 'vertical' }}
-                defaultValue={t.prefsDefault} />
-            </div>
-            <button type="submit" disabled={loading} style={{
-              width: '100%', padding: '14px', background: loading ? '#6B655E' : '#1D1B1A',
-              color: '#F5F0E8', border: 0, borderRadius: '12px', fontSize: '15px',
-              fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', fontFamily: 'inherit',
-              transition: 'background 0.2s',
-            }}>
-              {loading ? t.runningBtn : t.runBtn}
-            </button>
-          </form>
-
-          {/* STREAMING THINKING BOX */}
-          {loading && streamText && (
-            <div style={{ marginTop: '20px', background: '#F5F0E8', borderRadius: '12px', padding: '16px' }}>
-              <div className="mono" style={{ fontSize: '9px', color: '#C65D3A', letterSpacing: '0.1em', marginBottom: '8px' }}>
-                {t.thinkingLabel}
-              </div>
-              <div ref={el => { if (el) el.scrollTop = el.scrollHeight; }} className="stream-text">
-                {streamText}<span className="cursor-blink" />
-              </div>
-            </div>
-          )}
-
-          {error && <p style={{ color: '#C65D3A', fontSize: '14px', marginTop: '14px', textAlign: 'center' }}>{error}</p>}
-
-          {results.length > 0 && (
-            <div style={{ marginTop: '24px', borderTop: '1px solid rgba(29,27,26,0.06)', paddingTop: '24px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
-                <div className="mono" style={{ fontSize: '10px', color: '#6B655E', letterSpacing: '0.08em' }}>
-                  {t.rankedLabel} {results.length} {t.rankedSuffix}
-                </div>
-                <button onClick={handleShare} style={{
-                  display: 'flex', alignItems: 'center', gap: '6px',
-                  background: shareCopied ? '#DCFCE7' : 'rgba(29,27,26,0.05)',
-                  color: shareCopied ? '#166534' : '#4A4641',
-                  border: 'none', borderRadius: '8px', padding: '6px 14px',
-                  fontSize: '12px', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit',
-                  transition: 'all 0.2s',
-                }}>
-                  {shareCopied ? '✓' : '↗'} {shareCopied ? t.shareCopied : t.shareBtn}
-                </button>
-              </div>
-
-              {results.map((r, i) => {
-                const verdict = r.verdict ?? (i === 0 ? 'RECOMMENDED' : i === results.length - 1 ? 'AVOID' : 'ALTERNATIVE');
-                const vs = VERDICT_STYLES[verdict] ?? VERDICT_STYLES.ALTERNATIVE;
-                const isVisible = visibleCards.includes(i);
-                return (
-                  <div key={i} className={`result-card${isVisible ? ' result-card-enter' : ''}`}
-                    style={{ opacity: isVisible ? 1 : 0 }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '6px' }}>
-                      <h4 className="fraunces" style={{ fontSize: '17px', fontWeight: 500 }}>{r.airline}</h4>
-                      <span style={{
-                        background: vs.bg, color: vs.color,
-                        fontSize: '10px', fontWeight: 700, padding: '3px 10px',
-                        borderRadius: '999px', fontFamily: "ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace",
-                        letterSpacing: '0.04em', flexShrink: 0,
-                      }}>
-                        {t.verdictLabels[verdict] ?? verdict}
-                      </span>
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#6B655E', marginBottom: '8px' }}>
-                      {r.route} · {r.departure} → {r.arrival} · {r.duration} · {r.stops} stop(s)
-                    </div>
-                    <div style={{ fontSize: '15px', fontWeight: 600, marginBottom: '8px', color: '#1D1B1A' }}>{r.price}</div>
-                    <p style={{ fontSize: '13px', color: '#4A4641', lineHeight: 1.5 }}>{r.reason}</p>
-                    <ScoreBar score={r.score} animate={isVisible} />
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
 
         {/* FOOTER NOTE */}
         <p style={{ textAlign: 'center', fontSize: '12px', color: '#A39B91', marginTop: '32px' }}>
