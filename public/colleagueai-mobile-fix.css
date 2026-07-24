@@ -604,6 +604,10 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 }
 .cai-table-scroll > table tbody tr:last-child td { border-bottom: 0 !important; }
 
+/* Breathing room above and below every content table
+   (reviewer: it looked cramped with no gap under the table). */
+.cai-table-scroll { margin-top: 16px; margin-bottom: 26px; }
+
 
 /* =========================================================================
    Design-system normalisation (first-visit feedback: sections used
