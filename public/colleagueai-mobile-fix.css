@@ -664,7 +664,7 @@ header .cai-hdr-logo::after,
   content: "";
   position: absolute;
   left: 2px;
-  bottom: -8px;
+  bottom: -5px;
   width: 26px;
   height: 6px;
   pointer-events: none;
