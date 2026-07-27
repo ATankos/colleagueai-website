@@ -608,6 +608,54 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
    (reviewer: it looked cramped with no gap under the table). */
 .cai-table-scroll { margin-top: 16px; margin-bottom: 26px; }
 
+/* Token-economy panel: it used a cold slate-blue text palette that read as a
+   different design system ("I wouldn't use the blue; the text isn't readable").
+   Bring it onto the same warm dark-panel style used elsewhere on the site. */
+.usage-intel__wrap { background: #22211F !important; }
+.usage-intel__card {
+  background: rgba(245, 240, 232, 0.06) !important;
+  border-color: rgba(245, 240, 232, 0.14) !important;
+}
+.usage-intel__wrap h2,
+.usage-intel__wrap h3,
+.usage-intel__wrap h4,
+.usage-intel__card strong,
+.usage-intel__card b { color: #F5F0E8 !important; }
+.usage-intel__wrap p,
+.usage-intel__wrap li,
+.usage-intel__wrap div,
+.usage-intel__wrap span,
+.usage-intel__card,
+.usage-intel__lead { color: #CFC8BB !important; }
+.usage-intel__eyebrow { color: #E8A07F !important; }
+
+/* "Check your readiness" CTA: give it a defined dark outline so the three hero
+   buttons read as one set (reviewer: "we'd give it a black border"). */
+a[href="#readiness"]:not(.cainav-spy):not(.cai-uni-demo) {
+  border: 1px solid #22211F !important;
+  border-radius: 999px;
+}
+
+/* Trust page: tighten the oversized gap above the page-guide card. */
+.cai-page-guide { margin-top: 8px !important; }
+
+/* One panel standard everywhere (reviewer: "three different table colours,
+   unify them"). Light panels use the warm cream + hairline border; dark panels
+   use the brand dark. No cold slate/navy anywhere. */
+.cai-page-guide,
+.trust-proof {
+  background: #FFFAF2 !important;
+  border: 1px solid #DED7CB !important;
+}
+/* Remaining cold navy inside the token panel. */
+.usage-intel__list {
+  background: rgba(245, 240, 232, 0.05) !important;
+  border-color: rgba(245, 240, 232, 0.14) !important;
+}
+.usage-intel__wrap { border-color: rgba(245, 240, 232, 0.14) !important; }
+.usage-intel__list li,
+.usage-intel__wrap ul { color: #CFC8BB !important; border-color: rgba(245, 240, 232, 0.14) !important; }
+
 
 /* =========================================================================
    Design-system normalisation (first-visit feedback: sections used
