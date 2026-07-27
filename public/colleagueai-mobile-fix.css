@@ -559,7 +559,13 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
    label and the 36 / 5 / L2-L4 stat labels/numbers so they read as the
    headline facts they are. */
 .stats .l, .pl-label { color: #6b655e !important; font-weight: 600 !important; }
-.stats .n { color: #22211F !important; }
+/* Reviewer asked whether the headline numbers could carry the brand orange for
+   emphasis - they now do, which lifts them without restructuring the strip. */
+.stats .n { color: #c65d3a !important; }
+
+/* Readiness quiz: it sat indented ~168px from the left; align it with the rest
+   of the page content ("this table I'd align to the left"). */
+.ga-card { margin-left: 0 !important; }
 
 /* Contact page: the company-identification block should not look like a boxed
    card/table - flatten it (reviewer: "don't put this in a table"). */
