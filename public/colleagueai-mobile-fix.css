@@ -639,6 +639,23 @@ a[href="#readiness"]:not(.cainav-spy):not(.cai-uni-demo) {
 /* Trust page: tighten the oversized gap above the page-guide card. */
 .cai-page-guide { margin-top: 8px !important; }
 
+/* One panel standard everywhere (reviewer: "three different table colours,
+   unify them"). Light panels use the warm cream + hairline border; dark panels
+   use the brand dark. No cold slate/navy anywhere. */
+.cai-page-guide,
+.trust-proof {
+  background: #FFFAF2 !important;
+  border: 1px solid #DED7CB !important;
+}
+/* Remaining cold navy inside the token panel. */
+.usage-intel__list {
+  background: rgba(245, 240, 232, 0.05) !important;
+  border-color: rgba(245, 240, 232, 0.14) !important;
+}
+.usage-intel__wrap { border-color: rgba(245, 240, 232, 0.14) !important; }
+.usage-intel__list li,
+.usage-intel__wrap ul { color: #CFC8BB !important; border-color: rgba(245, 240, 232, 0.14) !important; }
+
 
 /* =========================================================================
    Design-system normalisation (first-visit feedback: sections used
