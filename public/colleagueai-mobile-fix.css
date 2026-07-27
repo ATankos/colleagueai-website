@@ -629,6 +629,16 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 .usage-intel__lead { color: #CFC8BB !important; }
 .usage-intel__eyebrow { color: #E8A07F !important; }
 
+/* "Check your readiness" CTA: give it a defined dark outline so the three hero
+   buttons read as one set (reviewer: "we'd give it a black border"). */
+a[href="#readiness"]:not(.cainav-spy):not(.cai-uni-demo) {
+  border: 1px solid #22211F !important;
+  border-radius: 999px;
+}
+
+/* Trust page: tighten the oversized gap above the page-guide card. */
+.cai-page-guide { margin-top: 8px !important; }
+
 
 /* =========================================================================
    Design-system normalisation (first-visit feedback: sections used
