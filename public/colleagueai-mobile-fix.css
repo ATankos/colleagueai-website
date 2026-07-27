@@ -608,6 +608,27 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
    (reviewer: it looked cramped with no gap under the table). */
 .cai-table-scroll { margin-top: 16px; margin-bottom: 26px; }
 
+/* Token-economy panel: it used a cold slate-blue text palette that read as a
+   different design system ("I wouldn't use the blue; the text isn't readable").
+   Bring it onto the same warm dark-panel style used elsewhere on the site. */
+.usage-intel__wrap { background: #22211F !important; }
+.usage-intel__card {
+  background: rgba(245, 240, 232, 0.06) !important;
+  border-color: rgba(245, 240, 232, 0.14) !important;
+}
+.usage-intel__wrap h2,
+.usage-intel__wrap h3,
+.usage-intel__wrap h4,
+.usage-intel__card strong,
+.usage-intel__card b { color: #F5F0E8 !important; }
+.usage-intel__wrap p,
+.usage-intel__wrap li,
+.usage-intel__wrap div,
+.usage-intel__wrap span,
+.usage-intel__card,
+.usage-intel__lead { color: #CFC8BB !important; }
+.usage-intel__eyebrow { color: #E8A07F !important; }
+
 
 /* =========================================================================
    Design-system normalisation (first-visit feedback: sections used
