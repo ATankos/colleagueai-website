@@ -865,12 +865,12 @@ const en = {
     popular: 'MOST POPULAR',
     tiers: [
       {
-        tag: 'STARTER', name: 'Starter', price: '€2,400', period: '/month',
+        tag: 'STARTER', name: 'Starter', price: 'From $8,000', period: '/month',
         features: ['1 certified agent', 'L1-L2 risk only', 'Standard support', 'Quarterly review'],
         cta: 'Get started',
       },
       {
-        tag: 'BUSINESS', name: 'Business', price: '€8,500', period: '/month', featured: true,
+        tag: 'BUSINESS', name: 'Business', price: 'From $15,000', period: '/month', featured: true,
         features: ['Up to 5 agents', 'L1-L3 risk coverage', 'CAI Score certification', 'E&O insurance bundle', 'Priority support'],
         cta: 'Talk to sales',
       },
@@ -954,12 +954,12 @@ const cs = {
     popular: 'NEJOBLÍBENĚJŠÍ',
     tiers: [
       {
-        tag: 'STARTER', name: 'Starter', price: '€2 400', period: '/měsíc',
+        tag: 'STARTER', name: 'Starter', price: 'From $8,000', period: '/měsíc',
         features: ['1 certifikovaný agent', 'Pouze riziko L1-L2', 'Standardní podpora', 'Kvartální revize'],
         cta: 'Začít',
       },
       {
-        tag: 'BUSINESS', name: 'Business', price: '€8 500', period: '/měsíc', featured: true,
+        tag: 'BUSINESS', name: 'Business', price: 'From $15,000', period: '/měsíc', featured: true,
         features: ['Až 5 agentů', 'Pokrytí rizika L1-L3', 'CAI Score certifikace', 'E&O pojištění v ceně', 'Prioritní podpora'],
         cta: 'Mluvit s obchodem',
       },
