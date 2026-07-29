@@ -38,6 +38,15 @@ ul{margin:6px 0 0;padding-left:20px}
 .btn-p{background:#1D1B1A;color:#F5F0E8}.btn-s{border:1.5px solid #1D1B1A;color:#1D1B1A}
 footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
 a{color:#C65D3A}
+.logo{display:inline-flex!important;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:4px;text-decoration:none;overflow:visible!important}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8;white-space:nowrap}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px;flex:0 0 auto;line-height:0}
+.cai-logo-dots span{flex:0 0 auto;width:5px;height:5px;min-width:5px;min-height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
+@media(max-width:560px){.cai-logo-text{font-size:19px}.cai-logo-dots{gap:4px}.cai-logo-dots span{width:4px;height:4px;min-width:4px;min-height:4px}}
 </style>
 
 <style id="cai-visual-copy-polish">
@@ -438,9 +447,10 @@ display: flex !important;
 </style>
 <header class="cai-hdr">
   <div class="cai-hdr-in">
-    <a href="/" class="logo cai-hdr-logo">Colleague<b>AI</b></a>
+    <a href="/" class="logo cai-hdr-logo"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots" aria-hidden="true"><span></span><span></span><span></span></span></a>
     <nav class="cai-hdr-links">
       <a class="ch-l" href="/fr/agents">Catalogue</a>
+      <a class="ch-l" href="/fr/agents#score">CAI Score</a>
       <a class="ch-l" href="/fr/tarifs">Tarifs</a>
       <a class="ch-l" href="/fr/confiance">Confiance</a>
       <a class="ch-l" href="/fr/partenaires">Partenaires</a>
@@ -450,7 +460,7 @@ display: flex !important;
     </nav>
   </div>
   <nav class="cai-hdr-mnav" id="caihdrm">
-    <a href="/fr/agents">Catalogue</a><a href="/fr/tarifs">Tarifs</a><a href="/fr/confiance">Confiance</a><a href="/fr/partenaires">Partenaires</a><a href="/fr/contact">Contact</a>
+    <a href="/fr/agents">Catalogue</a><a href="/fr/agents#score">CAI Score</a><a href="/fr/tarifs">Tarifs</a><a href="/fr/confiance">Confiance</a><a href="/fr/partenaires">Partenaires</a><a href="/fr/contact">Contact</a>
   </nav>
 </header>
 <!-- cai-site-header:end -->
