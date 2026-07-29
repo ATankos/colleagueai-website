@@ -106,6 +106,15 @@ footer .co{margin-top:8px}
 .outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
 .outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
 .outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
+.logo{display:inline-flex!important;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:4px;text-decoration:none;overflow:visible!important}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8;white-space:nowrap}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px;flex:0 0 auto;line-height:0}
+.cai-logo-dots span{flex:0 0 auto;width:5px;height:5px;min-width:5px;min-height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
+@media(max-width:560px){.cai-logo-text{font-size:19px}.cai-logo-dots{gap:4px}.cai-logo-dots span{width:4px;height:4px;min-width:4px;min-height:4px}}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -195,7 +204,7 @@ display: flex !important;
 </head>
 <body>
 <header><div class="wrap nav">
-<a class="logo" href="/">Colleague<b>AI</b></a>
+<a class="logo" href="/"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots" aria-hidden="true"><span></span><span></span><span></span></span></a>
 <nav class="links">
 <a href="/es/agentes">Catálogo</a><a href="/es/agentes#score">CAI Score</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/">English</option><option value="/cs">Čeština</option><option value="/de">Deutsch</option><option value="/fr">Français</option><option value="/es" selected>Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
@@ -203,7 +212,7 @@ display: flex !important;
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 </div>
-<nav class="mnav" id="mnav"><a href="/es/agentes">Catálogo</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a></nav>
+<nav class="mnav" id="mnav"><a href="/es/agentes">Catálogo</a><a href="/es/agentes#score">CAI Score</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a></nav>
 </header>
 
 <section class="hero wrap">

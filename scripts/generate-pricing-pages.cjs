@@ -74,6 +74,7 @@ function buildNav(b, loc) {
   return {
     links:
       item(b.catalogue) +
+      '<a href="' + b.catalogue.href + '#score">CAI Score</a>' +
       '<a href="' + p + '" aria-current="page">' + tr("Pricing", loc) + "</a>" +
       item(b.trust) + item(b.partners) + item(b.contact) + "\n" +
       '<select class="lang" id="langsel" aria-label="Language"></select>\n' +
@@ -81,6 +82,7 @@ function buildNav(b, loc) {
       '<button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>\n',
     mnav:
       item(b.catalogue) +
+      '<a href="' + b.catalogue.href + '#score">CAI Score</a>' +
       '<a href="' + p + '">' + tr("Pricing", loc) + "</a>" +
       item(b.trust) + item(b.partners) + item(b.contact) +
       '<a href="' + b.cta.href + '">' + b.cta.label + "</a>"
