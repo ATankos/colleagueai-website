@@ -1,0 +1,767 @@
+{
+ "Partner network": {
+  "cs": "Partnerská síť",
+  "de": "Partnernetzwerk",
+  "fr": "Réseau de partenaires",
+  "es": "Red de socios",
+  "it": "Rete di partner",
+  "pl": "Sieć partnerska",
+  "pt": "Rede de parceiros"
+ },
+ "Three ways to partner.": {
+  "cs": "Tři způsoby spolupráce.",
+  "de": "Drei Wege zur Partnerschaft.",
+  "fr": "Trois façons de devenir partenaire.",
+  "es": "Tres formas de colaborar.",
+  "it": "Tre modi per collaborare.",
+  "pl": "Trzy sposoby współpracy.",
+  "pt": "Três formas de ser parceiro."
+ },
+ "Introduce enterprise customers, participate in the sales process or develop a strategic market partnership. Our partner model rewards measurable contribution to customer acquisition and delivery.": {
+  "cs": "Představte podnikové zákazníky, zapojte se do obchodního procesu nebo rozviňte strategické tržní partnerství. Náš partnerský model odměňuje měřitelný přínos k získání zákazníka a dodávce.",
+  "de": "Führen Sie Unternehmenskunden ein, beteiligen Sie sich am Vertriebsprozess oder entwickeln Sie eine strategische Marktpartnerschaft. Unser Partnermodell belohnt den messbaren Beitrag zu Kundengewinnung und Umsetzung.",
+  "fr": "Présentez des clients grands comptes, participez au processus de vente ou développez un partenariat stratégique de marché. Notre modèle récompense la contribution mesurable à l'acquisition et à la livraison.",
+  "es": "Presente clientes empresariales, participe en el proceso de venta o desarrolle una alianza estratégica de mercado. Nuestro modelo recompensa la contribución medible a la captación y a la entrega.",
+  "it": "Presentate clienti enterprise, partecipate al processo di vendita o sviluppate una partnership strategica di mercato. Il nostro modello premia il contributo misurabile all'acquisizione e alla delivery.",
+  "pl": "Przedstawiaj klientów korporacyjnych, uczestnicz w procesie sprzedaży lub rozwijaj strategiczne partnerstwo rynkowe. Nasz model nagradza mierzalny wkład w pozyskanie klienta i wdrożenie.",
+  "pt": "Apresente clientes empresariais, participe no processo comercial ou desenvolva uma parceria estratégica de mercado. O nosso modelo recompensa a contribuição mensurável para a aquisição e a entrega."
+ },
+ "Commission": {
+  "cs": "Provize",
+  "de": "Provision",
+  "fr": "Commission",
+  "es": "Comisión",
+  "it": "Commissione",
+  "pl": "Prowizja",
+  "pt": "Comissão"
+ },
+ "You do": {
+  "cs": "Vy zajišťujete",
+  "de": "Sie übernehmen",
+  "fr": "Vous faites",
+  "es": "Usted aporta",
+  "it": "Voi fate",
+  "pl": "Ty zapewniasz",
+  "pt": "O parceiro faz"
+ },
+ "ColleagueAI does": {
+  "cs": "ColleagueAI zajišťuje",
+  "de": "ColleagueAI übernimmt",
+  "fr": "ColleagueAI s'occupe de",
+  "es": "ColleagueAI se encarga de",
+  "it": "ColleagueAI si occupa di",
+  "pl": "ColleagueAI zapewnia",
+  "pt": "A ColleagueAI trata de"
+ },
+ "Typical activities": {
+  "cs": "Typické činnosti",
+  "de": "Typische Aktivitäten",
+  "fr": "Activités typiques",
+  "es": "Actividades habituales",
+  "it": "Attività tipiche",
+  "pl": "Typowe działania",
+  "pt": "Atividades típicas"
+ },
+ "Potential activities": {
+  "cs": "Možné činnosti",
+  "de": "Mögliche Aktivitäten",
+  "fr": "Activités possibles",
+  "es": "Actividades posibles",
+  "it": "Attività possibili",
+  "pl": "Możliwe działania",
+  "pt": "Atividades possíveis"
+ },
+ "Referral Partner": {
+  "cs": "Referenční partner",
+  "de": "Empfehlungspartner",
+  "fr": "Partenaire apporteur d'affaires",
+  "es": "Socio de referencia",
+  "it": "Partner segnalatore",
+  "pl": "Partner polecający",
+  "pt": "Parceiro de referência"
+ },
+ "Sales Partner": {
+  "cs": "Obchodní partner",
+  "de": "Vertriebspartner",
+  "fr": "Partenaire commercial",
+  "es": "Socio comercial",
+  "it": "Partner commerciale",
+  "pl": "Partner sprzedażowy",
+  "pt": "Parceiro comercial"
+ },
+ "Strategic Partner": {
+  "cs": "Strategický partner",
+  "de": "Strategischer Partner",
+  "fr": "Partenaire stratégique",
+  "es": "Socio estratégico",
+  "it": "Partner strategico",
+  "pl": "Partner strategiczny",
+  "pt": "Parceiro estratégico"
+ },
+ "From 20%": {
+  "cs": "Od 20 %",
+  "de": "Ab 20 %",
+  "fr": "À partir de 20 %",
+  "es": "Desde el 20 %",
+  "it": "Dal 20%",
+  "pl": "Od 20%",
+  "pt": "A partir de 20%"
+ },
+ "For partners who identify and introduce qualified prospective customers.": {
+  "cs": "Pro partnery, kteří identifikují a představí kvalifikované potenciální zákazníky.",
+  "de": "Für Partner, die qualifizierte potenzielle Kunden identifizieren und vorstellen.",
+  "fr": "Pour les partenaires qui identifient et présentent des prospects qualifiés.",
+  "es": "Para socios que identifican y presentan clientes potenciales cualificados.",
+  "it": "Per partner che identificano e presentano potenziali clienti qualificati.",
+  "pl": "Dla partnerów, którzy identyfikują i przedstawiają kwalifikowanych potencjalnych klientów.",
+  "pt": "Para parceiros que identificam e apresentam potenciais clientes qualificados."
+ },
+ "Identify a relevant prospective customer": {
+  "cs": "Identifikovat relevantního potenciálního zákazníka",
+  "de": "Einen relevanten potenziellen Kunden identifizieren",
+  "fr": "Identifier un prospect pertinent",
+  "es": "Identificar un cliente potencial relevante",
+  "it": "Identificare un potenziale cliente rilevante",
+  "pl": "Zidentyfikować odpowiedniego potencjalnego klienta",
+  "pt": "Identificar um potencial cliente relevante"
+ },
+ "Make a documented introduction": {
+  "cs": "Zajistit doložené představení",
+  "de": "Eine dokumentierte Vorstellung vornehmen",
+  "fr": "Réaliser une mise en relation documentée",
+  "es": "Realizar una presentación documentada",
+  "it": "Effettuare una presentazione documentata",
+  "pl": "Dokonać udokumentowanego przedstawienia",
+  "pt": "Fazer uma apresentação documentada"
+ },
+ "Provide sufficient context for qualification": {
+  "cs": "Poskytnout dostatečný kontext pro kvalifikaci",
+  "de": "Ausreichenden Kontext für die Qualifizierung liefern",
+  "fr": "Fournir un contexte suffisant pour la qualification",
+  "es": "Aportar contexto suficiente para la cualificación",
+  "it": "Fornire contesto sufficiente per la qualificazione",
+  "pl": "Zapewnić wystarczający kontekst do kwalifikacji",
+  "pt": "Fornecer contexto suficiente para a qualificação"
+ },
+ "Allow ColleagueAI to manage the commercial process": {
+  "cs": "Přenechat obchodní proces ColleagueAI",
+  "de": "ColleagueAI den kommerziellen Prozess führen lassen",
+  "fr": "Laisser ColleagueAI gérer le processus commercial",
+  "es": "Permitir que ColleagueAI gestione el proceso comercial",
+  "it": "Lasciare che ColleagueAI gestisca il processo commerciale",
+  "pl": "Umożliwić ColleagueAI prowadzenie procesu handlowego",
+  "pt": "Permitir que a ColleagueAI conduza o processo comercial"
+ },
+ "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": {
+  "cs": "Discovery, demonstrace, nabídka, vyjednávání, uzavření smlouvy, implementace a zákaznická podpora.",
+  "de": "Discovery, Demonstration, Angebot, Verhandlung, Vertragsabschluss, Implementierung und Kundensupport.",
+  "fr": "Discovery, démonstration, proposition, négociation, contractualisation, implémentation et support client.",
+  "es": "Discovery, demostración, propuesta, negociación, contratación, implementación y soporte al cliente.",
+  "it": "Discovery, dimostrazione, proposta, negoziazione, contrattualizzazione, implementazione e supporto al cliente.",
+  "pl": "Discovery, demonstracja, oferta, negocjacje, umowa, wdrożenie i wsparcie klienta.",
+  "pt": "Discovery, demonstração, proposta, negociação, contratação, implementação e apoio ao cliente."
+ },
+ "Become a Referral Partner": {
+  "cs": "Stát se referenčním partnerem",
+  "de": "Empfehlungspartner werden",
+  "fr": "Devenir partenaire apporteur",
+  "es": "Ser socio de referencia",
+  "it": "Diventa partner segnalatore",
+  "pl": "Zostań partnerem polecającym",
+  "pt": "Tornar-se parceiro de referência"
+ },
+ "For partners who actively qualify opportunities and participate in progressing the commercial relationship.": {
+  "cs": "Pro partnery, kteří aktivně kvalifikují příležitosti a podílejí se na rozvoji obchodního vztahu.",
+  "de": "Für Partner, die Opportunities aktiv qualifizieren und die Geschäftsbeziehung aktiv voranbringen.",
+  "fr": "Pour les partenaires qui qualifient activement les opportunités et participent à l'avancement de la relation commerciale.",
+  "es": "Para socios que cualifican activamente oportunidades y participan en el avance de la relación comercial.",
+  "it": "Per partner che qualificano attivamente le opportunità e partecipano all'avanzamento della relazione commerciale.",
+  "pl": "Dla partnerów, którzy aktywnie kwalifikują szanse sprzedaży i uczestniczą w rozwoju relacji handlowej.",
+  "pt": "Para parceiros que qualificam ativamente oportunidades e participam na evolução da relação comercial."
+ },
+ "Qualifying customer needs": {
+  "cs": "Kvalifikace potřeb zákazníka",
+  "de": "Kundenbedarf qualifizieren",
+  "fr": "Qualifier les besoins du client",
+  "es": "Cualificar las necesidades del cliente",
+  "it": "Qualificare le esigenze del cliente",
+  "pl": "Kwalifikacja potrzeb klienta",
+  "pt": "Qualificar as necessidades do cliente"
+ },
+ "Arranging meetings": {
+  "cs": "Domlouvání schůzek",
+  "de": "Termine vereinbaren",
+  "fr": "Organiser des réunions",
+  "es": "Concertar reuniones",
+  "it": "Organizzare incontri",
+  "pl": "Organizacja spotkań",
+  "pt": "Marcar reuniões"
+ },
+ "Supporting presentations": {
+  "cs": "Podpora při prezentacích",
+  "de": "Präsentationen unterstützen",
+  "fr": "Soutenir les présentations",
+  "es": "Apoyar las presentaciones",
+  "it": "Supportare le presentazioni",
+  "pl": "Wsparcie prezentacji",
+  "pt": "Apoiar apresentações"
+ },
+ "Maintaining stakeholder engagement": {
+  "cs": "Udržování kontaktu se zainteresovanými stranami",
+  "de": "Stakeholder-Engagement aufrechterhalten",
+  "fr": "Maintenir l'engagement des parties prenantes",
+  "es": "Mantener la implicación de los interlocutores",
+  "it": "Mantenere il coinvolgimento degli stakeholder",
+  "pl": "Utrzymywanie zaangażowania interesariuszy",
+  "pt": "Manter o envolvimento dos stakeholders"
+ },
+ "Assisting with commercial follow-up": {
+  "cs": "Pomoc s obchodním follow-upem",
+  "de": "Bei der kommerziellen Nachverfolgung unterstützen",
+  "fr": "Assister au suivi commercial",
+  "es": "Ayudar en el seguimiento comercial",
+  "it": "Assistere nel follow-up commerciale",
+  "pl": "Pomoc w handlowym follow-upie",
+  "pt": "Ajudar no seguimento comercial"
+ },
+ "Helping move the opportunity toward a decision": {
+  "cs": "Pomoc posunout příležitost k rozhodnutí",
+  "de": "Die Opportunity zur Entscheidung führen helfen",
+  "fr": "Aider à faire avancer l'opportunité vers une décision",
+  "es": "Ayudar a llevar la oportunidad hacia una decisión",
+  "it": "Aiutare a portare l'opportunità verso una decisione",
+  "pl": "Pomoc w doprowadzeniu szansy do decyzji",
+  "pt": "Ajudar a levar a oportunidade a uma decisão"
+ },
+ "Become a Sales Partner": {
+  "cs": "Stát se obchodním partnerem",
+  "de": "Vertriebspartner werden",
+  "fr": "Devenir partenaire commercial",
+  "es": "Ser socio comercial",
+  "it": "Diventa partner commerciale",
+  "pl": "Zostań partnerem sprzedażowym",
+  "pt": "Tornar-se parceiro comercial"
+ },
+ "For established partners who generate recurring opportunities, provide strategic market access or assume meaningful commercial and customer responsibilities.": {
+  "cs": "Pro zavedené partnery, kteří generují opakované příležitosti, poskytují strategický přístup na trh nebo přebírají významnou obchodní a zákaznickou odpovědnost.",
+  "de": "Für etablierte Partner, die wiederkehrende Opportunities generieren, strategischen Marktzugang bieten oder wesentliche kommerzielle und Kundenverantwortung übernehmen.",
+  "fr": "Pour les partenaires établis qui génèrent des opportunités récurrentes, offrent un accès stratégique au marché ou assument des responsabilités commerciales et clients significatives.",
+  "es": "Para socios consolidados que generan oportunidades recurrentes, aportan acceso estratégico al mercado o asumen responsabilidades comerciales y de cliente relevantes.",
+  "it": "Per partner consolidati che generano opportunità ricorrenti, offrono accesso strategico al mercato o assumono responsabilità commerciali e verso il cliente rilevanti.",
+  "pl": "Dla uznanych partnerów, którzy generują powtarzalne szanse sprzedaży, zapewniają strategiczny dostęp do rynku lub przejmują istotną odpowiedzialność handlową i za klienta.",
+  "pt": "Para parceiros estabelecidos que geram oportunidades recorrentes, proporcionam acesso estratégico ao mercado ou assumem responsabilidades comerciais e de cliente relevantes."
+ },
+ "Recurring pipeline generation": {
+  "cs": "Opakované generování pipeline",
+  "de": "Wiederkehrende Pipeline-Generierung",
+  "fr": "Génération récurrente de pipeline",
+  "es": "Generación recurrente de pipeline",
+  "it": "Generazione ricorrente di pipeline",
+  "pl": "Powtarzalne generowanie pipeline'u",
+  "pt": "Geração recorrente de pipeline"
+ },
+ "Regional or industry market development": {
+  "cs": "Rozvoj trhu v regionu nebo odvětví",
+  "de": "Regionale oder branchenbezogene Marktentwicklung",
+  "fr": "Développement de marché régional ou sectoriel",
+  "es": "Desarrollo de mercado regional o sectorial",
+  "it": "Sviluppo di mercato regionale o settoriale",
+  "pl": "Rozwój rynku regionalnego lub branżowego",
+  "pt": "Desenvolvimento de mercado regional ou setorial"
+ },
+ "Active sales ownership": {
+  "cs": "Aktivní odpovědnost za obchod",
+  "de": "Aktive Vertriebsverantwortung",
+  "fr": "Pilotage actif de la vente",
+  "es": "Responsabilidad activa de la venta",
+  "it": "Titolarità attiva della vendita",
+  "pl": "Aktywna odpowiedzialność za sprzedaż",
+  "pt": "Responsabilidade ativa pela venda"
+ },
+ "Account development": {
+  "cs": "Rozvoj klientů",
+  "de": "Account-Entwicklung",
+  "fr": "Développement de comptes",
+  "es": "Desarrollo de cuentas",
+  "it": "Sviluppo degli account",
+  "pl": "Rozwój klientów",
+  "pt": "Desenvolvimento de contas"
+ },
+ "Implementation coordination": {
+  "cs": "Koordinace implementace",
+  "de": "Implementierungskoordination",
+  "fr": "Coordination de l'implémentation",
+  "es": "Coordinación de la implementación",
+  "it": "Coordinamento dell'implementazione",
+  "pl": "Koordynacja wdrożenia",
+  "pt": "Coordenação da implementação"
+ },
+ "Initial customer support": {
+  "cs": "Počáteční zákaznická podpora",
+  "de": "Anfänglicher Kundensupport",
+  "fr": "Support client initial",
+  "es": "Soporte inicial al cliente",
+  "it": "Supporto iniziale al cliente",
+  "pl": "Wstępne wsparcie klienta",
+  "pt": "Apoio inicial ao cliente"
+ },
+ "Joint go-to-market activities": {
+  "cs": "Společné go-to-market aktivity",
+  "de": "Gemeinsame Go-to-Market-Aktivitäten",
+  "fr": "Actions go-to-market conjointes",
+  "es": "Actividades go-to-market conjuntas",
+  "it": "Attività go-to-market congiunte",
+  "pl": "Wspólne działania go-to-market",
+  "pt": "Atividades go-to-market conjuntas"
+ },
+ "Strategic-partner terms are agreed individually and may depend on volume, territory, responsibilities, support model and commercial commitment.": {
+  "cs": "Podmínky strategického partnerství se sjednávají individuálně a mohou záviset na objemu, teritoriu, odpovědnostech, modelu podpory a obchodním závazku.",
+  "de": "Konditionen für strategische Partner werden individuell vereinbart und können von Volumen, Gebiet, Verantwortlichkeiten, Supportmodell und kommerzieller Verpflichtung abhängen.",
+  "fr": "Les conditions du partenariat stratégique sont convenues individuellement et peuvent dépendre du volume, du territoire, des responsabilités, du modèle de support et de l'engagement commercial.",
+  "es": "Las condiciones del socio estratégico se acuerdan individualmente y pueden depender del volumen, el territorio, las responsabilidades, el modelo de soporte y el compromiso comercial.",
+  "it": "Le condizioni del partner strategico sono concordate individualmente e possono dipendere da volume, territorio, responsabilità, modello di supporto e impegno commerciale.",
+  "pl": "Warunki partnera strategicznego są ustalane indywidualnie i mogą zależeć od wolumenu, terytorium, odpowiedzialności, modelu wsparcia i zobowiązania handlowego.",
+  "pt": "As condições de parceiro estratégico são acordadas individualmente e podem depender do volume, território, responsabilidades, modelo de suporte e compromisso comercial."
+ },
+ "Discuss a Strategic Partnership": {
+  "cs": "Probrat strategické partnerství",
+  "de": "Strategische Partnerschaft besprechen",
+  "fr": "Discuter d'un partenariat stratégique",
+  "es": "Hablar de una alianza estratégica",
+  "it": "Parliamo di una partnership strategica",
+  "pl": "Omów partnerstwo strategiczne",
+  "pt": "Falar sobre uma parceria estratégica"
+ },
+ "Partner contribution and typical commission": {
+  "cs": "Přínos partnera a typická provize",
+  "de": "Partnerbeitrag und typische Provision",
+  "fr": "Contribution du partenaire et commission typique",
+  "es": "Contribución del socio y comisión habitual",
+  "it": "Contributo del partner e commissione tipica",
+  "pl": "Wkład partnera i typowa prowizja",
+  "pt": "Contributo do parceiro e comissão típica"
+ },
+ "Partner contribution": {
+  "cs": "Přínos partnera",
+  "de": "Partnerbeitrag",
+  "fr": "Contribution du partenaire",
+  "es": "Contribución del socio",
+  "it": "Contributo del partner",
+  "pl": "Wkład partnera",
+  "pt": "Contributo do parceiro"
+ },
+ "Typical commission": {
+  "cs": "Typická provize",
+  "de": "Typische Provision",
+  "fr": "Commission typique",
+  "es": "Comisión habitual",
+  "it": "Commissione tipica",
+  "pl": "Typowa prowizja",
+  "pt": "Comissão típica"
+ },
+ "Qualified referral or introduction": {
+  "cs": "Kvalifikované doporučení nebo představení",
+  "de": "Qualifizierte Empfehlung oder Vorstellung",
+  "fr": "Recommandation ou mise en relation qualifiée",
+  "es": "Recomendación o presentación cualificada",
+  "it": "Segnalazione o presentazione qualificata",
+  "pl": "Kwalifikowane polecenie lub przedstawienie",
+  "pt": "Recomendação ou apresentação qualificada"
+ },
+ "Meeting arrangement and active sales support": {
+  "cs": "Domluvení schůzky a aktivní obchodní podpora",
+  "de": "Terminvereinbarung und aktive Vertriebsunterstützung",
+  "fr": "Organisation de réunions et soutien commercial actif",
+  "es": "Concertación de reuniones y apoyo comercial activo",
+  "it": "Organizzazione di incontri e supporto commerciale attivo",
+  "pl": "Organizacja spotkań i aktywne wsparcie sprzedaży",
+  "pt": "Marcação de reuniões e apoio comercial ativo"
+ },
+ "Full presentation and commercial close": {
+  "cs": "Kompletní prezentace a uzavření obchodu",
+  "de": "Vollständige Präsentation und kommerzieller Abschluss",
+  "fr": "Présentation complète et closing commercial",
+  "es": "Presentación completa y cierre comercial",
+  "it": "Presentazione completa e chiusura commerciale",
+  "pl": "Pełna prezentacja i zamknięcie sprzedaży",
+  "pt": "Apresentação completa e fecho comercial"
+ },
+ "Authorized reseller with sales and initial support": {
+  "cs": "Autorizovaný prodejce s obchodem a počáteční podporou",
+  "de": "Autorisierter Reseller mit Vertrieb und Erstsupport",
+  "fr": "Revendeur agréé avec vente et support initial",
+  "es": "Revendedor autorizado con venta y soporte inicial",
+  "it": "Rivenditore autorizzato con vendita e supporto iniziale",
+  "pl": "Autoryzowany reseller ze sprzedażą i wsparciem początkowym",
+  "pt": "Revendedor autorizado com venda e apoio inicial"
+ },
+ "Final commission terms depend on the partner's role, transaction size, discount level, customer responsibilities, territory and ongoing support obligations.": {
+  "cs": "Konečné provizní podmínky závisí na roli partnera, velikosti transakce, úrovni slevy, odpovědnostech vůči zákazníkovi, teritoriu a průběžných povinnostech podpory.",
+  "de": "Die endgültigen Provisionsbedingungen hängen von der Rolle des Partners, der Transaktionsgröße, dem Rabattniveau, den Kundenverantwortlichkeiten, dem Gebiet und laufenden Supportpflichten ab.",
+  "fr": "Les conditions finales de commission dépendent du rôle du partenaire, de la taille de la transaction, du niveau de remise, des responsabilités clients, du territoire et des obligations de support continues.",
+  "es": "Las condiciones finales de comisión dependen del rol del socio, el tamaño de la transacción, el nivel de descuento, las responsabilidades con el cliente, el territorio y las obligaciones de soporte continuo.",
+  "it": "Le condizioni finali di commissione dipendono dal ruolo del partner, dalla dimensione della transazione, dal livello di sconto, dalle responsabilità verso il cliente, dal territorio e dagli obblighi di supporto continuativo.",
+  "pl": "Ostateczne warunki prowizji zależą od roli partnera, wielkości transakcji, poziomu rabatu, odpowiedzialności wobec klienta, terytorium i bieżących obowiązków wsparcia.",
+  "pt": "As condições finais de comissão dependem do papel do parceiro, da dimensão da transação, do nível de desconto, das responsabilidades perante o cliente, do território e das obrigações de suporte contínuo."
+ },
+ "Example transaction": {
+  "cs": "Příklad transakce",
+  "de": "Beispieltransaktion",
+  "fr": "Exemple de transaction",
+  "es": "Ejemplo de transacción",
+  "it": "Esempio di transazione",
+  "pl": "Przykładowa transakcja",
+  "pt": "Exemplo de transação"
+ },
+ "Agent contract value": {
+  "cs": "Hodnota smlouvy na agenta",
+  "de": "Vertragswert des Agenten",
+  "fr": "Valeur du contrat d'agent",
+  "es": "Valor del contrato del agente",
+  "it": "Valore del contratto dell'agente",
+  "pl": "Wartość umowy na agenta",
+  "pt": "Valor do contrato do agente"
+ },
+ "Referral Partner commission at 10%": {
+  "cs": "Provize referenčního partnera 10 %",
+  "de": "Provision des Empfehlungspartners bei 10 %",
+  "fr": "Commission du partenaire apporteur à 10 %",
+  "es": "Comisión del socio de referencia del 10 %",
+  "it": "Commissione del partner segnalatore al 10%",
+  "pl": "Prowizja partnera polecającego 10%",
+  "pt": "Comissão do parceiro de referência a 10%"
+ },
+ "Revenue retained by ColleagueAI before delivery costs and other expenses": {
+  "cs": "Tržby, které si ponechá ColleagueAI před náklady na dodávku a dalšími výdaji",
+  "de": "Von ColleagueAI einbehaltener Umsatz vor Lieferkosten und weiteren Aufwendungen",
+  "fr": "Chiffre d'affaires conservé par ColleagueAI avant coûts de livraison et autres charges",
+  "es": "Ingresos retenidos por ColleagueAI antes de costes de entrega y otros gastos",
+  "it": "Ricavi trattenuti da ColleagueAI al lordo dei costi di delivery e di altre spese",
+  "pl": "Przychód zatrzymany przez ColleagueAI przed kosztami realizacji i innymi wydatkami",
+  "pt": "Receita retida pela ColleagueAI antes dos custos de entrega e outras despesas"
+ },
+ "Clear and transparent partner terms": {
+  "cs": "Jasné a transparentní partnerské podmínky",
+  "de": "Klare und transparente Partnerbedingungen",
+  "fr": "Des conditions de partenariat claires et transparentes",
+  "es": "Condiciones de socio claras y transparentes",
+  "it": "Condizioni di partnership chiare e trasparenti",
+  "pl": "Jasne i przejrzyste warunki partnerskie",
+  "pt": "Condições de parceria claras e transparentes"
+ },
+ "Commission is normally calculated from eligible net revenue.": {
+  "cs": "Provize se běžně počítá z uznatelných čistých tržeb.",
+  "de": "Die Provision wird in der Regel vom anrechenbaren Nettoumsatz berechnet.",
+  "fr": "La commission est normalement calculée sur le chiffre d'affaires net éligible.",
+  "es": "La comisión se calcula normalmente sobre los ingresos netos elegibles.",
+  "it": "La commissione è normalmente calcolata sui ricavi netti ammissibili.",
+  "pl": "Prowizja jest zwykle naliczana od kwalifikowanego przychodu netto.",
+  "pt": "A comissão é normalmente calculada sobre a receita líquida elegível."
+ },
+ "Commission becomes payable only after the customer's payment has been received.": {
+  "cs": "Nárok na výplatu provize vzniká až po přijetí platby od zákazníka.",
+  "de": "Die Provision wird erst nach Eingang der Kundenzahlung fällig.",
+  "fr": "La commission n'est due qu'après réception du paiement du client.",
+  "es": "La comisión solo es exigible tras recibir el pago del cliente.",
+  "it": "La commissione diventa esigibile solo dopo l'incasso del pagamento del cliente.",
+  "pl": "Prowizja staje się wymagalna dopiero po otrzymaniu płatności od klienta.",
+  "pt": "A comissão só é devida após a receção do pagamento do cliente."
+ },
+ "Taxes, refunds, credits, chargebacks and excluded pass-through costs may be deducted from the commission base.": {
+  "cs": "Daně, vratky, dobropisy, chargebacky a vyloučené přeúčtované náklady mohou být odečteny od základu pro provizi.",
+  "de": "Steuern, Rückerstattungen, Gutschriften, Rückbuchungen und ausgeschlossene durchlaufende Kosten können von der Provisionsbasis abgezogen werden.",
+  "fr": "Taxes, remboursements, avoirs, rétrofacturations et coûts refacturés exclus peuvent être déduits de la base de commission.",
+  "es": "Impuestos, reembolsos, abonos, contracargos y costes repercutidos excluidos pueden deducirse de la base de comisión.",
+  "it": "Imposte, rimborsi, note di credito, chargeback e costi passanti esclusi possono essere dedotti dalla base di calcolo.",
+  "pl": "Podatki, zwroty, noty kredytowe, obciążenia zwrotne i wyłączone koszty przenoszone mogą zostać odliczone od podstawy prowizji.",
+  "pt": "Impostos, reembolsos, notas de crédito, estornos e custos repassados excluídos podem ser deduzidos da base de comissão."
+ },
+ "Every opportunity must be registered and accepted before commission protection begins.": {
+  "cs": "Každá příležitost musí být zaregistrována a přijata, než začne ochrana nároku na provizi.",
+  "de": "Jede Opportunity muss registriert und angenommen werden, bevor der Provisionsschutz beginnt.",
+  "fr": "Chaque opportunité doit être enregistrée et acceptée avant que la protection de commission ne commence.",
+  "es": "Cada oportunidad debe registrarse y aceptarse antes de que comience la protección de la comisión.",
+  "it": "Ogni opportunità deve essere registrata e accettata prima che inizi la protezione della commissione.",
+  "pl": "Każda szansa sprzedaży musi zostać zarejestrowana i zaakceptowana, zanim rozpocznie się ochrona prowizji.",
+  "pt": "Cada oportunidade deve ser registada e aceite antes de começar a proteção da comissão."
+ },
+ "Referral protection applies for a defined contractual period.": {
+  "cs": "Ochrana doporučení platí po smluvně stanovenou dobu.",
+  "de": "Der Empfehlungsschutz gilt für einen vertraglich festgelegten Zeitraum.",
+  "fr": "La protection de la recommandation s'applique pour une période contractuelle définie.",
+  "es": "La protección de la recomendación se aplica durante un periodo contractual definido.",
+  "it": "La protezione della segnalazione si applica per un periodo contrattuale definito.",
+  "pl": "Ochrona polecenia obowiązuje przez określony umownie okres.",
+  "pt": "A proteção da recomendação aplica-se por um período contratual definido."
+ },
+ "Existing customers and previously active opportunities may be excluded.": {
+  "cs": "Stávající zákazníci a dříve aktivní příležitosti mohou být vyloučeni.",
+  "de": "Bestehende Kunden und zuvor aktive Opportunities können ausgeschlossen sein.",
+  "fr": "Les clients existants et les opportunités déjà actives peuvent être exclus.",
+  "es": "Los clientes existentes y las oportunidades previamente activas pueden quedar excluidos.",
+  "it": "I clienti esistenti e le opportunità già attive possono essere esclusi.",
+  "pl": "Obecni klienci i wcześniej aktywne szanse sprzedaży mogą być wyłączeni.",
+  "pt": "Clientes existentes e oportunidades anteriormente ativas podem ser excluídos."
+ },
+ "The agreement must define responsibility where multiple partners claim the same opportunity.": {
+  "cs": "Smlouva musí určit odpovědnost v případě, že si stejnou příležitost nárokuje více partnerů.",
+  "de": "Die Vereinbarung muss die Verantwortung regeln, wenn mehrere Partner dieselbe Opportunity beanspruchen.",
+  "fr": "L'accord doit définir la responsabilité lorsque plusieurs partenaires revendiquent la même opportunité.",
+  "es": "El acuerdo debe definir la responsabilidad cuando varios socios reclaman la misma oportunidad.",
+  "it": "L'accordo deve definire la responsabilità quando più partner rivendicano la stessa opportunità.",
+  "pl": "Umowa musi określać odpowiedzialność, gdy tę samą szansę zgłasza wielu partnerów.",
+  "pt": "O acordo deve definir a responsabilidade quando vários parceiros reivindicam a mesma oportunidade."
+ },
+ "Renewal and expansion commissions apply only when explicitly included in the partner agreement.": {
+  "cs": "Provize z obnovení a rozšíření platí pouze tehdy, jsou-li výslovně zahrnuty v partnerské smlouvě.",
+  "de": "Provisionen für Verlängerungen und Erweiterungen gelten nur, wenn sie ausdrücklich in der Partnervereinbarung enthalten sind.",
+  "fr": "Les commissions de renouvellement et d'extension ne s'appliquent que si elles sont explicitement prévues dans l'accord de partenariat.",
+  "es": "Las comisiones por renovación y ampliación solo se aplican si se incluyen explícitamente en el acuerdo de socio.",
+  "it": "Le commissioni su rinnovi ed espansioni si applicano solo se esplicitamente incluse nell'accordo di partnership.",
+  "pl": "Prowizje od odnowień i rozszerzeń obowiązują wyłącznie, gdy zostały wyraźnie ujęte w umowie partnerskiej.",
+  "pt": "As comissões de renovação e expansão aplicam-se apenas quando explicitamente incluídas no acordo de parceria."
+ },
+ "Strategic or reseller relationships may include additional customer-support and service obligations.": {
+  "cs": "Strategické nebo resellerské vztahy mohou zahrnovat další povinnosti zákaznické podpory a služeb.",
+  "de": "Strategische oder Reseller-Beziehungen können zusätzliche Kundensupport- und Serviceverpflichtungen umfassen.",
+  "fr": "Les relations stratégiques ou de revente peuvent comporter des obligations supplémentaires de support et de service client.",
+  "es": "Las relaciones estratégicas o de reventa pueden incluir obligaciones adicionales de soporte y servicio al cliente.",
+  "it": "Le relazioni strategiche o di rivendita possono includere ulteriori obblighi di supporto e servizio al cliente.",
+  "pl": "Relacje strategiczne lub resellerskie mogą obejmować dodatkowe obowiązki wsparcia i obsługi klienta.",
+  "pt": "As relações estratégicas ou de revenda podem incluir obrigações adicionais de apoio e serviço ao cliente."
+ },
+ "Regional, industry or account exclusivity must be documented in writing.": {
+  "cs": "Regionální, odvětvová nebo klientská exkluzivita musí být písemně zdokumentována.",
+  "de": "Regionale, branchenbezogene oder kundenbezogene Exklusivität muss schriftlich dokumentiert werden.",
+  "fr": "L'exclusivité régionale, sectorielle ou par compte doit être documentée par écrit.",
+  "es": "La exclusividad regional, sectorial o por cuenta debe documentarse por escrito.",
+  "it": "L'esclusiva regionale, settoriale o per account deve essere documentata per iscritto.",
+  "pl": "Wyłączność regionalna, branżowa lub na klienta musi być udokumentowana na piśmie.",
+  "pt": "A exclusividade regional, setorial ou por conta deve ser documentada por escrito."
+ },
+ "ColleagueAI may reject opportunities that do not meet qualification, compliance or commercial requirements.": {
+  "cs": "ColleagueAI může odmítnout příležitosti, které nesplňují kvalifikační, compliance nebo obchodní požadavky.",
+  "de": "ColleagueAI kann Opportunities ablehnen, die Qualifizierungs-, Compliance- oder kommerzielle Anforderungen nicht erfüllen.",
+  "fr": "ColleagueAI peut refuser les opportunités qui ne répondent pas aux exigences de qualification, de conformité ou commerciales.",
+  "es": "ColleagueAI puede rechazar oportunidades que no cumplan los requisitos de cualificación, cumplimiento o comerciales.",
+  "it": "ColleagueAI può rifiutare opportunità che non soddisfano requisiti di qualificazione, compliance o commerciali.",
+  "pl": "ColleagueAI może odrzucić szanse sprzedaży, które nie spełniają wymogów kwalifikacyjnych, compliance lub handlowych.",
+  "pt": "A ColleagueAI pode recusar oportunidades que não cumpram requisitos de qualificação, conformidade ou comerciais."
+ },
+ "Commission percentages shown on this page are indicative program terms and do not create an entitlement to payment. All partnerships are subject to approval and a signed partner agreement.": {
+  "cs": "Procenta provizí uvedená na této stránce jsou orientační podmínky programu a nezakládají nárok na výplatu. Všechna partnerství podléhají schválení a podepsané partnerské smlouvě.",
+  "de": "Die auf dieser Seite gezeigten Provisionssätze sind indikative Programmbedingungen und begründen keinen Zahlungsanspruch. Alle Partnerschaften stehen unter dem Vorbehalt der Freigabe und einer unterzeichneten Partnervereinbarung.",
+  "fr": "Les pourcentages de commission affichés sur cette page sont des conditions de programme indicatives et ne créent aucun droit à paiement. Tout partenariat est soumis à approbation et à un accord de partenariat signé.",
+  "es": "Los porcentajes de comisión mostrados en esta página son condiciones indicativas del programa y no generan derecho a pago. Todas las alianzas están sujetas a aprobación y a un acuerdo de socio firmado.",
+  "it": "Le percentuali di commissione indicate in questa pagina sono condizioni di programma indicative e non creano alcun diritto al pagamento. Tutte le partnership sono soggette ad approvazione e a un accordo di partnership firmato.",
+  "pl": "Wartości prowizji podane na tej stronie są orientacyjnymi warunkami programu i nie tworzą uprawnienia do wypłaty. Wszystkie partnerstwa podlegają zatwierdzeniu i podpisanej umowie partnerskiej.",
+  "pt": "As percentagens de comissão apresentadas nesta página são condições indicativas do programa e não conferem direito a pagamento. Todas as parcerias estão sujeitas a aprovação e a um acordo de parceria assinado."
+ },
+ "Full name": {
+  "cs": "Celé jméno",
+  "de": "Vollständiger Name",
+  "fr": "Nom complet",
+  "es": "Nombre completo",
+  "it": "Nome e cognome",
+  "pl": "Imię i nazwisko",
+  "pt": "Nome completo"
+ },
+ "Work email": {
+  "cs": "Pracovní e-mail",
+  "de": "Geschäftliche E-Mail",
+  "fr": "E-mail professionnel",
+  "es": "Correo electrónico de trabajo",
+  "it": "E-mail di lavoro",
+  "pl": "Służbowy e-mail",
+  "pt": "E-mail profissional"
+ },
+ "Company": {
+  "cs": "Společnost",
+  "de": "Unternehmen",
+  "fr": "Entreprise",
+  "es": "Empresa",
+  "it": "Azienda",
+  "pl": "Firma",
+  "pt": "Empresa"
+ },
+ "(optional)": {
+  "cs": "(nepovinné)",
+  "de": "(optional)",
+  "fr": "(facultatif)",
+  "es": "(opcional)",
+  "it": "(facoltativo)",
+  "pl": "(opcjonalne)",
+  "pt": "(opcional)"
+ },
+ "Select": {
+  "cs": "Vyberte",
+  "de": "Bitte wählen",
+  "fr": "Sélectionner",
+  "es": "Seleccione",
+  "it": "Seleziona",
+  "pl": "Wybierz",
+  "pt": "Selecionar"
+ },
+ "I have read and accept the privacy policy.": {
+  "cs": "Přečetl/a jsem si zásady ochrany osobních údajů a souhlasím s nimi.",
+  "de": "Ich habe die Datenschutzerklärung gelesen und akzeptiere sie.",
+  "fr": "J'ai lu et j'accepte la politique de confidentialité.",
+  "es": "He leído y acepto la política de privacidad.",
+  "it": "Ho letto e accetto l'informativa sulla privacy.",
+  "pl": "Zapoznałem/am się z polityką prywatności i ją akceptuję.",
+  "pt": "Li e aceito a política de privacidade."
+ },
+ "Privacy policy": {
+  "cs": "Ochrana osobních údajů",
+  "de": "Datenschutzerklärung",
+  "fr": "Politique de confidentialité",
+  "es": "Política de privacidad",
+  "it": "Informativa sulla privacy",
+  "pl": "Polityka prywatności",
+  "pt": "Política de privacidade"
+ },
+ "Please enter your full name.": {
+  "cs": "Zadejte prosím své celé jméno.",
+  "de": "Bitte geben Sie Ihren vollständigen Namen ein.",
+  "fr": "Veuillez saisir votre nom complet.",
+  "es": "Introduzca su nombre completo.",
+  "it": "Inserisci il tuo nome e cognome.",
+  "pl": "Podaj imię i nazwisko.",
+  "pt": "Introduza o seu nome completo."
+ },
+ "Please enter a valid work email address.": {
+  "cs": "Zadejte prosím platnou pracovní e-mailovou adresu.",
+  "de": "Bitte geben Sie eine gültige geschäftliche E-Mail-Adresse ein.",
+  "fr": "Veuillez saisir une adresse e-mail professionnelle valide.",
+  "es": "Introduzca una dirección de correo de trabajo válida.",
+  "it": "Inserisci un indirizzo e-mail di lavoro valido.",
+  "pl": "Podaj prawidłowy służbowy adres e-mail.",
+  "pt": "Introduza um e-mail profissional válido."
+ },
+ "Please enter your company name.": {
+  "cs": "Zadejte prosím název společnosti.",
+  "de": "Bitte geben Sie Ihren Firmennamen ein.",
+  "fr": "Veuillez saisir le nom de votre entreprise.",
+  "es": "Introduzca el nombre de su empresa.",
+  "it": "Inserisci il nome della tua azienda.",
+  "pl": "Podaj nazwę firmy.",
+  "pt": "Introduza o nome da sua empresa."
+ },
+ "Something went wrong. Please try again, or email hello@colleagueai.ai.": {
+  "cs": "Něco se pokazilo. Zkuste to prosím znovu nebo napište na hello@colleagueai.ai.",
+  "de": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie an hello@colleagueai.ai.",
+  "fr": "Une erreur s'est produite. Réessayez ou écrivez à hello@colleagueai.ai.",
+  "es": "Algo ha fallado. Inténtelo de nuevo o escriba a hello@colleagueai.ai.",
+  "it": "Qualcosa è andato storto. Riprova o scrivi a hello@colleagueai.ai.",
+  "pl": "Coś poszło nie tak. Spróbuj ponownie lub napisz na hello@colleagueai.ai.",
+  "pt": "Algo correu mal. Tente novamente ou escreva para hello@colleagueai.ai."
+ },
+ "Country": {
+  "cs": "Země",
+  "de": "Land",
+  "fr": "Pays",
+  "es": "País",
+  "it": "Paese",
+  "pl": "Kraj",
+  "pt": "País"
+ },
+ "Apply to become a partner": {
+  "cs": "Přihlásit se jako partner",
+  "de": "Partner werden",
+  "fr": "Devenir partenaire",
+  "es": "Solicitar ser socio",
+  "it": "Candidati come partner",
+  "pl": "Zgłoś się jako partner",
+  "pt": "Candidatar-se a parceiro"
+ },
+ "Tell us about your business and how you would work with ColleagueAI. Applications are reviewed individually; approval and commission eligibility remain subject to a signed partner agreement. Fields marked with an asterisk are required.": {
+  "cs": "Popište nám své podnikání a jak byste s ColleagueAI spolupracovali. Přihlášky posuzujeme individuálně; schválení a nárok na provizi zůstávají podmíněny podepsanou partnerskou smlouvou. Pole označená hvězdičkou jsou povinná.",
+  "de": "Beschreiben Sie Ihr Unternehmen und wie Sie mit ColleagueAI zusammenarbeiten würden. Bewerbungen werden individuell geprüft; Freigabe und Provisionsanspruch bleiben von einer unterzeichneten Partnervereinbarung abhängig. Mit Sternchen markierte Felder sind Pflichtfelder.",
+  "fr": "Présentez votre activité et la façon dont vous travailleriez avec ColleagueAI. Les candidatures sont examinées individuellement ; l'approbation et l'éligibilité aux commissions restent soumises à un accord de partenariat signé. Les champs marqués d'un astérisque sont obligatoires.",
+  "es": "Cuéntenos sobre su negocio y cómo trabajaría con ColleagueAI. Las solicitudes se revisan individualmente; la aprobación y el derecho a comisión siguen sujetos a un acuerdo de socio firmado. Los campos marcados con asterisco son obligatorios.",
+  "it": "Raccontateci della vostra attività e di come lavorereste con ColleagueAI. Le candidature sono valutate individualmente; approvazione e diritto alla commissione restano subordinati a un accordo di partnership firmato. I campi contrassegnati con asterisco sono obbligatori.",
+  "pl": "Opisz swoją działalność i to, jak chcesz współpracować z ColleagueAI. Zgłoszenia rozpatrujemy indywidualnie; zatwierdzenie i prawo do prowizji pozostają uzależnione od podpisanej umowy partnerskiej. Pola oznaczone gwiazdką są wymagane.",
+  "pt": "Fale-nos do seu negócio e de como trabalharia com a ColleagueAI. As candidaturas são analisadas individualmente; a aprovação e o direito a comissão continuam sujeitos a um acordo de parceria assinado. Os campos marcados com asterisco são obrigatórios."
+ },
+ "Website": {
+  "cs": "Web",
+  "de": "Website",
+  "fr": "Site web",
+  "es": "Sitio web",
+  "it": "Sito web",
+  "pl": "Strona internetowa",
+  "pt": "Site"
+ },
+ "Country or target market": {
+  "cs": "Země nebo cílový trh",
+  "de": "Land oder Zielmarkt",
+  "fr": "Pays ou marché cible",
+  "es": "País o mercado objetivo",
+  "it": "Paese o mercato di riferimento",
+  "pl": "Kraj lub rynek docelowy",
+  "pt": "País ou mercado-alvo"
+ },
+ "Partner type": {
+  "cs": "Typ partnera",
+  "de": "Partnertyp",
+  "fr": "Type de partenaire",
+  "es": "Tipo de socio",
+  "it": "Tipo di partner",
+  "pl": "Typ partnera",
+  "pt": "Tipo de parceiro"
+ },
+ "Relevant industries": {
+  "cs": "Relevantní odvětví",
+  "de": "Relevante Branchen",
+  "fr": "Secteurs concernés",
+  "es": "Sectores relevantes",
+  "it": "Settori rilevanti",
+  "pl": "Istotne branże",
+  "pt": "Setores relevantes"
+ },
+ "Estimated customer reach": {
+  "cs": "Odhadovaný dosah na zákazníky",
+  "de": "Geschätzte Kundenreichweite",
+  "fr": "Portée client estimée",
+  "es": "Alcance estimado de clientes",
+  "it": "Copertura clienti stimata",
+  "pl": "Szacowany zasięg klientów",
+  "pt": "Alcance estimado de clientes"
+ },
+ "Description of the proposed partnership": {
+  "cs": "Popis navrhovaného partnerství",
+  "de": "Beschreibung der vorgeschlagenen Partnerschaft",
+  "fr": "Description du partenariat proposé",
+  "es": "Descripción de la alianza propuesta",
+  "it": "Descrizione della partnership proposta",
+  "pl": "Opis proponowanego partnerstwa",
+  "pt": "Descrição da parceria proposta"
+ },
+ "Existing technology or consulting partnerships": {
+  "cs": "Stávající technologická nebo poradenská partnerství",
+  "de": "Bestehende Technologie- oder Beratungspartnerschaften",
+  "fr": "Partenariats technologiques ou de conseil existants",
+  "es": "Alianzas tecnológicas o de consultoría existentes",
+  "it": "Partnership tecnologiche o di consulenza esistenti",
+  "pl": "Istniejące partnerstwa technologiczne lub doradcze",
+  "pt": "Parcerias tecnológicas ou de consultoria existentes"
+ },
+ "Submit application": {
+  "cs": "Odeslat přihlášku",
+  "de": "Bewerbung absenden",
+  "fr": "Envoyer la candidature",
+  "es": "Enviar solicitud",
+  "it": "Invia candidatura",
+  "pl": "Wyślij zgłoszenie",
+  "pt": "Enviar candidatura"
+ },
+ "Thank you. Your application has been received and we will reply to your work email.": {
+  "cs": "Děkujeme. Vaši přihlášku jsme obdrželi a odpovíme na váš pracovní e-mail.",
+  "de": "Vielen Dank. Ihre Bewerbung ist eingegangen; wir antworten an Ihre geschäftliche E-Mail-Adresse.",
+  "fr": "Merci. Votre candidature a bien été reçue et nous répondrons à votre e-mail professionnel.",
+  "es": "Gracias. Hemos recibido su solicitud y le responderemos a su correo de trabajo.",
+  "it": "Grazie. Abbiamo ricevuto la vostra candidatura e risponderemo al vostro e-mail di lavoro.",
+  "pl": "Dziękujemy. Otrzymaliśmy Twoje zgłoszenie i odpowiemy na służbowy adres e-mail.",
+  "pt": "Obrigado. Recebemos a sua candidatura e responderemos para o seu e-mail profissional."
+ }
+}

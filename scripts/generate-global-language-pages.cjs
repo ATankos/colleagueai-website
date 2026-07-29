@@ -137,9 +137,13 @@ function removeHreflang(html) {
   return html.replace(/<!-- cai-global-hreflang:start -->[\s\S]*?<!-- cai-global-hreflang:end -->\n?/g, "");
 }
 function insertHreflang(html, page, currentLocale) {
-  html = removeHreflang(html);
+  const block = hreflangBlock(page, currentLocale);
+  // Idempotent: refresh in place. Re-appending before </head> relocated the block
+  // on every build, which churned every localized page in the diff.
+  const RE = /<!-- cai-global-hreflang:start -->[\s\S]*?<!-- cai-global-hreflang:end -->/;
+  if (RE.test(html)) return html.replace(RE, block);
   if (!html.includes("</head>")) return html;
-  return html.replace("</head>", hreflangBlock(page, currentLocale) + "\n</head>");
+  return html.replace("</head>", block + "\n</head>");
 }
 
 function localizePathLinks(html, locale) {

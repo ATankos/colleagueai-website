@@ -229,7 +229,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </style>
 <script id="cai-url-locale-controller">
 (function () {
-  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"}}};
+  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"pricing":{"en":"pricing","cs":"cenik","de":"preise","fr":"tarifs","es":"precios","it":"prezzi","pl":"cennik","pt":"precos"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"}}};
   var parts = location.pathname.split("/").filter(Boolean);
   var hasLocale = D.locales.indexOf(parts[0]) >= 0;
   var locale = hasLocale ? parts[0] : D.def;
@@ -529,6 +529,183 @@ display: flex !important;
 <div class="divider"></div>
 
 <!-- LINK GENERATOR -->
+<!-- cai-partner-levels:start -->
+<style id="cai-partner-levels-css">
+#partner-levels{padding:64px 0}
+#partner-levels .pl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:30px}
+#partner-levels .pl-card{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:24px;display:flex;flex-direction:column}
+#partner-levels .pl-card h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:20px;margin-bottom:4px}
+#partner-levels .pl-rate{font-size:26px;font-weight:700;color:var(--terra);letter-spacing:-.01em}
+#partner-levels .pl-rate small{display:block;font-size:10.5px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-family:ui-monospace,Consolas,monospace}
+#partner-levels .pl-desc{font-size:14.5px;color:var(--graphite-soft);margin:12px 0 14px}
+#partner-levels .pl-lbl{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
+#partner-levels .pl-card ul{list-style:none;margin:0 0 14px}
+#partner-levels .pl-card li{font-size:13.5px;color:var(--graphite-soft);padding:5px 0;border-top:1px solid var(--line-soft)}
+#partner-levels .pl-card li::before{content:"— ";color:var(--terra)}
+#partner-levels .pl-we{font-size:13px;color:var(--graphite-soft);background:var(--cream-2);border-radius:10px;padding:10px 12px;margin-bottom:14px}
+#partner-levels .pl-note{font-size:12.5px;color:var(--muted);margin-bottom:14px}
+#partner-levels .pl-cta{margin-top:auto}
+#partner-levels .pl-tablewrap{overflow-x:auto;margin-top:18px;-webkit-overflow-scrolling:touch}
+#partner-levels table{width:100%;border-collapse:collapse;min-width:460px}
+#partner-levels th,#partner-levels td{text-align:left;font-size:14px;padding:12px 14px;border-bottom:1px solid var(--line)}
+#partner-levels th{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+#partner-levels td:last-child,#partner-levels th:last-child{text-align:right;white-space:nowrap}
+#partner-levels .pl-ex{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:22px;margin-top:26px;max-width:620px}
+#partner-levels .pl-ex .r{display:flex;justify-content:space-between;gap:18px;font-size:14.5px;padding:9px 0;border-top:1px solid var(--line-soft)}
+#partner-levels .pl-ex .r:first-of-type{border-top:0}
+#partner-levels .pl-ex .r b{white-space:nowrap}
+#partner-levels .pl-terms{margin-top:30px;max-width:900px}
+#partner-levels .pl-terms ul{list-style:none;margin-top:12px}
+#partner-levels .pl-terms li{font-size:14px;color:var(--graphite-soft);padding:8px 0;border-bottom:1px solid var(--line-soft)}
+#partner-levels .pl-terms li::before{content:"·  ";color:var(--terra);font-weight:700}
+#partner-levels .pl-disc{font-size:12.5px;color:var(--muted);margin-top:16px;border-left:3px solid var(--line);padding-left:14px}
+#partner-levels .pl-small{font-size:12.5px;color:var(--muted);margin-top:12px}
+#partner-levels .pl-form{margin-top:38px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;max-width:900px}
+#partner-levels .pl-formlead{font-size:15px;color:var(--graphite-soft);margin-top:10px;max-width:70ch}
+#partner-levels .pl-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
+@media (max-width:680px){#partner-levels .pl-fgrid{grid-template-columns:1fr}}
+#partner-levels .pl-full{grid-column:1/-1}
+#partner-levels .fld label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--graphite)}
+#partner-levels .fld .opt{font-weight:400;color:var(--muted)}
+#partner-levels .fld input,#partner-levels .fld select,#partner-levels .fld textarea{width:100%;font:inherit;font-size:15px;color:var(--graphite);background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 13px}
+#partner-levels .fld textarea{min-height:104px;resize:vertical}
+#partner-levels .fld input:focus-visible,#partner-levels .fld select:focus-visible,#partner-levels .fld textarea:focus-visible{outline:2px solid var(--terra);outline-offset:1px;border-color:var(--terra)}
+#partner-levels .fld.bad input,#partner-levels .fld.bad textarea{border-color:#B3402A}
+#partner-levels .fld .err{display:none;font-size:12.5px;color:#B3402A;margin-top:5px}
+#partner-levels .fld.bad .err{display:block}
+#partner-levels .pl-consent{display:flex;gap:10px;align-items:flex-start;margin-top:20px;font-size:14px;color:var(--graphite-soft)}
+#partner-levels .pl-consent input{width:18px;height:18px;margin-top:2px;flex:0 0 auto}
+#partner-levels .pl-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+#partner-levels .pl-msg{font-size:14.5px;border-radius:10px;padding:13px 16px;margin-top:18px;display:none}
+#partner-levels .pl-msg.ok{display:block;background:#EDF3EC;border:1px solid #BFD6BB;color:#2C4A2A}
+#partner-levels .pl-msg.bad{display:block;background:#F8ECE8;border:1px solid #E0BCB0;color:#8A3A24}
+#partner-levels button.btn-p{cursor:pointer;font-family:inherit;border:0}
+#partner-levels button.btn-p[disabled]{opacity:.55;cursor:not-allowed}
+@media (prefers-reduced-motion:reduce){#partner-levels *{transition:none!important;animation:none!important}}
+</style>
+<section id="partner-levels" aria-labelledby="partner-levels-h">
+  <div class="wrap">
+    <span class="eyebrow">Réseau de partenaires</span>
+    <h2 class="sec-h" id="partner-levels-h">Trois façons de devenir partenaire.</h2>
+    <p style="font-size:17px;color:var(--graphite-soft);margin-top:16px;max-width:60ch;line-height:1.55">Présentez des clients grands comptes, participez au processus de vente ou développez un partenariat stratégique de marché. Notre modèle récompense la contribution mesurable à l'acquisition et à la livraison.</p>
+    <div class="pl-grid">
+<article class="pl-card" data-partner-level="referral" data-partner-level-name="Referral Partner">
+<h3>Partenaire apporteur d'affaires</h3>
+<div class="pl-rate">10%<small>Commission</small></div>
+<p class="pl-desc">Pour les partenaires qui identifient et présentent des prospects qualifiés.</p>
+<span class="pl-lbl">Vous faites</span>
+<ul><li>Identifier un prospect pertinent</li><li>Réaliser une mise en relation documentée</li><li>Fournir un contexte suffisant pour la qualification</li><li>Laisser ColleagueAI gérer le processus commercial</li></ul>
+<div class="pl-we"><span class="pl-lbl">ColleagueAI s'occupe de</span>Discovery, démonstration, proposition, négociation, contractualisation, implémentation et support client.</div>
+
+<div class="pl-cta"><a class="btn-s" href="#partner-apply" data-partner-cta="referral">Devenir partenaire apporteur</a></div>
+</article>
+<article class="pl-card" data-partner-level="sales" data-partner-level-name="Sales Partner">
+<h3>Partenaire commercial</h3>
+<div class="pl-rate">15%<small>Commission</small></div>
+<p class="pl-desc">Pour les partenaires qui qualifient activement les opportunités et participent à l'avancement de la relation commerciale.</p>
+<span class="pl-lbl">Activités typiques</span>
+<ul><li>Qualifier les besoins du client</li><li>Organiser des réunions</li><li>Soutenir les présentations</li><li>Maintenir l'engagement des parties prenantes</li><li>Assister au suivi commercial</li><li>Aider à faire avancer l'opportunité vers une décision</li></ul>
+
+
+<div class="pl-cta"><a class="btn-s" href="#partner-apply" data-partner-cta="sales">Devenir partenaire commercial</a></div>
+</article>
+<article class="pl-card" data-partner-level="strategic" data-partner-level-name="Strategic Partner">
+<h3>Partenaire stratégique</h3>
+<div class="pl-rate">À partir de 20 %<small>Commission</small></div>
+<p class="pl-desc">Pour les partenaires établis qui génèrent des opportunités récurrentes, offrent un accès stratégique au marché ou assument des responsabilités commerciales et clients significatives.</p>
+<span class="pl-lbl">Activités possibles</span>
+<ul><li>Génération récurrente de pipeline</li><li>Développement de marché régional ou sectoriel</li><li>Pilotage actif de la vente</li><li>Développement de comptes</li><li>Coordination de l'implémentation</li><li>Support client initial</li><li>Actions go-to-market conjointes</li></ul>
+
+<p class="pl-note">Les conditions du partenariat stratégique sont convenues individuellement et peuvent dépendre du volume, du territoire, des responsabilités, du modèle de support et de l'engagement commercial.</p>
+<div class="pl-cta"><a class="btn-s" href="/fr/contact" data-partner-cta="strategic">Discuter d'un partenariat stratégique</a></div>
+</article>
+    </div>
+
+    <h3 class="pl-lbl" style="margin-top:40px;font-size:11.5px">Contribution du partenaire et commission typique</h3>
+    <div class="pl-tablewrap" role="region" aria-label="Contribution du partenaire et commission typique" tabindex="0">
+      <table>
+        <thead><tr><th scope="col">Contribution du partenaire</th><th scope="col">Commission typique</th></tr></thead>
+        <tbody><tr><td>Recommandation ou mise en relation qualifiée</td><td>5%–10%</td></tr><tr><td>Organisation de réunions et soutien commercial actif</td><td>10%–15%</td></tr><tr><td>Présentation complète et closing commercial</td><td>15%–25%</td></tr><tr><td>Revendeur agréé avec vente et support initial</td><td>20%–35%</td></tr></tbody>
+      </table>
+    </div>
+    <p class="pl-small">Les conditions finales de commission dépendent du rôle du partenaire, de la taille de la transaction, du niveau de remise, des responsabilités clients, du territoire et des obligations de support continues.</p>
+
+    <div class="pl-ex">
+      <span class="pl-lbl">Exemple de transaction</span>
+      <div class="r"><span>Valeur du contrat d'agent</span><b>$30,000</b></div><div class="r"><span>Commission du partenaire apporteur à 10 %</span><b>$3,000</b></div><div class="r"><span>Chiffre d'affaires conservé par ColleagueAI avant coûts de livraison et autres charges</span><b>$27,000</b></div>
+    </div>
+
+    <div class="pl-terms">
+      <h3 class="sec-h" style="font-size:clamp(22px,2.6vw,30px)">Des conditions de partenariat claires et transparentes</h3>
+      <ul><li>La commission est normalement calculée sur le chiffre d'affaires net éligible.</li><li>La commission n'est due qu'après réception du paiement du client.</li><li>Taxes, remboursements, avoirs, rétrofacturations et coûts refacturés exclus peuvent être déduits de la base de commission.</li><li>Chaque opportunité doit être enregistrée et acceptée avant que la protection de commission ne commence.</li><li>La protection de la recommandation s'applique pour une période contractuelle définie.</li><li>Les clients existants et les opportunités déjà actives peuvent être exclus.</li><li>L'accord doit définir la responsabilité lorsque plusieurs partenaires revendiquent la même opportunité.</li><li>Les commissions de renouvellement et d'extension ne s'appliquent que si elles sont explicitement prévues dans l'accord de partenariat.</li><li>Les relations stratégiques ou de revente peuvent comporter des obligations supplémentaires de support et de service client.</li><li>L'exclusivité régionale, sectorielle ou par compte doit être documentée par écrit.</li><li>ColleagueAI peut refuser les opportunités qui ne répondent pas aux exigences de qualification, de conformité ou commerciales.</li></ul>
+      <p class="pl-disc">Les pourcentages de commission affichés sur cette page sont des conditions de programme indicatives et ne créent aucun droit à paiement. Tout partenariat est soumis à approbation et à un accord de partenariat signé.</p>
+    </div>
+
+    <div class="pl-form" id="partner-apply">
+      <h3 class="sec-h" style="font-size:clamp(22px,2.6vw,30px)">Devenir partenaire</h3>
+      <p class="pl-formlead">Présentez votre activité et la façon dont vous travailleriez avec ColleagueAI. Les candidatures sont examinées individuellement ; l'approbation et l'éligibilité aux commissions restent soumises à un accord de partenariat signé. Les champs marqués d'un astérisque sont obligatoires.</p>
+      <form id="partner-apply-form" novalidate>
+        <div class="pl-fgrid">
+          <div class="fld"><label for="ap-name">Nom complet *</label><input id="ap-name" name="name" type="text" autocomplete="name" required><span class="err">Veuillez saisir votre nom complet.</span></div>
+          <div class="fld"><label for="ap-email">E-mail professionnel *</label><input id="ap-email" name="email" type="email" autocomplete="email" required><span class="err">Veuillez saisir une adresse e-mail professionnelle valide.</span></div>
+          <div class="fld"><label for="ap-company">Entreprise *</label><input id="ap-company" name="company" type="text" autocomplete="organization" required><span class="err">Veuillez saisir le nom de votre entreprise.</span></div>
+          <div class="fld"><label for="ap-website">Site web <span class="opt">(facultatif)</span></label><input id="ap-website" name="website" type="url" inputmode="url" placeholder="https://"></div>
+          <div class="fld"><label for="ap-country">Pays ou marché cible <span class="opt">(facultatif)</span></label><input id="ap-country" name="country" type="text"></div>
+          <div class="fld"><label for="ap-type">Type de partenaire <span class="opt">(facultatif)</span></label><select id="ap-type" name="partnerType"><option value="">Sélectionner</option><option>Partenaire apporteur d'affaires</option><option>Partenaire commercial</option><option>Partenaire stratégique</option></select></div>
+          <div class="fld"><label for="ap-industries">Secteurs concernés <span class="opt">(facultatif)</span></label><input id="ap-industries" name="industries" type="text"></div>
+          <div class="fld"><label for="ap-reach">Portée client estimée <span class="opt">(facultatif)</span></label><input id="ap-reach" name="reach" type="text"></div>
+          <div class="fld pl-full"><label for="ap-existing">Partenariats technologiques ou de conseil existants <span class="opt">(facultatif)</span></label><input id="ap-existing" name="existingPartnerships" type="text"></div>
+          <div class="fld pl-full"><label for="ap-desc">Description du partenariat proposé <span class="opt">(facultatif)</span></label><textarea id="ap-desc" name="description"></textarea></div>
+        </div>
+        <div class="pl-hp" aria-hidden="true"><label for="ap-website-confirm">Leave this field empty</label><input id="ap-website-confirm" name="website_confirm" type="text" tabindex="-1" autocomplete="off"></div>
+        <div class="fld pl-consent"><input id="ap-consent" name="consent" type="checkbox" required><label for="ap-consent">J'ai lu et j'accepte la politique de confidentialité. *&nbsp;<a href="/fr/confidentialite" style="text-decoration:underline">Politique de confidentialité</a></label></div>
+        <div style="margin-top:20px"><button class="btn-p" type="submit" id="ap-submit">Envoyer la candidature</button></div>
+        <div class="pl-msg" id="ap-ok" role="status" aria-live="polite">Merci. Votre candidature a bien été reçue et nous répondrons à votre e-mail professionnel.</div>
+        <div class="pl-msg" id="ap-bad" role="alert">Une erreur s'est produite. Réessayez ou écrivez à hello@colleagueai.ai.</div>
+      </form>
+    </div>
+  </div>
+</section>
+<script id="cai-partner-levels-js">
+(function(){
+  function ev(n,p){var s=p||{};
+    try{if(window.va&&typeof window.va.track==='function')window.va.track(n,s);}catch(e){}
+    try{if(typeof window.plausible==='function')window.plausible(n,{props:s});}catch(e){}
+    try{if(window.dataLayer&&typeof window.dataLayer.push==='function')window.dataLayer.push(Object.assign({event:n},s));}catch(e){}}
+  var loc=document.documentElement.getAttribute('lang')||'en';
+  ev('partner_page_viewed',{locale:loc});
+  var cards=document.querySelectorAll('[data-partner-level]');
+  if(window.IntersectionObserver&&cards.length){var seen={};
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;
+      var k=e.target.getAttribute('data-partner-level');if(seen[k])return;seen[k]=1;
+      ev('partner_level_viewed',{level:k,level_name:e.target.getAttribute('data-partner-level-name'),locale:loc});});},{threshold:.4});
+    Array.prototype.forEach.call(cards,function(c){io.observe(c);});}
+  document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('[data-partner-cta]'):null;
+    if(!a)return;ev('partner_cta_clicked',{level:a.getAttribute('data-partner-cta'),href:a.getAttribute('href'),locale:loc});});
+  var pf=document.getElementById('partner-apply-form');
+  if(pf){var started=false;
+    pf.addEventListener('input',function(){if(started)return;started=true;ev('partner_form_started',{locale:loc});});
+    var ok=document.getElementById('ap-ok'),bad=document.getElementById('ap-bad'),sb=document.getElementById('ap-submit');
+    function mark(el,b){var f=el.closest('.fld');if(f)f.classList.toggle('bad',b);el.setAttribute('aria-invalid',b?'true':'false');}
+    pf.addEventListener('submit',function(e){e.preventDefault();ok.className='pl-msg';bad.className='pl-msg';
+      var n=pf.querySelector('#ap-name'),em=pf.querySelector('#ap-email'),co=pf.querySelector('#ap-company'),cs=pf.querySelector('#ap-consent'),invalid=false;
+      [[n,n.value.trim().length>=2],[em,/^[^s@]+@[^s@]+.[^s@]+$/.test(em.value.trim())],[co,co.value.trim().length>=2]]
+        .forEach(function(p){var b=!p[1];mark(p[0],b);if(b)invalid=true;});
+      if(!cs.checked){mark(cs,true);invalid=true;}else{mark(cs,false);}
+      if(invalid){var f1=pf.querySelector('.fld.bad input');if(f1)f1.focus();return;}
+      var payload={type:'partner',consent:true,locale:loc,page:location.pathname};
+      ['name','email','company','website','country','partnerType','industries','reach','description','existingPartnerships','website_confirm'].forEach(function(k){
+        var el=pf.querySelector('[name="'+k+'"]');if(el&&el.value)payload[k]=el.value;});
+      sb.disabled=true;
+      fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+        .then(function(r){return r.ok?r.json():Promise.reject(r);})
+        .then(function(){pf.reset();ok.className='pl-msg ok';ev('partner_form_submitted',{locale:loc});})
+        .catch(function(){bad.className='pl-msg bad';})
+        .then(function(){sb.disabled=false;});});}
+})();
+</script>
+<!-- cai-partner-levels:end -->
+
 <section id="generate">
   <div class="wrap">
     <span class="eyebrow">Enregistrer l’intérêt</span>
