@@ -1231,5 +1231,14 @@
   "it": "12+ mesi",
   "pl": "12+ miesięcy",
   "pt": "12+ meses"
+ },
+ "Book a demo": {
+  "cs": "Domluvit schůzku",
+  "de": "Termin vereinbaren",
+  "fr": "Réserver une démo",
+  "es": "Reservar una demo",
+  "it": "Prenota una demo",
+  "pl": "Umów demo",
+  "pt": "Marcar uma demo"
  }
 }
