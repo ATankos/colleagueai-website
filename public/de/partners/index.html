@@ -365,6 +365,7 @@ display: flex !important;
 </script>
 </head>
 <body>
+<div class="cai-langsel"><select id="langsel" aria-label="Language"></select></div>
 <!-- cai-site-header:start -->
 <style>
 .cai-hdr{position:sticky;top:0;z-index:90;background:rgba(34,33,31,.97);backdrop-filter:blur(12px);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -413,19 +414,6 @@ display: flex !important;
     <a href="/de/agenten#launch-readiness-gate">Checkout-Gate</a>
   </div>
 </section>
-
-<header class="nav" id="nav">
-  <div class="wrap nav-inner">
-    <a href="/de/agenten" class="logo">
-      <span class="logo-text">colleague<span class="ai">ai</span></span>
-      <span class="logo-dots"><span></span><span></span><span></span></span>
-    </a>
-    <div class="nav-right"><select id="langsel" aria-label="Language"></select>
-      <a href="/de/agenten" class="nav-link">Agentenkatalog</a>
-      <a href="#generate" class="nav-cta">Interesse registrieren →</a>
-    </div>
-  </div>
-</header>
 
 <!-- HERO -->
 <section class="hero">
@@ -802,9 +790,6 @@ display: flex !important;
   </div> · <a href="/de/nutzungsbedingungen">Bedingungen</a> · <a href="/de/datenschutz">Datenschutz</a> · <a href="/imprint">Impressum</a> · <a href="/license">License</a> · <a href="/partner-agreement">Partner Agreement</a></footer>
 
 <script>
-/* Nav scroll */
-const _nav=document.getElementById('nav');
-window.addEventListener('scroll',()=>_nav.classList.toggle('scrolled',window.scrollY>10));
 
 /* Partner link generator */
 (function(){
