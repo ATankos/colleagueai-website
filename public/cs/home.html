@@ -102,6 +102,18 @@ footer{padding:36px 0 46px;font-size:13px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer .co{margin-top:8px}
 @media(max-width:720px){table{display:block;overflow-x:auto}}
+.outcomes .out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px;margin-top:26px}
+.outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
+.outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
+.outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
+.logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px}
+.cai-logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -191,7 +203,7 @@ display: flex !important;
 </head>
 <body>
 <header><div class="wrap nav">
-<a class="logo" href="/">Colleague<b>AI</b></a>
+<a class="logo" href="/"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots"><span></span><span></span><span></span></span></a>
 <nav class="links">
 <a href="/cs/agenti">Katalog</a><a href="/cs/agenti#score">CAI Score</a><a href="/cs/cenik">Ceník</a><a href="/cs/duvera">Důvěra</a><a href="/cs/partneri">Partneři</a><a href="/cs/kontakt">Kontakt</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/">English</option><option value="/cs" selected>Čeština</option><option value="/de">Deutsch</option><option value="/fr">Français</option><option value="/es">Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
@@ -224,6 +236,13 @@ display: flex !important;
 <div class="stat"><div class="n">5</div><div class="l">Funkčních pilířů</div></div>
 <div class="stat"><div class="n">L2-L4</div><div class="l">Aktivní úrovně CAI</div></div>
 </div>
+</section>
+
+<section class="wrap outcomes" aria-labelledby="outcomes-h">
+<span class="kicker">Přínosy pro byznys</span>
+<h2 id="outcomes-h">Co mají řízení agenti změnit.</h2>
+<p class="sub">Výsledky závisí na procesu a vašem provozním modelu. Toto jsou oblasti, na které je řízený agent navržen působit.</p>
+<div class="out-grid"><div class="out-item"><h3>Řízené provádění</h3><p>Práce jde definovanou cestou s výslovnými limity toho, co agent smí.</p></div><div class="out-item"><h3>Méně ruční koordinace</h3><p>Urgování, předávky a hlášení stavu přestanou spotřebovávat čas specialistů.</p></div><div class="out-item"><h3>Dohledatelné akce</h3><p>Každý krok je zaznamenán, opatřen časovým razítkem a přiřaditelný jmenovanému vlastníkovi.</p></div><div class="out-item"><h3>Schválení tam, kde na tom záleží</h3><p>Definované kontrolní body drží odpovědnost za zásadní rozhodnutí na člověku.</p></div><div class="out-item"><h3>Znovupoužitelné auditní důkazy</h3><p>Důkazy pro přezkum existují už ve chvíli, kdy padne otázka.</p></div><div class="out-item"><h3>Nižší režie governance</h3><p>Klasifikace rizik a kontroly jsou součástí agenta, ne až dodatečně.</p></div></div>
 </section>
 
 <section class="wrap">
@@ -267,6 +286,36 @@ display: flex !important;
 <a class="card" href="/agents/compliance-and-audit-action-tracker"><span class="num">CAI L4</span><h3>Compliance &amp; Audit Tracker</h3><p>Sleduje důkazy a termíny na živém dashboardu, takže datum auditu už tým nikdy nezaskočí.</p><span class="go">Zobrazit factsheet →</span></a>
 </div>
 </section>
+
+
+<!-- ============================================================================
+     FOUNDER / TEAM CREDIBILITY - PLACEHOLDER, NOT PUBLISHED
+     Deliberately commented out: it must not go live with placeholder text.
+     To publish: replace the bracketed fields with real, verifiable details,
+     translate the visible strings, then delete this comment marker and the
+     closing marker at the end of the block.
+     Do not publish claims (employers, certifications, results) you cannot evidence.
+=============================================================================
+<section class="wrap" aria-labelledby="founder-h" style="border-top:1px solid var(--line)">
+<span class="kicker">Who is behind ColleagueAI</span>
+<h2 id="founder-h">[HEADLINE: one line on why this team understands enterprise AI adoption]</h2>
+<p class="sub">[2-3 sentences: relevant enterprise AI, governance, risk, compliance, finance, data or transformation experience. State only what can be evidenced.]</p>
+<div class="grid3">
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background: relevant experience and what they are accountable for at ColleagueAI.]</p>
+  </div>
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+  <div class="card">
+    <h3>[Advisor or team member]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+</div>
+</section>
+============================== END PLACEHOLDER ============================= -->
 
 <section class="band"><div class="wrap">
 <h2>Podívejte se na řízeného agenta při práci na reálném případu.</h2>

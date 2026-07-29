@@ -102,6 +102,18 @@ footer{padding:36px 0 46px;font-size:13px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer .co{margin-top:8px}
 @media(max-width:720px){table{display:block;overflow-x:auto}}
+.outcomes .out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px;margin-top:26px}
+.outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
+.outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
+.outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
+.logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px}
+.cai-logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -191,7 +203,7 @@ display: flex !important;
 </head>
 <body>
 <header><div class="wrap nav">
-<a class="logo" href="/">Colleague<b>AI</b></a>
+<a class="logo" href="/"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots"><span></span><span></span><span></span></span></a>
 <nav class="links">
 <a href="/fr/agents">Catalogue</a><a href="/fr/agents#score">CAI Score</a><a href="/fr/tarifs">Tarifs</a><a href="/fr/confiance">Confiance</a><a href="/fr/partenaires">Partenaires</a><a href="/fr/contact">Contact</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/">English</option><option value="/cs">Čeština</option><option value="/de">Deutsch</option><option value="/fr" selected>Français</option><option value="/es">Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
@@ -224,6 +236,13 @@ display: flex !important;
 <div class="stat"><div class="n">5</div><div class="l">Piliers fonctionnels</div></div>
 <div class="stat"><div class="n">L2-L4</div><div class="l">Niveaux CAI actifs</div></div>
 </div>
+</section>
+
+<section class="wrap outcomes" aria-labelledby="outcomes-h">
+<span class="kicker">Impact métier</span>
+<h2 id="outcomes-h">Ce que les agents gouvernés doivent changer.</h2>
+<p class="sub">Les résultats dépendent du workflow et de votre modèle opérationnel. Voici les domaines qu'un agent gouverné est conçu pour influencer.</p>
+<div class="out-grid"><div class="out-item"><h3>Exécution maîtrisée</h3><p>Le travail suit un chemin défini, avec des limites explicites sur ce que l'agent peut faire.</p></div><div class="out-item"><h3>Moins de coordination manuelle</h3><p>Les relances, transferts et points d'avancement cessent de mobiliser les spécialistes.</p></div><div class="out-item"><h3>Actions traçables</h3><p>Chaque étape est journalisée, horodatée et attribuable à un responsable nommé.</p></div><div class="out-item"><h3>Validation là où elle compte</h3><p>Des points de contrôle définis maintiennent une personne responsable des décisions importantes.</p></div><div class="out-item"><h3>Preuves d'audit réutilisables</h3><p>Les preuves pour la revue existent déjà au moment où la question est posée.</p></div><div class="out-item"><h3>Moins de charge de gouvernance</h3><p>Classification des risques et contrôles arrivent avec l'agent, pas des mois plus tard.</p></div></div>
 </section>
 
 <section class="wrap">
@@ -267,6 +286,36 @@ display: flex !important;
 <a class="card" href="/agents/compliance-and-audit-action-tracker"><span class="num">CAI L4</span><h3>Compliance &amp; Audit Tracker</h3><p>Suit les preuves et les échéances sur un tableau de bord en direct, la date d'audit ne surprend plus jamais l'équipe.</p><span class="go">Voir la fiche →</span></a>
 </div>
 </section>
+
+
+<!-- ============================================================================
+     FOUNDER / TEAM CREDIBILITY - PLACEHOLDER, NOT PUBLISHED
+     Deliberately commented out: it must not go live with placeholder text.
+     To publish: replace the bracketed fields with real, verifiable details,
+     translate the visible strings, then delete this comment marker and the
+     closing marker at the end of the block.
+     Do not publish claims (employers, certifications, results) you cannot evidence.
+=============================================================================
+<section class="wrap" aria-labelledby="founder-h" style="border-top:1px solid var(--line)">
+<span class="kicker">Who is behind ColleagueAI</span>
+<h2 id="founder-h">[HEADLINE: one line on why this team understands enterprise AI adoption]</h2>
+<p class="sub">[2-3 sentences: relevant enterprise AI, governance, risk, compliance, finance, data or transformation experience. State only what can be evidenced.]</p>
+<div class="grid3">
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background: relevant experience and what they are accountable for at ColleagueAI.]</p>
+  </div>
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+  <div class="card">
+    <h3>[Advisor or team member]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+</div>
+</section>
+============================== END PLACEHOLDER ============================= -->
 
 <section class="band"><div class="wrap">
 <h2>Voyez un agent gouverné travailler sur un cas réel.</h2>

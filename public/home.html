@@ -102,6 +102,18 @@ footer{padding:36px 0 46px;font-size:13px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer .co{margin-top:8px}
 @media(max-width:720px){table{display:block;overflow-x:auto}}
+.outcomes .out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px;margin-top:26px}
+.outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
+.outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
+.outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
+.logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px}
+.cai-logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -191,7 +203,7 @@ display: flex !important;
 </head>
 <body>
 <header><div class="wrap nav">
-<a class="logo" href="/">Colleague<b>AI</b></a>
+<a class="logo" href="/"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots"><span></span><span></span><span></span></span></a>
 <nav class="links">
 <a href="/agents">Catalogue</a><a href="/agents#score">CAI Score</a><a href="/pricing">Pricing</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/contact">Contact</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/" selected>English</option><option value="/cs">Čeština</option><option value="/de">Deutsch</option><option value="/fr">Français</option><option value="/es">Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
@@ -224,6 +236,13 @@ display: flex !important;
 <div class="stat"><div class="n">5</div><div class="l">Functional pillars</div></div>
 <div class="stat"><div class="n">L2-L4</div><div class="l">Live CAI tiers</div></div>
 </div>
+</section>
+
+<section class="wrap outcomes" aria-labelledby="outcomes-h">
+<span class="kicker">Business outcomes</span>
+<h2 id="outcomes-h">What governed agents are built to change.</h2>
+<p class="sub">Results depend on the workflow and your operating model. These are the areas a governed agent is designed to affect.</p>
+<div class="out-grid"><div class="out-item"><h3>Controlled execution</h3><p>Work follows a defined path, with explicit limits on what the agent may do.</p></div><div class="out-item"><h3>Less manual coordination</h3><p>Chasing, handoffs and status updates stop consuming specialist time.</p></div><div class="out-item"><h3>Traceable actions</h3><p>Each step is logged, time-stamped and attributable to a named owner.</p></div><div class="out-item"><h3>Approval where it matters</h3><p>Defined checkpoints keep a person accountable for consequential decisions.</p></div><div class="out-item"><h3>Reusable audit evidence</h3><p>Evidence for review already exists at the moment the question is asked.</p></div><div class="out-item"><h3>Lower governance overhead</h3><p>Risk classification and controls ship with the agent, not months later.</p></div></div>
 </section>
 
 <section class="wrap">
@@ -267,6 +286,36 @@ display: flex !important;
 <a class="card" href="/agents/compliance-and-audit-action-tracker"><span class="num">CAI L4</span><h3>Compliance &amp; Audit Tracker</h3><p>Tracks evidence and deadlines on a live dashboard, so the audit date never sneaks up on the team again.</p><span class="go">View factsheet →</span></a>
 </div>
 </section>
+
+
+<!-- ============================================================================
+     FOUNDER / TEAM CREDIBILITY - PLACEHOLDER, NOT PUBLISHED
+     Deliberately commented out: it must not go live with placeholder text.
+     To publish: replace the bracketed fields with real, verifiable details,
+     translate the visible strings, then delete this comment marker and the
+     closing marker at the end of the block.
+     Do not publish claims (employers, certifications, results) you cannot evidence.
+=============================================================================
+<section class="wrap" aria-labelledby="founder-h" style="border-top:1px solid var(--line)">
+<span class="kicker">Who is behind ColleagueAI</span>
+<h2 id="founder-h">[HEADLINE: one line on why this team understands enterprise AI adoption]</h2>
+<p class="sub">[2-3 sentences: relevant enterprise AI, governance, risk, compliance, finance, data or transformation experience. State only what can be evidenced.]</p>
+<div class="grid3">
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background: relevant experience and what they are accountable for at ColleagueAI.]</p>
+  </div>
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+  <div class="card">
+    <h3>[Advisor or team member]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+</div>
+</section>
+============================== END PLACEHOLDER ============================= -->
 
 <section class="band"><div class="wrap">
 <h2>See a governed agent working on a real case.</h2>

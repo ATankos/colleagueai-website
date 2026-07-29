@@ -41,16 +41,28 @@ function homeBits(loc) {
   const nav = html.match(/<nav class="links">([\s\S]*?)<\/nav>/);
   const foot = html.match(/<footer>[\s\S]*?<\/footer>/);
   if (!nav || !foot) throw new Error("cannot read nav/footer from " + file);
+  const cta = nav[1].match(/<a class="cta" href="([^"]+)">([^<]+)<\/a>/);
   const links = [...nav[1].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)]
     .map((m) => ({ href: m[1], label: m[2] }))
-    .filter((l) => !/#score/.test(l.href));
-  const cta = nav[1].match(/<a class="cta" href="([^"]+)">([^<]+)<\/a>/);
-  const plain = links.filter((l) => l.href !== cta[1]);
+    .filter((l) => !/#/.test(l.href) && l.href !== cta[1]);
+
+  // Resolve each entry by route, never by position: the home nav gains and loses
+  // items over time (adding /pricing to it used to shift every lookup by one).
+  const at = (page) => {
+    const want = canonicalPath(loc, page);
+    return links.find((l) => l.href === want || l.href === want + "/");
+  };
+  const known = new Set(["agents", "pricing", "trust", "partners"].map((p) => canonicalPath(loc, p)));
+  const contact = links.find((l) => !known.has(l.href.replace(/\/$/, "")));
+  const need = { catalogue: at("agents"), trust: at("trust"), partners: at("partners") };
+  for (const [k, v] of Object.entries(need)) {
+    if (!v) throw new Error(`${file}: could not resolve the ${k} nav link by route`);
+  }
   return {
-    catalogue: plain[0],
-    trust: plain[1],
-    partners: plain[2],
-    contact: plain[3],
+    catalogue: need.catalogue,
+    trust: need.trust,
+    partners: need.partners,
+    contact: contact || { href: canonicalPath(loc, "partners"), label: "Contact" },
     cta: { href: cta[1], label: cta[2] },
     footer: foot[0]
   };

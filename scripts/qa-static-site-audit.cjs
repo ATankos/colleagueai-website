@@ -60,9 +60,13 @@ function checkFile(file, errors) {
     errors.push(`${file}: missing h1`);
   }
 
+  // Count anchors only. <link rel="alternate"> hreflang tags are required metadata
+  // (exactly one per locale on every page) and are not duplicated navigation, so
+  // counting them made this guard fire on pages that simply gained a nav entry.
+  const anchorsOnly = html.replace(/<link\b[^>]*>/gi, "");
   const languageHrefCount = locales.reduce((sum, locale) => {
     const re = new RegExp(`href=["'][^"']*\\/${locale}(\\/|["'#?])`, "gi");
-    return sum + (html.match(re) || []).length;
+    return sum + (anchorsOnly.match(re) || []).length;
   }, 0);
 
   if (languageHrefCount > 30) {
