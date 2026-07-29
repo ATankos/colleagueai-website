@@ -683,14 +683,31 @@ function replaceAll(value, from, to) {
   return value.split(from).join(to);
 }
 
+// Single pass over the document. Sequential split/join re-scanned text that had
+// already been translated, so a key contained in its own translation was applied
+// twice ("Reset" -> "Resetovat" -> "Resetovatovat"). Replaced spans are never
+// rescanned here, and a match whose translation is already present is skipped,
+// which makes the step safe to run against its own previous output.
+function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+function applyDictOnce(html, dict) {
+  const keys = Object.keys(dict).sort((a, b) => b.length - a.length);
+  if (!keys.length) return html;
+  const re = new RegExp(keys.map(escapeRe).join("|"), "g");
+  return html.replace(re, (m, offset, whole) => {
+    const to = dict[m];
+    if (to === undefined) return m;
+    if (whole.startsWith(to, offset)) return m;
+    return to;
+  });
+}
+
 for (const root of ["public", "dist"]) {
   for (const locale of LOCALES) {
     const dict = DICT[locale];
     for (const file of walk(root + "/" + locale)) {
       let html = fs.readFileSync(file, "utf8");
       const before = html;
-      const entries = Object.entries(dict).sort((a, b) => b[0].length - a[0].length);
-      for (const [from, to] of entries) html = replaceAll(html, from, to);
+      html = applyDictOnce(html, dict);
       if (html !== before) {
         fs.writeFileSync(file, html, "utf8");
         console.log("[i18n-translate-visible-copy] patched", file);
