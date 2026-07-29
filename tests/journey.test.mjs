@@ -181,16 +181,19 @@ test('localised pricing pages carry no leftover English calls to action', () => 
   assert.deepEqual(leaks, [], 'untranslated strings: ' + leaks.join(', '));
 });
 
-test('the 3-dot logo mark is present on every main page in every language', () => {
+test('every main page links a wordmark home from the header', () => {
   const missing = [];
   for (const page of MAIN_PAGES) {
-    if (!read(`${page}.html`).includes('cai-logo-dots')) missing.push(`en/${page}`);
-    for (const loc of LOCALES) {
-      const f = `${loc}/${page}.html`;
-      if (existsSync(new URL('../public/' + f, import.meta.url)) && !read(f).includes('cai-logo-dots')) missing.push(f);
+    for (const loc of ['en', ...LOCALES]) {
+      const f = loc === 'en' ? `${page}.html` : `${loc}/${page}.html`;
+      if (!existsSync(new URL('../public/' + f, import.meta.url))) continue;
+      const html = read(f);
+      const header = (html.match(/<header[\s\S]*?<\/header>/) || [''])[0];
+      const logo = /<a[^>]*class="[^"]*logo[^"]*"[^>]*href="\/"|<a[^>]*href="\/"[^>]*class="[^"]*logo[^"]*"/.test(header);
+      if (!logo) missing.push(f);
     }
   }
-  assert.deepEqual(missing, [], 'pages without the logo mark: ' + missing.join(', '));
+  assert.deepEqual(missing, [], 'pages without a header wordmark linking home: ' + missing.join(', '));
 });
 
 test('the pricing jump navigation resolves to real sections in every language', () => {
