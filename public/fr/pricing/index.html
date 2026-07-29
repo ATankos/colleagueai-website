@@ -1,12 +1,11 @@
 <!doctype html>
-<html data-cai-page="pricing" lang="en">
+<html data-cai-page="pricing" lang="fr">
 <head>
 <meta charset="utf-8">
 <title>Tarifs des agents IA d'entreprise | ColleagueAI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 <meta name="description" content="Découvrez les tarifs indicatifs des agents IA d'entreprise, des assistants de workflow ciblés aux systèmes multi-agents gouvernés pour la finance, le risque, la conformité et les opérations.">
-<link rel="canonical" href="https://www.colleagueai.ai/fr/tarifs">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/cenik">
@@ -124,6 +123,14 @@ button.btn[disabled]{opacity:.55;cursor:not-allowed}
 .cai-logo-dots span:nth-child(1){background:#C65D3A}
 .cai-logo-dots span:nth-child(2){background:#F5F0E8}
 .cai-logo-dots span:nth-child(3){background:#8A857C}
+section[id]{scroll-margin-top:90px}
+.jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:0;padding-bottom:6px}
+.jump .jump-lbl{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.jump a{font-size:13.5px;color:var(--soft);border:1px solid var(--line);border-radius:100px;padding:7px 14px;background:var(--paper)}
+.jump a:hover,.jump a:focus-visible{border-color:var(--terra);color:var(--graphite)}
+@media(max-width:560px){.jump{gap:6px}.jump a{font-size:13px;padding:6px 12px}}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <style id="cai-url-locale-controller-css">
 html[data-cai-page="agents"] #cai-site-journey,
@@ -184,8 +191,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 <link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/prezzi" />
 <link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/cennik" />
 <link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/precos" />
-<link rel="canonical" href="https://www.colleagueai.ai/pricing" />
 <!-- cai-global-hreflang:end -->
+<link rel="canonical" href="https://www.colleagueai.ai/fr/tarifs">
 </head>
 <body>
 <header>
@@ -212,7 +219,12 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 <p class="note">La plupart des agents métier individuels devraient se situer entre 15 000 et 30 000 USD. Il s'agit de solutions d'entreprise packagées, non d'abonnements logiciels : selon le package retenu, elles peuvent inclure configuration, implémentation, documentation, tests et éléments de gouvernance.</p>
 </section>
 
-<section class="wrap" style="padding-top:0" aria-labelledby="tiers-h">
+<nav class="jump wrap" aria-label="Sur cette page">
+<span class="jump-lbl">Sur cette page</span>
+<a href="#tiers">Packages</a><a href="#factors">Ce qui influe sur le prix</a><a href="#included">Ce qui est inclus</a><a href="#faq">Questions</a><a href="#proposal">Obtenir une proposition</a>
+</nav>
+
+<section class="wrap" id="tiers" style="padding-top:0" aria-labelledby="tiers-h">
 <h2 id="tiers-h">Cinq niveaux de packages</h2>
 <p class="sub">Les niveaux reflètent la complexité, le contrôle et l'effort d'implémentation qu'un workflow exige, et non la valeur d'un client par rapport à un autre.</p>
 <div class="tiers">
@@ -282,7 +294,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" aria-labelledby="factors-h" style="border-top:1px solid var(--line)">
+<section class="wrap" id="factors" aria-labelledby="factors-h" style="border-top:1px solid var(--line)">
 <span class="kicker">Cadrage</span>
 <h2 id="factors-h">Qu'est-ce qui détermine votre investissement final ?</h2>
 <p class="sub">Six facteurs déplacent un projet à l'intérieur, ou en dehors, de sa fourchette indicative. Ils sont évalués lors du cadrage et confirmés dans la proposition.</p>
@@ -296,7 +308,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" style="padding-top:0" aria-labelledby="inc-h">
+<section class="wrap" id="included" style="padding-top:0" aria-labelledby="inc-h">
 <h2 id="inc-h">Ce qui peut être inclus</h2>
 <p class="sub">Le package exact varie selon le projet et est confirmé dans la proposition. Selon le périmètre, il peut inclure :</p>
 <ul class="inc">
@@ -313,7 +325,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" aria-labelledby="faq-h" style="border-top:1px solid var(--line)">
+<section class="wrap" id="faq" aria-labelledby="faq-h" style="border-top:1px solid var(--line)">
 <span class="kicker">Questions et réponses</span>
 <h2 id="faq-h">FAQ tarifs</h2>
 <div class="faq">

@@ -1240,5 +1240,59 @@
   "it": "Prenota una demo",
   "pl": "Umów demo",
   "pt": "Marcar uma demo"
+ },
+ "On this page": {
+  "cs": "Na této stránce",
+  "de": "Auf dieser Seite",
+  "fr": "Sur cette page",
+  "es": "En esta página",
+  "it": "In questa pagina",
+  "pl": "Na tej stronie",
+  "pt": "Nesta página"
+ },
+ "Packages": {
+  "cs": "Balíčky",
+  "de": "Pakete",
+  "fr": "Packages",
+  "es": "Paquetes",
+  "it": "Pacchetti",
+  "pl": "Pakiety",
+  "pt": "Pacotes"
+ },
+ "What affects price": {
+  "cs": "Co ovlivňuje cenu",
+  "de": "Was den Preis beeinflusst",
+  "fr": "Ce qui influe sur le prix",
+  "es": "Qué afecta al precio",
+  "it": "Cosa incide sul prezzo",
+  "pl": "Co wpływa na cenę",
+  "pt": "O que afeta o preço"
+ },
+ "What's included": {
+  "cs": "Co je součástí",
+  "de": "Was enthalten ist",
+  "fr": "Ce qui est inclus",
+  "es": "Qué se incluye",
+  "it": "Cosa è incluso",
+  "pl": "Co obejmuje",
+  "pt": "O que está incluído"
+ },
+ "Questions": {
+  "cs": "Otázky",
+  "de": "Fragen",
+  "fr": "Questions",
+  "es": "Preguntas",
+  "it": "Domande",
+  "pl": "Pytania",
+  "pt": "Perguntas"
+ },
+ "Get a proposal": {
+  "cs": "Získat nabídku",
+  "de": "Angebot erhalten",
+  "fr": "Obtenir une proposition",
+  "es": "Obtener una propuesta",
+  "it": "Richiedi una proposta",
+  "pl": "Otrzymaj ofertę",
+  "pt": "Obter proposta"
  }
 }

@@ -109,8 +109,15 @@ function render(loc) {
     html = html.split('href="' + from + '"').join('href="' + to + '"');
   }
 
-  html = html.replace(/<html lang="[^"]*">/, '<html lang="' + loc + '">');
-  html = html.replace(/<link rel="canonical" href="[^"]*">/, '<link rel="canonical" href="' + url + '">');
+  // Attribute-order-proof: earlier build steps rewrite this tag to
+  // <html data-cai-page="pricing" lang="en">, which an exact-match regex misses,
+  // leaving every localized page declaring lang="en".
+  html = html.replace(/<html\b([^>]*)>/, (m, attrs) =>
+    "<html" + attrs.replace(/\s*lang="[^"]*"/g, "") + ' lang="' + loc + '">');
+  // Exactly one canonical, pointing at this locale's route. The global-language
+  // step also emits one (for the English URL), so strip all and re-add ours.
+  html = html.replace(/[ \t]*<link rel="canonical"[^>]*>\r?\n?/g, "");
+  html = html.replace("</head>", '<link rel="canonical" href="' + url + '">\n</head>');
   html = html.replace(/<meta property="og:url" content="[^"]*">/, '<meta property="og:url" content="' + url + '">');
   html = html.replace(/<nav class="links" aria-label="Main">[\s\S]*?<\/nav>/, '<nav class="links" aria-label="Main">\n' + nav.links + "</nav>");
   html = html.replace(/<nav class="mnav" id="mnav" aria-label="Mobile">[\s\S]*?<\/nav>/, '<nav class="mnav" id="mnav" aria-label="Mobile">' + nav.mnav + "</nav>");

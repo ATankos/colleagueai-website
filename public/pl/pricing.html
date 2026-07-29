@@ -1,12 +1,11 @@
 <!doctype html>
-<html data-cai-page="pricing" lang="en">
+<html data-cai-page="pricing" lang="pl">
 <head>
 <meta charset="utf-8">
 <title>Cennik korporacyjnych agentów AI | ColleagueAI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 <meta name="description" content="Poznaj orientacyjne ceny korporacyjnych agentów AI, od wyspecjalizowanych asystentów procesów po nadzorowane systemy wieloagentowe dla finansów, ryzyka, compliance i operacji.">
-<link rel="canonical" href="https://www.colleagueai.ai/pl/cennik">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/cenik">
@@ -124,6 +123,14 @@ button.btn[disabled]{opacity:.55;cursor:not-allowed}
 .cai-logo-dots span:nth-child(1){background:#C65D3A}
 .cai-logo-dots span:nth-child(2){background:#F5F0E8}
 .cai-logo-dots span:nth-child(3){background:#8A857C}
+section[id]{scroll-margin-top:90px}
+.jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:0;padding-bottom:6px}
+.jump .jump-lbl{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.jump a{font-size:13.5px;color:var(--soft);border:1px solid var(--line);border-radius:100px;padding:7px 14px;background:var(--paper)}
+.jump a:hover,.jump a:focus-visible{border-color:var(--terra);color:var(--graphite)}
+@media(max-width:560px){.jump{gap:6px}.jump a{font-size:13px;padding:6px 12px}}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <style id="cai-url-locale-controller-css">
 html[data-cai-page="agents"] #cai-site-journey,
@@ -184,8 +191,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 <link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/prezzi" />
 <link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/cennik" />
 <link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/precos" />
-<link rel="canonical" href="https://www.colleagueai.ai/pricing" />
 <!-- cai-global-hreflang:end -->
+<link rel="canonical" href="https://www.colleagueai.ai/pl/cennik">
 </head>
 <body>
 <header>
@@ -212,7 +219,12 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 <p class="note">Większość pojedynczych agentów biznesowych powinna mieścić się w przedziale od 15 000 do 30 000 USD. To pakietowane rozwiązania korporacyjne, a nie subskrypcje oprogramowania: zależnie od wybranego pakietu mogą obejmować konfigurację, wdrożenie, dokumentację, testy i elementy governance.</p>
 </section>
 
-<section class="wrap" style="padding-top:0" aria-labelledby="tiers-h">
+<nav class="jump wrap" aria-label="Na tej stronie">
+<span class="jump-lbl">Na tej stronie</span>
+<a href="#tiers">Pakiety</a><a href="#factors">Co wpływa na cenę</a><a href="#included">Co obejmuje</a><a href="#faq">Pytania</a><a href="#proposal">Otrzymaj ofertę</a>
+</nav>
+
+<section class="wrap" id="tiers" style="padding-top:0" aria-labelledby="tiers-h">
 <h2 id="tiers-h">Pięć poziomów pakietów</h2>
 <p class="sub">Poziomy odzwierciedlają, ile złożoności, kontroli i pracy wdrożeniowej wymaga proces, a nie wartość jednego klienta względem drugiego.</p>
 <div class="tiers">
@@ -282,7 +294,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" aria-labelledby="factors-h" style="border-top:1px solid var(--line)">
+<section class="wrap" id="factors" aria-labelledby="factors-h" style="border-top:1px solid var(--line)">
 <span class="kicker">Określanie zakresu</span>
 <h2 id="factors-h">Co decyduje o Twojej ostatecznej inwestycji?</h2>
 <p class="sub">Sześć czynników przesuwa projekt w obrębie orientacyjnego zakresu lub poza niego. Są oceniane podczas discovery i potwierdzane w ofercie.</p>
@@ -296,7 +308,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" style="padding-top:0" aria-labelledby="inc-h">
+<section class="wrap" id="included" style="padding-top:0" aria-labelledby="inc-h">
 <h2 id="inc-h">Co może być uwzględnione</h2>
 <p class="sub">Dokładny pakiet zależy od projektu i jest potwierdzany w ofercie. W zależności od zakresu może obejmować:</p>
 <ul class="inc">
@@ -313,7 +325,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" aria-labelledby="faq-h" style="border-top:1px solid var(--line)">
+<section class="wrap" id="faq" aria-labelledby="faq-h" style="border-top:1px solid var(--line)">
 <span class="kicker">Pytania i odpowiedzi</span>
 <h2 id="faq-h">FAQ o cenach</h2>
 <div class="faq">
