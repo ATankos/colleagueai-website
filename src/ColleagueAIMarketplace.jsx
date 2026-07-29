@@ -319,7 +319,7 @@ export default function ColleagueAIMarketplace() {
               aria-haspopup="listbox"
               aria-expanded={langOpen}
             >
-              <span>{LOCALES.find(l => l.code === lang)?.flag ?? 'ðŸŒ'}</span>
+              <span>{LOCALES.find(l => l.code === lang)?.flag ?? '🌐'}</span>
               <span>{(LOCALES.find(l => l.code === lang)?.code ?? DEFAULT_LOCALE.toUpperCase()).toUpperCase()}</span>
               <span style={{ fontSize: '8px', opacity: 0.55, marginLeft: '2px' }}>▮¾</span>
             </button>
@@ -583,7 +583,7 @@ export default function ColleagueAIMarketplace() {
               <div className="mono" style={{
                 fontSize: '11px', color: '#A39B91', letterSpacing: '0.1em',
                 marginBottom: '6px',
-              }}>CAI SCOREâ„¢</div>
+              }}>CAI SCORE™</div>
               <div style={{ fontSize: '18px', fontWeight: 500, marginBottom: '6px' }}>
                 {t.trustTile.scoreTitle}
               </div>
@@ -785,7 +785,7 @@ export default function ColleagueAIMarketplace() {
           display: 'flex', justifyContent: 'space-between', alignItems: 'center',
           fontSize: '12px', color: '#6B655E', flexWrap: 'wrap', gap: '20px',
         }}>
-          <div className="mono">Â© 2026 COLLEAGUE AI · PRAHA, CZ</div>
+          <div className="mono">© 2026 COLLEAGUE AI · PRAHA, CZ</div>
           <div style={{ fontSize: '14px' }}>
             <span style={{ color: '#1D1B1A' }}>colleague</span>
             <span style={{ color: '#C65D3A' }}>ai</span>
@@ -865,12 +865,12 @@ const en = {
     popular: 'MOST POPULAR',
     tiers: [
       {
-        tag: 'STARTER', name: 'Starter', price: '€2,400', period: '/month',
+        tag: 'STARTER', name: 'Starter', price: 'From $8,000', period: '/month',
         features: ['1 certified agent', 'L1-L2 risk only', 'Standard support', 'Quarterly review'],
         cta: 'Get started',
       },
       {
-        tag: 'BUSINESS', name: 'Business', price: '€8,500', period: '/month', featured: true,
+        tag: 'BUSINESS', name: 'Business', price: 'From $15,000', period: '/month', featured: true,
         features: ['Up to 5 agents', 'L1-L3 risk coverage', 'CAI Score certification', 'E&O insurance bundle', 'Priority support'],
         cta: 'Talk to sales',
       },
@@ -890,92 +890,92 @@ const en = {
 };
 
 const cs = {
-  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofie', pricing: 'CenÃ­k', contact: 'Kontakt' },
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofie', pricing: 'Ceník', contact: 'Kontakt' },
   hero: {
-    eyebrow: 'PÅ˜EDSTAVUJEME COLLEAGUE AI MARKETPLACE',
-    h1a: 'AI agenti, kterÃ© lze',
-    h1b: 'skuteÄnÄ› nasadit.',
-    sub: 'CertifikovanÃ­ AI kolegovÃ© pro finance, compliance a provoz. PÅ™ipraveni na produkci. PÅ™ipraveni na audit.',
-    cta1: 'ProhlÃ©dnout marketplace',
-    cta2: 'VÃ­ce o CAI Score',
+    eyebrow: 'PŘEDSTAVUJEME COLLEAGUE AI MARKETPLACE',
+    h1a: 'AI agenti, které lze',
+    h1b: 'skutečně nasadit.',
+    sub: 'Certifikovaní AI kolegové pro finance, compliance a provoz. Připraveni na produkci. Připraveni na audit.',
+    cta1: 'Prohlédnout marketplace',
+    cta2: 'Více o CAI Score',
     stats: [
-      { num: '15+', label: 'AGENTÅ® V PRODUKCI' },
-      { num: '4', label: 'POKRYTÃ‰ DOMÃ‰NY' },
-      { num: '100%', label: 'PÅ˜IPRAVENO NA AUDIT' },
+      { num: '15+', label: 'AGENTŮ V PRODUKCI' },
+      { num: '4', label: 'POKRYTÉ DOMÉNY' },
+      { num: '100%', label: 'PŘIPRAVENO NA AUDIT' },
     ],
   },
   trustTile: {
-    eyebrow: 'VRSTVA DÅ®VÄšRY',
+    eyebrow: 'VRSTVA DŮVĚRY',
     h2a: 'CAI Score.',
     h2b: 'FICO pro AI.',
-    sub: 'KaÅ¾dÃ½ agent, kterÃ©ho dodÃ¡me, pÅ™ichÃ¡zÃ­ s certifikovanÃ½m rizikovÃ½m skÃ³re, audit trailem a dokumentacÃ­, kterou podnik potÅ™ebuje k bezpeÄnÃ©mu nasazenÃ­.',
-    scoreTitle: 'Agent pro rekonciliaci financÃ­',
-    scoreSub: 'CertifikovÃ¡no pro produkci · Riziko L2',
+    sub: 'Každý agent, kterého dodáme, přichází s certifikovaným rizikovým skóre, audit trailem a dokumentací, kterou podnik potřebuje k bezpečnému nasazení.',
+    scoreTitle: 'Agent pro rekonciliaci financí',
+    scoreSub: 'Certifikováno pro produkci · Riziko L2',
     metrics: [
       { label: 'KONTROLY', value: '42 / 42' },
-      { label: 'AUDIT TRAIL', value: 'PlnÃ½' },
-      { label: 'POJIÅ TÄšNÃ', value: 'E&O Ready' },
+      { label: 'AUDIT TRAIL', value: 'Plný' },
+      { label: 'POJIŠTĚNÍ', value: 'E&O Ready' },
     ],
     cta: 'Jak funguje CAI Score',
   },
   market: {
     eyebrow: 'MARKETPLACE',
-    h2a: 'ProdukÄnÄ› ovÄ›Å™enÃ­',
-    h2b: 'AI kolegovÃ©.',
-    sub: 'ProchÃ¡zejte naÅ¡i knihovnu certifikovanÃ½ch AI agentÅ¯. KaÅ¾dÃ½ je dodÃ¡vÃ¡n s plnou dokumentacÃ­, klasifikacÃ­ rizika a audit-ready kontrolami.',
+    h2a: 'Produkčně ověření',
+    h2b: 'AI kolegové.',
+    sub: 'Procházejte naši knihovnu certifikovaných AI agentů. Každý je dodáván s plnou dokumentací, klasifikací rizika a audit-ready kontrolami.',
     filters: [
-      { id: 'all', label: 'VÅ¡ichni agenti' },
+      { id: 'all', label: 'Všichni agenti' },
       { id: 'finance', label: 'Finance' },
-      { id: 'sap', label: 'SAP kmenovÃ¡ data' },
-      { id: 'legal', label: 'PrÃ¡vnÃ­ a entity' },
+      { id: 'sap', label: 'SAP kmenová data' },
+      { id: 'legal', label: 'Právní a entity' },
       { id: 'compliance', label: 'Compliance' },
     ],
     viewDetails: 'Detaily',
   },
   agents: [
-    { name: 'MÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rka', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automatizuje celÃ½ cyklus mÄ›sÃ­ÄnÃ­ uzÃ¡vÄ›rky: ÄasovÃ© rozliÅ¡enÃ­, rekonciliace a reporting s integrovanÃ½m schvalovÃ¡nÃ­m.', deployments: '8 NASAZENÃ', scoreColor: '#C65D3A' },
-    { name: 'AR rekonciliace', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'PÃ¡ruje faktury, platby a remitance napÅ™Ã­Ä systÃ©my. OznaÄuje vÃ½jimky pro lidskou kontrolu.', deployments: '5 NASAZENÃ', scoreColor: '#C65D3A' },
-    { name: 'Vendor Master Data', category: 'sap', icon: '▣', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'VytvÃ¡Å™Ã­, validuje a udrÅ¾uje zÃ¡znamy SAP vendor master s KYC a detekcÃ­ duplicit.', deployments: '6 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Spravuje SAP material master s klasifikacÃ­, cenÃ­ky a kontrolami konzistence napÅ™Ã­Ä zÃ¡vody.', deployments: '4 NASAZENÃ', scoreColor: '#C65D3A' },
-    { name: 'Hierarchie entit', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'UdrÅ¾uje hierarchie prÃ¡vnÃ­ch entit, vlastnickÃ© Å™etÄ›zce a zÃ¡znamy korporÃ¡tnÃ­ governance.', deployments: '3 NASAZENÃ', scoreColor: '#C65D3A' },
-    { name: 'KYC workflow', category: 'legal', icon: '◈', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC pro novÃ© obchodnÃ­ vztahy. Dokumentace pÅ™ipravenÃ¡ pro regulÃ¡tora.', deployments: '4 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'EU AI Act compliance', category: 'compliance', icon: '◆', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Mapuje vaÅ¡e AI systÃ©my do rizikovÃ½ch kategoriÃ­ EU AI Act. Automaticky generuje povinnou dokumentaci.', deployments: '2 NASAZENÃ', scoreColor: '#1D1B1A' },
-    { name: 'GDPR DPIA generÃ¡tor', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'VytvÃ¡Å™Ã­ PosouzenÃ­ vlivu na ochranu osobnÃ­ch ÃºdajÅ¯ s plnÃ½m audit trailem a workflow pro DPO.', deployments: '3 NASAZENÃ', scoreColor: '#C65D3A' },
+    { name: 'Měsíční uzávěrka', category: 'finance', icon: '◐', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Automatizuje celý cyklus měsíční uzávěrky: časové rozlišení, rekonciliace a reporting s integrovaným schvalováním.', deployments: '8 NASAZENÍ', scoreColor: '#C65D3A' },
+    { name: 'AR rekonciliace', category: 'finance', icon: '◑', color: '#FFE8DC', score: 'A', risk: 'L2', desc: 'Páruje faktury, platby a remitance napříč systémy. Označuje výjimky pro lidskou kontrolu.', deployments: '5 NASAZENÍ', scoreColor: '#C65D3A' },
+    { name: 'Vendor Master Data', category: 'sap', icon: '▣', color: '#E8E4DC', score: 'A+', risk: 'L1', desc: 'Vytváří, validuje a udržuje záznamy SAP vendor master s KYC a detekcí duplicit.', deployments: '6 NASAZENÍ', scoreColor: '#1D1B1A' },
+    { name: 'Material Master', category: 'sap', icon: '▤', color: '#E8E4DC', score: 'A', risk: 'L2', desc: 'Spravuje SAP material master s klasifikací, ceníky a kontrolami konzistence napříč závody.', deployments: '4 NASAZENÍ', scoreColor: '#C65D3A' },
+    { name: 'Hierarchie entit', category: 'legal', icon: '◇', color: '#DCE4E8', score: 'A', risk: 'L3', desc: 'Udržuje hierarchie právních entit, vlastnické řetězce a záznamy korporátní governance.', deployments: '3 NASAZENÍ', scoreColor: '#C65D3A' },
+    { name: 'KYC workflow', category: 'legal', icon: '◈', color: '#DCE4E8', score: 'A+', risk: 'L2', desc: 'End-to-end KYC pro nové obchodní vztahy. Dokumentace připravená pro regulátora.', deployments: '4 NASAZENÍ', scoreColor: '#1D1B1A' },
+    { name: 'EU AI Act compliance', category: 'compliance', icon: '◆', color: '#E8DCE4', score: 'A+', risk: 'L1', desc: 'Mapuje vaše AI systémy do rizikových kategorií EU AI Act. Automaticky generuje povinnou dokumentaci.', deployments: '2 NASAZENÍ', scoreColor: '#1D1B1A' },
+    { name: 'GDPR DPIA generátor', category: 'compliance', icon: '●Š', color: '#E8DCE4', score: 'A', risk: 'L2', desc: 'Vytváří Posouzení vlivu na ochranu osobních údajů s plným audit trailem a workflow pro DPO.', deployments: '3 NASAZENÍ', scoreColor: '#C65D3A' },
   ],
   phil: {
-    eyebrow: 'NAÅ E FILOZOFIE',
-    quote: 'Pokud nÄ›co automatizovat nelze nebo by se nemÄ›lo, Å™ekneme to. Pokud klient poÅ¾aduje rychlost pÅ™ed bezpeÄnostÃ­ v regulovanÃ©m procesu, odejdeme. DÅ¯vÄ›ra, kterou budujeme, mÃ¡ vÄ›tÅ¡Ã­ hodnotu neÅ¾ jakÃ¡koli jednotlivÃ¡ zakÃ¡zka.',
-    attr: 'COLLEAGUE AI · PROVOZNÃ PRINCIP',
+    eyebrow: 'NAŠE FILOZOFIE',
+    quote: 'Pokud něco automatizovat nelze nebo by se nemělo, řekneme to. Pokud klient požaduje rychlost před bezpečností v regulovaném procesu, odejdeme. Důvěra, kterou budujeme, má větší hodnotu než jakákoli jednotlivá zakázka.',
+    attr: 'COLLEAGUE AI · PROVOZNÍ PRINCIP',
   },
   price: {
-    eyebrow: 'CENÃK',
+    eyebrow: 'CENÍK',
     h2a: 'Zvolte si',
-    h2b: 'svÅ¯j start.',
-    popular: 'NEJOBLÃBENÄšJÅ Ã',
+    h2b: 'svůj start.',
+    popular: 'NEJOBLÍBENĚJŠÍ',
     tiers: [
       {
-        tag: 'STARTER', name: 'Starter', price: '€2 400', period: '/mÄ›sÃ­c',
-        features: ['1 certifikovanÃ½ agent', 'Pouze riziko L1-L2', 'StandardnÃ­ podpora', 'KvartÃ¡lnÃ­ revize'],
-        cta: 'ZaÄÃ­t',
+        tag: 'STARTER', name: 'Starter', price: 'From $8,000', period: '/měsíc',
+        features: ['1 certifikovaný agent', 'Pouze riziko L1-L2', 'Standardní podpora', 'Kvartální revize'],
+        cta: 'Začít',
       },
       {
-        tag: 'BUSINESS', name: 'Business', price: '€8 500', period: '/mÄ›sÃ­c', featured: true,
-        features: ['AÅ¾ 5 agentÅ¯', 'PokrytÃ­ rizika L1-L3', 'CAI Score certifikace', 'E&O pojiÅ¡tÄ›nÃ­ v cenÄ›', 'PrioritnÃ­ podpora'],
+        tag: 'BUSINESS', name: 'Business', price: 'From $15,000', period: '/měsíc', featured: true,
+        features: ['Až 5 agentů', 'Pokrytí rizika L1-L3', 'CAI Score certifikace', 'E&O pojištění v ceně', 'Prioritní podpora'],
         cta: 'Mluvit s obchodem',
       },
       {
-        tag: 'ENTERPRISE', name: 'Enterprise', price: 'Na mÃ­ru', period: '',
-        features: ['NeomezenÃ½ poÄet agentÅ¯', 'PokrytÃ­ rizika L1-L5', 'White-label varianta', 'DedikovanÃ½ tÃ½m', 'Big 4 metodologie'],
+        tag: 'ENTERPRISE', name: 'Enterprise', price: 'Na míru', period: '',
+        features: ['Neomezený počet agentů', 'Pokrytí rizika L1-L5', 'White-label varianta', 'Dedikovaný tým', 'Big 4 metodologie'],
         cta: 'Kontaktovat',
       },
     ],
   },
   contact: {
-    eyebrow: 'NAPIÅ TE NÃM',
-    h2a: 'PÅ™ipraveni nasadit',
-    h2b: 'AI, kterou obhÃ¡jÃ­te?',
+    eyebrow: 'NAPIŠTE NÁM',
+    h2a: 'Připraveni nasadit',
+    h2b: 'AI, kterou obhájíte?',
   },
-  footer: { privacy: 'SoukromÃ­', terms: 'PodmÃ­nky' },
+  footer: { privacy: 'Soukromí', terms: 'Podmínky' },
 };
 
 const de = {
@@ -983,10 +983,10 @@ const de = {
   hero: {
     eyebrow: 'DER COLLEAGUE AI MARKETPLACE',
     h1a: 'KI-Agenten, die Sie',
-    h1b: 'wirklich einsetzen kÃ¶nnen.',
-    sub: 'Zertifizierte, prÃ¼fbereite KI-Kollegen fÃ¼r Finanzen, Compliance und Betrieb.',
+    h1b: 'wirklich einsetzen können.',
+    sub: 'Zertifizierte, prüfbereite KI-Kollegen für Finanzen, Compliance und Betrieb.',
     cta1: 'Marketplace erkunden',
-    cta2: 'Mehr Ã¼ber CAI Score',
+    cta2: 'Mehr über CAI Score',
     stats: [
       { num: '15+', label: 'AGENTEN IN PRODUKTION' },
       { num: '4', label: 'ABGEDECKTE BEREICHE' },
@@ -998,7 +998,7 @@ const de = {
   agents: en.agents,
   phil: en.phil,
   price: en.price,
-  contact: { eyebrow: 'KONTAKT', h2a: 'Bereit fÃ¼r', h2b: 'vertrauenswÃ¼rdige KI?' },
+  contact: { eyebrow: 'KONTAKT', h2a: 'Bereit für', h2b: 'vertrauenswürdige KI?' },
   footer: { privacy: 'Datenschutz', terms: 'AGB' },
 };
 
@@ -1007,8 +1007,8 @@ const fr = {
   hero: {
     eyebrow: 'LE MARKETPLACE COLLEAGUE AI',
     h1a: 'Des agents IA que vous pouvez',
-    h1b: 'vraiment dÃ©ployer.',
-    sub: 'Des collÃ¨gues IA certifiÃ©s, audit-ready pour la finance, la conformitÃ© et les opÃ©rations.',
+    h1b: 'vraiment déployer.',
+    sub: 'Des collègues IA certifiés, audit-ready pour la finance, la conformité et les opérations.',
     cta1: 'Explorer le marketplace',
     cta2: 'En savoir plus sur CAI Score',
     stats: [
@@ -1022,23 +1022,23 @@ const fr = {
   agents: en.agents,
   phil: en.phil,
   price: en.price,
-  contact: { eyebrow: 'NOUS CONTACTER', h2a: 'PrÃªt Ã  dÃ©ployer', h2b: "une IA que vous pouvez dÃ©fendreÂ ?" },
-  footer: { privacy: 'ConfidentialitÃ©', terms: 'CGU' },
+  contact: { eyebrow: 'NOUS CONTACTER', h2a: 'Prêt à déployer', h2b: "une IA que vous pouvez défendre ?" },
+  footer: { privacy: 'Confidentialité', terms: 'CGU' },
 };
 
 const es = {
-  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'FilosofÃ­a', pricing: 'Precios', contact: 'Contacto' },
+  nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filosofía', pricing: 'Precios', contact: 'Contacto' },
   hero: {
     eyebrow: 'EL MARKETPLACE DE COLLEAGUE AI',
     h1a: 'Agentes de IA que puede',
     h1b: 'realmente desplegar.',
-    sub: 'Colegas de IA certificados y listos para auditorÃ­a en finanzas, cumplimiento y operaciones.',
+    sub: 'Colegas de IA certificados y listos para auditoría en finanzas, cumplimiento y operaciones.',
     cta1: 'Explorar el marketplace',
-    cta2: 'MÃ¡s sobre CAI Score',
+    cta2: 'Más sobre CAI Score',
     stats: [
-      { num: '15+', label: 'AGENTES EN PRODUCCIÃ“N' },
+      { num: '15+', label: 'AGENTES EN PRODUCCIÓN' },
       { num: '4', label: 'DOMINIOS CUBIERTOS' },
-      { num: '100%', label: 'LISTOS PARA AUDITORÃA' },
+      { num: '100%', label: 'LISTOS PARA AUDITORÍA' },
     ],
   },
   trustTile: en.trustTile,
@@ -1046,8 +1046,8 @@ const es = {
   agents: en.agents,
   phil: en.phil,
   price: en.price,
-  contact: { eyebrow: 'CONTÃCTENOS', h2a: 'Â¿Listo para desplegar', h2b: 'IA en la que puede confiar?' },
-  footer: { privacy: 'Privacidad', terms: 'TÃ©rminos' },
+  contact: { eyebrow: 'CONTÁCTENOS', h2a: '¿Listo para desplegar', h2b: 'IA en la que puede confiar?' },
+  footer: { privacy: 'Privacidad', terms: 'Términos' },
 };
 
 const it = {
@@ -1078,14 +1078,14 @@ const pl = {
   nav: { marketplace: 'Marketplace', trust: 'CAI Score', philosophy: 'Filozofia', pricing: 'Cennik', contact: 'Kontakt' },
   hero: {
     eyebrow: 'MARKETPLACE COLLEAGUE AI',
-    h1a: 'Agenci AI, ktÃ³rych moÅ¼esz',
-    h1b: 'faktycznie wdroÅ¼yÄ‡.',
+    h1a: 'Agenci AI, których możesz',
+    h1b: 'faktycznie wdrożyć.',
     sub: 'Certyfikowani agenci AI gotowi na audyt w finansach, compliance i operacjach.',
-    cta1: 'PrzeglÄ…daj marketplace',
-    cta2: 'Dowiedz siÄ™ o CAI Score',
+    cta1: 'Przeglądaj marketplace',
+    cta2: 'Dowiedz się o CAI Score',
     stats: [
-      { num: '15+', label: 'AGENTÃ“W W PRODUKCJI' },
-      { num: '4', label: 'OBSZARÃ“W' },
+      { num: '15+', label: 'AGENTÓW W PRODUKCJI' },
+      { num: '4', label: 'OBSZARÓW' },
       { num: '100%', label: 'GOTOWYCH NA AUDYT' },
     ],
   },
@@ -1094,8 +1094,8 @@ const pl = {
   agents: en.agents,
   phil: en.phil,
   price: en.price,
-  contact: { eyebrow: 'SKONTAKTUJ SIÄ˜', h2a: 'Gotowy na wdroÅ¼enie', h2b: 'godnego zaufania AI?' },
-  footer: { privacy: 'PrywatnoÅ›Ä‡', terms: 'Warunki' },
+  contact: { eyebrow: 'SKONTAKTUJ SIĘ', h2a: 'Gotowy na wdrożenie', h2b: 'godnego zaufania AI?' },
+  footer: { privacy: 'Prywatność', terms: 'Warunki' },
 };
 
 const pt = {

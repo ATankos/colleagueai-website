@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" font-family="system-ui,-apple-system,'Segoe UI',Roboto,sans-serif">
+  <defs>
+    <style>
+      .serif{font-family:Georgia,'Times New Roman',serif}
+      .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+    </style>
+  </defs>
+  <rect width="960" height="400" fill="#FBF8F2"/>
+
+  <!-- Header -->
+  <text x="60" y="56" class="mono" font-size="13" letter-spacing="3" fill="#c65d3a">HOW IT WORKS</text>
+  <text x="60" y="94" class="serif" font-size="32" fill="#22211F">From your tenant to audit-ready in three steps.</text>
+
+  <!-- Card 1: Connect -->
+  <g>
+    <rect x="60" y="140" width="256" height="196" rx="14" fill="#fff" stroke="#e6ddce" stroke-width="1.5"/>
+    <circle cx="94" cy="176" r="17" fill="#c65d3a"/>
+    <text x="94" y="181" class="mono" font-size="14" fill="#fff" text-anchor="middle">01</text>
+    <text x="124" y="182" class="mono" font-size="12" letter-spacing="2" fill="#8a857c">CONNECT</text>
+    <text x="84" y="230" class="serif" font-size="21" fill="#22211F">Plug into your tenant</text>
+    <text x="84" y="262" font-size="13.5" fill="#68635b">Ships prebuilt for Microsoft</text>
+    <text x="84" y="282" font-size="13.5" fill="#68635b">Copilot Studio, Power Automate</text>
+    <text x="84" y="302" font-size="13.5" fill="#68635b">and Azure. No rebuild — and no</text>
+    <text x="84" y="322" font-size="13.5" fill="#68635b">data leaves your walls.</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M326 238 h34" stroke="#c65d3a" stroke-width="2" fill="none"/>
+  <polygon points="360,238 350,233 350,243" fill="#c65d3a"/>
+
+  <!-- Card 2: Certify -->
+  <g>
+    <rect x="372" y="140" width="256" height="196" rx="14" fill="#fff" stroke="#e6ddce" stroke-width="1.5"/>
+    <circle cx="406" cy="176" r="17" fill="#c65d3a"/>
+    <text x="406" y="181" class="mono" font-size="14" fill="#fff" text-anchor="middle">02</text>
+    <text x="436" y="182" class="mono" font-size="12" letter-spacing="2" fill="#8a857c">CERTIFY</text>
+    <text x="396" y="230" class="serif" font-size="21" fill="#22211F">Classify on the score</text>
+    <text x="396" y="262" font-size="13.5" fill="#68635b">Every agent gets a CAI Score</text>
+    <text x="396" y="282" font-size="13.5" fill="#68635b">risk tier and a named human</text>
+    <text x="396" y="302" font-size="13.5" fill="#68635b">role — before it ever touches</text>
+    <text x="396" y="322" font-size="13.5" fill="#68635b">a live process.</text>
+  </g>
+
+  <!-- Arrow -->
+  <path d="M638 238 h34" stroke="#c65d3a" stroke-width="2" fill="none"/>
+  <polygon points="672,238 662,233 662,243" fill="#c65d3a"/>
+
+  <!-- Card 3: Run -->
+  <g>
+    <rect x="684" y="140" width="256" height="196" rx="14" fill="#22211F"/>
+    <circle cx="718" cy="176" r="17" fill="#E8A07F"/>
+    <text x="718" y="181" class="mono" font-size="14" fill="#22211F" text-anchor="middle">03</text>
+    <text x="748" y="182" class="mono" font-size="12" letter-spacing="2" fill="#cbb8a6">RUN</text>
+    <text x="708" y="230" class="serif" font-size="21" fill="#F5F0E8">Operate with evidence</text>
+    <text x="708" y="262" font-size="13.5" fill="#cfc8bb">Every action logged, time-</text>
+    <text x="708" y="282" font-size="13.5" fill="#cfc8bb">stamped and attributable —</text>
+    <text x="708" y="302" font-size="13.5" fill="#cfc8bb">the audit answer already</text>
+    <text x="708" y="322" font-size="13.5" fill="#cfc8bb">exists when someone asks.</text>
+  </g>
+</svg>

@@ -1,0 +1,727 @@
+/*
+  ColleagueAI shared mobile, tablet and typography patch.
+  This stylesheet is loaded after the individual page styles.
+*/
+
+:root {
+  --cai-ui-font:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
+
+  --cai-display-font:
+    Georgia,
+    Cambria,
+    "Times New Roman",
+    serif;
+
+  --cai-technical-font:
+    ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    "Liberation Mono",
+    monospace;
+
+  --cai-dark: #22211f;
+  --cai-ink: #2b2a28;
+  --cai-cream: #f5f0e8;
+  --cai-paper: #fbf8f2;
+  --cai-muted: #68635b;
+  --cai-orange: #c65d3a;
+  --cai-mobile-padding: 16px;
+}
+
+html {
+  max-width: 100%;
+  scroll-padding-top: 82px;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--cai-ui-font) !important;
+}
+
+.logo,
+.brand,
+.wordmark,
+h1,
+h2,
+.display-heading {
+  font-family: var(--cai-display-font) !important;
+}
+
+.kicker,
+.eyebrow,
+.overline,
+.metadata,
+.meta,
+.badge,
+.tier-label,
+.code-label {
+  font-family: var(--cai-technical-font) !important;
+}
+
+img,
+svg,
+video,
+iframe,
+canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+  Fix white-on-white language dropdowns on Safari, iPhone and iPad.
+*/
+
+select.lang,
+select#langsel,
+select#homelang,
+select[id*="lang" i],
+select[name*="lang" i],
+select[aria-label*="language" i] {
+  color: #1d1b1a !important;
+  background-color: #ffffff !important;
+  border: 1px solid #aaa195 !important;
+  opacity: 1 !important;
+  color-scheme: light !important;
+  -webkit-text-fill-color: #1d1b1a !important;
+}
+
+select.lang option,
+select#langsel option,
+select#homelang option,
+select[id*="lang" i] option,
+select[name*="lang" i] option,
+select[aria-label*="language" i] option {
+  color: #1d1b1a !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #1d1b1a !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+select:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(198, 93, 58, 0.55) !important;
+  outline-offset: 3px !important;
+}
+
+/*
+  Accessible replacement for overly pale secondary text.
+*/
+
+.muted,
+.secondary,
+.subtitle,
+.description,
+.card-subtitle,
+.helper-text {
+  color: var(--cai-muted);
+}
+
+/*
+  Tables remain usable on narrow screens.
+*/
+
+.cai-table-scroll {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cai-table-scroll > table {
+  min-width: 680px;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.cai-scroll-navigation {
+  display: flex !important;
+  max-width: 100%;
+  overflow-x: auto !important;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+/*
+  Mobile items inserted into the existing menu.
+*/
+
+.cai-mobile-language {
+  width: 100%;
+  padding-top: 14px;
+}
+
+.cai-mobile-language label {
+  display: block;
+  margin-bottom: 7px;
+  color: #d4cfc6;
+  font-family: var(--cai-technical-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.cai-mobile-language select {
+  width: 100%;
+  min-height: 44px;
+  padding: 9px 12px !important;
+  border-radius: 10px !important;
+  font-size: 16px !important;
+}
+
+.cai-mobile-demo {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 46px;
+  margin-top: 14px;
+  padding: 11px 16px !important;
+  border-radius: 999px !important;
+  color: #ffffff !important;
+  background: var(--cai-orange) !important;
+  font-weight: 700 !important;
+  text-align: center;
+  text-decoration: none !important;
+}
+
+/*
+  Tablet.
+*/
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .wrap,
+  .container,
+  .shell {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 22px !important;
+    padding-right: 22px !important;
+  }
+
+  header .links,
+  header nav {
+    gap: 13px !important;
+  }
+
+  header .links a,
+  header nav a {
+    font-size: 13px;
+  }
+
+  .hero-grid,
+  .two-column,
+  .split,
+  .columns-2 {
+    gap: 28px !important;
+  }
+}
+
+/*
+  iPhone and other phones.
+*/
+
+@media (max-width: 767px) {
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .wrap,
+  .container,
+  .shell {
+    width: 100%;
+    max-width: 100%;
+    padding-left: var(--cai-mobile-padding) !important;
+    padding-right: var(--cai-mobile-padding) !important;
+  }
+
+  header {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  header .nav {
+    width: 100%;
+    min-height: 60px;
+    height: 60px !important;
+    gap: 10px !important;
+  }
+
+  header .logo,
+  header .brand,
+  header .wordmark {
+    min-width: 0;
+    max-width: calc(100vw - 82px);
+    overflow: hidden;
+    font-size: 20px !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /*
+    Hide large desktop links, dropdown and CTA.
+    The hamburger stays visible.
+  */
+
+  header .links {
+    margin-left: auto;
+    gap: 0 !important;
+  }
+
+  header .links > a,
+  header .links > select,
+  header nav > a,
+  header nav > select {
+    display: none !important;
+  }
+
+  header .burger,
+  header .menu-toggle,
+  header [aria-label="Menu"],
+  header [aria-label*="menu" i] {
+    display: flex !important;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mnav.open,
+  .mobile-nav.open,
+  [data-mobile-nav].open,
+  [data-mobile-nav][data-open="true"] {
+    display: block !important;
+    max-height: calc(100dvh - 60px - env(safe-area-inset-top));
+    padding-bottom: max(20px, env(safe-area-inset-bottom)) !important;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .mnav a,
+  .mobile-nav a,
+  [data-mobile-nav] a {
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  h1 {
+    font-size: clamp(35px, 10.8vw, 49px) !important;
+    line-height: 1.06 !important;
+    overflow-wrap: anywhere;
+  }
+
+  h1 br {
+    display: none !important;
+  }
+
+  h2 {
+    font-size: clamp(27px, 8vw, 36px) !important;
+    line-height: 1.14 !important;
+    overflow-wrap: anywhere;
+  }
+
+  h3,
+  p,
+  li,
+  th,
+  td {
+    overflow-wrap: anywhere;
+  }
+
+  .hero {
+    padding-top: 44px !important;
+    padding-bottom: 42px !important;
+  }
+
+  .hero-grid,
+  .grid2,
+  .grid3,
+  .grid4,
+  .two-column,
+  .three-column,
+  .split,
+  .columns-2,
+  .columns-3,
+  .cards,
+  .card-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+
+  .hero-card,
+  .card,
+  .panel {
+    max-width: 100% !important;
+  }
+
+  .btns,
+  .actions,
+  .hero-actions,
+  .button-row,
+  .cta-row {
+    width: 100%;
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .btns .btn,
+  .actions .btn,
+  .hero-actions .btn,
+  .button-row .btn,
+  .cta-row .btn {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  table {
+    max-width: 100%;
+  }
+
+  .stats {
+    gap: 20px !important;
+  }
+
+  #cai-fixed-backtop,
+  .back-to-top,
+  .top-button {
+    right: max(14px, env(safe-area-inset-right)) !important;
+    bottom: max(14px, env(safe-area-inset-bottom)) !important;
+    z-index: 100 !important;
+  }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --cai-mobile-padding: 14px;
+  }
+
+  header .logo,
+  header .brand,
+  header .wordmark {
+    font-size: 18px !important;
+  }
+
+  h1 {
+    font-size: clamp(33px, 10.5vw, 42px) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+/* Mobile fix: make the horizontal nav strip (Agents page pills) scroll properly */
+@media (max-width: 767px) {
+  .cai-reader-nav .cai-reader-shell,
+  .cai-scroll-navigation {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: 12px;
+    padding-right: 28px !important;
+  }
+  .cai-reader-nav .cai-reader-shell > a,
+  .cai-scroll-navigation > a {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+  .cai-reader-nav { position: relative; }
+  .cai-reader-nav::after {
+    content: ""; position: absolute; top: 0; right: 0; bottom: 0; width: 32px;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(245,240,232,0), rgba(245,240,232,.92));
+  }
+}
+
+/* Home hamburger menu: the desktop-nav hide rule (header nav > a) was also hiding
+   the mobile menu's OWN links. Keep them visible when the menu is open. */
+@media (max-width: 767px) {
+  .mnav > a:not(.cai-mobile-demo),
+  .mobile-nav > a:not(.cai-mobile-demo) {
+    display: block !important;
+  }
+}
+
+
+/* Keep the wordmark on one line (no "Colleague / AI" wrap) */
+header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !important; }
+
+
+/* Show the section links inside the header menu on mobile.
+   The desktop-nav hide rule (header nav > a) was also hiding the links inside
+   the cai-hdr / cainav menus, so on non-home pages the menu opened empty. */
+@media (max-width: 767px) {
+  .cai-hdr-mnav > a:not(.cai-mobile-demo),
+  .cainav-drawer a:not(.cai-mobile-demo) {
+    display: block !important;
+  }
+}
+
+
+/* Show the section links inside the header menu on mobile.
+   The desktop-nav hide rule (header nav > a) was also hiding the links inside
+   the cai-hdr / cainav menus, so on non-home pages the menu opened empty. */
+@media (max-width: 767px) {
+  .cai-hdr-mnav > a:not(.cai-mobile-demo),
+  .cainav-drawer a:not(.cai-mobile-demo) {
+    display: block !important;
+  }
+}
+
+
+/* Agents hamburger: reveal the drawer when toggled open */
+#cainavDrawer.cai-open, .cainav-drawer.cai-open { display: block !important; }
+
+
+/* === Unified header on non-landing pages (matches the landing bar) === */
+.cai-uni-header{position:sticky;top:0;z-index:50;background:rgba(34,33,31,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.cai-uni-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;max-width:1200px;margin:0 auto;padding:0 20px}
+.cai-uni-logo{display:inline-flex;align-items:center;text-decoration:none;font-family:ui-serif,Georgia,serif;font-size:24px;font-weight:600;color:#F5F0E8;white-space:nowrap}
+.cai-uni-logo b{color:#E8A07F;font-weight:600}
+.cai-uni-links{display:flex;align-items:center;gap:22px}
+.cai-uni-links a{color:#CFC8BB;font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap}
+.cai-uni-links a:hover{color:#fff}
+.cai-uni-lang{background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 12px;font-size:13px;cursor:pointer}
+.cai-uni-lang option{color:#1d1b1a;background:#fff}
+.cai-uni-demo{color:#22211F !important;background:#E8A07F;border-radius:100px;padding:8px 16px;font-weight:700}
+.cai-uni-burger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;width:42px;height:38px;align-items:center;justify-content:center;cursor:pointer;flex:0 0 auto}
+.cai-uni-burger span{display:block;width:18px;height:2px;background:#F5F0E8}
+.cai-uni-mnav{display:none;background:#22211F;border-top:1px solid rgba(255,255,255,.08);padding:8px 20px 18px}
+.cai-uni-mnav.open{display:block}
+.cai-uni-mnav a{display:block;color:#CFC8BB;font-size:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.06);text-decoration:none}
+.cai-uni-mnav .cai-uni-demo{margin-top:12px;text-align:center;padding:13px;border-bottom:none}
+.cai-uni-mlang{padding-top:14px}
+.cai-uni-mlang .cai-uni-lang{width:100%;min-height:44px;font-size:16px}
+@media (max-width:860px){ .cai-uni-links{display:none} .cai-uni-burger{display:flex} }
+
+
+/* Design consistency: primary buttons use the terracotta accent everywhere */
+.btn-p, .nav-cta { background:#c65d3a !important; border-color:#c65d3a !important; color:#fff !important; }
+
+/* Show section links inside the unified mobile menu */
+@media (max-width:767px){ .cai-uni-mnav.open a { display:block !important; } }
+
+
+/* =========================================================================
+   Design-review pass (reviewer feedback) - brand colour & consistency
+   ========================================================================= */
+
+/* Unify the brand orange everywhere: the logo "AI" accent and every
+   "Book a demo" CTA use the darker terracotta (#c65d3a), never the pale peach,
+   so the home page and all sub-pages match. */
+.logo b, header .logo b, .cai-hdr-logo b, .cai-uni-logo b { color: #c65d3a !important; }
+
+.cai-uni-demo, a.cai-mobile-demo {
+  background: #c65d3a !important;
+  border-color: #c65d3a !important;
+  color: #ffffff !important;
+}
+.cai-uni-demo:hover, a.cai-mobile-demo:hover {
+  background: #b34e2d !important;
+  border-color: #b34e2d !important;
+}
+
+/* Home hero: make the secondary "Book a demo" a solid dark button
+   (reviewer preferred the dark version over the pale outline). */
+.btns .btn.s {
+  background: #22211F !important;
+  border-color: #22211F !important;
+  color: #F5F0E8 !important;
+}
+.btns .btn.s:hover { background: #000000 !important; border-color: #000000 !important; }
+
+/* Important information was too faint: strengthen the "ships prebuilt for"
+   label and the 36 / 5 / L2-L4 stat labels/numbers so they read as the
+   headline facts they are. */
+.stats .l, .pl-label { color: #6b655e !important; font-weight: 600 !important; }
+/* Reviewer asked whether the headline numbers could carry the brand orange for
+   emphasis - they now do, which lifts them without restructuring the strip. */
+.stats .n { color: #c65d3a !important; }
+
+/* Readiness quiz: it sat indented ~168px from the left; align it with the rest
+   of the page content ("this table I'd align to the left"). */
+.ga-card { margin-left: 0 !important; }
+
+/* Contact page: the company-identification block should not look like a boxed
+   card/table - flatten it (reviewer: "don't put this in a table"). */
+[data-cai-page="contact"] .card:has(dl) {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 6px;
+}
+[data-cai-page="contact"] .card:has(dl) dl {
+  border-top: 1px solid rgba(29, 27, 26, 0.12);
+  padding-top: 14px;
+}
+
+/* Trust page: hide the stray in-page language selector that made the page look
+   unfinished - the header already provides a language switch. */
+[data-cai-page="trust"] .cai-langsel { display: none !important; }
+
+/* One canonical table style for every content table (reviewer: the tables were
+   all styled differently and looked bland). Every table is wrapped in
+   .cai-table-scroll by the shared script, so this harmonises them site-wide -
+   consistent cream header with a terracotta accent bar, uniform cell borders,
+   the same font and padding everywhere. */
+.cai-table-scroll > table { border-collapse: collapse !important; width: 100%; }
+.cai-table-scroll > table thead th,
+.cai-table-scroll > table tr:first-child th {
+  background: #f3ede3 !important;
+  color: #22211F !important;
+  font-weight: 700 !important;
+  text-align: left !important;
+  padding: 12px 14px !important;
+  border-bottom: 2px solid #c65d3a !important;
+  font-family: var(--cai-ui-font) !important;
+}
+.cai-table-scroll > table td,
+.cai-table-scroll > table tbody th {
+  padding: 11px 14px !important;
+  border-bottom: 1px solid #e6ddce !important;
+  color: #2b2a28 !important;
+  vertical-align: top;
+}
+.cai-table-scroll > table tbody tr:last-child td { border-bottom: 0 !important; }
+
+/* Breathing room above and below every content table
+   (reviewer: it looked cramped with no gap under the table). */
+.cai-table-scroll { margin-top: 16px; margin-bottom: 26px; }
+
+/* Token-economy panel: it used a cold slate-blue text palette that read as a
+   different design system ("I wouldn't use the blue; the text isn't readable").
+   Bring it onto the same warm dark-panel style used elsewhere on the site. */
+.usage-intel__wrap { background: #22211F !important; }
+.usage-intel__card {
+  background: rgba(245, 240, 232, 0.06) !important;
+  border-color: rgba(245, 240, 232, 0.14) !important;
+}
+.usage-intel__wrap h2,
+.usage-intel__wrap h3,
+.usage-intel__wrap h4,
+.usage-intel__card strong,
+.usage-intel__card b { color: #F5F0E8 !important; }
+.usage-intel__wrap p,
+.usage-intel__wrap li,
+.usage-intel__wrap div,
+.usage-intel__wrap span,
+.usage-intel__card,
+.usage-intel__lead { color: #CFC8BB !important; }
+.usage-intel__eyebrow { color: #E8A07F !important; }
+
+/* "Check your readiness" CTA: give it a defined dark outline so the three hero
+   buttons read as one set (reviewer: "we'd give it a black border"). */
+a[href="#readiness"]:not(.cainav-spy):not(.cai-uni-demo) {
+  border: 1px solid #22211F !important;
+  border-radius: 999px;
+}
+
+/* Trust page: tighten the oversized gap above the page-guide card. */
+.cai-page-guide { margin-top: 8px !important; }
+
+/* One panel standard everywhere (reviewer: "three different table colours,
+   unify them"). Light panels use the warm cream + hairline border; dark panels
+   use the brand dark. No cold slate/navy anywhere. */
+.cai-page-guide,
+.trust-proof {
+  background: #FFFAF2 !important;
+  border: 1px solid #DED7CB !important;
+}
+/* Remaining cold navy inside the token panel. */
+.usage-intel__list {
+  background: rgba(245, 240, 232, 0.05) !important;
+  border-color: rgba(245, 240, 232, 0.14) !important;
+}
+.usage-intel__wrap { border-color: rgba(245, 240, 232, 0.14) !important; }
+.usage-intel__list li,
+.usage-intel__wrap ul { color: #CFC8BB !important; border-color: rgba(245, 240, 232, 0.14) !important; }
+
+
+/* =========================================================================
+   Design-system normalisation (first-visit feedback: sections used
+   inconsistent heading weights, colours and label styles, so the site felt
+   like three type systems bolted together). Bring every page onto one system.
+   ========================================================================= */
+
+/* Section eyebrows: always terracotta, uppercase, same weight and tracking.
+   (Trust and some sections rendered them grey and lower-case.)
+   NB: .pl-label is deliberately excluded - it keeps its neutral treatment. */
+.eyebrow, .kicker, .overline,
+[class*="eyebrow"], [class*="kicker"], [class*="overline"] {
+  color: #c65d3a !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em !important;
+  font-family: var(--cai-technical-font) !important;
+}
+
+/* Page & section headings: one elegant light Georgia weight everywhere.
+   (Static pages fell back to the browser default bold.) Colour is left to each
+   page so headings on dark panels stay light. */
+h1 { font-weight: 400 !important; letter-spacing: -0.02em; }
+h2 { font-weight: 400 !important; }
+
+/* Trust used grey, uppercase h2s as pseudo-labels, which read as a different
+   system. Bring them back to normal dark section headings like every other page. */
+[data-cai-page="trust"] h2 {
+  color: #22211F !important;
+  text-transform: none !important;
+  font-size: clamp(22px, 3vw, 26px) !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Buttons: the same weight and size across the static pages and the app.
+   (Trust's CTA was lighter and smaller than the others.) */
+.btn, .btn-p, .btn-s, .btn.p, .btn.s,
+.cta, .ch-cta, .cai-uni-demo, .nav-cta {
+  font-weight: 600 !important;
+  font-size: 15px !important;
+}
+
+
+/* =========================================================================
+   Brand mark: restore the three dots under the header wordmark, on every
+   header (home, static, injected), every page and language, mobile included.
+   Uses an inline-SVG background so the three brand colours render exactly;
+   overflow:visible keeps the dots from being clipped by the header.
+   ========================================================================= */
+header a.logo, header .cai-hdr-logo, .cai-uni-logo { position: relative; overflow: visible; }
+header a.logo::after,
+header .cai-hdr-logo::after,
+.cai-uni-logo::after {
+  content: "";
+  position: absolute;
+  left: 2px;
+  bottom: -5px;
+  width: 26px;
+  height: 6px;
+  pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='6'%3E%3Ccircle cx='3' cy='3' r='3' fill='%23c65d3a'/%3E%3Ccircle cx='12' cy='3' r='3' fill='%23f5f0e8'/%3E%3Ccircle cx='21' cy='3' r='3' fill='%23c4a882'/%3E%3C/svg%3E") no-repeat;
+  background-size: 26px 6px;
+}
