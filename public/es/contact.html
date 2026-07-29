@@ -36,6 +36,14 @@ dt{color:#8A857C;font-weight:600;font-size:13.5px}
 dd{margin:0;font-size:14.5px}
 footer{max-width:860px;margin:0 auto;padding:0 24px 48px;font-size:13px;color:#8A857C}
 footer a{color:#8A857C}
+.logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px}
+.cai-logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -145,7 +153,7 @@ display: flex !important;
 </style>
 <header class="cai-hdr">
   <div class="cai-hdr-in">
-    <a href="/" class="logo cai-hdr-logo">Colleague<b>AI</b></a>
+    <a href="/" class="logo cai-hdr-logo"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots"><span></span><span></span><span></span></span></a>
     <nav class="cai-hdr-links">
       <a class="ch-l" href="/es/agentes">Catálogo</a>
       <a class="ch-l" href="/es/precios">Precios</a>
