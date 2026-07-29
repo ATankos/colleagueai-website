@@ -160,7 +160,7 @@ display: flex !important;
       <a class="ch-l" href="/de/vertrauen">Vertrauen</a>
       <a class="ch-l" href="/de/partner">Partner</a>
       <a class="ch-l" href="/de/kontakt">Kontakt</a>
-      <a class="ch-cta" href="/demo">Termin vereinbaren</a>
+      <select class="lang" id="contactlang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"><option value="en">English</option><option value="cs">Čeština</option><option value="de" selected>Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option></select><a class="ch-cta" href="/demo">Termin vereinbaren</a>
       <button class="cai-hdr-burger" onclick="var m=document.getElementById('caihdrm');m.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
@@ -192,5 +192,6 @@ display: flex !important;
 </div>
 </main>
 <footer>© Colleague AI 2026 · <a href="/de/nutzungsbedingungen">Bedingungen</a> · <a href="/de/datenschutz">Datenschutz</a> · <a href="/de/rueckerstattung">Rückerstattung</a> · <a href="/license">Lizenz</a> · <a href="/imprint">Impressum</a></footer>
+<script>(function(){var R=["/contact", "/cs/kontakt", "/de/kontakt", "/fr/contact", "/es/contacto", "/it/contatti", "/pl/kontakt", "/pt/contacto"];var s=document.getElementById("contactlang");if(!s)return;s.addEventListener("change",function(){var r=R[s.selectedIndex];if(r)location.href=r;});})();</script>
 </body>
 </html>
