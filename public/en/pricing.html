@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
 <meta name="description" content="Explore indicative pricing for enterprise AI agents, from focused workflow assistants to governed multi-agent systems for finance, risk, compliance and operations.">
-<link rel="canonical" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/pricing">
 <link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/cenik">
@@ -124,6 +123,14 @@ button.btn[disabled]{opacity:.55;cursor:not-allowed}
 .cai-logo-dots span:nth-child(1){background:#C65D3A}
 .cai-logo-dots span:nth-child(2){background:#F5F0E8}
 .cai-logo-dots span:nth-child(3){background:#8A857C}
+section[id]{scroll-margin-top:90px}
+.jump{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding-top:0;padding-bottom:6px}
+.jump .jump-lbl{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+.jump a{font-size:13.5px;color:var(--soft);border:1px solid var(--line);border-radius:100px;padding:7px 14px;background:var(--paper)}
+.jump a:hover,.jump a:focus-visible{border-color:var(--terra);color:var(--graphite)}
+@media(max-width:560px){.jump{gap:6px}.jump a{font-size:13px;padding:6px 12px}}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 <style id="cai-url-locale-controller-css">
 html[data-cai-page="agents"] #cai-site-journey,
@@ -184,8 +191,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 <link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/prezzi" />
 <link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/cennik" />
 <link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/precos" />
-<link rel="canonical" href="https://www.colleagueai.ai/pricing" />
 <!-- cai-global-hreflang:end -->
+<link rel="canonical" href="https://www.colleagueai.ai/pricing">
 </head>
 <body>
 <header>
@@ -212,7 +219,12 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 <p class="note">Most individual business agents are expected to fall between $15,000 and $30,000. These are packaged enterprise solutions, not software subscriptions: depending on the selected package they may include configuration, implementation, documentation, testing and governance elements.</p>
 </section>
 
-<section class="wrap" style="padding-top:0" aria-labelledby="tiers-h">
+<nav class="jump wrap" aria-label="On this page">
+<span class="jump-lbl">On this page</span>
+<a href="#tiers">Packages</a><a href="#factors">What affects price</a><a href="#included">What's included</a><a href="#faq">Questions</a><a href="#proposal">Get a proposal</a>
+</nav>
+
+<section class="wrap" id="tiers" style="padding-top:0" aria-labelledby="tiers-h">
 <h2 id="tiers-h">Five packaging tiers</h2>
 <p class="sub">Tiers reflect how much complexity, control and implementation effort a workflow requires, not how valuable one customer is compared to another.</p>
 <div class="tiers">
@@ -282,7 +294,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" aria-labelledby="factors-h" style="border-top:1px solid var(--line)">
+<section class="wrap" id="factors" aria-labelledby="factors-h" style="border-top:1px solid var(--line)">
 <span class="kicker">Scoping</span>
 <h2 id="factors-h">What determines your final investment?</h2>
 <p class="sub">Six factors move an engagement within, or outside, its indicative range. They are assessed during discovery and confirmed in the proposal.</p>
@@ -296,7 +308,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" style="padding-top:0" aria-labelledby="inc-h">
+<section class="wrap" id="included" style="padding-top:0" aria-labelledby="inc-h">
 <h2 id="inc-h">What may be included</h2>
 <p class="sub">The exact package varies by engagement and is confirmed in the proposal. Depending on scope, it may include:</p>
 <ul class="inc">
@@ -313,7 +325,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </div>
 </section>
 
-<section class="wrap" aria-labelledby="faq-h" style="border-top:1px solid var(--line)">
+<section class="wrap" id="faq" aria-labelledby="faq-h" style="border-top:1px solid var(--line)">
 <span class="kicker">Questions, answered</span>
 <h2 id="faq-h">Pricing FAQ</h2>
 <div class="faq">
