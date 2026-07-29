@@ -89,7 +89,19 @@ function isTargetHtml(file) {
 }
 
 function applyController(html) {
-  // Idempotent: strip any prior controller + previously-injected selector first.
+  // Refresh in place when already present: re-appending before </head> relocated it
+  // on every run, churning every localized page.
+  const cssRE = /<style id="cai-url-locale-controller-css">[\s\S]*?<\/style>/;
+  const jsRE = /<script id="cai-url-locale-controller">[\s\S]*?<\/script>/;
+  if (cssRE.test(html) && jsRE.test(html)) {
+    html = html.replace(cssRE, CSS).replace(jsRE, SCRIPT);
+    if (!/id="langsel"/.test(html)) {
+      const b = html.match(/<body[^>]*>/i);
+      if (b) html = html.replace(b[0], b[0] + "\n" + LANGSEL);
+    }
+    return html;
+  }
+  // Otherwise strip remnants and inject fresh.
   html = html.replace(/\s*<style id="cai-url-locale-controller-css">[\s\S]*?<\/style>\s*/g, "\n");
   html = html.replace(/\s*<script id="cai-url-locale-controller">[\s\S]*?<\/script>\s*/g, "\n");
   html = html.replace(/\s*<div class="cai-langsel">[\s\S]*?<\/div>\s*/g, "\n");
