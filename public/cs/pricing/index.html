@@ -123,15 +123,6 @@ section[id]{scroll-margin-top:90px}
 @media(max-width:560px){.jump{gap:6px}.jump a{font-size:13px;padding:6px 12px}}
 html{scroll-behavior:smooth}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-.logo{display:inline-flex!important;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:4px;text-decoration:none;overflow:visible!important}
-.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8;white-space:nowrap}
-.cai-logo-ai{color:#E8A07F}
-.cai-logo-dots{display:flex;gap:5px;padding-left:1px;flex:0 0 auto;line-height:0}
-.cai-logo-dots span{flex:0 0 auto;width:5px;height:5px;min-width:5px;min-height:5px;border-radius:50%;display:block}
-.cai-logo-dots span:nth-child(1){background:#C65D3A}
-.cai-logo-dots span:nth-child(2){background:#F5F0E8}
-.cai-logo-dots span:nth-child(3){background:#8A857C}
-@media(max-width:560px){.cai-logo-text{font-size:19px}.cai-logo-dots{gap:4px}.cai-logo-dots span{width:4px;height:4px;min-width:4px;min-height:4px}}
 </style>
 <style id="cai-url-locale-controller-css">
 html[data-cai-page="agents"] #cai-site-journey,
@@ -225,11 +216,8 @@ header .cta, header .ch-cta, header .nav-cta {
   font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important;
 }
 header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
-header .cai-logo-text { font-size: 22px !important; color: #F5F0E8 !important; }
-header .cai-logo-ai { color: #E8A07F !important; }
 @media (max-width: 560px) {
   header.nav .nav, header.cai-hdr .cai-hdr-in, header#nav .nav-inner, .cai-hdr-in { height: 58px !important; }
-  header .cai-logo-text { font-size: 19px !important; }
 }
 </style>
 </head>
@@ -237,7 +225,7 @@ header .cai-logo-ai { color: #E8A07F !important; }
 <header>
 <div class="wrap">
 <div class="nav">
-<a class="logo" href="/"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots" aria-hidden="true"><span></span><span></span><span></span></span></a>
+<a class="logo" href="/">Colleague<b>AI</b></a>
 <nav class="links" aria-label="Main">
 <a href="/cs/agenti">Katalog</a><a href="/cs/agenti#score">CAI Score</a><a href="/cs/cenik" aria-current="page">Ceník</a><a href="/cs/duvera">Důvěra</a><a href="/cs/partneri">Partneři</a><a href="/cs/kontakt">Kontakt</a>
 <select class="lang" id="langsel" aria-label="Language"></select>
