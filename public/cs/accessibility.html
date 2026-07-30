@@ -32,6 +32,15 @@
 .cai-hdr-mnav a{display:block;color:#CFC8BB;font-size:16px;padding:10px 0}
 .cai-hdr-mnav.open{display:block}
 @media(max-width:760px){.cai-hdr-links .ch-l{display:none}.cai-hdr-burger{display:flex}}
+.logo{display:inline-flex!important;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:4px;text-decoration:none;overflow:visible!important}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8;white-space:nowrap}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px;flex:0 0 auto;line-height:0}
+.cai-logo-dots span{flex:0 0 auto;width:5px;height:5px;min-width:5px;min-height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
+@media(max-width:560px){.cai-logo-text{font-size:19px}.cai-logo-dots{gap:4px}.cai-logo-dots span{width:4px;height:4px;min-width:4px;min-height:4px}}
 </style><style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#2B2A28;line-height:1.65}
 main{max-width:860px;margin:0 auto;padding:48px 24px 80px}
@@ -136,9 +145,54 @@ display: flex !important;
   });
 }());
 </script>
+<style id="cai-header-unify">
+/* Canonical site header. The site grew three header implementations (.nav on
+   home/pricing, .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents)
+   with different heights, colours, gaps and CTA sizes - agents was even light
+   on a dark-header site. This block normalises all three to one appearance
+   without restructuring the markup. */
+header.nav, header.cai-hdr, header#nav {
+  position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important;
+}
+header.nav .nav, header.cai-hdr .cai-hdr-in, header#nav .nav-inner, .cai-hdr-in {
+  height: 64px !important; max-width: 1120px; margin: 0 auto; padding: 0 22px;
+  display: flex !important; align-items: center !important; justify-content: space-between !important;
+}
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important;
+}
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none;
+}
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible {
+  color: #fff !important;
+}
+header .cta, header .ch-cta, header .nav-cta {
+  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important;
+}
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .cai-logo-text { font-size: 22px !important; color: #F5F0E8 !important; }
+header .cai-logo-ai { color: #E8A07F !important; }
+@media (max-width: 560px) {
+  header.nav .nav, header.cai-hdr .cai-hdr-in, header#nav .nav-inner, .cai-hdr-in { height: 58px !important; }
+  header .cai-logo-text { font-size: 19px !important; }
+}
+</style>
 </head>
 <body>
-<header class="cai-hdr"><div class="cai-hdr-in"><a href="/cs" class="logo cai-hdr-logo">Colleague<b>AI</b></a><nav class="cai-hdr-links"><a class="ch-l" href="/cs/agenti">Katalog</a><a class="ch-l" href="/cs/duvera">Důvěra</a><a class="ch-l" href="/cs/partneri">Partneři</a><a class="ch-l" href="/cs/kontakt">Kontakt</a><a class="ch-cta" href="/demo">Domluvit schůzku</a><button class="cai-hdr-burger" onclick="document.getElementById('caihdrm').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button></div><nav class="cai-hdr-mnav" id="caihdrm"><a href="/cs/agenti">Katalog</a><a href="/cs/duvera">Důvěra</a><a href="/cs/partneri">Partneři</a><a href="/cs/kontakt">Kontakt</a></nav></header>
+<header class="cai-hdr"><div class="cai-hdr-in"><a href="/cs" class="logo cai-hdr-logo"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots" aria-hidden="true"><span></span><span></span><span></span></span></a><nav class="cai-hdr-links">
+      <a class="ch-l" href="/cs/agenti">Katalog</a>
+      <a class="ch-l" href="/cs/agenti#score">CAI Score</a>
+      <a class="ch-l" href="/cs/cenik">Ceník</a>
+      <a class="ch-l" href="/cs/duvera">Důvěra</a>
+      <a class="ch-l" href="/cs/partneri">Partneři</a>
+      <a class="ch-l" href="/cs/kontakt">Kontakt</a>
+      <select class="lang" id="pagelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"><option value="en">English</option><option value="cs" selected>Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option></select><a class="ch-cta" href="/demo">Domluvit schůzku</a><button class="cai-hdr-burger" onclick="document.getElementById('caihdrm').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button></div><nav class="cai-hdr-mnav" id="caihdrm"><a href="/cs/agenti">Katalog</a><a href="/cs/agenti#score">CAI Score</a><a href="/cs/cenik">Ceník</a><a href="/cs/duvera">Důvěra</a><a href="/cs/partneri">Partneři</a><a href="/cs/kontakt">Kontakt</a></nav></header>
 <main>
 <span class="kick">Přístupnost</span>
 <h1>Postaveno tak, aby to mohl používat každý.</h1>
@@ -149,5 +203,6 @@ display: flex !important;
 <div class="note">Poslední revize: červenec 2026</div>
 </main>
 <footer>© Colleague AI 2026 · <a href="/cs/podminky">Podmínky</a> · <a href="/cs/ochrana-soukromi">Soukromí</a> · <a href="/cs/vraceni-penez">Vrácení peněz</a> · <a href="/imprint">Právní informace</a> · <a href="/cs/kontakt">Kontakt</a></footer>
+<script>(function(){var R=["/accessibility", "/cs/pristupnost", "/de/barrierefreiheit", "/fr/accessibilite", "/es/accesibilidad", "/it/accessibilita", "/pl/dostepnosc", "/pt/acessibilidade"];var s=document.getElementById("pagelang");if(!s)return;s.addEventListener("change",function(){var r=R[s.selectedIndex];if(r)location.href=r;});})();</script>
 </body>
 </html>

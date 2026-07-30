@@ -12,7 +12,16 @@ p,li{font-size:15px}ul{margin:6px 0 0;padding-left:20px}
 .draft{font-size:13px;color:#9E3D22;background:#fbeee7;border:1px solid #E8A07F;border-radius:10px;padding:14px 16px;margin:14px 0}
 .note{font-size:13px;color:#6b665e;background:#fff;border:1px solid #d8d2c6;border-radius:10px;padding:14px 16px;margin-top:14px}
 table{border-collapse:collapse;width:100%;font-size:14px;margin-top:10px}td,th{border:1px solid #d8d2c6;padding:8px 11px;text-align:left;vertical-align:top}th{background:#fff;font-weight:600}
-footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}a{color:#C65D3A}</style>
+footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}a{color:#C65D3A}.logo{display:inline-flex!important;flex-direction:column;align-items:flex-start;justify-content:center;line-height:1;gap:4px;text-decoration:none;overflow:visible!important}
+.cai-logo-text{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-size:22px;font-weight:600;letter-spacing:-.01em;color:#F5F0E8;white-space:nowrap}
+.cai-logo-ai{color:#E8A07F}
+.cai-logo-dots{display:flex;gap:5px;padding-left:1px;flex:0 0 auto;line-height:0}
+.cai-logo-dots span{flex:0 0 auto;width:5px;height:5px;min-width:5px;min-height:5px;border-radius:50%;display:block}
+.cai-logo-dots span:nth-child(1){background:#C65D3A}
+.cai-logo-dots span:nth-child(2){background:#F5F0E8}
+.cai-logo-dots span:nth-child(3){background:#8A857C}
+@media(max-width:560px){.cai-logo-text{font-size:19px}.cai-logo-dots{gap:4px}.cai-logo-dots span{width:4px;height:4px;min-width:4px;min-height:4px}}
+</style>
 <!-- cai-global-hreflang:start -->
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/terms" />
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/terms" />
@@ -159,6 +168,44 @@ display: flex !important;
   });
 }());
 </script>
+<style id="cai-header-unify">
+/* Canonical site header. The site grew three header implementations (.nav on
+   home/pricing, .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents)
+   with different heights, colours, gaps and CTA sizes - agents was even light
+   on a dark-header site. This block normalises all three to one appearance
+   without restructuring the markup. */
+header.nav, header.cai-hdr, header#nav {
+  position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important;
+}
+header.nav .nav, header.cai-hdr .cai-hdr-in, header#nav .nav-inner, .cai-hdr-in {
+  height: 64px !important; max-width: 1120px; margin: 0 auto; padding: 0 22px;
+  display: flex !important; align-items: center !important; justify-content: space-between !important;
+}
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important;
+}
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none;
+}
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible {
+  color: #fff !important;
+}
+header .cta, header .ch-cta, header .nav-cta {
+  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important;
+}
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .cai-logo-text { font-size: 22px !important; color: #F5F0E8 !important; }
+header .cai-logo-ai { color: #E8A07F !important; }
+@media (max-width: 560px) {
+  header.nav .nav, header.cai-hdr .cai-hdr-in, header#nav .nav-inner, .cai-hdr-in { height: 58px !important; }
+  header .cai-logo-text { font-size: 19px !important; }
+}
+</style>
 </head><body>
 <div class="cai-langsel"><select id="langsel" aria-label="Language"></select></div>
 <!-- cai-site-header:start -->
@@ -182,9 +229,11 @@ display: flex !important;
 </style>
 <header class="cai-hdr">
   <div class="cai-hdr-in">
-    <a href="/" class="logo cai-hdr-logo">Colleague<b>AI</b></a>
+    <a href="/" class="logo cai-hdr-logo"><span class="cai-logo-text">Colleague<span class="cai-logo-ai">AI</span></span><span class="cai-logo-dots" aria-hidden="true"><span></span><span></span><span></span></span></a>
     <nav class="cai-hdr-links">
       <a class="ch-l" href="/de/agenten">Katalog</a>
+      <a class="ch-l" href="/de/agenten#score">CAI Score</a>
+      <a class="ch-l" href="/de/preise">Preise</a>
       <a class="ch-l" href="/de/vertrauen">Vertrauen</a>
       <a class="ch-l" href="/de/partner">Partner</a>
       <a class="ch-l" href="/de/kontakt">Kontakt</a>
@@ -192,9 +241,7 @@ display: flex !important;
       <button class="cai-hdr-burger" onclick="var m=document.getElementById('caihdrm');m.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
-  <nav class="cai-hdr-mnav" id="caihdrm">
-    <a href="/de/agenten">Katalog</a><a href="/de/vertrauen">Trust</a><a href="/de/partner">Partners</a><a href="/de/kontakt">Kontakt</a>
-  </nav>
+  <nav class="cai-hdr-mnav" id="caihdrm"><a href="/de/agenten">Katalog</a><a href="/de/agenten#score">CAI Score</a><a href="/de/preise">Preise</a><a href="/de/vertrauen">Vertrauen</a><a href="/de/partner">Partner</a><a href="/de/kontakt">Kontakt</a></nav>
 </header>
 <!-- cai-site-header:end -->
 <main>
