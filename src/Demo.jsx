@@ -11,7 +11,23 @@ const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A
 const serif = 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
 const sans = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
 
+const L = {
+  en: { k:'Demo', h:'Coming soon.', p:'The online demo is not published yet. In the meantime, contact us and we will walk you through a governed agent on a workflow you choose.', c:'Contact us', b:'Browse the catalogue', contact:'/contact', agents:'/agents' },
+  cs: { k:'Demo', h:'Již brzy.', p:'Online demo zatím není zveřejněné. Zatím nás kontaktujte a provedeme vás řízeným agentem na procesu, který si vyberete.', c:'Kontaktujte nás', b:'Prohlédnout katalog', contact:'/cs/kontakt', agents:'/cs/agenti' },
+  de: { k:'Demo', h:'Demnächst verfügbar.', p:'Die Online-Demo ist noch nicht veröffentlicht. Kontaktieren Sie uns in der Zwischenzeit, und wir führen Sie anhand eines Workflows Ihrer Wahl durch einen gesteuerten Agenten.', c:'Kontakt aufnehmen', b:'Katalog ansehen', contact:'/de/kontakt', agents:'/de/agenten' },
+  fr: { k:'Démo', h:'Bientôt disponible.', p:"La démo en ligne n'est pas encore publiée. Contactez-nous en attendant et nous vous guiderons à travers un agent gouverné sur un workflow de votre choix.", c:'Nous contacter', b:'Parcourir le catalogue', contact:'/fr/contact', agents:'/fr/agents' },
+  es: { k:'Demo', h:'Muy pronto.', p:'La demo en línea aún no está publicada. Mientras tanto, contáctenos y le mostraremos un agente gobernado en el flujo de trabajo que elija.', c:'Contáctenos', b:'Ver el catálogo', contact:'/es/contacto', agents:'/es/agentes' },
+  it: { k:'Demo', h:'Presto disponibile.', p:'La demo online non è ancora pubblicata. Nel frattempo contattateci e vi guideremo attraverso un agente governato su un workflow a vostra scelta.', c:'Contattaci', b:'Sfoglia il catalogo', contact:'/it/contatti', agents:'/it/agenti' },
+  pl: { k:'Demo', h:'Wkrótce.', p:'Demo online nie zostało jeszcze opublikowane. W międzyczasie skontaktuj się z nami, a przeprowadzimy Cię przez nadzorowanego agenta na wybranym przez Ciebie procesie.', c:'Skontaktuj się', b:'Przeglądaj katalog', contact:'/pl/kontakt', agents:'/pl/agenci' },
+  pt: { k:'Demo', h:'Em breve.', p:'A demonstração online ainda não foi publicada. Entretanto, contacte-nos e mostramos-lhe um agente governado num fluxo de trabalho à sua escolha.', c:'Contacte-nos', b:'Ver o catálogo', contact:'/pt/contacto', agents:'/pt/agentes' },
+};
+function copy() {
+  const m = (typeof window !== 'undefined' ? window.location.pathname : '').match(/^\/(cs|de|fr|es|it|pl|pt)(\/|$)/);
+  return L[m ? m[1] : 'en'] || L.en;
+}
+
 export default function Demo() {
+  const t = copy();
   return (
     <div style={{ background: C.cream, color: C.graphite, fontFamily: sans, minHeight: '100vh', lineHeight: 1.6 }}>
       <style>{`
@@ -35,15 +51,12 @@ export default function Demo() {
 
 
       <main className="d-wrap d-main">
-        <span className="d-kicker">Demo</span>
-        <h1>Coming soon.</h1>
-        <p className="d-sub">
-          The online demo is not published yet. In the meantime, contact us and we
-          will walk you through a governed agent on a workflow you choose.
-        </p>
+        <span className="d-kicker">{t.k}</span>
+        <h1>{t.h}</h1>
+        <p className="d-sub">{t.p}</p>
         <div className="d-btns">
-          <a className="d-btn d-p" href="/contact">Contact us</a>
-          <a className="d-btn d-s" href="/agents">Browse the catalogue</a>
+          <a className="d-btn d-p" href={t.contact}>{t.c}</a>
+          <a className="d-btn d-s" href={t.agents}>{t.b}</a>
         </div>
       </main>
     </div>
