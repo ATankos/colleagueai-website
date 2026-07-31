@@ -17,13 +17,8 @@ export default function Demo() {
       <style>{`
         *{box-sizing:border-box} body{margin:0}
         .d-wrap{max-width:720px;margin:0 auto;padding:0 22px}
-        .d-hdr{background:rgba(34,33,31,.97);position:sticky;top:0;z-index:50}
-        .d-in{display:flex;align-items:center;justify-content:space-between;height:64px}
-        .d-logo{font-family:${serif};font-size:22px;font-weight:600;color:${C.cream};text-decoration:none}
-        .d-logo b{color:#E8A07F;font-weight:600}
-        .d-back{color:#CFC8BB;font-size:14px;text-decoration:none}
-        .d-back:hover{color:#fff}
-        .d-main{text-align:center;padding:96px 22px 110px}
+                        .d-logo{font-family:${serif};font-size:22px;font-weight:600;color:${C.cream};text-decoration:none}
+                                .d-main{text-align:center;padding:110px 22px 120px}
         .d-kicker{font-family:ui-monospace,Consolas,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:${C.muted};display:block;margin-bottom:16px}
         h1{font-family:${serif};font-weight:500;font-size:clamp(30px,6vw,46px);line-height:1.15;letter-spacing:-.02em;margin:0 0 16px}
         .d-sub{font-size:17px;color:${C.soft};max-width:520px;margin:0 auto 32px}
@@ -38,12 +33,6 @@ export default function Demo() {
         @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
       `}</style>
 
-      <header className="d-hdr">
-        <div className="d-wrap d-in">
-          <a className="d-logo" href="/">Colleague<b>AI</b></a>
-          <a className="d-back" href="/">← Back to site</a>
-        </div>
-      </header>
 
       <main className="d-wrap d-main">
         <span className="d-kicker">Demo</span>
