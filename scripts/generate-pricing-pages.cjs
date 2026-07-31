@@ -104,7 +104,11 @@ function render(loc) {
     "/partners": b.partners.href,
     "/contact": b.contact.href,
     "/demo": b.cta.href,
-    "/pricing": canonicalPath(loc, "pricing")
+    "/pricing": canonicalPath(loc, "pricing"),
+    // legal routes are localised too - without these the consent checkbox linked
+    // to the English privacy policy from every localised pricing page
+    "/privacy": canonicalPath(loc, "privacy"),
+    "/terms": canonicalPath(loc, "terms")
   };
   for (const [from, to] of Object.entries(map)) {
     if (from === to) continue;
