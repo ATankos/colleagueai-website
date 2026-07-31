@@ -334,13 +334,13 @@
 (function () {
   var MENU = {
     en: { items: [["/agents","Catalogue"],["/agents#score","CAI Score"],["/pricing","Pricing"],["/trust","Trust"],["/partners","Partners"],["/contact","Contact"]], demo: ["/demo","Book a demo"] },
-    cs: { items: [["/cs/agenti","Katalog"],["/cs/agenti#score","CAI Score"],["/cs/cenik","Cen\u00EDk"],["/cs/duvera","Trust"],["/cs/partneri","Partners"],["/cs/kontakt","Kontakt"]], demo: ["/demo","Domluvit sch\u016Fzku"] },
-    de: { items: [["/de/agenten","Katalog"],["/de/agenten#score","CAI Score"],["/de/preise","Preise"],["/de/vertrauen","Trust"],["/de/partner","Partners"],["/de/kontakt","Kontakt"]], demo: ["/demo","Termin vereinbaren"] },
-    es: { items: [["/es/agentes","Cat\u00E1logo"],["/es/agentes#score","CAI Score"],["/es/precios","Precios"],["/es/confianza","Trust"],["/es/socios","Partners"],["/es/contacto","Contacto"]], demo: ["/demo","Reservar una demo"] },
+    cs: { items: [["/cs/agenti","Katalog"],["/cs/agenti#score","CAI Score"],["/cs/cenik","Cen\u00EDk"],["/cs/duvera","D\u016fv\u011bra"],["/cs/partneri","Partne\u0159i"],["/cs/kontakt","Kontakt"]], demo: ["/demo","Domluvit sch\u016Fzku"] },
+    de: { items: [["/de/agenten","Katalog"],["/de/agenten#score","CAI Score"],["/de/preise","Preise"],["/de/vertrauen","Vertrauen"],["/de/partner","Partner"],["/de/kontakt","Kontakt"]], demo: ["/demo","Termin vereinbaren"] },
+    es: { items: [["/es/agentes","Cat\u00E1logo"],["/es/agentes#score","CAI Score"],["/es/precios","Precios"],["/es/confianza","Confianza"],["/es/socios","Partners"],["/es/contacto","Contacto"]], demo: ["/demo","Reservar una demo"] },
     fr: { items: [["/fr/agents","Catalogue"],["/fr/agents#score","CAI Score"],["/fr/tarifs","Tarifs"],["/fr/confiance","Confiance"],["/fr/partenaires","Partenaires"],["/fr/contact","Contact"]], demo: ["/demo","R\u00E9server une d\u00E9mo"] },
-    it: { items: [["/it/agenti","Catalogo"],["/it/agenti#score","CAI Score"],["/it/prezzi","Prezzi"],["/it/fiducia","Trust"],["/it/partner","Partners"],["/it/contatti","Contatti"]], demo: ["/demo","Prenota una demo"] },
-    pl: { items: [["/pl/agenci","Katalog"],["/pl/agenci#score","CAI Score"],["/pl/cennik","Cennik"],["/pl/zaufanie","Trust"],["/pl/partnerzy","Partners"],["/pl/kontakt","Kontakt"]], demo: ["/demo","Um\u00F3w demo"] },
-    pt: { items: [["/pt/agentes","Cat\u00E1logo"],["/pt/agentes#score","CAI Score"],["/pt/precos","Pre\u00E7os"],["/pt/confianca","Trust"],["/pt/parceiros","Partners"],["/pt/contacto","Contacto"]], demo: ["/demo","Marcar uma demo"] }
+    it: { items: [["/it/agenti","Catalogo"],["/it/agenti#score","CAI Score"],["/it/prezzi","Prezzi"],["/it/fiducia","Fiducia"],["/it/partner","Partner"],["/it/contatti","Contatti"]], demo: ["/demo","Prenota una demo"] },
+    pl: { items: [["/pl/agenci","Katalog"],["/pl/agenci#score","CAI Score"],["/pl/cennik","Cennik"],["/pl/zaufanie","Zaufanie"],["/pl/partnerzy","Partnerzy"],["/pl/kontakt","Kontakt"]], demo: ["/demo","Um\u00F3w demo"] },
+    pt: { items: [["/pt/agentes","Cat\u00E1logo"],["/pt/agentes#score","CAI Score"],["/pt/precos","Pre\u00E7os"],["/pt/confianca","Confian\xe7a"],["/pt/parceiros","Parceiros"],["/pt/contacto","Contacto"]], demo: ["/demo","Marcar uma demo"] }
   };
   function locale(){var m=location.pathname.match(/^\/(cs|de|es|fr|it|pl|pt)(\/|$)/);return m?m[1]:"en";}
   function norm(h){return (h||"").replace(location.origin,"").replace(/\/$/,"").toLowerCase();}
@@ -402,13 +402,13 @@
 (function () {
   var MENU = {
     en: { home:"/",   items:[["/agents","Catalogue"],["/agents#score","CAI Score"],["/pricing","Pricing"],["/trust","Trust"],["/partners","Partners"],["/contact","Contact"]], demo:["/demo","Book a demo"] },
-    cs: { home:"/cs", items:[["/cs/agenti","Katalog"],["/cs/agenti#score","CAI Score"],["/cs/cenik","Cen\u00EDk"],["/cs/duvera","Trust"],["/cs/partneri","Partners"],["/cs/kontakt","Kontakt"]], demo:["/demo","Domluvit sch\u016Fzku"] },
-    de: { home:"/de", items:[["/de/agenten","Katalog"],["/de/agenten#score","CAI Score"],["/de/preise","Preise"],["/de/vertrauen","Trust"],["/de/partner","Partners"],["/de/kontakt","Kontakt"]], demo:["/demo","Termin vereinbaren"] },
-    es: { home:"/es", items:[["/es/agentes","Cat\u00E1logo"],["/es/agentes#score","CAI Score"],["/es/precios","Precios"],["/es/confianza","Trust"],["/es/socios","Partners"],["/es/contacto","Contacto"]], demo:["/demo","Reservar una demo"] },
+    cs: { home:"/cs", items:[["/cs/agenti","Katalog"],["/cs/agenti#score","CAI Score"],["/cs/cenik","Cen\u00EDk"],["/cs/duvera","D\u016fv\u011bra"],["/cs/partneri","Partne\u0159i"],["/cs/kontakt","Kontakt"]], demo:["/demo","Domluvit sch\u016Fzku"] },
+    de: { home:"/de", items:[["/de/agenten","Katalog"],["/de/agenten#score","CAI Score"],["/de/preise","Preise"],["/de/vertrauen","Vertrauen"],["/de/partner","Partner"],["/de/kontakt","Kontakt"]], demo:["/demo","Termin vereinbaren"] },
+    es: { home:"/es", items:[["/es/agentes","Cat\u00E1logo"],["/es/agentes#score","CAI Score"],["/es/precios","Precios"],["/es/confianza","Confianza"],["/es/socios","Partners"],["/es/contacto","Contacto"]], demo:["/demo","Reservar una demo"] },
     fr: { home:"/fr", items:[["/fr/agents","Catalogue"],["/fr/agents#score","CAI Score"],["/fr/tarifs","Tarifs"],["/fr/confiance","Confiance"],["/fr/partenaires","Partenaires"],["/fr/contact","Contact"]], demo:["/demo","R\u00E9server une d\u00E9mo"] },
-    it: { home:"/it", items:[["/it/agenti","Catalogo"],["/it/agenti#score","CAI Score"],["/it/prezzi","Prezzi"],["/it/fiducia","Trust"],["/it/partner","Partners"],["/it/contatti","Contatti"]], demo:["/demo","Prenota una demo"] },
-    pl: { home:"/pl", items:[["/pl/agenci","Katalog"],["/pl/agenci#score","CAI Score"],["/pl/cennik","Cennik"],["/pl/zaufanie","Trust"],["/pl/partnerzy","Partners"],["/pl/kontakt","Kontakt"]], demo:["/demo","Um\u00F3w demo"] },
-    pt: { home:"/pt", items:[["/pt/agentes","Cat\u00E1logo"],["/pt/agentes#score","CAI Score"],["/pt/precos","Pre\u00E7os"],["/pt/confianca","Trust"],["/pt/parceiros","Partners"],["/pt/contacto","Contacto"]], demo:["/demo","Marcar uma demo"] }
+    it: { home:"/it", items:[["/it/agenti","Catalogo"],["/it/agenti#score","CAI Score"],["/it/prezzi","Prezzi"],["/it/fiducia","Fiducia"],["/it/partner","Partner"],["/it/contatti","Contatti"]], demo:["/demo","Prenota una demo"] },
+    pl: { home:"/pl", items:[["/pl/agenci","Katalog"],["/pl/agenci#score","CAI Score"],["/pl/cennik","Cennik"],["/pl/zaufanie","Zaufanie"],["/pl/partnerzy","Partnerzy"],["/pl/kontakt","Kontakt"]], demo:["/demo","Um\u00F3w demo"] },
+    pt: { home:"/pt", items:[["/pt/agentes","Cat\u00E1logo"],["/pt/agentes#score","CAI Score"],["/pt/precos","Pre\u00E7os"],["/pt/confianca","Confian\xe7a"],["/pt/parceiros","Parceiros"],["/pt/contacto","Contacto"]], demo:["/demo","Marcar uma demo"] }
   };
   var LANGS = [["/","English"],["/cs","\u010Ce\u0161tina"],["/de","Deutsch"],["/fr","Fran\u00E7ais"],["/es","Espa\u00F1ol"],["/it","Italiano"],["/pl","Polski"],["/pt","Portugu\u00EAs"]];
   function locale(){ var m=location.pathname.match(/^\/(cs|de|es|fr|it|pl|pt)(\/|$)/); return m?m[1]:"en"; }
