@@ -23,12 +23,14 @@ const AGENTS_SLUG = Object.fromEntries(ROUTES.locales.map((l) => [l, ROUTES.slug
 const agentsPath = (code) => (code === ROUTES.defaultLocale ? '/' + AGENTS_SLUG[code] : '/' + code + '/' + AGENTS_SLUG[code])
 const localeAgentsUrl = (code) => SITE + agentsPath(code)
 
-const sourcePath = fs.existsSync(path.join(DIST, 'agents.html'))
-  ? path.join(DIST, 'agents.html')
-  : path.join(PUBLIC, 'agents.html')
+// public/ is the source of truth. dist/ is build output and Vercel restores it
+// from the previous deployment's build cache, so reading it as an input meant a
+// stale cached agents.html silently overwrote the fresh one from git on every
+// deploy - the page kept reverting no matter what was committed.
+const sourcePath = path.join(PUBLIC, 'agents.html')
 
 if (!fs.existsSync(sourcePath)) {
-  throw new Error('agents.html not found in dist or public.')
+  throw new Error('agents.html not found in public/.')
 }
 
 function escapeHtml(value) {
