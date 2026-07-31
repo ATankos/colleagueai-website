@@ -2,10 +2,10 @@
 <html lang="de">
 <head>
 <meta charset="utf-8">
-<title>ColleagueAI | Governed AI-Agenten, die Ihre Auditoren freigeben</title>
+<title>ColleagueAI | Gesteuerte AI-Agenten, die Ihre Auditoren freigeben</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
-<meta name="description" content="ColleagueAI ist die Vertrauensschicht für Enterprise-KI: 36 governed Agenten-Pakete mit CAI-Score-Risikostufen, benannter menschlicher Verantwortung und Audit-Nachweisen, in Ihrem eigenen Microsoft-Tenant.">
+<meta name="description" content="ColleagueAI ist die Vertrauensschicht für Enterprise-KI: 36 gesteuerte Agenten-Pakete mit CAI-Score-Risikostufen, benannter menschlicher Verantwortung und Audit-Nachweisen, in Ihrem eigenen Microsoft-Tenant.">
 <link rel="canonical" href="https://www.colleagueai.ai/de">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/">
@@ -18,8 +18,8 @@
 <link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <meta property="og:type" content="website"><meta property="og:site_name" content="ColleagueAI">
-<meta property="og:title" content="ColleagueAI | Governed AI-Agenten, die Ihre Auditoren freigeben">
-<meta property="og:description" content="36 governed Agenten-Pakete mit CAI-Score-Stufen, benannter Verantwortung und Audit-Nachweisen, in Ihrem eigenen Tenant.">
+<meta property="og:title" content="ColleagueAI | Gesteuerte AI-Agenten, die Ihre Auditoren freigeben">
+<meta property="og:description" content="36 gesteuerte Agenten-Pakete mit CAI-Score-Stufen, benannter Verantwortung und Audit-Nachweisen, in Ihrem eigenen Tenant.">
 <meta property="og:url" content="https://www.colleagueai.ai/de"><meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
 <meta name="theme-color" content="#22211F">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","logo":"https://www.colleagueai.ai/logo.svg","identifier":{"@type":"PropertyValue","propertyID":"IČO","value":"29540852"},"address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12, Nové Město","postalCode":"110 00","addressLocality":"Praha","addressCountry":"CZ"}},{"@type":"WebSite","@id":"https://www.colleagueai.ai/#website","url":"https://www.colleagueai.ai","name":"ColleagueAI","publisher":{"@id":"https://www.colleagueai.ai/#org"}}]}</script>
@@ -102,6 +102,10 @@ footer{padding:36px 0 46px;font-size:13px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer .co{margin-top:8px}
 @media(max-width:720px){table{display:block;overflow-x:auto}}
+.outcomes .out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px;margin-top:26px}
+.outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
+.outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
+.outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -188,30 +192,63 @@ display: flex !important;
   });
 }());
 </script>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
 </head>
 <body>
 <header><div class="wrap nav">
 <a class="logo" href="/">Colleague<b>AI</b></a>
 <nav class="links">
-<a href="/de/agenten">Katalog</a><a href="/de/agenten#score">CAI Score</a><a href="/de/vertrauen">Vertrauen</a><a href="/de/partner">Partner</a><a href="/de/kontakt">Kontakt</a>
+<a href="/de/agenten">Katalog</a><a href="/de/agenten#score">CAI Score</a><a href="/de/preise">Preise</a><a href="/de/vertrauen">Vertrauen</a><a href="/de/partner">Partner</a><a href="/de/kontakt">Kontakt</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/">English</option><option value="/cs">Čeština</option><option value="/de" selected>Deutsch</option><option value="/fr">Français</option><option value="/es">Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
 <a class="cta" href="/demo">Termin vereinbaren</a>
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 </div>
-<nav class="mnav" id="mnav"><a href="/de/agenten">Katalog</a><a href="/de/vertrauen">Vertrauen</a><a href="/de/partner">Partner</a><a href="/de/kontakt">Kontakt</a></nav>
+<nav class="mnav" id="mnav"><a href="/de/agenten">Katalog</a><a href="/de/agenten#score">CAI Score</a><a href="/de/preise">Preise</a><a href="/de/vertrauen">Vertrauen</a><a href="/de/partner">Partner</a><a href="/de/kontakt">Kontakt</a></nav>
 </header>
 
 <section class="hero wrap">
 <div class="hero-grid">
 <div>
 <span class="kicker">Die Vertrauensschicht für Enterprise-KI</span>
-<h1>KI-Agenten, die Ihre Auditoren <br>tatsächlich <em>freigeben</em>.</h1>
-<p class="sub" style="margin-left:0">36 governed Agenten-Pakete für Finanzen, Betrieb, Risiko, Compliance und Service, jedes mit CAI-Score-Risikostufe, benanntem verantwortlichem Menschen und eingebauten Audit-Nachweisen. In Ihrem eigenen Microsoft-Tenant.</p>
+<h1>KI-Agenten, die Ihre Auditoren<br>tatsächlich <em>freigeben</em>.</h1>
+<p class="sub" style="margin-left:0">36 gesteuerte Agenten-Pakete für Finanzen, Betrieb, Risiko, Compliance und Service, jedes mit CAI-Score-Risikostufe, benanntem verantwortlichem Menschen und eingebauten Audit-Nachweisen. In Ihrem eigenen Microsoft-Tenant.</p>
 <div class="btns" style="justify-content:flex-start"><a class="btn p" href="/de/agenten">Katalog ansehen</a><a class="btn s" href="/demo">Termin vereinbaren</a></div>
 </div>
 <aside class="hero-card" aria-hidden="true">
-<div class="hc-top"><span>Zertifiziert nach CAI Score™</span><span class="hc-tier">L3</span></div>
+<div class="hc-top"><span>Klassifiziert nach CAI Score™</span><span class="hc-tier">L3</span></div>
 <h3>Reconciliation Root-Cause Agent</h3>
 <div class="hc-op">CAI · Operiert</div>
 <ul><li>Benannte menschliche Aufsicht</li><li>Vollständiger Audit-Trail</li><li>Daten bleiben in Ihrem Mandanten</li><li>Auf EU AI Act + DORA abgebildet</li></ul>
@@ -220,10 +257,17 @@ display: flex !important;
 </div>
 <div class="platforms"><span class="pl-label">Vorgefertigt für</span><div class="pl-row"><span>Microsoft Copilot Studio</span><span>Power Automate</span><span>Azure</span><span>Microsoft 365</span><span>Teams</span></div></div>
 <div class="stats" style="margin-top:34px">
-<div class="stat"><div class="n">36</div><div class="l">Produktionsreife Agenten</div></div>
+<div class="stat"><div class="n">36</div><div class="l">Gesteuerte Agenten-Pakete</div></div>
 <div class="stat"><div class="n">5</div><div class="l">Funktionale Säulen</div></div>
 <div class="stat"><div class="n">L2-L4</div><div class="l">Aktive CAI-Stufen</div></div>
 </div>
+</section>
+
+<section class="wrap outcomes" aria-labelledby="outcomes-h">
+<span class="kicker">Geschäftliche Wirkung</span>
+<h2 id="outcomes-h">Was gesteuerte Agenten verändern sollen.</h2>
+<p class="sub">Ergebnisse hängen vom Workflow und Ihrem Betriebsmodell ab. Dies sind die Bereiche, auf die ein gesteuerter Agent ausgelegt ist.</p>
+<div class="out-grid"><div class="out-item"><h3>Kontrollierte Ausführung</h3><p>Die Arbeit folgt einem definierten Pfad, mit klaren Grenzen dessen, was der Agent darf.</p></div><div class="out-item"><h3>Weniger manuelle Koordination</h3><p>Nachfassen, Übergaben und Statusmeldungen binden keine Fachzeit mehr.</p></div><div class="out-item"><h3>Nachvollziehbare Aktionen</h3><p>Jeder Schritt wird protokolliert, mit Zeitstempel versehen und einer benannten Person zugeordnet.</p></div><div class="out-item"><h3>Freigabe dort, wo es zählt</h3><p>Definierte Kontrollpunkte halten einen Menschen für folgenreiche Entscheidungen verantwortlich.</p></div><div class="out-item"><h3>Wiederverwendbare Audit-Nachweise</h3><p>Nachweise für die Prüfung liegen bereits vor, wenn die Frage gestellt wird.</p></div><div class="out-item"><h3>Geringerer Governance-Aufwand</h3><p>Risikoklassifizierung und Kontrollen kommen mit dem Agenten, nicht Monate später.</p></div></div>
 </section>
 
 <section class="wrap">
@@ -255,12 +299,12 @@ display: flex !important;
 <tr><td>Wo Ihre Daten liegen</td><td>Ihr Tenant</td><td>Anbieter-Cloud</td><td>Ihr Tenant, wir verarbeiten sie nie</td></tr>
 </tbody>
 </table>
-<div class="strip"><span>Auf den EU AI Act abgebildet</span><span>DORA</span><span>ISO/IEC 42001</span><span>Läuft in Ihrem Microsoft-Tenant</span><span>Keine Kundendaten bei uns</span></div>
+<div class="strip"><span>Auf den EU AI Act abgebildet</span><span>Auf DORA abgebildet</span><span>Auf ISO/IEC 42001 abgebildet</span><span>Läuft in Ihrem Microsoft-Tenant</span><span>Keine Kundendaten bei uns</span></div>
 </div></section>
 
 <section class="wrap">
 <span class="kicker">Hier starten</span>
-<h2>Die meistgenutzten Pakete dieses Quartals.</h2>
+<h2>Flaggschiff-Agentenpakete.</h2>
 <div class="grid3">
 <a class="card" href="/agents/reconciliation-root-cause-agent"><span class="num">CAI L3</span><h3>Reconciliation Root-Cause Agent</h3><p>Untersucht jede Abstimmungsdifferenz, ordnet sie nach Wesentlichkeit und erklärt die Ursache, bevor ein Analyst den ersten Fall öffnet.</p><span class="go">Factsheet ansehen →</span></a>
 <a class="card" href="/agents/contract-summarisation-agent"><span class="num">CAI L4</span><h3>Contract Summarisation Agent</h3><p>Extrahiert zentrale Risiken und Pflichten aus Verträgen in eine prüfbare Zusammenfassung; ein benannter Mensch bleibt verantwortlich.</p><span class="go">Factsheet ansehen →</span></a>
@@ -268,8 +312,38 @@ display: flex !important;
 </div>
 </section>
 
+
+<!-- ============================================================================
+     FOUNDER / TEAM CREDIBILITY - PLACEHOLDER, NOT PUBLISHED
+     Deliberately commented out: it must not go live with placeholder text.
+     To publish: replace the bracketed fields with real, verifiable details,
+     translate the visible strings, then delete this comment marker and the
+     closing marker at the end of the block.
+     Do not publish claims (employers, certifications, results) you cannot evidence.
+=============================================================================
+<section class="wrap" aria-labelledby="founder-h" style="border-top:1px solid var(--line)">
+<span class="kicker">Who is behind ColleagueAI</span>
+<h2 id="founder-h">[HEADLINE: one line on why this team understands enterprise AI adoption]</h2>
+<p class="sub">[2-3 sentences: relevant enterprise AI, governance, risk, compliance, finance, data or transformation experience. State only what can be evidenced.]</p>
+<div class="grid3">
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background: relevant experience and what they are accountable for at ColleagueAI.]</p>
+  </div>
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+  <div class="card">
+    <h3>[Advisor or team member]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+</div>
+</section>
+============================== END PLACEHOLDER ============================= -->
+
 <section class="band"><div class="wrap">
-<h2>Sehen Sie einen governed Agenten an einem realen Fall arbeiten.</h2>
+<h2>Sehen Sie einen gesteuerten Agenten an einem realen Fall arbeiten.</h2>
 <p class="sub">Eine 30-minütige Demo, passend zu Ihrer Branche, mit Audit-Trail auf dem Bildschirm.</p>
 <div class="btns"><a class="btn p" href="/demo">Termin vereinbaren</a><a class="btn s" style="border-color:#F5F0E8;color:#F5F0E8" href="/de/agenten">Katalog ansehen</a></div>
 </div></section>

@@ -1,327 +1,62 @@
-﻿import { useState } from 'react';
-
-const DOWNLOADS = {
-  windows: 'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague.AI.0.1.0.exe',
-  mac:     'https://github.com/ATankos/colleagueai-desktop/releases/latest/download/Colleague-AI.dmg',
-};
-
-function detectOS() {
-  const ua = navigator.userAgent;
-  if (ua.includes('Win')) return 'windows';
-  if (ua.includes('Mac')) return 'mac';
-  return 'other';
-}
-
-const translations = {
-  en: {
-    eyebrow: 'LIVE AGENT DEMO',
-    h1a: 'Try it before you',
-    h1b: 'buy it.',
-    sub: 'A live Colleague AI agent, running on real AI, explaining its reasoning in plain language.',
-    back: '← Back',
-    agentCategory: 'Travel / Procurement',
-    agentDesc: 'Analyses available flights against your stated preferences (price, duration, layover comfort, and risk) and explains its recommendation in plain language. The same reasoning engine we embed in enterprise procurement workflows.',
-    roiLabel: 'ANNUAL SAVINGS',
-    roiValue: '€18,400 per 10-person team',
-    roiSub: '45 min saved per booking · €60/hr blended rate · 340 trips/yr',
-    complianceLabel: 'COMPLIANCE',
-    complianceValue: 'Full audit log · Policy enforcement',
-    complianceSub: 'Every decision recorded, timestamped, and explainable for internal audit',
-    riskLabel: 'RISK RATING',
-    riskValue: 'L1, Low risk',
-    riskSub: 'Read-only advisory · No autonomous spend · Human approval required',
-    reviewedLabel: 'REVIEWED BY',
-    bookEyebrow: 'ENTERPRISE DEMO',
-    bookTitle: 'Book a guided enterprise demo',
-    bookSub: 'A 30-minute session with a ColleagueAI engineer: any agent from the catalogue, running on a sandboxed case from your industry, with the audit trail on screen.',
-    bookCta: 'Book your demo',
-    bookNote: 'We reply within one business day.',
-    downloadEyebrow: 'DOWNLOAD',
-    downloadTitle: 'Install on your computer',
-    downloadSub: 'Download the desktop app and the AI Flight Advisor runs directly on your machine, no browser needed.',
-    downloadWin: 'Download for Windows',
-    downloadMac: 'Download for Mac',
-    downloadWinShort: 'Windows',
-    downloadMacShort: 'Mac',
-    downloadMacAlt: 'Mac version',
-    downloadWinAlt: 'Windows version',
-    downloadFree: 'Free · No account needed · v0.1.0',
-    demoEyebrow: 'LIVE REASONING ENGINE',
-    demoTitle: 'Run the agent on your search',
-    demoSub: 'Mock flight data · Agent reasoning is real · Not a booking tool',
-    quickRoutes: 'Quick routes',
-    labelFrom: 'From',
-    labelTo: 'To',
-    labelDate: 'Date',
-    labelCabin: 'Cabin',
-    labelPrefs: 'Your preferences',
-    prefsDefault: 'Cheapest option, but avoid overnight layovers and very short connections.',
-    cabinEconomy: 'Economy',
-    cabinPremium: 'Premium Economy',
-    cabinBusiness: 'Business',
-    runBtn: 'Run agent →',
-    runningBtn: 'Agent is reasoning…',
-    thinkingLabel: 'AGENT REASONING',
-    rankedLabel: 'AGENT RANKED',
-    rankedSuffix: 'OPTIONS',
-    shareBtn: 'Share results',
-    shareCopied: 'Link copied!',
-    footerNote: 'This is a live demo of Colleague AI\'s reasoning engine.',
-    footerLink: 'See all agents →',
-    verdictLabels: { RECOMMENDED: 'Recommended', ALTERNATIVE: 'Alternative', AVOID: 'Avoid' },
-  },
-  cs: {
-    eyebrow: 'ŽIVÁ UKÁZKA AGENTA',
-    h1a: 'Vyzkoušejte před',
-    h1b: 'nákupem.',
-    sub: 'Živý agent Colleague AI, běží na skutečné AI a vysvětluje své uvažování srozumitelným jazykem.',
-    back: '← Zpět',
-    agentCategory: 'Cestování / Nákup',
-    agentDesc: 'Analyzuje dostupné lety podle vašich preferencí (cena, délka letu, pohodlí přestupu a riziko) a doporučení vysvětluje srozumitelně. Stejný reasoning engine, který nasazujeme v podnikových nákupních procesech.',
-    roiLabel: 'ROČNÍ ÚSPORA',
-    roiValue: '€18 400 na tým 10 lidí',
-    roiSub: '45 min ušetřeno na rezervaci · sazba €60/hod · 340 cest/rok',
-    complianceLabel: 'COMPLIANCE',
-    complianceValue: 'Úplný audit log · Vynucení politik',
-    complianceSub: 'Každé rozhodnutí je zaznamenáno, označeno časovým razítkem a vysvětlitelné pro interní audit',
-    riskLabel: 'HODNOCENÍ RIZIKA',
-    riskValue: 'L1, Nízké riziko',
-    riskSub: 'Pouze poradní funkce · Bez autonomních výdajů · Vyžaduje schválení člověkem',
-    reviewedLabel: 'OVĚŘENO',
-    bookEyebrow: 'PODNIKOVÁ UKÁZKA',
-    bookTitle: 'Objednejte si řízenou podnikovou ukázku',
-    bookSub: '30minutová schůzka s inženýrem ColleagueAI: kterýkoli agent z katalogu na sandboxovém případu z vašeho oboru, s auditní stopou na obrazovce.',
-    bookCta: 'Objednat ukázku',
-    bookNote: 'Odpovídáme do jednoho pracovního dne.',
-    downloadEyebrow: 'STAŽENÍ',
-    downloadTitle: 'Nainstalujte do počítače',
-    downloadSub: 'Stáhněte desktopovou aplikaci a AI Flight Advisor poběží přímo na vašem počítači, bez prohlížeče.',
-    downloadWin: 'Stáhnout pro Windows',
-    downloadMac: 'Stáhnout pro Mac',
-    downloadWinShort: 'Windows',
-    downloadMacShort: 'Mac',
-    downloadMacAlt: 'Verze pro Mac',
-    downloadWinAlt: 'Verze pro Windows',
-    downloadFree: 'Zdarma · Bez registrace · v0.1.0',
-    demoEyebrow: 'ŽIVÝ REASONING ENGINE',
-    demoTitle: 'Spusťte agenta na vlastním hledání',
-    demoSub: 'Testovací data letů · Uvažování agenta je skutečné · Není to rezervační nástroj',
-    quickRoutes: 'Rychlé trasy',
-    labelFrom: 'Odkud',
-    labelTo: 'Kam',
-    labelDate: 'Datum',
-    labelCabin: 'Třída',
-    labelPrefs: 'Vaše preference',
-    prefsDefault: 'Nejlevnější možnost, ale vyhněte se nočním přestupům a velmi krátkým spojům.',
-    cabinEconomy: 'Ekonomická',
-    cabinPremium: 'Prémiová ekonomická',
-    cabinBusiness: 'Business',
-    runBtn: 'Spustit agenta →',
-    runningBtn: 'Agent přemýšlí…',
-    thinkingLabel: 'UVAŽOVÁNÍ AGENTA',
-    rankedLabel: 'AGENT SEŘADIL',
-    rankedSuffix: 'MOŽNOSTI',
-    shareBtn: 'Sdílet výsledky',
-    shareCopied: 'Odkaz zkopírován!',
-    footerNote: 'Toto je živá ukázka reasoning engine od Colleague AI.',
-    footerLink: 'Zobrazit všechny agenty →',
-    verdictLabels: { RECOMMENDED: 'Doporučeno', ALTERNATIVE: 'Alternativa', AVOID: 'Nevhodné' },
-  },
-};
-
-const AGENT = {
-  id: 'PKG-TRV-0001',
-  icon: '✈',
-  iconBg: '#FFE8DC',
-  name: 'AI Flight Advisor',
-  risk: 'L1',
-  score: 'A',
-  scoreColor: '#C65D3A',
-  price: '€0',
-  priceSub: 'free demo',
-  reviewer: 'Colleague AI',
-  reviewed: 'Květen 2026 / May 2026',
-};
+/**
+ * Demo.jsx — /demo is a simple "coming soon" page.
+ *
+ * The previous content was an "AI Flight Advisor" travel-booking demo. It did not
+ * represent the governed enterprise product and has been removed. Every
+ * "Book a demo" CTA on the site points here, so the route must keep working:
+ * this page says plainly that the demo is not published yet and routes the
+ * visitor to contact us.
+ */
+const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
+const serif = 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
+const sans = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
 
 export default function Demo() {
-  const [lang] = useState(
-    typeof window !== 'undefined' && /^\/cs(\/|$)/.test(window.location.pathname) ? 'cs' : 'en'
-  );
-const os = detectOS();
-  const t = translations[lang];
-
   return (
-    <div style={{ backgroundColor: '#F5F0E8', color: '#1D1B1A', fontFamily: "system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif", minHeight: '100vh' }}>
+    <div style={{ background: C.cream, color: C.graphite, fontFamily: sans, minHeight: '100vh', lineHeight: 1.6 }}>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Geist:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { -webkit-font-smoothing: antialiased; }
-        .fraunces { font-family: ui-serif,Georgia,Cambria,'Times New Roman',Times,serif; font-variation-settings: 'opsz' 144; }
-        .mono { font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; }
-        .demo-input { width: 100%; border: 1px solid rgba(29,27,26,0.12); border-radius: 10px; padding: 10px 14px; font-size: 15px; background: #FAF6EC; color: #1D1B1A; font-family: inherit; }
-        .demo-input:focus { outline: 2px solid #C65D3A; outline-offset: 2px; }
-        .result-card { background: #fff; border: 1px solid rgba(29,27,26,0.06); border-radius: 16px; padding: 20px; margin-top: 14px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .result-card:hover { transform: translateY(-2px); box-shadow: none; }
-        .result-card-enter { animation: cardIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-        @keyframes cardIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-        .quick-route-btn { background: rgba(29,27,26,0.05); border: 1px solid rgba(29,27,26,0.08); border-radius: 999px; padding: 5px 14px; font-size: 12px; font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; color: #4A4641; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-        .quick-route-btn:hover { background: rgba(168,72,42,0.08); border-color: rgba(168,72,42,0.2); color: #C65D3A; }
-        .stream-text { font-family: ui-monospace,SFMono-Regular,Consolas,'Liberation Mono',Menlo,monospace; font-size: 11px; line-height: 1.6; color: #6B655E; white-space: pre-wrap; word-break: break-word; max-height: 160px; overflow-y: auto; }
-        .stream-text::-webkit-scrollbar { width: 4px; }
-        .stream-text::-webkit-scrollbar-thumb { background: rgba(29,27,26,0.15); border-radius: 2px; }
-        .cursor-blink { display: inline-block; width: 2px; height: 12px; background: #C65D3A; margin-left: 2px; animation: blink 1s step-end infinite; vertical-align: middle; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        @media (max-width: 640px) { .grid2 { grid-template-columns: 1fr !important; } }
+        *{box-sizing:border-box} body{margin:0}
+        .d-wrap{max-width:720px;margin:0 auto;padding:0 22px}
+        .d-hdr{background:rgba(34,33,31,.97);position:sticky;top:0;z-index:50}
+        .d-in{display:flex;align-items:center;justify-content:space-between;height:64px}
+        .d-logo{font-family:${serif};font-size:22px;font-weight:600;color:${C.cream};text-decoration:none}
+        .d-logo b{color:#E8A07F;font-weight:600}
+        .d-back{color:#CFC8BB;font-size:14px;text-decoration:none}
+        .d-back:hover{color:#fff}
+        .d-main{text-align:center;padding:96px 22px 110px}
+        .d-kicker{font-family:ui-monospace,Consolas,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:${C.muted};display:block;margin-bottom:16px}
+        h1{font-family:${serif};font-weight:500;font-size:clamp(30px,6vw,46px);line-height:1.15;letter-spacing:-.02em;margin:0 0 16px}
+        .d-sub{font-size:17px;color:${C.soft};max-width:520px;margin:0 auto 32px}
+        .d-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+        .d-btn{display:inline-block;padding:13px 26px;border-radius:100px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid transparent}
+        .d-p{background:${C.terra};color:#fff}
+        .d-p:hover{background:#A94A2C}
+        .d-s{border-color:${C.graphite};color:${C.graphite}}
+        .d-s:hover{background:${C.graphite};color:${C.cream}}
+        a:focus-visible{outline:2px solid ${C.terra};outline-offset:2px}
+        @media(max-width:560px){.d-btn{width:100%;text-align:center}}
+        @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
       `}</style>
 
-      <div style={{ maxWidth: '860px', margin: '0 auto', padding: '40px 24px 60px' }}>
-
-        {/* EYEBROW */}
-        <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-          <div className="mono" style={{ fontSize: '10px', color: '#C65D3A', letterSpacing: '0.12em', marginBottom: '14px' }}>
-            {t.eyebrow}
-          </div>
-          <h1 className="fraunces" style={{ fontSize: 'clamp(32px, 5vw, 56px)', fontWeight: 500, lineHeight: 1.05, letterSpacing: '-0.03em', marginBottom: '14px' }}>
-            {t.h1a}<br /><span style={{ fontStyle: 'italic' }}>{t.h1b}</span>
-          </h1>
-          <p style={{ fontSize: '16px', color: '#6B655E', maxWidth: '480px', margin: '0 auto', lineHeight: 1.6 }}>
-            {t.sub}
-          </p>
+      <header className="d-hdr">
+        <div className="d-wrap d-in">
+          <a className="d-logo" href="/">Colleague<b>AI</b></a>
+          <a className="d-back" href="/">← Back to site</a>
         </div>
+      </header>
 
-        {/* ENTERPRISE DEMO BOOKING */}
-        <div style={{ background: '#1D1B1A', color: '#F5F0E8', borderRadius: '18px', padding: '28px 26px', marginBottom: '44px', textAlign: 'center' }}>
-          <div className="mono" style={{ fontSize: '10px', color: '#E8A07F', letterSpacing: '0.14em', marginBottom: '10px' }}>{t.bookEyebrow}</div>
-          <h2 className="fraunces" style={{ fontSize: 'clamp(22px, 3vw, 30px)', fontWeight: 500, margin: '0 0 8px', letterSpacing: '-0.02em' }}>{t.bookTitle}</h2>
-          <p style={{ fontSize: '14.5px', color: '#C9C0B2', maxWidth: '560px', margin: '0 auto 18px', lineHeight: 1.6 }}>{t.bookSub}</p>
-          <a href={'mailto:hello@colleagueai.ai?subject=' + encodeURIComponent('Enterprise demo request')} style={{ display: 'inline-block', background: '#C65D3A', color: '#fff', textDecoration: 'none', fontWeight: 600, fontSize: '14.5px', padding: '12px 28px', borderRadius: '999px' }}>{t.bookCta}</a>
-          <div style={{ fontSize: '12px', color: '#8A857C', marginTop: '10px' }}>hello@colleagueai.ai · {t.bookNote}</div>
-        </div>
-
-        {/* AGENT CARD */}
-        <div style={{
-          background: '#fff', borderRadius: '20px', padding: '28px',
-          border: '1px solid rgba(29,27,26,0.05)',
-          boxShadow: '0 4px 24px rgba(29,27,26,0.06)', marginBottom: '32px',
-        }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '16px' }}>
-            <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
-              <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: AGENT.iconBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '22px', flexShrink: 0 }}>
-                {AGENT.icon}
-              </div>
-              <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
-                  <span className="mono" style={{ fontSize: '10px', color: '#6B655E', letterSpacing: '0.08em' }}>{AGENT.id}</span>
-                  <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '4px', background: 'rgba(29,27,26,0.05)', color: '#6B655E' }}>Risk {AGENT.risk}</span>
-                  <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '4px', background: '#FFE8DC', color: AGENT.scoreColor, fontWeight: 700 }}>Score {AGENT.score}</span>
-                </div>
-                <h2 className="fraunces" style={{ fontSize: '22px', fontWeight: 500, letterSpacing: '-0.02em', marginBottom: '4px' }}>{AGENT.name}</h2>
-                <div style={{ fontSize: '12px', color: '#6B655E' }}>{t.agentCategory}</div>
-              </div>
-            </div>
-            <div style={{ textAlign: 'right' }}>
-              <div className="fraunces" style={{ fontSize: '32px', fontWeight: 500, letterSpacing: '-0.02em', color: '#1D1B1A' }}>{AGENT.price}</div>
-              <div style={{ fontSize: '12px', color: '#6B655E' }}>{AGENT.priceSub}</div>
-            </div>
-          </div>
-
-          <p style={{ fontSize: '14px', color: '#4A4641', lineHeight: 1.6, margin: '20px 0', borderTop: '1px solid rgba(29,27,26,0.06)', paddingTop: '20px' }}>
-            {t.agentDesc}
-          </p>
-
-          {/* ROI + Compliance + Risk, three buying reasons */}
-          <div className="grid2" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '12px' }}>
-            {/* ROI */}
-            <div style={{ background: '#F0FAF4', border: '1px solid rgba(22,101,52,0.1)', borderRadius: '12px', padding: '14px' }}>
-              <div className="mono" style={{ fontSize: '9px', color: '#166534', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.roiLabel}</div>
-              <div style={{ fontSize: '16px', color: '#166534', fontWeight: 700, marginBottom: '4px' }}>{t.roiValue}</div>
-              <div style={{ fontSize: '11px', color: '#4A7C59', lineHeight: 1.4 }}>{t.roiSub}</div>
-            </div>
-            {/* Compliance */}
-            <div style={{ background: '#EFF6FF', border: '1px solid rgba(29,78,216,0.1)', borderRadius: '12px', padding: '14px' }}>
-              <div className="mono" style={{ fontSize: '9px', color: '#1D4ED8', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.complianceLabel}</div>
-              <div style={{ fontSize: '13px', color: '#1D4ED8', fontWeight: 700, marginBottom: '4px' }}>{t.complianceValue}</div>
-              <div style={{ fontSize: '11px', color: '#3B6FCA', lineHeight: 1.4 }}>{t.complianceSub}</div>
-            </div>
-            {/* Risk */}
-            <div style={{ background: '#FFF7ED', border: '1px solid rgba(154,52,18,0.1)', borderRadius: '12px', padding: '14px' }}>
-              <div className="mono" style={{ fontSize: '9px', color: '#9A3412', letterSpacing: '0.1em', marginBottom: '6px' }}>{t.riskLabel}</div>
-              <div style={{ fontSize: '13px', color: '#9A3412', fontWeight: 700, marginBottom: '4px' }}>{t.riskValue}</div>
-              <div style={{ fontSize: '11px', color: '#B45309', lineHeight: 1.4 }}>{t.riskSub}</div>
-            </div>
-          </div>
-
-          {/* Audit-proof compliance strip */}
-          <div style={{ marginTop: '14px', background: '#F5F0E8', borderRadius: '10px', padding: '12px 16px', display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-            <span className="mono" style={{ fontSize: '9px', color: '#6B655E', letterSpacing: '0.08em', flexShrink: 0 }}>AUDIT TRAIL</span>
-            {['Decision log', 'Timestamp', 'Reasoning saved', 'Exportable PDF', 'No shadow IT'].map((badge, i) => (
-              <span key={i} style={{ display: 'inline-flex', alignItems: 'center', gap: '5px', fontSize: '11px', color: '#4A4641' }}>
-                <span style={{ color: '#166534', fontWeight: 700 }}>✓</span> {badge}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* DOWNLOAD SECTION */}
-        <div style={{
-          background: '#1D1B1A', borderRadius: '20px', padding: '32px 28px',
-          marginBottom: '24px', textAlign: 'center',
-        }}>
-          <div className="mono" style={{ fontSize: '10px', color: '#C65D3A', letterSpacing: '0.12em', marginBottom: '12px' }}>
-            {t.downloadEyebrow}
-          </div>
-          <h3 className="fraunces" style={{ fontSize: '24px', fontWeight: 500, letterSpacing: '-0.02em', color: '#F5F0E8', marginBottom: '8px' }}>
-            {t.downloadTitle}
-          </h3>
-          <p style={{ fontSize: '14px', color: '#A39B91', marginBottom: '28px', lineHeight: 1.6 }}>
-            {t.downloadSub}
-          </p>
-
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {os === 'windows' && (
-              <a href={DOWNLOADS.windows} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#F5F0E8', color: '#1D1B1A', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none' }}>
-                <span>⊞</span> {t.downloadWin}
-              </a>
-            )}
-            {os === 'mac' && (
-              <a href={DOWNLOADS.mac} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#F5F0E8', color: '#1D1B1A', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none' }}>
-                <span></span> {t.downloadMac}
-              </a>
-            )}
-            {os === 'other' && (
-              <>
-                <a href={DOWNLOADS.windows} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: '#F5F0E8', color: '#1D1B1A', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none' }}>
-                  <span>⊞</span> {t.downloadWinShort}
-                </a>
-                <a href={DOWNLOADS.mac} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(245,240,232,0.1)', color: '#F5F0E8', padding: '14px 28px', borderRadius: '12px', fontSize: '15px', fontWeight: 600, textDecoration: 'none', border: '1px solid rgba(245,240,232,0.2)' }}>
-                  <span></span> {t.downloadMacShort}
-                </a>
-              </>
-            )}
-            {os === 'windows' && (
-              <a href={DOWNLOADS.mac} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(245,240,232,0.1)', color: '#A39B91', padding: '14px 28px', borderRadius: '12px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', border: '1px solid rgba(245,240,232,0.12)' }}>
-                <span></span> {t.downloadMacAlt}
-              </a>
-            )}
-            {os === 'mac' && (
-              <a href={DOWNLOADS.windows} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', background: 'rgba(245,240,232,0.1)', color: '#A39B91', padding: '14px 28px', borderRadius: '12px', fontSize: '14px', fontWeight: 500, textDecoration: 'none', border: '1px solid rgba(245,240,232,0.12)' }}>
-                <span>⊞</span> {t.downloadWinAlt}
-              </a>
-            )}
-          </div>
-
-          <p style={{ fontSize: '11px', color: '#6B655E', marginTop: '20px' }}>
-            {t.downloadFree}
-          </p>
-        </div>
-
-
-        {/* FOOTER NOTE */}
-        <p style={{ textAlign: 'center', fontSize: '12px', color: '#A39B91', marginTop: '32px' }}>
-          {t.footerNote} <a href="/" style={{ color: '#C65D3A' }}>{t.footerLink}</a>
+      <main className="d-wrap d-main">
+        <span className="d-kicker">Demo</span>
+        <h1>Coming soon.</h1>
+        <p className="d-sub">
+          The online demo is not published yet. In the meantime, contact us and we
+          will walk you through a governed agent on a workflow you choose.
         </p>
-      </div>
+        <div className="d-btns">
+          <a className="d-btn d-p" href="/contact">Contact us</a>
+          <a className="d-btn d-s" href="/agents">Browse the catalogue</a>
+        </div>
+      </main>
     </div>
   );
 }
-

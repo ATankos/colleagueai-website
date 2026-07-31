@@ -35,6 +35,24 @@
       ]
     },
     {
+      "source": "/((?!assets/).*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
       "source": "/og-image.png",
       "headers": [
         {
@@ -568,6 +586,66 @@
     {
       "source": "/pt/demo",
       "destination": "/demo.html"
+    },
+    {
+      "source": "/pricing",
+      "destination": "/pricing.html"
+    },
+    {
+      "source": "/cs/cenik",
+      "destination": "/cs/pricing.html"
+    },
+    {
+      "source": "/cs/pricing",
+      "destination": "/cs/pricing.html"
+    },
+    {
+      "source": "/de/preise",
+      "destination": "/de/pricing.html"
+    },
+    {
+      "source": "/de/pricing",
+      "destination": "/de/pricing.html"
+    },
+    {
+      "source": "/fr/tarifs",
+      "destination": "/fr/pricing.html"
+    },
+    {
+      "source": "/fr/pricing",
+      "destination": "/fr/pricing.html"
+    },
+    {
+      "source": "/es/precios",
+      "destination": "/es/pricing.html"
+    },
+    {
+      "source": "/es/pricing",
+      "destination": "/es/pricing.html"
+    },
+    {
+      "source": "/it/prezzi",
+      "destination": "/it/pricing.html"
+    },
+    {
+      "source": "/it/pricing",
+      "destination": "/it/pricing.html"
+    },
+    {
+      "source": "/pl/cennik",
+      "destination": "/pl/pricing.html"
+    },
+    {
+      "source": "/pl/pricing",
+      "destination": "/pl/pricing.html"
+    },
+    {
+      "source": "/pt/precos",
+      "destination": "/pt/pricing.html"
+    },
+    {
+      "source": "/pt/pricing",
+      "destination": "/pt/pricing.html"
     }
   ]
 }

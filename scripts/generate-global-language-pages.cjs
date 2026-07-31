@@ -137,9 +137,17 @@ function removeHreflang(html) {
   return html.replace(/<!-- cai-global-hreflang:start -->[\s\S]*?<!-- cai-global-hreflang:end -->\n?/g, "");
 }
 function insertHreflang(html, page, currentLocale) {
-  html = removeHreflang(html);
+  const block = hreflangBlock(page, currentLocale);
+  // The block carries the authoritative canonical for this locale. Pages also ship
+  // their own hand-written canonical, so without this strip every page ended up
+  // with two <link rel="canonical"> tags, which search engines treat as a fault.
+  html = html.replace(/[ \t]*<link rel="canonical"[^>]*>[ \t]*\r?\n?/g, "");
+  // Idempotent: refresh in place. Re-appending before </head> relocated the block
+  // on every build, which churned every localized page in the diff.
+  const RE = /<!-- cai-global-hreflang:start -->[\s\S]*?<!-- cai-global-hreflang:end -->/;
+  if (RE.test(html)) return html.replace(RE, block);
   if (!html.includes("</head>")) return html;
-  return html.replace("</head>", hreflangBlock(page, currentLocale) + "\n</head>");
+  return html.replace("</head>", block + "\n</head>");
 }
 
 function localizePathLinks(html, locale) {

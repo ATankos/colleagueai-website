@@ -44,6 +44,8 @@ jobs:
 
       - name: Locale smoke (scripts execute in every language)
         run: node --test tests/locale-smoke.test.mjs
+      - name: End-to-end journeys (buyer path, partner path, navigation, localisation)
+        run: node --test tests/journey.test.mjs
 
       - name: Secret scan of build output
         run: node tests/scan-bundle.mjs

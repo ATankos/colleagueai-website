@@ -102,6 +102,10 @@ footer{padding:36px 0 46px;font-size:13px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer .co{margin-top:8px}
 @media(max-width:720px){table{display:block;overflow-x:auto}}
+.outcomes .out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px;margin-top:26px}
+.outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
+.outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
+.outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -188,18 +192,51 @@ display: flex !important;
   });
 }());
 </script>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
 </head>
 <body>
 <header><div class="wrap nav">
 <a class="logo" href="/">Colleague<b>AI</b></a>
 <nav class="links">
-<a href="/es/agentes">Catálogo</a><a href="/es/agentes#score">CAI Score</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a>
+<a href="/es/agentes">Catálogo</a><a href="/es/agentes#score">CAI Score</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/">English</option><option value="/cs">Čeština</option><option value="/de">Deutsch</option><option value="/fr">Français</option><option value="/es" selected>Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
 <a class="cta" href="/demo">Reservar una demo</a>
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 </div>
-<nav class="mnav" id="mnav"><a href="/es/agentes">Catálogo</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a></nav>
+<nav class="mnav" id="mnav"><a href="/es/agentes">Catálogo</a><a href="/es/agentes#score">CAI Score</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a></nav>
 </header>
 
 <section class="hero wrap">
@@ -211,7 +248,7 @@ display: flex !important;
 <div class="btns" style="justify-content:flex-start"><a class="btn p" href="/es/agentes">Ver el catálogo</a><a class="btn s" href="/demo">Reservar una demo</a></div>
 </div>
 <aside class="hero-card" aria-hidden="true">
-<div class="hc-top"><span>Certificado según el CAI Score™</span><span class="hc-tier">L3</span></div>
+<div class="hc-top"><span>Clasificado según el CAI Score™</span><span class="hc-tier">L3</span></div>
 <h3>Reconciliation Root-Cause Agent</h3>
 <div class="hc-op">CAI · Opera</div>
 <ul><li>Supervisión humana designada</li><li>Registro de auditoría completo</li><li>Los datos permanecen en su inquilino</li><li>Alineado con el EU AI Act + DORA</li></ul>
@@ -220,10 +257,17 @@ display: flex !important;
 </div>
 <div class="platforms"><span class="pl-label">Entregado listo para</span><div class="pl-row"><span>Microsoft Copilot Studio</span><span>Power Automate</span><span>Azure</span><span>Microsoft 365</span><span>Teams</span></div></div>
 <div class="stats" style="margin-top:34px">
-<div class="stat"><div class="n">36</div><div class="l">Agentes listos para producción</div></div>
+<div class="stat"><div class="n">36</div><div class="l">Paquetes de agentes gobernados</div></div>
 <div class="stat"><div class="n">5</div><div class="l">Pilares funcionales</div></div>
 <div class="stat"><div class="n">L2-L4</div><div class="l">Niveles CAI activos</div></div>
 </div>
+</section>
+
+<section class="wrap outcomes" aria-labelledby="outcomes-h">
+<span class="kicker">Impacto de negocio</span>
+<h2 id="outcomes-h">Qué deben cambiar los agentes gobernados.</h2>
+<p class="sub">Los resultados dependen del flujo de trabajo y de su modelo operativo. Estas son las áreas sobre las que un agente gobernado está diseñado para influir.</p>
+<div class="out-grid"><div class="out-item"><h3>Ejecución controlada</h3><p>El trabajo sigue una ruta definida, con límites explícitos sobre lo que el agente puede hacer.</p></div><div class="out-item"><h3>Menos coordinación manual</h3><p>El seguimiento, los traspasos y los informes de estado dejan de consumir tiempo especializado.</p></div><div class="out-item"><h3>Acciones trazables</h3><p>Cada paso queda registrado, con marca de tiempo y atribuible a un responsable nombrado.</p></div><div class="out-item"><h3>Aprobación donde importa</h3><p>Puntos de control definidos mantienen a una persona responsable de las decisiones relevantes.</p></div><div class="out-item"><h3>Evidencia de auditoría reutilizable</h3><p>La evidencia para la revisión ya existe cuando se plantea la pregunta.</p></div><div class="out-item"><h3>Menor carga de gobernanza</h3><p>La clasificación de riesgos y los controles llegan con el agente, no meses después.</p></div></div>
 </section>
 
 <section class="wrap">
@@ -255,18 +299,48 @@ display: flex !important;
 <tr><td>Dónde viven sus datos</td><td>Su tenant</td><td>Nube del proveedor</td><td>Su tenant, nunca los procesamos</td></tr>
 </tbody>
 </table>
-<div class="strip"><span>Alineado con el EU AI Act</span><span>DORA</span><span>ISO/IEC 42001</span><span>Se ejecuta en su tenant de Microsoft</span><span>No procesamos datos de clientes</span></div>
+<div class="strip"><span>Alineado con el EU AI Act</span><span>Alineado con DORA</span><span>Alineado con ISO/IEC 42001</span><span>Se ejecuta en su tenant de Microsoft</span><span>No procesamos datos de clientes</span></div>
 </div></section>
 
 <section class="wrap">
 <span class="kicker">Empiece aquí</span>
-<h2>Los paquetes más adoptados este trimestre.</h2>
+<h2>Paquetes de agentes insignia.</h2>
 <div class="grid3">
 <a class="card" href="/agents/reconciliation-root-cause-agent"><span class="num">CAI L3</span><h3>Reconciliation Root-Cause Agent</h3><p>Investiga cada diferencia de conciliación, la ordena por materialidad y explica la causa, antes de que un analista abra el primer caso.</p><span class="go">Ver factsheet →</span></a>
 <a class="card" href="/agents/contract-summarisation-agent"><span class="num">CAI L4</span><h3>Contract Summarisation Agent</h3><p>Extrae riesgos y obligaciones clave de los contratos en un resumen revisable; un humano nombrado responde de cada decisión.</p><span class="go">Ver factsheet →</span></a>
 <a class="card" href="/agents/compliance-and-audit-action-tracker"><span class="num">CAI L4</span><h3>Compliance &amp; Audit Tracker</h3><p>Sigue evidencias y plazos en un panel en vivo, la fecha de auditoría ya no sorprende al equipo.</p><span class="go">Ver factsheet →</span></a>
 </div>
 </section>
+
+
+<!-- ============================================================================
+     FOUNDER / TEAM CREDIBILITY - PLACEHOLDER, NOT PUBLISHED
+     Deliberately commented out: it must not go live with placeholder text.
+     To publish: replace the bracketed fields with real, verifiable details,
+     translate the visible strings, then delete this comment marker and the
+     closing marker at the end of the block.
+     Do not publish claims (employers, certifications, results) you cannot evidence.
+=============================================================================
+<section class="wrap" aria-labelledby="founder-h" style="border-top:1px solid var(--line)">
+<span class="kicker">Who is behind ColleagueAI</span>
+<h2 id="founder-h">[HEADLINE: one line on why this team understands enterprise AI adoption]</h2>
+<p class="sub">[2-3 sentences: relevant enterprise AI, governance, risk, compliance, finance, data or transformation experience. State only what can be evidenced.]</p>
+<div class="grid3">
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background: relevant experience and what they are accountable for at ColleagueAI.]</p>
+  </div>
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+  <div class="card">
+    <h3>[Advisor or team member]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+</div>
+</section>
+============================== END PLACEHOLDER ============================= -->
 
 <section class="band"><div class="wrap">
 <h2>Vea a un agente gobernado trabajar en un caso real.</h2>

@@ -1,0 +1,1298 @@
+{
+ "Enterprise AI Agent Pricing | ColleagueAI": {
+  "cs": "Ceník podnikových AI agentů | ColleagueAI",
+  "de": "Preise für Enterprise-KI-Agenten | ColleagueAI",
+  "fr": "Tarifs des agents IA d'entreprise | ColleagueAI",
+  "es": "Precios de agentes de IA empresariales | ColleagueAI",
+  "it": "Prezzi degli agenti AI aziendali | ColleagueAI",
+  "pl": "Cennik korporacyjnych agentów AI | ColleagueAI",
+  "pt": "Preços de agentes de IA empresariais | ColleagueAI"
+ },
+ "Explore indicative pricing for enterprise AI agents, from focused workflow assistants to governed multi-agent systems for finance, risk, compliance and operations.": {
+  "cs": "Prohlédněte si orientační ceny podnikových AI agentů, od zaměřených asistentů pro pracovní postupy až po řízené multiagentní systémy pro finance, rizika, compliance a provoz.",
+  "de": "Entdecken Sie indikative Preise für Enterprise-KI-Agenten, von fokussierten Workflow-Assistenten bis zu gesteuerten Multi-Agenten-Systemen für Finanzen, Risiko, Compliance und Betrieb.",
+  "fr": "Découvrez les tarifs indicatifs des agents IA d'entreprise, des assistants de workflow ciblés aux systèmes multi-agents gouvernés pour la finance, le risque, la conformité et les opérations.",
+  "es": "Consulte los precios indicativos de los agentes de IA empresariales, desde asistentes de flujo de trabajo específicos hasta sistemas multiagente gobernados para finanzas, riesgo, cumplimiento y operaciones.",
+  "it": "Esplora i prezzi indicativi degli agenti AI aziendali, dagli assistenti di workflow mirati ai sistemi multi-agente governati per finanza, rischio, compliance e operazioni.",
+  "pl": "Poznaj orientacyjne ceny korporacyjnych agentów AI, od wyspecjalizowanych asystentów procesów po nadzorowane systemy wieloagentowe dla finansów, ryzyka, compliance i operacji.",
+  "pt": "Explore os preços indicativos de agentes de IA empresariais, de assistentes de fluxo de trabalho focados a sistemas multiagente governados para finanças, risco, conformidade e operações."
+ },
+ "Indicative pricing for enterprise AI agents, from focused workflow assistants to governed multi-agent systems. Priced by complexity, risk and business impact.": {
+  "cs": "Orientační ceny podnikových AI agentů, od zaměřených asistentů až po řízené multiagentní systémy. Cena podle složitosti, rizika a dopadu na byznys.",
+  "de": "Indikative Preise für Enterprise-KI-Agenten, von fokussierten Assistenten bis zu gesteuerten Multi-Agenten-Systemen. Preis nach Komplexität, Risiko und Geschäftswirkung.",
+  "fr": "Tarifs indicatifs des agents IA d'entreprise, des assistants ciblés aux systèmes multi-agents gouvernés. Tarification selon la complexité, le risque et l'impact métier.",
+  "es": "Precios indicativos de agentes de IA empresariales, desde asistentes específicos hasta sistemas multiagente gobernados. Precio según complejidad, riesgo e impacto de negocio.",
+  "it": "Prezzi indicativi per agenti AI aziendali, dagli assistenti mirati ai sistemi multi-agente governati. Prezzo in base a complessità, rischio e impatto sul business.",
+  "pl": "Orientacyjne ceny korporacyjnych agentów AI, od wyspecjalizowanych asystentów po nadzorowane systemy wieloagentowe. Cena zależna od złożoności, ryzyka i wpływu biznesowego.",
+  "pt": "Preços indicativos de agentes de IA empresariais, de assistentes focados a sistemas multiagente governados. Preço conforme complexidade, risco e impacto no negócio."
+ },
+ "Pricing": {
+  "cs": "Ceník",
+  "de": "Preise",
+  "fr": "Tarifs",
+  "es": "Precios",
+  "it": "Prezzi",
+  "pl": "Cennik",
+  "pt": "Preços"
+ },
+ "Enterprise AI agents priced by complexity, risk and business impact": {
+  "cs": "Podnikoví AI agenti oceněni podle složitosti, rizika a dopadu na byznys",
+  "de": "Enterprise-KI-Agenten, bepreist nach Komplexität, Risiko und Geschäftswirkung",
+  "fr": "Des agents IA d'entreprise tarifés selon la complexité, le risque et l'impact métier",
+  "es": "Agentes de IA empresariales con precio según complejidad, riesgo e impacto de negocio",
+  "it": "Agenti AI aziendali con prezzo basato su complessità, rischio e impatto sul business",
+  "pl": "Korporacyjni agenci AI wyceniani według złożoności, ryzyka i wpływu biznesowego",
+  "pt": "Agentes de IA empresariais com preço por complexidade, risco e impacto no negócio"
+ },
+ "Start with a focused AI agent or build a governed multi-agent solution. Pricing depends on workflow complexity, autonomy, integrations, governance requirements and implementation scope.": {
+  "cs": "Začněte se zaměřeným AI agentem nebo vybudujte řízené multiagentní řešení. Cena závisí na složitosti procesu, autonomii, integracích, požadavcích na governance a rozsahu implementace.",
+  "de": "Beginnen Sie mit einem fokussierten KI-Agenten oder bauen Sie eine gesteuerte Multi-Agenten-Lösung. Der Preis hängt von Workflow-Komplexität, Autonomie, Integrationen, Governance-Anforderungen und Implementierungsumfang ab.",
+  "fr": "Commencez par un agent IA ciblé ou construisez une solution multi-agents gouvernée. Le tarif dépend de la complexité du workflow, de l'autonomie, des intégrations, des exigences de gouvernance et du périmètre d'implémentation.",
+  "es": "Empiece con un agente de IA específico o construya una solución multiagente gobernada. El precio depende de la complejidad del flujo de trabajo, la autonomía, las integraciones, los requisitos de gobernanza y el alcance de la implementación.",
+  "it": "Iniziate con un agente AI mirato o costruite una soluzione multi-agente governata. Il prezzo dipende dalla complessità del workflow, dall'autonomia, dalle integrazioni, dai requisiti di governance e dall'ambito di implementazione.",
+  "pl": "Zacznij od wyspecjalizowanego agenta AI lub zbuduj nadzorowane rozwiązanie wieloagentowe. Cena zależy od złożoności procesu, autonomii, integracji, wymagań governance i zakresu wdrożenia.",
+  "pt": "Comece com um agente de IA focado ou construa uma solução multiagente governada. O preço depende da complexidade do fluxo de trabalho, autonomia, integrações, requisitos de governação e âmbito de implementação."
+ },
+ "Request a tailored proposal": {
+  "cs": "Vyžádat nabídku na míru",
+  "de": "Individuelles Angebot anfordern",
+  "fr": "Demander une proposition sur mesure",
+  "es": "Solicitar una propuesta a medida",
+  "it": "Richiedi una proposta su misura",
+  "pl": "Poproś o ofertę dopasowaną",
+  "pt": "Solicitar uma proposta personalizada"
+ },
+ "Explore agent solutions": {
+  "cs": "Prozkoumat řešení agentů",
+  "de": "Agentenlösungen entdecken",
+  "fr": "Explorer les solutions d'agents",
+  "es": "Explorar soluciones de agentes",
+  "it": "Esplora le soluzioni di agenti",
+  "pl": "Poznaj rozwiązania agentowe",
+  "pt": "Explorar soluções de agentes"
+ },
+ "Most individual business agents are expected to fall between $15,000 and $30,000. These are packaged enterprise solutions, not software subscriptions: depending on the selected package they may include configuration, implementation, documentation, testing and governance elements.": {
+  "cs": "U většiny jednotlivých byznysových agentů se očekává rozpětí 15 000 až 30 000 USD. Jde o balíčkovaná podniková řešení, nikoli softwarová předplatná: podle zvoleného balíčku mohou zahrnovat konfiguraci, implementaci, dokumentaci, testování a prvky governance.",
+  "de": "Die meisten einzelnen Business-Agenten liegen voraussichtlich zwischen 15.000 und 30.000 USD. Es handelt sich um paketierte Unternehmenslösungen, nicht um Software-Abonnements: je nach gewähltem Paket können Konfiguration, Implementierung, Dokumentation, Tests und Governance-Elemente enthalten sein.",
+  "fr": "La plupart des agents métier individuels devraient se situer entre 15 000 et 30 000 USD. Il s'agit de solutions d'entreprise packagées, non d'abonnements logiciels : selon le package retenu, elles peuvent inclure configuration, implémentation, documentation, tests et éléments de gouvernance.",
+  "es": "Se espera que la mayoría de los agentes de negocio individuales se sitúen entre 15.000 y 30.000 USD. Son soluciones empresariales empaquetadas, no suscripciones de software: según el paquete seleccionado pueden incluir configuración, implementación, documentación, pruebas y elementos de gobernanza.",
+  "it": "La maggior parte dei singoli agenti di business dovrebbe collocarsi tra 15.000 e 30.000 USD. Sono soluzioni aziendali pacchettizzate, non abbonamenti software: a seconda del pacchetto scelto possono includere configurazione, implementazione, documentazione, test ed elementi di governance.",
+  "pl": "Większość pojedynczych agentów biznesowych powinna mieścić się w przedziale od 15 000 do 30 000 USD. To pakietowane rozwiązania korporacyjne, a nie subskrypcje oprogramowania: zależnie od wybranego pakietu mogą obejmować konfigurację, wdrożenie, dokumentację, testy i elementy governance.",
+  "pt": "Espera-se que a maioria dos agentes de negócio individuais fique entre 15.000 e 30.000 USD. São soluções empresariais em pacote, não subscrições de software: consoante o pacote selecionado, podem incluir configuração, implementação, documentação, testes e elementos de governação."
+ },
+ "Five packaging tiers": {
+  "cs": "Pět úrovní balíčků",
+  "de": "Fünf Paketstufen",
+  "fr": "Cinq niveaux de packages",
+  "es": "Cinco niveles de paquetes",
+  "it": "Cinque livelli di pacchetti",
+  "pl": "Pięć poziomów pakietów",
+  "pt": "Cinco níveis de pacotes"
+ },
+ "Tiers reflect how much complexity, control and implementation effort a workflow requires, not how valuable one customer is compared to another.": {
+  "cs": "Úrovně odrážejí, kolik složitosti, kontroly a implementačního úsilí proces vyžaduje, nikoli hodnotu jednoho zákazníka oproti druhému.",
+  "de": "Die Stufen spiegeln wider, wie viel Komplexität, Kontrolle und Implementierungsaufwand ein Workflow erfordert, nicht den Wert eines Kunden gegenüber einem anderen.",
+  "fr": "Les niveaux reflètent la complexité, le contrôle et l'effort d'implémentation qu'un workflow exige, et non la valeur d'un client par rapport à un autre.",
+  "es": "Los niveles reflejan cuánta complejidad, control y esfuerzo de implementación requiere un flujo de trabajo, no el valor de un cliente frente a otro.",
+  "it": "I livelli riflettono quanta complessità, controllo e impegno di implementazione richiede un workflow, non il valore di un cliente rispetto a un altro.",
+  "pl": "Poziomy odzwierciedlają, ile złożoności, kontroli i pracy wdrożeniowej wymaga proces, a nie wartość jednego klienta względem drugiego.",
+  "pt": "Os níveis refletem quanta complexidade, controlo e esforço de implementação um fluxo de trabalho exige, não o valor de um cliente face a outro."
+ },
+ "Starting range": {
+  "cs": "Počáteční rozpětí",
+  "de": "Startbereich",
+  "fr": "Fourchette de départ",
+  "es": "Rango inicial",
+  "it": "Fascia iniziale",
+  "pl": "Zakres początkowy",
+  "pt": "Intervalo inicial"
+ },
+ "Best for focused workflows": {
+  "cs": "Nejlepší pro zaměřené procesy",
+  "de": "Ideal für fokussierte Workflows",
+  "fr": "Idéal pour les workflows ciblés",
+  "es": "Ideal para flujos de trabajo específicos",
+  "it": "Ideale per workflow mirati",
+  "pl": "Najlepsze do wyspecjalizowanych procesów",
+  "pt": "Ideal para fluxos de trabalho focados"
+ },
+ "Tier 1 — Essential Agents": {
+  "cs": "Úroveň 1 — Základní agenti",
+  "de": "Stufe 1 — Essential-Agenten",
+  "fr": "Niveau 1 — Agents essentiels",
+  "es": "Nivel 1 — Agentes esenciales",
+  "it": "Livello 1 — Agenti essenziali",
+  "pl": "Poziom 1 — Agenci podstawowi",
+  "pt": "Nível 1 — Agentes essenciais"
+ },
+ "Focused assistants for lower-risk workflows, information access and employee productivity.": {
+  "cs": "Zaměření asistenti pro méně rizikové procesy, přístup k informacím a produktivitu zaměstnanců.",
+  "de": "Fokussierte Assistenten für risikoärmere Workflows, Informationszugriff und Mitarbeiterproduktivität.",
+  "fr": "Des assistants ciblés pour les workflows à moindre risque, l'accès à l'information et la productivité des collaborateurs.",
+  "es": "Asistentes específicos para flujos de trabajo de menor riesgo, acceso a la información y productividad de los empleados.",
+  "it": "Assistenti mirati per workflow a rischio più basso, accesso alle informazioni e produttività dei dipendenti.",
+  "pl": "Wyspecjalizowani asystenci do procesów o niższym ryzyku, dostępu do informacji i produktywności pracowników.",
+  "pt": "Assistentes focados para fluxos de trabalho de menor risco, acesso a informação e produtividade dos colaboradores."
+ },
+ "HR support": {
+  "cs": "Podpora HR",
+  "de": "HR-Support",
+  "fr": "Support RH",
+  "es": "Soporte de RR. HH.",
+  "it": "Supporto HR",
+  "pl": "Wsparcie HR",
+  "pt": "Apoio de RH"
+ },
+ "Email assistance": {
+  "cs": "Asistence s e-maily",
+  "de": "E-Mail-Unterstützung",
+  "fr": "Assistance e-mail",
+  "es": "Asistencia por correo electrónico",
+  "it": "Assistenza e-mail",
+  "pl": "Wsparcie w obsłudze e-maili",
+  "pt": "Assistência de e-mail"
+ },
+ "Enterprise knowledge search": {
+  "cs": "Vyhledávání v podnikových znalostech",
+  "de": "Unternehmensweite Wissenssuche",
+  "fr": "Recherche de connaissances d'entreprise",
+  "es": "Búsqueda de conocimiento corporativo",
+  "it": "Ricerca della conoscenza aziendale",
+  "pl": "Wyszukiwanie wiedzy korporacyjnej",
+  "pt": "Pesquisa de conhecimento empresarial"
+ },
+ "FAQ automation": {
+  "cs": "Automatizace FAQ",
+  "de": "FAQ-Automatisierung",
+  "fr": "Automatisation des FAQ",
+  "es": "Automatización de preguntas frecuentes",
+  "it": "Automazione delle FAQ",
+  "pl": "Automatyzacja FAQ",
+  "pt": "Automatização de FAQ"
+ },
+ "Meeting preparation and follow-up": {
+  "cs": "Příprava schůzek a navazující kroky",
+  "de": "Meeting-Vorbereitung und Nachbereitung",
+  "fr": "Préparation et suivi de réunions",
+  "es": "Preparación y seguimiento de reuniones",
+  "it": "Preparazione e follow-up delle riunioni",
+  "pl": "Przygotowanie spotkań i działania po nich",
+  "pt": "Preparação e seguimento de reuniões"
+ },
+ "Most popular": {
+  "cs": "Nejčastější volba",
+  "de": "Am häufigsten gewählt",
+  "fr": "Le plus choisi",
+  "es": "La opción más habitual",
+  "it": "La scelta più frequente",
+  "pl": "Najczęściej wybierane",
+  "pt": "A escolha mais frequente"
+ },
+ "Tier 2 — Business Operations Agents": {
+  "cs": "Úroveň 2 — Agenti pro provoz byznysu",
+  "de": "Stufe 2 — Business-Operations-Agenten",
+  "fr": "Niveau 2 — Agents d'opérations métier",
+  "es": "Nivel 2 — Agentes de operaciones de negocio",
+  "it": "Livello 2 — Agenti per le operazioni di business",
+  "pl": "Poziom 2 — Agenci operacji biznesowych",
+  "pt": "Nível 2 — Agentes de operações de negócio"
+ },
+ "Operational agents that support recurring business processes across commercial and corporate teams.": {
+  "cs": "Provozní agenti, kteří podporují opakující se byznys procesy napříč obchodními a firemními týmy.",
+  "de": "Operative Agenten, die wiederkehrende Geschäftsprozesse in kommerziellen und Unternehmensteams unterstützen.",
+  "fr": "Des agents opérationnels qui soutiennent les processus métier récurrents des équipes commerciales et corporate.",
+  "es": "Agentes operativos que apoyan procesos de negocio recurrentes en equipos comerciales y corporativos.",
+  "it": "Agenti operativi che supportano processi di business ricorrenti nei team commerciali e aziendali.",
+  "pl": "Agenci operacyjni wspierający powtarzalne procesy biznesowe w zespołach handlowych i korporacyjnych.",
+  "pt": "Agentes operacionais que apoiam processos de negócio recorrentes em equipas comerciais e corporativas."
+ },
+ "Sales": {
+  "cs": "Obchod",
+  "de": "Vertrieb",
+  "fr": "Ventes",
+  "es": "Ventas",
+  "it": "Vendite",
+  "pl": "Sprzedaż",
+  "pt": "Vendas"
+ },
+ "Procurement": {
+  "cs": "Nákup",
+  "de": "Einkauf",
+  "fr": "Achats",
+  "es": "Compras",
+  "it": "Approvvigionamenti",
+  "pl": "Zakupy",
+  "pt": "Compras"
+ },
+ "Marketing": {
+  "cs": "Marketing",
+  "de": "Marketing",
+  "fr": "Marketing",
+  "es": "Marketing",
+  "it": "Marketing",
+  "pl": "Marketing",
+  "pt": "Marketing"
+ },
+ "Customer Success": {
+  "cs": "Zákaznická péče",
+  "de": "Customer Success",
+  "fr": "Customer Success",
+  "es": "Éxito del cliente",
+  "it": "Customer Success",
+  "pl": "Customer Success",
+  "pt": "Sucesso do cliente"
+ },
+ "Business Operations": {
+  "cs": "Provoz byznysu",
+  "de": "Business Operations",
+  "fr": "Opérations métier",
+  "es": "Operaciones de negocio",
+  "it": "Operazioni di business",
+  "pl": "Operacje biznesowe",
+  "pt": "Operações de negócio"
+ },
+ "Advanced analytics": {
+  "cs": "Pokročilá analytika",
+  "de": "Advanced Analytics",
+  "fr": "Analytique avancée",
+  "es": "Analítica avanzada",
+  "it": "Analisi avanzata",
+  "pl": "Zaawansowana analityka",
+  "pt": "Análise avançada"
+ },
+ "Tier 3 — Advanced Decision-Support Agents": {
+  "cs": "Úroveň 3 — Pokročilí agenti pro podporu rozhodování",
+  "de": "Stufe 3 — Fortgeschrittene Entscheidungsunterstützungs-Agenten",
+  "fr": "Niveau 3 — Agents avancés d'aide à la décision",
+  "es": "Nivel 3 — Agentes avanzados de apoyo a la decisión",
+  "it": "Livello 3 — Agenti avanzati di supporto decisionale",
+  "pl": "Poziom 3 — Zaawansowani agenci wsparcia decyzji",
+  "pt": "Nível 3 — Agentes avançados de apoio à decisão"
+ },
+ "Analytical and decision-support agents designed for complex reporting, planning and management workflows.": {
+  "cs": "Analytičtí agenti pro podporu rozhodování určení pro složité reportingové, plánovací a manažerské procesy.",
+  "de": "Analytische und entscheidungsunterstützende Agenten für komplexe Reporting-, Planungs- und Management-Workflows.",
+  "fr": "Des agents analytiques et d'aide à la décision conçus pour les workflows complexes de reporting, planification et pilotage.",
+  "es": "Agentes analíticos y de apoyo a la decisión diseñados para flujos complejos de reporting, planificación y gestión.",
+  "it": "Agenti analitici e di supporto decisionale progettati per workflow complessi di reporting, pianificazione e gestione.",
+  "pl": "Agenci analityczni i wspierający decyzje, zaprojektowani do złożonych procesów raportowania, planowania i zarządzania.",
+  "pt": "Agentes analíticos e de apoio à decisão concebidos para fluxos complexos de reporting, planeamento e gestão."
+ },
+ "Finance": {
+  "cs": "Finance",
+  "de": "Finanzen",
+  "fr": "Finance",
+  "es": "Finanzas",
+  "it": "Finanza",
+  "pl": "Finanse",
+  "pt": "Finanças"
+ },
+ "Business Intelligence": {
+  "cs": "Business Intelligence",
+  "de": "Business Intelligence",
+  "fr": "Business Intelligence",
+  "es": "Business Intelligence",
+  "it": "Business Intelligence",
+  "pl": "Business Intelligence",
+  "pt": "Business Intelligence"
+ },
+ "Reporting": {
+  "cs": "Reporting",
+  "de": "Reporting",
+  "fr": "Reporting",
+  "es": "Reporting",
+  "it": "Reporting",
+  "pl": "Raportowanie",
+  "pt": "Reporting"
+ },
+ "Planning": {
+  "cs": "Plánování",
+  "de": "Planung",
+  "fr": "Planification",
+  "es": "Planificación",
+  "it": "Pianificazione",
+  "pl": "Planowanie",
+  "pt": "Planeamento"
+ },
+ "Executive Support": {
+  "cs": "Podpora vedení",
+  "de": "Führungsunterstützung",
+  "fr": "Support à la direction",
+  "es": "Apoyo a la dirección",
+  "it": "Supporto alla direzione",
+  "pl": "Wsparcie zarządu",
+  "pt": "Apoio à direção"
+ },
+ "High-control environments": {
+  "cs": "Prostředí s vysokou mírou kontroly",
+  "de": "Umgebungen mit hoher Kontrolle",
+  "fr": "Environnements à contrôle élevé",
+  "es": "Entornos de alto control",
+  "it": "Ambienti ad alto controllo",
+  "pl": "Środowiska o wysokiej kontroli",
+  "pt": "Ambientes de elevado controlo"
+ },
+ "Tier 4 — Risk and Governance Agents": {
+  "cs": "Úroveň 4 — Agenti pro rizika a governance",
+  "de": "Stufe 4 — Risiko- und Governance-Agenten",
+  "fr": "Niveau 4 — Agents risque et gouvernance",
+  "es": "Nivel 4 — Agentes de riesgo y gobernanza",
+  "it": "Livello 4 — Agenti per rischio e governance",
+  "pl": "Poziom 4 — Agenci ryzyka i governance",
+  "pt": "Nível 4 — Agentes de risco e governação"
+ },
+ "Governed agents for regulated, control-intensive and high-consequence business processes.": {
+  "cs": "Řízení agenti pro regulované, kontrolně náročné byznys procesy s vysokými dopady.",
+  "de": "Gesteuerte Agenten für regulierte, kontrollintensive Geschäftsprozesse mit hoher Tragweite.",
+  "fr": "Des agents gouvernés pour les processus métier réglementés, intensifs en contrôles et à fort enjeu.",
+  "es": "Agentes gobernados para procesos de negocio regulados, intensivos en controles y de alta repercusión.",
+  "it": "Agenti governati per processi di business regolamentati, ad alta intensità di controlli e con conseguenze rilevanti.",
+  "pl": "Nadzorowani agenci do procesów regulowanych, wymagających intensywnej kontroli i o wysokich konsekwencjach.",
+  "pt": "Agentes governados para processos de negócio regulados, intensivos em controlos e de elevada consequência."
+ },
+ "Compliance": {
+  "cs": "Compliance",
+  "de": "Compliance",
+  "fr": "Conformité",
+  "es": "Cumplimiento",
+  "it": "Compliance",
+  "pl": "Compliance",
+  "pt": "Conformidade"
+ },
+ "Risk Management": {
+  "cs": "Řízení rizik",
+  "de": "Risikomanagement",
+  "fr": "Gestion des risques",
+  "es": "Gestión de riesgos",
+  "it": "Gestione del rischio",
+  "pl": "Zarządzanie ryzykiem",
+  "pt": "Gestão de risco"
+ },
+ "Governance": {
+  "cs": "Governance",
+  "de": "Governance",
+  "fr": "Gouvernance",
+  "es": "Gobernanza",
+  "it": "Governance",
+  "pl": "Governance",
+  "pt": "Governação"
+ },
+ "Internal Audit": {
+  "cs": "Interní audit",
+  "de": "Interne Revision",
+  "fr": "Audit interne",
+  "es": "Auditoría interna",
+  "it": "Audit interno",
+  "pl": "Audyt wewnętrzny",
+  "pt": "Auditoria interna"
+ },
+ "Enterprise transformation": {
+  "cs": "Podniková transformace",
+  "de": "Unternehmenstransformation",
+  "fr": "Transformation d'entreprise",
+  "es": "Transformación empresarial",
+  "it": "Trasformazione aziendale",
+  "pl": "Transformacja przedsiębiorstwa",
+  "pt": "Transformação empresarial"
+ },
+ "Tier 5 — Enterprise Multi-Agent Systems": {
+  "cs": "Úroveň 5 — Podnikové multiagentní systémy",
+  "de": "Stufe 5 — Enterprise-Multi-Agenten-Systeme",
+  "fr": "Niveau 5 — Systèmes multi-agents d'entreprise",
+  "es": "Nivel 5 — Sistemas multiagente empresariales",
+  "it": "Livello 5 — Sistemi multi-agente aziendali",
+  "pl": "Poziom 5 — Korporacyjne systemy wieloagentowe",
+  "pt": "Nível 5 — Sistemas multiagente empresariais"
+ },
+ "Coordinated multi-agent solutions spanning multiple workflows, functions, systems or governance layers.": {
+  "cs": "Koordinovaná multiagentní řešení zahrnující více procesů, funkcí, systémů nebo vrstev governance.",
+  "de": "Koordinierte Multi-Agenten-Lösungen über mehrere Workflows, Funktionen, Systeme oder Governance-Ebenen hinweg.",
+  "fr": "Des solutions multi-agents coordonnées couvrant plusieurs workflows, fonctions, systèmes ou couches de gouvernance.",
+  "es": "Soluciones multiagente coordinadas que abarcan varios flujos de trabajo, funciones, sistemas o capas de gobernanza.",
+  "it": "Soluzioni multi-agente coordinate che coprono più workflow, funzioni, sistemi o livelli di governance.",
+  "pl": "Skoordynowane rozwiązania wieloagentowe obejmujące wiele procesów, funkcji, systemów lub warstw governance.",
+  "pt": "Soluções multiagente coordenadas que abrangem vários fluxos de trabalho, funções, sistemas ou camadas de governação."
+ },
+ "Multiple specialized agents": {
+  "cs": "Několik specializovaných agentů",
+  "de": "Mehrere spezialisierte Agenten",
+  "fr": "Plusieurs agents spécialisés",
+  "es": "Varios agentes especializados",
+  "it": "Più agenti specializzati",
+  "pl": "Wielu wyspecjalizowanych agentów",
+  "pt": "Vários agentes especializados"
+ },
+ "Cross-functional orchestration": {
+  "cs": "Mezifunkční orchestrace",
+  "de": "Funktionsübergreifende Orchestrierung",
+  "fr": "Orchestration transverse",
+  "es": "Orquestación interfuncional",
+  "it": "Orchestrazione interfunzionale",
+  "pl": "Orkiestracja międzyfunkcyjna",
+  "pt": "Orquestração interfuncional"
+ },
+ "Several enterprise integrations": {
+  "cs": "Několik podnikových integrací",
+  "de": "Mehrere Unternehmensintegrationen",
+  "fr": "Plusieurs intégrations d'entreprise",
+  "es": "Varias integraciones empresariales",
+  "it": "Diverse integrazioni aziendali",
+  "pl": "Kilka integracji korporacyjnych",
+  "pt": "Várias integrações empresariais"
+ },
+ "Shared governance controls": {
+  "cs": "Sdílené kontrolní mechanismy governance",
+  "de": "Gemeinsame Governance-Kontrollen",
+  "fr": "Contrôles de gouvernance partagés",
+  "es": "Controles de gobernanza compartidos",
+  "it": "Controlli di governance condivisi",
+  "pl": "Wspólne mechanizmy kontroli governance",
+  "pt": "Controlos de governação partilhados"
+ },
+ "Multi-stage approval workflows": {
+  "cs": "Vícestupňové schvalovací procesy",
+  "de": "Mehrstufige Genehmigungs-Workflows",
+  "fr": "Circuits d'approbation multi-étapes",
+  "es": "Flujos de aprobación en varias etapas",
+  "it": "Flussi di approvazione in più fasi",
+  "pl": "Wieloetapowe procesy zatwierdzania",
+  "pt": "Fluxos de aprovação em várias etapas"
+ },
+ "Discuss a multi-agent solution": {
+  "cs": "Probrat multiagentní řešení",
+  "de": "Multi-Agenten-Lösung besprechen",
+  "fr": "Discuter d'une solution multi-agents",
+  "es": "Hablar de una solución multiagente",
+  "it": "Parliamo di una soluzione multi-agente",
+  "pl": "Omów rozwiązanie wieloagentowe",
+  "pt": "Falar sobre uma solução multiagente"
+ },
+ "Displayed ranges are indicative starting points, not binding quotations. Final pricing depends on the selected use case, implementation scope, system integrations, data readiness, governance requirements, deployment model, support requirements and customization.": {
+  "cs": "Zobrazená rozpětí jsou orientační výchozí body, nikoli závazné nabídky. Konečná cena závisí na zvoleném use case, rozsahu implementace, systémových integracích, připravenosti dat, požadavcích na governance, modelu nasazení, požadavcích na podporu a customizaci.",
+  "de": "Die angezeigten Bereiche sind indikative Ausgangspunkte, keine verbindlichen Angebote. Der endgültige Preis hängt vom gewählten Use Case, Implementierungsumfang, den Systemintegrationen, der Datenbereitschaft, den Governance-Anforderungen, dem Deployment-Modell, den Supportanforderungen und der Anpassung ab.",
+  "fr": "Les fourchettes affichées sont des points de départ indicatifs, non des devis contraignants. Le tarif final dépend du cas d'usage retenu, du périmètre d'implémentation, des intégrations, de la maturité des données, des exigences de gouvernance, du modèle de déploiement, des besoins de support et de la personnalisation.",
+  "es": "Los rangos mostrados son puntos de partida indicativos, no presupuestos vinculantes. El precio final depende del caso de uso seleccionado, el alcance de implementación, las integraciones, la disponibilidad de datos, los requisitos de gobernanza, el modelo de despliegue, las necesidades de soporte y la personalización.",
+  "it": "Le fasce indicate sono punti di partenza indicativi, non preventivi vincolanti. Il prezzo finale dipende dal caso d'uso selezionato, dall'ambito di implementazione, dalle integrazioni, dalla maturità dei dati, dai requisiti di governance, dal modello di deployment, dalle esigenze di supporto e dalla personalizzazione.",
+  "pl": "Prezentowane zakresy są orientacyjnymi punktami wyjścia, a nie wiążącymi ofertami. Ostateczna cena zależy od wybranego przypadku użycia, zakresu wdrożenia, integracji systemowych, gotowości danych, wymagań governance, modelu wdrożenia, wymagań wsparcia i dostosowań.",
+  "pt": "Os intervalos apresentados são pontos de partida indicativos, não orçamentos vinculativos. O preço final depende do caso de uso selecionado, do âmbito de implementação, das integrações, da maturidade dos dados, dos requisitos de governação, do modelo de implementação, das necessidades de suporte e da personalização."
+ },
+ "Why Tier 4 carries a higher range": {
+  "cs": "Proč má úroveň 4 vyšší rozpětí",
+  "de": "Warum Stufe 4 einen höheren Bereich hat",
+  "fr": "Pourquoi le niveau 4 a une fourchette plus élevée",
+  "es": "Por qué el nivel 4 tiene un rango más alto",
+  "it": "Perché il livello 4 ha una fascia più alta",
+  "pl": "Dlaczego poziom 4 ma wyższy zakres",
+  "pt": "Porque o nível 4 tem um intervalo mais elevado"
+ },
+ "Risk and governance agents are not more valuable by default; they are more demanding to build and evidence. The range reflects additional work on control design, auditability, testing, human oversight, evidence capture, escalation workflows, policy alignment and regulatory or internal-governance requirements.": {
+  "cs": "Agenti pro rizika a governance nejsou automaticky hodnotnější; jsou náročnější na vytvoření a doložení. Rozpětí odráží práci navíc na návrhu kontrol, auditovatelnosti, testování, lidském dohledu, zachycení důkazů, eskalačních postupech, souladu s politikami a regulatorních či interních požadavcích governance.",
+  "de": "Risiko- und Governance-Agenten sind nicht per se wertvoller; sie sind aufwendiger zu bauen und nachzuweisen. Der Bereich spiegelt zusätzliche Arbeit an Kontrolldesign, Auditierbarkeit, Tests, menschlicher Aufsicht, Nachweiserfassung, Eskalations-Workflows, Richtlinienkonformität sowie regulatorischen oder internen Governance-Anforderungen wider.",
+  "fr": "Les agents risque et gouvernance ne sont pas plus précieux par défaut ; ils sont plus exigeants à construire et à documenter. La fourchette reflète le travail supplémentaire sur la conception des contrôles, l'auditabilité, les tests, la supervision humaine, la collecte de preuves, les circuits d'escalade, l'alignement aux politiques et les exigences réglementaires ou de gouvernance interne.",
+  "es": "Los agentes de riesgo y gobernanza no son más valiosos por defecto; son más exigentes de construir y evidenciar. El rango refleja el trabajo adicional en diseño de controles, auditabilidad, pruebas, supervisión humana, captura de evidencias, flujos de escalado, alineación con políticas y requisitos regulatorios o de gobernanza interna.",
+  "it": "Gli agenti per rischio e governance non sono di per sé più preziosi; sono più impegnativi da costruire e documentare. La fascia riflette il lavoro aggiuntivo su progettazione dei controlli, auditabilità, test, supervisione umana, raccolta delle evidenze, flussi di escalation, allineamento alle policy e requisiti normativi o di governance interna.",
+  "pl": "Agenci ryzyka i governance nie są domyślnie bardziej wartościowi; są trudniejsi w budowie i udokumentowaniu. Zakres odzwierciedla dodatkową pracę nad projektowaniem kontroli, audytowalnością, testami, nadzorem ludzkim, gromadzeniem dowodów, procesami eskalacji, zgodnością z politykami oraz wymaganiami regulacyjnymi lub wewnętrznego governance.",
+  "pt": "Os agentes de risco e governação não são mais valiosos por defeito; são mais exigentes de construir e evidenciar. O intervalo reflete o trabalho adicional em desenho de controlos, auditabilidade, testes, supervisão humana, captura de evidências, fluxos de escalonamento, alinhamento com políticas e requisitos regulatórios ou de governação interna."
+ },
+ "Enterprise multi-agent systems": {
+  "cs": "Podnikové multiagentní systémy",
+  "de": "Enterprise-Multi-Agenten-Systeme",
+  "fr": "Systèmes multi-agents d'entreprise",
+  "es": "Sistemas multiagente empresariales",
+  "it": "Sistemi multi-agente aziendali",
+  "pl": "Korporacyjne systemy wieloagentowe",
+  "pt": "Sistemas multiagente empresariais"
+ },
+ "Tier 5 applies where several specialized agents operate together across functions and systems. Scope typically adds centralized reporting, advanced security and access requirements, shared governance controls, multi-stage approvals and wider organizational rollout. These solutions are designed and priced individually.": {
+  "cs": "Úroveň 5 platí tam, kde několik specializovaných agentů pracuje společně napříč funkcemi a systémy. Rozsah obvykle přidává centralizovaný reporting, pokročilé požadavky na bezpečnost a přístupy, sdílené kontroly governance, vícestupňová schválení a širší nasazení v organizaci. Tato řešení se navrhují a oceňují individuálně.",
+  "de": "Stufe 5 gilt, wenn mehrere spezialisierte Agenten funktions- und systemübergreifend zusammenarbeiten. Der Umfang ergänzt typischerweise zentrales Reporting, erweiterte Sicherheits- und Zugriffsanforderungen, gemeinsame Governance-Kontrollen, mehrstufige Freigaben und einen breiteren organisatorischen Rollout. Diese Lösungen werden individuell konzipiert und bepreist.",
+  "fr": "Le niveau 5 s'applique lorsque plusieurs agents spécialisés fonctionnent ensemble entre fonctions et systèmes. Le périmètre ajoute généralement un reporting centralisé, des exigences avancées de sécurité et d'accès, des contrôles de gouvernance partagés, des approbations multi-étapes et un déploiement organisationnel plus large. Ces solutions sont conçues et tarifées individuellement.",
+  "es": "El nivel 5 se aplica cuando varios agentes especializados operan juntos entre funciones y sistemas. El alcance suele añadir reporting centralizado, requisitos avanzados de seguridad y acceso, controles de gobernanza compartidos, aprobaciones en varias etapas y un despliegue organizativo más amplio. Estas soluciones se diseñan y cotizan individualmente.",
+  "it": "Il livello 5 si applica quando più agenti specializzati operano insieme tra funzioni e sistemi. L'ambito aggiunge tipicamente reporting centralizzato, requisiti avanzati di sicurezza e accesso, controlli di governance condivisi, approvazioni in più fasi e un rollout organizzativo più ampio. Queste soluzioni sono progettate e quotate individualmente.",
+  "pl": "Poziom 5 dotyczy sytuacji, gdy kilku wyspecjalizowanych agentów działa razem w różnych funkcjach i systemach. Zakres zwykle dodaje scentralizowane raportowanie, zaawansowane wymagania bezpieczeństwa i dostępu, wspólne mechanizmy governance, wieloetapowe zatwierdzania oraz szersze wdrożenie w organizacji. Takie rozwiązania są projektowane i wyceniane indywidualnie.",
+  "pt": "O nível 5 aplica-se quando vários agentes especializados operam em conjunto entre funções e sistemas. O âmbito acrescenta normalmente reporting centralizado, requisitos avançados de segurança e acesso, controlos de governação partilhados, aprovações em várias etapas e uma implementação organizacional mais alargada. Estas soluções são concebidas e orçamentadas individualmente."
+ },
+ "Scoping": {
+  "cs": "Vymezení rozsahu",
+  "de": "Scoping",
+  "fr": "Cadrage",
+  "es": "Definición del alcance",
+  "it": "Definizione dell'ambito",
+  "pl": "Określanie zakresu",
+  "pt": "Definição de âmbito"
+ },
+ "What determines your final investment?": {
+  "cs": "Co určuje vaši konečnou investici?",
+  "de": "Was bestimmt Ihre endgültige Investition?",
+  "fr": "Qu'est-ce qui détermine votre investissement final ?",
+  "es": "¿Qué determina su inversión final?",
+  "it": "Che cosa determina il vostro investimento finale?",
+  "pl": "Co decyduje o Twojej ostatecznej inwestycji?",
+  "pt": "O que determina o seu investimento final?"
+ },
+ "Six factors move an engagement within, or outside, its indicative range. They are assessed during discovery and confirmed in the proposal.": {
+  "cs": "Šest faktorů posouvá zakázku v rámci orientačního rozpětí, případně mimo něj. Posuzují se během discovery a potvrzují se v nabídce.",
+  "de": "Sechs Faktoren verschieben ein Projekt innerhalb oder außerhalb seines indikativen Bereichs. Sie werden im Discovery bewertet und im Angebot bestätigt.",
+  "fr": "Six facteurs déplacent un projet à l'intérieur, ou en dehors, de sa fourchette indicative. Ils sont évalués lors du cadrage et confirmés dans la proposition.",
+  "es": "Seis factores mueven un proyecto dentro, o fuera, de su rango indicativo. Se evalúan durante el discovery y se confirman en la propuesta.",
+  "it": "Sei fattori spostano un progetto all'interno, o al di fuori, della sua fascia indicativa. Vengono valutati durante il discovery e confermati nella proposta.",
+  "pl": "Sześć czynników przesuwa projekt w obrębie orientacyjnego zakresu lub poza niego. Są oceniane podczas discovery i potwierdzane w ofercie.",
+  "pt": "Seis fatores movem um projeto dentro, ou fora, do seu intervalo indicativo. São avaliados durante o discovery e confirmados na proposta."
+ },
+ "Workflow complexity": {
+  "cs": "Složitost procesu",
+  "de": "Workflow-Komplexität",
+  "fr": "Complexité du workflow",
+  "es": "Complejidad del flujo de trabajo",
+  "it": "Complessità del workflow",
+  "pl": "Złożoność procesu",
+  "pt": "Complexidade do fluxo de trabalho"
+ },
+ "Number of process steps, exceptions, decisions and business rules.": {
+  "cs": "Počet kroků procesu, výjimek, rozhodnutí a byznys pravidel.",
+  "de": "Anzahl der Prozessschritte, Ausnahmen, Entscheidungen und Geschäftsregeln.",
+  "fr": "Nombre d'étapes, d'exceptions, de décisions et de règles métier.",
+  "es": "Número de pasos del proceso, excepciones, decisiones y reglas de negocio.",
+  "it": "Numero di passaggi del processo, eccezioni, decisioni e regole di business.",
+  "pl": "Liczba kroków procesu, wyjątków, decyzji i reguł biznesowych.",
+  "pt": "Número de passos do processo, exceções, decisões e regras de negócio."
+ },
+ "Agent autonomy": {
+  "cs": "Autonomie agenta",
+  "de": "Agenten-Autonomie",
+  "fr": "Autonomie de l'agent",
+  "es": "Autonomía del agente",
+  "it": "Autonomia dell'agente",
+  "pl": "Autonomia agenta",
+  "pt": "Autonomia do agente"
+ },
+ "Whether the agent drafts, recommends, executes actions or coordinates other agents.": {
+  "cs": "Zda agent připravuje návrhy, doporučuje, provádí akce nebo koordinuje další agenty.",
+  "de": "Ob der Agent Entwürfe erstellt, empfiehlt, Aktionen ausführt oder andere Agenten koordiniert.",
+  "fr": "Si l'agent rédige, recommande, exécute des actions ou coordonne d'autres agents.",
+  "es": "Si el agente redacta, recomienda, ejecuta acciones o coordina a otros agentes.",
+  "it": "Se l'agente redige, raccomanda, esegue azioni o coordina altri agenti.",
+  "pl": "Czy agent przygotowuje projekty, rekomenduje, wykonuje działania czy koordynuje innych agentów.",
+  "pt": "Se o agente redige, recomenda, executa ações ou coordena outros agentes."
+ },
+ "Integrations": {
+  "cs": "Integrace",
+  "de": "Integrationen",
+  "fr": "Intégrations",
+  "es": "Integraciones",
+  "it": "Integrazioni",
+  "pl": "Integracje",
+  "pt": "Integrações"
+ },
+ "Connections to enterprise systems, APIs, databases, document repositories and communication platforms.": {
+  "cs": "Napojení na podnikové systémy, API, databáze, úložiště dokumentů a komunikační platformy.",
+  "de": "Anbindungen an Unternehmenssysteme, APIs, Datenbanken, Dokumentenablagen und Kommunikationsplattformen.",
+  "fr": "Connexions aux systèmes d'entreprise, API, bases de données, référentiels documentaires et plateformes de communication.",
+  "es": "Conexiones con sistemas empresariales, API, bases de datos, repositorios documentales y plataformas de comunicación.",
+  "it": "Connessioni a sistemi aziendali, API, database, repository documentali e piattaforme di comunicazione.",
+  "pl": "Połączenia z systemami korporacyjnymi, API, bazami danych, repozytoriami dokumentów i platformami komunikacyjnymi.",
+  "pt": "Ligações a sistemas empresariais, APIs, bases de dados, repositórios documentais e plataformas de comunicação."
+ },
+ "Governance requirements": {
+  "cs": "Požadavky na governance",
+  "de": "Governance-Anforderungen",
+  "fr": "Exigences de gouvernance",
+  "es": "Requisitos de gobernanza",
+  "it": "Requisiti di governance",
+  "pl": "Wymagania governance",
+  "pt": "Requisitos de governação"
+ },
+ "Audit trails, approvals, human oversight, controls, evidence logging and policy alignment.": {
+  "cs": "Auditní stopy, schvalování, lidský dohled, kontroly, protokolování důkazů a soulad s politikami.",
+  "de": "Audit-Trails, Freigaben, menschliche Aufsicht, Kontrollen, Nachweisprotokollierung und Richtlinienkonformität.",
+  "fr": "Pistes d'audit, approbations, supervision humaine, contrôles, journalisation des preuves et alignement aux politiques.",
+  "es": "Pistas de auditoría, aprobaciones, supervisión humana, controles, registro de evidencias y alineación con políticas.",
+  "it": "Audit trail, approvazioni, supervisione umana, controlli, registrazione delle evidenze e allineamento alle policy.",
+  "pl": "Ścieżki audytu, zatwierdzenia, nadzór ludzki, kontrole, rejestrowanie dowodów i zgodność z politykami.",
+  "pt": "Trilhas de auditoria, aprovações, supervisão humana, controlos, registo de evidências e alinhamento com políticas."
+ },
+ "Data readiness": {
+  "cs": "Připravenost dat",
+  "de": "Datenbereitschaft",
+  "fr": "Maturité des données",
+  "es": "Disponibilidad de los datos",
+  "it": "Maturità dei dati",
+  "pl": "Gotowość danych",
+  "pt": "Maturidade dos dados"
+ },
+ "Availability, accessibility, structure, sensitivity and quality of the required business data.": {
+  "cs": "Dostupnost, přístupnost, struktura, citlivost a kvalita potřebných byznys dat.",
+  "de": "Verfügbarkeit, Zugänglichkeit, Struktur, Sensibilität und Qualität der benötigten Geschäftsdaten.",
+  "fr": "Disponibilité, accessibilité, structure, sensibilité et qualité des données métier nécessaires.",
+  "es": "Disponibilidad, accesibilidad, estructura, sensibilidad y calidad de los datos de negocio necesarios.",
+  "it": "Disponibilità, accessibilità, struttura, sensibilità e qualità dei dati di business necessari.",
+  "pl": "Dostępność, przystępność, struktura, wrażliwość i jakość wymaganych danych biznesowych.",
+  "pt": "Disponibilidade, acessibilidade, estrutura, sensibilidade e qualidade dos dados de negócio necessários."
+ },
+ "Implementation scope": {
+  "cs": "Rozsah implementace",
+  "de": "Implementierungsumfang",
+  "fr": "Périmètre d'implémentation",
+  "es": "Alcance de la implementación",
+  "it": "Ambito di implementazione",
+  "pl": "Zakres wdrożenia",
+  "pt": "Âmbito de implementação"
+ },
+ "Testing, localization, documentation, user training, deployment support and post-launch optimization.": {
+  "cs": "Testování, lokalizace, dokumentace, školení uživatelů, podpora nasazení a optimalizace po spuštění.",
+  "de": "Tests, Lokalisierung, Dokumentation, Anwenderschulung, Deployment-Unterstützung und Optimierung nach dem Start.",
+  "fr": "Tests, localisation, documentation, formation des utilisateurs, support au déploiement et optimisation après lancement.",
+  "es": "Pruebas, localización, documentación, formación de usuarios, soporte al despliegue y optimización posterior al lanzamiento.",
+  "it": "Test, localizzazione, documentazione, formazione degli utenti, supporto al deployment e ottimizzazione post-lancio.",
+  "pl": "Testy, lokalizacja, dokumentacja, szkolenia użytkowników, wsparcie wdrożenia i optymalizacja po uruchomieniu.",
+  "pt": "Testes, localização, documentação, formação de utilizadores, apoio à implementação e otimização pós-lançamento."
+ },
+ "What may be included": {
+  "cs": "Co může být součástí",
+  "de": "Was enthalten sein kann",
+  "fr": "Ce qui peut être inclus",
+  "es": "Qué puede estar incluido",
+  "it": "Che cosa può essere incluso",
+  "pl": "Co może być uwzględnione",
+  "pt": "O que pode estar incluído"
+ },
+ "The exact package varies by engagement and is confirmed in the proposal. Depending on scope, it may include:": {
+  "cs": "Přesný balíček se liší podle zakázky a potvrzuje se v nabídce. V závislosti na rozsahu může zahrnovat:",
+  "de": "Das genaue Paket variiert je nach Projekt und wird im Angebot bestätigt. Je nach Umfang kann es enthalten:",
+  "fr": "Le package exact varie selon le projet et est confirmé dans la proposition. Selon le périmètre, il peut inclure :",
+  "es": "El paquete exacto varía según el proyecto y se confirma en la propuesta. Según el alcance, puede incluir:",
+  "it": "Il pacchetto esatto varia in base al progetto e viene confermato nella proposta. A seconda dell'ambito, può includere:",
+  "pl": "Dokładny pakiet zależy od projektu i jest potwierdzany w ofercie. W zależności od zakresu może obejmować:",
+  "pt": "O pacote exato varia consoante o projeto e é confirmado na proposta. Dependendo do âmbito, pode incluir:"
+ },
+ "Use-case definition": {
+  "cs": "Definice use case",
+  "de": "Use-Case-Definition",
+  "fr": "Définition du cas d'usage",
+  "es": "Definición del caso de uso",
+  "it": "Definizione del caso d'uso",
+  "pl": "Definicja przypadku użycia",
+  "pt": "Definição do caso de uso"
+ },
+ "Agent configuration": {
+  "cs": "Konfigurace agenta",
+  "de": "Agentenkonfiguration",
+  "fr": "Configuration de l'agent",
+  "es": "Configuración del agente",
+  "it": "Configurazione dell'agente",
+  "pl": "Konfiguracja agenta",
+  "pt": "Configuração do agente"
+ },
+ "Prompt and instruction architecture": {
+  "cs": "Architektura promptů a instrukcí",
+  "de": "Prompt- und Instruktionsarchitektur",
+  "fr": "Architecture des prompts et instructions",
+  "es": "Arquitectura de prompts e instrucciones",
+  "it": "Architettura di prompt e istruzioni",
+  "pl": "Architektura promptów i instrukcji",
+  "pt": "Arquitetura de prompts e instruções"
+ },
+ "Workflow design": {
+  "cs": "Návrh procesu",
+  "de": "Workflow-Design",
+  "fr": "Conception du workflow",
+  "es": "Diseño del flujo de trabajo",
+  "it": "Progettazione del workflow",
+  "pl": "Projekt procesu",
+  "pt": "Desenho do fluxo de trabalho"
+ },
+ "Selected system integrations": {
+  "cs": "Vybrané systémové integrace",
+  "de": "Ausgewählte Systemintegrationen",
+  "fr": "Intégrations système sélectionnées",
+  "es": "Integraciones de sistemas seleccionadas",
+  "it": "Integrazioni di sistema selezionate",
+  "pl": "Wybrane integracje systemowe",
+  "pt": "Integrações de sistemas selecionadas"
+ },
+ "Role and access configuration": {
+  "cs": "Konfigurace rolí a přístupů",
+  "de": "Rollen- und Zugriffskonfiguration",
+  "fr": "Configuration des rôles et des accès",
+  "es": "Configuración de roles y accesos",
+  "it": "Configurazione di ruoli e accessi",
+  "pl": "Konfiguracja ról i dostępów",
+  "pt": "Configuração de perfis e acessos"
+ },
+ "Governance controls": {
+  "cs": "Kontrolní mechanismy governance",
+  "de": "Governance-Kontrollen",
+  "fr": "Contrôles de gouvernance",
+  "es": "Controles de gobernanza",
+  "it": "Controlli di governance",
+  "pl": "Mechanizmy kontroli governance",
+  "pt": "Controlos de governação"
+ },
+ "Human-in-the-loop checkpoints": {
+  "cs": "Kontrolní body s člověkem ve smyčce",
+  "de": "Human-in-the-Loop-Kontrollpunkte",
+  "fr": "Points de contrôle avec intervention humaine",
+  "es": "Puntos de control con intervención humana",
+  "it": "Checkpoint con intervento umano",
+  "pl": "Punkty kontrolne z udziałem człowieka",
+  "pt": "Pontos de controlo com intervenção humana"
+ },
+ "Testing and validation": {
+  "cs": "Testování a validace",
+  "de": "Tests und Validierung",
+  "fr": "Tests et validation",
+  "es": "Pruebas y validación",
+  "it": "Test e validazione",
+  "pl": "Testy i walidacja",
+  "pt": "Testes e validação"
+ },
+ "Deployment documentation": {
+  "cs": "Dokumentace nasazení",
+  "de": "Deployment-Dokumentation",
+  "fr": "Documentation de déploiement",
+  "es": "Documentación de despliegue",
+  "it": "Documentazione di deployment",
+  "pl": "Dokumentacja wdrożenia",
+  "pt": "Documentação de implementação"
+ },
+ "User guidance": {
+  "cs": "Uživatelské pokyny",
+  "de": "Anwenderleitfaden",
+  "fr": "Guide utilisateur",
+  "es": "Guía para usuarios",
+  "it": "Guida per gli utenti",
+  "pl": "Wskazówki dla użytkowników",
+  "pt": "Orientação para utilizadores"
+ },
+ "Initial implementation support": {
+  "cs": "Počáteční podpora implementace",
+  "de": "Anfängliche Implementierungsunterstützung",
+  "fr": "Support initial à l'implémentation",
+  "es": "Soporte inicial de implementación",
+  "it": "Supporto iniziale all'implementazione",
+  "pl": "Wstępne wsparcie wdrożenia",
+  "pt": "Apoio inicial à implementação"
+ },
+ "Early engagements": {
+  "cs": "První zakázky",
+  "de": "Frühe Projekte",
+  "fr": "Premiers projets",
+  "es": "Primeros proyectos",
+  "it": "Primi progetti",
+  "pl": "Pierwsze projekty",
+  "pt": "Primeiros projetos"
+ },
+ "Founding-customer terms": {
+  "cs": "Podmínky pro zakládající zákazníky",
+  "de": "Konditionen für Gründungskunden",
+  "fr": "Conditions client fondateur",
+  "es": "Condiciones de cliente fundador",
+  "it": "Condizioni per i clienti fondatori",
+  "pl": "Warunki dla klientów założycielskich",
+  "pt": "Condições de cliente fundador"
+ },
+ "Founding customers may qualify for preferential commercial terms in exchange for structured feedback, implementation collaboration and permission to develop an approved case study.": {
+  "cs": "Zakládající zákazníci mohou získat zvýhodněné obchodní podmínky výměnou za strukturovanou zpětnou vazbu, spolupráci při implementaci a souhlas s vytvořením schválené případové studie.",
+  "de": "Gründungskunden können bevorzugte kommerzielle Konditionen erhalten, im Gegenzug für strukturiertes Feedback, Zusammenarbeit bei der Implementierung und die Erlaubnis, eine freigegebene Fallstudie zu erstellen.",
+  "fr": "Les clients fondateurs peuvent bénéficier de conditions commerciales préférentielles en échange d'un retour structuré, d'une collaboration à l'implémentation et de l'autorisation de développer une étude de cas approuvée.",
+  "es": "Los clientes fundadores pueden acceder a condiciones comerciales preferentes a cambio de feedback estructurado, colaboración en la implementación y permiso para desarrollar un caso de éxito aprobado.",
+  "it": "I clienti fondatori possono ottenere condizioni commerciali preferenziali in cambio di feedback strutturato, collaborazione all'implementazione e autorizzazione a sviluppare un caso studio approvato.",
+  "pl": "Klienci założycielscy mogą uzyskać preferencyjne warunki handlowe w zamian za ustrukturyzowaną informację zwrotną, współpracę przy wdrożeniu i zgodę na opracowanie zatwierdzonego studium przypadku.",
+  "pt": "Os clientes fundadores podem beneficiar de condições comerciais preferenciais em troca de feedback estruturado, colaboração na implementação e autorização para desenvolver um caso de estudo aprovado."
+ },
+ "Ask about founding-customer terms": {
+  "cs": "Zeptat se na podmínky pro zakládající zákazníky",
+  "de": "Nach Gründungskunden-Konditionen fragen",
+  "fr": "Renseignez-vous sur les conditions client fondateur",
+  "es": "Consultar las condiciones de cliente fundador",
+  "it": "Chiedi le condizioni per i clienti fondatori",
+  "pl": "Zapytaj o warunki dla klientów założycielskich",
+  "pt": "Perguntar sobre condições de cliente fundador"
+ },
+ "Questions, answered": {
+  "cs": "Otázky a odpovědi",
+  "de": "Fragen und Antworten",
+  "fr": "Questions et réponses",
+  "es": "Preguntas y respuestas",
+  "it": "Domande e risposte",
+  "pl": "Pytania i odpowiedzi",
+  "pt": "Perguntas e respostas"
+ },
+ "Pricing FAQ": {
+  "cs": "Časté dotazy k cenám",
+  "de": "FAQ zu Preisen",
+  "fr": "FAQ tarifs",
+  "es": "Preguntas frecuentes sobre precios",
+  "it": "FAQ sui prezzi",
+  "pl": "FAQ o cenach",
+  "pt": "FAQ de preços"
+ },
+ "Is the displayed price a one-time fee?": {
+  "cs": "Je uvedená cena jednorázová?",
+  "de": "Ist der angezeigte Preis eine einmalige Gebühr?",
+  "fr": "Le prix affiché est-il un paiement unique ?",
+  "es": "¿El precio mostrado es un pago único?",
+  "it": "Il prezzo indicato è un costo una tantum?",
+  "pl": "Czy podana cena jest opłatą jednorazową?",
+  "pt": "O preço apresentado é um pagamento único?"
+ },
+ "The commercial structure depends on the solution. An engagement may include a one-time agent package, implementation services and an ongoing governance, support or update component.": {
+  "cs": "Obchodní struktura závisí na řešení. Zakázka může zahrnovat jednorázový balíček agenta, implementační služby a průběžnou složku governance, podpory nebo aktualizací.",
+  "de": "Die kommerzielle Struktur hängt von der Lösung ab. Ein Projekt kann ein einmaliges Agentenpaket, Implementierungsleistungen und eine laufende Governance-, Support- oder Update-Komponente umfassen.",
+  "fr": "La structure commerciale dépend de la solution. Un projet peut inclure un package d'agent unique, des services d'implémentation et une composante récurrente de gouvernance, de support ou de mises à jour.",
+  "es": "La estructura comercial depende de la solución. Un proyecto puede incluir un paquete de agente único, servicios de implementación y un componente recurrente de gobernanza, soporte o actualizaciones.",
+  "it": "La struttura commerciale dipende dalla soluzione. Un progetto può includere un pacchetto agente una tantum, servizi di implementazione e una componente ricorrente di governance, supporto o aggiornamenti.",
+  "pl": "Struktura handlowa zależy od rozwiązania. Projekt może obejmować jednorazowy pakiet agenta, usługi wdrożeniowe oraz bieżący komponent governance, wsparcia lub aktualizacji.",
+  "pt": "A estrutura comercial depende da solução. Um projeto pode incluir um pacote de agente único, serviços de implementação e uma componente contínua de governação, suporte ou atualizações."
+ },
+ "Why do agents have different prices?": {
+  "cs": "Proč mají agenti různé ceny?",
+  "de": "Warum haben Agenten unterschiedliche Preise?",
+  "fr": "Pourquoi les agents ont-ils des prix différents ?",
+  "es": "¿Por qué los agentes tienen precios distintos?",
+  "it": "Perché gli agenti hanno prezzi diversi?",
+  "pl": "Dlaczego agenci mają różne ceny?",
+  "pt": "Porque é que os agentes têm preços diferentes?"
+ },
+ "Pricing reflects differences in workflow complexity, autonomy, integrations, business criticality, governance requirements and implementation effort.": {
+  "cs": "Cena odráží rozdíly ve složitosti procesu, autonomii, integracích, kritičnosti pro byznys, požadavcích na governance a implementačním úsilí.",
+  "de": "Der Preis spiegelt Unterschiede in Workflow-Komplexität, Autonomie, Integrationen, Geschäftskritikalität, Governance-Anforderungen und Implementierungsaufwand wider.",
+  "fr": "Le tarif reflète les différences de complexité du workflow, d'autonomie, d'intégrations, de criticité métier, d'exigences de gouvernance et d'effort d'implémentation.",
+  "es": "El precio refleja diferencias en complejidad del flujo de trabajo, autonomía, integraciones, criticidad de negocio, requisitos de gobernanza y esfuerzo de implementación.",
+  "it": "Il prezzo riflette differenze di complessità del workflow, autonomia, integrazioni, criticità per il business, requisiti di governance e impegno di implementazione.",
+  "pl": "Cena odzwierciedla różnice w złożoności procesu, autonomii, integracjach, krytyczności biznesowej, wymaganiach governance i nakładzie wdrożeniowym.",
+  "pt": "O preço reflete diferenças na complexidade do fluxo de trabalho, autonomia, integrações, criticidade para o negócio, requisitos de governação e esforço de implementação."
+ },
+ "Can we start with one agent?": {
+  "cs": "Můžeme začít s jedním agentem?",
+  "de": "Können wir mit einem Agenten beginnen?",
+  "fr": "Pouvons-nous commencer avec un seul agent ?",
+  "es": "¿Podemos empezar con un solo agente?",
+  "it": "Possiamo iniziare con un solo agente?",
+  "pl": "Czy możemy zacząć od jednego agenta?",
+  "pt": "Podemos começar com um agente?"
+ },
+ "Yes. Organizations can begin with a focused use case and expand into a wider portfolio or multi-agent environment after validating the initial business outcome.": {
+  "cs": "Ano. Organizace mohou začít zaměřeným use case a po ověření prvního byznys přínosu rozšířit portfolio nebo přejít na multiagentní prostředí.",
+  "de": "Ja. Organisationen können mit einem fokussierten Use Case starten und nach Validierung des ersten Geschäftsergebnisses auf ein breiteres Portfolio oder eine Multi-Agenten-Umgebung erweitern.",
+  "fr": "Oui. Les organisations peuvent débuter par un cas d'usage ciblé, puis étendre à un portefeuille plus large ou à un environnement multi-agents après validation du premier résultat métier.",
+  "es": "Sí. Las organizaciones pueden empezar con un caso de uso específico y ampliar a una cartera más amplia o a un entorno multiagente tras validar el primer resultado de negocio.",
+  "it": "Sì. Le organizzazioni possono iniziare con un caso d'uso mirato ed estendersi a un portafoglio più ampio o a un ambiente multi-agente dopo aver validato il primo risultato di business.",
+  "pl": "Tak. Organizacje mogą zacząć od wyspecjalizowanego przypadku użycia i rozszerzyć zakres o szersze portfolio lub środowisko wieloagentowe po potwierdzeniu pierwszego efektu biznesowego.",
+  "pt": "Sim. As organizações podem começar com um caso de uso focado e expandir para um portefólio mais alargado ou um ambiente multiagente após validar o primeiro resultado de negócio."
+ },
+ "Are integrations included?": {
+  "cs": "Jsou integrace zahrnuty?",
+  "de": "Sind Integrationen enthalten?",
+  "fr": "Les intégrations sont-elles incluses ?",
+  "es": "¿Están incluidas las integraciones?",
+  "it": "Le integrazioni sono incluse?",
+  "pl": "Czy integracje są wliczone?",
+  "pt": "As integrações estão incluídas?"
+ },
+ "Standard integrations may be included in the proposed scope. Complex, custom or legacy-system integrations are assessed separately during discovery.": {
+  "cs": "Standardní integrace mohou být součástí navrženého rozsahu. Složité, na míru vytvořené nebo legacy integrace se posuzují samostatně během discovery.",
+  "de": "Standardintegrationen können im vorgeschlagenen Umfang enthalten sein. Komplexe, individuelle oder Legacy-Integrationen werden im Discovery separat bewertet.",
+  "fr": "Les intégrations standard peuvent être incluses dans le périmètre proposé. Les intégrations complexes, sur mesure ou legacy sont évaluées séparément lors du cadrage.",
+  "es": "Las integraciones estándar pueden incluirse en el alcance propuesto. Las integraciones complejas, a medida o de sistemas legacy se evalúan por separado durante el discovery.",
+  "it": "Le integrazioni standard possono essere incluse nell'ambito proposto. Le integrazioni complesse, su misura o legacy sono valutate separatamente durante il discovery.",
+  "pl": "Standardowe integracje mogą być objęte proponowanym zakresem. Złożone, dedykowane lub integracje z systemami legacy są oceniane osobno podczas discovery.",
+  "pt": "As integrações padrão podem ser incluídas no âmbito proposto. Integrações complexas, à medida ou com sistemas legacy são avaliadas separadamente durante o discovery."
+ },
+ "Can the solution run in our environment?": {
+  "cs": "Může řešení běžet v našem prostředí?",
+  "de": "Kann die Lösung in unserer Umgebung laufen?",
+  "fr": "La solution peut-elle fonctionner dans notre environnement ?",
+  "es": "¿Puede la solución ejecutarse en nuestro entorno?",
+  "it": "La soluzione può funzionare nel nostro ambiente?",
+  "pl": "Czy rozwiązanie może działać w naszym środowisku?",
+  "pt": "A solução pode funcionar no nosso ambiente?"
+ },
+ "Deployment options depend on the selected technology architecture, security requirements and customer environment. Available models should be confirmed during solution design.": {
+  "cs": "Možnosti nasazení závisí na zvolené technologické architektuře, bezpečnostních požadavcích a prostředí zákazníka. Dostupné modely je třeba potvrdit při návrhu řešení.",
+  "de": "Deployment-Optionen hängen von der gewählten Technologiearchitektur, den Sicherheitsanforderungen und der Kundenumgebung ab. Verfügbare Modelle sollten im Lösungsdesign bestätigt werden.",
+  "fr": "Les options de déploiement dépendent de l'architecture technologique retenue, des exigences de sécurité et de l'environnement client. Les modèles disponibles doivent être confirmés lors de la conception de la solution.",
+  "es": "Las opciones de despliegue dependen de la arquitectura tecnológica seleccionada, los requisitos de seguridad y el entorno del cliente. Los modelos disponibles deben confirmarse durante el diseño de la solución.",
+  "it": "Le opzioni di deployment dipendono dall'architettura tecnologica selezionata, dai requisiti di sicurezza e dall'ambiente del cliente. I modelli disponibili vanno confermati durante la progettazione della soluzione.",
+  "pl": "Opcje wdrożenia zależą od wybranej architektury technologicznej, wymagań bezpieczeństwa i środowiska klienta. Dostępne modele należy potwierdzić podczas projektowania rozwiązania.",
+  "pt": "As opções de implementação dependem da arquitetura tecnológica selecionada, dos requisitos de segurança e do ambiente do cliente. Os modelos disponíveis devem ser confirmados durante o desenho da solução."
+ },
+ "Do you offer multi-agent solutions?": {
+  "cs": "Nabízíte multiagentní řešení?",
+  "de": "Bieten Sie Multi-Agenten-Lösungen an?",
+  "fr": "Proposez-vous des solutions multi-agents ?",
+  "es": "¿Ofrecen soluciones multiagente?",
+  "it": "Offrite soluzioni multi-agente?",
+  "pl": "Czy oferujecie rozwiązania wieloagentowe?",
+  "pt": "Oferecem soluções multiagente?"
+ },
+ "Yes. Multi-agent solutions are designed and priced individually based on the number of agents, workflows, integrations, governance controls and organizational scope.": {
+  "cs": "Ano. Multiagentní řešení se navrhují a oceňují individuálně podle počtu agentů, procesů, integrací, kontrolních mechanismů governance a rozsahu v organizaci.",
+  "de": "Ja. Multi-Agenten-Lösungen werden individuell konzipiert und bepreist, basierend auf Anzahl der Agenten, Workflows, Integrationen, Governance-Kontrollen und organisatorischem Umfang.",
+  "fr": "Oui. Les solutions multi-agents sont conçues et tarifées individuellement selon le nombre d'agents, de workflows, d'intégrations, de contrôles de gouvernance et le périmètre organisationnel.",
+  "es": "Sí. Las soluciones multiagente se diseñan y cotizan individualmente según el número de agentes, flujos de trabajo, integraciones, controles de gobernanza y alcance organizativo.",
+  "it": "Sì. Le soluzioni multi-agente sono progettate e quotate individualmente in base al numero di agenti, workflow, integrazioni, controlli di governance e ambito organizzativo.",
+  "pl": "Tak. Rozwiązania wieloagentowe są projektowane i wyceniane indywidualnie na podstawie liczby agentów, procesów, integracji, mechanizmów governance i zakresu organizacyjnego.",
+  "pt": "Sim. As soluções multiagente são concebidas e orçamentadas individualmente com base no número de agentes, fluxos de trabalho, integrações, controlos de governação e âmbito organizacional."
+ },
+ "Do you guarantee ROI?": {
+  "cs": "Garantujete ROI?",
+  "de": "Garantieren Sie einen ROI?",
+  "fr": "Garantissez-vous un ROI ?",
+  "es": "¿Garantizan el ROI?",
+  "it": "Garantite il ROI?",
+  "pl": "Czy gwarantujecie ROI?",
+  "pt": "Garantem o ROI?"
+ },
+ "Expected benefits and success measures can be defined during discovery. Actual results depend on adoption, process quality, data readiness, implementation scope and organizational execution.": {
+  "cs": "Očekávané přínosy a měřítka úspěchu lze definovat během discovery. Skutečné výsledky závisí na adopci, kvalitě procesů, připravenosti dat, rozsahu implementace a realizaci na straně organizace.",
+  "de": "Erwartete Nutzen und Erfolgskriterien können im Discovery definiert werden. Tatsächliche Ergebnisse hängen von Akzeptanz, Prozessqualität, Datenbereitschaft, Implementierungsumfang und organisatorischer Umsetzung ab.",
+  "fr": "Les bénéfices attendus et les critères de succès peuvent être définis lors du cadrage. Les résultats réels dépendent de l'adoption, de la qualité des processus, de la maturité des données, du périmètre d'implémentation et de l'exécution organisationnelle.",
+  "es": "Los beneficios esperados y las medidas de éxito pueden definirse durante el discovery. Los resultados reales dependen de la adopción, la calidad de los procesos, la disponibilidad de datos, el alcance de implementación y la ejecución organizativa.",
+  "it": "I benefici attesi e le misure di successo possono essere definiti durante il discovery. I risultati effettivi dipendono da adozione, qualità dei processi, maturità dei dati, ambito di implementazione ed esecuzione organizzativa.",
+  "pl": "Oczekiwane korzyści i mierniki sukcesu można zdefiniować podczas discovery. Rzeczywiste wyniki zależą od adopcji, jakości procesów, gotowości danych, zakresu wdrożenia i realizacji po stronie organizacji.",
+  "pt": "Os benefícios esperados e as medidas de sucesso podem ser definidos durante o discovery. Os resultados reais dependem da adoção, qualidade dos processos, maturidade dos dados, âmbito de implementação e execução organizacional."
+ },
+ "Can pricing change after discovery?": {
+  "cs": "Může se cena po discovery změnit?",
+  "de": "Kann sich der Preis nach dem Discovery ändern?",
+  "fr": "Le tarif peut-il évoluer après le cadrage ?",
+  "es": "¿Puede cambiar el precio tras el discovery?",
+  "it": "Il prezzo può cambiare dopo il discovery?",
+  "pl": "Czy cena może się zmienić po discovery?",
+  "pt": "O preço pode mudar após o discovery?"
+ },
+ "Yes. The initial range is indicative. A final proposal is prepared after the required scope, dependencies, risks and delivery responsibilities have been confirmed.": {
+  "cs": "Ano. Počáteční rozpětí je orientační. Finální nabídka se připravuje po potvrzení potřebného rozsahu, závislostí, rizik a odpovědností za dodávku.",
+  "de": "Ja. Der anfängliche Bereich ist indikativ. Ein finales Angebot wird erstellt, nachdem der erforderliche Umfang, Abhängigkeiten, Risiken und Lieferverantwortlichkeiten bestätigt wurden.",
+  "fr": "Oui. La fourchette initiale est indicative. Une proposition finale est établie après confirmation du périmètre requis, des dépendances, des risques et des responsabilités de livraison.",
+  "es": "Sí. El rango inicial es indicativo. La propuesta final se prepara tras confirmar el alcance necesario, las dependencias, los riesgos y las responsabilidades de entrega.",
+  "it": "Sì. La fascia iniziale è indicativa. Una proposta finale viene preparata dopo la conferma dell'ambito richiesto, delle dipendenze, dei rischi e delle responsabilità di delivery.",
+  "pl": "Tak. Początkowy zakres jest orientacyjny. Ostateczna oferta powstaje po potwierdzeniu wymaganego zakresu, zależności, ryzyk i odpowiedzialności za dostarczenie.",
+  "pt": "Sim. O intervalo inicial é indicativo. A proposta final é preparada após confirmação do âmbito necessário, dependências, riscos e responsabilidades de entrega."
+ },
+ "Start with one governed enterprise workflow.": {
+  "cs": "Začněte jedním řízeným podnikovým procesem.",
+  "de": "Beginnen Sie mit einem gesteuerten Unternehmensprozess.",
+  "fr": "Commencez par un workflow d'entreprise gouverné.",
+  "es": "Empiece con un flujo de trabajo empresarial gobernado.",
+  "it": "Iniziate con un workflow aziendale governato.",
+  "pl": "Zacznij od jednego nadzorowanego procesu korporacyjnego.",
+  "pt": "Comece com um fluxo de trabalho empresarial governado."
+ },
+ "Bring a use case and we will assess scope, governance requirements and a realistic implementation path, then prepare a tailored proposal.": {
+  "cs": "Přineste use case a my posoudíme rozsah, požadavky na governance a realistickou cestu k implementaci, poté připravíme nabídku na míru.",
+  "de": "Bringen Sie einen Use Case mit: wir bewerten Umfang, Governance-Anforderungen und einen realistischen Implementierungsweg und erstellen dann ein individuelles Angebot.",
+  "fr": "Apportez un cas d'usage : nous évaluerons le périmètre, les exigences de gouvernance et un chemin d'implémentation réaliste, puis préparerons une proposition sur mesure.",
+  "es": "Traiga un caso de uso y evaluaremos el alcance, los requisitos de gobernanza y una ruta de implementación realista, para después preparar una propuesta a medida.",
+  "it": "Portate un caso d'uso: valuteremo ambito, requisiti di governance e un percorso di implementazione realistico, quindi prepareremo una proposta su misura.",
+  "pl": "Przedstaw przypadek użycia, a my ocenimy zakres, wymagania governance i realistyczną ścieżkę wdrożenia, a następnie przygotujemy ofertę dopasowaną.",
+  "pt": "Traga um caso de uso e avaliaremos o âmbito, os requisitos de governação e um caminho de implementação realista, preparando depois uma proposta personalizada."
+ },
+ "Full name": {
+  "cs": "Celé jméno",
+  "de": "Vollständiger Name",
+  "fr": "Nom complet",
+  "es": "Nombre completo",
+  "it": "Nome e cognome",
+  "pl": "Imię i nazwisko",
+  "pt": "Nome completo"
+ },
+ "Work email": {
+  "cs": "Pracovní e-mail",
+  "de": "Geschäftliche E-Mail",
+  "fr": "E-mail professionnel",
+  "es": "Correo electrónico de trabajo",
+  "it": "E-mail di lavoro",
+  "pl": "Służbowy e-mail",
+  "pt": "E-mail profissional"
+ },
+ "Company": {
+  "cs": "Společnost",
+  "de": "Unternehmen",
+  "fr": "Entreprise",
+  "es": "Empresa",
+  "it": "Azienda",
+  "pl": "Firma",
+  "pt": "Empresa"
+ },
+ "(optional)": {
+  "cs": "(nepovinné)",
+  "de": "(optional)",
+  "fr": "(facultatif)",
+  "es": "(opcional)",
+  "it": "(facoltativo)",
+  "pl": "(opcjonalne)",
+  "pt": "(opcional)"
+ },
+ "Select": {
+  "cs": "Vyberte",
+  "de": "Bitte wählen",
+  "fr": "Sélectionner",
+  "es": "Seleccione",
+  "it": "Seleziona",
+  "pl": "Wybierz",
+  "pt": "Selecionar"
+ },
+ "I have read and accept the privacy policy.": {
+  "cs": "Přečetl/a jsem si zásady ochrany osobních údajů a souhlasím s nimi.",
+  "de": "Ich habe die Datenschutzerklärung gelesen und akzeptiere sie.",
+  "fr": "J'ai lu et j'accepte la politique de confidentialité.",
+  "es": "He leído y acepto la política de privacidad.",
+  "it": "Ho letto e accetto l'informativa sulla privacy.",
+  "pl": "Zapoznałem/am się z polityką prywatności i ją akceptuję.",
+  "pt": "Li e aceito a política de privacidade."
+ },
+ "Privacy policy": {
+  "cs": "Ochrana osobních údajů",
+  "de": "Datenschutzerklärung",
+  "fr": "Politique de confidentialité",
+  "es": "Política de privacidad",
+  "it": "Informativa sulla privacy",
+  "pl": "Polityka prywatności",
+  "pt": "Política de privacidade"
+ },
+ "Please enter your full name.": {
+  "cs": "Zadejte prosím své celé jméno.",
+  "de": "Bitte geben Sie Ihren vollständigen Namen ein.",
+  "fr": "Veuillez saisir votre nom complet.",
+  "es": "Introduzca su nombre completo.",
+  "it": "Inserisci il tuo nome e cognome.",
+  "pl": "Podaj imię i nazwisko.",
+  "pt": "Introduza o seu nome completo."
+ },
+ "Please enter a valid work email address.": {
+  "cs": "Zadejte prosím platnou pracovní e-mailovou adresu.",
+  "de": "Bitte geben Sie eine gültige geschäftliche E-Mail-Adresse ein.",
+  "fr": "Veuillez saisir une adresse e-mail professionnelle valide.",
+  "es": "Introduzca una dirección de correo de trabajo válida.",
+  "it": "Inserisci un indirizzo e-mail di lavoro valido.",
+  "pl": "Podaj prawidłowy służbowy adres e-mail.",
+  "pt": "Introduza um e-mail profissional válido."
+ },
+ "Please enter your company name.": {
+  "cs": "Zadejte prosím název společnosti.",
+  "de": "Bitte geben Sie Ihren Firmennamen ein.",
+  "fr": "Veuillez saisir le nom de votre entreprise.",
+  "es": "Introduzca el nombre de su empresa.",
+  "it": "Inserisci il nome della tua azienda.",
+  "pl": "Podaj nazwę firmy.",
+  "pt": "Introduza o nome da sua empresa."
+ },
+ "Something went wrong. Please try again, or email hello@colleagueai.ai.": {
+  "cs": "Něco se pokazilo. Zkuste to prosím znovu nebo napište na hello@colleagueai.ai.",
+  "de": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie an hello@colleagueai.ai.",
+  "fr": "Une erreur s'est produite. Réessayez ou écrivez à hello@colleagueai.ai.",
+  "es": "Algo ha fallado. Inténtelo de nuevo o escriba a hello@colleagueai.ai.",
+  "it": "Qualcosa è andato storto. Riprova o scrivi a hello@colleagueai.ai.",
+  "pl": "Coś poszło nie tak. Spróbuj ponownie lub napisz na hello@colleagueai.ai.",
+  "pt": "Algo correu mal. Tente novamente ou escreva para hello@colleagueai.ai."
+ },
+ "Country": {
+  "cs": "Země",
+  "de": "Land",
+  "fr": "Pays",
+  "es": "País",
+  "it": "Paese",
+  "pl": "Kraj",
+  "pt": "País"
+ },
+ "Tailored proposal": {
+  "cs": "Nabídka na míru",
+  "de": "Individuelles Angebot",
+  "fr": "Proposition sur mesure",
+  "es": "Propuesta a medida",
+  "it": "Proposta su misura",
+  "pl": "Oferta dopasowana",
+  "pt": "Proposta personalizada"
+ },
+ "Tell us about the workflow you want to govern. We use this to assess scope and prepare an indicative proposal. Fields marked with an asterisk are required.": {
+  "cs": "Popište nám proces, který chcete řídit. Použijeme to k posouzení rozsahu a přípravě orientační nabídky. Pole označená hvězdičkou jsou povinná.",
+  "de": "Beschreiben Sie den Workflow, den Sie steuern möchten. Wir nutzen dies, um den Umfang zu bewerten und ein indikatives Angebot vorzubereiten. Mit Sternchen markierte Felder sind Pflichtfelder.",
+  "fr": "Décrivez le workflow que vous souhaitez gouverner. Nous l'utilisons pour évaluer le périmètre et préparer une proposition indicative. Les champs marqués d'un astérisque sont obligatoires.",
+  "es": "Cuéntenos el flujo de trabajo que desea gobernar. Lo usamos para evaluar el alcance y preparar una propuesta indicativa. Los campos marcados con asterisco son obligatorios.",
+  "it": "Descrivete il workflow che volete governare. Lo useremo per valutare l'ambito e preparare una proposta indicativa. I campi contrassegnati con asterisco sono obbligatori.",
+  "pl": "Opisz proces, który chcesz objąć nadzorem. Wykorzystamy to do oceny zakresu i przygotowania orientacyjnej oferty. Pola oznaczone gwiazdką są wymagane.",
+  "pt": "Descreva o fluxo de trabalho que pretende governar. Usamos isto para avaliar o âmbito e preparar uma proposta indicativa. Os campos marcados com asterisco são obrigatórios."
+ },
+ "Job title": {
+  "cs": "Pracovní pozice",
+  "de": "Position",
+  "fr": "Fonction",
+  "es": "Cargo",
+  "it": "Ruolo",
+  "pl": "Stanowisko",
+  "pt": "Cargo"
+ },
+ "Company size": {
+  "cs": "Velikost společnosti",
+  "de": "Unternehmensgröße",
+  "fr": "Taille de l'entreprise",
+  "es": "Tamaño de la empresa",
+  "it": "Dimensione dell'azienda",
+  "pl": "Wielkość firmy",
+  "pt": "Dimensão da empresa"
+ },
+ "Agent or use case of interest": {
+  "cs": "Agent nebo use case, který vás zajímá",
+  "de": "Agent oder Use Case von Interesse",
+  "fr": "Agent ou cas d'usage qui vous intéresse",
+  "es": "Agente o caso de uso de interés",
+  "it": "Agente o caso d'uso di interesse",
+  "pl": "Agent lub przypadek użycia, który Cię interesuje",
+  "pt": "Agente ou caso de uso de interesse"
+ },
+ "Expected implementation timeline": {
+  "cs": "Očekávaný termín implementace",
+  "de": "Erwarteter Implementierungszeitraum",
+  "fr": "Calendrier d'implémentation prévu",
+  "es": "Plazo de implementación previsto",
+  "it": "Tempistica di implementazione prevista",
+  "pl": "Oczekiwany termin wdrożenia",
+  "pt": "Prazo de implementação previsto"
+ },
+ "Systems requiring integration": {
+  "cs": "Systémy vyžadující integraci",
+  "de": "Systeme, die integriert werden müssen",
+  "fr": "Systèmes nécessitant une intégration",
+  "es": "Sistemas que requieren integración",
+  "it": "Sistemi che richiedono integrazione",
+  "pl": "Systemy wymagające integracji",
+  "pt": "Sistemas que requerem integração"
+ },
+ "Short description of the business problem": {
+  "cs": "Stručný popis byznys problému",
+  "de": "Kurze Beschreibung des Geschäftsproblems",
+  "fr": "Brève description du problème métier",
+  "es": "Breve descripción del problema de negocio",
+  "it": "Breve descrizione del problema di business",
+  "pl": "Krótki opis problemu biznesowego",
+  "pt": "Breve descrição do problema de negócio"
+ },
+ "For example: SAP, Dynamics 365, ServiceNow, SharePoint": {
+  "cs": "Například: SAP, Dynamics 365, ServiceNow, SharePoint",
+  "de": "Zum Beispiel: SAP, Dynamics 365, ServiceNow, SharePoint",
+  "fr": "Par exemple : SAP, Dynamics 365, ServiceNow, SharePoint",
+  "es": "Por ejemplo: SAP, Dynamics 365, ServiceNow, SharePoint",
+  "it": "Ad esempio: SAP, Dynamics 365, ServiceNow, SharePoint",
+  "pl": "Na przykład: SAP, Dynamics 365, ServiceNow, SharePoint",
+  "pt": "Por exemplo: SAP, Dynamics 365, ServiceNow, SharePoint"
+ },
+ "Send request": {
+  "cs": "Odeslat poptávku",
+  "de": "Anfrage senden",
+  "fr": "Envoyer la demande",
+  "es": "Enviar solicitud",
+  "it": "Invia richiesta",
+  "pl": "Wyślij zapytanie",
+  "pt": "Enviar pedido"
+ },
+ "Thank you. Your request has been received and we will reply to your work email.": {
+  "cs": "Děkujeme. Vaši poptávku jsme obdrželi a odpovíme na váš pracovní e-mail.",
+  "de": "Vielen Dank. Ihre Anfrage ist eingegangen; wir antworten an Ihre geschäftliche E-Mail-Adresse.",
+  "fr": "Merci. Votre demande a bien été reçue et nous répondrons à votre e-mail professionnel.",
+  "es": "Gracias. Hemos recibido su solicitud y le responderemos a su correo de trabajo.",
+  "it": "Grazie. Abbiamo ricevuto la vostra richiesta e risponderemo al vostro e-mail di lavoro.",
+  "pl": "Dziękujemy. Otrzymaliśmy Twoje zapytanie i odpowiemy na służbowy adres e-mail.",
+  "pt": "Obrigado. Recebemos o seu pedido e responderemos para o seu e-mail profissional."
+ },
+ "0–3 months": {
+  "cs": "0–3 měsíce",
+  "de": "0–3 Monate",
+  "fr": "0–3 mois",
+  "es": "0–3 meses",
+  "it": "0–3 mesi",
+  "pl": "0–3 miesiące",
+  "pt": "0–3 meses"
+ },
+ "3–6 months": {
+  "cs": "3–6 měsíců",
+  "de": "3–6 Monate",
+  "fr": "3–6 mois",
+  "es": "3–6 meses",
+  "it": "3–6 mesi",
+  "pl": "3–6 miesięcy",
+  "pt": "3–6 meses"
+ },
+ "6–12 months": {
+  "cs": "6–12 měsíců",
+  "de": "6–12 Monate",
+  "fr": "6–12 mois",
+  "es": "6–12 meses",
+  "it": "6–12 mesi",
+  "pl": "6–12 miesięcy",
+  "pt": "6–12 meses"
+ },
+ "12+ months": {
+  "cs": "12+ měsíců",
+  "de": "12+ Monate",
+  "fr": "12+ mois",
+  "es": "12+ meses",
+  "it": "12+ mesi",
+  "pl": "12+ miesięcy",
+  "pt": "12+ meses"
+ },
+ "Book a demo": {
+  "cs": "Domluvit schůzku",
+  "de": "Termin vereinbaren",
+  "fr": "Réserver une démo",
+  "es": "Reservar una demo",
+  "it": "Prenota una demo",
+  "pl": "Umów demo",
+  "pt": "Marcar uma demo"
+ },
+ "On this page": {
+  "cs": "Na této stránce",
+  "de": "Auf dieser Seite",
+  "fr": "Sur cette page",
+  "es": "En esta página",
+  "it": "In questa pagina",
+  "pl": "Na tej stronie",
+  "pt": "Nesta página"
+ },
+ "Packages": {
+  "cs": "Balíčky",
+  "de": "Pakete",
+  "fr": "Packages",
+  "es": "Paquetes",
+  "it": "Pacchetti",
+  "pl": "Pakiety",
+  "pt": "Pacotes"
+ },
+ "What affects price": {
+  "cs": "Co ovlivňuje cenu",
+  "de": "Was den Preis beeinflusst",
+  "fr": "Ce qui influe sur le prix",
+  "es": "Qué afecta al precio",
+  "it": "Cosa incide sul prezzo",
+  "pl": "Co wpływa na cenę",
+  "pt": "O que afeta o preço"
+ },
+ "What's included": {
+  "cs": "Co je součástí",
+  "de": "Was enthalten ist",
+  "fr": "Ce qui est inclus",
+  "es": "Qué se incluye",
+  "it": "Cosa è incluso",
+  "pl": "Co obejmuje",
+  "pt": "O que está incluído"
+ },
+ "Questions": {
+  "cs": "Otázky",
+  "de": "Fragen",
+  "fr": "Questions",
+  "es": "Preguntas",
+  "it": "Domande",
+  "pl": "Pytania",
+  "pt": "Perguntas"
+ },
+ "Get a proposal": {
+  "cs": "Získat nabídku",
+  "de": "Angebot erhalten",
+  "fr": "Obtenir une proposition",
+  "es": "Obtener una propuesta",
+  "it": "Richiedi una proposta",
+  "pl": "Otrzymaj ofertę",
+  "pt": "Obter proposta"
+ }
+}

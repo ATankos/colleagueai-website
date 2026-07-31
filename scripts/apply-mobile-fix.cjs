@@ -5,11 +5,26 @@ const path = require("path");
 
 const distDirectory = path.join(process.cwd(), "dist");
 
+// Version the assets by content hash. A fixed string (previously v=20260716d)
+// meant browsers kept serving the cached copy forever, so fixes to this script
+// never reached anyone - the navigation kept rebuilding from the old menu.
+const crypto = require("crypto");
+function assetVersion() {
+  try {
+    const css = fs.readFileSync(path.join(process.cwd(), "public/colleagueai-mobile-fix.css"));
+    const js = fs.readFileSync(path.join(process.cwd(), "public/colleagueai-mobile-fix.js"));
+    return crypto.createHash("sha1").update(css).update(js).digest("hex").slice(0, 8);
+  } catch (e) {
+    return String(Date.now());
+  }
+}
+const CAI_ASSET_V = assetVersion();
+
 const cssTag =
-  '<link id="cai-mobile-fix-css" rel="stylesheet" href="/colleagueai-mobile-fix.css?v=20260716d">';
+  '<link id="cai-mobile-fix-css" rel="stylesheet" href="/colleagueai-mobile-fix.css?v=' + CAI_ASSET_V + '">';
 
 const jsTag =
-  '<script id="cai-mobile-fix-js" src="/colleagueai-mobile-fix.js?v=20260716d" defer></script>';
+  '<script id="cai-mobile-fix-js" src="/colleagueai-mobile-fix.js?v=' + CAI_ASSET_V + '" defer></script>';
 
 const textRepairs = [
   ["â„¢", "™"],

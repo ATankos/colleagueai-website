@@ -102,6 +102,10 @@ footer{padding:36px 0 46px;font-size:13px;color:var(--muted)}
 footer a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
 footer .co{margin-top:8px}
 @media(max-width:720px){table{display:block;overflow-x:auto}}
+.outcomes .out-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px;margin-top:26px}
+.outcomes .out-item{border-top:2px solid var(--terra);padding-top:13px}
+.outcomes .out-item h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:17px;margin:0 0 6px}
+.outcomes .out-item p{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
 </style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
@@ -188,18 +192,51 @@ display: flex !important;
   });
 }());
 </script>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
 </head>
 <body>
 <header><div class="wrap nav">
 <a class="logo" href="/">Colleague<b>AI</b></a>
 <nav class="links">
-<a href="/agents">Catalogue</a><a href="/agents#score">CAI Score</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/contact">Contact</a>
+<a href="/agents">Catalogue</a><a href="/agents#score">CAI Score</a><a href="/pricing">Pricing</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/contact">Contact</a>
 <select class="lang" id="homelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer"><option value="/" selected>English</option><option value="/cs">Čeština</option><option value="/de">Deutsch</option><option value="/fr">Français</option><option value="/es">Español</option><option value="/it">Italiano</option><option value="/pl">Polski</option><option value="/pt">Português</option></select>
 <a class="cta" href="/demo">Book a demo</a>
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
 </div>
-<nav class="mnav" id="mnav"><a href="/agents">Catalogue</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/contact">Contact</a></nav>
+<nav class="mnav" id="mnav"><a href="/agents">Catalogue</a><a href="/agents#score">CAI Score</a><a href="/pricing">Pricing</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/contact">Contact</a></nav>
 </header>
 
 <section class="hero wrap">
@@ -211,7 +248,7 @@ display: flex !important;
 <div class="btns" style="justify-content:flex-start"><a class="btn p" href="/agents">Browse the catalogue</a><a class="btn s" href="/demo">Book a demo</a></div>
 </div>
 <aside class="hero-card" aria-hidden="true">
-<div class="hc-top"><span>Certified under CAI Score™</span><span class="hc-tier">L3</span></div>
+<div class="hc-top"><span>Classified on the CAI Score™</span><span class="hc-tier">L3</span></div>
 <h3>Reconciliation Root-Cause Agent</h3>
 <div class="hc-op">CAI · Operate</div>
 <ul><li>Named human oversight</li><li>Full audit trail</li><li>Data stays in your tenant</li><li>EU AI Act + DORA mapped</li></ul>
@@ -220,10 +257,17 @@ display: flex !important;
 </div>
 <div class="platforms"><span class="pl-label">Ships prebuilt for</span><div class="pl-row"><span>Microsoft Copilot Studio</span><span>Power Automate</span><span>Azure</span><span>Microsoft 365</span><span>Teams</span></div></div>
 <div class="stats" style="margin-top:34px">
-<div class="stat"><div class="n">36</div><div class="l">Production-grade agents</div></div>
+<div class="stat"><div class="n">36</div><div class="l">Governed agent packages</div></div>
 <div class="stat"><div class="n">5</div><div class="l">Functional pillars</div></div>
 <div class="stat"><div class="n">L2-L4</div><div class="l">Live CAI tiers</div></div>
 </div>
+</section>
+
+<section class="wrap outcomes" aria-labelledby="outcomes-h">
+<span class="kicker">Business outcomes</span>
+<h2 id="outcomes-h">What governed agents are built to change.</h2>
+<p class="sub">Results depend on the workflow and your operating model. These are the areas a governed agent is designed to affect.</p>
+<div class="out-grid"><div class="out-item"><h3>Controlled execution</h3><p>Work follows a defined path, with explicit limits on what the agent may do.</p></div><div class="out-item"><h3>Less manual coordination</h3><p>Chasing, handoffs and status updates stop consuming specialist time.</p></div><div class="out-item"><h3>Traceable actions</h3><p>Each step is logged, time-stamped and attributable to a named owner.</p></div><div class="out-item"><h3>Approval where it matters</h3><p>Defined checkpoints keep a person accountable for consequential decisions.</p></div><div class="out-item"><h3>Reusable audit evidence</h3><p>Evidence for review already exists at the moment the question is asked.</p></div><div class="out-item"><h3>Lower governance overhead</h3><p>Risk classification and controls ship with the agent, not months later.</p></div></div>
 </section>
 
 <section class="wrap">
@@ -255,18 +299,48 @@ display: flex !important;
 <tr><td>Where your data lives</td><td>Your tenant</td><td>Vendor cloud</td><td>Your tenant, we never process it</td></tr>
 </tbody>
 </table>
-<div class="strip"><span>EU AI Act mapped</span><span>DORA</span><span>ISO/IEC 42001</span><span>Runs in your Microsoft tenant</span><span>No customer data processed by us</span></div>
+<div class="strip"><span>EU AI Act mapped</span><span>DORA mapped</span><span>ISO/IEC 42001 mapped</span><span>Runs in your Microsoft tenant</span><span>No customer data processed by us</span></div>
 </div></section>
 
 <section class="wrap">
 <span class="kicker">Start here</span>
-<h2>Most-adopted packages this quarter.</h2>
+<h2>Flagship agent packages.</h2>
 <div class="grid3">
 <a class="card" href="/agents/reconciliation-root-cause-agent"><span class="num">CAI L3</span><h3>Reconciliation Root-Cause Agent</h3><p>Investigates every reconciliation break, ranks it by materiality and explains why it happened, before an analyst opens the first case.</p><span class="go">View factsheet →</span></a>
 <a class="card" href="/agents/contract-summarisation-agent"><span class="num">CAI L4</span><h3>Contract Summarisation Agent</h3><p>Extracts key risks and obligations from contracts into a reviewable summary, with a named human accountable for every call.</p><span class="go">View factsheet →</span></a>
 <a class="card" href="/agents/compliance-and-audit-action-tracker"><span class="num">CAI L4</span><h3>Compliance &amp; Audit Tracker</h3><p>Tracks evidence and deadlines on a live dashboard, so the audit date never sneaks up on the team again.</p><span class="go">View factsheet →</span></a>
 </div>
 </section>
+
+
+<!-- ============================================================================
+     FOUNDER / TEAM CREDIBILITY - PLACEHOLDER, NOT PUBLISHED
+     Deliberately commented out: it must not go live with placeholder text.
+     To publish: replace the bracketed fields with real, verifiable details,
+     translate the visible strings, then delete this comment marker and the
+     closing marker at the end of the block.
+     Do not publish claims (employers, certifications, results) you cannot evidence.
+=============================================================================
+<section class="wrap" aria-labelledby="founder-h" style="border-top:1px solid var(--line)">
+<span class="kicker">Who is behind ColleagueAI</span>
+<h2 id="founder-h">[HEADLINE: one line on why this team understands enterprise AI adoption]</h2>
+<p class="sub">[2-3 sentences: relevant enterprise AI, governance, risk, compliance, finance, data or transformation experience. State only what can be evidenced.]</p>
+<div class="grid3">
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background: relevant experience and what they are accountable for at ColleagueAI.]</p>
+  </div>
+  <div class="card">
+    <h3>[Full name]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+  <div class="card">
+    <h3>[Advisor or team member]</h3>
+    <p><strong>[Role]</strong><br>[Background.]</p>
+  </div>
+</div>
+</section>
+============================== END PLACEHOLDER ============================= -->
 
 <section class="band"><div class="wrap">
 <h2>See a governed agent working on a real case.</h2>

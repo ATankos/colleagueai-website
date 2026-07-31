@@ -552,6 +552,7 @@ try{document.documentElement.className+=' js';}catch(e){}</script>
     .nav-cta{padding:8px 14px;font-size:13px}
   }
   .cai-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
+@media(max-width:560px){}
 </style>
 <script type="application/ld+json">
 {
@@ -2497,7 +2498,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </style>
 <script id="cai-url-locale-controller">
 (function () {
-  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"}}};
+  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"pricing":{"en":"pricing","cs":"cenik","de":"preise","fr":"tarifs","es":"precios","it":"prezzi","pl":"cennik","pt":"precos"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"}}};
   var parts = location.pathname.split("/").filter(Boolean);
   var hasLocale = D.locales.indexOf(parts[0]) >= 0;
   var locale = hasLocale ? parts[0] : D.def;
@@ -2623,9 +2624,41 @@ display: flex !important;
   });
 }());
 </script>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
 </head>
 <body>
-
 <a href="#catalogue" class="skip-link" data-i18n="skip_link">Skip to content</a>
 <style>.skip-link{position:absolute;left:-9999px;top:0;z-index:300;background:var(--graphite);color:var(--paper);padding:10px 16px;font:600 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;border-radius:0 0 8px 0}.skip-link:focus{left:0}</style>
 
@@ -2653,19 +2686,16 @@ display: flex !important;
 </style>
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="/" class="logo" aria-label="Colleague AI home"><span class="logo-text">Colleague<span class="ai">AI</span></span><span class="logo-dots"><span></span><span></span><span></span></span></a>
+    <a href="/" class="logo" aria-label="Colleague AI home">Colleague<b>AI</b></a>
     <nav class="nav-links">
-      <a href="#philosophy" data-i18n="nav_philosophy">Philosophy</a>
-      <a href="#score" data-i18n="nav_score">The Score</a>
-      <a href="#catalogue" data-i18n="nav_catalogue">Catalogue</a>
-      <a href="#fit" data-i18n="nav_fit">Processes</a>
-      <a href="#roi" data-i18n="nav_roi">ROI</a>
-      <a href="#deploy" data-i18n="nav_deploy">Deployment</a>
-      <a href="#readiness" data-i18n="nav_readiness">Readiness</a>
-      <a href="#faq" data-i18n="nav_faq">FAQ</a>
-      <select id="langsel" aria-label="Language"></select>
-      <a href="https://www.colleagueai.ai/demo" id="nav-call-link" class="nav-cta" data-i18n="nav_demo">Book a demo</a>
-    </nav>
+        <a href="/agents">Catalogue</a>
+        <a href="/agents#score">CAI Score</a>
+        <a href="/pricing">Pricing</a>
+        <a href="/trust">Trust</a>
+        <a href="/partners">Partners</a>
+        <a href="/contact">Contact</a>
+        <select class="lang" id="langsel" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"></select><a href="https://www.colleagueai.ai/demo" id="nav-call-link" class="nav-cta" data-i18n="nav_demo">Book a demo</a>
+      </nav>
     <button class="cainav-burger" id="cainavBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="cainavDrawer"><span></span><span></span><span></span></button>
   </div>
   <div class="cainav-drawer" id="cainavDrawer">
@@ -2679,7 +2709,7 @@ display: flex !important;
       <a href="#readiness" data-i18n="nav_readiness">Readiness</a>
       <a href="#faq" data-i18n="nav_faq">FAQ</a>
       <div class="cainav-act">
-        <a class="d-try" href="/demo" data-i18n="nav_try">See it live</a>
+        <div class="cai-site-links" style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)"><a href="/pricing">Pricing</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/contact">Contact</a></div><a class="d-try" href="/demo" data-i18n="nav_try">See it live</a>
         <a class="d-cta" href="https://www.colleagueai.ai/demo" data-i18n="nav_demo">Book a demo</a>
       </div>
     </div>
@@ -3342,7 +3372,7 @@ display: flex !important;
   </div>
 </section>
 <footer><div class="wrap foot-inner">
-    <a href="/" class="logo" aria-label="Colleague AI home"><span class="logo-text">Colleague<span class="ai">AI</span></span><span class="logo-dots"><span></span><span></span><span></span></span></a>
+    <a href="/" class="logo" aria-label="Colleague AI home">Colleague<b>AI</b></a>
     <span class="fnote" data-i18n="foot_note">// The trust layer for enterprise AI · CAI Score™ · Updated June 2026</span>
     <span class="flegal" data-i18n-html="foot_legal">© Colleague AI 2026 · Proprietary. Agents are licensed per tenant and may not be redistributed, resold or reverse-engineered. · <a href="https://www.colleagueai.ai/terms" target="_blank" rel="noopener">Terms</a> · <a href="https://www.colleagueai.ai/license" target="_blank" rel="noopener">Licence</a></span>
   <div class="wrap foot-links">· <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/refund">Refund Policy</a> · <a href="/license">License</a> · <a href="/partner-agreement">Partner Agreement</a> · <a href="/imprint">Legal notice</a> · <a href="/responsible-ai">Responsible AI</a> · <a href="/accessibility">Accessibility</a> · <a href="/contact">Contact</a></div>
@@ -4221,4 +4251,3 @@ window.__rebuildGAQuiz=function(){
 </script>
 </body>
 </html>
-           
