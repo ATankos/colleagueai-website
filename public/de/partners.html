@@ -356,6 +356,9 @@ display: flex !important;
 }());
 </script>
 <style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
 /* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
    .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
    heights, colours and gaps. These rules normalise appearance without touching
@@ -387,7 +390,6 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 </style>
 </head>
 <body>
-<div class="cai-langsel"><select id="langsel" aria-label="Language"></select></div>
 <!-- cai-site-header:start -->
 <style>
 .cai-hdr{position:sticky;top:0;z-index:90;background:rgba(34,33,31,.97);backdrop-filter:blur(12px);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
@@ -417,7 +419,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
       <a class="ch-l" href="/de/vertrauen">Vertrauen</a>
       <a class="ch-l" href="/de/partner">Partner</a>
       <a class="ch-l" href="/de/kontakt">Kontakt</a>
-      <a class="ch-cta" href="/demo">Termin vereinbaren</a>
+      <select class="lang" id="langsel" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"></select><a class="ch-cta" href="/demo">Termin vereinbaren</a>
       <button class="cai-hdr-burger" onclick="var m=document.getElementById('caihdrm');m.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>

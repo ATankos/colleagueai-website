@@ -99,6 +99,9 @@ display: flex !important;
 }());
 </script>
 <style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
 /* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
    .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
    heights, colours and gaps. These rules normalise appearance without touching
@@ -158,7 +161,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
       <a class="ch-l" href="/trust">Trust</a>
       <a class="ch-l" href="/partners">Partners</a>
       <a class="ch-l" href="/contact">Contact</a>
-      <a class="ch-cta" href="/demo">Book a demo</a>
+      <select class="lang" id="langsel" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"></select><a class="ch-cta" href="/demo">Book a demo</a>
       <button class="cai-hdr-burger" onclick="var m=document.getElementById('caihdrm');m.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
