@@ -95,7 +95,10 @@ function applyController(html) {
   const jsRE = /<script id="cai-url-locale-controller">[\s\S]*?<\/script>/;
   if (cssRE.test(html) && jsRE.test(html)) {
     html = html.replace(cssRE, CSS).replace(jsRE, SCRIPT);
-    if (!/id="langsel"/.test(html)) {
+    // Some pages carry their own self-contained selector (homelang / contactlang /
+  // pagelang). Only checking for "langsel" meant a second, floating selector was
+  // injected on top of them - the stray pill under the header.
+  if (!/id="(?:langsel|homelang|contactlang|pagelang)"/.test(html)) {
       const b = html.match(/<body[^>]*>/i);
       if (b) html = html.replace(b[0], b[0] + "\n" + LANGSEL);
     }
@@ -108,7 +111,10 @@ function applyController(html) {
   html = html.replace(/\n{3,}/g, "\n\n");
 
   // Exactly one visible selector: inject only if the page has no native #langsel.
-  if (!/id="langsel"/.test(html)) {
+  // Some pages carry their own self-contained selector (homelang / contactlang /
+  // pagelang). Only checking for "langsel" meant a second, floating selector was
+  // injected on top of them - the stray pill under the header.
+  if (!/id="(?:langsel|homelang|contactlang|pagelang)"/.test(html)) {
     const body = html.match(/<body[^>]*>/i);
     if (body) html = html.replace(body[0], body[0] + "\n" + LANGSEL);
   }
