@@ -428,7 +428,24 @@
     var b=h.querySelector(".cai-uni-burger"), m=h.querySelector(".cai-uni-mnav");
     b.addEventListener("click",function(){var o=m.classList.toggle("open");b.setAttribute("aria-expanded",o?"true":"false");});
     m.addEventListener("click",function(e){if(e.target.tagName==="A")m.classList.remove("open");});
-    [].forEach.call(h.querySelectorAll(".cai-uni-lang"),function(sel){sel.addEventListener("change",function(){if(this.value)location.href=this.value;});});
+    // Switching language must keep the reader on the same page. Previously the
+    // option values were locale roots ("/cs"), so every switch bounced the visitor
+    // back to that language's homepage and lost their place.
+    function samePageIn(target){
+      var from=MENU[locale()]||MENU.en, to=MENU[target]||MENU.en;
+      var here=location.pathname.replace(/\/$/,"").toLowerCase();
+      for(var i=0;i<from.items.length;i++){
+        if(from.items[i][0].split("#")[0].replace(/\/$/,"").toLowerCase()===here) return to.items[i][0];
+      }
+      if(/\/demo$/.test(here)) return to.demo[0];
+      return target==="en"?"/":"/"+target;
+    }
+    [].forEach.call(h.querySelectorAll(".cai-uni-lang"),function(sel){
+      sel.addEventListener("change",function(){
+        var v=this.value, code=v==="/"?"en":v.replace(/^\//,"");
+        location.href=samePageIn(code);
+      });
+    });
   }
   if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",build); else build();
 })();
