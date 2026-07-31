@@ -7,8 +7,11 @@ const path = require("path");
 const dist = path.resolve("dist");
 if (fs.existsSync(path.join(dist, "index.html"))) {
   const idx = fs.readFileSync(path.join(dist, "index.html"), "utf8");
-  // only move it if it is the demo SPA (has the react mount), not an already-installed homepage
-  if (idx.includes('src="/') && idx.includes("Live Demo")) {
+  // Detect the SPA structurally (react mount + module bundle), never by copy text.
+  // This previously keyed off the string "Live Demo"; when that wording changed,
+  // demo.html stopped being written and /demo 404'd across the whole site.
+  const isSpa = idx.includes('id="root"') && /<script[^>]+type="module"[^>]*src="/.test(idx);
+  if (isSpa) {
     fs.writeFileSync(path.join(dist, "demo.html"), idx);
   }
 }
