@@ -44,14 +44,16 @@ does not match the repo; the i18n audit extracts the inline objects instead (rep
 ## Upstash KV — `lib/db.js`
 - REST via fetch; env `KV_REST_API_URL|UPSTASH_REDIS_REST_URL` + `KV_REST_API_TOKEN|UPSTASH_REDIS_REST_TOKEN`.
 - Keys: `entitlement:<email>`, `partner:reg:<code>`, `partner:email:<email>`.
-- Writers: grantEntitlement, registerPartner (api/partner-register.js), recordCommission.
+- Writers: grantEntitlement, recordCommission. (registerPartner/saveLead removed 2026-08-01 with
+  the dead api/partner-register.js and api/lead.js routes.)
 - Readers: getEntitlement/isEntitled (api/download.js), getPartnerStats.
 
 ## Partner attribution (client)
 - Param is **`?partner=`** (not `?ref=`). agents.html (~2783): `.slice(0,64)`,
   `localStorage('cai_partner')`, `window.__cai_partner`, appended to demo/partners links and to
   checkout URLs (`&partner=`) along with `client_reference_id=cai-<slug>-<uuid>`.
-- partners.html: code = `CAI-` + SHA-256(email)[0:8]; `api/partner-register.js` persists to KV.
+- partners.html: the self-service code generator was removed 2026-08-01; partner applications now
+  go by email. No client-side code derivation remains.
 
 ## Payment config (agents.html ~2606)
 `STORE={currency:'EUR', price:null, perAgentPrice:{}, checkoutBase:'https://www.colleagueai.ai/checkout',
@@ -61,8 +63,10 @@ paymentLinks:{}, gate:{copilotStudio:true,m365:true,dossier:false}, schedulerUrl
 - Dossier link set by JS to `/docs/agents/<slug>.pdf` (PDFs exist in repo).
 
 ## Other API routes
-- `api/download.js` (R2 signed URLs, env R2_*; checks isEntitled), `api/demo-agent.js` (Anthropic,
-  in-memory rate limit), `api/partner-register.js`.
+- `api/download.js` (R2 signed URLs, env R2_*; checks isEntitled) and `api/webhook.js` are the only
+  deployed routes. `api/demo-agent.js`, `api/lead.js` and `api/partner-register.js` were deleted
+  2026-08-01: the first spent the Anthropic key with a cap that reset on every cold start; the other
+  two backed forms that no longer exist.
 
 ## SEO surface (repo)
 - robots.txt: allows *, GPTBot, ClaudeBot, Google-Extended, PerplexityBot; sitemap ref OK.
