@@ -38,7 +38,7 @@ The agent catalogue includes use cases across:
 
 Production deployments are designed for enterprise governance, controlled access, audit trail, and customer-environment alignment.
 
-Public demos, website forms, and partner registration flows are ColleagueAI-hosted public flows and should not receive confidential production data.
+This website hosts no public AI demo, contact forms or partner registration. Enquiries reach ColleagueAI by email only; nothing typed on the site is submitted.
 
 ## Contact
 
