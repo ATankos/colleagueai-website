@@ -116,15 +116,6 @@
   "pl": "Najlepsze do wyspecjalizowanych procesów",
   "pt": "Ideal para fluxos de trabalho focados"
  },
- "Tier 1 — Essential Agents": {
-  "cs": "Úroveň 1 — Základní agenti",
-  "de": "Stufe 1 — Essential-Agenten",
-  "fr": "Niveau 1 — Agents essentiels",
-  "es": "Nivel 1 — Agentes esenciales",
-  "it": "Livello 1 — Agenti essenziali",
-  "pl": "Poziom 1 — Agenci podstawowi",
-  "pt": "Nível 1 — Agentes essenciais"
- },
  "Focused assistants for lower-risk workflows, information access and employee productivity.": {
   "cs": "Zaměření asistenti pro méně rizikové procesy, přístup k informacím a produktivitu zaměstnanců.",
   "de": "Fokussierte Assistenten für risikoärmere Workflows, Informationszugriff und Mitarbeiterproduktivität.",
@@ -187,15 +178,6 @@
   "it": "La scelta più frequente",
   "pl": "Najczęściej wybierane",
   "pt": "A escolha mais frequente"
- },
- "Tier 2 — Business Operations Agents": {
-  "cs": "Úroveň 2 — Agenti pro provoz byznysu",
-  "de": "Stufe 2 — Business-Operations-Agenten",
-  "fr": "Niveau 2 — Agents d'opérations métier",
-  "es": "Nivel 2 — Agentes de operaciones de negocio",
-  "it": "Livello 2 — Agenti per le operazioni di business",
-  "pl": "Poziom 2 — Agenci operacji biznesowych",
-  "pt": "Nível 2 — Agentes de operações de negócio"
  },
  "Operational agents that support recurring business processes across commercial and corporate teams.": {
   "cs": "Provozní agenti, kteří podporují opakující se byznys procesy napříč obchodními a firemními týmy.",
@@ -260,15 +242,6 @@
   "pl": "Zaawansowana analityka",
   "pt": "Análise avançada"
  },
- "Tier 3 — Advanced Decision-Support Agents": {
-  "cs": "Úroveň 3 — Pokročilí agenti pro podporu rozhodování",
-  "de": "Stufe 3 — Fortgeschrittene Entscheidungsunterstützungs-Agenten",
-  "fr": "Niveau 3 — Agents avancés d'aide à la décision",
-  "es": "Nivel 3 — Agentes avanzados de apoyo a la decisión",
-  "it": "Livello 3 — Agenti avanzati di supporto decisionale",
-  "pl": "Poziom 3 — Zaawansowani agenci wsparcia decyzji",
-  "pt": "Nível 3 — Agentes avançados de apoio à decisão"
- },
  "Analytical and decision-support agents designed for complex reporting, planning and management workflows.": {
   "cs": "Analytičtí agenti pro podporu rozhodování určení pro složité reportingové, plánovací a manažerské procesy.",
   "de": "Analytische und entscheidungsunterstützende Agenten für komplexe Reporting-, Planungs- und Management-Workflows.",
@@ -332,15 +305,6 @@
   "pl": "Środowiska o wysokiej kontroli",
   "pt": "Ambientes de elevado controlo"
  },
- "Tier 4 — Risk and Governance Agents": {
-  "cs": "Úroveň 4 — Agenti pro rizika a governance",
-  "de": "Stufe 4 — Risiko- und Governance-Agenten",
-  "fr": "Niveau 4 — Agents risque et gouvernance",
-  "es": "Nivel 4 — Agentes de riesgo y gobernanza",
-  "it": "Livello 4 — Agenti per rischio e governance",
-  "pl": "Poziom 4 — Agenci ryzyka i governance",
-  "pt": "Nível 4 — Agentes de risco e governação"
- },
  "Governed agents for regulated, control-intensive and high-consequence business processes.": {
   "cs": "Řízení agenti pro regulované, kontrolně náročné byznys procesy s vysokými dopady.",
   "de": "Gesteuerte Agenten für regulierte, kontrollintensive Geschäftsprozesse mit hoher Tragweite.",
@@ -394,15 +358,6 @@
   "it": "Trasformazione aziendale",
   "pl": "Transformacja przedsiębiorstwa",
   "pt": "Transformação empresarial"
- },
- "Tier 5 — Enterprise Multi-Agent Systems": {
-  "cs": "Úroveň 5 — Podnikové multiagentní systémy",
-  "de": "Stufe 5 — Enterprise-Multi-Agenten-Systeme",
-  "fr": "Niveau 5 — Systèmes multi-agents d'entreprise",
-  "es": "Nivel 5 — Sistemas multiagente empresariales",
-  "it": "Livello 5 — Sistemi multi-agente aziendali",
-  "pl": "Poziom 5 — Korporacyjne systemy wieloagentowe",
-  "pt": "Nível 5 — Sistemas multiagente empresariais"
  },
  "Coordinated multi-agent solutions spanning multiple workflows, functions, systems or governance layers.": {
   "cs": "Koordinovaná multiagentní řešení zahrnující více procesů, funkcí, systémů nebo vrstev governance.",
@@ -476,15 +431,6 @@
   "pl": "Prezentowane zakresy są orientacyjnymi punktami wyjścia, a nie wiążącymi ofertami. Ostateczna cena zależy od wybranego przypadku użycia, zakresu wdrożenia, integracji systemowych, gotowości danych, wymagań governance, modelu wdrożenia, wymagań wsparcia i dostosowań.",
   "pt": "Os intervalos apresentados são pontos de partida indicativos, não orçamentos vinculativos. O preço final depende do caso de uso selecionado, do âmbito de implementação, das integrações, da maturidade dos dados, dos requisitos de governação, do modelo de implementação, das necessidades de suporte e da personalização."
  },
- "Why Tier 4 carries a higher range": {
-  "cs": "Proč má úroveň 4 vyšší rozpětí",
-  "de": "Warum Stufe 4 einen höheren Bereich hat",
-  "fr": "Pourquoi le niveau 4 a une fourchette plus élevée",
-  "es": "Por qué el nivel 4 tiene un rango más alto",
-  "it": "Perché il livello 4 ha una fascia più alta",
-  "pl": "Dlaczego poziom 4 ma wyższy zakres",
-  "pt": "Porque o nível 4 tem um intervalo mais elevado"
- },
  "Risk and governance agents are not more valuable by default; they are more demanding to build and evidence. The range reflects additional work on control design, auditability, testing, human oversight, evidence capture, escalation workflows, policy alignment and regulatory or internal-governance requirements.": {
   "cs": "Agenti pro rizika a governance nejsou automaticky hodnotnější; jsou náročnější na vytvoření a doložení. Rozpětí odráží práci navíc na návrhu kontrol, auditovatelnosti, testování, lidském dohledu, zachycení důkazů, eskalačních postupech, souladu s politikami a regulatorních či interních požadavcích governance.",
   "de": "Risiko- und Governance-Agenten sind nicht per se wertvoller; sie sind aufwendiger zu bauen und nachzuweisen. Der Bereich spiegelt zusätzliche Arbeit an Kontrolldesign, Auditierbarkeit, Tests, menschlicher Aufsicht, Nachweiserfassung, Eskalations-Workflows, Richtlinienkonformität sowie regulatorischen oder internen Governance-Anforderungen wider.",
@@ -502,15 +448,6 @@
   "it": "Sistemi multi-agente aziendali",
   "pl": "Korporacyjne systemy wieloagentowe",
   "pt": "Sistemas multiagente empresariais"
- },
- "Tier 5 applies where several specialized agents operate together across functions and systems. Scope typically adds centralized reporting, advanced security and access requirements, shared governance controls, multi-stage approvals and wider organizational rollout. These solutions are designed and priced individually.": {
-  "cs": "Úroveň 5 platí tam, kde několik specializovaných agentů pracuje společně napříč funkcemi a systémy. Rozsah obvykle přidává centralizovaný reporting, pokročilé požadavky na bezpečnost a přístupy, sdílené kontroly governance, vícestupňová schválení a širší nasazení v organizaci. Tato řešení se navrhují a oceňují individuálně.",
-  "de": "Stufe 5 gilt, wenn mehrere spezialisierte Agenten funktions- und systemübergreifend zusammenarbeiten. Der Umfang ergänzt typischerweise zentrales Reporting, erweiterte Sicherheits- und Zugriffsanforderungen, gemeinsame Governance-Kontrollen, mehrstufige Freigaben und einen breiteren organisatorischen Rollout. Diese Lösungen werden individuell konzipiert und bepreist.",
-  "fr": "Le niveau 5 s'applique lorsque plusieurs agents spécialisés fonctionnent ensemble entre fonctions et systèmes. Le périmètre ajoute généralement un reporting centralisé, des exigences avancées de sécurité et d'accès, des contrôles de gouvernance partagés, des approbations multi-étapes et un déploiement organisationnel plus large. Ces solutions sont conçues et tarifées individuellement.",
-  "es": "El nivel 5 se aplica cuando varios agentes especializados operan juntos entre funciones y sistemas. El alcance suele añadir reporting centralizado, requisitos avanzados de seguridad y acceso, controles de gobernanza compartidos, aprobaciones en varias etapas y un despliegue organizativo más amplio. Estas soluciones se diseñan y cotizan individualmente.",
-  "it": "Il livello 5 si applica quando più agenti specializzati operano insieme tra funzioni e sistemi. L'ambito aggiunge tipicamente reporting centralizzato, requisiti avanzati di sicurezza e accesso, controlli di governance condivisi, approvazioni in più fasi e un rollout organizzativo più ampio. Queste soluzioni sono progettate e quotate individualmente.",
-  "pl": "Poziom 5 dotyczy sytuacji, gdy kilku wyspecjalizowanych agentów działa razem w różnych funkcjach i systemach. Zakres zwykle dodaje scentralizowane raportowanie, zaawansowane wymagania bezpieczeństwa i dostępu, wspólne mechanizmy governance, wieloetapowe zatwierdzania oraz szersze wdrożenie w organizacji. Takie rozwiązania są projektowane i wyceniane indywidualnie.",
-  "pt": "O nível 5 aplica-se quando vários agentes especializados operam em conjunto entre funções e sistemas. O âmbito acrescenta normalmente reporting centralizado, requisitos avançados de segurança e acesso, controlos de governação partilhados, aprovações em várias etapas e uma implementação organizacional mais alargada. Estas soluções são concebidas e orçamentadas individualmente."
  },
  "Scoping": {
   "cs": "Vymezení rozsahu",
@@ -1348,5 +1285,68 @@
   "it": "Altri modi per contattarci",
   "pl": "Inne sposoby kontaktu",
   "pt": "Outras formas de nos contactar"
+ },
+ "Starter — Essential Agents": {
+  "cs": "Starter — Základní agenti",
+  "de": "Starter — Essential-Agenten",
+  "fr": "Starter — Agents essentiels",
+  "es": "Starter — Agentes esenciales",
+  "it": "Starter — Agenti essenziali",
+  "pl": "Starter — Agenci podstawowi",
+  "pt": "Starter — Agentes essenciais"
+ },
+ "Workflow — Business Operations Agents": {
+  "cs": "Workflow — Agenti pro provoz byznysu",
+  "de": "Workflow — Business-Operations-Agenten",
+  "fr": "Workflow — Agents d'opérations métier",
+  "es": "Workflow — Agentes de operaciones de negocio",
+  "it": "Workflow — Agenti per le operazioni di business",
+  "pl": "Workflow — Agenci operacji biznesowych",
+  "pt": "Workflow — Agentes de operações de negócio"
+ },
+ "Department — Advanced Decision-Support Agents": {
+  "cs": "Department — Pokročilí agenti pro podporu rozhodování",
+  "de": "Department — Fortgeschrittene Entscheidungsunterstützungs-Agenten",
+  "fr": "Department — Agents avancés d'aide à la décision",
+  "es": "Department — Agentes avanzados de apoyo a la decisión",
+  "it": "Department — Agenti avanzati di supporto decisionale",
+  "pl": "Department — Zaawansowani agenci wsparcia decyzji",
+  "pt": "Department — Agentes avançados de apoio à decisão"
+ },
+ "Governance — Risk and Governance Agents": {
+  "cs": "Governance — Agenti pro rizika a governance",
+  "de": "Governance — Risiko- und Governance-Agenten",
+  "fr": "Governance — Agents risque et gouvernance",
+  "es": "Governance — Agentes de riesgo y gobernanza",
+  "it": "Governance — Agenti per rischio e governance",
+  "pl": "Governance — Agenci ryzyka i governance",
+  "pt": "Governance — Agentes de risco e governação"
+ },
+ "Portfolio — Enterprise Multi-Agent Systems": {
+  "cs": "Portfolio — Podnikové multiagentní systémy",
+  "de": "Portfolio — Enterprise-Multi-Agenten-Systeme",
+  "fr": "Portfolio — Systèmes multi-agents d'entreprise",
+  "es": "Portfolio — Sistemas multiagente empresariales",
+  "it": "Portfolio — Sistemi multi-agente aziendali",
+  "pl": "Portfolio — Korporacyjne systemy wieloagentowe",
+  "pt": "Portfolio — Sistemas multiagente empresariais"
+ },
+ "Why the Governance package carries a higher range": {
+  "cs": "Proč má Governance vyšší rozpětí",
+  "de": "Warum Governance einen höheren Bereich hat",
+  "fr": "Pourquoi le Governance a une fourchette plus élevée",
+  "es": "Por qué el Governance tiene un rango más alto",
+  "it": "Perché il Governance ha una fascia più alta",
+  "pl": "Dlaczego Governance ma wyższy zakres",
+  "pt": "Porque o Governance tem um intervalo mais elevado"
+ },
+ "Portfolio applies where several specialized agents operate together across functions and systems. Scope typically adds centralized reporting, advanced security and access requirements, shared governance controls, multi-stage approvals and wider organizational rollout. These solutions are designed and priced individually.": {
+  "cs": "Portfolio platí tam, kde několik specializovaných agentů pracuje společně napříč funkcemi a systémy. Rozsah obvykle přidává centralizovaný reporting, pokročilé požadavky na bezpečnost a přístupy, sdílené kontroly governance, vícestupňová schválení a širší nasazení v organizaci. Tato řešení se navrhují a oceňují individuálně.",
+  "de": "Portfolio gilt, wenn mehrere spezialisierte Agenten funktions- und systemübergreifend zusammenarbeiten. Der Umfang ergänzt typischerweise zentrales Reporting, erweiterte Sicherheits- und Zugriffsanforderungen, gemeinsame Governance-Kontrollen, mehrstufige Freigaben und einen breiteren organisatorischen Rollout. Diese Lösungen werden individuell konzipiert und bepreist.",
+  "fr": "Le niveau 5 s'applique lorsque plusieurs agents spécialisés fonctionnent ensemble entre fonctions et systèmes. Le périmètre ajoute généralement un reporting centralisé, des exigences avancées de sécurité et d'accès, des contrôles de gouvernance partagés, des approbations multi-étapes et un déploiement organisationnel plus large. Ces solutions sont conçues et tarifées individuellement.",
+  "es": "El nivel 5 se aplica cuando varios agentes especializados operan juntos entre funciones y sistemas. El alcance suele añadir reporting centralizado, requisitos avanzados de seguridad y acceso, controles de gobernanza compartidos, aprobaciones en varias etapas y un despliegue organizativo más amplio. Estas soluciones se diseñan y cotizan individualmente.",
+  "it": "Il livello 5 si applica quando più agenti specializzati operano insieme tra funzioni e sistemi. L'ambito aggiunge tipicamente reporting centralizzato, requisiti avanzati di sicurezza e accesso, controlli di governance condivisi, approvazioni in più fasi e un rollout organizzativo più ampio. Queste soluzioni sono progettate e quotate individualmente.",
+  "pl": "Portfolio dotyczy sytuacji, gdy kilku wyspecjalizowanych agentów działa razem w różnych funkcjach i systemach. Zakres zwykle dodaje scentralizowane raportowanie, zaawansowane wymagania bezpieczeństwa i dostępu, wspólne mechanizmy governance, wieloetapowe zatwierdzania oraz szersze wdrożenie w organizacji. Takie rozwiązania są projektowane i wyceniane indywidualnie.",
+  "pt": "O nível 5 aplica-se quando vários agentes especializados operam em conjunto entre funções e sistemas. O âmbito acrescenta normalmente reporting centralizado, requisitos avançados de segurança e acesso, controlos de governação partilhados, aprovações em várias etapas e uma implementação organizacional mais alargada. Estas soluções são concebidas e orçamentadas individualmente."
  }
 }
