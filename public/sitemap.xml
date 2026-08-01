@@ -3,7 +3,7 @@
   <url>
     <loc>https://www.colleagueai.ai/agents</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -21,22 +21,9 @@
   <url><loc>https://www.colleagueai.ai/license</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
   <url><loc>https://www.colleagueai.ai/partner-agreement</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
   <url>
-    <loc>https://www.colleagueai.ai/en/agents</loc>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
-    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
-    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
-    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
-    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/agentes"/>
-    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/agenti"/>
-    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/agenci"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/agentes"/>
-    <lastmod>2026-06-21</lastmod>
-  </url>
-  <url>
     <loc>https://www.colleagueai.ai/cs/agenti</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -49,7 +36,7 @@
   <url>
     <loc>https://www.colleagueai.ai/de/agenten</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -62,7 +49,7 @@
   <url>
     <loc>https://www.colleagueai.ai/es/agentes</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -75,7 +62,7 @@
   <url>
     <loc>https://www.colleagueai.ai/fr/agents</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -88,7 +75,7 @@
   <url>
     <loc>https://www.colleagueai.ai/it/agenti</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -101,7 +88,7 @@
   <url>
     <loc>https://www.colleagueai.ai/pl/agenci</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -114,7 +101,7 @@
   <url>
     <loc>https://www.colleagueai.ai/pt/agentes</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/agents"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/en/agents"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/agents"/>
     <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/agenti"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/agenten"/>
     <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/agents"/>
@@ -125,100 +112,7 @@
     <lastmod>2026-06-21</lastmod>
   </url>
   <url>
-    <loc>https://www.colleagueai.ai/en/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/cs/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/de/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/fr/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/es/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/it/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pl/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pt/trust</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/en/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/cs/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/de/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/fr/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/es/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/it/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pl/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pt/partners</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/en/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/cs/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/de/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/fr/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/es/privacy</loc>
-  </url>
-  <url>
     <loc>https://www.colleagueai.ai/it/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pl/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pt/privacy</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/en/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/cs/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/de/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/fr/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/es/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/it/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pl/terms</loc>
-  </url>
-  <url>
-    <loc>https://www.colleagueai.ai/pt/terms</loc>
   </url>
   <url>
     <loc>https://www.colleagueai.ai/imprint</loc>
