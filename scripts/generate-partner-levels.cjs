@@ -68,7 +68,9 @@ const C = {
     "ColleagueAI may reject opportunities that do not meet qualification, compliance or commercial requirements."
   ],
   formH: "Apply to become a partner",
-  formLead: "Tell us about your business and how you would work with ColleagueAI. Applications are reviewed individually; approval and commission eligibility remain subject to a signed partner agreement. Fields marked with an asterisk are required.",
+  formLead: "Tell us about your business and how you would work with ColleagueAI. Include the details below in your email. Applications are reviewed individually; approval and commission eligibility remain subject to a signed partner agreement.",
+  ask: ["Your company, website and country", "The partner level you are interested in", "The industries and customer segments you work with", "Your typical customer reach", "Any existing technology partnerships"],
+  emailCta: "Email hello@colleagueai.ai",
   f: {
     name: "Full name", email: "Work email", company: "Company", website: "Website",
     country: "Country or target market", type: "Partner type", industries: "Relevant industries",
@@ -116,6 +118,9 @@ const CSS = `<style id="cai-partner-levels-css">
 #partner-levels .pl-small{font-size:12.5px;color:var(--muted);margin-top:12px}
 #partner-levels .pl-form{margin-top:38px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;max-width:900px}
 #partner-levels .pl-formlead{font-size:15px;color:var(--graphite-soft);margin-top:10px;max-width:70ch}
+#partner-levels .pl-ask{list-style:none;padding:0;margin:20px 0 0;max-width:70ch}
+#partner-levels .pl-ask li{font-size:14.5px;color:var(--graphite-soft);padding:8px 0;border-bottom:1px solid var(--line)}
+#partner-levels .pl-ask li::before{content:"→ ";color:var(--terra);font-weight:700}
 #partner-levels .pl-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 @media (max-width:680px){#partner-levels .pl-fgrid{grid-template-columns:1fr}}
 #partner-levels .pl-full{grid-column:1/-1}
@@ -189,25 +194,8 @@ ${cards}
     <div class="pl-form" id="partner-apply">
       <h3 class="sec-h" style="font-size:clamp(22px,2.6vw,30px)">${t(C.formH)}</h3>
       <p class="pl-formlead">${t(C.formLead)}</p>
-      <form id="partner-apply-form" novalidate>
-        <div class="pl-fgrid">
-          <div class="fld"><label for="ap-name">${t(C.f.name)} *</label><input id="ap-name" name="name" type="text" autocomplete="name" required><span class="err">${t(C.f.eName)}</span></div>
-          <div class="fld"><label for="ap-email">${t(C.f.email)} *</label><input id="ap-email" name="email" type="email" autocomplete="email" required><span class="err">${t(C.f.eEmail)}</span></div>
-          <div class="fld"><label for="ap-company">${t(C.f.company)} *</label><input id="ap-company" name="company" type="text" autocomplete="organization" required><span class="err">${t(C.f.eCompany)}</span></div>
-          <div class="fld"><label for="ap-website">${t(C.f.website)} <span class="opt">${t(C.f.optional)}</span></label><input id="ap-website" name="website" type="url" inputmode="url" placeholder="https://"></div>
-          <div class="fld"><label for="ap-country">${t(C.f.country)} <span class="opt">${t(C.f.optional)}</span></label><input id="ap-country" name="country" type="text"></div>
-          <div class="fld"><label for="ap-type">${t(C.f.type)} <span class="opt">${t(C.f.optional)}</span></label><select id="ap-type" name="partnerType"><option value="">${t(C.f.select)}</option><option>${t("Referral Partner")}</option><option>${t("Sales Partner")}</option><option>${t("Strategic Partner")}</option></select></div>
-          <div class="fld"><label for="ap-industries">${t(C.f.industries)} <span class="opt">${t(C.f.optional)}</span></label><input id="ap-industries" name="industries" type="text"></div>
-          <div class="fld"><label for="ap-reach">${t(C.f.reach)} <span class="opt">${t(C.f.optional)}</span></label><input id="ap-reach" name="reach" type="text"></div>
-          <div class="fld pl-full"><label for="ap-existing">${t(C.f.existing)} <span class="opt">${t(C.f.optional)}</span></label><input id="ap-existing" name="existingPartnerships" type="text"></div>
-          <div class="fld pl-full"><label for="ap-desc">${t(C.f.desc)} <span class="opt">${t(C.f.optional)}</span></label><textarea id="ap-desc" name="description"></textarea></div>
-        </div>
-        <div class="pl-hp" aria-hidden="true"><label for="ap-website-confirm">Leave this field empty</label><input id="ap-website-confirm" name="website_confirm" type="text" tabindex="-1" autocomplete="off"></div>
-        <div class="fld pl-consent"><input id="ap-consent" name="consent" type="checkbox" required><label for="ap-consent">${t(C.f.consent)} *&nbsp;<a href="PRIVACY_HREF" style="text-decoration:underline">${t(C.f.privacy)}</a></label></div>
-        <div style="margin-top:20px"><button class="btn-p" type="submit" id="ap-submit">${t(C.f.submit)}</button></div>
-        <div class="pl-msg" id="ap-ok" role="status" aria-live="polite">${t(C.f.ok)}</div>
-        <div class="pl-msg" id="ap-bad" role="alert">${t(C.f.bad)}</div>
-      </form>
+      <ul class="pl-ask">${C.ask.map((x) => `<li>${t(x)}</li>`).join("")}</ul>
+      <div style="margin-top:20px"><a class="btn-p" href="mailto:hello@colleagueai.ai?subject=Partner%20programme%20enquiry" data-partner-cta="apply_email">${t(C.emailCta)}</a></div>
     </div>
   </div>
 </section>
@@ -227,26 +215,6 @@ ${cards}
     Array.prototype.forEach.call(cards,function(c){io.observe(c);});}
   document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('[data-partner-cta]'):null;
     if(!a)return;ev('partner_cta_clicked',{level:a.getAttribute('data-partner-cta'),href:a.getAttribute('href'),locale:loc});});
-  var pf=document.getElementById('partner-apply-form');
-  if(pf){var started=false;
-    pf.addEventListener('input',function(){if(started)return;started=true;ev('partner_form_started',{locale:loc});});
-    var ok=document.getElementById('ap-ok'),bad=document.getElementById('ap-bad'),sb=document.getElementById('ap-submit');
-    function mark(el,b){var f=el.closest('.fld');if(f)f.classList.toggle('bad',b);el.setAttribute('aria-invalid',b?'true':'false');}
-    pf.addEventListener('submit',function(e){e.preventDefault();ok.className='pl-msg';bad.className='pl-msg';
-      var n=pf.querySelector('#ap-name'),em=pf.querySelector('#ap-email'),co=pf.querySelector('#ap-company'),cs=pf.querySelector('#ap-consent'),invalid=false;
-      [[n,n.value.trim().length>=2],[em,/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em.value.trim())],[co,co.value.trim().length>=2]]
-        .forEach(function(p){var b=!p[1];mark(p[0],b);if(b)invalid=true;});
-      if(!cs.checked){mark(cs,true);invalid=true;}else{mark(cs,false);}
-      if(invalid){var f1=pf.querySelector('.fld.bad input');if(f1)f1.focus();return;}
-      var payload={type:'partner',consent:true,locale:loc,page:location.pathname};
-      ['name','email','company','website','country','partnerType','industries','reach','description','existingPartnerships','website_confirm'].forEach(function(k){
-        var el=pf.querySelector('[name="'+k+'"]');if(el&&el.value)payload[k]=el.value;});
-      sb.disabled=true;
-      fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-        .then(function(r){return r.ok?r.json():Promise.reject(r);})
-        .then(function(){pf.reset();ok.className='pl-msg ok';ev('partner_form_submitted',{locale:loc});})
-        .catch(function(){bad.className='pl-msg bad';})
-        .then(function(){sb.disabled=false;});});}
 })();
 </script>`;
 }

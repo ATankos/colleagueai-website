@@ -1294,5 +1294,59 @@
   "it": "Richiedi una proposta",
   "pl": "Otrzymaj ofertę",
   "pt": "Obter proposta"
+ },
+ "Email us about the workflow you want to govern. Include the details below and we will assess scope and prepare an indicative proposal.": {
+  "cs": "Napište nám o workflow, které chcete řídit. Uveďte níže uvedené údaje a my posoudíme rozsah a připravíme indikativní nabídku.",
+  "de": "Schreiben Sie uns eine E-Mail zu dem Workflow, den Sie steuern möchten. Geben Sie die unten genannten Angaben an; wir bewerten den Umfang und erstellen ein indikatives Angebot.",
+  "fr": "Écrivez-nous au sujet du workflow que vous souhaitez encadrer. Indiquez les éléments ci-dessous : nous évaluerons le périmètre et préparerons une proposition indicative.",
+  "es": "Escríbanos sobre el flujo de trabajo que desea gobernar. Incluya los datos siguientes y evaluaremos el alcance y prepararemos una propuesta indicativa.",
+  "it": "Scriveteci in merito al flusso di lavoro che desiderate governare. Indicate i dettagli qui sotto: valuteremo il perimetro e prepareremo una proposta indicativa.",
+  "pl": "Napisz do nas o procesie, który chcesz objąć nadzorem. Podaj poniższe informacje, a ocenimy zakres i przygotujemy orientacyjną ofertę.",
+  "pt": "Escreva-nos sobre o fluxo de trabalho que pretende governar. Inclua os dados abaixo e avaliaremos o âmbito e prepararemos uma proposta indicativa."
+ },
+ "Your company and the country you operate in": {
+  "cs": "Vaše společnost a země, kde působíte",
+  "de": "Ihr Unternehmen und das Land, in dem Sie tätig sind",
+  "fr": "Votre entreprise et le pays où vous opérez",
+  "es": "Su empresa y el país en el que opera",
+  "it": "La vostra azienda e il paese in cui operate",
+  "pl": "Twoja firma i kraj, w którym działacie",
+  "pt": "A sua empresa e o país onde opera"
+ },
+ "The workflow or use case you want to govern": {
+  "cs": "Workflow nebo případ užití, který chcete řídit",
+  "de": "Der Workflow oder Use Case, den Sie steuern möchten",
+  "fr": "Le workflow ou cas d'usage que vous souhaitez encadrer",
+  "es": "El flujo de trabajo o caso de uso que desea gobernar",
+  "it": "Il flusso di lavoro o caso d'uso che desiderate governare",
+  "pl": "Proces lub przypadek użycia, który chcesz objąć nadzorem",
+  "pt": "O fluxo de trabalho ou caso de uso que pretende governar"
+ },
+ "Systems it would need to integrate with": {
+  "cs": "Systémy, se kterými by se mělo integrovat",
+  "de": "Systeme, mit denen eine Integration erforderlich wäre",
+  "fr": "Les systèmes avec lesquels il devrait s'intégrer",
+  "es": "Los sistemas con los que tendría que integrarse",
+  "it": "I sistemi con cui dovrebbe integrarsi",
+  "pl": "Systemy, z którymi miałby się integrować",
+  "pt": "Os sistemas com que teria de integrar"
+ },
+ "Email hello@colleagueai.ai": {
+  "cs": "Napište na hello@colleagueai.ai",
+  "de": "E-Mail an hello@colleagueai.ai",
+  "fr": "Écrire à hello@colleagueai.ai",
+  "es": "Escribir a hello@colleagueai.ai",
+  "it": "Scrivere a hello@colleagueai.ai",
+  "pl": "Napisz na hello@colleagueai.ai",
+  "pt": "Escrever para hello@colleagueai.ai"
+ },
+ "Other ways to contact us": {
+  "cs": "Další způsoby kontaktu",
+  "de": "Weitere Kontaktmöglichkeiten",
+  "fr": "Autres moyens de nous contacter",
+  "es": "Otras formas de contactarnos",
+  "it": "Altri modi per contattarci",
+  "pl": "Inne sposoby kontaktu",
+  "pt": "Outras formas de nos contactar"
  }
 }

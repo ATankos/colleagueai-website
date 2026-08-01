@@ -583,6 +583,9 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 #partner-levels .pl-small{font-size:12.5px;color:var(--muted);margin-top:12px}
 #partner-levels .pl-form{margin-top:38px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;max-width:900px}
 #partner-levels .pl-formlead{font-size:15px;color:var(--graphite-soft);margin-top:10px;max-width:70ch}
+#partner-levels .pl-ask{list-style:none;padding:0;margin:20px 0 0;max-width:70ch}
+#partner-levels .pl-ask li{font-size:14.5px;color:var(--graphite-soft);padding:8px 0;border-bottom:1px solid var(--line)}
+#partner-levels .pl-ask li::before{content:"→ ";color:var(--terra);font-weight:700}
 #partner-levels .pl-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 @media (max-width:680px){#partner-levels .pl-fgrid{grid-template-columns:1fr}}
 #partner-levels .pl-full{grid-column:1/-1}
@@ -664,26 +667,9 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 
     <div class="pl-form" id="partner-apply">
       <h3 class="sec-h" style="font-size:clamp(22px,2.6vw,30px)">Candidatar-se a parceiro</h3>
-      <p class="pl-formlead">Fale-nos do seu negócio e de como trabalharia com a ColleagueAI. As candidaturas são analisadas individualmente; a aprovação e o direito a comissão continuam sujeitos a um acordo de parceria assinado. Os campos marcados com asterisco são obrigatórios.</p>
-      <form id="partner-apply-form" novalidate>
-        <div class="pl-fgrid">
-          <div class="fld"><label for="ap-name">Nome completo *</label><input id="ap-name" name="name" type="text" autocomplete="name" required><span class="err">Introduza o seu nome completo.</span></div>
-          <div class="fld"><label for="ap-email">E-mail profissional *</label><input id="ap-email" name="email" type="email" autocomplete="email" required><span class="err">Introduza um e-mail profissional válido.</span></div>
-          <div class="fld"><label for="ap-company">Empresa *</label><input id="ap-company" name="company" type="text" autocomplete="organization" required><span class="err">Introduza o nome da sua empresa.</span></div>
-          <div class="fld"><label for="ap-website">Site <span class="opt">(opcional)</span></label><input id="ap-website" name="website" type="url" inputmode="url" placeholder="https://"></div>
-          <div class="fld"><label for="ap-country">País ou mercado-alvo <span class="opt">(opcional)</span></label><input id="ap-country" name="country" type="text"></div>
-          <div class="fld"><label for="ap-type">Tipo de parceiro <span class="opt">(opcional)</span></label><select id="ap-type" name="partnerType"><option value="">Selecionar</option><option>Parceiro de referência</option><option>Parceiro comercial</option><option>Parceiro estratégico</option></select></div>
-          <div class="fld"><label for="ap-industries">Setores relevantes <span class="opt">(opcional)</span></label><input id="ap-industries" name="industries" type="text"></div>
-          <div class="fld"><label for="ap-reach">Alcance estimado de clientes <span class="opt">(opcional)</span></label><input id="ap-reach" name="reach" type="text"></div>
-          <div class="fld pl-full"><label for="ap-existing">Parcerias tecnológicas ou de consultoria existentes <span class="opt">(opcional)</span></label><input id="ap-existing" name="existingPartnerships" type="text"></div>
-          <div class="fld pl-full"><label for="ap-desc">Descrição da parceria proposta <span class="opt">(opcional)</span></label><textarea id="ap-desc" name="description"></textarea></div>
-        </div>
-        <div class="pl-hp" aria-hidden="true"><label for="ap-website-confirm">Leave this field empty</label><input id="ap-website-confirm" name="website_confirm" type="text" tabindex="-1" autocomplete="off"></div>
-        <div class="fld pl-consent"><input id="ap-consent" name="consent" type="checkbox" required><label for="ap-consent">Li e aceito a política de privacidade. *&nbsp;<a href="/pt/privacidade" style="text-decoration:underline">Política de privacidade</a></label></div>
-        <div style="margin-top:20px"><button class="btn-p" type="submit" id="ap-submit">Enviar candidatura</button></div>
-        <div class="pl-msg" id="ap-ok" role="status" aria-live="polite">Obrigado. Recebemos a sua candidatura e responderemos para o seu e-mail profissional.</div>
-        <div class="pl-msg" id="ap-bad" role="alert">Algo correu mal. Tente novamente ou escreva para hello@colleagueai.ai.</div>
-      </form>
+      <p class="pl-formlead">Descreva a sua atividade e como trabalharia com a ColleagueAI. Inclua no seu e-mail os dados abaixo. As candidaturas são analisadas individualmente; a aprovação e o direito a comissão continuam sujeitos a um acordo de parceria assinado.</p>
+      <ul class="pl-ask"><li>A sua empresa, site e país</li><li>O nível de parceria que lhe interessa</li><li>Os setores e segmentos de clientes com que trabalha</li><li>O seu alcance habitual de clientes</li><li>Eventuais parcerias tecnológicas existentes</li></ul>
+      <div style="margin-top:20px"><a class="btn-p" href="mailto:hello@colleagueai.ai?subject=Partner%20programme%20enquiry" data-partner-cta="apply_email">Escrever para hello@colleagueai.ai</a></div>
     </div>
   </div>
 </section>
@@ -703,26 +689,6 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
     Array.prototype.forEach.call(cards,function(c){io.observe(c);});}
   document.addEventListener('click',function(e){var a=e.target&&e.target.closest?e.target.closest('[data-partner-cta]'):null;
     if(!a)return;ev('partner_cta_clicked',{level:a.getAttribute('data-partner-cta'),href:a.getAttribute('href'),locale:loc});});
-  var pf=document.getElementById('partner-apply-form');
-  if(pf){var started=false;
-    pf.addEventListener('input',function(){if(started)return;started=true;ev('partner_form_started',{locale:loc});});
-    var ok=document.getElementById('ap-ok'),bad=document.getElementById('ap-bad'),sb=document.getElementById('ap-submit');
-    function mark(el,b){var f=el.closest('.fld');if(f)f.classList.toggle('bad',b);el.setAttribute('aria-invalid',b?'true':'false');}
-    pf.addEventListener('submit',function(e){e.preventDefault();ok.className='pl-msg';bad.className='pl-msg';
-      var n=pf.querySelector('#ap-name'),em=pf.querySelector('#ap-email'),co=pf.querySelector('#ap-company'),cs=pf.querySelector('#ap-consent'),invalid=false;
-      [[n,n.value.trim().length>=2],[em,/^[^s@]+@[^s@]+.[^s@]+$/.test(em.value.trim())],[co,co.value.trim().length>=2]]
-        .forEach(function(p){var b=!p[1];mark(p[0],b);if(b)invalid=true;});
-      if(!cs.checked){mark(cs,true);invalid=true;}else{mark(cs,false);}
-      if(invalid){var f1=pf.querySelector('.fld.bad input');if(f1)f1.focus();return;}
-      var payload={type:'partner',consent:true,locale:loc,page:location.pathname};
-      ['name','email','company','website','country','partnerType','industries','reach','description','existingPartnerships','website_confirm'].forEach(function(k){
-        var el=pf.querySelector('[name="'+k+'"]');if(el&&el.value)payload[k]=el.value;});
-      sb.disabled=true;
-      fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-        .then(function(r){return r.ok?r.json():Promise.reject(r);})
-        .then(function(){pf.reset();ok.className='pl-msg ok';ev('partner_form_submitted',{locale:loc});})
-        .catch(function(){bad.className='pl-msg bad';})
-        .then(function(){sb.disabled=false;});});}
 })();
 </script>
 <!-- cai-partner-levels:end -->

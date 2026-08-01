@@ -78,6 +78,9 @@ section{padding:62px 0}
 .inc{columns:2;column-gap:34px;list-style:none;padding:0;margin:26px 0 0;max-width:860px}
 .inc li{font-size:14.5px;color:var(--soft);padding:8px 0;border-bottom:1px solid var(--line);break-inside:avoid}
 .inc li::before{content:"✓ ";color:var(--terra);font-weight:700}
+.ask{list-style:none;padding:0;margin:0 0 26px;max-width:640px}
+.ask li{font-size:14.5px;color:var(--soft);padding:8px 0;border-bottom:1px solid var(--line)}
+.ask li::before{content:"→ ";color:var(--terra);font-weight:700}
 @media(max-width:640px){.inc{columns:1}}
 .band{background:var(--graphite);color:var(--cream)}
 .band h2,.band .sub{color:var(--cream)}
@@ -369,26 +372,11 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 <div class="formsec">
 <span class="kicker">Propuesta a medida</span>
 <h2 id="form-h">Solicitar una propuesta a medida</h2>
-<p class="sub">Cuéntenos el flujo de trabajo que desea gobernar. Lo usamos para evaluar el alcance y preparar una propuesta indicativa. Los campos marcados con asterisco son obligatorios.</p>
-<form id="pricing-form" novalidate>
-  <div class="fgrid">
-    <div class="fld"><label for="pf-name"><span>Nombre completo</span> *</label><input id="pf-name" name="name" type="text" autocomplete="name" required><span class="err">Introduzca su nombre completo.</span></div>
-    <div class="fld"><label for="pf-email"><span>Correo electrónico de trabajo</span> *</label><input id="pf-email" name="email" type="email" autocomplete="email" required><span class="err">Introduzca una dirección de correo de trabajo válida.</span></div>
-    <div class="fld"><label for="pf-company"><span>Empresa</span> *</label><input id="pf-company" name="company" type="text" autocomplete="organization" required><span class="err">Introduzca el nombre de su empresa.</span></div>
-    <div class="fld"><label for="pf-title"><span>Cargo</span> <span class="opt">(opcional)</span></label><input id="pf-title" name="jobTitle" type="text" autocomplete="organization-title"></div>
-    <div class="fld"><label for="pf-country"><span>País</span> <span class="opt">(opcional)</span></label><input id="pf-country" name="country" type="text" autocomplete="country-name"></div>
-    <div class="fld"><label for="pf-size"><span>Tamaño de la empresa</span> <span class="opt">(opcional)</span></label><select id="pf-size" name="companySize"><option value="">Seleccione</option><option>1–200</option><option>201–1,000</option><option>1,001–5,000</option><option>5,000+</option></select></div>
-    <div class="fld"><label for="pf-usecase"><span>Agente o caso de uso de interés</span> <span class="opt">(opcional)</span></label><input id="pf-usecase" name="useCase" type="text"></div>
-    <div class="fld"><label for="pf-timeline"><span>Plazo de implementación previsto</span> <span class="opt">(opcional)</span></label><select id="pf-timeline" name="timeline"><option value="">Seleccione</option><option>0–3 meses</option><option>3–6 meses</option><option>6–12 meses</option><option>12+ meses</option></select></div>
-    <div class="fld f-full"><label for="pf-systems"><span>Sistemas que requieren integración</span> <span class="opt">(opcional)</span></label><input id="pf-systems" name="systems" type="text" placeholder="Por ejemplo: SAP, Dynamics 365, ServiceNow, SharePoint"></div>
-    <div class="fld f-full"><label for="pf-problem"><span>Breve descripción del problema de negocio</span> <span class="opt">(opcional)</span></label><textarea id="pf-problem" name="problem"></textarea></div>
-  </div>
-  <div class="hp" aria-hidden="true"><label for="pf-website-confirm">Leave this field empty</label><input id="pf-website-confirm" name="website_confirm" type="text" tabindex="-1" autocomplete="off"></div>
-  <div class="fld consent"><input id="pf-consent" name="consent" type="checkbox" required><label for="pf-consent">I have read and accept the privacy policy. *&nbsp;<a href="/es/privacidad" style="text-decoration:underline">Política de privacidad</a></label></div>
-  <div class="f-actions"><button class="btn p" type="submit" id="pf-submit">Enviar solicitud</button></div>
-  <div class="f-msg" id="pf-ok" role="status" aria-live="polite">Gracias. Hemos recibido su solicitud y le responderemos a su correo de trabajo.</div>
-  <div class="f-msg" id="pf-bad" role="alert">Algo ha fallado. Inténtelo de nuevo o escriba a hello@colleagueai.ai.</div>
-</form>
+<p class="sub">Escríbanos sobre el flujo de trabajo que desea gobernar. Incluya los datos siguientes y evaluaremos el alcance y prepararemos una propuesta indicativa.</p>
+<ul class="ask">
+<li>Su empresa y el país en el que opera</li><li>El flujo de trabajo o caso de uso que desea gobernar</li><li>Los sistemas con los que tendría que integrarse</li><li>Plazo de implementación previsto</li>
+</ul>
+<div class="f-actions"><a class="btn p" href="mailto:hello@colleagueai.ai?subject=Request%20for%20a%20tailored%20proposal" data-cta="proposal_email">Escribir a hello@colleagueai.ai</a><a class="btn s" href="/es/contacto" data-cta="proposal_contact">Otras formas de contactarnos</a></div>
 </div>
 </section>
 
@@ -436,36 +424,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
     trackEvent(id==='founding_customer'?'founding_customer_cta_clicked':'pricing_cta_clicked',{cta:id,href:a.getAttribute('href'),locale:locale});
   });
 
-var form=document.getElementById('pricing-form');
-  if(form){
-    var started=false;
-    form.addEventListener('input',function(){ if(started)return; started=true; trackEvent('pricing_form_started',{locale:locale}); });
-    var okBox=document.getElementById('pf-ok'), badBox=document.getElementById('pf-bad'), btn=document.getElementById('pf-submit');
-    function setBad(el,bad){ var f=el.closest('.fld'); if(f)f.classList.toggle('bad',bad); el.setAttribute('aria-invalid',bad?'true':'false'); }
-    form.addEventListener('submit',function(e){
-      e.preventDefault();
-      okBox.className='f-msg'; badBox.className='f-msg';
-      var name=form.name_||form.querySelector('#pf-name'), email=form.querySelector('#pf-email'),
-          company=form.querySelector('#pf-company'), consent=form.querySelector('#pf-consent');
-      var bad=false;
-      [[name,name.value.trim().length>=2],[email,/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())],[company,company.value.trim().length>=2]]
-        .forEach(function(p){ var invalid=!p[1]; setBad(p[0],invalid); if(invalid)bad=true; });
-      if(!consent.checked){ setBad(consent,true); bad=true; } else { setBad(consent,false); }
-      if(bad){ var first=form.querySelector('.fld.bad input,.fld.bad textarea'); if(first)first.focus(); return; }
-      var payload={type:'pricing',consent:true,locale:locale,page:location.pathname};
-      ['name','email','company','jobTitle','country','companySize','useCase','timeline','systems','problem','website_confirm'].forEach(function(k){
-        var el=form.querySelector('[name="'+k+'"]'); if(el&&el.value)payload[k]=el.value;
-      });
-      btn.disabled=true;
-      fetch('/api/lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-        .then(function(r){return r.ok?r.json():Promise.reject(r);})
-        .then(function(){ form.reset(); okBox.className='f-msg ok'; okBox.focus&&okBox.focus(); trackEvent('pricing_form_submitted',{locale:locale}); })
-        .catch(function(){ badBox.className='f-msg bad'; })
-        .then(function(){ btn.disabled=false; });
-    });
-  }
-
-  var b=document.getElementById('burger'),m=document.getElementById('mnav');
+var b=document.getElementById('burger'),m=document.getElementById('mnav');
   if(b&&m){b.addEventListener('click',function(){var o=m.classList.toggle('open');b.setAttribute('aria-expanded',o?'true':'false');});}
 })();
 </script>

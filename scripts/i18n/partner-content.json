@@ -763,5 +763,68 @@
   "it": "Grazie. Abbiamo ricevuto la vostra candidatura e risponderemo al vostro e-mail di lavoro.",
   "pl": "Dziękujemy. Otrzymaliśmy Twoje zgłoszenie i odpowiemy na służbowy adres e-mail.",
   "pt": "Obrigado. Recebemos a sua candidatura e responderemos para o seu e-mail profissional."
+ },
+ "Tell us about your business and how you would work with ColleagueAI. Include the details below in your email. Applications are reviewed individually; approval and commission eligibility remain subject to a signed partner agreement.": {
+  "cs": "Popište nám své podnikání a to, jak byste se společností ColleagueAI spolupracovali. Do e-mailu uveďte níže uvedené údaje. Přihlášky posuzujeme individuálně; schválení a nárok na provizi podléhají podepsané partnerské smlouvě.",
+  "de": "Beschreiben Sie Ihr Unternehmen und wie Sie mit ColleagueAI zusammenarbeiten würden. Geben Sie die unten genannten Angaben in Ihrer E-Mail an. Bewerbungen werden individuell geprüft; Freigabe und Provisionsanspruch setzen einen unterzeichneten Partnervertrag voraus.",
+  "fr": "Présentez votre activité et la manière dont vous travailleriez avec ColleagueAI. Indiquez les éléments ci-dessous dans votre e-mail. Les candidatures sont examinées individuellement ; l'approbation et le droit à commission restent soumis à un contrat de partenariat signé.",
+  "es": "Cuéntenos sobre su negocio y cómo trabajaría con ColleagueAI. Incluya los datos siguientes en su correo. Las solicitudes se revisan individualmente; la aprobación y el derecho a comisión quedan sujetos a un acuerdo de partner firmado.",
+  "it": "Descrivete la vostra attività e come lavorereste con ColleagueAI. Indicate nella vostra e-mail i dettagli qui sotto. Le candidature sono valutate singolarmente; approvazione e diritto alla provvigione restano subordinati a un accordo di partnership firmato.",
+  "pl": "Opisz swoją działalność i to, jak chcesz współpracować z ColleagueAI. W wiadomości podaj poniższe informacje. Zgłoszenia rozpatrujemy indywidualnie; zatwierdzenie i prawo do prowizji zależą od podpisanej umowy partnerskiej.",
+  "pt": "Descreva a sua atividade e como trabalharia com a ColleagueAI. Inclua no seu e-mail os dados abaixo. As candidaturas são analisadas individualmente; a aprovação e o direito a comissão continuam sujeitos a um acordo de parceria assinado."
+ },
+ "Your company, website and country": {
+  "cs": "Vaše společnost, web a země",
+  "de": "Ihr Unternehmen, Ihre Website und Ihr Land",
+  "fr": "Votre entreprise, votre site web et votre pays",
+  "es": "Su empresa, sitio web y país",
+  "it": "La vostra azienda, il sito web e il paese",
+  "pl": "Twoja firma, strona internetowa i kraj",
+  "pt": "A sua empresa, site e país"
+ },
+ "The partner level you are interested in": {
+  "cs": "Úroveň partnerství, která vás zajímá",
+  "de": "Die Partnerstufe, die Sie interessiert",
+  "fr": "Le niveau de partenariat qui vous intéresse",
+  "es": "El nivel de partner que le interesa",
+  "it": "Il livello di partnership che vi interessa",
+  "pl": "Poziom partnerstwa, który Cię interesuje",
+  "pt": "O nível de parceria que lhe interessa"
+ },
+ "The industries and customer segments you work with": {
+  "cs": "Odvětví a zákaznické segmenty, se kterými pracujete",
+  "de": "Die Branchen und Kundensegmente, mit denen Sie arbeiten",
+  "fr": "Les secteurs et segments de clientèle avec lesquels vous travaillez",
+  "es": "Los sectores y segmentos de clientes con los que trabaja",
+  "it": "I settori e i segmenti di clientela con cui lavorate",
+  "pl": "Branże i segmenty klientów, z którymi pracujesz",
+  "pt": "Os setores e segmentos de clientes com que trabalha"
+ },
+ "Your typical customer reach": {
+  "cs": "Váš obvyklý zákaznický dosah",
+  "de": "Ihre typische Kundenreichweite",
+  "fr": "Votre portée client habituelle",
+  "es": "Su alcance habitual de clientes",
+  "it": "La vostra tipica copertura di clienti",
+  "pl": "Twój typowy zasięg klientów",
+  "pt": "O seu alcance habitual de clientes"
+ },
+ "Any existing technology partnerships": {
+  "cs": "Případná stávající technologická partnerství",
+  "de": "Bestehende Technologiepartnerschaften",
+  "fr": "Vos éventuels partenariats technologiques existants",
+  "es": "Cualquier alianza tecnológica existente",
+  "it": "Eventuali partnership tecnologiche esistenti",
+  "pl": "Ewentualne istniejące partnerstwa technologiczne",
+  "pt": "Eventuais parcerias tecnológicas existentes"
+ },
+ "Email hello@colleagueai.ai": {
+  "cs": "Napište na hello@colleagueai.ai",
+  "de": "E-Mail an hello@colleagueai.ai",
+  "fr": "Écrire à hello@colleagueai.ai",
+  "es": "Escribir a hello@colleagueai.ai",
+  "it": "Scrivere a hello@colleagueai.ai",
+  "pl": "Napisz na hello@colleagueai.ai",
+  "pt": "Escrever para hello@colleagueai.ai"
  }
 }
