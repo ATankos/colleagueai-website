@@ -4,8 +4,14 @@ test.describe("QA: back-to-top UX", () => {
   test("back-to-top injected button materially reduces scroll position", async ({ page }) => {
     await page.goto("/agents", { waitUntil: "networkidle" });
 
+    // Scroll to a fixed depth, not to document.body.scrollHeight. The catalogue
+    // uses an IntersectionObserver to append more agent cards near the bottom,
+    // so "the bottom" keeps moving: on a phone viewport the cards stack one
+    // across and the page grew ~4,700px mid-measurement, which is why this only
+    // ever failed on mobile-chrome. 3000px is far past the button's 120px
+    // reveal threshold and nowhere near the loader.
     await page.evaluate(() => {
-      window.scrollTo(0, document.body.scrollHeight);
+      window.scrollTo(0, 3000);
       window.dispatchEvent(new Event("scroll"));
     });
 
