@@ -10,6 +10,8 @@ import {
   grantEntitlement,
   recordCommission,
   reverseCommission,
+  restoreCommission,
+  revokeEntitlement,
   claimEvent,
   claimSession,
   releaseClaims,
@@ -155,6 +157,7 @@ export default async function handler(req, res) {
           amountGross,
           commissionRate: COMMISSION_RATE,
           stripeSessionId: session.id,
+          currency: (session.currency || 'eur').toUpperCase(),
         });
 
         if (commission && commission.withheld) {
@@ -171,19 +174,16 @@ export default async function handler(req, res) {
     }
   }
 
-  /* Money going back out. Stripe can send several of these for one charge, and
-   * reverseCommission is idempotent, so duplicates are safe. The session id is
-   * carried on the payment intent's metadata where available; otherwise the
-   * charge's. Without an id we log rather than guess which sale to reverse. */
+  /* Money going back out. Stripe can send several of these for one charge and
+   * the ledger helpers are idempotent, so duplicates are safe. A partial refund
+   * reverses only that share of the commission; a dispute won in our favour
+   * restores what dispute.created took away. */
   if (
     event.type === 'charge.refunded' ||
     event.type === 'charge.dispute.created' ||
     event.type === 'charge.dispute.closed'
   ) {
     const obj = event.data.object || {};
-    if (event.type === 'charge.dispute.closed' && obj.status === 'won') {
-      return res.status(200).json({ received: true, commission: 'dispute-won-no-reversal' });
-    }
     const sessionId =
       obj.metadata?.checkout_session_id ||
       obj.payment_intent?.metadata?.checkout_session_id ||
@@ -191,16 +191,37 @@ export default async function handler(req, res) {
       null;
 
     if (!sessionId) {
-      console.warn('[webhook] %s without a session reference; commission not reversed', event.type);
+      console.warn('[webhook] %s without a session reference; ledger untouched', event.type);
       return res.status(200).json({ received: true, commission: 'no-session-reference' });
     }
 
     try {
-      const result = await reverseCommission(sessionId, event.type);
-      console.log('[webhook] Commission reversal:', event.type, sessionId, result.state ?? result.reason);
+      // A dispute we won: the sale stands, so put the commission back.
+      if (event.type === 'charge.dispute.closed') {
+        if (obj.status === 'won') {
+          const restored = await restoreCommission(sessionId, 'dispute-won');
+          return res.status(200).json({ received: true, commission: restored.state ?? 'restored' });
+        }
+        return res.status(200).json({ received: true, commission: 'dispute-lost-already-reversed' });
+      }
+
+      // Partial refunds reverse proportionally; disputes reverse in full.
+      const refunded = event.type === 'charge.refunded' ? (obj.amount_refunded ?? null) : null;
+      const result = await reverseCommission(sessionId, event.type, refunded);
+
+      // Take back what was bought, unless only part of the sale was refunded.
+      const fullyRefunded = event.type !== 'charge.refunded' || obj.refunded === true ||
+        (obj.amount_refunded != null && obj.amount != null && obj.amount_refunded >= obj.amount);
+      const email = obj.billing_details?.email || obj.metadata?.email || null;
+      const slug = obj.metadata?.agent_slug || null;
+      if (fullyRefunded && email && slug) {
+        await revokeEntitlement(email, [slug], sessionId);
+        console.log('[webhook] Entitlement revoked after %s for %s', event.type, sessionId);
+      }
+
       return res.status(200).json({ received: true, commission: result.state ?? result.reason });
     } catch (err) {
-      console.error('[webhook] Commission reversal failed:', err);
+      console.error('[webhook] Reversal handling failed:', err);
       return res.status(500).json({ error: 'Reversal write failed' });
     }
   }
