@@ -101,34 +101,41 @@ test('pricing FAQ renders every question as a keyboard-accessible disclosure', (
   for (const d of items) assert.ok(d.querySelector('summary'), 'FAQ entry without a summary');
 });
 
-// ── proposal form ────────────────────────────────────────────────────────────
-function fillAndSubmit(dom, values, { consent }) {
-  const { window } = dom;
-  const form = window.document.getElementById('pricing-form');
-  for (const [id, v] of Object.entries(values)) window.document.getElementById(id).value = v;
-  window.document.getElementById('pf-consent').checked = consent;
-  const calls = [];
-  window.fetch = (url, opts) => { calls.push({ url, opts }); return Promise.resolve({ ok: true, json: () => Promise.resolve({ ok: true }) }); };
-  form.dispatchEvent(new window.Event('submit', { bubbles: true, cancelable: true }));
-  return calls;
-}
-
-test('proposal form refuses to submit without required fields and consent', () => {
-  const dom = load('pricing.html', 'https://www.colleagueai.ai/pricing');
-  const calls = fillAndSubmit(dom, { 'pf-name': '', 'pf-email': 'not-an-email', 'pf-company': '' }, { consent: false });
-  assert.equal(calls.length, 0, 'invalid form was submitted to the API');
-  assert.ok(dom.window.document.querySelectorAll('.fld.bad').length > 0, 'no field was flagged invalid');
+// ── proposal call to action ─────────────────────────────────────────────────
+test('pricing page routes proposals to email, with no form to submit', () => {
+  const { window } = load('pricing.html', 'https://www.colleagueai.ai/pricing');
+  const doc = window.document;
+  assert.equal(doc.getElementById('pricing-form'), null, 'the lead form should no longer exist');
+  assert.ok(doc.querySelector('#proposal'), 'the #proposal anchor must survive for the jump navigation');
+  const cta = doc.querySelector('a[data-cta="proposal_email"]');
+  assert.ok(cta, 'no email call to action on the pricing page');
+  assert.match(cta.getAttribute('href'), /^mailto:hello@colleagueai\.ai\?subject=/,
+    'the email CTA must be a mailto carrying a subject line');
+  assert.equal(doc.querySelectorAll('.ask li').length, 4, 'expected four "what to include" items');
 });
 
-test('proposal form posts a consented lead to /api/lead when valid', () => {
-  const dom = load('pricing.html', 'https://www.colleagueai.ai/pricing');
-  const calls = fillAndSubmit(dom, { 'pf-name': 'Alex Buyer', 'pf-email': 'alex@example.com', 'pf-company': 'Example Bank' }, { consent: true });
-  assert.equal(calls.length, 1, 'valid form did not reach the API');
-  assert.equal(calls[0].url, '/api/lead');
-  const body = JSON.parse(calls[0].opts.body);
-  assert.equal(body.type, 'pricing');
-  assert.equal(body.consent, true);
-  assert.equal(body.email, 'alex@example.com');
+test('no pricing or partner page still posts to the retired lead endpoint', () => {
+  const stale = [];
+  for (const loc of ['en', ...LOCALES]) {
+    for (const page of ['pricing', 'partners']) {
+      const f = loc === 'en' ? `${page}.html` : `${loc}/${page}.html`;
+      const html = read(f);
+      if (html.includes('/api/lead')) stale.push(`${loc}/${page}: /api/lead`);
+      if (html.includes('website_confirm')) stale.push(`${loc}/${page}: honeypot field`);
+    }
+  }
+  assert.deepEqual(stale, [], 'retired form plumbing left behind: ' + stale.join(', '));
+});
+
+test('every localised partner page offers the email application route', () => {
+  const missing = [];
+  for (const loc of ['en', ...LOCALES]) {
+    const f = loc === 'en' ? 'partners.html' : `${loc}/partners.html`;
+    const html = read(f);
+    if (!html.includes('data-partner-cta="apply_email"')) missing.push(loc);
+    if (!html.includes('id="partner-apply"')) missing.push(`${loc} (anchor)`);
+  }
+  assert.deepEqual(missing, [], 'partner pages without a working apply route: ' + missing.join(', '));
 });
 
 // ── partner page ─────────────────────────────────────────────────────────────
@@ -174,7 +181,7 @@ test('localised pricing pages carry no leftover English calls to action', () => 
   const leaks = [];
   for (const loc of LOCALES) {
     const html = read(`${loc}/pricing.html`);
-    for (const phrase of ['>Book a demo<', '>Request a tailored proposal<', '>Send request<', '>Most popular<']) {
+    for (const phrase of ['>Book a demo<', '>Request a tailored proposal<', '>Email hello@colleagueai.ai<', '>Other ways to contact us<', '>Most popular<']) {
       if (html.includes(phrase)) leaks.push(`${loc}: ${phrase}`);
     }
   }
