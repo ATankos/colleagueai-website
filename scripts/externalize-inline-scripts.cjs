@@ -85,10 +85,14 @@ function attr(attrs, name) {
 function emit(body, written) {
   const hash = crypto.createHash('sha256').update(body).digest('hex').slice(0, 16);
   const file = `inline-${hash}.js`;
-  const full = path.join(ASSETS, file);
-  if (!fs.existsSync(full)) fs.writeFileSync(full, body, 'utf8');
   const src = `/assets/${file}`;
-  written.add(src);
+  // Written once per run, tracked in memory. Deliberately no existsSync guard:
+  // checking then writing is a file-system race, and because the name is a hash
+  // of the bytes, writing the same content again is idempotent regardless.
+  if (!written.has(src)) {
+    fs.writeFileSync(path.join(ASSETS, file), body, 'utf8');
+    written.add(src);
+  }
   return src;
 }
 

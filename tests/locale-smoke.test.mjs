@@ -23,9 +23,12 @@ function restoreExtractedScripts(html) {
   return html.replace(
     /<script([^>]*?)\ssrc="(\/assets\/inline-[^"]+)"([^>]*?)><\/script>/g,
     (whole, pre, src, post) => {
-      const p = path.join('dist', src.split('?')[0]);
-      if (!fs.existsSync(p)) return whole;
-      return `<script${pre}${post}>${fs.readFileSync(p, 'utf8')}</script>`;
+      // read-and-catch rather than exists-then-read: the latter is a file-system race
+      try {
+        return `<script${pre}${post}>${fs.readFileSync(path.join('dist', src.split('?')[0]), 'utf8')}</script>`;
+      } catch {
+        return whole;
+      }
     },
   );
 }
