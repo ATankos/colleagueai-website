@@ -39,3 +39,6 @@ dist-ssr
 
 # internal IP, keep out of the public website repo (move to a private repo)
 caef/
+
+# Internal assessment reports — keep out of the public repository
+TEST-REPORT-*.md
