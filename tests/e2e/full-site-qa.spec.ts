@@ -14,14 +14,20 @@ const expectedMarkers = {
     pl: ["Centrum zaufania", "Metodyka CAI Score"],
     pt: ["Centro de confianca", "Metodologia do CAI Score"]
   },
+  // The old second marker was the "Enter your name" label on the self-service
+  // partner-code generator, removed in Aug 2026 when applications moved to
+  // email. It is replaced by the "approved partner process" heading, which is
+  // core page content rather than a widget label, and is written with correct
+  // diacritics — the previous cs/fr markers were accent-stripped and could
+  // never have matched the rendered page.
   partners: {
-    cs: ["Schvaleni partneri", "Zadejte sve jmeno"],
-    de: ["Genehmigte Partner", "Geben Sie Ihren Namen"],
-    fr: ["partenaires approuves", "Saisissez votre nom"],
-    es: ["partners aprobados", "Introduce tu nombre"],
-    it: ["partner approvati", "Inserisci nome"],
-    pl: ["Zatwierdzeni partnerzy", "Podaj imie"],
-    pt: ["Parceiros aprovados", "Introduza o seu nome"]
+    cs: ["Schvaleni partneri", "Proces schvaleneho partnera", "Proces schváleného partnera"],
+    de: ["Genehmigte Partner", "Freigegebener Partnerprozess"],
+    fr: ["partenaires approuves", "Processus partenaire approuve", "Processus partenaire approuvé"],
+    es: ["partners aprobados", "Proceso de partner aprobado"],
+    it: ["partner approvati", "Processo partner approvato"],
+    pl: ["Zatwierdzeni partnerzy", "Proces zatwierdzonego partnera"],
+    pt: ["Parceiros aprovados", "Processo de parceiro aprovado"]
   }
 };
 
