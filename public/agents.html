@@ -65,7 +65,7 @@ try{document.documentElement.className+=' js';}catch(e){}</script>
     --graphite:#2B2A28;
     --graphite-soft:#54514C;
     --muted:#8A857C;
-    --terra:#C65D3A;
+    --terra:#C65D3A;--terra-solid:#A94A2C;
     --terra-deep:#9E3D22;
     --line:#E2D9CB;
     --line-soft:#EAE2D4;
@@ -241,7 +241,7 @@ try{document.documentElement.className+=' js';}catch(e){}</script>
   .card .open{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s}
   .card .open .ring{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--graphite-soft);transition:all .22s ease}
   .card:hover .open{color:var(--terra)}
-  .card:hover .open .ring{background:var(--terra);border-color:var(--terra);color:#fff;transform:translate(2px,-2px)}
+  .card:hover .open .ring{background:var(--terra-solid,#A94A2C);border-color:var(--terra-solid,#A94A2C);color:#fff;transform:translate(2px,-2px)}
   .empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted);font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:13px}
 
   /* ---------- DRAWER ---------- */
@@ -2376,7 +2376,7 @@ header.nav .logo-dots span:nth-child(3),footer .logo-dots span:nth-child(3){back
 .nav-links{gap:18px;flex-wrap:nowrap}
 .nav-links a{color:#CFC8BB;font-weight:500;font-size:13px;white-space:nowrap}
 .nav-links a:hover{color:#fff}
-.nav-cta{background:var(--terra);color:#fff;font-weight:600;padding:8px 18px;font-size:12.5px}
+.nav-cta{background:var(--terra-solid,#A94A2C);color:#fff;font-weight:600;padding:8px 18px;font-size:12.5px}
 .nav-cta:hover{background:#fff;color:var(--graphite);transform:translateY(-1px)}
 #langsel{color:#F5F0E8;border-color:rgba(255,255,255,.28);margin-left:auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23F5F0E8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 8px center transparent}
 #langsel:hover{border-color:#fff}
@@ -2393,7 +2393,7 @@ header.nav .logo-dots span:nth-child(3),footer .logo-dots span:nth-child(3){back
 .hero-readiness-link:hover{border-color:var(--terra);color:var(--terra)}
 /* load more: clear affordance, not grey */
 .load-more-agents{background:transparent;border:1.5px solid var(--graphite);color:var(--graphite);font-weight:600}
-.load-more-agents:hover{background:var(--terra);border-color:var(--terra);color:#fff}
+.load-more-agents:hover{background:var(--terra-solid,#A94A2C);border-color:var(--terra-solid,#A94A2C);color:#fff}
 /* unified card language: philosophy + trust cards match the pillar card */
 .cred{gap:22px}
 .cred-c{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--terra);border-radius:16px;padding:28px 26px}
@@ -2413,7 +2413,7 @@ header.nav .logo-dots span:nth-child(3),footer .logo-dots span:nth-child(3){back
 @media(max-width:680px){.step{padding:16px 16px 14px}.step::after{right:auto;left:50%;bottom:-16px;top:auto}}
 /* partner band: terra accents + button */
 .adopt-band .eyebrow{color:#E8A07F}
-.adopt-band .btn-p{background:var(--terra);color:#fff;font-weight:600}
+.adopt-band .btn-p{background:var(--terra-solid,#A94A2C);color:#fff;font-weight:600}
 .adopt-band .btn-p:hover{background:#fff;color:var(--graphite)}
 /* details / inline arrows: consistent brick */
 .card .open{color:var(--terra);font-weight:600}
@@ -2455,7 +2455,7 @@ header.nav .logo-dots span:nth-child(3),footer .logo-dots span:nth-child(3){back
 .proof-demo-evidence{background:var(--cream-2,#F5F0E8)!important;border:1px solid var(--line)!important;border-radius:12px}
 .proof-demo-badge{background:rgba(198,93,58,.08)!important;color:var(--terra)!important;border:1px solid rgba(198,93,58,.3)!important}
 .proof-demo-controls button{border:1.5px solid var(--graphite)!important;background:transparent!important;color:var(--graphite)!important;border-radius:100px!important;padding:9px 20px!important;font-weight:600;cursor:pointer}
-.proof-demo-controls button.primary{background:var(--terra)!important;border-color:var(--terra)!important;color:#fff!important}
+.proof-demo-controls button.primary{background:var(--terra-solid,#A94A2C)!important;border-color:var(--terra-solid,#A94A2C)!important;color:#fff!important}
 .proof-demo-dot{background:var(--line)!important}
 .proof-demo-dot.active{background:var(--terra)!important}
 /* token monitor: same family as the rest of the site */
@@ -2467,7 +2467,7 @@ header.nav .logo-dots span:nth-child(3),footer .logo-dots span:nth-child(3){back
 /* partner band: unified sizes + orange-framed CTA */
 .adopt-band h2{font-size:clamp(28px,4vw,42px);font-weight:400;letter-spacing:-.02em}
 .adopt-band .btn-p{background:transparent;border:1.5px solid var(--terra);color:#E8A07F;font-weight:600}
-.adopt-band .btn-p:hover{background:var(--terra);color:#fff}
+.adopt-band .btn-p:hover{background:var(--terra-solid,#A94A2C);color:#fff}
 /* next-steps cards: consistent type */
 .cai-reader-card strong{font-weight:600;font-size:14.5px}
 .foot-links{font-size:13px;color:var(--muted);margin-top:10px}
@@ -2647,7 +2647,7 @@ header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
 header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
 header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
 header .cta, header .ch-cta, header .nav-cta {
-  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
   font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
 header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
 header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
