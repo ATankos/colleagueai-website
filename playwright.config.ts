@@ -19,7 +19,7 @@ export default defineConfig({
     video: "retain-on-failure"
   },
   webServer: process.env.PLAYWRIGHT_SKIP_WEBSERVER ? undefined : {
-    command: "node scripts/playwright-static-server.cjs public 4173",
+    command: "node scripts/playwright-static-server.cjs dist 4173",
     url: "http://127.0.0.1:4173/agents",
     reuseExistingServer: !process.env.CI,
     timeout: 120_000,

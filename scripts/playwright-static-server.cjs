@@ -7,6 +7,41 @@ const port = Number(process.argv[3] || process.env.PORT || 4173);
 const host = process.env.HOST || "127.0.0.1";
 const root = path.resolve(process.cwd(), rootArg);
 
+/* Vercel serves this site through rewrites and redirects declared in
+   vercel.json: pretty localized slugs like /fr/confiance map to
+   /fr/trust.html, and /demo only exists in the build output. Without them a
+   plain static server 404s on most real URLs, which is why the Playwright
+   specs failed 58 times the first time they were actually run. */
+let REDIRECTS = new Map();
+let REWRITES = new Map();
+let PATTERNS = [];
+try {
+  const vercel = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "vercel.json"), "utf8"));
+  for (const r of vercel.redirects || []) REDIRECTS.set(r.source.replace(/\/$/, ""), r.destination);
+  for (const r of vercel.rewrites || []) {
+    if (r.source.includes(":")) {
+      PATTERNS.push({
+        re: new RegExp("^" + r.source.replace(/:[a-zA-Z]+/g, "([^/]+)") + "$"),
+        to: r.destination,
+      });
+    } else {
+      REWRITES.set(r.source.replace(/\/$/, ""), r.destination);
+    }
+  }
+} catch (error) {
+  console.warn("static server: could not read vercel.json —", error.message);
+}
+
+function applyRouting(urlPath) {
+  const clean = urlPath.split("?")[0].split("#")[0].replace(/\/$/, "") || "/";
+  if (REWRITES.has(clean)) return REWRITES.get(clean);
+  for (const p of PATTERNS) {
+    const m = p.re.exec(clean);
+    if (m) return p.to.replace(/:[a-zA-Z]+/g, () => m[1]);
+  }
+  return urlPath;
+}
+
 const mime = {
   ".html": "text/html; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -61,7 +96,16 @@ function findFile(urlPath) {
 }
 
 const server = http.createServer((req, res) => {
-  const file = findFile(req.url || "/");
+  const raw = (req.url || "/").split("?")[0].replace(/\/$/, "") || "/";
+  const target = REDIRECTS.get(raw);
+  if (target) {
+    res.statusCode = 301;
+    res.setHeader("Location", target);
+    res.end();
+    return;
+  }
+
+  const file = findFile(applyRouting(req.url || "/"));
 
   if (!file) {
     res.statusCode = 404;

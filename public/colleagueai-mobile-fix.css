@@ -405,7 +405,12 @@ textarea:focus-visible {
   .top-button {
     right: max(14px, env(safe-area-inset-right)) !important;
     bottom: max(14px, env(safe-area-inset-bottom)) !important;
-    z-index: 100 !important;
+    /* Keep the desktop stacking order. This rule used to force z-index:100,
+       which put the button underneath the page's own 9999/10000 overlays on
+       phones: it rendered correctly but every tap landed on the layer above,
+       so back-to-top silently did nothing on mobile. The safe-area insets are
+       the reason this rule exists and are kept. */
+    z-index: 2147483647 !important;
   }
 }
 
