@@ -81,8 +81,14 @@ jobs:
       - name: Install Playwright browser (chromium)
         run: npx playwright install --with-deps chromium
 
-      - name: Go-live e2e — real static pages, nav, drawer, demo, locales
+      - name: Build and static QA audit
         run: npm run build && npm run qa:static
+
+      # This job installed a browser but never used it: the step above is a
+      # static Node audit, so the Playwright specs in tests/e2e have never run
+      # in CI despite the job being called "e2e". They run now.
+      - name: Playwright e2e — real browser, nav, drawer, demo, locales
+        run: npm run e2e
 
       - name: Upload Playwright report
         if: always()
