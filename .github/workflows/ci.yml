@@ -35,6 +35,9 @@ jobs:
       - name: Rate limiter
         run: node --test tests/ratelimit.test.mjs
 
+      - name: Partner commission ledger (approval gate, rate locking, reversals)
+        run: node --test tests/commission-ledger.test.mjs
+
       - name: DOM smoke
         run: node --test tests/dom-smoke.test.mjs
         continue-on-error: true

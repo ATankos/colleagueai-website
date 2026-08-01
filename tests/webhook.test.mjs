@@ -75,8 +75,12 @@ async function deliver(event, { sign = true, badSig = false, timestamp } = {}) {
   return { status: r.status, body: await r.json().catch(() => ({})) };
 }
 const commissionWrites = () => kvLog.filter(w => w.op === 'SET' && w.key.startsWith('partner:reg:'));
-const registerPartner = (code) => kvStore.set('partner:reg:' + code,
-  JSON.stringify({ code, name: 'Test Partner', email: 't@example.com', salesCount: 0, totalEarned: 0 }));
+/* Partners must now carry an explicit approved status: a registration record on
+   its own is not accreditation. Commission accrues to pendingAmount and is held
+   as a ledger entry per sale, so it can be reversed on refund or dispute. */
+const registerPartner = (code, status = 'approved') => kvStore.set('partner:reg:' + code,
+  JSON.stringify({ code, name: 'Test Partner', email: 't@example.com', status,
+    commissionRate: 0.20, agreementVersion: 'test-v1', salesCount: 0, pendingAmount: 0 }));
 
 // ── 1. signature enforcement ────────────────────────────────────────────────
 test('1a. no signature header → 400, no KV writes', async () => {
@@ -113,7 +117,7 @@ test('3b. two different events for the same checkout session → no double-credi
   await deliver(makeEvent({ id: 'evt_s1', partner: 'CAI-TESTPART', sessionId: 'cs_same' }));
   await deliver(makeEvent({ id: 'evt_s2', partner: 'CAI-TESTPART', sessionId: 'cs_same' }));
   const rec = JSON.parse(kvStore.get('partner:reg:CAI-TESTPART') ?? '{}');
-  assert.equal(rec.salesCount, 1, `DEFECT: same session credited ${rec.salesCount} times (totalEarned=${rec.totalEarned})`);
+  assert.equal(rec.salesCount, 1, `DEFECT: same session credited ${rec.salesCount} times (pendingAmount=${rec.pendingAmount})`);
 });
 // ── 4. one-time vs recurring ────────────────────────────────────────────────
 test('4a. checkout.session.completed credits exactly once at PARTNER_COMMISSION_RATE', async () => {
@@ -121,7 +125,7 @@ test('4a. checkout.session.completed credits exactly once at PARTNER_COMMISSION_
   await deliver(makeEvent({ partner: 'CAI-RATE', amount: 120000 })); // €1200.00
   const rec = JSON.parse(kvStore.get('partner:reg:CAI-RATE') ?? '{}');
   assert.equal(rec.salesCount, 1);
-  assert.equal(rec.totalEarned, 240, `expected 20% of €1200 = 240, got ${rec.totalEarned}`);
+  assert.equal(rec.pendingAmount, 240, `expected 20% of €1200 = 240, got ${rec.pendingAmount}`);
 });
 test('4b. invoice.paid (subscription renewal) → handler ignores it: renewals are UNCREDITED (revenue rule check)', async () => {
   const evt = makeEvent({ type: 'invoice.paid', partner: 'CAI-RENEW' });
@@ -188,4 +192,13 @@ test('9. KV outage then recovery: redelivered event is processed (claims release
   const r3 = await deliver(evt); // further redelivery = duplicate
   assert.equal(r3.status, 200);
   assert.equal(JSON.parse(kvStore.get('partner:reg:CAI-RETRY')).salesCount, 1, 'third delivery must not re-credit');
+});
+
+test('9. a REGISTERED but UNAPPROVED partner must not accrue commission', async () => {
+  registerPartner('CAI-NOTAPPROVED', 'pending');
+  await deliver(makeEvent({ partner: 'CAI-NOTAPPROVED', amount: 120000 }));
+  const rec = JSON.parse(kvStore.get('partner:reg:CAI-NOTAPPROVED') ?? '{}');
+  assert.ok(!rec.pendingAmount,
+    `DEFECT: unapproved partner accrued ${rec.pendingAmount} — a registration record is not accreditation`);
+  assert.equal(kvStore.has('commission:cs_test'), false, 'no ledger entry may be written for an unapproved partner');
 });

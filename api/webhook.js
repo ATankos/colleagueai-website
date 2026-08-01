@@ -9,6 +9,7 @@ import Stripe from 'stripe';
 import {
   grantEntitlement,
   recordCommission,
+  reverseCommission,
   claimEvent,
   claimSession,
   releaseClaims,
@@ -156,12 +157,51 @@ export default async function handler(req, res) {
           stripeSessionId: session.id,
         });
 
+        if (commission && commission.withheld) {
+          // Registered but not accredited. A partner record is not approval.
+          console.warn('[webhook] Commission withheld:', commission.withheld, partnerCode, session.id);
+          return res.status(200).json({ received: true, commission: commission.withheld });
+        }
         console.log('[webhook] Partner commission recorded:', commission);
       } catch (err) {
         console.error('[webhook] Failed to record partner commission:', err);
         await releaseClaims(event.id, session.id);
         return res.status(500).json({ error: 'Commission write failed' });
       }
+    }
+  }
+
+  /* Money going back out. Stripe can send several of these for one charge, and
+   * reverseCommission is idempotent, so duplicates are safe. The session id is
+   * carried on the payment intent's metadata where available; otherwise the
+   * charge's. Without an id we log rather than guess which sale to reverse. */
+  if (
+    event.type === 'charge.refunded' ||
+    event.type === 'charge.dispute.created' ||
+    event.type === 'charge.dispute.closed'
+  ) {
+    const obj = event.data.object || {};
+    if (event.type === 'charge.dispute.closed' && obj.status === 'won') {
+      return res.status(200).json({ received: true, commission: 'dispute-won-no-reversal' });
+    }
+    const sessionId =
+      obj.metadata?.checkout_session_id ||
+      obj.payment_intent?.metadata?.checkout_session_id ||
+      obj.metadata?.session_id ||
+      null;
+
+    if (!sessionId) {
+      console.warn('[webhook] %s without a session reference; commission not reversed', event.type);
+      return res.status(200).json({ received: true, commission: 'no-session-reference' });
+    }
+
+    try {
+      const result = await reverseCommission(sessionId, event.type);
+      console.log('[webhook] Commission reversal:', event.type, sessionId, result.state ?? result.reason);
+      return res.status(200).json({ received: true, commission: result.state ?? result.reason });
+    } catch (err) {
+      console.error('[webhook] Commission reversal failed:', err);
+      return res.status(500).json({ error: 'Reversal write failed' });
     }
   }
 
