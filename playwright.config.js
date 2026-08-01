@@ -1,3 +1,8 @@
+// UNUSED BY CI. Playwright resolves playwright.config.ts ahead of this file, so
+// `npm run e2e` uses the .ts config (chromium-desktop + mobile-chrome, served
+// from dist/ with vercel.json routing). This file targets a local `npm run dev`
+// server and declares Firefox/WebKit projects that CI does not install browsers
+// for. Kept for local multi-browser runs via: npx playwright test -c playwright.config.js
 import { defineConfig, devices } from '@playwright/test'
 
 // Local dev config — runs `npm run dev` and tests against http://localhost:5173
