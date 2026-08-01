@@ -6,15 +6,38 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import fs from 'node:fs';
+import path from 'node:path';
 import { JSDOM } from 'jsdom';
 
 const LOCS = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const exists = (p) => fs.existsSync(p);
 
+/* The final build step (externalize-inline-scripts.cjs) moves inline scripts
+   into /assets/inline-<hash>.js so the CSP can drop 'unsafe-inline'. jsdom runs
+   inline scripts but does not fetch external ones, so those would silently not
+   execute here and the page would look broken to the test while being perfectly
+   fine in a browser. Re-inlining them from dist/ restores exactly the code a
+   browser would run, and avoids depending on jsdom's ResourceLoader API, which
+   was removed in jsdom 30. */
+function restoreExtractedScripts(html) {
+  return html.replace(
+    /<script([^>]*?)\ssrc="(\/assets\/inline-[^"]+)"([^>]*?)><\/script>/g,
+    (whole, pre, src, post) => {
+      // read-and-catch rather than exists-then-read: the latter is a file-system race
+      try {
+        return `<script${pre}${post}>${fs.readFileSync(path.join('dist', src.split('?')[0]), 'utf8')}</script>`;
+      } catch {
+        return whole;
+      }
+    },
+  );
+}
+
 function loadPage(file, url) {
   return new Promise((resolve) => {
     const errors = [];
-    const dom = new JSDOM(fs.readFileSync(file, 'utf8'), { runScripts: 'dangerously', url, pretendToBeVisual: true });
+    const html = restoreExtractedScripts(fs.readFileSync(file, 'utf8'));
+    const dom = new JSDOM(html, { runScripts: 'dangerously', url, pretendToBeVisual: true });
     dom.window.addEventListener('error', (e) => errors.push(e.message));
     dom.window.HTMLElement.prototype.scrollIntoView = function () {};
     setTimeout(() => resolve({ dom, errors }), 600);

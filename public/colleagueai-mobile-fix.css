@@ -725,3 +725,11 @@ header .cai-hdr-logo::after,
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='6'%3E%3Ccircle cx='3' cy='3' r='3' fill='%23c65d3a'/%3E%3Ccircle cx='12' cy='3' r='3' fill='%23f5f0e8'/%3E%3Ccircle cx='21' cy='3' r='3' fill='%23c4a882'/%3E%3C/svg%3E") no-repeat;
   background-size: 26px 6px;
 }
+
+/* WCAG 2.5.8 (AA) — every interactive target at least 24x24 CSS px.
+   Header links sit in a 64px bar with room to spare, so the extra padding
+   grows the hit area without changing header height. Footer links are given
+   matching line-height so the enlarged targets never overlap between rows. */
+.cai-uni-links a{padding-block:4px}
+footer .wrap{line-height:2.4}
+footer a{padding-block:5px}
