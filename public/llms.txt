@@ -1,4 +1,4 @@
-﻿# ColleagueAI
+# ColleagueAI
 
 Full machine-readable catalogue: https://www.colleagueai.ai/llms-full.txt
 
@@ -7,6 +7,7 @@ ColleagueAI provides governed AI agents and AI controls for enterprise operation
 ## Primary pages
 
 - https://www.colleagueai.ai/agents
+- https://www.colleagueai.ai/pricing
 - https://www.colleagueai.ai/trust
 - https://www.colleagueai.ai/partners
 - https://www.colleagueai.ai/privacy

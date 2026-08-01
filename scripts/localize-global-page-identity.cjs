@@ -7,63 +7,63 @@ const ROOTS = ["public", "dist"];
 
 const IDENTITY = {
   cs: {
-    trustTitle: "Centrum důvěry, důkazy AI governance, architektura a bezpečnost | Colleague AI",
+    trustTitle: "Důvěra, governance a bezpečnost | ColleagueAI",
     trustH1: "Důkazy na jednom místě.",
-    partnersTitle: "Partnerský pilotní program, partnerství pro řízené AI agenty | ColleagueAI",
+    partnersTitle: "Partnerský program | ColleagueAI",
     partnerApply: "Požádejte o partnerství.",
     partnerBring: "Přineste svým klientům řízenou AI.",
     privacy: "Zásady ochrany osobních údajů",
     terms: "Podmínky služby"
   },
   de: {
-    trustTitle: "Vertrauenszentrum - Nachweise für KI-Governance, Architektur und Sicherheit | Colleague AI",
+    trustTitle: "Vertrauen, Governance und Sicherheit | ColleagueAI",
     trustH1: "Die Nachweise an einem Ort.",
-    partnersTitle: "Partner-Pilotprogramm - Partnerschaften für gesteuerte KI-Agenten | ColleagueAI",
+    partnersTitle: "Partnerprogramm | ColleagueAI",
     partnerApply: "Als Partner bewerben.",
     partnerBring: "Bringen Sie gesteuerte KI zu Ihren Kunden.",
     privacy: "Datenschutzerklärung",
     terms: "Nutzungsbedingungen"
   },
   fr: {
-    trustTitle: "Centre de confiance, preuves de gouvernance IA, architecture et sécurité | Colleague AI",
+    trustTitle: "Confiance, gouvernance et sécurité | ColleagueAI",
     trustH1: "Les preuves, au même endroit.",
-    partnersTitle: "Programme pilote partenaires, partenariats d'agents IA gouvernés | ColleagueAI",
+    partnersTitle: "Programme partenaires | ColleagueAI",
     partnerApply: "Demander un partenariat.",
     partnerBring: "Apportez une IA gouvernée à vos clients.",
     privacy: "Politique de confidentialité",
     terms: "Conditions d'utilisation"
   },
   es: {
-    trustTitle: "Centro de confianza, evidencia de gobernanza de IA, arquitectura y seguridad | Colleague AI",
+    trustTitle: "Confianza, gobernanza y seguridad | ColleagueAI",
     trustH1: "La evidencia, en un solo lugar.",
-    partnersTitle: "Programa piloto de partners, alianzas para agentes de IA gobernados | ColleagueAI",
+    partnersTitle: "Programa de partners | ColleagueAI",
     partnerApply: "Solicitar ser partner.",
     partnerBring: "Lleva IA gobernada a tus clientes.",
     privacy: "Política de privacidad",
     terms: "Términos de servicio"
   },
   it: {
-    trustTitle: "Centro di fiducia - evidenze di governance AI, architettura e sicurezza | Colleague AI",
+    trustTitle: "Fiducia, governance e sicurezza | ColleagueAI",
     trustH1: "Le evidenze, in un unico posto.",
-    partnersTitle: "Programma pilota partner - partnership per agenti AI governati | ColleagueAI",
+    partnersTitle: "Programma partner | ColleagueAI",
     partnerApply: "Candidati come partner.",
     partnerBring: "Porta l'AI governata ai tuoi clienti.",
     privacy: "Informativa sulla privacy",
     terms: "Termini di servizio"
   },
   pl: {
-    trustTitle: "Centrum zaufania, dowody governance AI, architektura i bezpieczeństwo | Colleague AI",
+    trustTitle: "Zaufanie, governance i bezpieczeństwo | ColleagueAI",
     trustH1: "Dowody w jednym miejscu.",
-    partnersTitle: "Pilotażowy program partnerski, partnerstwa dla zarządzanych agentów AI | ColleagueAI",
+    partnersTitle: "Program partnerski | ColleagueAI",
     partnerApply: "Zglos chec partnerstwa.",
     partnerBring: "Dostarczaj klientom zarzadzana AI.",
     privacy: "Polityka prywatności",
     terms: "Warunki korzystania z usługi"
   },
   pt: {
-    trustTitle: "Centro de confiança, evidências de governança de IA, arquitetura e segurança | Colleague AI",
+    trustTitle: "Confiança, governança e segurança | ColleagueAI",
     trustH1: "As evidencias, em um so lugar.",
-    partnersTitle: "Programa piloto de parceiros, parcerias para agentes de IA governados | ColleagueAI",
+    partnersTitle: "Programa de parceiros | ColleagueAI",
     partnerApply: "Candidate-se como parceiro.",
     partnerBring: "Leve IA governada aos seus clientes.",
     privacy: "Política de privacidade",

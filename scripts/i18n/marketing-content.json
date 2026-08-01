@@ -2095,5 +2095,77 @@
   "it": "Generando un link accetti che le commissioni siano pagate alla percentuale mostrata al momento della vendita, si applichino solo agli acquisti completati e non rimborsati e siano non trasferibili. Un accordo scritto completo è disponibile su richiesta a ",
   "pl": "Generując link, akceptujesz, że prowizje są wypłacane według stawki pokazanej w momencie sprzedaży, dotyczą wyłącznie zakończonych i niezwróconych zakupów oraz są nieprzenoszalne. Pełna pisemna umowa jest dostępna na żądanie pod ",
   "pt": "Ao gerar uma ligação, aceita que as comissões são pagas à taxa apresentada no momento da venda, se aplicam apenas a compras concluídas e não reembolsadas, e são intransmissíveis. Um acordo escrito completo está disponível mediante pedido em "
+ },
+ "Use this page to review the partner levels and apply by email.": {
+  "cs": "Na této stránce si projděte úrovně partnerství a přihlaste se e-mailem.",
+  "de": "Auf dieser Seite können Sie die Partnerstufen prüfen und sich per E-Mail bewerben.",
+  "fr": "Utilisez cette page pour consulter les niveaux de partenariat et postuler par e-mail.",
+  "es": "Use esta página para revisar los niveles de partner y presentar su solicitud por correo.",
+  "it": "Utilizzate questa pagina per esaminare i livelli di partnership e candidarvi via e-mail.",
+  "pl": "Na tej stronie zapoznaj się z poziomami partnerstwa i zgłoś się e-mailem.",
+  "pt": "Utilize esta página para consultar os níveis de parceria e candidatar-se por e-mail."
+ },
+ "Apply by email": {
+  "cs": "Přihlaste se e-mailem",
+  "de": "Per E-Mail bewerben",
+  "fr": "Postuler par e-mail",
+  "es": "Solicitar por correo",
+  "it": "Candidarsi via e-mail",
+  "pl": "Zgłoś się e-mailem",
+  "pt": "Candidatar-se por e-mail"
+ },
+ "Email us your company, the partner level you are interested in and the customers you work with. Every application is reviewed individually.": {
+  "cs": "Napište nám svou společnost, úroveň partnerství, která vás zajímá, a zákazníky, se kterými pracujete. Každou přihlášku posuzujeme individuálně.",
+  "de": "Schreiben Sie uns Ihr Unternehmen, die gewünschte Partnerstufe und die Kunden, mit denen Sie arbeiten. Jede Bewerbung wird individuell geprüft.",
+  "fr": "Indiquez-nous par e-mail votre entreprise, le niveau de partenariat souhaité et les clients avec lesquels vous travaillez. Chaque candidature est examinée individuellement.",
+  "es": "Envíenos por correo su empresa, el nivel de partner que le interesa y los clientes con los que trabaja. Cada solicitud se revisa individualmente.",
+  "it": "Inviateci via e-mail la vostra azienda, il livello di partnership di interesse e i clienti con cui lavorate. Ogni candidatura è valutata singolarmente.",
+  "pl": "Napisz do nas o swojej firmie, interesującym Cię poziomie partnerstwa i klientach, z którymi pracujesz. Każde zgłoszenie rozpatrujemy indywidualnie.",
+  "pt": "Envie-nos por e-mail a sua empresa, o nível de parceria que lhe interessa e os clientes com quem trabalha. Cada candidatura é analisada individualmente."
+ },
+ "Reviewed individually": {
+  "cs": "Individuální posouzení",
+  "de": "Individuelle Prüfung",
+  "fr": "Examen individuel",
+  "es": "Revisión individual",
+  "it": "Valutazione individuale",
+  "pl": "Indywidualna ocena",
+  "pt": "Análise individual"
+ },
+ "Get approved": {
+  "cs": "Získejte schválení",
+  "de": "Freigabe erhalten",
+  "fr": "Obtenir l'approbation",
+  "es": "Obtener la aprobación",
+  "it": "Ottenere l'approvazione",
+  "pl": "Uzyskaj zatwierdzenie",
+  "pt": "Obter aprovação"
+ },
+ "If there is a fit, we confirm your partner level, commission rate and attribution method in a signed partner agreement.": {
+  "cs": "Pokud si budeme vzájemně vyhovovat, potvrdíme vaši úroveň partnerství, výši provize a způsob přiřazení v podepsané partnerské smlouvě.",
+  "de": "Bei passender Eignung bestätigen wir Ihre Partnerstufe, den Provisionssatz und die Attributionsmethode in einem unterzeichneten Partnervertrag.",
+  "fr": "En cas d'adéquation, nous confirmons votre niveau de partenariat, votre taux de commission et la méthode d'attribution dans un contrat de partenariat signé.",
+  "es": "Si hay encaje, confirmamos su nivel de partner, la tasa de comisión y el método de atribución en un acuerdo de partner firmado.",
+  "it": "Se c'è affinità, confermiamo il vostro livello di partnership, la percentuale di provvigione e il metodo di attribuzione in un accordo di partnership firmato.",
+  "pl": "Jeśli będzie dopasowanie, potwierdzimy Twój poziom partnerstwa, stawkę prowizji i metodę atrybucji w podpisanej umowie partnerskiej.",
+  "pt": "Se houver enquadramento, confirmamos o seu nível de parceria, a taxa de comissão e o método de atribuição num acordo de parceria assinado."
+ },
+ "Partner agreement": {
+  "cs": "Partnerská smlouva",
+  "de": "Partnervertrag",
+  "fr": "Contrat de partenariat",
+  "es": "Acuerdo de partner",
+  "it": "Accordo di partnership",
+  "pl": "Umowa partnerska",
+  "pt": "Acordo de parceria"
+ },
+ "When a customer you introduced buys an agent package, you earn 10% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts go monthly.": {
+  "cs": "Když zákazník, kterého jste přivedli, koupí balíček agenta, získáte 10 % z prodeje. Žádné stropy, žádné úrovně snižující vaši sazbu. Každý prodej je evidován. Výplaty probíhají měsíčně.",
+  "de": "Wenn ein von Ihnen vermittelter Kunde ein Agentenpaket kauft, erhalten Sie 10 % des Verkaufs. Keine Obergrenzen, keine Stufen, die Ihren Satz senken. Jeder Verkauf wird dokumentiert. Auszahlungen erfolgen monatlich.",
+  "fr": "Lorsqu'un client que vous avez présenté achète un package d'agent, vous percevez 10 % de la vente. Sans plafond, sans paliers réduisant votre taux. Chaque vente est enregistrée. Les versements sont mensuels.",
+  "es": "Cuando un cliente que usted presentó compra un paquete de agente, gana el 10 % de la venta. Sin límites, sin niveles que reduzcan su tasa. Cada venta queda registrada. Los pagos son mensuales.",
+  "it": "Quando un cliente da voi presentato acquista un pacchetto di agenti, guadagnate il 10% della vendita. Nessun tetto, nessun livello che riduca la vostra percentuale. Ogni vendita è registrata. I pagamenti sono mensili.",
+  "pl": "Gdy klient, którego przedstawiłeś, kupi pakiet agenta, otrzymujesz 10% wartości sprzedaży. Bez limitów i progów obniżających stawkę. Każda sprzedaż jest rejestrowana. Wypłaty są miesięczne.",
+  "pt": "Quando um cliente que apresentou compra um pacote de agente, ganha 10% da venda. Sem limites, sem escalões que reduzam a sua taxa. Cada venda fica registada. Os pagamentos são mensais."
  }
 }

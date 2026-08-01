@@ -5,7 +5,7 @@
 <title>ColleagueAI | Agenti IA che i vostri auditor approveranno</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow,max-snippet:-1,max-image-preview:large">
-<meta name="description" content="ColleagueAI è il livello di fiducia per l'IA aziendale: 36 pacchetti di agenti governati con livelli di rischio CAI Score, responsabilità umana nominata ed evidenze di audit, nel vostro tenant Microsoft.">
+<meta name="description" content="ColleagueAI è il livello di fiducia per l'IA aziendale: 36 pacchetti di agenti governati con livelli di rischio CAI Score">
 <link rel="canonical" href="https://www.colleagueai.ai/it">
 <link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/">
 <link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/">
@@ -24,7 +24,7 @@
 <meta name="theme-color" content="#22211F">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","logo":"https://www.colleagueai.ai/logo.svg","identifier":{"@type":"PropertyValue","propertyID":"IČO","value":"29540852"},"address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12, Nové Město","postalCode":"110 00","addressLocality":"Praha","addressCountry":"CZ"}},{"@type":"WebSite","@id":"https://www.colleagueai.ai/#website","url":"https://www.colleagueai.ai","name":"ColleagueAI","publisher":{"@id":"https://www.colleagueai.ai/#org"}}]}</script>
 <style>
-:root{--cream:#F5F0E8;--paper:#FBF8F2;--graphite:#2B2A28;--terra:#C65D3A;--line:#E2D9CB;--muted:#8A857C;--soft:#4A4641}
+:root{--cream:#F5F0E8;--paper:#FBF8F2;--graphite:#2B2A28;--terra:#C65D3A;--terra-solid:#A94A2C;--line:#E2D9CB;--muted:#8A857C;--soft:#4A4641}
 *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--cream);color:var(--graphite);line-height:1.6}
 a{text-decoration:none;color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
@@ -35,7 +35,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(34,33,31,.97);backdrop-f
 .links{display:flex;gap:24px;align-items:center}
 .links a{color:#CFC8BB;font-size:14px;font-weight:500}
 .links a:hover{color:#fff}
-.cta{background:var(--terra);color:#fff!important;font-weight:600;padding:10px 22px;border-radius:100px}
+.cta{background:var(--terra-solid,#A94A2C);color:#fff!important;font-weight:600;padding:10px 22px;border-radius:100px}
 .cta:hover{background:#fff;color:var(--graphite)!important}
 .lang{border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px}
 .burger{display:none;flex-direction:column;gap:5px;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:10px;width:42px;height:38px;align-items:center;justify-content:center;cursor:pointer}
@@ -49,7 +49,7 @@ header{position:sticky;top:0;z-index:50;background:rgba(34,33,31,.97);backdrop-f
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-card{max-width:420px;margin:8px auto 0}}
 .hero-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:none}
 .hero-card .hc-top{display:flex;justify-content:space-between;align-items:center;font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
-.hero-card .hc-tier{background:var(--terra);color:#fff;border-radius:8px;padding:3px 9px;font-weight:700}
+.hero-card .hc-tier{background:var(--terra-solid,#A94A2C);color:#fff;border-radius:8px;padding:3px 9px;font-weight:700}
 .hero-card h3{font-family:ui-serif,Georgia,serif;font-weight:500;font-size:19px;margin:14px 0 4px}
 .hero-card .hc-op{font-size:12.5px;color:var(--muted);margin-bottom:14px}
 .hero-card ul{list-style:none;margin:0;padding:0}
@@ -71,7 +71,7 @@ h1 em{font-style:italic;color:var(--terra)}
 .sub{font-size:18px;color:var(--soft);max-width:640px;margin:0 auto 34px}
 .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 .btn{padding:14px 30px;border-radius:100px;font-size:15px;font-weight:600}
-.btn.p{background:var(--terra);color:#fff}.btn.p:hover{background:var(--graphite)}
+.btn.p{background:var(--terra-solid,#A94A2C);color:#fff}.btn.p:hover{background:var(--graphite)}
 .btn.s{border:1.5px solid var(--graphite)}.btn.s:hover{background:var(--graphite);color:#fff}
 .stats{display:flex;gap:44px;justify-content:center;margin-top:44px;flex-wrap:wrap}
 .stat .n{font-family:ui-serif,Georgia,serif;font-size:34px}
@@ -215,7 +215,7 @@ header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
 header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
 header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
 header .cta, header .ch-cta, header .nav-cta {
-  background: #C65D3A !important; color: #fff !important; font-weight: 600 !important;
+  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
   font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
 header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
 header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
