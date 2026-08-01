@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-classified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
 <style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
@@ -526,7 +526,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 </div>
 <h3>Ce que ce site web traite lui-même</h3>
 <ul>
-<li><strong>Démo en direct</strong> (/demo) : les messages que vous saisissez sont envoyés à l'API d'Anthropic pour générer des réponses, avec des limites de débit par IP et globales. Ne collez pas de données confidentielles dans la démo.</li>
+<li><strong>Démo en direct</strong> (/demo) : actuellement indisponible. La démo interactive a été retirée ; ce site n'envoie aucun message à un fournisseur d'IA.</li>
 <li><strong>Achats</strong>: le paiement est entièrement géré par Stripe ; nous ne voyons jamais les détails de la carte. Après un achat, nous stockons votre e-mail, les slugs des agents sous licence et l'identifiant de session Stripe, afin de pouvoir vous débloquer les téléchargements.</li>
 <li><strong>Téléchargements</strong>: les packages d'agents sont livrés via des URL signées et à durée limitée (expiration de 15 minutes).</li>
 <li><strong>Calculateur de ROI &amp; test de maturité</strong>: s'exécute entièrement dans votre navigateur ; rien n'est envoyé ni stocké.</li>
@@ -539,7 +539,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 <tr><td>Vercel</td><td>Hébergement du site, réseau edge, analyse web</td><td>Journaux de requêtes standard, métriques d'usage anonymes</td></tr>
 <tr><td>Stripe</td><td>Traitement des paiements</td><td>Détails de paiement (détenus par Stripe), e-mail de l'acheteur</td></tr>
 <tr><td>Upstash</td><td>Magasin clé-valeur pour les droits et les enregistrements partenaires</td><td>E-mail de l'acheteur, slugs des agents sous licence, codes partenaires</td></tr>
-<tr><td>Anthropic</td><td>Réponses LLM pour la démo en direct</td><td>Texte de conversation de la démo</td></tr>
+
 <tr><td>Cloudflare R2</td><td>Stockage et livraison des packages d'agents achetés</td><td>Fichiers du package (aucune donnée personnelle)</td></tr>
 <tr><td>Sentry</td><td>Surveillance des erreurs</td><td>Contexte technique de l'erreur ; le texte est masqué dans les diagnostics de session</td></tr>
 <tr><td>Plausible</td><td>Analyse axée sur la confidentialité</td><td>Statistiques d'usage anonymes et sans cookies</td></tr>

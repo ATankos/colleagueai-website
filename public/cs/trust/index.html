@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-certified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-classified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
 <style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
@@ -526,7 +526,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 </div>
 <h3>Co tato webová stránka sama zpracovává</h3>
 <ul>
-<li><strong>Živé demo</strong> (/demo): zprávy, které napíšete, jsou odesílány do API společnosti Anthropic za účelem generování odpovědí, s limity počtu požadavků na IP i globálně. Nevkládejte do dema důvěrná data.</li>
+<li><strong>Živé demo</strong> (/demo): momentálně není k dispozici. Interaktivní demo bylo staženo, takže tyto stránky neodesílají žádné zprávy poskytovateli AI.</li>
 <li><strong>Nákupy</strong>: platba je plně zpracována přes Stripe; nikdy nevidíme údaje o kartě. Po nákupu ukládáme váš e-mail, slugy licencovaných agentů a ID relace Stripe, abychom vám mohli uvolnit stažení.</li>
 <li><strong>Stahování</strong>: balíčky agentů jsou doručovány prostřednictvím podepsaných, časově omezených URL (platnost 15 minut).</li>
 <li><strong>Kalkulačka ROI &amp; kontrola připravenosti</strong>: běží zcela ve vašem prohlížeči; nic se neodesílá ani neukládá.</li>
@@ -539,7 +539,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 <tr><td>Vercel</td><td>Hosting webu, edge síť, webová analytika</td><td>Standardní protokoly požadavků, anonymní metriky používání</td></tr>
 <tr><td>Stripe</td><td>Zpracování plateb</td><td>Platební údaje (uchovává Stripe), e-mail kupujícího</td></tr>
 <tr><td>Upstash</td><td>Úložiště klíč-hodnota pro oprávnění a partnerské záznamy</td><td>E-mail kupujícího, slugy licencovaných agentů, partnerské kódy</td></tr>
-<tr><td>Anthropic</td><td>Odpovědi LLM pro živé demo</td><td>Text konverzace v demu</td></tr>
+
 <tr><td>Cloudflare R2</td><td>Ukládání a doručování zakoupených balíčků agentů</td><td>Soubory balíčku (žádná osobní data)</td></tr>
 <tr><td>Sentry</td><td>Monitorování chyb</td><td>Technický kontext chyby; text je maskován v diagnostice relace</td></tr>
 <tr><td>Plausible</td><td>Analytika s důrazem na soukromí</td><td>Anonymní statistiky používání bez cookies</td></tr>
