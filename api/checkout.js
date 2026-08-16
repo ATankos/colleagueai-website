@@ -3,17 +3,21 @@
  *
  * GET /api/checkout?agent=<slug>&ref=<ref>&partner=<code>&currency=usd|eur&terms=accepted
  *
- * USD is the default/primary lane. EUR is an optional lane for European buyers.
- * Pricing is per CAI tier (L2/L3/L4) and per currency; the agent + tier ride in
- * metadata so api/webhook.js can grant the right entitlement after payment.
+ * USD is the default/primary lane; EUR is the optional European lane. Card, Apple/Google
+ * Pay and Link are available in both. Bank transfer is added per currency:
+ *   USD -> us_bank_transfer,  EUR -> eu_bank_transfer (SEPA credit transfer).
  *
- * Prices (minor units) come from env if set, else the clean defaults below:
- *   USD: AGENT_PRICE_L2_CENTS / L3 / L4        (default 1200000 / 2500000 / 4500000)
- *   EUR: AGENT_PRICE_EUR_L2_CENTS / L3 / L4    (default 1200000 / 2500000 / 4500000)
+ * Bank transfer requires a Customer on the session and "Bank transfers" enabled in the
+ * Stripe Dashboard. It is a DELAYED (async) method: checkout.session.completed fires when
+ * the buyer receives wire instructions; the money lands later and fires
+ * checkout.session.async_payment_succeeded - which is where fulfilment happens (Milestone B).
  *
- * Bank transfer (customer_balance) is NOT enabled here yet - it is added in the
- * fulfillment step once "Bank transfers" is turned on in the Stripe Dashboard.
- * Card, Apple/Google Pay and Link appear automatically via dynamic payment methods.
+ * Adaptive Pricing is disabled so the USD/EUR selector is authoritative (no auto CZK etc.).
+ *
+ * Prices (minor units) from env if set, else the clean defaults below:
+ *   USD: AGENT_PRICE_L2_CENTS / L3 / L4          (default 1200000 / 2500000 / 4500000)
+ *   EUR: AGENT_PRICE_EUR_L2_CENTS / L3 / L4      (default 1200000 / 2500000 / 4500000)
+ *   AGENT_EU_BANK_COUNTRY  - IBAN country for SEPA virtual account (default 'DE')
  */
 
 import Stripe from 'stripe';
@@ -23,8 +27,7 @@ const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project
 
 const ALLOWED_CURRENCIES = { usd: 1, eur: 1 };
 
-// Clean test prices (minor units). USD primary; EUR is the optional European lane.
-// Final EUR figures to be confirmed after checking supported bank-transfer rails.
+// Clean test prices (minor units). USD primary; EUR optional. Finalize EUR later.
 const PRICE_CENTS = {
   usd: { L2: 1200000, L3: 2500000, L4: 4500000 },
   eur: { L2: 1200000, L3: 2500000, L4: 4500000 },
@@ -51,6 +54,13 @@ function priceCents(tier, currency) {
   if (Number.isFinite(n) && n > 0) return n;
   const map = PRICE_CENTS[currency] || PRICE_CENTS.usd;
   return map[tier] || null;
+}
+
+function bankTransferFor(currency) {
+  if (currency === 'eur') {
+    return { type: 'eu_bank_transfer', eu_bank_transfer: { country: process.env.AGENT_EU_BANK_COUNTRY || 'DE' } };
+  }
+  return { type: 'us_bank_transfer' };
 }
 
 export default async function handler(req, res) {
@@ -95,8 +105,20 @@ export default async function handler(req, res) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-04-10' });
 
   try {
+    // Bank transfer needs a Customer attached at session creation.
+    const customer = await stripe.customers.create({ metadata });
+
     const session = await stripe.checkout.sessions.create({
-      mode: 'payment', adaptive_pricing: { enabled: false },
+      mode: 'payment',
+      adaptive_pricing: { enabled: false }, // never auto-convert to the buyer's local currency
+      customer: customer.id,
+      payment_method_types: ['card', 'link', 'customer_balance'],
+      payment_method_options: {
+        customer_balance: {
+          funding_type: 'bank_transfer',
+          bank_transfer: bankTransferFor(currency),
+        },
+      },
       line_items: [{
         quantity: 1,
         price_data: {
