@@ -4094,8 +4094,8 @@ window.__rebuildGAQuiz=function(){
 <script>(function(){try{var k="cai-privacy-ack",el=document.getElementById("cai-privacy");if(!el)return;if(!localStorage.getItem(k))el.hidden=false;document.getElementById("cai-privacy-ok").addEventListener("click",function(){try{localStorage.setItem(k,"1")}catch(e){}el.hidden=true});}catch(e){}})();</script>
 <script id="cai-launch-gate-script">
 (function(){
-  var COMMERCIAL_LAUNCH_ENABLED=false;
-  window.CAI_COMMERCIAL_LAUNCH_ENABLED=false;
+  var COMMERCIAL_LAUNCH_ENABLED=true;
+  window.CAI_COMMERCIAL_LAUNCH_ENABLED=true;
   document.documentElement.setAttribute('data-cai-paid-launch','disabled');
   function isCheckoutLink(anchor){
     if(!anchor) return false;
