@@ -96,7 +96,7 @@ export default async function handler(req, res) {
 
   try {
     const session = await stripe.checkout.sessions.create({
-      mode: 'payment',
+      mode: 'payment', adaptive_pricing: { enabled: false },
       line_items: [{
         quantity: 1,
         price_data: {
