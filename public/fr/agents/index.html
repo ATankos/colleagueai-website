@@ -3711,10 +3711,10 @@ applyLang(init);
    Set the four values in STORE below to go live. */
 (function(){
   var STORE={
-    currency:'EUR',                 // EUR | USD | CZK | GBP ...
+    currency:'USD',                 // EUR | USD | CZK | GBP ...
     price:null,                     // e.g. 1200 , leave null to show "Pricing on request"
-    perAgentPrice:{},               // optional overrides by slug, e.g. {"contract-summarisation-agent":2400}
-    checkoutBase:'https://www.colleagueai.ai/checkout', // your Stripe Payment Link / checkout endpoint
+    perAgentPrice:{"acceptance-test-script-generator":12000,"campaign-and-project-management-agent":12000,"compliance-and-audit-action-tracker":45000,"content-and-comms-agent":12000,"contract-obligations-review-agent":45000,"contract-summarisation-agent":45000,"cyber-security-reporting-agent":25000,"development-and-career-agent":12000,"due-diligence-data-search-agent":25000,"escalation-triage-agent":25000,"four-eyes-control-assistant":45000,"infrastructure-wiki-agent":12000,"leadership-reporting-agent":25000,"maintenance-event-agent":12000,"monthly-reporting-automation-agent":12000,"onboarding-agent":12000,"operations-procedures-assistant":12000,"people-ops-query-agent":12000,"performance-management-agent":25000,"pipeline-reporting-agent":12000,"power-query-code-generator":12000,"reconciliation-root-cause-agent":25000,"risk-control-oversight-agent":45000,"risk-event-capture-agent":25000,"sales-end-to-end-assistant":25000,"sales-opportunity-agent":12000,"sales-qualification-agent":12000,"security-defect-triage-agent":45000,"service-delivery-manager-copilot":25000,"service-desk-backlog-triage-agent":25000,"service-desk-support-agent":25000,"service-request-automation-agent":25000,"service-review-pack-builder":12000,"signing-summary-agent":25000,"sop-generation-agent":12000,"supplier-meeting-minutes-agent":12000},               // optional overrides by slug, e.g. {"contract-summarisation-agent":2400}
+    checkoutBase:'/api/checkout', // your Stripe Payment Link / checkout endpoint
     paymentLinks:{},                // optional per-slug full checkout URLs, e.g. {"reconciliation-root-cause-agent":"<live Stripe checkout URL>"}
     gate:{ copilotStudio:true, m365:true, dossier:false  }, // which downloads require payment
     schedulerUrl:'YOUR_SCHEDULER_URL'
@@ -4094,8 +4094,8 @@ window.__rebuildGAQuiz=function(){
 <script>(function(){try{var k="cai-privacy-ack",el=document.getElementById("cai-privacy");if(!el)return;if(!localStorage.getItem(k))el.hidden=false;document.getElementById("cai-privacy-ok").addEventListener("click",function(){try{localStorage.setItem(k,"1")}catch(e){}el.hidden=true});}catch(e){}})();</script>
 <script id="cai-launch-gate-script">
 (function(){
-  var COMMERCIAL_LAUNCH_ENABLED=false;
-  window.CAI_COMMERCIAL_LAUNCH_ENABLED=false;
+  var COMMERCIAL_LAUNCH_ENABLED=true;
+  window.CAI_COMMERCIAL_LAUNCH_ENABLED=true;
   document.documentElement.setAttribute('data-cai-paid-launch','disabled');
   function isCheckoutLink(anchor){
     if(!anchor) return false;
