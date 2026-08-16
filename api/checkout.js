@@ -47,7 +47,7 @@ function tierPriceCents(tier) {
     L4: process.env.AGENT_PRICE_L4_CENTS,
   };
   const n = parseInt(map[tier] || '', 10);
-  return Number.isFinite(n) && n > 0 ? n : null;
+  return Number.isFinite(n) && n > 0 ? n : ({ L2: 1200000, L3: 2500000, L4: 4500000 })[tier] || null;
 }
 
 export default async function handler(req, res) {
