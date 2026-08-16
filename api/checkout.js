@@ -112,7 +112,7 @@ export default async function handler(req, res) {
       mode: 'payment',
       adaptive_pricing: { enabled: false }, // never auto-convert to the buyer's local currency
       customer: customer.id,
-      payment_method_types: ['card', 'link', 'customer_balance'],
+      payment_method_types: ['customer_balance', 'card', 'link'],
       payment_method_options: {
         customer_balance: {
           funding_type: 'bank_transfer',
