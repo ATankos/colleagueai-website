@@ -1,23 +1,25 @@
 /**
  * api/checkout.js - Creates a Stripe Checkout Session and redirects the buyer to it.
  *
- * GET /api/checkout?agent=<slug>&ref=<ref>&partner=<code>&currency=usd|eur&terms=accepted
+ * GET /api/checkout?agent=<slug>&ref=<ref>&partner=<code>&currency=usd|eur&method=bank|card&terms=accepted
  *
- * USD is the default/primary lane; EUR is the optional European lane. Card, Apple/Google
- * Pay and Link are available in both. Bank transfer is added per currency:
- *   USD -> us_bank_transfer,  EUR -> eu_bank_transfer (SEPA credit transfer).
+ * USD is the default/primary lane; EUR is the optional European lane.
  *
- * Bank transfer requires a Customer on the session and "Bank transfers" enabled in the
- * Stripe Dashboard. It is a DELAYED (async) method: checkout.session.completed fires when
- * the buyer receives wire instructions; the money lands later and fires
- * checkout.session.async_payment_succeeded - which is where fulfilment happens (Milestone B).
+ * method=bank  -> bank transfer only (US wire for USD, SEPA for EUR)   [our "recommended" button]
+ * method=card  -> card + Apple/Google Pay + Link
+ * (omitted)    -> all of the above (Stripe controls the on-page order for hosted Checkout)
  *
- * Adaptive Pricing is disabled so the USD/EUR selector is authoritative (no auto CZK etc.).
+ * NOTE: Stripe hosted Checkout does not let you control the payment-method order, so we make
+ * bank transfer "preferred" from our own pay box by sending method=bank on the primary button.
+ *
+ * Bank transfer needs a Customer on the session and "Bank transfers" enabled in the Dashboard.
+ * It is a DELAYED (async) method - fulfilment happens on checkout.session.async_payment_succeeded
+ * (Milestone B). Adaptive Pricing is disabled so the USD/EUR selector is authoritative.
  *
  * Prices (minor units) from env if set, else the clean defaults below:
  *   USD: AGENT_PRICE_L2_CENTS / L3 / L4          (default 1200000 / 2500000 / 4500000)
  *   EUR: AGENT_PRICE_EUR_L2_CENTS / L3 / L4      (default 1200000 / 2500000 / 4500000)
- *   AGENT_EU_BANK_COUNTRY  - IBAN country for SEPA virtual account (default 'DE')
+ *   AGENT_EU_BANK_COUNTRY  - IBAN country for the SEPA virtual account (default 'DE')
  */
 
 import Stripe from 'stripe';
@@ -27,7 +29,6 @@ const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project
 
 const ALLOWED_CURRENCIES = { usd: 1, eur: 1 };
 
-// Clean test prices (minor units). USD primary; EUR optional. Finalize EUR later.
 const PRICE_CENTS = {
   usd: { L2: 1200000, L3: 2500000, L4: 4500000 },
   eur: { L2: 1200000, L3: 2500000, L4: 4500000 },
@@ -63,6 +64,12 @@ function bankTransferFor(currency) {
   return { type: 'us_bank_transfer' };
 }
 
+function methodTypes(method) {
+  if (method === 'bank') return ['customer_balance'];
+  if (method === 'card') return ['card', 'link'];
+  return ['customer_balance', 'card', 'link'];
+}
+
 export default async function handler(req, res) {
   if (req.method !== 'GET') {
     res.setHeader('Allow', 'GET');
@@ -94,6 +101,10 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Price not configured' });
   }
 
+  const method = String(valueOf(q.method) || '').toLowerCase();
+  const paymentMethodTypes = methodTypes(method);
+  const includesBank = paymentMethodTypes.indexOf('customer_balance') !== -1;
+
   const ref = (String(valueOf(q.ref) || '').slice(0, 200)) || undefined;
   const partnerRaw = String(valueOf(q.partner) || '').trim();
   const partner = PARTNER_RE.test(partnerRaw) ? partnerRaw : '';
@@ -105,20 +116,10 @@ export default async function handler(req, res) {
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-04-10' });
 
   try {
-    // Bank transfer needs a Customer attached at session creation.
-    const customer = await stripe.customers.create({ metadata });
-
-    const session = await stripe.checkout.sessions.create({
+    const params = {
       mode: 'payment',
       adaptive_pricing: { enabled: false }, // never auto-convert to the buyer's local currency
-      customer: customer.id,
-      payment_method_types: ['customer_balance', 'card', 'link'],
-      payment_method_options: {
-        customer_balance: {
-          funding_type: 'bank_transfer',
-          bank_transfer: bankTransferFor(currency),
-        },
-      },
+      payment_method_types: paymentMethodTypes,
       line_items: [{
         quantity: 1,
         price_data: {
@@ -137,7 +138,18 @@ export default async function handler(req, res) {
       allow_promotion_codes: false,
       success_url: `${origin}/agents?purchase=success&agent=${encodeURIComponent(slug)}&currency=${currency}&session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/agents?purchase=cancelled&agent=${encodeURIComponent(slug)}`,
-    });
+    };
+
+    // Bank transfer requires a Customer on the session + the bank_transfer options.
+    if (includesBank) {
+      const customer = await stripe.customers.create({ metadata });
+      params.customer = customer.id;
+      params.payment_method_options = {
+        customer_balance: { funding_type: 'bank_transfer', bank_transfer: bankTransferFor(currency) },
+      };
+    }
+
+    const session = await stripe.checkout.sessions.create(params);
 
     res.writeHead(303, { Location: session.url });
     return res.end();
