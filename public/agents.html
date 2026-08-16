@@ -3423,7 +3423,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 </aside>
 
 <!-- PAYMENT STEP -->
-<div class="pay-scrim" id="payscrim"></div>
+<style>.pay-curr{display:flex;gap:8px;margin:10px 0 4px}.pay-curr-b{flex:1;padding:8px 10px;border:1px solid rgba(0,0,0,.18);border-radius:10px;background:#fff;color:#22211F;font-weight:600;font-size:13px;cursor:pointer}.pay-curr-b.on{background:#22211F;color:#fff;border-color:#22211F}</style><div class="pay-scrim" id="payscrim"></div>
 <div class="pay-modal" id="paymodal" role="dialog" aria-modal="true" aria-hidden="true">
   <button class="pay-close" id="payclose" aria-label="Close">✕</button>
   <span class="pay-badge" id="pay-badge"></span>
@@ -3442,7 +3442,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
     <span class="pay-price-label" data-i18n="pay_price">Price</span>
     <span class="pay-price-val" id="pay-price"></span>
   </div>
-  <label class="pay-terms" id="pay-terms-row">
+  <div class="pay-curr" id="pay-curr" role="group" aria-label="Currency"><button type="button" class="pay-curr-b on" data-c="USD">USD $</button><button type="button" class="pay-curr-b" data-c="EUR">EUR &euro;</button></div><label class="pay-terms" id="pay-terms-row">
     <input type="checkbox" id="pay-terms-cb">
     <span data-i18n-html="pay_terms">I accept the <a href="https://www.colleagueai.ai/license" target="_blank" rel="noopener">licence terms</a>, a single-tenant, non-transferable licence; no redistribution, resale or reverse-engineering.</span>
   </label>
@@ -3724,7 +3724,7 @@ applyLang(init);
   function checkoutUrl(slug,ref){
     var pt=(window.__cai_partner?'&partner='+encodeURIComponent(window.__cai_partner):'');
     if(STORE.paymentLinks[slug]) return STORE.paymentLinks[slug]+(STORE.paymentLinks[slug].indexOf('?')<0?'?':'&')+'client_reference_id='+ref+pt;
-    return STORE.checkoutBase+'?agent='+encodeURIComponent(slug)+'&items=copilot-studio,m365&currency='+STORE.currency+'&ref='+ref+'&terms=accepted'+pt;
+    return STORE.checkoutBase+'?agent='+encodeURIComponent(slug)+'&items=copilot-studio,m365&currency='+(window.__cai_curr||STORE.currency)+'&ref='+ref+'&terms=accepted'+pt;
   }
   function newRef(slug){
     var id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2,10));
@@ -3748,7 +3748,7 @@ applyLang(init);
     var p=priceFor(cur.slug), pe=document.getElementById('pay-price');
     var ref=newRef(cur.slug); window.__cai_ref=ref;
     if(p!=null){
-      pe.textContent=fmt(p,STORE.currency);
+      window.__cai_curr='USD';pe.textContent=fmt(p,window.__cai_curr);if(window.__caiCurrReset)window.__caiCurrReset();
       cta.textContent=(window.T?T('pay_cta'):'Request access ->');
       cta.dataset.mode='checkout'; termsRow.style.display='flex'; cb.checked=false;
     } else {
@@ -3763,7 +3763,7 @@ applyLang(init);
     open();
     if(window.caiTrack) caiTrack('checkout_open',{agent:cur.a.n,tier:cur.tier,mode:cta.dataset.mode});
   }
-  window.openPay=openPay;
+  window.openPay=openPay;window.__cai_curr=window.__cai_curr||'USD';function caiRenderCurr(){var cur=window.__cai_cur;if(!cur)return;var p=priceFor(cur.slug),pe=document.getElementById('pay-price');if(p!=null&&pe)pe.textContent=fmt(p,window.__cai_curr);if(window.__cai_ref)cta.href=checkoutUrl(cur.slug,window.__cai_ref);var w=document.getElementById('pay-curr');if(w){[].forEach.call(w.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-c')===window.__cai_curr);});}}window.__caiCurrReset=function(){var w=document.getElementById('pay-curr');if(w){[].forEach.call(w.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-c')==='USD');});}};(function(){var w=document.getElementById('pay-curr');if(!w)return;w.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('button'):null;if(!b||!w.contains(b))return;var c=b.getAttribute('data-c');if(!c)return;window.__cai_curr=c;caiRenderCurr();});})();
   // route gated download buttons through the payment step
   ['d-cs','d-m365'].forEach(function(id){
     var el=document.getElementById(id); if(!el) return;
