@@ -497,8 +497,8 @@
     bar.innerHTML=Object.keys(VIEWS).map(function(v){return '<button type="button" data-v="'+v+'">'+LABELS[v]+'</button>';}).join('');
     var cat=document.getElementById('catalogue');
     var intro=document.createElement('section');intro.id='cai-view-intro';
-    intro.innerHTML='<div class="cai-vi-in"><h2>Governed AI agents, ready for your tenant</h2>'+
-      '<p>36 certified agents for finance, operations, risk and corporate workflows - each with a CAI governance tier, documentation and a clear price. Browse below, or read how the governance framework works.</p>'+
+    intro.innerHTML='<div class="cai-vi-in"><h2>Enterprise AI agents that ship in days - and pass your audit</h2>'+
+      '<p>36 production-ready agents for finance, operations, risk and compliance. Every one governance-scored, fully documented, transparently priced. They run inside YOUR Microsoft tenant - your data never leaves your control.</p>'+
       '<p class="cai-vi-links"><a href="/score">How the CAI Score works &rarr;</a></p></div>';
     var parent=cat.parentNode;parent.insertBefore(intro,cat);parent.insertBefore(bar,intro);
     bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.getAttribute('data-v');
