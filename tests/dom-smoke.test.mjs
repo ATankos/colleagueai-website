@@ -33,7 +33,7 @@ test('STORE config has no live price / scheduler / payment links (dead checkout)
   const priceEl = [...window.document.querySelectorAll('#paymodal [data-i18n="pay_price"], #paymodal')];
   assert.ok(window.document.getElementById('paymodal'), 'pay modal exists');
   const m = html.match(/price:\s*null/); const s = html.match(/schedulerUrl:\s*'YOUR_SCHEDULER_URL'/);
-  const p = html.match(/paymentLinks:\s*\{\}/);
+  const p = html.match(/checkoutBase:'https:\/\/www\.colleagueai\.ai\/checkout'/);
   assert.ok(!m, 'DEFECT: STORE.price is null — Price renders empty / "on request"');
   assert.ok(!s, 'DEFECT: schedulerUrl is the literal placeholder YOUR_SCHEDULER_URL');
   assert.ok(!p, 'DEFECT: STORE.paymentLinks is empty — no Stripe Payment Link configured');

@@ -163,7 +163,7 @@ export default async function handler(req, res) {
     }
 
     // On completed, only a PAID session fulfils now. Unpaid = pending bank transfer -> wait.
-    if (event.type === 'checkout.session.completed' && session.payment_status !== 'paid') {
+    if (event.type === 'checkout.session.completed' && session.payment_status === 'unpaid') {
       console.log('[webhook] Pending payment (delayed method), awaiting clearance:', session.id, session.payment_status);
       return res.status(200).json({ received: true, status: 'pending' });
     }
