@@ -136,7 +136,7 @@ export default async function handler(req, res) {
       ...(ref ? { client_reference_id: ref } : {}),
       billing_address_collection: 'auto',
       allow_promotion_codes: false,
-      success_url: `${origin}/agents?purchase=success&agent=${encodeURIComponent(slug)}&currency=${currency}&session_id={CHECKOUT_SESSION_ID}`,
+      success_url: `${origin}/api/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/agents?purchase=cancelled&agent=${encodeURIComponent(slug)}`,
     };
 
