@@ -5,7 +5,7 @@
  * Usage: node tests/local-server.mjs [port]   (default 4173; requires `npm run build` first)
  */
 import http from 'node:http';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, statSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -57,6 +57,13 @@ http.createServer((req, res) => {
       return res.end(readFileSync(nf));
     }
     res.writeHead(404); return res.end('not found');
+  }
+  // Clean-URL directories (e.g. dist/cs/score/) resolve to their index.html,
+  // matching how Vercel serves them in production.
+  if (statSync(file).isDirectory()) {
+    const idx = join(file, 'index.html');
+    if (existsSync(idx)) file = idx;
+    else { res.writeHead(404); return res.end('not found'); }
   }
   const body = readFileSync(file);
   res.writeHead(200, { 'Content-Type': MIME[extname(file)] ?? 'application/octet-stream' });

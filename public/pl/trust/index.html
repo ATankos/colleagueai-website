@@ -8,7 +8,7 @@
 <meta name="robots" content="index, follow, max-snippet:-1">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.colleagueai.ai/trust">
-<meta property="og:title" content="Zaufanie, governance i bezpieczeństwo | ColleagueAI">
+<meta property="og:title" content="Trust, Nadzór i ład organizacyjny &amp; Security | ColleagueAI">
 <meta property="og:description" content="Review ColleagueNadzór i ład organizacyjny AI, security, data-handling, AI risk controls, subprocessors, and enterprise deployment model.">
 <meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
 <meta property="og:image:width" content="1200">
@@ -277,6 +277,7 @@ section{
 <link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/fiducia" />
 <link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/zaufanie" />
 <link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/confianca" />
+<link rel="canonical" href="https://www.colleagueai.ai/pl/zaufanie" />
 <!-- cai-global-hreflang:end -->
 <style id="cai-url-locale-controller-css">
 html[data-cai-page="agents"] #cai-site-journey,
@@ -327,6 +328,39 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
 })();
 </script>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
 position: fixed !important;
@@ -412,40 +446,6 @@ display: flex !important;
   });
 }());
 </script>
-<style id="cai-header-unify">
-header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
-header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
-
-/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
-   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
-   heights, colours and gaps. These rules normalise appearance without touching
-   markup. Note: every inner container already sits inside .wrap (max-width +
-   padding), so this block must NOT set width - doing so indents the logo. */
-header { position: sticky !important; top: 0 !important; z-index: 90 !important;
-  background: rgba(34,33,31,.97) !important;
-  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
-  border-bottom: 0 !important; }
-header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
-  height: 64px !important; min-height: 64px !important;
-  display: flex !important; align-items: center !important; justify-content: space-between !important; }
-header .links, header .cai-hdr-links, header .nav-links {
-  display: flex !important; align-items: center !important; gap: 22px !important; }
-header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
-  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
-header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
-header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
-header .cta, header .ch-cta, header .nav-cta {
-  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
-  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
-header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
-header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
-@media (max-width: 560px) {
-  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
-    height: 58px !important; min-height: 58px !important; }
-  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
-}
-</style>
-<link rel="canonical" href="https://www.colleagueai.ai/trust">
 </head>
 <body>
 <!-- cai-site-header:start -->
@@ -472,8 +472,8 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
     <a href="/" class="logo cai-hdr-logo">Colleague<b>AI</b></a>
     <nav class="cai-hdr-links">
       <a class="ch-l" href="/pl/agenci">Katalog</a>
-      <a class="ch-l" href="/pl/agenci#score">CAI Score</a>
-      <a class="ch-l" href="/pl/cennik">Cennik</a>
+      <a class="ch-l" href="/score">CAI Score</a>
+      <a class="ch-l" href="/pricing">Cennik</a>
       <a class="ch-l" href="/pl/zaufanie">Zaufanie</a>
       <a class="ch-l" href="/pl/partnerzy">Partnerzy</a>
       <a class="ch-l" href="/pl/kontakt">Kontakt</a>
@@ -482,7 +482,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
     </nav>
   </div>
   <nav class="cai-hdr-mnav" id="caihdrm">
-    <a href="/pl/agenci">Katalog</a><a href="/pl/agenci#score">CAI Score</a><a href="/pl/cennik">Cennik</a><a href="/pl/zaufanie">Trust</a><a href="/pl/partnerzy">Partners</a><a href="/pl/kontakt">Kontakt</a>
+    <a href="/pl/agenci">Katalog</a><a href="/score">CAI Score</a><a href="/pricing">Cennik</a><a href="/pl/zaufanie">Trust</a><a href="/pl/partnerzy">Partners</a><a href="/pl/kontakt">Kontakt</a>
   </nav>
 </header>
 <!-- cai-site-header:end -->
@@ -526,7 +526,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 </div>
 <h3>Co przetwarza sama ta strona internetowa</h3>
 <ul>
-<li><strong>Demo na żywo</strong> (/demo): obecnie niedostępne. Interaktywne demo zostało wycofane; ta witryna nie wysyła żadnych wiadomości do dostawcy AI.</li>
+<li><strong>Demo na żywo</strong> (/demo): not currently available. The interactive demo has been withdrawn, so this website sends no messages to an AI provider.</li>
 <li><strong>Zakupy</strong>: płatność jest obsługiwana w całości przez Stripe; nigdy nie widzimy danych karty. Po zakupie przechowujemy Twój e-mail, slugi licencjonowanych agentów oraz identyfikator sesji Stripe, aby udostępnić Ci pliki do pobrania.</li>
 <li><strong>Pobieranie</strong>: pakiety agentów są dostarczane za pomocą podpisanych adresów URL o ograniczonym czasie (wygaśnięcie po 15 minutach).</li>
 <li><strong>Kalkulator ROI &amp; sprawdzenie gotowości</strong>: działa w całości w Twojej przeglądarce; nic nie jest wysyłane ani przechowywane.</li>

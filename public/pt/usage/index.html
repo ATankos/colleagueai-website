@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html data-cai-page="agents" lang="pt">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Monitor de utilização | ColleagueAI</title>
+<meta name="description" content="Cada pacote de agente ColleagueAI pode incluir inteligência de utilização ao nível dos tokens que corre no ambiente do cliente. Ajuda a ver consumo de tokens, custo estimado, repetições, contexto excessivo, escolha de modelos e oportunidades de otimização, sem que a ColleagueAI veja prompts, resultados, documentos ou conteúdo de negócio.">
+<meta name="author" content="Colleague AI" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+<meta name="theme-color" content="#F5F0E8" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+<link rel="apple-touch-icon" href="/icon-192.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+<link rel="manifest" href="/manifest.json" />
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:title" content="Monitor de utilização | ColleagueAI">
+<meta property="og:description" content="Cada pacote de agente ColleagueAI pode incluir inteligência de utilização ao nível dos tokens que corre no ambiente do cliente. Ajuda a ver consumo de tokens, custo estimado, repetições, contexto excessivo, escolha de modelos e oportunidades de otimização, sem que a ColleagueAI veja prompts, resultados, documentos ou conteúdo de negócio.">
+<meta property="og:url" content="https://www.colleagueai.ai/usage">
+<meta property="og:locale:alternate" content="cs" />
+<meta property="og:locale:alternate" content="es" />
+<meta property="og:locale:alternate" content="pt" />
+<meta property="og:locale:alternate" content="fr" />
+<meta property="og:locale:alternate" content="de" />
+<meta property="og:locale:alternate" content="pl" />
+<meta property="og:locale:alternate" content="it" />
+<!-- Twitter -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Monitor de utilização | ColleagueAI">
+<meta name="twitter:description" content="Cada pacote de agente ColleagueAI pode incluir inteligência de utilização ao nível dos tokens que corre no ambiente do cliente. Ajuda a ver consumo de tokens, custo estimado, repetições, contexto excessivo, escolha de modelos e oportunidades de otimização, sem que a ColleagueAI veja prompts, resultados, documentos ou conteúdo de negócio.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Colleague AI, the trust layer for enterprise AI. Certified, risk-tiered AI agents on the CAI Score." />
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png" />
+<!-- Hreflang -->
+<script>function isApprovedCheckoutHost(value){
+  try{
+    var parsed = new URL(String(value || ''), window.location.origin);
+    if (parsed.protocol !== 'https:') return false;
+    var host = parsed.hostname.toLowerCase();
+    return host === 'buy.stripe.com' || host === 'checkout.stripe.com';
+  }catch(e){
+    return false;
+  }
+}
+function isAllowedStripeCheckoutUrl(value){
+  try{
+    var parsed=new URL(String(value||''), window.location.origin);
+    return parsed.protocol==='https:' &&
+      (parsed.hostname==='buy.stripe.com' || parsed.hostname==='checkout.stripe.com');
+  }catch(e){
+    return false;
+  }
+}
+try{document.documentElement.className+=' js';}catch(e){}</script>
+<style>
+  :root{
+    --cream:#F5F0E8;
+    --cream-2:#EFE8DC;
+    --paper:#FBF8F2;
+    --graphite:#2B2A28;
+    --graphite-soft:#54514C;
+    --muted:#8A857C;
+    --terra:#C65D3A;--terra-solid:#A94A2C;
+    --terra-deep:#9E3D22;
+    --line:#E2D9CB;
+    --line-soft:#EAE2D4;
+    /* tier heat ramp, cool/safe -> dark/highest, anchored on brand terracotta */
+    --t1:#6E8B7B; /* sage */
+    --t2:#C99A5B; /* sand */
+    --t3:#C65D3A; /* terracotta (brand) */
+    --t4:#9E3D22; /* rust */
+    --t5:#2B2A28; /* graphite */
+    --shadow:0 1px 2px rgba(43,42,40,.04), 0 8px 30px rgba(43,42,40,.06);
+    --shadow-lg:0 30px 80px -30px rgba(43,42,40,.30);
+    --r:18px;
+    --maxw:1180px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--graphite);
+    font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,-apple-system,sans-serif;
+    font-weight:400;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--terra);color:var(--paper)}
+  a{color:inherit;text-decoration:none}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px}
+  .mono{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-weight:500;letter-spacing:.02em}
+  .eyebrow{
+    font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11.5px;font-weight:500;
+    text-transform:uppercase;letter-spacing:.22em;color:var(--terra);
+  }
+  .serif{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:60;
+    background:rgba(245,240,232,.78);
+    backdrop-filter:saturate(180%) blur(20px);
+    -webkit-backdrop-filter:saturate(180%) blur(20px);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.nav.scrolled{border-bottom-color:var(--line);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{display:inline-flex;flex-direction:column;line-height:1;gap:4px;text-decoration:none}
+  .logo-text{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:21px;font-weight:600;letter-spacing:-.01em;color:var(--graphite)}
+  .logo-text .ai{color:var(--terra)}
+  .logo-dots{display:flex;gap:5px;padding-left:1px}
+  .logo-dots span{width:5px;height:5px;border-radius:50%;display:block}
+  .logo-dots span:nth-child(1){background:var(--terra)}
+  .logo-dots span:nth-child(2){background:var(--graphite)}
+  .logo-dots span:nth-child(3){background:#8A857C}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{font-size:14px;color:var(--graphite-soft);transition:color .2s}
+  .nav-links a:hover{color:var(--graphite)}
+  .nav-cta{
+    font-size:13.5px;color:var(--paper);background:var(--graphite);
+    padding:9px 18px;border-radius:100px;transition:transform .2s, background .2s;
+  }
+  .nav-cta:hover{background:var(--terra);transform:translateY(-1px)}
+  #langsel{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:13px;font-weight:500;color:#2B2A28;border:1px solid var(--line);border-radius:100px;padding:7px 26px 7px 10px;cursor:pointer;transition:border-color .2s;-webkit-appearance:none;appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%232B2A28' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 8px center transparent}
+  #langsel:hover{border-color:var(--muted)}
+  #langsel:focus{outline:none;border-color:var(--terra)}
+  @media(max-width:860px){.nav-links a:not(.nav-cta){display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:108px 0 64px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:end}
+  @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:40px}.hero{padding:72px 0 48px}}
+  h1.hero-title{
+    font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:340;
+    font-size:clamp(40px,6.4vw,80px);line-height:1.02;letter-spacing:-.02em;
+    margin:22px 0 0;
+  }
+  h1.hero-title em{font-style:italic;color:var(--terra)}
+  .hero-sub{font-size:clamp(17px,2vw,20px);color:var(--graphite-soft);max-width:46ch;margin-top:26px;line-height:1.5}
+  .hero-aside{
+    border-left:1px solid var(--line);padding-left:28px;
+    font-size:15px;color:var(--graphite-soft);
+  }
+  .hero-aside .big{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:15px;color:var(--graphite);display:block;margin-bottom:6px;font-weight:500}
+  .hero-stats{display:flex;gap:40px;margin-top:36px;flex-wrap:wrap}
+  .stat .n{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:38px;font-weight:400;line-height:1;letter-spacing:-.02em}
+  .stat .l{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-top:8px}
+  .stat .n .unit{color:var(--terra)}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:84px 0;position:relative}
+  .sec-head{max-width:62ch}
+  .sec-head h2{
+    font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:360;
+    font-size:clamp(30px,4.2vw,46px);line-height:1.07;letter-spacing:-.02em;margin:14px 0 0;
+  }
+  .sec-head p{font-size:17px;color:var(--graphite-soft);margin-top:18px;line-height:1.55}
+  .divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+  /* ---------- PHILOSOPHY ---------- */
+  .princ{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:54px}
+  @media(max-width:820px){.princ{grid-template-columns:1fr}}
+  .princ .cell{background:var(--paper);padding:34px 30px;}
+  .princ .num{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--terra);letter-spacing:.1em}
+  .princ h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:21px;margin:18px 0 10px;letter-spacing:-.01em}
+  .princ p{font-size:14.5px;color:var(--graphite-soft);line-height:1.55}
+
+  /* ---------- TIER LADDER ---------- */
+  #score{background:var(--cream-2)}
+  .ladder{margin-top:54px;display:flex;flex-direction:column;gap:14px}
+  .rung{
+    display:grid;grid-template-columns:96px 1fr auto;gap:28px;align-items:center;
+    background:var(--paper);border:1px solid var(--line);border-radius:14px;
+    padding:22px 26px;transition:transform .25s ease, box-shadow .25s ease;
+    position:relative;overflow:hidden;
+  }
+  .rung:hover{transform:translateX(6px);box-shadow:var(--shadow)}
+  .rung::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--rc)}
+  .rung .code{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-weight:600;font-size:26px;color:var(--rc);letter-spacing:-.02em}
+  .rung .body h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:600;font-size:18px;margin-bottom:5px}
+  .rung .body p{font-size:14px;color:var(--graphite-soft);max-width:62ch}
+  .rung .auto{text-align:right;min-width:130px}
+  .rung .auto .lbl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .rung .auto .val{font-size:13.5px;color:var(--graphite);margin-top:4px;font-weight:500}
+  @media(max-width:760px){.rung{grid-template-columns:64px 1fr;gap:18px}.rung .auto{display:none}}
+  .ladder-note{margin-top:24px;font-size:13.5px;color:var(--muted);font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;letter-spacing:.01em}
+
+  /* ---------- CATALOGUE ---------- */
+  .filters{display:flex;flex-wrap:wrap;gap:10px;margin-top:46px;align-items:center}
+  .fgroup{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .flabel{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-right:4px}
+  .chip{
+    font-size:13px;padding:7px 15px;border-radius:100px;border:1px solid var(--line);
+    background:var(--paper);color:var(--graphite-soft);cursor:pointer;transition:all .18s ease;
+    font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;white-space:nowrap;
+  }
+  .chip:hover{border-color:var(--muted);color:var(--graphite)}
+  .chip.active{background:var(--graphite);color:var(--paper);border-color:var(--graphite)}
+  .chip.tier.active{background:var(--tc);border-color:var(--tc)}
+  .search{
+    margin-left:auto;border:1px solid var(--line);background:var(--paper);border-radius:100px;
+    padding:8px 16px;font-size:13.5px;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;color:var(--graphite);
+    min-width:210px;transition:border-color .2s;
+  }
+  .search:focus{outline:none;border-color:var(--terra)}
+  @media(max-width:760px){.search{margin-left:0;width:100%}}
+
+  .count{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--muted);margin-top:22px;letter-spacing:.04em}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:18px}
+  @media(max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:620px){.grid{grid-template-columns:1fr}}
+  .card{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 22px 20px;
+    cursor:pointer;transition:transform .25s cubic-bezier(.2,.7,.2,1), box-shadow .25s, border-color .25s;
+    display:flex;flex-direction:column;min-height:188px;position:relative;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--line-soft)}
+  .card:focus-visible{outline:2px solid var(--terra);outline-offset:3px}
+  .card .top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+  .badge{
+    font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-weight:600;font-size:11px;letter-spacing:.04em;
+    color:#fff;background:var(--bc);padding:4px 9px;border-radius:7px;line-height:1;
+  }
+  .pill{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .card h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:19px;line-height:1.15;letter-spacing:-.01em;margin-bottom:9px}
+  .card .desc{font-size:13.7px;color:var(--graphite-soft);line-height:1.5;flex:1}
+  .card .foot{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:16px;padding-top:14px;border-top:1px solid var(--line-soft)}
+  .card .kpi{font-size:12px;color:var(--graphite);font-weight:500;max-width:68%;line-height:1.35}
+  .card .kpi .kl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:3px}
+  .card .open{display:inline-flex;align-items:center;gap:7px;flex-shrink:0;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);transition:color .2s}
+  .card .open .ring{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--graphite-soft);transition:all .22s ease}
+  .card:hover .open{color:var(--terra)}
+  .card:hover .open .ring{background:var(--terra-solid,#A94A2C);border-color:var(--terra-solid,#A94A2C);color:#fff;transform:translate(2px,-2px)}
+  .empty{grid-column:1/-1;text-align:center;padding:60px 0;color:var(--muted);font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:13px}
+
+  /* ---------- DRAWER ---------- */
+  .scrim{position:fixed;inset:0;background:rgba(43,42,40,.32);backdrop-filter:blur(3px);opacity:0;pointer-events:none;transition:opacity .3s;z-index:90}
+  .scrim.open{opacity:1;pointer-events:auto}
+  .drawer{
+    position:fixed;top:0;right:0;height:100%;width:min(520px,100%);background:var(--paper);z-index:100;
+    transform:translateX(102%);transition:transform .42s cubic-bezier(.3,.8,.25,1);
+    box-shadow:var(--shadow-lg);display:flex;flex-direction:column;
+  }
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{padding:30px 34px 22px;border-bottom:1px solid var(--line);position:relative}
+  .drawer-close{position:absolute;top:24px;right:28px;width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:var(--cream);cursor:pointer;font-size:17px;color:var(--graphite-soft);display:flex;align-items:center;justify-content:center;transition:all .2s}
+  .drawer-close:hover{background:var(--graphite);color:var(--paper);border-color:var(--graphite)}
+  .drawer-head .dtop{display:flex;gap:10px;align-items:center;margin-bottom:16px}
+  .drawer-head h3,.drawer-head .drawer-title{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:27px;line-height:1.1;letter-spacing:-.01em;max-width:88%}
+  .drawer-head .dpath{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:12px}
+  .drawer-body{padding:8px 34px 40px;overflow-y:auto;flex:1}
+  .dblock{padding:22px 0;border-bottom:1px solid var(--line-soft)}
+  .dblock:last-child{border-bottom:none}
+  .dblock .dl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--terra);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .dblock p{font-size:15px;color:var(--graphite);line-height:1.58}
+  .dblock.lede p{font-size:16px;color:var(--graphite-soft)}
+  .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .dgrid .dblock{border-bottom:none}
+  .dgrid .dblock:first-child{border-right:1px solid var(--line-soft);padding-right:24px}
+  .dgrid .dblock:last-child{padding-left:24px}
+  @media(max-width:520px){.dgrid{grid-template-columns:1fr}.dgrid .dblock:first-child{border-right:none;padding-right:0;border-bottom:1px solid var(--line-soft)}.dgrid .dblock:last-child{padding-left:0}}
+  .compliance-block{background:var(--cream-2);margin:0 -34px;padding:22px 34px;border-bottom:none}
+  .compliance-block .dl{color:var(--terra-deep)}
+  .drawer-foot{border-top:1px solid var(--line);padding:18px 34px;display:flex;align-items:center;justify-content:space-between;gap:14px;background:var(--paper)}
+  .d-demo{display:inline-flex;align-items:center;gap:9px;background:var(--graphite);color:var(--paper);font-size:14px;padding:12px 22px;border-radius:100px;transition:background .2s, transform .2s}
+  .d-demo:hover{background:var(--terra);transform:translateY(-1px)}
+  .d-foot-note{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.4}
+
+  /* ---------- PROCESS BLUEPRINTS ---------- */
+  #fit{background:var(--cream-2)}
+  .flow{margin-top:30px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:30px 30px 34px}
+  .flow + .flow{margin-top:20px}
+  .flow .ftitle{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .flow .ftitle h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:560;font-size:21px;letter-spacing:-.01em}
+  .flow .ftitle .ftag{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .flow .fsub{font-size:14.5px;color:var(--graphite-soft);max-width:74ch;margin-bottom:24px}
+  .steps{display:flex;align-items:stretch;gap:0;flex-wrap:wrap}
+  .step{flex:1;min-width:150px;position:relative;padding-right:30px}
+  .step:last-child{padding-right:0}
+  .step::after{content:"→";position:absolute;right:8px;top:14px;color:var(--terra);font-size:16px}
+  .step:last-child::after{display:none}
+  .step .sbadge{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-weight:600;font-size:10.5px;color:#fff;background:var(--sc);padding:3px 8px;border-radius:6px}
+  .step .sname{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:15.5px;margin:11px 0 5px;line-height:1.2}
+  .step .srole{font-size:12.7px;color:var(--graphite-soft);line-height:1.45}
+  @media(max-width:680px){.step{flex:100%;padding:0 0 26px;min-width:0}.step::after{content:"↓";right:auto;left:0;top:auto;bottom:6px}.step:last-child{padding-bottom:0}}
+
+  /* ---------- DEPLOYMENT ---------- */
+  .deploy{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:50px}
+  @media(max-width:760px){.deploy{grid-template-columns:1fr}}
+  .deploy .cell{background:var(--paper);padding:34px 32px}
+  .deploy .cell.dark{background:var(--graphite);color:var(--cream)}
+  .deploy .cell.dark .dh,.deploy .cell.dark p{color:var(--cream)}
+  .deploy .ico{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--terra);letter-spacing:.1em}
+  .deploy .dh{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:20px;margin:16px 0 10px;letter-spacing:-.01em}
+  .deploy p{font-size:14.5px;color:var(--graphite-soft);line-height:1.56}
+  .deploy .cell.dark .ico{color:#E8A07F}
+
+  /* ---------- PLATFORM ---------- */
+  .platform{display:flex;flex-wrap:wrap;gap:10px;margin-top:40px}
+  .ptag{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12.5px;padding:9px 16px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--graphite-soft)}
+
+  /* ---------- DEFINITION STRIP (GEO direct-answer) ---------- */
+  .defstrip{background:var(--graphite);color:var(--cream)}
+  .defstrip .wrap{padding-top:46px;padding-bottom:46px}
+  .defstrip .dlabel{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#E8A07F}
+  .defstrip p{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:330;font-size:clamp(20px,2.8vw,28px);line-height:1.34;letter-spacing:-.01em;margin-top:16px;max-width:60ch}
+  .defstrip p strong{font-weight:560;color:#fff}
+  .defstrip p .acc{color:#E8A07F;font-style:italic}
+
+  /* ---------- FAQ ---------- */
+  .faq{margin-top:46px;border-top:1px solid var(--line)}
+  .qa{border-bottom:1px solid var(--line)}
+  .qa summary{
+    list-style:none;cursor:pointer;padding:22px 44px 22px 0;position:relative;
+    font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:19px;letter-spacing:-.01em;line-height:1.3;
+    transition:color .2s;
+  }
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary:hover{color:var(--terra)}
+  .qa summary::after{content:"+";position:absolute;right:8px;top:20px;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:22px;color:var(--terra);transition:transform .25s ease}
+  .qa[open] summary::after{transform:rotate(45deg)}
+  .qa p{font-size:15.5px;color:var(--graphite-soft);line-height:1.6;max-width:74ch;padding:0 44px 24px 0;margin-top:-4px}
+
+  /* ---------- DRAWER: pains + adopt ---------- */
+  .pains{list-style:none;margin:2px 0 0;padding:0}
+  .pains li{position:relative;padding:8px 0 8px 26px;font-size:14.5px;color:var(--graphite);line-height:1.5;border-bottom:1px solid var(--line-soft)}
+  .pains li:last-child{border-bottom:none}
+  .pains li::before{content:"\2014";position:absolute;left:0;top:8px;color:var(--terra);font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace}
+  .adopt{display:flex;align-items:center;gap:8px;margin:4px 0 12px;flex-wrap:wrap}
+  .adopt .stp{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);background:rgba(198,93,58,.10);padding:6px 12px;border-radius:8px}
+  .adopt .arr{color:var(--muted);font-size:13px}
+  .d-actions{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .d-calc{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:1px solid var(--graphite);color:var(--graphite);font-size:14px;padding:12px 22px;border-radius:100px;cursor:pointer;background:transparent;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;transition:all .2s;width:100%}
+  .d-calc:hover{background:var(--graphite);color:var(--paper)}
+  .d-actions-row{display:flex;gap:10px}
+  @media(max-width:520px){.d-actions-row{flex-direction:column}}
+  .d-pkg{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-align:center;border:1px solid var(--line);background:var(--cream);color:var(--graphite);font-size:12.5px;padding:11px 12px;border-radius:100px;cursor:pointer;transition:all .2s;line-height:1.25;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif}
+  .d-pkg:hover{border-color:var(--terra);color:var(--terra)}
+  .d-pkg.locked::after{content:"·";opacity:0}
+  .pay-scrim{position:fixed;inset:0;background:rgba(43,42,40,.55);backdrop-filter:blur(3px);opacity:0;visibility:hidden;transition:all .25s;z-index:1200}
+  .pay-scrim.open{opacity:1;visibility:visible}
+  .pay-modal{position:fixed;top:50%;left:50%;transform:translate(-50%,-46%);width:min(440px,92vw);background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px 30px 26px;z-index:1201;opacity:0;visibility:hidden;transition:all .25s;box-shadow:0 30px 80px rgba(43,42,40,.28);max-height:90vh;overflow:auto}
+  .pay-modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%)}
+  .pay-close{position:absolute;top:16px;right:16px;width:30px;height:30px;border:1px solid var(--line);background:var(--cream);border-radius:50%;cursor:pointer;font-size:13px;color:var(--graphite);line-height:1}
+  .pay-badge{display:inline-block;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;font-weight:700;color:var(--paper);background:var(--graphite);padding:3px 9px;border-radius:5px;letter-spacing:.04em}
+  .pay-h{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:24px;font-weight:600;color:var(--graphite);margin:14px 0 2px;line-height:1.15}
+  .pay-agent{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;font-weight:600;color:var(--terra);margin:0 0 12px}
+  .pay-sub{font-size:13.5px;color:var(--graphite-soft);line-height:1.5;margin:0 0 18px}
+  .pay-incl{margin:0 0 18px}
+  .pay-incl .dl{display:block;margin-bottom:8px}
+  .pay-incl ul{list-style:none;padding:0;margin:0}
+  .pay-incl li{position:relative;padding-left:22px;font-size:14px;color:var(--graphite);line-height:1.5;margin-bottom:6px}
+  .pay-incl li::before{content:"✓";position:absolute;left:0;color:var(--terra);font-weight:700}
+  .pay-incl li.free{color:var(--graphite-soft)}
+  .pay-price-row{display:flex;align-items:baseline;justify-content:space-between;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-bottom:18px}
+  .pay-price-label{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--graphite-soft)}
+  .pay-price-val{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:26px;font-weight:600;color:var(--graphite)}
+  .pay-cta{display:flex;align-items:center;justify-content:center;width:100%;background:var(--terra);color:var(--paper);font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:100px;cursor:pointer;transition:background .2s;text-decoration:none}
+  .pay-cta:hover{background:var(--terra-deep)}
+  .pay-secure{font-size:11.5px;color:var(--graphite-soft);line-height:1.45;text-align:center;margin:12px 0 0}
+  .pillars-sec{background:var(--cream-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+  @media(max-width:820px){.pillars{grid-template-columns:1fr;gap:16px}}
+  .pillar{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px 26px;position:relative;overflow:hidden}
+  .pillar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--terra)}
+  .pillar .pnum{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--t2);font-weight:700}
+  .pillar .plabel{display:block;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--terra);margin:6px 0 12px}
+  .pillar h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:20px;line-height:1.2;color:var(--graphite);margin:0 0 10px;font-weight:600}
+  .pillar p{font-size:14px;line-height:1.55;color:var(--graphite-soft);margin:0}
+  #readiness .ga-card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:30px;max-width:780px;margin:30px auto 0}
+  .ga-q{padding:16px 0;border-bottom:1px solid var(--line)}
+  .ga-q:first-child{padding-top:0}
+  .ga-qt{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-weight:600;font-size:15px;color:var(--graphite);margin:0 0 10px;display:block}
+  .ga-opts{display:grid;gap:7px}
+  .ga-opt{display:flex;gap:9px;align-items:flex-start;font-size:13.5px;color:var(--graphite-soft);cursor:pointer;line-height:1.4}
+  .ga-opt input{margin-top:2px;accent-color:var(--terra);flex:none}
+  .ga-run{margin-top:20px;width:100%;background:var(--terra);color:var(--paper);border:none;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;font-weight:600;padding:14px;border-radius:100px;cursor:pointer;transition:background .2s}
+  .ga-run:hover{background:var(--terra-deep)}
+  .ga-run.disabled{opacity:.42;pointer-events:none}
+  .ga-result{margin-top:24px;border-top:1px solid var(--line);padding-top:22px}
+  .ga-rlabel{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--graphite-soft)}
+  .ga-level{display:flex;align-items:center;gap:14px;margin:6px 0 14px}
+  #ga-level-name{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:25px;font-weight:600;color:var(--graphite);white-space:nowrap}
+  .ga-bar{flex:1;height:8px;border-radius:5px;background:var(--cream-2);position:relative;overflow:hidden}
+  .ga-bar::after{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--lvlpct,20%);background:var(--terra);border-radius:5px;transition:width .6s ease}
+  .ga-diag{font-size:14.5px;line-height:1.55;color:var(--graphite);margin:0 0 16px}
+  .ga-gaps .dl{display:block;margin-bottom:8px}
+  .ga-gaps ul{list-style:none;padding:0;margin:0 0 18px}
+  .ga-gaps li{position:relative;padding-left:20px;font-size:13.5px;color:var(--graphite-soft);line-height:1.5;margin-bottom:6px}
+  .ga-gaps li::before{content:"→";position:absolute;left:0;color:var(--terra)}
+  .ga-ctas{display:flex;gap:12px;flex-wrap:wrap}
+  .ga-cta-p{flex:1;min-width:210px;text-align:center;background:var(--graphite);color:var(--paper);text-decoration:none;font-size:13.5px;font-weight:600;padding:13px;border-radius:100px}
+  .ga-cta-s{flex:1;min-width:170px;text-align:center;background:transparent;border:1px solid var(--line);color:var(--graphite);text-decoration:none;font-size:13.5px;font-weight:600;padding:13px;border-radius:100px}
+  .ga-again{margin-top:14px;background:none;border:none;color:var(--graphite-soft);font-size:12.5px;text-decoration:underline;cursor:pointer;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif}
+  .ga-note{font-size:11.5px;color:var(--graphite-soft);text-align:center;margin:16px 0 0}
+  .hero-btns{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+  .score-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:22px 22px 18px;box-shadow:0 18px 50px rgba(43,42,40,.10);margin-bottom:26px}
+  .sc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+  .sc-cert{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .sc-tier{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-weight:700;font-size:13px;color:var(--paper);background:var(--t3);padding:3px 10px;border-radius:6px}
+  .sc-name{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:18px;font-weight:600;color:var(--graphite);line-height:1.2}
+  .sc-tiername{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;color:var(--terra);text-transform:uppercase;letter-spacing:.06em;margin:3px 0 14px}
+  .sc-matrix{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+  .sc-matrix li{display:flex;gap:9px;align-items:center;font-size:13px;color:var(--graphite-soft)}
+  .sc-check{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border-radius:50%;background:rgba(110,139,123,.16);color:#6E8B7B;font-size:10px;font-weight:700;flex:none}
+  .sc-foot{margin-top:16px;padding-top:14px;border-top:1px solid var(--line)}
+  .sc-badge{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--graphite);background:var(--cream-2);padding:5px 11px;border-radius:100px}
+  #trust .cred{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:34px}
+  @media(max-width:820px){#trust .cred{grid-template-columns:1fr;gap:20px}}
+  .cred-c{padding-left:18px;border-left:2px solid var(--terra)}
+  .cred-k{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:12px;color:var(--sand,#C99A5B);font-weight:700}
+  .cred-c h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:19px;line-height:1.22;color:var(--graphite);margin:8px 0 9px;font-weight:600}
+  .cred-c p{font-size:14px;line-height:1.58;color:var(--graphite-soft);margin:0}
+  .tbadges{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;margin-top:24px}
+  .tbadges span{position:relative;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;letter-spacing:.03em;color:var(--graphite-soft);padding-left:18px}
+  .tbadges span::before{content:"✓";position:absolute;left:0;color:var(--terra);font-weight:700}
+  .adopt-band{background:var(--graphite);padding:64px 0}
+  .adopt-band .eyebrow{color:var(--sand,#C99A5B)}
+  .adopt-band h2{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:600;font-size:clamp(26px,3.4vw,36px);line-height:1.12;color:var(--paper);max-width:18ch;margin:6px 0 14px}
+  .adopt-band p{font-size:16px;line-height:1.6;color:#D9D3C8;max-width:60ch;margin-bottom:26px}
+  .adopt-band .btn-p{background:var(--terra);color:var(--paper)}
+  .adopt-band .btn-p:hover{background:var(--terra-deep);transform:translateY(-2px)}
+  .pay-terms{display:flex;gap:9px;align-items:flex-start;margin:0 0 14px;cursor:pointer}
+  .pay-terms input{margin-top:2px;width:16px;height:16px;accent-color:var(--terra);flex:none}
+  .pay-terms span{font-size:12px;color:var(--graphite-soft);line-height:1.45}
+  .pay-terms a{color:var(--terra);text-decoration:underline}
+  .pay-cta.disabled{opacity:.42;pointer-events:none}
+  .flegal{display:block;font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;color:var(--graphite-soft);line-height:1.5;margin-top:6px;opacity:.85}
+  .flegal a{color:var(--graphite-soft);text-decoration:underline}
+
+  /* ---------- ROI CALCULATOR ---------- */
+  #roi{background:var(--cream-2)}
+  .calc{margin-top:50px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  @media(max-width:860px){.calc{grid-template-columns:1fr}}
+  .calc-in{background:var(--paper);padding:34px 34px 38px}
+  .calc-out{background:var(--graphite);color:var(--cream);padding:34px 34px 38px;display:flex;flex-direction:column}
+  .calc-in h3,.calc-out h3{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:500;font-size:20px;letter-spacing:-.01em;margin-bottom:4px}
+  .calc-in .ch-note,.calc-out .ch-note{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;letter-spacing:.06em;color:var(--muted);margin-bottom:22px}
+  .calc-out .ch-note{color:#B9B0A2}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:500;color:var(--graphite);margin-bottom:7px}
+  .field .hint{font-weight:400;color:var(--muted);font-size:12px}
+  .field-row{display:flex;gap:10px}
+  .field input[type=number],.field select{
+    width:100%;border:1px solid var(--line);background:var(--cream);border-radius:10px;
+    padding:11px 13px;font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:15px;color:var(--graphite);transition:border-color .2s;
+  }
+  .field input[type=number]:focus,.field select:focus{outline:none;border-color:var(--terra)}
+  .field select{cursor:pointer}
+  .cur-sel{max-width:96px;flex-shrink:0}
+  .slider-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:7px}
+  .slider-head .sv{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-weight:600;font-size:14px;color:var(--terra)}
+  input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:4px;background:var(--line);outline:none;margin:6px 0}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--terra);cursor:pointer;border:3px solid var(--paper);box-shadow:0 1px 4px rgba(43,42,40,.25)}
+  input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--terra);cursor:pointer;border:3px solid var(--paper)}
+  .res-hero{padding:6px 0 18px;border-bottom:1px solid rgba(255,255,255,.14)}
+  .res-hero .rl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#E8A07F;margin-bottom:8px}
+  .res-hero .rv{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:400;font-size:clamp(34px,5vw,46px);line-height:1;letter-spacing:-.02em;color:#fff}
+  .res-hero .rsub{font-size:13.5px;color:#C9C0B2;margin-top:8px}
+  .res-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.12);margin-top:18px;border-radius:12px;overflow:hidden}
+  .res-cell{background:var(--graphite);padding:18px 16px}
+  .res-cell .rl{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#B9B0A2;margin-bottom:7px}
+  .res-cell .rv{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-size:24px;color:#fff;line-height:1.05}
+  .res-cell .rv small{font-family:ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;font-size:13px;color:#C9C0B2;font-weight:400}
+  .roi-pos{color:#9ED3B8!important}
+  .calc-disc{font-size:11.5px;color:#9A9488;line-height:1.5;margin-top:auto;padding-top:20px}
+  .calc-disc strong{color:#C9C0B2;font-weight:500}
+
+  /* ---------- CTA / FOOTER ---------- */
+  .cta{padding:90px 0;text-align:center}
+  .cta h2{font-family:ui-serif, Georgia, Cambria, "Times New Roman", Times, serif,serif;font-weight:340;font-size:clamp(30px,5vw,52px);line-height:1.05;letter-spacing:-.02em;max-width:18ch;margin:0 auto}
+  .cta h2 em{font-style:italic;color:var(--terra)}
+  .cta .btns{display:flex;gap:14px;justify-content:center;margin-top:38px;flex-wrap:wrap}
+  .btn-p{background:var(--graphite);color:var(--paper);padding:14px 28px;border-radius:100px;font-size:15px;transition:transform .2s, background .2s}
+  .btn-p:hover{background:var(--terra);transform:translateY(-2px)}
+  .btn-s{border:1px solid var(--graphite);padding:14px 28px;border-radius:100px;font-size:15px;transition:all .2s}
+  .btn-s:hover{background:var(--graphite);color:var(--paper)}
+  footer{border-top:1px solid var(--line);padding:40px 0}
+  .foot-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer .logo{font-size:18px}
+  footer .fnote{font-family:ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace,monospace;font-size:11px;color:var(--muted);letter-spacing:.04em}
+
+  /* reveal */
+  .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+    .reveal{opacity:1!important;transform:none!important}
+  }
+  :focus-visible{outline:2px solid var(--terra);outline-offset:2px;border-radius:2px}
+
+  /* ─── MOBILE IMPROVEMENTS (≤ 640 px) ─── */
+  @media(max-width:640px){
+    /* Tighter horizontal padding on small screens */
+    .wrap{padding:0 18px}
+    /* Reduce vertical section breathing room */
+    section{padding:52px 0}
+    .hero{padding:56px 0 36px}
+    /* Stack hero CTAs & make them full-width for easy tapping */
+    .hero-btns{flex-direction:column;gap:10px}
+    .hero-btns .btn-p,.hero-btns .btn-s{
+      width:100%;text-align:center;display:block;padding:15px 20px;
+    }
+    /* Tighter stat row */
+    .hero-stats{gap:22px}
+    /* Section head narrower so text doesn't feel cramped */
+    .sec-head{max-width:100%}
+    /* FAQ: slightly smaller question text, tighter tap area */
+    .qa summary{font-size:17px;padding:18px 38px 18px 0}
+    .qa p{font-size:14.5px;padding:0 38px 20px 0}
+    /* Card cells & grid cells, reduce inner padding */
+    .princ .cell{padding:24px 18px}
+    .deploy .cell{padding:26px 20px}
+    .calc-in,.calc-out{padding:26px 18px 28px}
+    .pillar{padding:22px 18px}
+    .flow{padding:22px 18px 26px}
+    .rung{padding:18px 18px}
+    .card{padding:20px 18px 16px}
+    /* Prevent iOS Safari from zooming on numeric input focus */
+    .field input[type=number],.field select{font-size:16px}
+    /* Footer: stack logo + note on narrow screens */
+    .foot-inner{flex-direction:column;align-items:flex-start;gap:10px}
+    /* Adopt band: less vertical padding */
+    .adopt-band{padding:44px 0}
+    /* CTA section */
+    .cta{padding:60px 0}
+    /* Readiness CTA buttons: allow full stack */
+    .ga-cta-p,.ga-cta-s{min-width:0;width:100%}
+    .ga-ctas{flex-direction:column}
+    /* Drawer: reduce side padding on very narrow screens */
+    .drawer-head{padding:22px 20px 18px}
+    .drawer-body{padding:6px 20px 32px}
+    .drawer-foot{padding:14px 20px}
+    .dblock p{font-size:14.5px}
+  }
+  /* ─── Nav: keep CTA button reachable, tighten gap on tablets ─── */
+  @media(max-width:480px){
+    .nav-inner{height:56px}
+    .logo-text{font-size:18px}
+    #langsel{padding:6px 8px;font-size:12px}
+    .nav-cta{padding:8px 14px;font-size:13px}
+  }
+  .cai-language-links a[aria-current="page"]{background:#1D1B1A;color:#F5F0E8}
+@media(max-width:560px){}
+</style>
+<script defer data-domain="colleagueai.ai" src="https://plausible.io/js/script.js"></script>
+<script>window.plausible=window.plausible||function(){(window.plausible.q=window.plausible.q||[]).push(arguments)}</script>
+<style id="cai-header-readability-polish">
+/* Header readability polish: separates the ColleagueAI wordmark from the first navigation item. */
+.nav-inner {
+  column-gap: clamp(1.5rem, 3vw, 4rem);
+}
+
+.nav .logo {
+  flex: 0 0 auto;
+  min-width: max-content;
+  margin-right: clamp(1rem, 2.5vw, 3rem);
+  padding-right: clamp(.75rem, 1.5vw, 1.5rem);
+}
+
+.nav .logo-text {
+  white-space: nowrap;
+  letter-spacing: .01em;
+}
+
+.nav-links {
+  column-gap: clamp(.85rem, 1.25vw, 1.4rem);
+  row-gap: .55rem;
+}
+
+.nav-links a:first-child {
+  margin-left: .25rem;
+}
+
+@media (max-width: 980px) {
+  .nav-inner {
+    gap: 1rem;
+  }
+
+  .nav .logo {
+    margin-right: .75rem;
+    padding-right: .5rem;
+  }
+
+  .nav-links {
+    gap: .45rem .75rem;
+  }
+}
+
+@media (max-width: 720px) {
+  .nav-inner {
+    align-items: flex-start;
+  }
+
+  .nav .logo {
+    margin-right: 0;
+    margin-bottom: .35rem;
+    padding-right: 0;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+}
+</style>
+
+<style id="cai-visual-copy-polish">
+/* Conservative professional polish */
+:root{
+  --cai-card-shadow:0 18px 60px rgba(15,23,42,.12);
+  --cai-card-shadow-hover:0 24px 75px rgba(15,23,42,.18);
+}
+body{
+  text-rendering:optimizeLegibility;
+  -webkit-font-smoothing:antialiased;
+}
+section{
+  scroll-margin-top:96px;
+}
+.hero-title,h1{
+  letter-spacing:-.052em;
+  line-height:.98;
+}
+.hero-sub{
+  max-width:780px;
+  line-height:1.65;
+}
+.sec-h,h2{
+  letter-spacing:-.035em;
+  line-height:1.08;
+}
+.card,.agent-card,.trust-card,.panel,.tile,.tier,.flow,.qa,.step,.perk{
+  box-shadow:var(--cai-card-shadow);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.card:hover,.agent-card:hover,.trust-card:hover,.panel:hover,.tile:hover,.step:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--cai-card-shadow-hover);
+}
+.btn,.btn-s,.nav-cta,.nav-try,button{
+  letter-spacing:-.01em;
+}
+@media(max-width:760px){
+  .hero-title,h1{letter-spacing:-.04em}
+  .hero-sub{font-size:16px;line-height:1.6}
+}
+</style>
+
+<style id="cai-usage-intelligence-polish">
+.usage-intel{
+  margin:72px auto;
+  padding:0 22px;
+}
+.usage-intel__wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:34px;
+  border:1px solid rgba(148,163,184,.28);
+  border-radius:28px;
+  background:
+    radial-gradient(circle at top left, rgba(34,211,238,.12), transparent 34%),
+    linear-gradient(135deg, rgba(15,23,42,.92), rgba(30,41,59,.86));
+  box-shadow:0 24px 90px rgba(15,23,42,.22);
+  color:#F5F0E8;
+}
+.usage-intel__eyebrow{
+  margin:0 0 12px;
+  font-size:12px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:#E8A07F;
+  font-weight:500;
+}
+.usage-intel h2{
+  margin:0;
+  max-width:850px;
+  font-size:clamp(30px,4.5vw,58px);
+  line-height:1.02;
+  letter-spacing:-.05em;
+  color:#fff;
+}
+.usage-intel__lead{
+  max-width:820px;
+  margin:18px 0 0;
+  color:rgba(226,232,240,.88);
+  font-size:18px;
+  line-height:1.65;
+}
+.usage-intel__grid{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+}
+.usage-intel__card{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(15,23,42,.58);
+  border:1px solid rgba(226,232,240,.16);
+}
+.usage-intel__card strong{
+  display:block;
+  color:#fff;
+  margin-bottom:8px;
+  font-size:15px;
+}
+.usage-intel__card span{
+  color:rgba(226,232,240,.78);
+  font-size:13.5px;
+  line-height:1.5;
+}
+.usage-intel__note{
+  margin-top:20px;
+  color:rgba(226,232,240,.78);
+  font-size:13px;
+  line-height:1.55;
+}
+.usage-intel__split{
+  margin-top:26px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+.usage-intel__list{
+  padding:18px;
+  border-radius:20px;
+  background:rgba(15,23,42,.5);
+  border:1px solid rgba(226,232,240,.16);
+}
+.usage-intel__list h3{
+  margin:0 0 10px;
+  color:#fff;
+  font-size:16px;
+}
+.usage-intel__list ul{
+  margin:0;
+  padding-left:18px;
+  color:rgba(226,232,240,.82);
+  line-height:1.7;
+  font-size:14px;
+}
+@media(max-width:900px){
+  .usage-intel__grid,
+  .usage-intel__split{
+    grid-template-columns:1fr;
+  }
+  .usage-intel__wrap{
+    padding:26px;
+  }
+}
+</style>
+
+<style id="cai-a11y-performance-light-fixes">
+  #langsel,
+  #c-agent,
+  .cur-sel,
+  .chip,
+  .btn-p,
+  .btn-s,
+  .nav-try,
+  .nav-cta,
+  .hero-readiness-link,
+  .ga-run,
+  .ga-again,
+  .d-calc,
+  .pay-cta,
+  #cai-privacy-ok {
+    min-height: 44px;
+  }
+
+  .chip,
+  .btn-p,
+  .btn-s,
+  .nav-try,
+  .nav-cta,
+  .hero-readiness-link,
+  .ga-run,
+  .ga-again,
+  .d-calc,
+  .pay-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hint,
+  .ch-note,
+  .calc-disc,
+  .flabel,
+  .l {
+    color: #514b45;
+  }
+
+  @media (max-width: 760px) {
+    .filters {
+      gap: 10px;
+    }
+
+    .chip {
+      margin: 2px;
+      padding: 10px 14px;
+    }
+
+    .nav-links a {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+  }
+</style>
+
+<style id="cai-wave-a11y-fixes">
+  :root {
+    --muted: #5f574e;
+    --graphite-soft: #3f3b36;
+  }
+
+  .pill,
+  .flabel,
+  .count,
+  .ladder-note,
+  .rung .auto .lbl,
+  .card .kpi .kl,
+  .card .open,
+  .drawer-head .dpath,
+  .d-foot-note,
+  .flow .ftitle .ftag,
+  .empty,
+  footer .fnote,
+  .flegal,
+  .pillar .plabel,
+  .ga-rlabel,
+  .ga-note,
+  .sc-cert,
+  .sc-tiername,
+  .tbadges span,
+  .pay-price-label,
+  .pay-secure,
+  .calc-in .ch-note,
+  .calc-out .ch-note,
+  .res-cell .rl,
+  .calc-disc {
+    color: #4f4942;
+  }
+
+  .card .kpi .kl,
+  .card .open,
+  .flabel,
+  .rung .auto .lbl,
+  .dblock .dl,
+  .drawer-head .dpath,
+  .d-foot-note,
+  .flow .ftitle .ftag,
+  .ga-rlabel,
+  .ga-note,
+  .sc-cert,
+  .sc-tiername,
+  .pay-secure,
+  .calc-in .ch-note,
+  .calc-out .ch-note,
+  .res-cell .rl,
+  .calc-disc,
+  .flegal {
+    font-size: 12px;
+  }
+
+  .pill {
+    font-size: 11.5px;
+  }
+
+  .card .desc,
+  .ga-opt,
+  .ga-gaps li,
+  .step .srole,
+  .d-pkg,
+  .pay-sub,
+  .pay-terms span {
+    color: #3f3b36;
+    font-size: 14px;
+  }
+
+  .adopt-band p {
+    color: #f3eee7;
+  }
+
+  .pay-cta.disabled,
+  .ga-run.disabled {
+    opacity: .62;
+  }
+</style>
+
+<style id="cai-a11y-contrast-small-text-pass">
+  /*
+    Accessibility pass, rewritten to respect the design system.
+    Keeps: readable small text, form-control contrast, dark-brick for small
+    terra labels (WCAG 4.5:1 on cream). No longer redefines --terra and no
+    longer overrides button/badge colors, those belong to the design system.
+  */
+  .nav-links a, .hero-sub, .hero-aside, .sec-head p, .princ p, .rung .body p,
+  .card .desc, .flow .fsub, .deploy p, .pillar p, .ga-opt, .ga-gaps li,
+  .pay-sub, .pay-terms span, .tbadges span, .cred-c p, .qa p, .res-hero .rsub {
+    color: #36322e;
+  }
+  .stat .l, .rung .auto .lbl, .ladder-note, .flabel, .count, .pill,
+  .card .kpi .kl, .drawer-head .dpath, .dblock .dl, .d-foot-note,
+  .flow .ftitle .ftag, .step .srole, .empty, footer .fnote, .flegal,
+  .pillar .plabel, .ga-rlabel, .ga-note, .sc-cert, .sc-tiername,
+  .pay-price-label, .pay-secure, .field .hint, .calc-in .ch-note,
+  .res-cell .rl, .calc-disc, .sc-badge {
+    color: #4b463f;
+    font-size: 12px;
+    line-height: 1.45;
+  }
+  .card .desc, .ga-opt, .ga-gaps li, .step .srole, .d-pkg, .pay-sub,
+  .pay-terms span, .res-hero .rsub {
+    font-size: 14px;
+  }
+  /* small terra labels: dark-brick of the same hue for 4.5:1 on cream */
+  .eyebrow, .card .open, .count, .cai-reader-kicker, .proof-demo-kicker {
+    color: #9E3D22;
+  }
+  .search, #langsel, .field input[type=number], .field select {
+    color: #2b2a28;
+    border-color: #8f8475;
+  }
+  .search::placeholder { color: #5a5148; }
+</style>
+
+  <style id="cai-catalogue-render-budget">
+  .load-more-wrap {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+  }
+
+  .load-more-wrap[hidden] {
+    display: none;
+  }
+
+  .load-more-agents {
+    min-height: 44px;
+    cursor: pointer;
+  }
+</style>
+
+<style id="cai-enterprise-trust-css">
+.enterprise-arch{background:#F5F0E8;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.enterprise-arch .wrap{padding-top:72px;padding-bottom:72px}
+.arch-grid,.arch-proof,.buybuild{display:grid;gap:18px}
+.arch-grid,.buybuild{grid-template-columns:1fr 1fr}
+.arch-proof{grid-template-columns:repeat(3,1fr);margin-top:22px}
+@media(max-width:860px){.arch-grid,.arch-proof,.buybuild{grid-template-columns:1fr}}
+.arch-panel,.proof-card,.bb-cell{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px}
+.arch-panel.dark,.bb-cell.good{background:var(--graphite);color:var(--cream)}
+.arch-node{border:1px solid rgba(29,27,26,.12);border-radius:12px;padding:12px;margin-top:10px;background:rgba(255,255,255,.55)}
+.arch-panel.dark .arch-node{border-color:rgba(255,255,255,.16);background:rgba(255,255,255,.07)}
+.arch-panel p,.proof-card p,.buybuild li{font-size:14px;line-height:1.55;color:var(--graphite-soft)}
+.arch-panel.dark p,.bb-cell.good li{color:#D9D3C8}
+</style>
+<style id="cai-agent-factsheet-css">
+.factsheet-block{border:1px solid rgba(198,93,58,.18);background:rgba(198,93,58,.055);border-radius:16px;padding:18px}
+.factsheet-list{display:grid;grid-template-columns:1fr;gap:10px;margin:12px 0 0}
+.factsheet-row{display:grid;grid-template-columns:145px 1fr;gap:12px;align-items:start;border-top:1px solid rgba(43,42,40,.08);padding-top:10px}
+.factsheet-row:first-child{border-top:0;padding-top:0}
+.factsheet-row dt{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--terra)}
+.factsheet-row dd{margin:0;font-size:13.6px;line-height:1.48;color:var(--graphite-soft)}
+@media(max-width:560px){.factsheet-row{grid-template-columns:1fr;gap:4px}}
+</style>
+
+<style id="cai-proof-demo-css">
+.proof-demo{padding:72px 0;border-top:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,rgba(19,35,57,.32),rgba(8,13,22,.08))}
+.proof-demo-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.82fr);gap:28px;align-items:start}
+.proof-demo-copy{max-width:780px}
+.proof-demo-kicker{display:inline-flex;gap:8px;align-items:center;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 11px;color:var(--muted);font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.proof-demo-copy h2{font-size:clamp(32px,5vw,58px);line-height:.96;margin:18px 0 14px}
+.proof-demo-copy p{color:var(--muted);font-size:17px;line-height:1.65}
+.proof-demo-note{margin-top:16px;padding:14px 16px;border-radius:18px;border:1px solid rgba(232,160,127,.22);background:rgba(232,160,127,.08);color:var(--muted);font-size:14px}
+.proof-demo-panel{border:1px solid rgba(255,255,255,.14);border-radius:28px;background:rgba(255,255,255,.055);box-shadow:0 24px 60px rgba(0,0,0,.24);overflow:hidden}
+.proof-demo-panel-head{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.10);display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.proof-demo-case{font-size:13px;color:var(--muted);line-height:1.5}
+.proof-demo-badge{white-space:nowrap;border-radius:999px;padding:7px 10px;background:rgba(232,160,127,.14);border:1px solid rgba(232,160,127,.28);font-size:12px;color:#ffd8c6}
+.proof-demo-stage{padding:20px}
+.proof-demo-stage h3{font-size:24px;margin:0 0 8px}
+.proof-demo-stage p{margin:0;color:var(--muted);line-height:1.6}
+.proof-demo-evidence{margin:18px 0 0;padding:14px;border-radius:18px;background:rgba(0,0,0,.20);border:1px solid rgba(255,255,255,.10)}
+.proof-demo-evidence strong{display:block;margin-bottom:8px;color:var(--fg)}
+.proof-demo-evidence ul{margin:0;padding-left:18px;color:var(--muted);line-height:1.6}
+.proof-demo-controls{display:flex;gap:10px;flex-wrap:wrap;padding:0 20px 20px}
+.proof-demo-controls button{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:var(--fg);border-radius:999px;padding:11px 14px;cursor:pointer;font-weight:700}
+.proof-demo-controls button:hover{background:rgba(255,255,255,.13)}
+.proof-demo-controls button.primary{background:linear-gradient(135deg,#E8A07F,#F3C6A8);color:#15100d;border-color:transparent}
+.proof-demo-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;padding:0 20px 20px}
+.proof-demo-dot{height:6px;border-radius:999px;background:rgba(255,255,255,.16)}
+.proof-demo-dot.active{background:#E8A07F}
+@media(max-width:900px){.proof-demo-grid{grid-template-columns:1fr}.proof-demo-steps{grid-template-columns:repeat(3,1fr)}}
+</style>
+
+<style id="cai-launch-gate-css">
+  .cai-launch-gate{margin:48px auto 28px;padding:24px;border:1px solid rgba(29,27,26,.14);border-radius:24px;background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.42));box-shadow:0 18px 44px rgba(29,27,26,.08)}
+  .cai-launch-gate .cai-lg-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:18px}
+  .cai-launch-gate .cai-lg-card{border:1px solid rgba(29,27,26,.12);border-radius:18px;padding:14px;background:rgba(255,255,255,.7)}
+  .cai-launch-gate .cai-lg-label{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:#766f66;margin-bottom:6px}
+  .cai-launch-gate .cai-lg-value{font-weight:800;color:#1D1B1A}
+  .cai-launch-gate .cai-lg-note{margin-top:14px;color:#5d564f;font-size:14px;line-height:1.6}
+  .cai-launch-gate .cai-lg-pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:#1D1B1A;color:#F5F0E8;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase}
+  .cai-launch-gate .cai-lg-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+  .cai-launch-gate .cai-lg-actions a{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:11px 16px;text-decoration:none;font-weight:800;border:1px solid rgba(29,27,26,.16)}
+  .cai-launch-gate .cai-lg-primary{background:#1D1B1A;color:#F5F0E8}
+  .cai-launch-gate .cai-lg-secondary{background:rgba(255,255,255,.65);color:#1D1B1A}
+  .cai-launch-toast{position:fixed;z-index:9999;left:50%;bottom:18px;transform:translateX(-50%);max-width:min(92vw,620px);padding:14px 18px;border-radius:18px;background:#1D1B1A;color:#F5F0E8;box-shadow:0 18px 44px rgba(0,0,0,.24);font-size:14px;line-height:1.45}
+  .cai-launch-toast[hidden]{display:none}
+  @media(max-width:860px){.cai-launch-gate .cai-lg-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:560px){.cai-launch-gate{padding:18px}.cai-launch-gate .cai-lg-grid{grid-template-columns:1fr}}
+</style>
+<style id="cai-readable-nav-css">
+  .cai-skip-link{position:absolute;left:-999px;top:12px;z-index:10000;background:#1D1B1A;color:#F5F0E8;padding:10px 14px;border-radius:12px;text-decoration:none;font-weight:800}
+  .cai-skip-link:focus{left:12px}
+  .cai-reader-shell{max-width:1120px;margin:0 auto;padding:0 18px}
+  .cai-reader-nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(14px);background:rgba(245,240,232,.82);border-bottom:1px solid rgba(29,27,26,.1)}
+  .cai-reader-nav .cai-reader-shell{display:flex;align-items:center;gap:10px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+  .cai-reader-nav .cai-reader-shell::-webkit-scrollbar{display:none}
+  .cai-reader-nav a{white-space:nowrap;border:1px solid rgba(29,27,26,.14);border-radius:999px;padding:9px 13px;text-decoration:none;color:#1D1B1A;background:rgba(255,255,255,.62);font-size:13px;font-weight:800}
+  .cai-reader-nav a:first-child{background:#1D1B1A;color:#F5F0E8}
+  .cai-reader-section{max-width:1120px;margin:42px auto;padding:0 18px}
+  .cai-reader-panel{border:1px solid rgba(29,27,26,.12);border-radius:28px;padding:26px;background:linear-gradient(180deg,rgba(255,255,255,.75),rgba(255,255,255,.45));box-shadow:0 18px 44px rgba(29,27,26,.08)}
+  .cai-reader-kicker{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:#1D1B1A;color:#F5F0E8;font-size:12px;font-weight:900;letter-spacing:.05em;text-transform:uppercase}
+  .cai-reader-title{margin:14px 0 8px;font-size:clamp(28px,4vw,48px);line-height:1.02;letter-spacing:-.04em;color:#1D1B1A}
+  .cai-reader-lede{font-size:clamp(16px,2.2vw,20px);line-height:1.6;color:#554e47;max-width:840px}
+  .cai-reader-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:20px}
+  .cai-reader-card{border:1px solid rgba(29,27,26,.12);border-radius:22px;padding:18px;background:rgba(255,255,255,.72)}
+  .cai-reader-card strong{display:block;margin-bottom:6px;color:#1D1B1A;font-size:15px}
+  .cai-reader-card span,.cai-reader-card p{display:block;color:#625b54;font-size:14px;line-height:1.55;margin:0}
+  .cai-reader-two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:18px}
+  .cai-reader-list{margin:10px 0 0;padding-left:18px;color:#5d564f;line-height:1.65}
+  .cai-reader-list li{margin:4px 0}
+  .cai-reader-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+  .cai-reader-actions a{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 17px;text-decoration:none;font-weight:900;border:1px solid rgba(29,27,26,.15)}
+  .cai-reader-primary{background:#1D1B1A;color:#F5F0E8}
+  .cai-reader-secondary{background:rgba(255,255,255,.68);color:#1D1B1A}
+  .cai-reader-note{margin-top:14px;font-size:13.5px;line-height:1.55;color:#6c645d}
+  .cai-score-plain{border-left:4px solid #1D1B1A;padding:14px 16px;background:rgba(255,255,255,.68);border-radius:16px;margin-top:18px;color:#514a43;line-height:1.6}
+  @media(max-width:920px){
+    .cai-reader-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .cai-reader-two{grid-template-columns:1fr}
+  }
+  @media(max-width:560px){
+    .cai-reader-nav{position:relative}
+    .cai-reader-nav .cai-reader-shell{padding-left:12px;padding-right:12px}
+    .cai-reader-nav a{font-size:12px;padding:8px 11px}
+    .cai-reader-panel{border-radius:22px;padding:20px}
+    .cai-reader-grid{grid-template-columns:1fr}
+    .cai-reader-section{margin:28px auto}
+  }
+</style>
+<style id="cai-2026-redesign">
+/* == Partner-feedback redesign: dark navbar, brick CTAs, unified cards == */
+header.nav{background:rgba(34,33,31,.97);backdrop-filter:saturate(160%) blur(14px);-webkit-backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.06)}
+header.nav.scrolled{border-bottom-color:rgba(255,255,255,.12)}
+.nav-inner{height:70px}
+header.nav .logo-text{color:var(--cream,#F5F0E8);font-size:22px}
+footer .logo-text{color:var(--graphite)}
+header.nav .logo-text .ai{color:#E8A07F}
+footer .logo-text .ai{color:var(--terra)}
+.logo-dots span:nth-child(2){background:#E8A07F}
+header.nav .logo-dots span:nth-child(3),footer .logo-dots span:nth-child(3){background:var(--muted)}
+.nav-links{gap:18px;flex-wrap:nowrap}
+.nav-links a{color:#CFC8BB;font-weight:500;font-size:13px;white-space:nowrap}
+.nav-links a:hover{color:#fff}
+.nav-cta{background:var(--terra-solid,#A94A2C);color:#fff;font-weight:600;padding:8px 18px;font-size:12.5px}
+.nav-cta:hover{background:#fff;color:var(--graphite);transform:translateY(-1px)}
+#langsel{color:#F5F0E8;border-color:rgba(255,255,255,.28);margin-left:auto;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23F5F0E8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 8px center transparent}
+#langsel:hover{border-color:#fff}
+#langsel option{color:var(--graphite);background:#fff}
+.cainav-burger{border-color:rgba(255,255,255,.3)}
+.cainav-burger span{background:#F5F0E8}
+/* kicker line: stronger, clearer */
+.sec-head .eyebrow,.hero .eyebrow{font-size:11.5px;font-weight:500;letter-spacing:.22em;color:var(--terra)}
+/* hero CTAs: primary brick, secondary black outline, readiness link same family */
+.hero-btns .btn-p{background:var(--terra);font-weight:600}
+.hero-btns .btn-p:hover{background:var(--graphite)}
+.hero-btns .btn-s{border:1.5px solid var(--graphite);font-weight:600}
+.hero-readiness-link{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px;font-weight:600;border:1.5px solid var(--line);border-radius:100px;padding:14px 28px;color:var(--graphite);display:inline-flex;align-items:center}
+.hero-readiness-link:hover{border-color:var(--terra);color:var(--terra)}
+/* load more: clear affordance, not grey */
+.load-more-agents{background:transparent;border:1.5px solid var(--graphite);color:var(--graphite);font-weight:600}
+.load-more-agents:hover{background:var(--terra-solid,#A94A2C);border-color:var(--terra-solid,#A94A2C);color:#fff}
+/* unified card language: philosophy + trust cards match the pillar card */
+.cred{gap:22px}
+.cred-c{background:var(--paper);border:1px solid var(--line);border-left:3px solid var(--terra);border-radius:16px;padding:28px 26px}
+.cred-k{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:12px;color:var(--terra);font-weight:700}
+.princ{gap:22px;background:transparent;border:none;overflow:visible}
+.princ .cell{border:1px solid var(--line);border-radius:16px;padding:28px 26px}
+.princ .num{color:var(--terra);font-weight:700}
+/* CAI ladder: tighter rows, highlighted human role */
+.ladder{gap:10px}
+.rung{padding:18px 24px;gap:22px}
+.rung .auto .lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.rung .auto .val{display:inline-block;margin-top:4px;background:var(--rc,var(--terra));color:#fff;border-radius:100px;padding:4px 12px;font-size:12.5px;font-weight:600}
+/* process chains: steps as unified cells */
+.steps{gap:14px}
+.step{background:var(--cream-2,#F5F0E8);border:1px solid var(--line);border-radius:12px;padding:16px 16px 14px;margin-top:14px}
+.step::after{right:-14px;top:16px}
+@media(max-width:680px){.step{padding:16px 16px 14px}.step::after{right:auto;left:50%;bottom:-16px;top:auto}}
+/* partner band: terra accents + button */
+.adopt-band .eyebrow{color:#E8A07F}
+.adopt-band .btn-p{background:var(--terra-solid,#A94A2C);color:#fff;font-weight:600}
+.adopt-band .btn-p:hover{background:#fff;color:var(--graphite)}
+/* details / inline arrows: consistent brick */
+.card .open{color:var(--terra);font-weight:600}
+/* enterprise architecture: unified heading + breathing room */
+.enterprise-arch .eyebrow{font-size:11.5px;font-weight:500;letter-spacing:.22em;color:var(--terra)}
+.enterprise-arch h2{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-weight:360;font-size:clamp(30px,4.2vw,46px);line-height:1.07;letter-spacing:-.02em;margin:14px 0 0;max-width:760px}
+.enterprise-arch .lead{margin:18px 0 34px;max-width:780px}
+.arch-grid{gap:22px}
+.arch-panel{padding:28px 26px}
+.arch-node{margin-top:12px;padding:14px 16px}
+.buybuild{gap:22px;margin-top:26px}
+.bb-cell{padding:26px}
+.bb-cell ul{padding-left:20px;margin-top:10px}
+.bb-cell li{margin:8px 0}
+.arch-proof{gap:22px;margin-top:26px}
+.proof-card{padding:24px}
+/* reader sections (next steps / who for / buyer guide): align with site card language */
+.cai-reader-panel{border-radius:18px;background:var(--paper);box-shadow:none}
+.cai-reader-kicker{background:transparent;color:var(--terra);padding:0;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:11.5px;font-weight:500;letter-spacing:.22em}
+.cai-reader-title{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-weight:360;font-size:clamp(30px,4.2vw,46px);line-height:1.07;letter-spacing:-.02em}
+.cai-reader-card{border-radius:16px;background:var(--paper)}
+.cai-reader-grid{gap:18px}
+.stat .l{letter-spacing:.12em}
+/* == UX round 2: one accent, no shadows, unified cards & alien sections == */
+.defstrip .wrap{padding-top:56px;padding-bottom:56px}
+.step,.flow,.card,.pillar,.princ .cell,.cred-c,.calc,.rung,.ga-card,.arch-panel,.proof-card,.bb-cell,.agent-card,.trust-card,.panel,.tile,.tier,.score-card,.qa,.card:hover,.rung:hover{box-shadow:none!important}
+.cred-c{border-left:1px solid var(--line);padding-left:26px}
+.faq{border:1px solid var(--line);border-radius:14px;background:var(--paper);padding:4px 24px;box-shadow:none}
+.qa summary{padding:24px 44px 24px 2px}
+/* walkthrough: bring it home to the site language */
+.proof-demo{background:var(--cream-2,#F5F0E8)!important;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:72px 0}
+.proof-demo-kicker{border:none!important;padding:0!important;background:transparent!important;color:var(--terra)!important;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:11.5px!important;font-weight:500;letter-spacing:.22em!important;text-transform:uppercase}
+#proof-demo-title{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif;font-weight:400!important;font-size:clamp(28px,4vw,42px)!important;letter-spacing:-.02em;line-height:1.1;color:var(--graphite)!important}
+.proof-demo-copy p,.proof-demo-note{color:var(--soft)!important}
+.proof-demo-note{border:1px solid var(--line)!important;background:var(--paper)!important;border-radius:12px}
+.proof-demo-panel{background:var(--paper)!important;border:1px solid var(--line)!important;border-radius:16px!important;box-shadow:none!important;color:var(--graphite)!important}
+.proof-demo-panel h3,.proof-demo-panel p,.proof-demo-case,.proof-demo-evidence,.proof-demo-evidence li{color:var(--graphite)!important}
+.proof-demo-panel p,.proof-demo-evidence li{color:var(--soft)!important}
+.proof-demo-evidence{background:var(--cream-2,#F5F0E8)!important;border:1px solid var(--line)!important;border-radius:12px}
+.proof-demo-badge{background:rgba(198,93,58,.08)!important;color:var(--terra)!important;border:1px solid rgba(198,93,58,.3)!important}
+.proof-demo-controls button{border:1.5px solid var(--graphite)!important;background:transparent!important;color:var(--graphite)!important;border-radius:100px!important;padding:9px 20px!important;font-weight:600;cursor:pointer}
+.proof-demo-controls button.primary{background:var(--terra-solid,#A94A2C)!important;border-color:var(--terra-solid,#A94A2C)!important;color:#fff!important}
+.proof-demo-dot{background:var(--line)!important}
+.proof-demo-dot.active{background:var(--terra)!important}
+/* token monitor: same family as the rest of the site */
+.usage-intel__wrap{background:var(--graphite)!important;border:1px solid var(--line)!important;border-radius:18px!important;box-shadow:none!important}
+.usage-intel__eyebrow{color:#E8A07F!important;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace!important;font-size:11.5px!important;font-weight:500!important;letter-spacing:.22em!important;text-transform:uppercase}
+#usage-intelligence-title{font-family:ui-serif,Georgia,Cambria,"Times New Roman",Times,serif!important;font-weight:400!important;font-size:clamp(28px,4vw,42px)!important;letter-spacing:-.02em!important;color:var(--cream)!important}
+.usage-intel__wrap p{color:#C9C0B2}
+.usage-intel__wrap [class*="card"],.usage-intel__grid>div{background:rgba(255,255,255,.06)!important;border:1px solid rgba(255,255,255,.12)!important;border-radius:12px!important;box-shadow:none!important}
+/* partner band: unified sizes + orange-framed CTA */
+.adopt-band h2{font-size:clamp(28px,4vw,42px);font-weight:400;letter-spacing:-.02em}
+.adopt-band .btn-p{background:transparent;border:1.5px solid var(--terra);color:#E8A07F;font-weight:600}
+.adopt-band .btn-p:hover{background:var(--terra-solid,#A94A2C);color:#fff}
+/* next-steps cards: consistent type */
+.cai-reader-card strong{font-weight:600;font-size:14.5px}
+.foot-links{font-size:13px;color:var(--muted);margin-top:10px}
+.foot-links a{color:var(--muted);text-decoration:underline;text-underline-offset:3px}
+.foot-company{font-size:12px;color:var(--muted);margin-top:8px}
+.nav-links a[href^="#"].active{color:#E8A07F}
+@media(max-width:860px){
+  .nav-links{gap:16px}
+}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","@id":"https://www.colleagueai.ai/usage","url":"https://www.colleagueai.ai/usage","name":"Usage Intelligence - CAI Token Economy Monitor","description":"Client-owned token usage intelligence for AI agents.","isPartOf":{"@id":"https://www.colleagueai.ai/#website"},"publisher":{"@id":"https://www.colleagueai.ai/#org"}}</script>
+<style id="cai-url-locale-controller-css">
+html[data-cai-page="agents"] #cai-site-journey,
+html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
+.cai-langsel { margin: 14px auto 0; max-width: 1120px; padding: 0 18px; }
+.cai-langsel select { font: 500 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #2B2A28; border: 1px solid rgba(29,27,26,.18); border-radius: 100px; padding: 7px 12px; background: #fff; cursor: pointer; }
+</style>
+<script id="cai-url-locale-controller">
+(function () {
+  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"pricing":{"en":"pricing","cs":"cenik","de":"preise","fr":"tarifs","es":"precios","it":"prezzi","pl":"cennik","pt":"precos"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"}}};
+  var parts = location.pathname.split("/").filter(Boolean);
+  var hasLocale = D.locales.indexOf(parts[0]) >= 0;
+  var locale = hasLocale ? parts[0] : D.def;
+  var rest = hasLocale ? parts.slice(1) : parts;
+  function pageFromSlug(slug) { for (var p in D.slugs) { var m = D.slugs[p]; for (var l in m) { if (m[l] === slug) return p; } } return null; }
+  var page = rest.length ? pageFromSlug(rest[0]) : null;
+  function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
+  function urlFor(loc) {
+    if (page) return canonical(loc, page) + location.search + location.hash;
+    var tail = "/" + rest.join("/");
+    var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
+    return base + location.search + location.hash;
+  }
+  var el = document.documentElement;
+  el.lang = locale;
+  el.setAttribute("data-cai-route-locale", locale);
+  // URL path is the single source of truth. One write-only key for cross-surface
+  // parity only; never read to redirect, never set ahead of the URL path.
+  try { localStorage.setItem("cai-lang", locale); } catch (e) {}
+  function sync() {
+    var list = document.querySelectorAll("#langsel");
+    for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
+    var sel = document.getElementById("langsel");
+    if (!sel) return;
+    var want = D.locales.join("|");
+    var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
+    if (have !== want || sel.getAttribute("data-cai-locale-bound") !== "true") {
+      var fresh = sel.cloneNode(false);
+      D.locales.forEach(function (l) { var o = document.createElement("option"); o.value = l; o.textContent = D.labels[l] || l.toUpperCase(); fresh.appendChild(o); });
+      fresh.setAttribute("data-cai-locale-bound", "true");
+      fresh.value = locale;
+      if (!sel.parentNode) return;
+      sel.parentNode.replaceChild(fresh, sel);
+      fresh.addEventListener("change", function () { var t = fresh.value; if (D.locales.indexOf(t) < 0) return; try { localStorage.setItem("cai-lang", t); } catch (e) {} location.assign(urlFor(t)); });
+    } else { sel.value = locale; }
+  }
+  function boot() { sync(); setTimeout(sync, 0); setTimeout(sync, 250); setTimeout(sync, 1000); }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
+})();
+</script>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
+<link rel="canonical" href="https://www.colleagueai.ai/pt/usage">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/usage">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/usage">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/usage">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/usage">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/usage">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/usage">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/usage">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/usage">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/usage">
+<meta name="cai-hreflang-locales" content="en,cs,de,fr,es,it,pl,pt">
+<meta name="cai-static-locale" content="pt">
+<meta name="cai-static-i18n-prerender" content="data-i18n">
+<meta property="og:locale" content="pt_PT">
+<script id="cai-static-locale-seed">(function(){window.__CAI_STATIC_LOCALE="pt";try{localStorage.setItem("cai_lang","pt");localStorage.setItem("cai_locale","pt");}catch(e){}})();</script>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+<body>
+<a href="#usage-intelligence" class="skip-link" data-i18n="skip_link">Saltar para o conteúdo</a>
+<style>.skip-link{position:absolute;left:-9999px;top:0;z-index:300;background:var(--graphite);color:var(--paper);padding:10px 16px;font:600 14px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,sans-serif;border-radius:0 0 8px 0}.skip-link:focus{left:0}</style>
+<style>
+.cainav-burger{display:none;flex-direction:column;justify-content:center;gap:5px;width:42px;height:38px;align-items:center;border:1px solid var(--line);border-radius:10px;background:transparent;cursor:pointer;margin-left:14px}
+.cainav-burger span{width:18px;height:2px;background:var(--graphite);display:block;transition:transform .25s,opacity .2s}
+.cainav-burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.cainav-burger.open span:nth-child(2){opacity:0}
+.cainav-burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.cainav-drawer{display:none;border-top:1px solid var(--line);background:rgba(245,240,232,.97)}
+.cainav-drawer.open{display:block}
+.cainav-drawer .wrap{padding-top:10px;padding-bottom:20px}
+.cainav-drawer a{display:block;font-size:16px;color:var(--graphite);padding:13px 0;border-bottom:1px solid var(--line);text-decoration:none;transition:color .2s}
+.cainav-drawer a:hover{color:var(--terra)}
+.cainav-drawer .cainav-act{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.cainav-drawer .cainav-act a{border-bottom:none;text-align:center;padding:13px;border-radius:100px}
+.cainav-drawer .d-try{border:1px solid var(--line)}
+.cainav-drawer .d-cta{background:var(--graphite);color:var(--paper)}
+.cainav-drawer .d-cta:hover{background:var(--terra);color:var(--paper)}
+.nav-links a{position:relative}
+.nav-links a.cainav-spy.active{color:var(--graphite)}
+.nav-links a.cainav-spy.active::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:2px;background:var(--terra);border-radius:2px}
+@media(max-width:860px){.cainav-burger{display:flex}}
+@media(min-width:861px){.cainav-drawer{display:none !important}}
+</style>
+<header class="nav" id="nav">
+  <div class="wrap nav-inner">
+    <a href="/pt" class="logo" aria-label="Colleague AI home">Colleague<b>AI</b></a>
+    <nav class="nav-links">
+        <a href="/agents">Catálogo</a>
+        <a href="/score">CAI Score</a>
+        <a href="/pricing">Preços</a>
+        <a href="/trust">Trust</a>
+        <a href="/partners">Partners</a>
+        <a href="/pt/contacto">Contacto</a>
+        <select class="lang" id="langsel" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"></select><a href="https://www.colleagueai.ai/demo" id="nav-call-link" class="nav-cta" data-i18n="nav_demo">Agendar uma chamada</a>
+      </nav>
+    <button class="cainav-burger" id="cainavBurger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="cainavDrawer"><span></span><span></span><span></span></button>
+  </div>
+  <div class="cainav-drawer" id="cainavDrawer">
+    <div class="wrap">
+      <a href="/agents" data-i18n="tabs_agents">Catálogo de agentes</a>
+      <a href="/score" data-i18n="tabs_score">CAI Score e governança</a>
+      <a href="/usage" data-i18n="tabs_usage">Monitor de utilização</a>
+      <div class="cainav-act">
+        <div class="cai-site-links" style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.14)"><a href="/pricing">Preços</a><a href="/trust">Trust</a><a href="/partners">Partners</a><a href="/pt/contacto">Contacto</a></div><a class="d-try" href="/demo" data-i18n="nav_try">Experimentar ao vivo</a>
+        <a class="d-cta" href="https://www.colleagueai.ai/demo" data-i18n="nav_demo">Agendar uma chamada</a>
+      </div>
+    </div>
+  </div>
+</header>
+<style id="cai-view-tabs-css">
+#cai-view-tabs{position:sticky;top:64px;z-index:40;display:flex;gap:8px;max-width:1200px;margin:10px auto 0;padding:8px 20px;background:rgba(251,248,242,.95);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+#cai-view-tabs a{flex:0 0 auto;padding:9px 16px;border-radius:100px;border:1px solid #E0D8CA;background:#fff;color:#4A453E;font-weight:600;font-size:13.5px;text-decoration:none}
+#cai-view-tabs a[aria-current="page"]{background:#22211F;color:#fff;border-color:#22211F}
+@media (max-width:767px){#cai-view-tabs{top:56px;overflow-x:auto}}
+#cai-view-intro{max-width:1200px;margin:8px auto 0;padding:18px 20px 0}
+#cai-view-intro .cai-vi-in{background:#fff;border:1px solid #E7E0D5;border-radius:16px;padding:22px 24px}
+#cai-view-intro h2{margin:0 0 8px;font-size:22px}
+#cai-view-intro p{margin:0 0 6px;line-height:1.55;color:#4A453E}
+#cai-view-intro .cai-vi-links a{color:#c65d3a;font-weight:700;text-decoration:none}
+</style>
+<div id="cai-view-tabs" role="navigation" aria-label="Product areas">
+    <a href="/agents" data-i18n="tabs_agents">Catálogo de agentes</a>
+    <a href="/score" data-i18n="tabs_score">CAI Score e governança</a>
+    <a href="/usage" aria-current="page" data-i18n="tabs_usage">Monitor de utilização</a>
+</div>
+<section id="usage-intelligence" class="usage-intel" aria-labelledby="usage-intelligence-title">
+  <div class="usage-intel__wrap">
+    <p class="usage-intel__eyebrow" data-i18n="usage_eyebrow">Monitor CAI de economia de tokens</p>
+    <h1 id="usage-intelligence-title" data-i18n="usage_h2">Compreenda e otimize o custo em tokens por trás de cada agente.</h1>
+    <p class="usage-intel__lead" data-i18n="usage_lead">Cada pacote de agente ColleagueAI pode incluir inteligência de utilização ao nível dos tokens que corre no ambiente do cliente. Ajuda a ver consumo de tokens, custo estimado, repetições, contexto excessivo, escolha de modelos e oportunidades de otimização, sem que a ColleagueAI veja prompts, resultados, documentos ou conteúdo de negócio.</p>
+    <div class="usage-intel__grid" aria-label="Usage intelligence indicators">
+      <div class="usage-intel__card">
+        <strong data-i18n="usage_1h">Visibilidade de tokens</strong>
+        <span data-i18n="usage_1p">Veja tokens de entrada e saída por agente, workflow, equipa ou utilizador de acordo com a política do cliente.</span>
+      </div>
+      <div class="usage-intel__card">
+        <strong data-i18n="usage_2h">Controlo de custos</strong>
+        <span data-i18n="usage_2p">Acompanhe o custo estimado de modelos/API, pressão orçamental e workflows caros antes de a despesa em IA escalar sem controlo.</span>
+      </div>
+      <div class="usage-intel__card">
+        <strong data-i18n="usage_3h">Deteção de desperdício</strong>
+        <span data-i18n="usage_3p">Identifique repetições, contexto demasiado grande, escolhas de modelo caras e prompts que consomem demasiados tokens.</span>
+      </div>
+      <div class="usage-intel__card">
+        <strong data-i18n="usage_4h">Orientação de otimização</strong>
+        <span data-i18n="usage_4p">Dê aos utilizadores recomendações práticas: simplificar contexto, reutilizar resumos, mudar o nível do modelo ou melhorar padrões de prompt.</span>
+      </div>
+    </div>
+    <p class="usage-intel__note" data-i18n="usage_note">Isto não é vigilância de colaboradores. É inteligência de custo de IA do cliente: metadados que ajudam utilizadores, finanças, operações e liderança a reduzir desperdício de tokens e escalar os agentes que entregam valor.</p>
+  </div>
+</section>
+<section class="cta" id="usage-cta">
+  <div class="wrap">
+    <div class="btns">
+      <a href="https://www.colleagueai.ai/demo" id="hero-call-link" target="_blank" rel="noopener" class="btn-p" data-i18n="usage_cta">Veja o Token Monitor numa demo ao vivo →</a>
+      <a href="/agents" class="btn-s" data-i18n="cta_browse">Explorar o catálogo</a>
+    </div>
+    <div class="tbadges">
+      <span data-i18n="badge_tenant">É executado no seu inquilino</span>
+      <span data-i18n="badge_nodata">Não processamos dados de clientes</span>
+    </div>
+  </div>
+</section>
+<footer><div class="wrap foot-inner">
+    <a href="/pt" class="logo" aria-label="Colleague AI home">Colleague<b>AI</b></a>
+    <span class="fnote" data-i18n="foot_note">// A camada de confiança para a IA empresarial · CAI Score™ · Atualizado em junho de 2026</span>
+    <span class="flegal" data-i18n-html="foot_legal">© Colleague AI 2026 · Proprietário. Os agentes são licenciados por inquilino e não podem ser redistribuídos, revendidos ou sujeitos a engenharia reversa. · <a href='https://www.colleagueai.ai/terms' target='_blank' rel='noopener'>Termos</a> · <a href='https://www.colleagueai.ai/license' target='_blank' rel='noopener'>Licença</a> · <a href='https://www.colleagueai.ai/trust' target='_blank' rel='noopener'>Trust Center</a> · <a href='https://www.colleagueai.ai/privacy' target='_blank' rel='noopener'>Privacidade</a> · <a href='https://www.colleagueai.ai/partners' target='_blank' rel='noopener'>Parceiros</a></span>
+  <div class="wrap foot-links">· <a href="/terms">Termos</a> · <a href="/privacy">Privacidade</a> · <a href="/pt/reembolso">Reembolsos</a> · <a href="/license">License</a> · <a href="/partner-agreement">Partner Agreement</a> · <a href="/imprint">Aviso legal</a> · <a href="/pt/ia-responsavel">IA responsável</a> · <a href="/pt/acessibilidade">Acessibilidade</a> · <a href="/pt/contacto">Contacto</a></div>
+  <div class="wrap foot-company">Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha · IČO 29540852 · Městský soud v Praze, C 448176 · hello@colleagueai.ai</div></footer>
+<script id="cai-page-i18n">/*CAI-I18N-INJECT*/var I18N={"en":{"nav_philosophy":"Filosofia","nav_score":"The Score","nav_catalogue":"Catálogo","nav_fit":"Processes","nav_roi":"ROI","nav_deploy":"Implantação","nav_faq":"FAQ","nav_demo":"Book a demo","nav_try":"See it live","hero_eyebrow":"Agent Catálogo · The trust layer for enterprise AI","hero_sub":"ColleagueAI helps finance, operations, risk, compliance, legal, procurement, HR and service teams deploy AI agent packages with clear ownership, risk classification, ROI evidence and audit trails.","hero_stat1":"Production-grade agents","hero_stat2":"Functional pillars","hero_stat3":"Live CAI tiers","hero_aside_big":"The FICO of enterprise AI.","hero_aside":"Banks don't approve a borrower without a credit score. You shouldn't approve an AI agent without a risk score. The CAI Score is that number, and the agents in this catalogue ship with it from day one.","def_label":"In one line","phil_eyebrow":"The philosophy","phil_h2":"Most AI projects fail on governance, not capability. So we put the blueprint first.","phil_p":"ColleagueAI is the trust layer for enterprise AI — the governance framework your certified agents run inside. The hard part of enterprise AI isn’t building an agent that works in a demo, it’s governing the sprawl once dozens of them are live: knowing where each one is allowed to act, who’s accountable when it does, and being able to prove it to an auditor. Colleague AI gives you that framework first (the governance blueprint) then fits certified agents into it at the right tier.","phil_1h":"Blueprint before bots","phil_1p":"The blueprint comes first: every step of your process gets the CAI tier it's allowed to operate at, and each slot is filled only by an agent certified at or below that tier. Agents fill slots in a governed design, they don't get bolted onto a process and hope for the best.","phil_2h":"Safe by tier, not by promise","phil_2p":"An agent's CAI tier is a hard contract about its autonomy. Low-tier agents only draft and suggest. High-tier agents assist a named human who stays accountable. Safety is structural, not a marketing claim.","phil_3h":"It runs in your house","phil_3p":"Agents run inside your own Microsoft and cloud environment. Colleague AI hosts the governance layer, metadata, configuration, scores, audit trail, entitlements, and partner-registration records. In production deployments, customer operational data is designed to remain inside the customer tenancy. Public website demos, forms, partner registrations, and other submitted website inputs are separate ColleagueAI-hosted flows and should not be used for confidential production data.","score_eyebrow":"The CAI Score","score_h2":"Five levels of autonomy. Clear accountability at each level.","score_p":"The higher the tier, the more an agent can do. The controls also increase: human oversight, logging, review points, and named accountability.","t1_name":"Assiste","t1_desc":"Informa e responde. Não realiza nenhuma ação nem altera nenhum registo. O trabalho é feito pela pessoa; o agente apenas o torna mais rápido de encontrar e entender.","tier_human":"Human role","t1_role":"Faz tudo","t2_name":"Redige","t2_desc":"Produz um entregável (um documento, uma consulta, um relatório, uma mensagem de contacto) para uma pessoa rever e aprovar. Nada do que o agente cria é usado até alguém aprovar.","t2_role":"Revê e aprova","t3_name":"Opera","t3_desc":"Executa ações rotineiras de baixo risco dentro de um fluxo delimitado, classificar, encaminhar, tratar, registar. As exceções e tudo o que é incomum são entregues a uma pessoa. Cada ação recebe marca temporal.","t3_role":"Trata exceções","t4_name":"Decide (supervisionado)","t4_desc":"Apoia decisões e controlos em processos de maior risco, conformidade, contratos, segurança, dupla verificação. Uma pessoa designada continua responsável pela decisão; o agente auxilia e a evidencia. Construído para o escrutínio de processos de alto risco.","t4_role":"Continua responsável","t5_name":"Autónomo","t5_desc":"Age de forma independente dentro de limites firmes e pré-aprovados. Reservado ao mais alto nível de certificação, e hoje não usado por nenhum agente deste catálogo.","t5_role":"Define os limites","score_note":"// This catalogue ships at L2-L4. L4 agents require senior sign-off before go-live.","cat_eyebrow":"The catalogue","cat_h2":"36 governed agent packages for enterprise workflows.","cat_p":"Filter by where they work and by how much autonomy they carry. Open any agent to see where it fits in a process, the value case, the KPI it moves, and the risk & compliance posture.","flabel_pillar":"Pillar","pillar_all":"All","pillar_ops":"Operations & Service","pillar_risk":"Risk, Security & Compliance","pillar_data":"Data & Infrastructure","pillar_sales":"Sales & Marketing","pillar_corp":"Corporate","flabel_tier":"Tier","tier_any":"Any","chip_l2":"L2 · Elabora","chip_l3":"L3 · Opera","chip_l4":"L4 · Decide","fit_eyebrow":"How they fit","fit_h2":"Agents create more value when they work as part of a controlled process.","fit_p":"A single agent can remove friction. A governed sequence can improve an end-to-end process, with each agent operating at the right tier and humans owning the high-stakes steps.","flow1_title":"Month-end financial close","flow1_tag":"Finance · Operations","flow1_sub":"From unexplained reconciliation breaks to a board-ready report, with dual control on the numbers that matter.","flow1_s1":"Investigates each break and explains the root cause.","flow1_s2":"Second-reviews the adjustments; a human signs off.","flow1_s3":"Assembles the period report from the cleared data.","flow1_s4":"Rolls it up into a consistent executive view.","flow2_title":"Incident to service review","flow2_tag":"Service Delivery","flow2_sub":"An escalation arrives and ends up, weeks later, as a clean line in the monthly client pack, without a manager living in the ticket queue.","flow2_s1":"Classifies severity and drafts the first response.","flow2_s2":"Works the routine fulfilment inside the tool.","flow2_s3":"Surfaces the at-risk account to the manager daily.","flow2_s4":"Builds the monthly review pack to review-and-approve.","flow3_title":"Contract lifecycle","flow3_tag":"Legal · Procurement","flow3_sub":"A vendor MSA goes from inbox to signature with the obligations understood and the risks flagged, legal time spent on judgement, not reading.","flow3_s1":"Extracts key risks and obligations into a summary.","flow3_s2":"Checks commitments against how operations run.","flow3_s3":"Gives signatories the key points before execution.","flow4_title":"Risk & compliance cycle","flow4_tag":"Risk · Compliance","flow4_sub":"A risk event is captured cleanly, oversight stays continuous, and the audit deadline never sneaks up, with a live dashboard instead of a spreadsheet scramble.","flow4_s1":"Walks the user through logging the event completely.","flow4_s2":"Keeps continuous visibility across the control set.","flow4_s3":"Tracks evidence and deadlines on a live dashboard.","roi_eyebrow":"Build your business case","roi_h2":"Estimate the return before you deploy.","roi_p":"Choose an agent, enter your own assumptions, and estimate annual savings, hours released, FTE equivalent, ROI, and payback. Your figures stay in your browser.","calc_inputs":"Your inputs","calc_note":"// editable estimates, not a quote","calc_agent":"Agent","calc_people":"People doing this work today","calc_people_hint":"(headcount)","calc_cost":"Loaded cost per person / year","calc_cost_hint":"(salary + overhead)","calc_share":"Share of their time on this task","calc_eff":"Effort the agent removes","calc_eff_hint":"(typical)","calc_inv":"Your investment in this agent / year","calc_out_title":"Estimated annual return","calc_money":"Money saved / year","calc_time":"Time freed / year","calc_fte":"FTE equivalent","calc_roi":"Return on investment","calc_pay":"Payback period","dep_eyebrow":"Implantação & safety","dep_h2":"Your environment. Your data. Clear governance around the agent.","dep_p":"Agents run where your business data already lives. ColleagueAI holds the governance metadata, scoring, audit evidence, and token-economy indicators around them.","dep_1h":"Client-hosted by design","dep_1p":"Agents run inside your Microsoft Copilot Studio, Power Automate and Azure estate. Colleague AI hosts only the governance layer, scores, policies, audit metadata. No customer data ever touches our side. Your data stays in your walls.","dep_2h":"A human is always named","dep_2p":"The CAI tier defines exactly where a person stays accountable. L4 agents never decide alone, they assist, evidence, and hand the call to a named human. Oversight isn't a setting you can switch off; it's built into the tier.","dep_3h":"Evidence by default","dep_3p":"Every agent action is logged, time-stamped and attributable. When an auditor or regulator asks what happened and who approved it, the answer is already a record, not something you piece together after the fact.","dep_4h":"Designed to support regulated AI programmes","dep_4p":"A classificação de risco, a supervisão humana, o registo e a transparência são o núcleo do CAI Score. O framework foi concebido para apoiar o trabalho de evidência do EU AI Act, DORA e ISO/IEC 42001, sujeito à implementação no cliente e a revisão jurídica.","plat_eyebrow":"Platform & integration layer","plat_h2":"The connectors the agents run on.","faq_q1":"What is Colleague AI?","faq_a1":"Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score, a five-tier risk classification (L1-L5), documenting each agent’s controls and producing an audit trail. Agents run inside your own environment; Colleague AI hosts only the governance layer, so enterprises can deploy AI they can defend.","faq_q2":"What is the CAI Score?","faq_a2":"The CAI Score is a certification framework for AI agents, described as “the FICO of AI.” It classifies each agent by risk on a five-tier scale, from L1 (Assist) to L5 (Autonomous), defining exactly how much the agent does on its own and where a named human stays accountable, then evidences it for audit.","faq_q3":"What are the CAI Score risk tiers, L1 to L5?","faq_a3":"L1 Assist: informs only, takes no action. L2 Draft: produces work for a human to approve. L3 Operate: executes routine actions inside a bounded workflow. L4 Decide (supervised): supports high-stakes decisions with a named accountable human. L5 Autonomous: acts within hard, pre-approved guardrails. The higher the tier, the more oversight and logging the framework requires.","faq_q4":"Where do Colleague AI agents run, and is my data safe?","faq_a4":"Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the governance layer, scores, policies and audit metadata. No customer data is ever processed on our side. Your data stays in your tenant.","faq_q5":"Does Colleague AI help with EU AI Act compliance?","faq_a5":"Sim. O CAI Score está estruturado em torno da classificação de risco, supervisão humana, registo e transparência. Apoia o trabalho de conformidade, mas não substitui a avaliação jurídica, de risco ou regulatória.","faq_q6":"How is Colleague AI different from an AI agent management platform or other Governança de IA vendors?","faq_a6":"Most platforms observe and orchestrate agents or audit models after the fact. ColleagueAI adds the missing layer: a portable CAI Score, production-grade agent packages, token-economy monitoring, and governance evidence. It is a practical way to govern, measure, optimise, and scale agents, not just another dashboard.","faq_q7":"What is agent sprawl, and how does certification help?","faq_a7":"Agent sprawl is what happens when AI agents multiply across an enterprise faster than anyone is tracking them, different vendors, frameworks and clouds, each with its own risk profile and no shared audit trail. Giving each agent a CAI Score certification means every one has a known tier and an evidence record, so you always know what you've got running and who owns it.","faq_q8":"How many AI agents does Colleague AI offer, and in which areas?","faq_a8":"The catalogue includes 36 production-grade AI agents across five functional pillars: Operations & Service Delivery, Risk, Security & Compliance, Data & Infrastructure, Sales & Marketing, and Corporate (HR, Legal, Procurement, Reporting). They run at CAI tiers L2 to L4, with L4 agents requiring senior sign-off before go-live.","cta_demo":"Book a demo","cta_browse":"Browse agent catalogue","foot_note":"// The trust layer for enterprise AI · CAI Score™ · Updated June 2026","dr_pains":"⚑ Pain points it removes","dr_fit":"↳ Where it fits","dr_adopt":"⤓ How you adopt it","dr_connect":"Connect","dr_certify":"Certify","dr_run":"Run","dr_adopt_p":"Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, certify it on the CAI Score, and it runs in your own tenant, no rebuild, no data leaving your walls.","dr_value":"Value · ROI","dr_kpi":"KPI it moves","dr_risk":"⚖ Risk & compliance","dr_doc":"⤓ Download agent dossier (PDF)","dr_calc":"＝ Calculate ROI for this agent","dr_demo":"See it in a live demo →","search_ph":"Search agents…","hero_title":"Governed AI agents for enterprise operations, <br>with the <em>controls</em> to run them safely.","def_p":"<strong>Every agent ships with governance built in.</strong> Cada agente é classificado com o <span class=\"acc\">CAI Score</span>, supported by documented controls, and delivered with evidence you can review. The agents run in your own environment; we provide the governance layer around them.","calc_disc":"<strong>Apenas estimativa.</strong> Figures are generated from your inputs and editable default assumptions (annual full-time hours taken as 1,840). They illustrate potential value and are not a guarantee, a quote, or financial advice.","cta_h2":"Find the agent package that fits <em>your</em> process.","dr_footnote":"Runs in <br>your environment","count_tmpl":"// {n} shown","calc_net":"Net of investment: {v}","calc_hrs":"hrs","calc_mo":"mo","count_total":"{n} total","empty_filters":"No agents match these filters.","dr_get":"⤓ Get this agent","dr_cs":"⤓ Copilot Studio package","dr_m365":"⤓ Microsoft 365 Copilot package","pay_heading":"Get this agent","pay_sub":"Solicite acesso ao pacote de agente selecionado. O acesso de produção é libertado após confirmação da configuração comercial e da elegibilidade.","pay_incl":"What you get","pay_incl_cs":"Copilot Studio connect package","pay_incl_m365":"Microsoft 365 Copilot package","pay_incl_doc":"Agent dossier (PDF)","pay_price":"Price","pay_tbd":"Pricing on request","pay_request":"Request access →","pay_cta":"Request access ->","pay_secure":"O pagamento e a entrega de transferências estão configurados para compras aprovadas. Enquanto o checkout não estiver ativo, utilize o fluxo de pedido de acesso.","pay_terms":"I accept the <a href='https://www.colleagueai.ai/license' target='_blank' rel='noopener'>licence terms</a>, a single-tenant, non-transferable licence; no redistribution, resale or reverse-engineering.","foot_legal":"© Colleague AI 2026 · Proprietary. Agents are licensed per tenant and may not be redistributed, resold or reverse-engineered. · <a href='https://www.colleagueai.ai/terms' target='_blank' rel='noopener'>Termos</a> · <a href='https://www.colleagueai.ai/license' target='_blank' rel='noopener'>Licence</a> · <a href='https://www.colleagueai.ai/trust' target='_blank' rel='noopener'>Trust Center</a> · <a href='https://www.colleagueai.ai/privacy' target='_blank' rel='noopener'>Privacidade</a> · <a href='https://www.colleagueai.ai/partners' target='_blank' rel='noopener'>Partners</a>","pil_eyebrow":"What you're buying","pil_h2":"What every agent package includes.","pil_p":"Each package combines a deployable agent blueprint, implementation guidance, ROI support, governance evidence, and a CAI Token Economy Monitor.","pil_1_label":"The solution","pil_1_h":"A deployable agent package for your process.","pil_1_p":"Each ColleagueAI agent package includes a deployable blueprint, CAI Score classification, implementation guidance, ROI support, audit evidence, and token-economy indicators for your Microsoft/Azure environment.","pil_2_label":"Proof & ROI","pil_2_h":"Proof before production.","pil_2_p":"Validate the agent on your own cases before go-live. The business case is built from practical inputs: time saved, effort reduced, FTE capacity released, and estimated payback.","pil_3_label":"Compliance & risk","pil_3_h":"Governance evidence from the start.","pil_3_p":"Each package includes a CAI Score risk tier, a named human accountability model, and audit evidence designed to support risk, compliance, and procurement review.","ga_eyebrow":"Free check · nothing leaves your browser","ga_h2":"How audit-ready is your AI, really?","ga_p":"Six questions. Get your organisation's Governança de IA maturity level, and the specific gaps to close before a regulator or auditor asks. Built on the same CAI methodology we certify agents with.","ga_btn":"See my maturity level →","ga_resultlbl":"Your Governança de IA maturity","ga_gaplbl":"Where to focus first","ga_cta_browse":"See the agents that close these gaps →","ga_cta_demo":"Book a demo","ga_again":"Start over","ga_note":"Indicative self-assessment. Your answers stay in your browser, nothing is sent or stored.","ga_lvl1":"Ad Hoc","ga_lvl2":"Team AI","ga_lvl3":"Controlled AI","ga_lvl4":"Governed AI","ga_lvl5":"Audit-Ready Enterprise","nav_readiness":"Readiness","hero_cta2":"Check your readiness","card_cert":"Certified under CAI Score™","card_oversight":"Named human oversight","card_audit":"Full audit trail","card_data":"Data stays in your tenant","card_reg":"EU AI Act + DORA mapped","card_ready":"Audit-ready","cred_eyebrow":"Why trust us","cred_h2":"Trust should be demonstrated, not requested.","cred_p":"We prefer evidence over claims: defined tiers, named accountability, operating controls, and audit records that can be reviewed.","cred_1_h":"Built by operators, not just model-builders","cred_1_p":"Colleague AI is built by people who have run regulated finance, insurance and SAP operations, and sat through the audits that follow. The CAI Score encodes how those functions actually reason about risk and control, not how a demo looks.","cred_2_h":"A documented method, not a black box","cred_2_p":"The CAI Score is an open framework: defined tiers, named human roles, logging and review periods. You can see exactly how every agent is classified, and push back if you disagree. A methodology that holds up to scrutiny is one you can actually stand behind.","cred_3_h":"Verify the evidence","cred_3_p":"Agents run in your tenant; we do not process your customer data. Actions are logged and attributable, and the evidence is designed to support governance and compliance review.","badge_tenant":"Runs in your tenant","badge_nodata":"No customer data processed by us","badge_reg":"Designed to support EU AI Act, DORA, and ISO/IEC 42001 evidence work","badge_audit":"Audit-ready by design","adopt_eyebrow":"Partner program","adopt_h2":"Adopt an agent. Promote it. Earn from it.","adopt_p":"Bring our certified agents to your network or your clients and earn a share of what you bring in, refer, resell or deploy, with brand-safe assets and tracked attribution. We sell direct too; partners extend the reach.","adopt_btn":"Become a partner →","usage_eyebrow":"CAI Token Economy Monitor","usage_h2":"Understand and optimise the token cost behind every agent.","usage_lead":"Every ColleagueAI agent package can include token-level usage intelligence that runs inside the client environment. It helps customers see token consumption, estimated cost, retries, oversized context, model choices, and optimisation opportunities, without ColleagueAI seeing prompts, outputs, documents, or business content.","usage_1h":"Token visibility","usage_1p":"See input and output token consumption by agent, workflow, team, or user according to the client’s own policy.","usage_2h":"Cost control","usage_2p":"Track estimated model/API cost, budget pressure, and high-cost workflows before AI spend scales uncontrolled.","usage_3h":"Waste detection","usage_3p":"Identify repeated retries, oversized context, expensive model choices, and prompts that consume too many tokens.","usage_4h":"Optimisation guidance","usage_4p":"Give users practical recommendations: simplify context, reuse summaries, change model tier, or improve prompt patterns.","usage_note":"This is not employee surveillance. It is client-owned AI cost intelligence: metadata that helps users, finance, operations, and leadership reduce token waste and scale the agents that deliver value.","skip_link":"Skip to content","tabs_agents":"Catálogo de agentes","tabs_score":"CAI Score & governance","tabs_usage":"Usage monitor","intro_h2":"Enterprise AI agents that ship in days - and pass your audit","intro_p":"36 production-ready agents for finance, operations, risk and compliance. Every one governance-scored, fully documented, transparently priced. They run inside YOUR Microsoft tenant - your data never leaves your control.","intro_link":"How the CAI Score works →","score_hero_h1":"The CAI Score: governance you can put a number on.","score_hero_p":"How ColleagueAI classifies agent autonomy, maps controls to risk, and produces the evidence your auditors and regulators expect.","usage_cta":"See the Token Monitor in a live demo →","proof_eyebrow":"Proof, not promises","proof_h2":"What governed agents deliver in production","proof_shot_label":"Product screenshot — CGovernança de IA console","proof_case_kicker":"Case study"},"pt":{"nav_philosophy":"Filosofia","nav_score":"O Score","nav_catalogue":"Catálogo","nav_fit":"Processos","nav_roi":"ROI","nav_deploy":"Implementação","nav_faq":"FAQ","nav_demo":"Agendar uma chamada","nav_try":"Experimentar ao vivo","hero_eyebrow":"Catálogo de agentes · A camada de confiança para a IA empresarial","hero_sub":"A ColleagueAI ajuda equipas de finanças, operações, risco, compliance, jurídico, compras, RH e serviços a implementar pacotes de agentes de IA com responsabilidade clara, classificação de risco, evidência de ROI e trilhos de auditoria.","hero_stat1":"Agentes prontos para produção","hero_stat2":"Pilares funcionais","hero_stat3":"Níveis CAI ativos","hero_aside_big":"O FICO da IA empresarial.","hero_aside":"Um banco não aprova um tomador sem uma pontuação de crédito. Você não deveria aprovar um agente de IA sem uma pontuação de risco. O CAI Score é esse número, e os agentes deste catálogo já o trazem desde o primeiro dia.","def_label":"Em uma frase","phil_eyebrow":"A filosofia","phil_h2":"A maioria dos projetos de IA falha na governança, não na capacidade. Por isso colocamos o plano em primeiro lugar.","phil_p":"A ColleagueAI é a camada de confiança para a IA empresarial — a estrutura de governança dentro da qual os seus agentes certificados são executados. O difícil na IA empresarial não é construir um agente que funciona numa demonstração, é governar a proliferação quando há dezenas em operação: saber onde cada um pode agir, quem é responsável quando age, e poder comprová-lo a um auditor. A Colleague AI lhe dá primeiro esse quadro (o plano de governança) e depois insere agentes certificados no nível certo.","phil_1h":"O plano antes dos bots","phil_1p":"O plano vem primeiro: cada passo do seu processo recebe o CAI tier em que está autorizado a operar, e cada lugar é preenchido apenas por um agente certificado nesse tier ou abaixo. Os agentes ocupam lugares num desenho governado, não são colados a um processo na esperança de que dê certo.","phil_2h":"Seguros por nível, não por promessa","phil_2p":"O nível CAI de um agente é um contrato firme sobre a sua autonomia. Agentes de nível baixo apenas redigem e sugerem. Os de nível alto auxiliam uma pessoa designada que continua responsável. A segurança é estrutural, não uma promessa de marketing.","phil_3h":"Roda na sua casa","phil_3p":"Os agentes são executados no seu próprio ambiente Microsoft e de nuvem. A Colleague AI hospeda apenas o plano de controlo, metadados de governança, pontuações e trilha de auditoria. Os seus dados nunca saem do seu inquilino.","score_eyebrow":"O CAI Score","score_h2":"Cinco níveis. Cada um é uma promessa sobre quanta margem um agente recebe.","score_p":"Leia de baixo para cima: quanto mais alto o nível, mais um agente pode fazer, e mais supervisão humana, registo e responsabilidade o plano constrói à sua volta. Cada agente do catálogo carrega um.","t1_name":"Assiste","t1_desc":"Informa e responde. Não realiza nenhuma ação nem altera nenhum registo. O trabalho é feito pela pessoa; o agente apenas o torna mais rápido de encontrar e entender.","tier_human":"Papel da pessoa","t1_role":"Faz tudo","t2_name":"Redige","t2_desc":"Produz um entregável (um documento, uma consulta, um relatório, uma mensagem de contacto) para uma pessoa rever e aprovar. Nada do que o agente cria é usado até alguém aprovar.","t2_role":"Revê e aprova","t3_name":"Opera","t3_desc":"Executa ações rotineiras de baixo risco dentro de um fluxo delimitado, classificar, encaminhar, tratar, registar. As exceções e tudo o que é incomum são entregues a uma pessoa. Cada ação recebe marca temporal.","t3_role":"Trata exceções","t4_name":"Decide (supervisionado)","t4_desc":"Apoia decisões e controlos em processos de maior risco, conformidade, contratos, segurança, dupla verificação. Uma pessoa designada continua responsável pela decisão; o agente auxilia e a evidencia. Construído para o escrutínio de processos de alto risco.","t4_role":"Continua responsável","t5_name":"Autónomo","t5_desc":"Age de forma independente dentro de limites firmes e pré-aprovados. Reservado ao mais alto nível de certificação, e hoje não usado por nenhum agente deste catálogo.","t5_role":"Define os limites","score_note":"// Este catálogo é entregue nos níveis L2-L4. Os agentes L4 exigem aprovação da direção antes do go-live.","cat_eyebrow":"O catálogo","cat_h2":"36 agentes, prontos para encaixar no seu plano.","cat_p":"Filtre por onde atuam e por quanta autonomia carregam. Abra qualquer agente para ver onde se encaixa num processo, o seu valor, o KPI que move e a sua postura de risco e conformidade.","flabel_pillar":"Pilar","pillar_all":"Todos","pillar_ops":"Operações e serviço","pillar_risk":"Risco, segurança e conformidade","pillar_data":"Dados e infraestrutura","pillar_sales":"Vendas e marketing","pillar_corp":"Corporativo","flabel_tier":"Nível","tier_any":"Qualquer","chip_l2":"L2 · Redige","chip_l3":"L3 · Opera","chip_l4":"L4 · Decide","fit_eyebrow":"Como se encaixam","fit_h2":"Os agentes valem mais em cadeia. Eis como é um plano.","fit_p":"Um único agente ajuda. Uma sequência governada transforma um processo de ponta a ponta, cada agente no nível certo, cada um passando o testemunho ao seguinte, com as pessoas a cargo dos passos de alto risco. Quatro exemplos práticos.","flow1_title":"Fecho financeiro mensal","flow1_tag":"Finanças · Operações","flow1_sub":"De divergências de reconciliação inexplicadas a um relatório pronto para o conselho, com duplo controlo nos números que importam.","flow1_s1":"Investiga cada divergência e explica a sua causa.","flow1_s2":"Segunda revisão dos ajustes; uma pessoa aprova.","flow1_s3":"Monta o relatório do período a partir dos dados depurados.","flow1_s4":"Consolida-o numa visão executiva coerente.","flow2_title":"Do incidente à revisão de serviço","flow2_tag":"Prestação de serviço","flow2_sub":"Uma escalada chega e termina, semanas depois, como uma linha limpa no relatório mensal do cliente, sem um gestor a viver na fila de tickets.","flow2_s1":"Classifica a gravidade e redige a primeira resposta.","flow2_s2":"Trata a execução rotineira dentro da ferramenta.","flow2_s3":"Sinaliza diariamente ao gestor a conta em risco.","flow2_s4":"Constrói o relatório de revisão mensal para rever e aprovar.","flow3_title":"Ciclo de vida do contrato","flow3_tag":"Jurídico · Compras","flow3_sub":"Um MSA de fornecedor passa da caixa de entrada à assinatura com as obrigações compreendidas e os riscos sinalizados, tempo jurídico gasto em julgamento, não em leitura.","flow3_s1":"Extrai os riscos e obrigações-chave num resumo.","flow3_s2":"Confronta os compromissos com o funcionamento real.","flow3_s3":"Dá aos signatários os pontos-chave antes da assinatura.","flow4_title":"Ciclo de risco e conformidade","flow4_tag":"Risco · Conformidade","flow4_sub":"Um evento de risco é capturado de forma limpa, a supervisão permanece contínua e o prazo de auditoria nunca surpreende, com um painel ao vivo em vez de uma corrida de folhas de cálculo.","flow4_s1":"Guia o utilizador no registo completo do evento.","flow4_s2":"Mantém visibilidade contínua sobre todo o conjunto de controlos.","flow4_s3":"Acompanha evidências e prazos num painel ao vivo.","roi_eyebrow":"Construa o seu business case","roi_h2":"Veja o dinheiro e o tempo que um único agente devolve.","roi_p":"Escolha um agente, introduza os seus próprios números e o seu investimento, e a calculadora estima as poupanças anuais, as horas e os FTE libertados, o ROI e o retorno. Os seus dados ficam no seu navegador, nada é enviado.","calc_inputs":"Os seus dados","calc_note":"// estimativas editáveis, não é um orçamento","calc_agent":"Agente","calc_people":"Pessoas que fazem este trabalho hoje","calc_people_hint":"(efetivos)","calc_cost":"Custo total por pessoa / ano","calc_cost_hint":"(salário + encargos)","calc_share":"Parte do tempo nesta tarefa","calc_eff":"Esforço que o agente elimina","calc_eff_hint":"(típico)","calc_inv":"O seu investimento neste agente / ano","calc_out_title":"Retorno anual estimado","calc_money":"Dinheiro poupado / ano","calc_time":"Tempo libertado / ano","calc_fte":"Equivalente FTE","calc_roi":"Retorno do investimento","calc_pay":"Período de retorno","dep_eyebrow":"Implementação e segurança","dep_h2":"O seu ambiente. Os seus dados. A nossa governança.","dep_p":"Os agentes correm onde os seus dados de negócio já residem. A ColleagueAI mantém os metadados de governação, scoring, evidência de auditoria e indicadores de economia de tokens em torno deles.","dep_1h":"Hospedado no cliente por conceção","dep_1p":"Os agentes correm dentro do seu ambiente Microsoft Copilot Studio, Power Automate e Azure. A Colleague AI aloja apenas o plano de controlo, pontuações, políticas, metadados de auditoria. Nenhum dado de cliente chega ao nosso lado. Os seus dados ficam nas suas paredes.","dep_2h":"Há sempre uma pessoa designada","dep_2p":"O nível CAI define exatamente onde uma pessoa continua responsável. Os agentes L4 nunca decidem sozinhos, auxiliam, evidenciam e entregam a decisão a uma pessoa designada. A supervisão não é uma definição que se possa desligar; está integrada no nível.","dep_3h":"Evidência por omissão","dep_3p":"Cada ação do agente é registada, com carimbo de data/hora e atribuível. Quando um auditor ou regulador perguntar o que aconteceu e quem aprovou, a resposta já é um registo, não algo que tem de reconstruir depois.","dep_4h":"Construído para o EU AI Act","dep_4p":"A classificação de risco, a supervisão humana, o registo e a transparência são o núcleo do CAI Score. O framework foi concebido para apoiar o trabalho de evidência do EU AI Act, DORA e ISO/IEC 42001, sujeito à implementação no cliente e a revisão jurídica.","plat_eyebrow":"Plataforma e camada de integração","plat_h2":"Os conectores em que os agentes correm.","faq_q1":"O que é a Colleague AI?","faq_a1":"A Colleague AI é a camada de confiança para a IA empresarial. Certifica agentes de IA segundo o CAI Score, uma classificação de risco de cinco níveis (L1-L5), documenta os controlos de cada agente e produz uma trilha de auditoria. Os agentes são executados no seu próprio ambiente; a Colleague AI hospeda apenas o plano de controlo de governança, para que as empresas implementem IA que possam defender.","faq_q2":"O que é o CAI Score?","faq_a2":"O CAI Score é um quadro de certificação para agentes de IA, descrito como «o FICO da IA». Classifica cada agente por risco numa escala de cinco níveis, de L1 (Assiste) a L5 (Autónomo), definindo exatamente quanto o agente faz sozinho e onde uma pessoa designada continua responsável, e depois evidencia-o para auditoria.","faq_q3":"Quais são os níveis de risco do CAI Score, de L1 a L5?","faq_a3":"L1 Assiste: apenas informa, não age. L2 Redige: produz trabalho para ser aprovado por uma pessoa. L3 Opera: ações rotineiras dentro de um fluxo delimitado. L4 Decide (supervisionado): apoia decisões de alto risco com uma pessoa designada responsável. L5 Autónomo: age dentro de limites firmes e pré-aprovados. Quanto mais alto o nível, mais supervisão e registo o quadro exige.","faq_q4":"Onde correm os agentes da Colleague AI e os meus dados estão seguros?","faq_a4":"Os agentes correm dentro do seu próprio ambiente Microsoft Copilot Studio, Power Automate e Azure. A Colleague AI aloja apenas o plano de controlo, pontuações, políticas e metadados de auditoria. Nenhum dado de cliente é alguma vez processado do nosso lado. Os seus dados ficam no seu tenant.","faq_q5":"A Colleague AI ajuda na conformidade com o EU AI Act?","faq_a5":"Sim. O CAI Score está estruturado em torno da classificação de risco, supervisão humana, registo e transparência. Apoia o trabalho de conformidade, mas não substitui a avaliação jurídica, de risco ou regulatória.","faq_q6":"Em que difere a Colleague AI de uma plataforma de gestão de agentes de IA ou de outros fornecedores de governança de IA?","faq_a6":"A maioria das plataformas observa e orquestra agentes ou audita modelos depois do facto. A ColleagueAI acrescenta a camada em falta: um CAI Score portátil, pacotes de agentes prontos para produção, monitorização da economia de tokens e evidência de governação. É uma forma prática de governar, medir, otimizar e escalar agentes, não apenas mais um dashboard.","faq_q7":"O que é a proliferação de agentes e como ajuda a certificação?","faq_a7":"O agent sprawl é o que acontece quando os agentes de IA se multiplicam por toda a empresa mais depressa do que alguém os acompanha, diferentes fornecedores, frameworks e clouds, cada um com o seu perfil de risco e sem registo de auditoria partilhado. Dar a cada agente uma certificação CAI Score significa que todos têm um tier conhecido e um registo de evidências, para que saiba sempre o que tem em funcionamento e quem é o responsável.","faq_q8":"Quantos agentes de IA a Colleague AI oferece e em que áreas?","faq_a8":"O catálogo inclui 36 agentes de IA prontos para produção em cinco pilares funcionais: Operações e serviço, Risco, segurança e conformidade, Dados e infraestrutura, Vendas e marketing, e Corporativo (RH, jurídico, compras, reporting). Operam nos níveis CAI L2 a L4, com os agentes L4 a exigirem aprovação da direção antes do go-live.","cta_demo":"Agendar demonstração ao vivo","cta_browse":"Explorar o catálogo","foot_note":"// A camada de confiança para a IA empresarial · CAI Score™ · Atualizado em junho de 2026","dr_pains":"⚑ Pontos de dor que elimina","dr_fit":"↳ Onde se encaixa","dr_adopt":"⤓ Como adotá-lo","dr_connect":"Conectar","dr_certify":"Certificar","dr_run":"Executar","dr_adopt_p":"Entregue pré-construído para Microsoft Copilot Studio, Power Automate e Azure. Conecta-o ao seu ambiente, certifica-o no CAI Score e ele é executado no seu próprio inquilino, sem reconstrução, sem dados a saírem das suas paredes.","dr_value":"Valor · ROI","dr_kpi":"KPI que move","dr_risk":"⚖ Risco e conformidade","dr_doc":"⤓ Descarregar o dossiê do agente (PDF, EN)","dr_calc":"＝ Calcular o ROI deste agente","dr_demo":"Ver numa demonstração ao vivo →","count_tmpl":"// {n} apresentados","calc_net":"Líquido do investimento: {v}","calc_hrs":"h","calc_mo":"meses","count_total":"{n} no total","empty_filters":"Nenhum agente corresponde a estes filtros.","hero_title":"Agentes de IA governados para operações empresariais, <br>com os <em>controlos</em> para os operar em segurança.","def_p":"<strong>A Colleague AI é a camada de confiança para a IA empresarial.</strong> Certifica agentes de IA segundo o <span class=\"acc\">CAI Score</span> (uma classificação de risco de cinco níveis de L1 a L5) documenta os controlos de cada agente e produz uma trilha de auditoria. Os agentes são executados no seu próprio ambiente; nós hospedamos apenas o plano de controlo de governança. Assim implementa IA que pode defender.","calc_disc":"<strong>Apenas uma estimativa.</strong> Os números são gerados a partir dos seus dados e de pressupostos predefinidos editáveis (horas anuais a tempo inteiro fixadas em 1.840). Ilustram um valor potencial e não são uma garantia, um orçamento nem aconselhamento financeiro.","cta_h2":"Quer ver quais agentes se encaixam no <em>seu</em> processo?","dr_footnote":"Executa no seu <br>ambiente","search_ph":"Pesquisar agentes…","dr_get":"⤓ Obter este agente","dr_cs":"⤓ Pacote para Copilot Studio","dr_m365":"⤓ Pacote para Microsoft 365 Copilot","pay_heading":"Obter este agente","pay_sub":"Peça acesso ao pacote de agente selecionado. O acesso à produção é libertado após confirmação da configuração comercial e da elegibilidade.","pay_incl":"O que recebe","pay_incl_cs":"Pacote de ligação Copilot Studio","pay_incl_m365":"Pacote Microsoft 365 Copilot","pay_incl_doc":"Dossiê do agente (PDF)","pay_price":"Preço","pay_tbd":"Preço sob consulta","pay_request":"Solicitar acesso →","pay_cta":"Pedir acesso →","pay_secure":"O pagamento e a entrega do download estão configurados para compras aprovadas. Enquanto o checkout não estiver ativo, use o pedido de acesso.","pay_terms":"Aceito os <a href='https://www.colleagueai.ai/license' target='_blank' rel='noopener'>termos de licença</a>, uma licença por inquilino, intransferível; sem redistribuição, revenda ou engenharia reversa.","foot_legal":"© Colleague AI 2026 · Proprietário. Os agentes são licenciados por inquilino e não podem ser redistribuídos, revendidos ou sujeitos a engenharia reversa. · <a href='https://www.colleagueai.ai/terms' target='_blank' rel='noopener'>Termos</a> · <a href='https://www.colleagueai.ai/license' target='_blank' rel='noopener'>Licença</a> · <a href='https://www.colleagueai.ai/trust' target='_blank' rel='noopener'>Trust Center</a> · <a href='https://www.colleagueai.ai/privacy' target='_blank' rel='noopener'>Privacidade</a> · <a href='https://www.colleagueai.ai/partners' target='_blank' rel='noopener'>Parceiros</a>","pil_eyebrow":"O que está a comprar","pil_h2":"Três pilares. Uma forma defensável de pôr a IA em produção.","pil_p":"Cada pacote combina um blueprint de agente implementável, orientação de implementação, suporte de ROI, evidência de governação e um Monitor CAI de economia de tokens.","pil_1_label":"A solução","pil_1_h":"Um agente pronto para produção, para encaixar no seu processo.","pil_1_p":"Cada pacote de agente ColleagueAI inclui um blueprint implementável, classificação CAI Score, orientação de implementação, suporte de ROI, evidência de auditoria e indicadores de economia de tokens para o seu ambiente Microsoft/Azure.","pil_2_label":"Prova & ROI","pil_2_h":"Uma verdadeira prova de conceito, com ROI medido, não prometido.","pil_2_p":"Cada agente é validado nos seus próprios casos antes do go-live, e o seu retorno é quantificado à partida (dinheiro poupado, horas e FTE libertados, retorno) com uma calculadora integrada e um dossiê de agente que pode apresentar a um diretor financeiro.","pil_3_label":"Conformidade & risco","pil_3_h":"Governança pronta para auditoria, integrada, não acrescentada depois.","pil_3_p":"Cada agente inclui um CAI tier de risco, um responsável humano nomeado e um registo de auditoria completo alinhado com o Regulamento de IA da UE e a norma ISO/IEC 42001. Quando o departamento de risco, auditoria ou compras perguntar, a resposta já está documentada.","ga_eyebrow":"Teste rápido · nada sai do seu navegador","ga_h2":"Quão pronta para auditoria está a sua IA, na verdade?","ga_p":"Seis perguntas. Obtenha o nível de maturidade da governança de IA da sua organização, e as lacunas concretas a fechar antes que um regulador ou auditor pergunte. Construído sobre a mesma metodologia CAI com que certificamos agentes.","ga_btn":"Ver o meu nível de maturidade →","ga_resultlbl":"A sua maturidade de governança de IA","ga_gaplbl":"Por onde começar","ga_cta_browse":"Ver os agentes que fecham estas lacunas →","ga_cta_demo":"Agendar uma revisão de governança","ga_again":"Recomeçar","ga_note":"Autoavaliação indicativa. As suas respostas ficam no seu navegador, nada é enviado ou armazenado.","ga_lvl1":"Ad hoc","ga_lvl2":"IA de equipa","ga_lvl3":"IA controlada","ga_lvl4":"IA governada","ga_lvl5":"Empresa pronta para auditoria","nav_readiness":"Maturidade","hero_cta2":"Avalie a sua maturidade","card_cert":"Certificado segundo o CAI Score™","card_oversight":"Supervisão humana designada","card_audit":"Trilha de auditoria completa","card_data":"Os dados permanecem no seu inquilino","card_reg":"Alinhado com o EU AI Act + DORA","card_ready":"Pronto para auditoria","cred_eyebrow":"Por que confiar em nós","cred_h2":"Numa categoria construída sobre a confiança, preferimos que verifique.","cred_p":"A maioria dos fornecedores de IA pede a sua confiança. Preferimos conquistá-la como o fazem as funções reguladas, com um método documentado, uma responsabilidade com nome e evidências auditáveis.","cred_1_h":"Construído por operadores, não apenas por criadores de modelos","cred_1_p":"A Colleague AI é construída por pessoas que dirigiram operações reguladas em finanças, seguros e SAP, e passaram pelas auditorias que se seguem. O CAI Score traduz como essas funções realmente raciocinam sobre risco e controlo, não como uma demonstração parece.","cred_2_h":"Um método documentado, não uma caixa preta","cred_2_p":"O CAI Score é um framework aberto: níveis definidos, papéis humanos nomeados, registo e períodos de revisão. Pode ver exatamente como cada agente é classificado, e contestar se discordar. Uma metodologia que resiste ao escrutínio é uma em que realmente se pode confiar.","cred_3_h":"Verifique as evidências","cred_3_p":"Os agentes correm no seu tenant; nunca processamos os seus dados. Cada ação é registada e atribuível, concebida para satisfazer o Regulamento de IA da UE, a DORA e a norma ISO/IEC 42001. A evidência vive no Trust Center, não num dossiê comercial.","badge_tenant":"É executado no seu inquilino","badge_nodata":"Não processamos dados de clientes","badge_reg":"Alinhado com EU AI Act · DORA · ISO/IEC 42001","badge_audit":"Pronto para auditoria por conceção","adopt_eyebrow":"Programa de parceiros","adopt_h2":"Adote um agente. Promova-o. Ganhe com ele.","adopt_p":"Leve os nossos agentes certificados à sua rede ou aos seus clientes e ganhe uma parte do que trouxer, indique, revenda ou implemente, com materiais seguros para a marca e atribuição rastreada. Também vendemos direto; os parceiros ampliam o alcance.","adopt_btn":"Torne-se parceiro →","usage_eyebrow":"Monitor CAI de economia de tokens","usage_h2":"Compreenda e otimize o custo em tokens por trás de cada agente.","usage_lead":"Cada pacote de agente ColleagueAI pode incluir inteligência de utilização ao nível dos tokens que corre no ambiente do cliente. Ajuda a ver consumo de tokens, custo estimado, repetições, contexto excessivo, escolha de modelos e oportunidades de otimização, sem que a ColleagueAI veja prompts, resultados, documentos ou conteúdo de negócio.","usage_1h":"Visibilidade de tokens","usage_1p":"Veja tokens de entrada e saída por agente, workflow, equipa ou utilizador de acordo com a política do cliente.","usage_2h":"Controlo de custos","usage_2p":"Acompanhe o custo estimado de modelos/API, pressão orçamental e workflows caros antes de a despesa em IA escalar sem controlo.","usage_3h":"Deteção de desperdício","usage_3p":"Identifique repetições, contexto demasiado grande, escolhas de modelo caras e prompts que consomem demasiados tokens.","usage_4h":"Orientação de otimização","usage_4p":"Dê aos utilizadores recomendações práticas: simplificar contexto, reutilizar resumos, mudar o nível do modelo ou melhorar padrões de prompt.","usage_note":"Isto não é vigilância de colaboradores. É inteligência de custo de IA do cliente: metadados que ajudam utilizadores, finanças, operações e liderança a reduzir desperdício de tokens e escalar os agentes que entregam valor.","skip_link":"Saltar para o conteúdo","tabs_agents":"Catálogo de agentes","tabs_score":"CAI Score e governança","tabs_usage":"Monitor de utilização","intro_h2":"Agentes de IA empresariais operacionais em dias - e que passam na sua auditoria","intro_p":"36 agentes prontos para produção para finanças, operações, risco e compliance. Cada um com pontuação de governança, documentação completa e preço transparente. Funcionam no SEU tenant Microsoft - os seus dados nunca saem do seu controlo.","intro_link":"Como funciona o CAI Score →","score_hero_h1":"O CAI Score: governança que se pode quantificar.","score_hero_p":"Como a ColleagueAI classifica a autonomia dos agentes, alinha os controlos com o risco e produz as evidências que os seus auditores e reguladores esperam.","usage_cta":"Veja o Token Monitor numa demo ao vivo →","proof_eyebrow":"Provas, não promessas","proof_h2":"O que os agentes governados entregam em produção","proof_shot_label":"Captura do produto — consola de governança CAI","proof_case_kicker":"Caso de estudo"}};window.T=function(k){var d=(I18N[document.documentElement.lang]||I18N.en);return d&&d[k]!=null?d[k]:(I18N.en&&I18N.en[k]!=null?I18N.en[k]:null);};window.LANGNOW=(document.documentElement.lang||"en");</script>
+<script>
+/* ---------- ANALYTICS (provider-agnostic) ----------
+   Fires named events into whatever you wire up: GTM (dataLayer), gtag, Plausible, or PostHog.
+   No tool is bundled, connect yours and these events flow automatically. Nothing fires until one is present. */
+(function(){
+  const CAI_ALLOWED_EVENTS={
+    agent_view:1,
+    calculator_use:1,
+    checkout_open:1,
+    readiness_complete:1,
+    demo_click:1,
+    partner_click:1,
+    readiness_cta_click:1,
+    browse_catalogue_click:1,
+    license_click:1,
+    partner_referral:1
+  };
+  const CAI_ALLOWED_PROPS={
+    tier:1,
+    pillar:1,
+    level:1,
+    mode:1,
+    context:1,
+    partner_present:1,
+    score_bucket:1
+  };
+  function caiScoreBucket(v){
+    var n=Number(v);
+    if(!isFinite(n)) return undefined;
+    if(n<=3) return '0-3';
+    if(n<=7) return '4-7';
+    if(n<=11) return '8-11';
+    if(n<=15) return '12-15';
+    return '16-plus';
+  }
+  function caiSafeValue(v){
+    if(typeof v==='boolean') return v;
+    if(typeof v==='number') return String(v);
+    if(typeof v!=='string') return undefined;
+    var s=v.toLowerCase().replace(/[^a-z0-9_ .:-]/g,'').slice(0,48);
+    return s || undefined;
+  }
+  function caiPrivacySafeProps(props){
+    props=props||{};
+    var out={};
+    if('score' in props) out.score_bucket=caiScoreBucket(props.score);
+    if('partner' in props || window.__cai_partner) out.partner_present=!!(props.partner||window.__cai_partner);
+    Object.keys(props).forEach(function(k){
+      if(!CAI_ALLOWED_PROPS[k]) return;
+      var v=caiSafeValue(props[k]);
+      if(v!==undefined) out[k]=v;
+    });
+    out.path=location.pathname;
+    return out;
+  }
+  function track(ev, props){
+    if(!CAI_ALLOWED_EVENTS[ev]) return;
+    var safe=caiPrivacySafeProps(props);
+    try{
+      var payload={event:ev};
+      Object.keys(safe).forEach(function(k){payload[k]=safe[k];});
+      (window.dataLayer=window.dataLayer||[]).push(payload);
+    }catch(e){}
+    try{ if(typeof window.gtag==='function') window.gtag('event',ev,safe); }catch(e){}
+  }
+  window.caiTrack=track;
+  // delegated tracking for links & buttons, survives DOM re-renders (catalogue, drawer)
+  document.addEventListener('click', function(e){
+    var el=e.target.closest && e.target.closest('a,button'); if(!el) return;
+    var href=(el.getAttribute && el.getAttribute('href'))||'', key=(el.dataset&&el.dataset.i18n)||'';
+    if(href.indexOf('/demo')>-1) track('demo_cta_click', {context:key});
+    else if(href.indexOf('/partners')>-1 || key==='adopt_btn') track('partner_cta_click', {context:key});
+    else if(href.indexOf('#readiness')>-1) track('readiness_cta_click', {context:key});
+    else if(href==='#catalogue') track('browse_catalogue_click', {context:key});
+    else if(href.indexOf('/license')>-1) track('license_view_click', {});
+  }, true);
+})();
+</script>
+<script>
+/* ---------- PARTNER ATTRIBUTION ----------
+   Captures ?partner=ID, persists it, and carries it into demo, partner and checkout links
+   so a partner-referred buyer is credited. Crediting/payout is handled backend. */
+(function(){
+  var KEY='cai_partner', pid='';
+  try{
+    var u=new URLSearchParams(location.search), p=u.get('partner');
+    if(p){ pid=p.slice(0,64); try{localStorage.setItem(KEY,pid);}catch(e){} }
+    else { try{pid=localStorage.getItem(KEY)||'';}catch(e){} }
+  }catch(e){}
+  window.__cai_partner=pid||'';
+  if(window.__cai_partner && window.caiTrack) caiTrack('partner_referral',{partner_present:true});
+  if(!window.__cai_partner) return;
+  // append &partner= to outbound demo / partner-apply links (checkout is handled in the payment script)
+  document.querySelectorAll('a[href*="colleagueai.ai/demo"],a[href*="colleagueai.ai/partners"]').forEach(function(a){
+    try{ var url=new URL(a.href); url.searchParams.set('partner',window.__cai_partner); a.href=url.toString(); }catch(e){}
+  });
+})();
+</script>
+<script>(function(){var u=(window.STORE&&STORE.schedulerUrl&&STORE.schedulerUrl!=="YOUR_SCHEDULER_URL")?STORE.schedulerUrl:"https://www.colleagueai.ai/demo";["nav-call-link","hero-call-link"].forEach(function(id){var el=document.getElementById(id);if(!el)return;try{var url=new URL(u,location.origin);if(window.__cai_partner)url.searchParams.set("partner",window.__cai_partner);el.href=url.toString();}catch(e){el.href=u;}});})();</script>
+<script>
+(function(){
+  var burger=document.getElementById('cainavBurger');
+  var drawer=document.getElementById('cainavDrawer');
+  if(burger&&drawer){
+    burger.addEventListener('click',function(){
+      var open=drawer.classList.toggle('open');
+      burger.classList.toggle('open',open);
+      burger.setAttribute('aria-expanded',open?'true':'false');
+    });
+    drawer.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){drawer.classList.remove('open');burger.classList.remove('open');burger.setAttribute('aria-expanded','false');});});
+  }
+  var links=Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  var map=[];
+  links.forEach(function(a){var h=a.getAttribute('href');if(h&&h.length>1){var s=document.querySelector(h);if(s){a.classList.add('cainav-spy');map.push({a:a,s:s});}}});
+  if('IntersectionObserver' in window && map.length){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          map.forEach(function(x){x.a.classList.remove('active');});
+          for(var i=0;i<map.length;i++){if(map[i].s===e.target){map[i].a.classList.add('active');break;}}
+        }
+      });
+    },{rootMargin:'-45% 0px -50% 0px'});
+    map.forEach(function(x){io.observe(x.s);});
+  }
+})();
+</script>
+<div id="cai-privacy" class="cai-privacy" role="dialog" aria-label="Privacy notice" hidden>
+  <span>We use privacy-friendly, <strong>cookieless</strong> analytics, no personal tracking or ad cookies. See our <a href="/privacy">Privacy Policy</a>.</span>
+  <button id="cai-privacy-ok" type="button">Entendido</button>
+</div>
+<style>
+.cai-privacy{position:fixed;left:16px;right:16px;bottom:16px;max-width:560px;margin:0 auto;background:#2B2A28;color:#F5F0E8;border-radius:14px;padding:14px 16px;display:flex;gap:14px;align-items:center;justify-content:space-between;font:14px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif,system-ui,sans-serif;box-shadow:0 12px 40px rgba(43,42,40,.3);z-index:9999}
+.cai-privacy[hidden]{display:none}
+.cai-privacy a{color:#E8A07F}
+.cai-privacy button{flex:none;background:#F5F0E8;color:#2B2A28;border:0;border-radius:999px;padding:8px 18px;font-weight:600;cursor:pointer}
+.cai-privacy button:hover{background:#fff}
+@media(max-width:520px){.cai-privacy{flex-direction:column;align-items:flex-start}}
+</style>
+<script>(function(){try{var k="cai-privacy-ack",el=document.getElementById("cai-privacy");if(!el)return;if(!localStorage.getItem(k))el.hidden=false;document.getElementById("cai-privacy-ok").addEventListener("click",function(){try{localStorage.setItem(k,"1")}catch(e){}el.hidden=true});}catch(e){}})();</script>
+</body>
+</html>

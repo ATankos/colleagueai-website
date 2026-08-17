@@ -1,659 +1,725 @@
 {
-    "$schema":  "https://openapi.vercel.sh/vercel.json",
-    "headers":  [
-                    {
-                        "source":  "/(.*)",
-                        "headers":  [
-                                        {
-                                            "key":  "Strict-Transport-Security",
-                                            "value":  "max-age=63072000; includeSubDomains; preload"
-                                        },
-                                        {
-                                            "key":  "X-Content-Type-Options",
-                                            "value":  "nosniff"
-                                        },
-                                        {
-                                            "key":  "X-Frame-Options",
-                                            "value":  "SAMEORIGIN"
-                                        },
-                                        {
-                                            "key":  "Referrer-Policy",
-                                            "value":  "strict-origin-when-cross-origin"
-                                        },
-                                        {
-                                            "key":  "Permissions-Policy",
-                                            "value":  "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
-                                        },
-                                        {
-                                            "key":  "Content-Security-Policy",
-                                            "value":  "default-src \u0027self\u0027; script-src \u0027self\u0027 https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src \u0027self\u0027 blob:; style-src \u0027self\u0027 \u0027unsafe-inline\u0027 https://fonts.googleapis.com; font-src \u0027self\u0027 https://fonts.gstatic.com data:; img-src \u0027self\u0027 data: https:; connect-src \u0027self\u0027 https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors \u0027self\u0027; base-uri \u0027self\u0027; form-action \u0027self\u0027; object-src \u0027none\u0027"
-                                        },
-                                        {
-                                            "key":  "Access-Control-Allow-Origin",
-                                            "value":  "https://www.colleagueai.ai"
-                                        }
-                                    ]
-                    },
-                    {
-                        "source":  "/((?!assets/).*)",
-                        "headers":  [
-                                        {
-                                            "key":  "Cache-Control",
-                                            "value":  "public, max-age=0, must-revalidate"
-                                        }
-                                    ]
-                    },
-                    {
-                        "source":  "/assets/(.*)",
-                        "headers":  [
-                                        {
-                                            "key":  "Cache-Control",
-                                            "value":  "public, max-age=31536000, immutable"
-                                        }
-                                    ]
-                    },
-                    {
-                        "source":  "/og-image.png",
-                        "headers":  [
-                                        {
-                                            "key":  "Cache-Control",
-                                            "value":  "public, max-age=86400, stale-while-revalidate=604800"
-                                        }
-                                    ]
-                    }
-                ],
-    "redirects":  [
-                      {
-                          "source":  "/en/agents",
-                          "destination":  "/agents",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/en/trust",
-                          "destination":  "/trust",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/en/partners",
-                          "destination":  "/partners",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/en/privacy",
-                          "destination":  "/privacy",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/en/terms",
-                          "destination":  "/terms",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/cs/agents",
-                          "destination":  "/cs/agenti",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/cs/trust",
-                          "destination":  "/cs/duvera",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/cs/partners",
-                          "destination":  "/cs/partneri",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/cs/privacy",
-                          "destination":  "/cs/ochrana-soukromi",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/cs/terms",
-                          "destination":  "/cs/podminky",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/de/agents",
-                          "destination":  "/de/agenten",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/de/trust",
-                          "destination":  "/de/vertrauen",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/de/partners",
-                          "destination":  "/de/partner",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/de/privacy",
-                          "destination":  "/de/datenschutz",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/de/terms",
-                          "destination":  "/de/nutzungsbedingungen",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/fr/trust",
-                          "destination":  "/fr/confiance",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/fr/partners",
-                          "destination":  "/fr/partenaires",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/fr/privacy",
-                          "destination":  "/fr/confidentialite",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/fr/terms",
-                          "destination":  "/fr/conditions",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/es/agents",
-                          "destination":  "/es/agentes",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/es/trust",
-                          "destination":  "/es/confianza",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/es/partners",
-                          "destination":  "/es/socios",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/es/privacy",
-                          "destination":  "/es/privacidad",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/es/terms",
-                          "destination":  "/es/terminos",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/it/agents",
-                          "destination":  "/it/agenti",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/it/trust",
-                          "destination":  "/it/fiducia",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/it/partners",
-                          "destination":  "/it/partner",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/it/terms",
-                          "destination":  "/it/termini",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pl/agents",
-                          "destination":  "/pl/agenci",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pl/trust",
-                          "destination":  "/pl/zaufanie",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pl/partners",
-                          "destination":  "/pl/partnerzy",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pl/privacy",
-                          "destination":  "/pl/prywatnosc",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pl/terms",
-                          "destination":  "/pl/warunki",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pt/agents",
-                          "destination":  "/pt/agentes",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pt/trust",
-                          "destination":  "/pt/confianca",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pt/partners",
-                          "destination":  "/pt/parceiros",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pt/privacy",
-                          "destination":  "/pt/privacidade",
-                          "permanent":  true
-                      },
-                      {
-                          "source":  "/pt/terms",
-                          "destination":  "/pt/termos",
-                          "permanent":  true
-                      }
-                  ],
-    "rewrites":  [
-                     {
-                         "source":  "/pt/acessibilidade",
-                         "destination":  "/pt/accessibility.html"
-                     },
-                     {
-                         "source":  "/pt/ia-responsavel",
-                         "destination":  "/pt/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/pl/dostepnosc",
-                         "destination":  "/pl/accessibility.html"
-                     },
-                     {
-                         "source":  "/pl/odpowiedzialna-ai",
-                         "destination":  "/pl/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/it/accessibilita",
-                         "destination":  "/it/accessibility.html"
-                     },
-                     {
-                         "source":  "/it/ia-responsabile",
-                         "destination":  "/it/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/es/accesibilidad",
-                         "destination":  "/es/accessibility.html"
-                     },
-                     {
-                         "source":  "/es/ia-responsable",
-                         "destination":  "/es/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/fr/accessibilite",
-                         "destination":  "/fr/accessibility.html"
-                     },
-                     {
-                         "source":  "/fr/ia-responsable",
-                         "destination":  "/fr/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/de/barrierefreiheit",
-                         "destination":  "/de/accessibility.html"
-                     },
-                     {
-                         "source":  "/de/verantwortungsvolle-ki",
-                         "destination":  "/de/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/cs/pristupnost",
-                         "destination":  "/cs/accessibility.html"
-                     },
-                     {
-                         "source":  "/cs/odpovedna-ai",
-                         "destination":  "/cs/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/accessibility",
-                         "destination":  "/accessibility.html"
-                     },
-                     {
-                         "source":  "/responsible-ai",
-                         "destination":  "/responsible-ai.html"
-                     },
-                     {
-                         "source":  "/pt/contacto",
-                         "destination":  "/pt/contact.html"
-                     },
-                     {
-                         "source":  "/pt/reembolso",
-                         "destination":  "/pt/refund.html"
-                     },
-                     {
-                         "source":  "/pl/kontakt",
-                         "destination":  "/pl/contact.html"
-                     },
-                     {
-                         "source":  "/pl/zwroty",
-                         "destination":  "/pl/refund.html"
-                     },
-                     {
-                         "source":  "/it/contatti",
-                         "destination":  "/it/contact.html"
-                     },
-                     {
-                         "source":  "/it/rimborso",
-                         "destination":  "/it/refund.html"
-                     },
-                     {
-                         "source":  "/es/contacto",
-                         "destination":  "/es/contact.html"
-                     },
-                     {
-                         "source":  "/es/reembolso",
-                         "destination":  "/es/refund.html"
-                     },
-                     {
-                         "source":  "/fr/contact",
-                         "destination":  "/fr/contact.html"
-                     },
-                     {
-                         "source":  "/fr/remboursement",
-                         "destination":  "/fr/refund.html"
-                     },
-                     {
-                         "source":  "/de/kontakt",
-                         "destination":  "/de/contact.html"
-                     },
-                     {
-                         "source":  "/de/rueckerstattung",
-                         "destination":  "/de/refund.html"
-                     },
-                     {
-                         "source":  "/refund",
-                         "destination":  "/refund.html"
-                     },
-                     {
-                         "source":  "/contact",
-                         "destination":  "/contact.html"
-                     },
-                     {
-                         "source":  "/cs/vraceni-penez",
-                         "destination":  "/cs/refund.html"
-                     },
-                     {
-                         "source":  "/cs/kontakt",
-                         "destination":  "/cs/contact.html"
-                     },
-                     {
-                         "source":  "/agents",
-                         "destination":  "/agents.html"
-                     },
-                     {
-                         "source":  "/trust",
-                         "destination":  "/trust.html"
-                     },
-                     {
-                         "source":  "/partners",
-                         "destination":  "/partners.html"
-                     },
-                     {
-                         "source":  "/privacy",
-                         "destination":  "/privacy.html"
-                     },
-                     {
-                         "source":  "/terms",
-                         "destination":  "/terms.html"
-                     },
-                     {
-                         "source":  "/agents/:slug",
-                         "destination":  "/agents/:slug.html"
-                     },
-                     {
-                         "source":  "/license",
-                         "destination":  "/license.html"
-                     },
-                     {
-                         "source":  "/partner-agreement",
-                         "destination":  "/partner-agreement.html"
-                     },
-                     {
-                         "source":  "/cs/agenti",
-                         "destination":  "/cs/agents.html"
-                     },
-                     {
-                         "source":  "/cs/duvera",
-                         "destination":  "/cs/trust.html"
-                     },
-                     {
-                         "source":  "/cs/partneri",
-                         "destination":  "/cs/partners.html"
-                     },
-                     {
-                         "source":  "/cs/ochrana-soukromi",
-                         "destination":  "/cs/privacy.html"
-                     },
-                     {
-                         "source":  "/cs/podminky",
-                         "destination":  "/cs/terms.html"
-                     },
-                     {
-                         "source":  "/de/agenten",
-                         "destination":  "/de/agents.html"
-                     },
-                     {
-                         "source":  "/de/vertrauen",
-                         "destination":  "/de/trust.html"
-                     },
-                     {
-                         "source":  "/de/partner",
-                         "destination":  "/de/partners.html"
-                     },
-                     {
-                         "source":  "/de/datenschutz",
-                         "destination":  "/de/privacy.html"
-                     },
-                     {
-                         "source":  "/de/nutzungsbedingungen",
-                         "destination":  "/de/terms.html"
-                     },
-                     {
-                         "source":  "/fr/agents",
-                         "destination":  "/fr/agents.html"
-                     },
-                     {
-                         "source":  "/fr/confiance",
-                         "destination":  "/fr/trust.html"
-                     },
-                     {
-                         "source":  "/fr/partenaires",
-                         "destination":  "/fr/partners.html"
-                     },
-                     {
-                         "source":  "/fr/confidentialite",
-                         "destination":  "/fr/privacy.html"
-                     },
-                     {
-                         "source":  "/fr/conditions",
-                         "destination":  "/fr/terms.html"
-                     },
-                     {
-                         "source":  "/es/agentes",
-                         "destination":  "/es/agents.html"
-                     },
-                     {
-                         "source":  "/es/confianza",
-                         "destination":  "/es/trust.html"
-                     },
-                     {
-                         "source":  "/es/socios",
-                         "destination":  "/es/partners.html"
-                     },
-                     {
-                         "source":  "/es/privacidad",
-                         "destination":  "/es/privacy.html"
-                     },
-                     {
-                         "source":  "/es/terminos",
-                         "destination":  "/es/terms.html"
-                     },
-                     {
-                         "source":  "/it/agenti",
-                         "destination":  "/it/agents.html"
-                     },
-                     {
-                         "source":  "/it/fiducia",
-                         "destination":  "/it/trust.html"
-                     },
-                     {
-                         "source":  "/it/partner",
-                         "destination":  "/it/partners.html"
-                     },
-                     {
-                         "source":  "/it/privacy",
-                         "destination":  "/it/privacy.html"
-                     },
-                     {
-                         "source":  "/it/termini",
-                         "destination":  "/it/terms.html"
-                     },
-                     {
-                         "source":  "/pl/agenci",
-                         "destination":  "/pl/agents.html"
-                     },
-                     {
-                         "source":  "/pl/zaufanie",
-                         "destination":  "/pl/trust.html"
-                     },
-                     {
-                         "source":  "/pl/partnerzy",
-                         "destination":  "/pl/partners.html"
-                     },
-                     {
-                         "source":  "/pl/prywatnosc",
-                         "destination":  "/pl/privacy.html"
-                     },
-                     {
-                         "source":  "/pl/warunki",
-                         "destination":  "/pl/terms.html"
-                     },
-                     {
-                         "source":  "/pt/agentes",
-                         "destination":  "/pt/agents.html"
-                     },
-                     {
-                         "source":  "/pt/confianca",
-                         "destination":  "/pt/trust.html"
-                     },
-                     {
-                         "source":  "/pt/parceiros",
-                         "destination":  "/pt/partners.html"
-                     },
-                     {
-                         "source":  "/pt/privacidade",
-                         "destination":  "/pt/privacy.html"
-                     },
-                     {
-                         "source":  "/pt/termos",
-                         "destination":  "/pt/terms.html"
-                     },
-                     {
-                         "source":  "/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/cs/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/de/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/fr/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/es/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/it/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/pl/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/pt/demo",
-                         "destination":  "/demo.html"
-                     },
-                     {
-                         "source":  "/pricing",
-                         "destination":  "/pricing.html"
-                     },
-                     {
-                         "source":  "/cs/cenik",
-                         "destination":  "/cs/pricing.html"
-                     },
-                     {
-                         "source":  "/cs/pricing",
-                         "destination":  "/cs/pricing.html"
-                     },
-                     {
-                         "source":  "/de/preise",
-                         "destination":  "/de/pricing.html"
-                     },
-                     {
-                         "source":  "/de/pricing",
-                         "destination":  "/de/pricing.html"
-                     },
-                     {
-                         "source":  "/fr/tarifs",
-                         "destination":  "/fr/pricing.html"
-                     },
-                     {
-                         "source":  "/fr/pricing",
-                         "destination":  "/fr/pricing.html"
-                     },
-                     {
-                         "source":  "/es/precios",
-                         "destination":  "/es/pricing.html"
-                     },
-                     {
-                         "source":  "/es/pricing",
-                         "destination":  "/es/pricing.html"
-                     },
-                     {
-                         "source":  "/it/prezzi",
-                         "destination":  "/it/pricing.html"
-                     },
-                     {
-                         "source":  "/it/pricing",
-                         "destination":  "/it/pricing.html"
-                     },
-                     {
-                         "source":  "/pl/cennik",
-                         "destination":  "/pl/pricing.html"
-                     },
-                     {
-                         "source":  "/pl/pricing",
-                         "destination":  "/pl/pricing.html"
-                     },
-                     {
-                         "source":  "/pt/precos",
-                         "destination":  "/pt/pricing.html"
-                     },
-                     {
-                         "source":  "/pt/pricing",
-                         "destination":  "/pt/pricing.html"
-                     },
-                     {
-                         "source":  "/score",
-                         "destination":  "/agents.html"
-                     },
-                     {
-                         "source":  "/usage",
-                         "destination":  "/agents.html"
-                     }
-                 ]
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Strict-Transport-Security",
+                    "value": "max-age=63072000; includeSubDomains; preload"
+                },
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                },
+                {
+                    "key": "Permissions-Policy",
+                    "value": "accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'self'; script-src 'self' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+                },
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "https://www.colleagueai.ai"
+                }
+            ]
+        },
+        {
+            "source": "/((?!assets/).*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=0, must-revalidate"
+                }
+            ]
+        },
+        {
+            "source": "/assets/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=31536000, immutable"
+                }
+            ]
+        },
+        {
+            "source": "/og-image.png",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, stale-while-revalidate=604800"
+                }
+            ]
+        }
+    ],
+    "redirects": [
+        {
+            "source": "/en/agents",
+            "destination": "/agents",
+            "permanent": true
+        },
+        {
+            "source": "/en/score",
+            "destination": "/score",
+            "permanent": true
+        },
+        {
+            "source": "/en/usage",
+            "destination": "/usage",
+            "permanent": true
+        },
+        {
+            "source": "/en/trust",
+            "destination": "/trust",
+            "permanent": true
+        },
+        {
+            "source": "/en/partners",
+            "destination": "/partners",
+            "permanent": true
+        },
+        {
+            "source": "/en/privacy",
+            "destination": "/privacy",
+            "permanent": true
+        },
+        {
+            "source": "/en/terms",
+            "destination": "/terms",
+            "permanent": true
+        },
+        {
+            "source": "/cs/agents",
+            "destination": "/cs/agenti",
+            "permanent": true
+        },
+        {
+            "source": "/cs/trust",
+            "destination": "/cs/duvera",
+            "permanent": true
+        },
+        {
+            "source": "/cs/partners",
+            "destination": "/cs/partneri",
+            "permanent": true
+        },
+        {
+            "source": "/cs/privacy",
+            "destination": "/cs/ochrana-soukromi",
+            "permanent": true
+        },
+        {
+            "source": "/cs/terms",
+            "destination": "/cs/podminky",
+            "permanent": true
+        },
+        {
+            "source": "/de/agents",
+            "destination": "/de/agenten",
+            "permanent": true
+        },
+        {
+            "source": "/de/trust",
+            "destination": "/de/vertrauen",
+            "permanent": true
+        },
+        {
+            "source": "/de/partners",
+            "destination": "/de/partner",
+            "permanent": true
+        },
+        {
+            "source": "/de/privacy",
+            "destination": "/de/datenschutz",
+            "permanent": true
+        },
+        {
+            "source": "/de/terms",
+            "destination": "/de/nutzungsbedingungen",
+            "permanent": true
+        },
+        {
+            "source": "/fr/trust",
+            "destination": "/fr/confiance",
+            "permanent": true
+        },
+        {
+            "source": "/fr/partners",
+            "destination": "/fr/partenaires",
+            "permanent": true
+        },
+        {
+            "source": "/fr/privacy",
+            "destination": "/fr/confidentialite",
+            "permanent": true
+        },
+        {
+            "source": "/fr/terms",
+            "destination": "/fr/conditions",
+            "permanent": true
+        },
+        {
+            "source": "/es/agents",
+            "destination": "/es/agentes",
+            "permanent": true
+        },
+        {
+            "source": "/es/trust",
+            "destination": "/es/confianza",
+            "permanent": true
+        },
+        {
+            "source": "/es/partners",
+            "destination": "/es/socios",
+            "permanent": true
+        },
+        {
+            "source": "/es/privacy",
+            "destination": "/es/privacidad",
+            "permanent": true
+        },
+        {
+            "source": "/es/terms",
+            "destination": "/es/terminos",
+            "permanent": true
+        },
+        {
+            "source": "/it/agents",
+            "destination": "/it/agenti",
+            "permanent": true
+        },
+        {
+            "source": "/it/trust",
+            "destination": "/it/fiducia",
+            "permanent": true
+        },
+        {
+            "source": "/it/partners",
+            "destination": "/it/partner",
+            "permanent": true
+        },
+        {
+            "source": "/it/terms",
+            "destination": "/it/termini",
+            "permanent": true
+        },
+        {
+            "source": "/pl/agents",
+            "destination": "/pl/agenci",
+            "permanent": true
+        },
+        {
+            "source": "/pl/trust",
+            "destination": "/pl/zaufanie",
+            "permanent": true
+        },
+        {
+            "source": "/pl/partners",
+            "destination": "/pl/partnerzy",
+            "permanent": true
+        },
+        {
+            "source": "/pl/privacy",
+            "destination": "/pl/prywatnosc",
+            "permanent": true
+        },
+        {
+            "source": "/pl/terms",
+            "destination": "/pl/warunki",
+            "permanent": true
+        },
+        {
+            "source": "/pt/agents",
+            "destination": "/pt/agentes",
+            "permanent": true
+        },
+        {
+            "source": "/pt/trust",
+            "destination": "/pt/confianca",
+            "permanent": true
+        },
+        {
+            "source": "/pt/partners",
+            "destination": "/pt/parceiros",
+            "permanent": true
+        },
+        {
+            "source": "/pt/privacy",
+            "destination": "/pt/privacidade",
+            "permanent": true
+        },
+        {
+            "source": "/pt/terms",
+            "destination": "/pt/termos",
+            "permanent": true
+        }
+    ],
+    "rewrites": [
+        {
+            "source": "/pt/acessibilidade",
+            "destination": "/pt/accessibility.html"
+        },
+        {
+            "source": "/pt/ia-responsavel",
+            "destination": "/pt/responsible-ai.html"
+        },
+        {
+            "source": "/pl/dostepnosc",
+            "destination": "/pl/accessibility.html"
+        },
+        {
+            "source": "/pl/odpowiedzialna-ai",
+            "destination": "/pl/responsible-ai.html"
+        },
+        {
+            "source": "/it/accessibilita",
+            "destination": "/it/accessibility.html"
+        },
+        {
+            "source": "/it/ia-responsabile",
+            "destination": "/it/responsible-ai.html"
+        },
+        {
+            "source": "/es/accesibilidad",
+            "destination": "/es/accessibility.html"
+        },
+        {
+            "source": "/es/ia-responsable",
+            "destination": "/es/responsible-ai.html"
+        },
+        {
+            "source": "/fr/accessibilite",
+            "destination": "/fr/accessibility.html"
+        },
+        {
+            "source": "/fr/ia-responsable",
+            "destination": "/fr/responsible-ai.html"
+        },
+        {
+            "source": "/de/barrierefreiheit",
+            "destination": "/de/accessibility.html"
+        },
+        {
+            "source": "/de/verantwortungsvolle-ki",
+            "destination": "/de/responsible-ai.html"
+        },
+        {
+            "source": "/cs/pristupnost",
+            "destination": "/cs/accessibility.html"
+        },
+        {
+            "source": "/cs/odpovedna-ai",
+            "destination": "/cs/responsible-ai.html"
+        },
+        {
+            "source": "/accessibility",
+            "destination": "/accessibility.html"
+        },
+        {
+            "source": "/responsible-ai",
+            "destination": "/responsible-ai.html"
+        },
+        {
+            "source": "/pt/contacto",
+            "destination": "/pt/contact.html"
+        },
+        {
+            "source": "/pt/reembolso",
+            "destination": "/pt/refund.html"
+        },
+        {
+            "source": "/pl/kontakt",
+            "destination": "/pl/contact.html"
+        },
+        {
+            "source": "/pl/zwroty",
+            "destination": "/pl/refund.html"
+        },
+        {
+            "source": "/it/contatti",
+            "destination": "/it/contact.html"
+        },
+        {
+            "source": "/it/rimborso",
+            "destination": "/it/refund.html"
+        },
+        {
+            "source": "/es/contacto",
+            "destination": "/es/contact.html"
+        },
+        {
+            "source": "/es/reembolso",
+            "destination": "/es/refund.html"
+        },
+        {
+            "source": "/fr/contact",
+            "destination": "/fr/contact.html"
+        },
+        {
+            "source": "/fr/remboursement",
+            "destination": "/fr/refund.html"
+        },
+        {
+            "source": "/de/kontakt",
+            "destination": "/de/contact.html"
+        },
+        {
+            "source": "/de/rueckerstattung",
+            "destination": "/de/refund.html"
+        },
+        {
+            "source": "/refund",
+            "destination": "/refund.html"
+        },
+        {
+            "source": "/contact",
+            "destination": "/contact.html"
+        },
+        {
+            "source": "/cs/vraceni-penez",
+            "destination": "/cs/refund.html"
+        },
+        {
+            "source": "/cs/kontakt",
+            "destination": "/cs/contact.html"
+        },
+        {
+            "source": "/agents",
+            "destination": "/agents.html"
+        },
+        {
+            "source": "/trust",
+            "destination": "/trust.html"
+        },
+        {
+            "source": "/partners",
+            "destination": "/partners.html"
+        },
+        {
+            "source": "/privacy",
+            "destination": "/privacy.html"
+        },
+        {
+            "source": "/terms",
+            "destination": "/terms.html"
+        },
+        {
+            "source": "/agents/:slug",
+            "destination": "/agents/:slug.html"
+        },
+        {
+            "source": "/license",
+            "destination": "/license.html"
+        },
+        {
+            "source": "/partner-agreement",
+            "destination": "/partner-agreement.html"
+        },
+        {
+            "source": "/cs/agenti",
+            "destination": "/cs/agents.html"
+        },
+        {
+            "source": "/cs/duvera",
+            "destination": "/cs/trust.html"
+        },
+        {
+            "source": "/cs/partneri",
+            "destination": "/cs/partners.html"
+        },
+        {
+            "source": "/cs/ochrana-soukromi",
+            "destination": "/cs/privacy.html"
+        },
+        {
+            "source": "/cs/podminky",
+            "destination": "/cs/terms.html"
+        },
+        {
+            "source": "/de/agenten",
+            "destination": "/de/agents.html"
+        },
+        {
+            "source": "/de/vertrauen",
+            "destination": "/de/trust.html"
+        },
+        {
+            "source": "/de/partner",
+            "destination": "/de/partners.html"
+        },
+        {
+            "source": "/de/datenschutz",
+            "destination": "/de/privacy.html"
+        },
+        {
+            "source": "/de/nutzungsbedingungen",
+            "destination": "/de/terms.html"
+        },
+        {
+            "source": "/fr/agents",
+            "destination": "/fr/agents.html"
+        },
+        {
+            "source": "/fr/confiance",
+            "destination": "/fr/trust.html"
+        },
+        {
+            "source": "/fr/partenaires",
+            "destination": "/fr/partners.html"
+        },
+        {
+            "source": "/fr/confidentialite",
+            "destination": "/fr/privacy.html"
+        },
+        {
+            "source": "/fr/conditions",
+            "destination": "/fr/terms.html"
+        },
+        {
+            "source": "/es/agentes",
+            "destination": "/es/agents.html"
+        },
+        {
+            "source": "/es/confianza",
+            "destination": "/es/trust.html"
+        },
+        {
+            "source": "/es/socios",
+            "destination": "/es/partners.html"
+        },
+        {
+            "source": "/es/privacidad",
+            "destination": "/es/privacy.html"
+        },
+        {
+            "source": "/es/terminos",
+            "destination": "/es/terms.html"
+        },
+        {
+            "source": "/it/agenti",
+            "destination": "/it/agents.html"
+        },
+        {
+            "source": "/it/fiducia",
+            "destination": "/it/trust.html"
+        },
+        {
+            "source": "/it/partner",
+            "destination": "/it/partners.html"
+        },
+        {
+            "source": "/it/privacy",
+            "destination": "/it/privacy.html"
+        },
+        {
+            "source": "/it/termini",
+            "destination": "/it/terms.html"
+        },
+        {
+            "source": "/pl/agenci",
+            "destination": "/pl/agents.html"
+        },
+        {
+            "source": "/pl/zaufanie",
+            "destination": "/pl/trust.html"
+        },
+        {
+            "source": "/pl/partnerzy",
+            "destination": "/pl/partners.html"
+        },
+        {
+            "source": "/pl/prywatnosc",
+            "destination": "/pl/privacy.html"
+        },
+        {
+            "source": "/pl/warunki",
+            "destination": "/pl/terms.html"
+        },
+        {
+            "source": "/pt/agentes",
+            "destination": "/pt/agents.html"
+        },
+        {
+            "source": "/pt/confianca",
+            "destination": "/pt/trust.html"
+        },
+        {
+            "source": "/pt/parceiros",
+            "destination": "/pt/partners.html"
+        },
+        {
+            "source": "/pt/privacidade",
+            "destination": "/pt/privacy.html"
+        },
+        {
+            "source": "/pt/termos",
+            "destination": "/pt/terms.html"
+        },
+        {
+            "source": "/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/cs/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/de/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/fr/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/es/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/it/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/pl/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/pt/demo",
+            "destination": "/demo.html"
+        },
+        {
+            "source": "/pricing",
+            "destination": "/pricing.html"
+        },
+        {
+            "source": "/cs/cenik",
+            "destination": "/cs/pricing.html"
+        },
+        {
+            "source": "/cs/pricing",
+            "destination": "/cs/pricing.html"
+        },
+        {
+            "source": "/de/preise",
+            "destination": "/de/pricing.html"
+        },
+        {
+            "source": "/de/pricing",
+            "destination": "/de/pricing.html"
+        },
+        {
+            "source": "/fr/tarifs",
+            "destination": "/fr/pricing.html"
+        },
+        {
+            "source": "/fr/pricing",
+            "destination": "/fr/pricing.html"
+        },
+        {
+            "source": "/es/precios",
+            "destination": "/es/pricing.html"
+        },
+        {
+            "source": "/es/pricing",
+            "destination": "/es/pricing.html"
+        },
+        {
+            "source": "/it/prezzi",
+            "destination": "/it/pricing.html"
+        },
+        {
+            "source": "/it/pricing",
+            "destination": "/it/pricing.html"
+        },
+        {
+            "source": "/pl/cennik",
+            "destination": "/pl/pricing.html"
+        },
+        {
+            "source": "/pl/pricing",
+            "destination": "/pl/pricing.html"
+        },
+        {
+            "source": "/pt/precos",
+            "destination": "/pt/pricing.html"
+        },
+        {
+            "source": "/pt/pricing",
+            "destination": "/pt/pricing.html"
+        },
+        {
+            "source": "/score",
+            "destination": "/score.html"
+        },
+        {
+            "source": "/usage",
+            "destination": "/usage.html"
+        },
+        {
+            "source": "/cs/score",
+            "destination": "/cs/score.html"
+        },
+        {
+            "source": "/de/score",
+            "destination": "/de/score.html"
+        },
+        {
+            "source": "/fr/score",
+            "destination": "/fr/score.html"
+        },
+        {
+            "source": "/es/score",
+            "destination": "/es/score.html"
+        },
+        {
+            "source": "/it/score",
+            "destination": "/it/score.html"
+        },
+        {
+            "source": "/pl/score",
+            "destination": "/pl/score.html"
+        },
+        {
+            "source": "/pt/score",
+            "destination": "/pt/score.html"
+        },
+        {
+            "source": "/cs/usage",
+            "destination": "/cs/usage.html"
+        },
+        {
+            "source": "/de/usage",
+            "destination": "/de/usage.html"
+        },
+        {
+            "source": "/fr/usage",
+            "destination": "/fr/usage.html"
+        },
+        {
+            "source": "/es/usage",
+            "destination": "/es/usage.html"
+        },
+        {
+            "source": "/it/usage",
+            "destination": "/it/usage.html"
+        },
+        {
+            "source": "/pl/usage",
+            "destination": "/pl/usage.html"
+        },
+        {
+            "source": "/pt/usage",
+            "destination": "/pt/usage.html"
+        }
+    ]
 }
