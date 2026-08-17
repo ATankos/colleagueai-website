@@ -19,8 +19,10 @@ function load(url = 'https://www.colleagueai.ai/agents') {
 }
 
 test('Book a call links are rewritten off "#" once JS runs (fallback to /demo)', () => {
+  // hero-call-link moved to /score and /usage with the Phase 2 page split;
+  // on /agents the demo CTA now lives in the nav only (buy is the page CTA).
   const { window } = load();
-  for (const id of ['nav-call-link', 'hero-call-link']) {
+  for (const id of ['nav-call-link']) {
     const a = window.document.getElementById(id);
     assert.ok(a, id + ' missing');
     assert.notEqual(a.getAttribute('href'), '#', `${id} still href="#" after JS`);

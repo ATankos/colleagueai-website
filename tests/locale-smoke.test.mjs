@@ -52,15 +52,41 @@ test('catalogue pages: scripts run and core features work in every language', { 
     const d = dom.window.document;
     assert.deepStrictEqual(errors, [], `${loc}: JS errors on agents page`);
     assert.ok(d.querySelectorAll('#grid .card').length >= 12, `${loc}: agent grid empty`);
-    // quiz answers and produces a result
+    // walkthrough advances (this is what the FR/IT apostrophe bug killed)
+    d.querySelector('[data-proof-action="next"]').click();
+    assert.ok(/^2/.test(d.querySelector('[data-proof-title]').textContent), `${loc}: walkthrough step 2 broken`);
+    dom.window.close();
+  }
+});
+
+
+/* The readiness quiz moved to the real /score page in the Phase 2 split. */
+test('score pages: scripts run and the readiness quiz works in every language', { timeout: 60000 }, async () => {
+  for (const loc of ['en', ...LOCS]) {
+    const file = loc === 'en' ? 'dist/score.html' : `dist/${loc}/score.html`;
+    if (!exists(file)) continue;
+    const { dom, errors } = await loadPage(file, `https://www.colleagueai.ai/${loc === 'en' ? '' : loc + '/'}score`);
+    const d = dom.window.document;
+    assert.deepStrictEqual(errors, [], `${loc}: JS errors on score page`);
     const qs = d.querySelectorAll('#ga-quiz .ga-q');
     assert.strictEqual(qs.length, 6, `${loc}: quiz questions missing`);
     qs.forEach((q) => { const i = q.querySelector('input'); i.checked = true; i.dispatchEvent(new dom.window.Event('change', { bubbles: true })); });
     d.getElementById('ga-run').click();
     assert.ok(d.getElementById('ga-diag').textContent.trim().length > 10, `${loc}: quiz result empty`);
-    // walkthrough advances (this is what the FR/IT apostrophe bug killed)
-    d.querySelector('[data-proof-action="next"]').click();
-    assert.ok(/^2/.test(d.querySelector('[data-proof-title]').textContent), `${loc}: walkthrough step 2 broken`);
+    assert.ok(d.getElementById('cai-score-guide'), `${loc}: score guide section missing`);
+    dom.window.close();
+  }
+});
+
+test('usage pages: scripts run and the Token Monitor section renders in every language', { timeout: 60000 }, async () => {
+  for (const loc of ['en', ...LOCS]) {
+    const file = loc === 'en' ? 'dist/usage.html' : `dist/${loc}/usage.html`;
+    if (!exists(file)) continue;
+    const { dom, errors } = await loadPage(file, `https://www.colleagueai.ai/${loc === 'en' ? '' : loc + '/'}usage`);
+    const d = dom.window.document;
+    assert.deepStrictEqual(errors, [], `${loc}: JS errors on usage page`);
+    assert.ok(d.getElementById('usage-intelligence'), `${loc}: usage section missing`);
+    assert.ok(d.querySelectorAll('.usage-intel__card').length >= 4, `${loc}: usage cards missing`);
     dom.window.close();
   }
 });

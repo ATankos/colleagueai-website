@@ -470,46 +470,4 @@
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run); else run();
 })();
 
-/* === Split views: /agents (catalogue) | /score (framework) | /usage (token monitor) === */
-(function(){
-  if(!document.getElementById('catalogue')) return; // agents pages only
-  var VIEWS={
-    agents:['pillars','catalogue','fit','roi','proof-demo','cai-next-steps','cai-who-for','cai-buyer-path','adopt','contact'],
-    score:['philosophy','tenant-architecture','trust','score','readiness','deploy','faq','cai-score-guide'],
-    usage:['usage-intelligence']
-  };
-  var TITLES={agents:'Agent Catalogue | ColleagueAI',score:'CAI Score & Governance | ColleagueAI',usage:'Usage Intelligence | ColleagueAI'};
-  var LABELS={agents:'Agent catalogue',score:'CAI Score & governance',usage:'Usage monitor'};
-  var owner={}; Object.keys(VIEWS).forEach(function(v){VIEWS[v].forEach(function(id){owner[id]=v;});});
-  function viewFromPath(){var p=location.pathname.replace(/\/$/,'');if(/\/score$/.test(p))return 'score';if(/\/usage$/.test(p))return 'usage';return null;}
-  function apply(view,scrollId){
-    Object.keys(owner).forEach(function(id){var el=document.getElementById(id);if(el)el.style.display=(owner[id]===view?'':'none');});
-    var intro=document.getElementById('cai-view-intro');if(intro)intro.style.display=(view==='agents'?'':'none');
-    document.title=TITLES[view]||document.title;
-    var bar=document.getElementById('cai-view-tabs');
-    if(bar){[].forEach.call(bar.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-v')===view);});}
-    window.__caiView=view;
-    if(scrollId){var t=document.getElementById(scrollId);if(t)setTimeout(function(){t.scrollIntoView({behavior:'smooth',block:'start'});},60);}
-    else window.scrollTo(0,0);
-  }
-  function build(){
-    var bar=document.createElement('div');bar.id='cai-view-tabs';
-    bar.innerHTML=Object.keys(VIEWS).map(function(v){return '<button type="button" data-v="'+v+'">'+LABELS[v]+'</button>';}).join('');
-    var cat=document.getElementById('catalogue');
-    var intro=document.createElement('section');intro.id='cai-view-intro';
-    intro.innerHTML='<div class="cai-vi-in"><h2>Enterprise AI agents that ship in days - and pass your audit</h2>'+
-      '<p>36 production-ready agents for finance, operations, risk and compliance. Every one governance-scored, fully documented, transparently priced. They run inside YOUR Microsoft tenant - your data never leaves your control.</p>'+
-      '<p class="cai-vi-links"><a href="/score">How the CAI Score works &rarr;</a></p></div>';
-    var parent=cat.parentNode;parent.insertBefore(intro,cat);parent.insertBefore(bar,intro);
-    bar.addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;var v=b.getAttribute('data-v');
-      history.replaceState(null,'',v==='agents'?location.pathname.split('#')[0]:location.pathname.split('#')[0]);apply(v);});
-    document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;
-      var m=(a.getAttribute('href')||'').match(/#([a-z-]+)$/);if(!m)return;var id=m[1];
-      if(owner[id]&&owner[id]!==window.__caiView){e.preventDefault();apply(owner[id],id);}});
-    window.addEventListener('hashchange',function(){var id=location.hash.slice(1);if(owner[id])apply(owner[id],id);});
-    var initial=viewFromPath();var hid=location.hash.slice(1);
-    if(!initial&&owner[hid])initial=owner[hid];
-    apply(initial||'agents',owner[hid]===initial?hid:null);
-  }
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',build);else build();
-})();
+/* Split views removed: /agents, /score and /usage are real pages now (Phase 2). */

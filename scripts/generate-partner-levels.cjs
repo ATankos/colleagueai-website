@@ -231,7 +231,7 @@ function contactFor(loc) {
   const home = loc === DEFAULT_LOCALE ? "public/home.html" : "public/" + loc + "/home.html";
   const html = fs.readFileSync(home, "utf8");
   const nav = html.match(/<nav class="links">([\s\S]*?)<\/nav>/);
-  const links = [...nav[1].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map((m) => m[1]).filter((h) => !/#score/.test(h));
+  const links = [...nav[1].matchAll(/<a href="([^"]+)"[^>]*>([^<]+)<\/a>/g)].map((m) => m[1]).filter((h) => !/#score/.test(h) && !/\/(score|usage)\/?$/.test(h));
   return links[4] || links[3] || "/contact";
 }
 

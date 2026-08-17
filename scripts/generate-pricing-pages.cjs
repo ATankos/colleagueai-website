@@ -53,7 +53,9 @@ function homeBits(loc) {
     return links.find((l) => l.href === want || l.href === want + "/");
   };
   const known = new Set(["agents", "pricing", "trust", "partners"].map((p) => canonicalPath(loc, p)));
-  const contact = links.find((l) => !known.has(l.href.replace(/\/$/, "")));
+  // /score and /usage are real pages since the Phase 2 split; they are nav links
+  // on some pages but never the Contact entry.
+  const contact = links.find((l) => !known.has(l.href.replace(/\/$/, "")) && !/\/(score|usage)\/?$/.test(l.href));
   const need = { catalogue: at("agents"), trust: at("trust"), partners: at("partners") };
   for (const [k, v] of Object.entries(need)) {
     if (!v) throw new Error(`${file}: could not resolve the ${k} nav link by route`);
@@ -68,13 +70,18 @@ function homeBits(loc) {
   };
 }
 
+/* /score became a real page in the Phase 2 split (locale variants included). */
+function scorePath(loc) {
+  return loc === DEFAULT_LOCALE ? "/score" : "/" + loc + "/score";
+}
+
 function buildNav(b, loc) {
   const p = canonicalPath(loc, "pricing");
   const item = (l) => '<a href="' + l.href + '">' + l.label + "</a>";
   return {
     links:
       item(b.catalogue) +
-      '<a href="' + b.catalogue.href + '#score">CAI Score</a>' +
+      '<a href="' + scorePath(loc) + '">CAI Score</a>' +
       '<a href="' + p + '" aria-current="page">' + tr("Pricing", loc) + "</a>" +
       item(b.trust) + item(b.partners) + item(b.contact) + "\n" +
       '<select class="lang" id="langsel" aria-label="Language"></select>\n' +
@@ -82,7 +89,7 @@ function buildNav(b, loc) {
       '<button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>\n',
     mnav:
       item(b.catalogue) +
-      '<a href="' + b.catalogue.href + '#score">CAI Score</a>' +
+      '<a href="' + scorePath(loc) + '">CAI Score</a>' +
       '<a href="' + p + '">' + tr("Pricing", loc) + "</a>" +
       item(b.trust) + item(b.partners) + item(b.contact) +
       '<a href="' + b.cta.href + '">' + b.cta.label + "</a>"

@@ -221,6 +221,91 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 }
 </style>
 <link rel="canonical" href="https://www.colleagueai.ai/pl/cennik">
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
 </head>
 <body>
 <header>
@@ -228,14 +313,14 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 <div class="nav">
 <a class="logo" href="/">Colleague<b>AI</b></a>
 <nav class="links" aria-label="Main">
-<a href="/pl/agenci">Katalog</a><a href="/pl/agenci#score">CAI Score</a><a href="/pl/cennik" aria-current="page">Cennik</a><a href="/pl/zaufanie">Zaufanie</a><a href="/pl/partnerzy">Partnerzy</a><a href="/pl/kontakt">Kontakt</a>
+<a href="/pl/agenci">Katalog</a><a href="/pl/score">CAI Score</a><a href="/pl/cennik" aria-current="page">Cennik</a><a href="/pl/zaufanie">Zaufanie</a><a href="/pl/partnerzy">Partnerzy</a><a href="/pl/kontakt">Kontakt</a>
 <select class="lang" id="langsel" aria-label="Language"></select>
 <a class="cta" href="/demo">Umów demo</a>
 <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav"><span></span><span></span><span></span></button>
 </nav>
 </div>
 </div>
-<nav class="mnav" id="mnav" aria-label="Mobile"><a href="/pl/agenci">Katalog</a><a href="/pl/agenci#score">CAI Score</a><a href="/pl/cennik">Cennik</a><a href="/pl/zaufanie">Zaufanie</a><a href="/pl/partnerzy">Partnerzy</a><a href="/pl/kontakt">Kontakt</a><a href="/demo">Umów demo</a></nav>
+<nav class="mnav" id="mnav" aria-label="Mobile"><a href="/pl/agenci">Katalog</a><a href="/pl/score">CAI Score</a><a href="/pl/cennik">Cennik</a><a href="/pl/zaufanie">Zaufanie</a><a href="/pl/partnerzy">Partnerzy</a><a href="/pl/kontakt">Kontakt</a><a href="/demo">Umów demo</a></nav>
 </header>
 
 <main id="main">

@@ -1,0 +1,541 @@
+{
+ "es": {
+  "Q": [
+   {
+    "dim": "Inventario y visibilidad",
+    "t": "¿Conoce todas las herramientas y agentes de IA en uso en la empresa?",
+    "o": [
+     "Sin inventario central",
+     "Una idea aproximada, sin estructura",
+     "Un inventario mantenido para la mayoría de sistemas",
+     "Un inventario completo y actualizado con propietarios nombrados"
+    ],
+    "gap": "Establezca un inventario en tiempo real de cada herramienta y agente de IA, con un propietario nombrado para cada uno."
+   },
+   {
+    "dim": "Responsabilidad humana",
+    "t": "Para la IA que toma acciones, ¿hay un responsable humano nombrado para cada una?",
+    "o": [
+     "No",
+     "Para algunos, de forma informal",
+     "Para la mayoría, documentado",
+     "Cada agente tiene un propietario nombrado y supervisión definida"
+    ],
+    "gap": "Asigne un responsable nombrado y supervisión definida a cada agente que actúa."
+   },
+   {
+    "dim": "Auditabilidad",
+    "t": "¿Puede producir una pista de auditoría de lo que hizo la IA y quién lo aprobó?",
+    "o": [
+     "No",
+     "Registros parciales, dispersos",
+     "La mayoría de acciones están registradas",
+     "Cada acción tiene marca de tiempo y es atribuible"
+    ],
+    "gap": "Haga del registro con marca de tiempo y atribuible el estándar por defecto para cada acción de IA."
+   },
+   {
+    "dim": "Clasificación de riesgo",
+    "t": "¿Está cada caso de uso de IA clasificado por riesgo?",
+    "o": [
+     "Sin clasificación de riesgo",
+     "Una percepción informal del riesgo",
+     "Riesgo anotado para los casos clave",
+     "Cada caso lleva un nivel de riesgo documentado"
+    ],
+    "gap": "Clasifique cada caso de uso con un nivel de riesgo documentado (esto es lo que hace el CAI Score)."
+   },
+   {
+    "dim": "Preparación regulatoria",
+    "t": "¿Qué tan preparado está para el Reglamento IA de la UE y DORA?",
+    "o": [
+     "No hemos empezado",
+     "Conscientes, sin plan",
+     "Mapeando obligaciones ahora",
+     "Controles mapeados y evidenciados"
+    ],
+    "gap": "Mapee su IA a las obligaciones del Reglamento IA de la UE y DORA, y mantenga la evidencia actualizada."
+   },
+   {
+    "dim": "Control de datos",
+    "t": "¿A dónde van sus datos cuando el personal usa IA?",
+    "o": [
+     "Desconocido, posible shadow AI",
+     "Algunas herramientas externas, sin control",
+     "Principalmente herramientas aprobadas",
+     "Controlado; los datos permanecen en nuestro tenant"
+    ],
+    "gap": "Elimine el shadow AI y mantenga los datos dentro de su propio tenant bajo sus controles."
+   }
+  ],
+  "LV": [
+   "IA sin controles. Prioridad: visibilidad.",
+   "Prácticas aisladas, gobernanza inconsistente. Formalice titularidad y registro.",
+   "Lo básico está establecido. La brecha es coherencia y evidencia.",
+   "Gobernanza sólida. Cierre las últimas brechas en evidencia y mapeo regulatorio.",
+   "Nivel máximo, niveles de riesgo documentados, responsabilidad nombrada y pista de auditoría real."
+  ]
+ },
+ "pt": {
+  "Q": [
+   {
+    "dim": "Inventário e visibilidade",
+    "t": "Conhece todas as ferramentas e agentes de IA em uso em toda a empresa?",
+    "o": [
+     "Sem inventário central",
+     "Uma ideia geral, mantida de forma ad hoc",
+     "Um inventário mantido para a maioria dos sistemas",
+     "Um inventário completo e em tempo real com proprietários nomeados"
+    ],
+    "gap": "Crie um inventário em tempo real de cada ferramenta e agente de IA, cada um com um proprietário nomeado."
+   },
+   {
+    "dim": "Responsabilidade humana",
+    "t": "Para a IA que toma ações, há um responsável humano nomeado para cada uma?",
+    "o": [
+     "Não",
+     "Para alguns, informalmente",
+     "Para a maioria, documentado",
+     "Cada agente tem um proprietário nomeado e supervisão definida"
+    ],
+    "gap": "Atribua um responsável nomeado e supervisão definida a cada agente que atua."
+   },
+   {
+    "dim": "Auditabilidade",
+    "t": "Consegue produzir um rasto de auditoria do que a IA fez e quem aprovou?",
+    "o": [
+     "Não",
+     "Registos parciais, dispersos",
+     "A maioria das ações está registada",
+     "Cada ação tem carimbo de data/hora e é atribuível"
+    ],
+    "gap": "Torne o registo com carimbo de data/hora e atribuível o padrão por defeito para cada ação de IA."
+   },
+   {
+    "dim": "Classificação de risco",
+    "t": "Cada caso de uso de IA está classificado por risco?",
+    "o": [
+     "Sem classificação de risco",
+     "Uma perceção informal do risco",
+     "Risco anotado para casos chave",
+     "Cada caso tem um nível de risco documentado"
+    ],
+    "gap": "Classifique cada caso de uso com um nível de risco documentado (é isso que o CAI Score faz)."
+   },
+   {
+    "dim": "Preparação regulatória",
+    "t": "Qual é o seu nível de preparação para o Regulamento de IA da UE e a DORA?",
+    "o": [
+     "Ainda não começámos",
+     "Conscientes, sem plano",
+     "A mapear obrigações agora",
+     "Controlos mapeados e evidenciados"
+    ],
+    "gap": "Mapeie a sua IA para as obrigações do Regulamento de IA da UE e da DORA, e mantenha as evidências atualizadas."
+   },
+   {
+    "dim": "Controlo de dados",
+    "t": "Para onde vão os seus dados quando o pessoal usa IA?",
+    "o": [
+     "Desconhecido, possível shadow AI",
+     "Algumas ferramentas externas, sem controlo",
+     "Principalmente ferramentas aprovadas",
+     "Controlado; os dados ficam no nosso tenant"
+    ],
+    "gap": "Elimine o shadow AI e mantenha os dados dentro do seu próprio tenant sob os seus controlos."
+   }
+  ],
+  "LV": [
+   "IA a crescer sem controlos. Prioridade: visibilidade.",
+   "Boas práticas isoladas, mas governação inconsistente. Formalize a titularidade e o registo.",
+   "O básico está implementado. A lacuna é consistência e evidência.",
+   "Boa governação. Feche as últimas lacunas em evidências e mapeamento regulatório.",
+   "Nível máximo, níveis de risco documentados, responsabilidade nomeada e rasto de auditoria real."
+  ]
+ },
+ "fr": {
+  "Q": [
+   {
+    "dim": "Inventaire et visibilité",
+    "t": "Connaissez-vous chaque outil et agent IA utilisé dans l'entreprise ?",
+    "o": [
+     "Pas d'inventaire central",
+     "Une idée approximative, maintenue ad hoc",
+     "Un inventaire maintenu pour la plupart des systèmes",
+     "Un inventaire complet et en direct avec des responsables nommés"
+    ],
+    "gap": "Constituez un inventaire en temps réel de chaque outil et agent IA, avec un responsable nommé pour chacun."
+   },
+   {
+    "dim": "Responsabilité humaine",
+    "t": "Pour l'IA qui prend des actions, y a-t-il un responsable humain nommé pour chacune ?",
+    "o": [
+     "Non",
+     "Pour certains, de façon informelle",
+     "Pour la plupart, documenté",
+     "Chaque agent a un responsable nommé et une supervision définie"
+    ],
+    "gap": "Assignez un responsable nommé et une supervision définie à chaque agent qui agit."
+   },
+   {
+    "dim": "Auditabilité",
+    "t": "Pouvez-vous produire une piste d'audit de ce qu'a fait une IA et qui l'a approuvé ?",
+    "o": [
+     "Non",
+     "Journaux partiels, épars",
+     "La plupart des actions sont journalisées",
+     "Chaque action est horodatée et traçable"
+    ],
+    "gap": "Faites de la journalisation horodatée et traçable le standard par défaut pour chaque action IA."
+   },
+   {
+    "dim": "Classification des risques",
+    "t": "Chaque cas d'usage IA est-il classifié par risque ?",
+    "o": [
+     "Pas de classification des risques",
+     "Une perception informelle du risque",
+     "Risque noté pour les cas clés",
+     "Chaque cas porte un niveau de risque documenté"
+    ],
+    "gap": "Classifiez chaque cas d'usage avec un niveau de risque documenté (c'est ce que fait le CAI Score)."
+   },
+   {
+    "dim": "Préparation réglementaire",
+    "t": "Quel est votre niveau de préparation au Règlement IA de l'UE et à DORA ?",
+    "o": [
+     "Pas encore commencé",
+     "Conscients, sans plan",
+     "En train de cartographier les obligations",
+     "Contrôles cartographiés et documentés"
+    ],
+    "gap": "Cartographiez votre IA sur les obligations du Règlement IA de l'UE et de DORA, et maintenez les preuves à jour."
+   },
+   {
+    "dim": "Contrôle des données",
+    "t": "Où vont vos données quand le personnel utilise une IA ?",
+    "o": [
+     "Inconnu, shadow AI probable",
+     "Quelques outils externes, non contrôlés",
+     "Principalement des outils approuvés",
+     "Contrôlé ; données dans notre tenant"
+    ],
+    "gap": "Éliminez le shadow AI et conservez les données dans votre propre tenant sous vos contrôles."
+   }
+  ],
+  "LV": [
+   "L'IA se répand sans contrôles. Priorité : visibilité.",
+   "De bonnes pratiques existent mais la gouvernance n'est pas cohérente. Formalisez la propriété et la journalisation.",
+   "Les bases sont en place. L'écart vers l'audit-readiness est la cohérence et les preuves.",
+   "Bonne gouvernance. Combler les dernières lacunes en preuves et cartographie réglementaire.",
+   "Niveau maximum, niveaux de risque documentés, responsabilité nommée et piste d'audit réelle."
+  ]
+ },
+ "de": {
+  "Q": [
+   {
+    "dim": "Inventar und Sichtbarkeit",
+    "t": "Kennen Sie jedes KI-Tool und jeden KI-Agenten im Einsatz im Unternehmen?",
+    "o": [
+     "Kein zentrales Inventar",
+     "Eine grobe Idee, ad hoc gepflegt",
+     "Ein gepflegtes Inventar für die meisten Systeme",
+     "Ein vollständiges Live-Inventar mit benannten Eigentümern"
+    ],
+    "gap": "Erstellen Sie ein Live-Inventar jedes KI-Tools und Agenten, jeweils mit einem benannten Verantwortlichen."
+   },
+   {
+    "dim": "Menschliche Verantwortung",
+    "t": "Für KI, die Aktionen ausführt: Gibt es für jede einen benannten menschlichen Verantwortlichen?",
+    "o": [
+     "Nein",
+     "Für einige, informell",
+     "Für die meisten, dokumentiert",
+     "Jeder Agent hat einen benannten Eigentümer und definierte Aufsicht"
+    ],
+    "gap": "Weisen Sie jedem handelnden Agenten einen benannten Verantwortlichen und definierte Aufsicht zu."
+   },
+   {
+    "dim": "Prüfbarkeit",
+    "t": "Können Sie einen Prüfpfad erstellen, was eine KI getan hat und wer es genehmigt hat?",
+    "o": [
+     "Nein",
+     "Teilweise Protokolle, verstreut",
+     "Die meisten Aktionen sind protokolliert",
+     "Jede Aktion ist zeitgestempelt und zuordenbar"
+    ],
+    "gap": "Machen Sie zeitgestempelte, zuordenbare Protokollierung zum Standard für jede KI-Aktion."
+   },
+   {
+    "dim": "Risikoklassifizierung",
+    "t": "Ist jeder KI-Anwendungsfall nach Risiko klassifiziert?",
+    "o": [
+     "Keine Risikoklassifizierung",
+     "Ein informelles Risikogefühl",
+     "Risiko für Schlüsselanwendungsfälle vermerkt",
+     "Jeder Anwendungsfall trägt eine dokumentierte Risikostufe"
+    ],
+    "gap": "Klassifizieren Sie jeden Anwendungsfall mit einer dokumentierten Risikostufe (das ist es, was der CAI Score tut)."
+   },
+   {
+    "dim": "Regulatorische Bereitschaft",
+    "t": "Wie gut sind Sie auf den EU AI Act und DORA vorbereitet?",
+    "o": [
+     "Noch nicht begonnen",
+     "Bewusst, kein Plan",
+     "Pflichten werden jetzt kartiert",
+     "Kontrollen kartiert und belegt"
+    ],
+    "gap": "Kartieren Sie Ihre KI auf die Pflichten des EU AI Acts und DORA und halten Sie die Belege aktuell."
+   },
+   {
+    "dim": "Datenkontrolle",
+    "t": "Wohin gehen Ihre Daten, wenn Mitarbeiter KI nutzen?",
+    "o": [
+     "Unbekannt, Shadow-AI wahrscheinlich",
+     "Einige externe Tools, unkontrolliert",
+     "Hauptsächlich genehmigte Tools",
+     "Kontrolliert; Daten bleiben in unserem Tenant"
+    ],
+    "gap": "Eliminieren Sie Shadow-KI und halten Sie Daten in Ihrem eigenen Tenant unter Ihren Kontrollen."
+   }
+  ],
+  "LV": [
+   "KI verbreitet sich ohne Kontrollen. Erste Priorität: Sichtbarkeit.",
+   "Einzelne gute Praktiken, aber Governance ist inkonsistent. Formalisieren Sie Eigentümerschaft und Protokollierung.",
+   "Die Grundlagen sind vorhanden. Die Lücke zur Prüfbereitschaft ist Konsistenz und Belege.",
+   "Starke Governance. Schließen Sie die letzten Lücken bei Belegen und regulatorischer Kartierung.",
+   "Top-Niveau, dokumentierte Risikostufen, benannte Verantwortlichkeit und echter Prüfpfad."
+  ]
+ },
+ "pl": {
+  "Q": [
+   {
+    "dim": "Inwentarz i widoczność",
+    "t": "Czy znasz każde narzędzie AI i agenta używanego w całym przedsiębiorstwie?",
+    "o": [
+     "Brak centralnego inwentarza",
+     "Przybliżone pojęcie, prowadzone ad hoc",
+     "Prowadzony inwentarz dla większości systemów",
+     "Kompletny, aktualny inwentarz z imiennie wskazanymi właścicielami"
+    ],
+    "gap": "Stwórz inwentarz na żywo każdego narzędzia AI i agenta, z imiennie wskazanym właścicielem dla każdego."
+   },
+   {
+    "dim": "Odpowiedzialność ludzka",
+    "t": "Dla AI, która podejmuje działania, czy każda ma imiennie wskazanego odpowiedzialnego człowieka?",
+    "o": [
+     "Nie",
+     "Dla niektórych, nieformalnie",
+     "Dla większości, udokumentowane",
+     "Każdy agent ma imiennie wskazanego właściciela i zdefiniowany nadzór"
+    ],
+    "gap": "Przypisz imiennie wskazanego właściciela i zdefiniowany nadzór każdemu agentowi, który działa."
+   },
+   {
+    "dim": "Audytowalność",
+    "t": "Czy możesz wygenerować ścieżkę audytu tego, co zrobiła AI i kto to zatwierdził?",
+    "o": [
+     "Nie",
+     "Częściowe logi, rozproszone",
+     "Większość działań jest rejestrowana",
+     "Każde działanie ma znacznik czasu i jest możliwe do przypisania"
+    ],
+    "gap": "Uczyń rejestrowanie ze znacznikiem czasu i możliwością przypisania standardem dla każdego działania AI."
+   },
+   {
+    "dim": "Klasyfikacja ryzyka",
+    "t": "Czy każdy przypadek użycia AI jest sklasyfikowany według ryzyka?",
+    "o": [
+     "Brak klasyfikacji ryzyka",
+     "Nieformalne poczucie ryzyka",
+     "Ryzyko odnotowane dla kluczowych przypadków",
+     "Każdy przypadek nosi udokumentowany poziom ryzyka"
+    ],
+    "gap": "Sklasyfikuj każdy przypadek użycia z udokumentowanym poziomem ryzyka (to właśnie robi CAI Score)."
+   },
+   {
+    "dim": "Gotowość regulacyjna",
+    "t": "Jak dobrze jesteś przygotowany na Rozporządzenie UE ws. AI i DORA?",
+    "o": [
+     "Jeszcze nie zaczęliśmy",
+     "Świadomi, bez planu",
+     "Teraz mapujemy obowiązki",
+     "Kontrole zmapowane i udokumentowane"
+    ],
+    "gap": "Zmapuj swoje AI do obowiązków Rozporządzenia UE ws. AI i DORA, i utrzymuj aktualne dowody."
+   },
+   {
+    "dim": "Kontrola danych",
+    "t": "Dokąd trafiają twoje dane gdy pracownicy używają AI?",
+    "o": [
+     "Nieznane, możliwy shadow AI",
+     "Niektóre narzędzia zewnętrzne, niekontrolowane",
+     "Głównie zatwierdzone narzędzia",
+     "Kontrolowane; dane pozostają w naszym tenancie"
+    ],
+    "gap": "Wyeliminuj shadow AI i utrzymuj dane w swoim własnym tenancie pod swoimi kontrolami."
+   }
+  ],
+  "LV": [
+   "AI rozprzestrzenia się bez kontroli. Priorytet: widoczność.",
+   "Istnieją dobre praktyki, ale governance nie jest spójna. Sformalizuj własność i rejestrowanie.",
+   "Podstawy są na miejscu. Luka do gotowości audytowej to spójność i dowody.",
+   "Silna governance. Zamknij ostatnie luki w dowodach i mapowaniu regulacyjnym.",
+   "Najwyższy poziom, udokumentowane poziomy ryzyka, imiennie wskazana odpowiedzialność i prawdziwa ścieżka audytu."
+  ]
+ },
+ "it": {
+  "Q": [
+   {
+    "dim": "Inventario e visibilità",
+    "t": "Conoscete ogni strumento AI e agente in uso in tutta l'azienda?",
+    "o": [
+     "Nessun inventario centrale",
+     "Un'idea approssimativa, gestita ad hoc",
+     "Un inventario mantenuto per la maggior parte dei sistemi",
+     "Un inventario completo e in tempo reale con responsabili nominati"
+    ],
+    "gap": "Create un inventario in tempo reale di ogni strumento AI e agente, ciascuno con un responsabile nominato."
+   },
+   {
+    "dim": "Responsabilità umana",
+    "t": "Per l'AI che intraprende azioni, c'è un responsabile umano nominato per ciascuna?",
+    "o": [
+     "No",
+     "Per alcuni, informalmente",
+     "Per la maggior parte, documentato",
+     "Ogni agente ha un proprietario nominato e una supervisione definita"
+    ],
+    "gap": "Assegnate un responsabile nominato e una supervisione definita a ogni agente che agisce."
+   },
+   {
+    "dim": "Auditabilità",
+    "t": "Riuscite a produrre una traccia di audit di cosa ha fatto un'AI e chi l'ha approvato?",
+    "o": [
+     "No",
+     "Log parziali, dispersi",
+     "La maggior parte delle azioni è registrata",
+     "Ogni azione è marcata temporalmente e attribuibile"
+    ],
+    "gap": "Rendete la registrazione con marca temporale e attribuibile lo standard predefinito per ogni azione AI."
+   },
+   {
+    "dim": "Classificazione del rischio",
+    "t": "Ogni caso d'uso AI è classificato per rischio?",
+    "o": [
+     "Nessuna classificazione del rischio",
+     "Una percezione informale del rischio",
+     "Rischio annotato per i casi chiave",
+     "Ogni caso porta un livello di rischio documentato"
+    ],
+    "gap": "Classificate ogni caso d'uso con un livello di rischio documentato (è quello che fa il CAI Score)."
+   },
+   {
+    "dim": "Preparazione normativa",
+    "t": "Quanto siete pronti per il Regolamento AI dell'UE e la DORA?",
+    "o": [
+     "Non ancora iniziato",
+     "Consapevoli, senza piano",
+     "Stiamo mappando gli obblighi ora",
+     "Controlli mappati e documentati"
+    ],
+    "gap": "Mappate la vostra AI sugli obblighi del Regolamento AI dell'UE e della DORA, e mantenete le prove aggiornate."
+   },
+   {
+    "dim": "Controllo dei dati",
+    "t": "Dove vanno i vostri dati quando il personale usa l'AI?",
+    "o": [
+     "Sconosciuto, shadow AI probabile",
+     "Alcuni strumenti esterni, non controllati",
+     "Principalmente strumenti approvati",
+     "Controllato; dati nel nostro tenant"
+    ],
+    "gap": "Eliminate lo shadow AI e mantenete i dati nel vostro tenant sotto i vostri controlli."
+   }
+  ],
+  "LV": [
+   "L'AI si diffonde senza controlli. Prima priorità: visibilità.",
+   "Esistono buone pratiche ma la governance non è coerente. Formalizzate ownership e registrazione.",
+   "Le basi sono in atto. Il gap verso l'audit-readiness è coerenza e prove.",
+   "Governance solida. Chiudere le ultime lacune in prove e mappatura normativa.",
+   "Livello massimo, livelli di rischio documentati, responsabilità nominata e traccia di audit reale."
+  ]
+ },
+ "cs": {
+  "Q": [
+   {
+    "dim": "Inventář a přehled",
+    "t": "Znáte každý nástroj AI a každého agenta, který je v organizaci používán?",
+    "o": [
+     "Žádný centrální inventář",
+     "Přibližná představa, udržovaná ad hoc",
+     "Udržovaný inventář pro většinu systémů",
+     "Živý a kompletní inventář s jmenovanými vlastníky"
+    ],
+    "gap": "Sestavte živý inventář každého nástroje AI a agenta, každý s jmenovaným vlastníkem."
+   },
+   {
+    "dim": "Lidská odpovědnost",
+    "t": "Pro AI, která provádí akce, je za každou jmenovaný odpovědný člověk?",
+    "o": [
+     "Ne",
+     "U některých, neformálně",
+     "U většiny, zdokumentováno",
+     "Každý agent má jmenovaného vlastníka a definovaný dohled"
+    ],
+    "gap": "Přidělte jmenovaného vlastníka a definovaný dohled každému aktivnímu agentovi."
+   },
+   {
+    "dim": "Auditovatelnost",
+    "t": "Dokážete vytvořit auditní stopu toho, co AI udělala a kdo to schválil?",
+    "o": [
+     "Ne",
+     "Částečné záznamy, rozptýlené",
+     "Většina akcí je protokolována",
+     "Každá akce má časové razítko a je přiřaditelná"
+    ],
+    "gap": "Nastavte protokolování s časovým razítkem a přiřaditelností jako výchozí standard pro každou akci AI."
+   },
+   {
+    "dim": "Klasifikace rizik",
+    "t": "Je každý případ použití AI klasifikován podle rizika?",
+    "o": [
+     "Žádná klasifikace rizik",
+     "Neformální vnímání rizika",
+     "Riziko zaznamenáno pro klíčové případy",
+     "Každý případ nese zdokumentovanou úroveň rizika"
+    ],
+    "gap": "Klasifikujte každý případ použití zdokumentovanou úrovní rizika (to je to, co CAI Score dělá)."
+   },
+   {
+    "dim": "Regulatorní připravenost",
+    "t": "Jak jste připraveni na EU AI Act a DORA?",
+    "o": [
+     "Zatím jsme nezačali",
+     "Víme o nich, nemáme plán",
+     "Nyní mapujeme povinnosti",
+     "Kontroly zmapovány a doloženy"
+    ],
+    "gap": "Zmapujte svou AI na povinnosti EU AI Act a DORA a udržujte důkazy aktuální."
+   },
+   {
+    "dim": "Kontrola dat",
+    "t": "Kam jdou vaše data, když zaměstnanci používají AI?",
+    "o": [
+     "Neznámo, pravděpodobný shadow AI",
+     "Některé externí nástroje, nekontrolované",
+     "Převážně schválené nástroje",
+     "Kontrolováno; data zůstávají v našem tenantu"
+    ],
+    "gap": "Eliminujte shadow AI a udržujte data ve vlastním tenantu pod svými kontrolami."
+   }
+  ],
+  "LV": [
+   "AI se šíří bez kontrol. Priorita: viditelnost.",
+   "Existují ostrůvky dobré praxe, ale governance není konzistentní. Formalizujte vlastnictví a protokolování.",
+   "Základy jsou na místě. Mezera k audit-ready stavu je konzistence a důkazy.",
+   "Silná governance. Uzavřete poslední mezery v důkazech a regulatorním mapování.",
+   "Nejvyšší úroveň, zdokumentované úrovně rizik, jmenovaná odpovědnost a skutečná auditní stopa."
+  ]
+ }
+}

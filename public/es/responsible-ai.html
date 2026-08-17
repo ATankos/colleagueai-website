@@ -51,6 +51,39 @@ footer a{color:#8A857C}
 h2.sec{font-size:19px;margin:34px 0 8px}
 p.b{font-size:15.5px;color:#4A4641}
 </style>
+<style id="cai-header-unify">
+header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
+header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
+
+/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
+   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
+   heights, colours and gaps. These rules normalise appearance without touching
+   markup. Note: every inner container already sits inside .wrap (max-width +
+   padding), so this block must NOT set width - doing so indents the logo. */
+header { position: sticky !important; top: 0 !important; z-index: 90 !important;
+  background: rgba(34,33,31,.97) !important;
+  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
+  border-bottom: 0 !important; }
+header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+  height: 64px !important; min-height: 64px !important;
+  display: flex !important; align-items: center !important; justify-content: space-between !important; }
+header .links, header .cai-hdr-links, header .nav-links {
+  display: flex !important; align-items: center !important; gap: 22px !important; }
+header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
+  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
+header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
+header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
+header .cta, header .ch-cta, header .nav-cta {
+  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
+  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
+header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
+header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
+@media (max-width: 560px) {
+  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
+    height: 58px !important; min-height: 58px !important; }
+  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
+}
+</style>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
 position: fixed !important;
@@ -136,49 +169,16 @@ display: flex !important;
   });
 }());
 </script>
-<style id="cai-header-unify">
-header a.logo, header .cai-hdr-logo { padding-bottom: 9px !important; }
-header a.logo::after, header .cai-hdr-logo::after { bottom: 0 !important; left: 1px !important; }
-
-/* Canonical site header. Three implementations exist (.wrap.nav on home/pricing,
-   .cai-hdr on trust/partners/legal, .nav/.nav-inner on agents) with different
-   heights, colours and gaps. These rules normalise appearance without touching
-   markup. Note: every inner container already sits inside .wrap (max-width +
-   padding), so this block must NOT set width - doing so indents the logo. */
-header { position: sticky !important; top: 0 !important; z-index: 90 !important;
-  background: rgba(34,33,31,.97) !important;
-  -webkit-backdrop-filter: blur(12px) !important; backdrop-filter: blur(12px) !important;
-  border-bottom: 0 !important; }
-header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
-  height: 64px !important; min-height: 64px !important;
-  display: flex !important; align-items: center !important; justify-content: space-between !important; }
-header .links, header .cai-hdr-links, header .nav-links {
-  display: flex !important; align-items: center !important; gap: 22px !important; }
-header .links a:not(.cta), header .ch-l, header .nav-links a:not(.nav-cta) {
-  color: #CFC8BB !important; font-size: 14px !important; font-weight: 500 !important; text-decoration: none; }
-header .links a:not(.cta):hover, header .ch-l:hover, header .nav-links a:not(.nav-cta):hover,
-header .links a:not(.cta):focus-visible, header .ch-l:focus-visible, header .nav-links a:not(.nav-cta):focus-visible { color: #fff !important; }
-header .cta, header .ch-cta, header .nav-cta {
-  background:var(--terra-solid,#A94A2C) !important; color: #fff !important; font-weight: 600 !important;
-  font-size: 13.5px !important; padding: 9px 20px !important; border-radius: 100px !important; }
-header .cta:hover, header .ch-cta:hover, header .nav-cta:hover { background: #A94A2C !important; }
-header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 !important; }
-@media (max-width: 560px) {
-  header .wrap.nav, header .cai-hdr-in, header .nav-inner, header > .wrap > .nav {
-    height: 58px !important; min-height: 58px !important; }
-  header .logo, header .cai-hdr-logo { font-size: 19px !important; }
-}
-</style>
 </head>
 <body>
 <header class="cai-hdr"><div class="cai-hdr-in"><a href="/es" class="logo cai-hdr-logo">Colleague<b>AI</b></a><nav class="cai-hdr-links">
       <a class="ch-l" href="/es/agentes">Catálogo</a>
-      <a class="ch-l" href="/es/agentes#score">CAI Score</a>
+      <a class="ch-l" href="/es/score">CAI Score</a>
       <a class="ch-l" href="/es/precios">Precios</a>
       <a class="ch-l" href="/es/confianza">Confianza</a>
       <a class="ch-l" href="/es/socios">Partners</a>
       <a class="ch-l" href="/es/contacto">Contacto</a>
-      <select class="lang" id="pagelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"><option value="en">English</option><option value="cs">Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es" selected>Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option></select><a class="ch-cta" href="/demo">Reservar una demo</a><button class="cai-hdr-burger" onclick="document.getElementById('caihdrm').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button></div><nav class="cai-hdr-mnav" id="caihdrm"><a href="/es/agentes">Catálogo</a><a href="/es/agentes#score">CAI Score</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a></nav></header>
+      <select class="lang" id="pagelang" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"><option value="en">English</option><option value="cs">Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es" selected>Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option></select><a class="ch-cta" href="/demo">Reservar una demo</a><button class="cai-hdr-burger" onclick="document.getElementById('caihdrm').classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button></div><nav class="cai-hdr-mnav" id="caihdrm"><a href="/es/agentes">Catálogo</a><a href="/es/score">CAI Score</a><a href="/es/precios">Precios</a><a href="/es/confianza">Confianza</a><a href="/es/socios">Partners</a><a href="/es/contacto">Contacto</a></nav></header>
 <main>
 <span class="kick">IA responsable</span>
 <h1>La IA responsable es el producto, no una página.</h1>
@@ -186,7 +186,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
 <div class="grid"><div class="card"><span class="n">01</span><h2>Responsabilidad humana</h2><p>Cada nivel CAI incorpora un rol humano nombrado. Los agentes de mayor riesgo asisten y documentan decisiones; una persona sigue siendo responsable de cada una.</p></div><div class="card"><span class="n">02</span><h2>Autonomía acotada</h2><p>Los agentes operan estrictamente dentro de su nivel certificado. Ningún agente de nuestro catálogo funciona hoy de forma totalmente autónoma, el L5 existe en el framework y deliberadamente no se usa.</p></div><div class="card"><span class="n">03</span><h2>Sus datos siguen siendo suyos</h2><p>Los agentes se ejecutan en su propio tenant de Microsoft. No procesamos sus datos de negocio y nunca se usan para entrenar modelos.</p></div><div class="card"><span class="n">04</span><h2>Evidencia por defecto</h2><p>Cada acción de agente se registra con marca de tiempo y atribución. Las respuestas de auditoría existen antes de que alguien pregunte.</p></div><div class="card"><span class="n">05</span><h2>Alineación regulatoria</h2><p>El CAI Score está diseñado en torno a las obligaciones del EU AI Act, DORA e ISO/IEC 42001: clasificación de riesgos, supervisión, registro, transparencia. Apoya su trabajo de cumplimiento; no sustituye la revisión legal.</p></div><div class="card"><span class="n">06</span><h2>Metodología abierta</h2><p>Definiciones de niveles, roles humanos y períodos de revisión están documentados y son cuestionables. Si no está de acuerdo con una clasificación, queremos saberlo.</p></div></div>
 <h2 class="sec">Notificar problemas</h2>
 <p class="b">¿Un problema de seguridad, un agente mal clasificado o un comportamiento contrario a estos compromisos? Escriba a <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a> o use nuestro <a href="/.well-known/security.txt">security.txt</a>. Acusamos recibo en 5 días laborables.</p>
-<div class="note">La evidencia está en el <a href="/es/confianza">Centro de confianza</a> · Cómo funcionan los niveles: <a href="/es/agentes#score">CAI Score</a></div>
+<div class="note">La evidencia está en el <a href="/es/confianza">Centro de confianza</a> · Cómo funcionan los niveles: <a href="/es/score">CAI Score</a></div>
 </main>
 <footer>© Colleague AI 2026 · <a href="/es/terminos">Términos</a> · <a href="/es/privacidad">Privacidad</a> · <a href="/es/reembolso">Reembolsos</a> · <a href="/imprint">Aviso legal</a> · <a href="/es/contacto">Contacto</a></footer>
 <script>(function(){var R=["/responsible-ai", "/cs/odpovedna-ai", "/de/verantwortungsvolle-ki", "/fr/ia-responsable", "/es/ia-responsable", "/it/ia-responsabile", "/pl/odpowiedzialna-ai", "/pt/ia-responsavel"];var s=document.getElementById("pagelang");if(!s)return;s.addEventListener("change",function(){var r=R[s.selectedIndex];if(r)location.href=r;});})();</script>
