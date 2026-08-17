@@ -3,15 +3,17 @@
  *
  * success_url points here: GET /api/success?session_id=cs_...
  * - Retrieves the Checkout Session from Stripe.
- * - If paid: mints a signed, time-limited download link (via lib/downloadToken.js) and
- *   shows a Download button. api/download.js re-checks the entitlement (KV) + signature (R2).
- * - If a bank transfer is still pending: shows a "come back once it clears" message; the
- *   buyer can reopen this same URL later and the download will appear.
+ * - If paid: grants the entitlement itself (idempotent) so the flow works even without the
+ *   webhook, then shows a Download button. The webhook (when configured) does the same job
+ *   for buyers who close the tab, and for delayed bank transfers.
+ * - If a bank transfer is still pending: shows a "come back once it clears" message.
  *
- * Needs STRIPE_SECRET_KEY and DOWNLOAD_TOKEN_SECRET.
+ * Needs STRIPE_SECRET_KEY (+ KV for entitlements). DOWNLOAD_TOKEN_SECRET is optional:
+ * if set, the download link is signed; if not, it is a plain entitlement-gated link.
  */
 
 import Stripe from 'stripe';
+import { grantEntitlement } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
 
 function esc(s) {
@@ -27,6 +29,14 @@ function page(title, body) {
     `.btn{display:inline-block;margin-top:16px;background:#c65d3a;color:#fff;text-decoration:none;padding:14px 22px;border-radius:100px;font-weight:700}` +
     `.muted{color:#8A8478;font-size:13px;margin-top:18px}a.home{color:#8A8478;font-size:13px}</style></head>` +
     `<body><div class="card">${body}<p class="muted"><a class="home" href="/agents">&larr; Back to agents</a></p></div></body></html>`;
+}
+
+function downloadLink(email, slug) {
+  if (process.env.DOWNLOAD_TOKEN_SECRET) {
+    return signDownload({ email, slug, file: 'dossier.pdf', ttlSeconds: 900 }).path;
+  }
+  const qs = new URLSearchParams({ email, slug, file: 'dossier.pdf' });
+  return `/api/download?${qs.toString()}`;
 }
 
 export default async function handler(req, res) {
@@ -67,21 +77,20 @@ export default async function handler(req, res) {
       '<p>Thanks! We could not attach a download automatically - please email hello@colleagueai.ai and we will send it over.</p>'));
   }
 
-  let link;
+  // Self-fulfil: grant the entitlement now (idempotent). Works even if no webhook is set.
   try {
-    if (!process.env.DOWNLOAD_TOKEN_SECRET) throw new Error('DOWNLOAD_TOKEN_SECRET not set');
-    const t = signDownload({ email, slug, file: 'dossier.pdf', ttlSeconds: 900 });
-    link = t.path; // /api/download?email=...&slug=...&exp=...&sig=...
+    await grantEntitlement(email, [slug], session.id);
   } catch (err) {
-    console.error('[success] signDownload failed:', err && err.message ? err.message : err);
-    return res.status(200).send(page('Thank you', `<h1>Thank you!</h1>` +
-      `<p>Your payment for <b>${esc(slug)}</b> succeeded, but the download link is not ready. ` +
-      `Please email hello@colleagueai.ai and we will send it right over.</p>`));
+    console.error('[success] grantEntitlement failed:', err && err.message ? err.message : err);
+    return res.status(200).send(page('Payment received', `<h1>Thank you!</h1>` +
+      `<p>Your payment for <b>${esc(slug)}</b> succeeded, but we could not enable your download just now. ` +
+      `Please email hello@colleagueai.ai and we will sort it out.</p>`));
   }
 
+  const link = downloadLink(email, slug);
+
   return res.status(200).send(page('Thank you', `<h1>Thank you - your agent is ready</h1>` +
-    `<p>Payment for <b>${esc(slug)}</b> succeeded. Download your package below ` +
-    `(link valid for 15 minutes; you can always reopen this page).</p>` +
+    `<p>Payment for <b>${esc(slug)}</b> succeeded. Download your package below.</p>` +
     `<a class="btn" href="${esc(link)}">Download agent package</a>` +
     `<p class="muted">Order email: ${esc(email)}.</p>`));
 }
