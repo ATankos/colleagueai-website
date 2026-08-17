@@ -738,3 +738,14 @@ header .cai-hdr-logo::after,
 .cai-uni-links a{padding-block:4px}
 footer .wrap{line-height:2.4}
 footer a{padding-block:5px}
+
+/* === Split-view tabs + intro === */
+#cai-view-tabs{position:sticky;top:64px;z-index:40;display:flex;gap:8px;max-width:1200px;margin:10px auto 0;padding:8px 20px;background:rgba(251,248,242,.95);backdrop-filter:blur(8px)}
+#cai-view-tabs button{flex:0 0 auto;padding:9px 16px;border-radius:100px;border:1px solid #E0D8CA;background:#fff;color:#4A453E;font-weight:600;font-size:13.5px;cursor:pointer}
+#cai-view-tabs button.on{background:#22211F;color:#fff;border-color:#22211F}
+#cai-view-intro{max-width:1200px;margin:8px auto 0;padding:18px 20px 0}
+#cai-view-intro .cai-vi-in{background:#fff;border:1px solid #E7E0D5;border-radius:16px;padding:22px 24px}
+#cai-view-intro h2{margin:0 0 8px;font-size:22px}
+#cai-view-intro p{margin:0 0 6px;line-height:1.55;color:#4A453E}
+#cai-view-intro .cai-vi-links a{color:#c65d3a;font-weight:700;text-decoration:none}
+@media (max-width:767px){#cai-view-tabs{top:56px;overflow-x:auto}}
