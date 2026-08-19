@@ -29,9 +29,10 @@ function extract(name, open) {
 const AGENTS = extract('const AGENTS=', '[');
 const slugify = (n) => n.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const esc = (s) => String(s ?? '')
-  // decode first so already-encoded source (e.g. "&amp;") isn't double-escaped into "&amp;amp;"
-  .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#0?39;/g, "'")
-  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;');
 const TIER = { L1: 'Assist', L2: 'Draft', L3: 'Operate', L4: 'Decide (supervised)', L5: 'Autonomous' };
 const PILLAR = { ops: 'Operations & Service Delivery', risk: 'Risk, Security & Compliance', data: 'Data & Infrastructure', sales: 'Sales & Marketing', corp: 'Corporate' };
 const BASE = 'https://www.colleagueai.ai';
