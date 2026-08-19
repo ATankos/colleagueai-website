@@ -151,7 +151,7 @@ function insertHreflang(html, page, currentLocale) {
 }
 
 function localizePathLinks(html, locale) {
-  return html.replace(/href="\/(agents|trust|partners|privacy|terms)(#[^"]*)?"/g, (m, page, hash = "") => {
+  return html.replace(/href="\/(agents|trust|partners|privacy|terms|license|imprint|partner-agreement)(#[^"]*)?"/g, (m, page, hash = "") => {
     return 'href="' + canonicalPath(locale, page) + (hash || "") + '"';
   });
 }
