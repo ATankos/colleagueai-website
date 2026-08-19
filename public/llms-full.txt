@@ -135,7 +135,7 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - What it does: Searches internal data to answer due-diligence questionnaires quickly and accurately, instead of manual lookups across systems.
 - Where it fits: Sits at the start of DDQ turnaround, it finds and drafts sourced answers from internal systems, so the team reviews and confirms rather than hunting.
 - Value: Improved efficiency and accuracy on due-diligence responses.
-- KPI impact: Improved efficiency &amp; accuracy.
+- KPI impact: Improved efficiency & accuracy.
 - Governance: L3, drafts sourced responses; a human reviews and signs off before the DDQ goes back. Answers cite their internal source.
 
 ### Risk Control Oversight Agent
@@ -171,7 +171,7 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - What it does: Auto-populates maintenance events so planned work is logged consistently and is visible to the right teams.
 - Where it fits: Sits at the planning step, it fills out maintenance records consistently, improving visibility of planned work across teams.
 - Value: Improved reliability and awareness of maintenance activity.
-- KPI impact: Improved reliability &amp; awareness.
+- KPI impact: Improved reliability & awareness.
 - Governance: L2, populates records for confirmation; the owning team verifies before the event is committed. Low risk.
 
 ### Sales Qualification Agent
@@ -198,7 +198,7 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - What it does: Covers the full sales cycle (lead generation, RFP drafting, pipeline analysis and deal-execution support) in one assistant.
 - Where it fits: Spans the whole cycle as a connective layer, picking up routine work at each stage from first touch through to deal execution.
 - Value: Improved revenue performance and higher-quality pipeline.
-- KPI impact: Improved revenue performance &amp; pipeline quality.
+- KPI impact: Improved revenue performance & pipeline quality.
 - Governance: L3, operates across stages on routine work; sellers own commitments, pricing and what goes to the customer. Activity is tracked.
 
 ### Pipeline Reporting Agent
@@ -207,7 +207,7 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - What it does: Automates pipeline reporting and status updates so managers always have a current, accurate view without manual roll-ups.
 - Where it fits: Sits at the reporting layer, keeping the pipeline view current automatically so managers stop chasing roll-ups.
 - Value: Improved efficiency and accuracy of pipeline reporting.
-- KPI impact: Improved efficiency &amp; accuracy.
+- KPI impact: Improved efficiency & accuracy.
 - Governance: L2, assembles reporting from existing pipeline data; managers review before it's used for decisions.
 
 ### Content & Comms Agent
@@ -234,7 +234,7 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - What it does: Reviews MSAs and SLAs to extract obligations, deadlines and service commitments, and cross-references them against how operations actually run.
 - Where it fits: Sits in the contract lifecycle after summarisation, checking contracted commitments against operational delivery and flagging the gaps before they become disputes.
 - Value: Reduces legal and commercial risk and cuts manual contract-review effort.
-- KPI impact: Reduced legal risk &amp; review effort.
+- KPI impact: Reduced legal risk & review effort.
 - Governance: L4, outputs feed legal and commercial risk decisions; lawyers own the interpretation. Gaps are flagged with evidence, not auto-resolved.
 
 ### SOP Generation Agent
@@ -243,7 +243,7 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - What it does: Generates Standard Operating Procedures directly from process flows, turning a diagram or description into a documented SOP.
 - Where it fits: Sits at the readiness/handover step, converting a process flow into a first-draft SOP for a human to review and approve.
 - Value: Reduced manual effort and fewer documentation errors.
-- KPI impact: Reduced effort &amp; errors.
+- KPI impact: Reduced effort & errors.
 - Governance: L2, produces a draft SOP; a process owner reviews and approves before it becomes the standard. Low risk.
 
 ### Acceptance Test Script Generator
