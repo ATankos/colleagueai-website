@@ -505,7 +505,7 @@ const AUDIT_MARKER_COPY = {
 };
 
 const MARKETING_ROUTES = new Set(["agents", "partners", "trust"]);
-const LEGAL_ROUTES = new Set(["privacy", "terms"]);
+const LEGAL_ROUTES = new Set(["privacy", "terms", "license", "imprint", "partner-agreement"]);
 
 function walk(dir) {
   if (!fs.existsSync(dir)) return [];
@@ -536,8 +536,19 @@ function applyDictionary(html, dict) {
   return html;
 }
 
+const LEGAL_TITLES = {
+  cs: { license: "Softwarová a agentní licence", imprint: "Právní informace", partnerAgreement: "Smlouva o partnerském programu" },
+  de: { license: "Software- und Agentenlizenz", imprint: "Impressum", partnerAgreement: "Partnerprogramm-Vereinbarung" },
+  fr: { license: "Licence logicielle et d’agent", imprint: "Mentions légales", partnerAgreement: "Accord de programme partenaire" },
+  es: { license: "Licencia de software y de agente", imprint: "Aviso legal", partnerAgreement: "Acuerdo del programa de partners" },
+  it: { license: "Licenza software e agente", imprint: "Note legali", partnerAgreement: "Accordo del programma partner" },
+  pl: { license: "Licencja na oprogramowanie i agenta", imprint: "Informacje prawne", partnerAgreement: "Umowa programu partnerskiego" },
+  pt: { license: "Licença de software e de agente", imprint: "Informação legal", partnerAgreement: "Acordo do programa de parceiros" },
+};
+
 function patchIdentity(html, locale, route) {
   const t = IDENTITY[locale];
+  const lt = LEGAL_TITLES[locale];
   if (!t) return html;
 
   if (route === "trust") {
@@ -558,6 +569,21 @@ function patchIdentity(html, locale, route) {
   if (route === "terms") {
     html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${t.terms} | Colleague AI</title>`);
     html = html.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1>${t.terms}</h1>`);
+  }
+
+  if (lt && route === "license") {
+    html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${lt.license} | Colleague AI</title>`);
+    html = html.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1>${lt.license}</h1>`);
+  }
+
+  if (lt && route === "imprint") {
+    html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${lt.imprint} | Colleague AI</title>`);
+    html = html.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1>${lt.imprint}</h1>`);
+  }
+
+  if (lt && route === "partner-agreement") {
+    html = html.replace(/<title>[\s\S]*?<\/title>/i, `<title>${lt.partnerAgreement} | Colleague AI</title>`);
+    html = html.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, `<h1>${lt.partnerAgreement}</h1>`);
   }
 
   return html;

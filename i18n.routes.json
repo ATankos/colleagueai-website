@@ -16,7 +16,10 @@
     "trust",
     "partners",
     "privacy",
-    "terms"
+    "terms",
+    "license",
+    "imprint",
+    "partner-agreement"
   ],
   "slugs": {
     "agents": {
@@ -78,6 +81,36 @@
       "it": "termini",
       "pl": "warunki",
       "pt": "termos"
+    },
+    "license": {
+      "en": "license",
+      "cs": "license",
+      "de": "license",
+      "fr": "license",
+      "es": "license",
+      "it": "license",
+      "pl": "license",
+      "pt": "license"
+    },
+    "imprint": {
+      "en": "imprint",
+      "cs": "imprint",
+      "de": "imprint",
+      "fr": "imprint",
+      "es": "imprint",
+      "it": "imprint",
+      "pl": "imprint",
+      "pt": "imprint"
+    },
+    "partner-agreement": {
+      "en": "partner-agreement",
+      "cs": "partner-agreement",
+      "de": "partner-agreement",
+      "fr": "partner-agreement",
+      "es": "partner-agreement",
+      "it": "partner-agreement",
+      "pl": "partner-agreement",
+      "pt": "partner-agreement"
     }
   }
 }
