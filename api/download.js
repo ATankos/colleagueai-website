@@ -4,8 +4,8 @@
  * GET /api/download?email=<email>&slug=<agent-slug>&file=<file>[&exp=&sig=]
  *
  * Order of checks:
- *   1. If DOWNLOAD_TOKEN_SECRET is set, a valid signed token is required.
- *      If it is NOT set (test setup), the signature step is skipped.
+ *   1. A valid signed token is REQUIRED. This fails closed if DOWNLOAD_TOKEN_SECRET is unset,
+ *      so a missing env var can never downgrade to guessable email-only authorization.
  *   2. The email must have an entitlement for this slug (KV).
  * Then the file is served:
  *   - If R2 is configured (production): redirect to a signed, time-limited R2 URL.
@@ -95,21 +95,24 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid file requested' });
   }
 
-  // Signed token is enforced only when a secret is configured.
-  if (process.env.DOWNLOAD_TOKEN_SECRET) {
-    if (!exp || !sig) {
-      return res.status(403).json({ error: 'Invalid download token', reason: 'missing-token' });
-    }
-    let token;
-    try {
-      token = verifyDownload({ email, slug, file, exp, sig });
-    } catch (err) {
-      console.error('[download] Token verification failed:', err);
-      return res.status(403).json({ error: 'Invalid download token', reason: 'token-verification-failed' });
-    }
-    if (!token.ok) {
-      return res.status(403).json({ error: 'Invalid download token', reason: token.reason });
-    }
+  // Signed token is MANDATORY. Fail closed if the signing secret is not configured, so a
+  // missing env var can never silently downgrade to email-only (guessable) authorization.
+  if (!process.env.DOWNLOAD_TOKEN_SECRET) {
+    console.error('[download] DOWNLOAD_TOKEN_SECRET not set - refusing to serve downloads');
+    return res.status(503).json({ error: 'Downloads are not configured' });
+  }
+  if (!exp || !sig) {
+    return res.status(403).json({ error: 'Invalid download token', reason: 'missing-token' });
+  }
+  let token;
+  try {
+    token = verifyDownload({ email, slug, file, exp, sig });
+  } catch (err) {
+    console.error('[download] Token verification failed:', err);
+    return res.status(403).json({ error: 'Invalid download token', reason: 'token-verification-failed' });
+  }
+  if (!token.ok) {
+    return res.status(403).json({ error: 'Invalid download token', reason: token.reason });
   }
 
   let entitled;
