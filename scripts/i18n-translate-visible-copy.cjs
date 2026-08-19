@@ -701,6 +701,17 @@ function applyDictOnce(html, dict) {
   });
 }
 
+// Merge externally-authored legal / partner / UI translations (verified byte-exact keys),
+// kept in a separate JSON so this file stays readable.
+try {
+  const extra = require("./i18n/content/extra-translations.json");
+  for (const loc of Object.keys(extra)) {
+    DICT[loc] = Object.assign(DICT[loc] || {}, extra[loc]);
+  }
+} catch (err) {
+  console.warn("[i18n-visible] extra-translations.json not merged:", err.message);
+}
+
 for (const root of ["public", "dist"]) {
   for (const locale of LOCALES) {
     const dict = DICT[locale];

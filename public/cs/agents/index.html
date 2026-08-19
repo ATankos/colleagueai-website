@@ -3215,7 +3215,7 @@ display: flex !important;
     <span class="pay-price-label" data-i18n="pay_price">Cena</span>
     <span class="pay-price-val" id="pay-price"></span>
   </div>
-  <div class="pay-curr" id="pay-curr" role="group" aria-label="Currency"><button type="button" class="pay-curr-b on" data-c="USD">USD $</button><button type="button" class="pay-curr-b" data-c="EUR">EUR &euro;</button></div><label class="pay-terms" id="pay-terms-row">
+  <div class="pay-curr" id="pay-curr" role="group" aria-label="Currency" hidden style="display:none"><button type="button" class="pay-curr-b on" data-c="USD">USD $</button><button type="button" class="pay-curr-b" data-c="EUR">EUR &euro;</button></div><label class="pay-terms" id="pay-terms-row">
     <input type="checkbox" id="pay-terms-cb">
     <span data-i18n-html="pay_terms">Přijímám <a href='https://www.colleagueai.ai/license' target='_blank' rel='noopener'>licenční podmínky</a>, licence pro jeden tenant, nepřenosná; bez další distribuce, přeprodeje nebo zpětné analýzy.</span>
   </label>
@@ -3750,7 +3750,7 @@ window.__rebuildGAQuiz=function(){};
 (function(){try{var sel=document.getElementById('langsel');var l=(sel&&sel.value)||window.LANGNOW||document.documentElement.lang||'en';window.LANGNOW=l;if(typeof render==='function')render();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();}catch(e){}})();
 </script>
 <div id="cai-privacy" class="cai-privacy" role="dialog" aria-label="Privacy notice" hidden>
-  <span>We use privacy-friendly, <strong>cookieless</strong> analytics, no personal tracking or ad cookies. See our <a href="/cs/ochrana-soukromi">Zásady ochrany osobních údajů</a>.</span>
+  <span>Používáme <strong>bezcookie</strong> analytiku šetrnou k soukromí, žádné osobní sledování ani reklamní cookies. Viz naše <a href="/cs/ochrana-soukromi">Zásady ochrany osobních údajů</a>.</span>
   <button id="cai-privacy-ok" type="button">Rozumím</button>
 </div>
 <style>
@@ -3764,8 +3764,8 @@ window.__rebuildGAQuiz=function(){};
 <script>(function(){try{var k="cai-privacy-ack",el=document.getElementById("cai-privacy");if(!el)return;if(!localStorage.getItem(k))el.hidden=false;document.getElementById("cai-privacy-ok").addEventListener("click",function(){try{localStorage.setItem(k,"1")}catch(e){}el.hidden=true});}catch(e){}})();</script>
 <script id="cai-launch-gate-script">
 (function(){
-  var COMMERCIAL_LAUNCH_ENABLED=true;
-  window.CAI_COMMERCIAL_LAUNCH_ENABLED=true;
+  var COMMERCIAL_LAUNCH_ENABLED=false;
+  window.CAI_COMMERCIAL_LAUNCH_ENABLED=false;
   document.documentElement.setAttribute('data-cai-paid-launch','disabled');
   function isCheckoutLink(anchor){
     if(!anchor) return false;

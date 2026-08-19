@@ -18,7 +18,7 @@
  *
  * Prices (minor units) from env if set, else the clean defaults below:
  *   USD: AGENT_PRICE_L2_CENTS / L3 / L4          (default 1200000 / 2500000 / 4500000)
- *   EUR: AGENT_PRICE_EUR_L2_CENTS / L3 / L4      (default 1200000 / 2500000 / 4500000)
+ *   EUR: AGENT_PRICE_EUR_L2_CENTS / L3 / L4      (NO default - EUR lane is off until these are set)
  *   AGENT_EU_BANK_COUNTRY  - IBAN country for the SEPA virtual account (default 'DE')
  */
 
@@ -31,7 +31,9 @@ const ALLOWED_CURRENCIES = { usd: 1, eur: 1 };
 
 const PRICE_CENTS = {
   usd: { L2: 1200000, L3: 2500000, L4: 4500000 },
-  eur: { L2: 1200000, L3: 2500000, L4: 4500000 },
+  // No default EUR prices. Charging the USD number as euros overcharges EU buyers (no FX),
+  // so the EUR lane stays unavailable until real EUR prices are set via AGENT_PRICE_EUR_L*_CENTS.
+  eur: { L2: null, L3: null, L4: null },
 };
 
 const SLUG_RE = /^[a-z][a-z0-9-]{2,60}$/;
@@ -80,6 +82,12 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: 'Checkout not configured' });
   }
 
+  // Kill-switch: set CHECKOUT_ENABLED=false in the environment to take paid checkout offline
+  // instantly (e.g. before legal/Stripe sign-off) without a redeploy. Defaults to enabled.
+  if (process.env.CHECKOUT_ENABLED === 'false') {
+    return res.status(503).json({ error: 'Checkout is temporarily unavailable', code: 'checkout_disabled' });
+  }
+
   const q = req.query || {};
 
   const slug = String(valueOf(q.agent) || '').trim();
@@ -98,7 +106,7 @@ export default async function handler(req, res) {
   const cents = priceCents(tier, currency);
   if (!cents) {
     console.error('[checkout] no price for', tier, currency);
-    return res.status(500).json({ error: 'Price not configured' });
+    return res.status(400).json({ error: currency === 'usd' ? 'Price not configured' : 'Checkout in this currency is not available' });
   }
 
   const method = String(valueOf(q.method) || '').toLowerCase();
