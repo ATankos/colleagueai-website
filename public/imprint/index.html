@@ -72,6 +72,55 @@
   <meta name="twitter:title" content="Legal Notice &amp; Company Details | ColleagueAI">
   <meta name="twitter:description" content="Company identification, registered office, contact details, and Czech legal notice for Colleague AI s.r.o.">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12","addressLocality":"Praha","postalCode":"110 00","addressCountry":"CZ"}}</script>
+<style id="cai-url-locale-controller-css">
+html[data-cai-page="agents"] #cai-site-journey,
+html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
+.cai-langsel { margin: 14px auto 0; max-width: 1120px; padding: 0 18px; }
+.cai-langsel select { font: 500 13px ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; color: #2B2A28; border: 1px solid rgba(29,27,26,.18); border-radius: 100px; padding: 7px 12px; background: #fff; cursor: pointer; }
+</style>
+<script id="cai-url-locale-controller">
+(function () {
+  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"pricing":{"en":"pricing","cs":"cenik","de":"preise","fr":"tarifs","es":"precios","it":"prezzi","pl":"cennik","pt":"precos"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"},"license":{"en":"license","cs":"license","de":"license","fr":"license","es":"license","it":"license","pl":"license","pt":"license"},"imprint":{"en":"imprint","cs":"imprint","de":"imprint","fr":"imprint","es":"imprint","it":"imprint","pl":"imprint","pt":"imprint"},"partner-agreement":{"en":"partner-agreement","cs":"partner-agreement","de":"partner-agreement","fr":"partner-agreement","es":"partner-agreement","it":"partner-agreement","pl":"partner-agreement","pt":"partner-agreement"}}};
+  var parts = location.pathname.split("/").filter(Boolean);
+  var hasLocale = D.locales.indexOf(parts[0]) >= 0;
+  var locale = hasLocale ? parts[0] : D.def;
+  var rest = hasLocale ? parts.slice(1) : parts;
+  function pageFromSlug(slug) { for (var p in D.slugs) { var m = D.slugs[p]; for (var l in m) { if (m[l] === slug) return p; } } return null; }
+  var page = rest.length ? pageFromSlug(rest[0]) : null;
+  function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
+  function urlFor(loc) {
+    if (page) return canonical(loc, page) + location.search + location.hash;
+    var tail = "/" + rest.join("/");
+    var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
+    return base + location.search + location.hash;
+  }
+  var el = document.documentElement;
+  el.lang = locale;
+  el.setAttribute("data-cai-route-locale", locale);
+  // URL path is the single source of truth. One write-only key for cross-surface
+  // parity only; never read to redirect, never set ahead of the URL path.
+  try { localStorage.setItem("cai-lang", locale); } catch (e) {}
+  function sync() {
+    var list = document.querySelectorAll("#langsel");
+    for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
+    var sel = document.getElementById("langsel");
+    if (!sel) return;
+    var want = D.locales.join("|");
+    var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
+    if (have !== want || sel.getAttribute("data-cai-locale-bound") !== "true") {
+      var fresh = sel.cloneNode(false);
+      D.locales.forEach(function (l) { var o = document.createElement("option"); o.value = l; o.textContent = D.labels[l] || l.toUpperCase(); fresh.appendChild(o); });
+      fresh.setAttribute("data-cai-locale-bound", "true");
+      fresh.value = locale;
+      if (!sel.parentNode) return;
+      sel.parentNode.replaceChild(fresh, sel);
+      fresh.addEventListener("change", function () { var t = fresh.value; if (D.locales.indexOf(t) < 0) return; try { localStorage.setItem("cai-lang", t); } catch (e) {} location.assign(urlFor(t)); });
+    } else { sel.value = locale; }
+  }
+  function boot() { sync(); setTimeout(sync, 0); setTimeout(sync, 250); setTimeout(sync, 1000); }
+  if (document.readyState === "loading") { document.addEventListener("DOMContentLoaded", boot); } else { boot(); }
+})();
+</script>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
 position: fixed !important;
@@ -159,6 +208,7 @@ display: flex !important;
 </script>
 </head>
 <body>
+<div class="cai-langsel"><select id="langsel" aria-label="Language"></select></div>
   <main>
     <a class="back" href="/">← Back to ColleagueAI</a>
 
