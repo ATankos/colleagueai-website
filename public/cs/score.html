@@ -1593,6 +1593,43 @@ display: flex !important;
     <p class="ladder-note" data-i18n-cai="score_note">// Tento katalog je dodáván na úrovních L2-L4. Agenti L4 vyžadují před spuštěním schválení vedením.</p>
   </div>
 </section>
+<section id="eu-ai-act-mapping">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">CAI Score &times; EU AI Act</span>
+      <h2>Where each tier lands under the EU AI Act.</h2>
+      <p>The Act classifies by use case first: Article 6 and Annex III (biometrics, employment, credit and essential services, education, critical infrastructure, law enforcement, migration, the administration of justice). A workflow outside those domains isn't high-risk under the Act, regardless of tier. Inside one, CAI tier is what determines the obligation, and in narrow cases, whether the system stays out of high-risk status at all.</p>
+    </div>
+    <div class="ladder reveal">
+      <div class="rung" style="--rc:var(--t1)">
+        <div class="code">L1</div>
+        <div class="body"><h3>Minimal risk</h3><p>Outside Annex III, L1 carries no AI Act obligations beyond existing law. Article 50's disclosure duty (tell the person they're talking to AI) applies only if the tool is customer- or public-facing, not to an internal lookup or drafting aid.</p></div>
+        <div class="auto"><div class="lbl">Key article(s)</div><div class="val">Art. 50, if public-facing</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t2)">
+        <div class="code">L2</div>
+        <div class="body"><h3>Art. 6(3) candidate</h3><p>A narrow procedural task, or a system that improves the result of a human activity already completed, can keep an Annex III workflow out of high-risk status under Article 6(3), provided the human's sign-off is genuine review and the assessment is documented before go-live (Article 6(4)). Does not apply where the workflow involves profiling a natural person &mdash; e.g. scoring their creditworthiness, performance, or suitability &mdash; which stays high-risk regardless of how much review sits on top.</p></div>
+        <div class="auto"><div class="lbl">Key article(s)</div><div class="val">Art. 6(3) + 6(4)</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t3)">
+        <div class="code">L3</div>
+        <div class="body"><h3>High-risk</h3><p>Live execution inside an Annex III process is generally high-risk, not a candidate for the Article 6(3) carve-out. The core duties are a risk management system, automated logging, and a human who can genuinely intervene.</p></div>
+        <div class="auto"><div class="lbl">Key article(s)</div><div class="val">Art. 9, 12, 14</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t4)">
+        <div class="code">L4</div>
+        <div class="body"><h3>High-risk, by design</h3><p>L4 is built for the highest-stakes Annex III processes and doesn't try to avoid that classification. It's satisfied through real Article 14 oversight &mdash; a named human who can override or stop the agent &mdash; plus conformity assessment and technical documentation.</p></div>
+        <div class="auto"><div class="lbl">Key article(s)</div><div class="val">Art. 14, 43, Annex IV</div></div>
+      </div>
+      <div class="rung" style="--rc:var(--t5)">
+        <div class="code">L5</div>
+        <div class="body"><h3>Reserved, unused</h3><p>Not because Article 5 bans it &mdash; unbounded autonomy isn't on that list. The problem is Article 14: a high-risk system no one can meaningfully oversee, override, or stop isn't compliant. That's the actual reason this tier stays reserved and unused in the catalogue today.</p></div>
+        <div class="auto"><div class="lbl">Key article(s)</div><div class="val">Art. 14, unsatisfied</div></div>
+      </div>
+    </div>
+    <p class="ladder-note">// Indicative mapping, not legal advice. Klasifikace depends on the specific workflow, not the tier alone &mdash; always confirm Annex III scope and any Article 6(3) reliance, including the profiling exclusion, with counsel before go-live.</p>
+  </div>
+</section>
 <section id="deploy">
   <div class="wrap">
     <div class="sec-head reveal">
