@@ -3248,7 +3248,7 @@ function render(){
   countEl.textContent=shownCount<list.length ? countText+' · '+totalText : countText;
   if(loadMoreWrap)loadMoreWrap.hidden=shownCount>=list.length;
   if(!list.length){
-    grid.innerHTML='<div class="empty">'+((window.T&&T('empty_filters'))||'No agents match these filters.')+'</div>';
+    grid.innerHTML='<div class="empty">'+((window.T&&T('empty_filters'))||'No agents match these filters.')+'<br><button type="button" id="clear-filters-btn" class="chip" style="margin-top:14px;cursor:pointer">'+((window.T&&T('clear_filters'))||'Clear filters')+'</button></div>';
     if(loadMoreWrap)loadMoreWrap.hidden=true;
     return;
   }
@@ -3282,6 +3282,16 @@ document.querySelectorAll('.chip.tier').forEach(c=>c.addEventListener('click',()
 }));
 document.getElementById('search').addEventListener('input',e=>{fSearch=e.target.value.toLowerCase().trim();visibleLimit=LOAD_STEP;render();});
 if(loadMoreBtn){loadMoreBtn.addEventListener('click',()=>{visibleLimit+=LOAD_STEP;render();});}
+/* Complete filter reset (CAI-006): clears pillar + tier + search together so a
+   zero-result combination always has a one-click way out, not just a per-chip reset. */
+function resetAllFilters(){
+  fPillar='all';fTier='all';fSearch='';visibleLimit=LOAD_STEP;
+  document.querySelectorAll('.chip.pillar').forEach(x=>x.classList.toggle('active',x.dataset.pillar==='all'));
+  document.querySelectorAll('.chip.tier').forEach(x=>x.classList.toggle('active',x.dataset.tier==='all'));
+  const s=document.getElementById('search');if(s)s.value='';
+  render();
+}
+grid.addEventListener('click',e=>{if(e.target.closest('#clear-filters-btn'))resetAllFilters();});
 
 /* ---------- DRAWER ---------- */
 const drawer=document.getElementById('drawer'), scrim=document.getElementById('scrim');
