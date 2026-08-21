@@ -53,6 +53,7 @@ async function notify(record) {
     `Role:      ${record.role}`,
     `Email:     ${record.email}`,
     `Preferred: ${record.preferredDate} (${record.timeZone})`,
+    `Agent:     ${record.agentSlug ? record.agentSlug + (record.agentTier ? ' (' + record.agentTier + ')' : '') : 'not specified'}`,
     `Interests: ${record.agentsOfInterest.length ? record.agentsOfInterest.join(', ') : 'none specified'}`,
     `Booking:   ${record.id}`,
   ];
@@ -119,6 +120,12 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Preferred date must be today or later' });
   }
 
+  // Which agent the enquiry came from, when the visitor arrived via a catalogue
+  // access CTA. Validated to the same shapes the catalogue emits rather than
+  // stored as free text, since anything can POST here.
+  const agentSlug = /^[a-z0-9][a-z0-9-]{2,60}$/.test(clean(body.agentSlug, 64)) ? clean(body.agentSlug, 64) : null;
+  const agentTier = /^L[1-5]$/.test(clean(body.agentTier, 2).toUpperCase()) ? clean(body.agentTier, 2).toUpperCase() : null;
+
   // Only the catalogue's own pillar ids, so an arbitrary payload cannot be
   // stored through this field.
   const agentsOfInterest = (Array.isArray(body.agentsOfInterest) ? body.agentsOfInterest : [])
@@ -134,6 +141,8 @@ export default async function handler(req, res) {
       agentsOfInterest,
       preferredDate,
       timeZone,
+      agentSlug,
+      agentTier,
       source: clean(first(req.headers.referer), 300) || null,
     });
   } catch (error) {
@@ -160,6 +169,7 @@ export default async function handler(req, res) {
     bookingId: record.id,
     receivedAt: record.receivedAt,
     interests: agentsOfInterest.length,
+    agent: agentSlug || 'none',
     notified: notified.sent,
   });
 

@@ -3494,7 +3494,12 @@ applyLang(init);
     currency:'USD',                 // EUR | USD | CZK | GBP ...
     price:12000,                     // e.g. 1200 , leave null to show "Pricing on request"
     perAgentPrice:{"acceptance-test-script-generator":12000,"campaign-and-project-management-agent":12000,"compliance-and-audit-action-tracker":45000,"content-and-comms-agent":12000,"contract-obligations-review-agent":45000,"contract-summarisation-agent":45000,"cyber-security-reporting-agent":25000,"development-and-career-agent":12000,"due-diligence-data-search-agent":25000,"escalation-triage-agent":25000,"four-eyes-control-assistant":45000,"infrastructure-wiki-agent":12000,"leadership-reporting-agent":25000,"maintenance-event-agent":12000,"monthly-reporting-automation-agent":12000,"onboarding-agent":12000,"operations-procedures-assistant":12000,"people-ops-query-agent":12000,"performance-management-agent":25000,"pipeline-reporting-agent":12000,"power-query-code-generator":12000,"reconciliation-root-cause-agent":25000,"risk-control-oversight-agent":45000,"risk-event-capture-agent":25000,"sales-end-to-end-assistant":25000,"sales-opportunity-agent":12000,"sales-qualification-agent":12000,"security-defect-triage-agent":45000,"service-delivery-manager-copilot":25000,"service-desk-backlog-triage-agent":25000,"service-desk-support-agent":25000,"service-request-automation-agent":25000,"service-review-pack-builder":12000,"signing-summary-agent":25000,"sop-generation-agent":12000,"supplier-meeting-minutes-agent":12000},               // optional overrides by slug, e.g. {"contract-summarisation-agent":2400}
-    checkoutBase:'/api/checkout', // your Stripe Payment Link / checkout endpoint
+    checkoutBase:'/api/checkout',
+    // Master switch for the buy path. While this is false the access CTA goes to
+    // the demo booking form instead of /api/checkout, which is unconfigured and
+    // answers 500. Turn it on only once Stripe, entitlement and signed delivery
+    // have been tested end to end.
+    checkoutEnabled:false, // your Stripe Payment Link / checkout endpoint
     paymentLinks:{},                // optional per-slug full checkout URLs, e.g. {"reconciliation-root-cause-agent":"<live Stripe checkout URL>"}
     gate:{ copilotStudio:true, m365:true, dossier:false  }, // which downloads require payment
     schedulerUrl:'https://www.colleagueai.ai/demo'
@@ -3509,6 +3514,13 @@ applyLang(init);
     if(STORE.paymentLinks[slug]) return STORE.paymentLinks[slug]+(STORE.paymentLinks[slug].indexOf('?')<0?'?':'&')+'client_reference_id='+ref+pt;
     return STORE.checkoutBase+'?agent='+encodeURIComponent(slug)+'&items=copilot-studio,m365&currency='+(window.__cai_curr||STORE.currency)+'&ref='+ref+'&terms=accepted'+pt;
   }
+  // Where the access CTA goes while checkout is off: the booking form, carrying
+  // the agent so the enquiry names a product instead of arriving blank.
+  function accessUrl(cur){
+    var q='?agent='+encodeURIComponent(cur.slug)+'&tier='+encodeURIComponent(cur.tier||'');
+    return (STORE.schedulerUrl||'/demo')+q+(window.__cai_partner?'&partner='+encodeURIComponent(window.__cai_partner):'');
+  }
+  function ctaUrl(cur,ref){ return STORE.checkoutEnabled?checkoutUrl(cur.slug,ref):accessUrl(cur); }
   function newRef(slug){
     var id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2,10));
     return 'cai-'+slug.slice(0,18)+'-'+id;
@@ -3532,21 +3544,27 @@ applyLang(init);
     var ref=newRef(cur.slug); window.__cai_ref=ref;
     if(p!=null){
       window.__cai_curr='USD';pe.textContent=fmt(p,window.__cai_curr);if(window.__caiCurrResetovat)window.__caiCurrResetovat();
+    } else {
+      pe.textContent=(window.T?T('pay_tbd'):'Pricing on request');
+    }
+    // The price still shows — it is labelled indicative — but purchase terms are
+    // only asked for when there is something to purchase. Requesting access is
+    // not a purchase, so the terms row stays hidden while checkout is off.
+    if(p!=null && STORE.checkoutEnabled){
       cta.textContent=(window.T?T('pay_cta'):'Request access ->');
       cta.dataset.mode='checkout'; termsRow.style.display='flex'; cb.checked=false;
     } else {
-      pe.textContent=(window.T?T('pay_tbd'):'Pricing on request');
       cta.textContent=(window.T?T('pay_request'):'Request access →');
       cta.dataset.mode='request'; termsRow.style.display='none';
     }
-    cta.href=checkoutUrl(cur.slug,ref);
+    cta.href=ctaUrl(cur,ref);
     syncCta();
     var lis=document.getElementById('pay-list').children;
     if(lis[2]) lis[2].classList.toggle('free', !STORE.gate.dossier);
     open();
     if(window.caiTrack) caiTrack('checkout_open',{agent:cur.a.n,tier:cur.tier,mode:cta.dataset.mode});
   }
-  window.openPay=openPay;window.__cai_curr=window.__cai_curr||'USD';function caiRenderCurr(){var cur=window.__cai_cur;if(!cur)return;var p=priceFor(cur.slug),pe=document.getElementById('pay-price');if(p!=null&&pe)pe.textContent=fmt(p,window.__cai_curr);if(window.__cai_ref)cta.href=checkoutUrl(cur.slug,window.__cai_ref);var w=document.getElementById('pay-curr');if(w){[].forEach.call(w.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-c')===window.__cai_curr);});}}window.__caiCurrResetovat=function(){var w=document.getElementById('pay-curr');if(w){[].forEach.call(w.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-c')==='USD');});}};(function(){var w=document.getElementById('pay-curr');if(!w)return;w.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('button'):null;if(!b||!w.contains(b))return;var c=b.getAttribute('data-c');if(!c)return;window.__cai_curr=c;caiRenderCurr();});})();
+  window.openPay=openPay;window.__cai_curr=window.__cai_curr||'USD';function caiRenderCurr(){var cur=window.__cai_cur;if(!cur)return;var p=priceFor(cur.slug),pe=document.getElementById('pay-price');if(p!=null&&pe)pe.textContent=fmt(p,window.__cai_curr);if(window.__cai_ref)cta.href=ctaUrl(cur,window.__cai_ref);var w=document.getElementById('pay-curr');if(w){[].forEach.call(w.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-c')===window.__cai_curr);});}}window.__caiCurrResetovat=function(){var w=document.getElementById('pay-curr');if(w){[].forEach.call(w.querySelectorAll('button'),function(b){b.classList.toggle('on',b.getAttribute('data-c')==='USD');});}};(function(){var w=document.getElementById('pay-curr');if(!w)return;w.addEventListener('click',function(e){var b=e.target&&e.target.closest?e.target.closest('button'):null;if(!b||!w.contains(b))return;var c=b.getAttribute('data-c');if(!c)return;window.__cai_curr=c;caiRenderCurr();});})();
   // route gated download buttons through the payment step
   ['d-cs','d-m365'].forEach(function(id){
     var el=document.getElementById(id); if(!el) return;
