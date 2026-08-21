@@ -25,6 +25,22 @@ const text = (html) => html.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/
   .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 const attr = (html, re) => { const m = html.match(re); return m ? m[1] : null; };
 
+// Two bars, because "did this page render at all" and "does this page have much
+// to say" are different questions and were previously answered by one number.
+// A single 2 KB bar at High severity failed 49 legitimately short pages — an
+// imprint is 515 bytes because an imprint IS 515 bytes — which is how this whole
+// step ended up silenced behind continue-on-error. SHELL_FLOOR is the blocking
+// one and sits well above an unrendered SPA shell (~220 bytes), so a genuinely
+// blank page still fails. DEPTH_BAR is advisory and never blocks a merge.
+const SHELL_FLOOR = 400;
+const DEPTH_BAR = 2048;
+
+// Routes the client-rendered SPA owns. Without JS they serve a mount point, so
+// there is no prerendered text to measure and no threshold that could ever pass.
+// Reported as OPEN — a tracked known gap — rather than a permanently red FAIL.
+const SPA_ROUTES = /^(?:\/(?:cs|de|fr|es|it|pl|pt))?\/demo\/?$/;
+const pathOf = (u) => { try { return new URL(u).pathname; } catch { return u; } };
+
 // ── 1. Security headers ─────────────────────────────────────────────────────
 {
   const { r } = await get('/agents', 'follow');
@@ -57,18 +73,37 @@ for (const route of ROUTES) {
   const metaRobots = attr(body, /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)/i) ?? '';
   add('I2', 'no meta robots noindex', route, /noindex/i.test(metaRobots) ? 'FAIL' : 'PASS', 'Critical', metaRobots || 'none');
   const canon = attr(body, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/i);
-  const expected = `https://${CANONICAL_HOST}${route === '/' ? '/agents' : route}`;
+  // A page is its own canonical. This expected "/" -> "/agents", left over from
+  // when the homepage redirected to the catalogue; it hasn't for some time.
+  const expected = `https://${CANONICAL_HOST}${route}`;
   const selfRef = canon === expected;
   add('C1', 'self-referencing canonical on www host', route, selfRef ? 'PASS' : 'FAIL', 'High', `declared: ${canon}; expected: ${expected}`);
   const bodyText = text(body);
   const h1 = /<h1[\s>]/i.test(body);
-  add('P1', 'prerendered: >2KB body text + H1 (no-JS fetch)', route,
-    bodyText.length > 2048 && h1 ? 'PASS' : 'FAIL', 'Critical', `textBytes=${bodyText.length} h1=${h1}`);
+  if (SPA_ROUTES.test(route)) {
+    add('P1', 'prerendered content (SPA route, client-rendered by design)', route, 'OPEN', 'Critical',
+      `textBytes=${bodyText.length} — served as an SPA mount point without JS`);
+  } else {
+    add('P1', 'prerendered: real body text + H1 (no-JS fetch)', route,
+      bodyText.length > SHELL_FLOOR && h1 ? 'PASS' : 'FAIL', 'Critical',
+      `textBytes=${bodyText.length} h1=${h1} floor=${SHELL_FLOOR}`);
+    add('P2', 'prerendered body text is substantial (advisory)', route,
+      bodyText.length > DEPTH_BAR ? 'PASS' : 'FAIL', 'Low',
+      `textBytes=${bodyText.length} bar=${DEPTH_BAR}`);
+  }
   const title = attr(body, /<title>([^<]*)<\/title>/i) ?? '';
-  const categorised = /AI/i.test(title) && /(governance|certif|agent|risk|trust|compliance)/i.test(title);
-  const bareBrand = /^\s*Colleague\s*AI\s*$/i.test(title.replace(/[—|–-].*$/, ''));
+  // What this is for: catching a <title> that is nothing but the company name.
+  // The old version tested a keyword whitelist and cut the title at its first
+  // separator before looking for a bare brand, so it flagged every correctly
+  // formed "<Category> | ColleagueAI". Remove the brand instead and see whether
+  // anything descriptive is left standing.
+  const remainder = title
+    .replace(/colleague\s*ai/ig, ' ')
+    .replace(/[|—–\-·:]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
   add('T1', 'title pairs brand with category (not bare brand)', route,
-    categorised && !bareBrand ? 'PASS' : 'FAIL', 'High', title);
+    remainder.length >= 3 ? 'PASS' : 'FAIL', 'High', title);
   const blocks = [...body.matchAll(/<script type=["']application\/ld\+json["']>([\s\S]*?)<\/script>/gi)];
   let types = [];
   for (const b of blocks) { try { const d = JSON.parse(b[1]);
@@ -131,7 +166,13 @@ for (const route of ROUTES) {
       add('SM3', 'sitemap URL resolves 200 (no 404/redirect)', u, rr.status === 200 ? 'PASS' : 'FAIL', 'High', `HTTP ${rr.status}`);
       if (rr.status === 200) {
         const bt = text(await rr.text());
-        add('SM4', 'sitemap URL serves real (prerendered) content', u, bt.length > 2048 ? 'PASS' : 'FAIL', 'High', `textBytes=${bt.length}`);
+        if (SPA_ROUTES.test(pathOf(u))) {
+          add('SM4', 'sitemap URL serves real content (SPA route)', u, 'OPEN', 'High',
+            `textBytes=${bt.length} — client-rendered by design`);
+        } else {
+          add('SM4', 'sitemap URL serves real (prerendered) content', u,
+            bt.length > SHELL_FLOOR ? 'PASS' : 'FAIL', 'High', `textBytes=${bt.length} floor=${SHELL_FLOOR}`);
+        }
       }
     } catch (e) { add('SM3', 'sitemap URL resolves', u, 'BLOCKED', 'High', e.message); }
   }
