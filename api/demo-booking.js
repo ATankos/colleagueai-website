@@ -110,6 +110,14 @@ export default async function handler(req, res) {
   if (!DATE_RE.test(preferredDate)) {
     return res.status(400).json({ error: 'Invalid preferred date' });
   }
+  // The `min` attribute on the input is a convenience, not a control: anything
+  // can POST here. One day of slack absorbs the spread of visitor time zones
+  // without accepting a date that has genuinely already passed.
+  const dayMs = 86400000;
+  const requested = Date.parse(`${preferredDate}T00:00:00Z`);
+  if (!Number.isFinite(requested) || requested < Date.now() - dayMs) {
+    return res.status(400).json({ error: 'Preferred date must be today or later' });
+  }
 
   // Only the catalogue's own pillar ids, so an arbitrary payload cannot be
   // stored through this field.

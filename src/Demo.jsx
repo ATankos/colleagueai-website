@@ -103,6 +103,14 @@ const L = {
   },
 };
 
+// Local date, not UTC: a visitor in Auckland picking "today" must not be told
+// their own date is in the past. The server re-checks with the same tolerance.
+function todayISO() {
+  const d = new Date();
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+}
+
 function copy() {
   const m = (typeof window !== 'undefined' ? window.location.pathname : '').match(/^\/(cs|de|fr|es|it|pl|pt)(\/|$)/);
   return L[m ? m[1] : 'en'] || L.en;
@@ -265,7 +273,7 @@ export default function Demo() {
                 <legend>{t.schedule}</legend>
 
                 <label htmlFor="preferredDate">{t.date}</label>
-                <input id="preferredDate" type="date" name="preferredDate" value={formData.preferredDate} onChange={handleInputChange} required aria-required="true" />
+                <input id="preferredDate" type="date" name="preferredDate" min={todayISO()} value={formData.preferredDate} onChange={handleInputChange} required aria-required="true" />
 
                 <label htmlFor="timeZone">{t.timezone}</label>
                 <select id="timeZone" name="timeZone" value={formData.timeZone} onChange={handleInputChange}>
