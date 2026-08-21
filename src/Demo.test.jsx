@@ -205,6 +205,63 @@ describe('Demo booking form', () => {
   })
 })
 
+describe('Demo agent context', () => {
+  it('names the agent the visitor came from', () => {
+    visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
+    render(<Demo />)
+
+    expect(screen.getByText(/You are requesting/i)).toBeInTheDocument()
+    expect(screen.getByText('Reconciliation Root Cause Agent')).toBeInTheDocument()
+    expect(screen.getByText(/CAI L3/)).toBeInTheDocument()
+  })
+
+  it('submits the agent with the booking, so sales is not left guessing', async () => {
+    const user = userEvent.setup()
+    visit('/demo?agent=contract-summarisation-agent&tier=L4')
+    render(<Demo />)
+
+    await fillRequiredFields(user)
+    await user.click(submitButton())
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1))
+
+    const payload = JSON.parse(fetchMock.mock.calls[0][1].body)
+    expect(payload.agentSlug).toBe('contract-summarisation-agent')
+    expect(payload.agentTier).toBe('L4')
+  })
+
+  it('ignores a query string that is not catalogue-shaped', () => {
+    visit('/demo?agent=../../etc/passwd&tier=L9')
+    render(<Demo />)
+
+    expect(screen.queryByText(/You are requesting/i)).not.toBeInTheDocument()
+  })
+
+  it('says nothing about an agent when the visitor came directly', () => {
+    visit('/demo')
+    render(<Demo />)
+
+    expect(screen.queryByText(/You are requesting/i)).not.toBeInTheDocument()
+  })
+})
+
+describe('Demo privacy notice', () => {
+  it('tells the visitor who is collecting and links the policy, at the point of collection', () => {
+    render(<Demo />)
+
+    const link = screen.getByRole('link', { name: /privacy policy/i })
+    expect(link).toHaveAttribute('href', '/privacy')
+    expect(screen.getByText(/Colleague AI s\.r\.o\., Praha/)).toBeInTheDocument()
+    expect(screen.getByText(/only to arrange your demo/i)).toBeInTheDocument()
+  })
+
+  it('links the localised policy, not the English one', () => {
+    visit('/de/demo')
+    render(<Demo />)
+
+    expect(screen.getByRole('link', { name: /Datenschutzerkl/i })).toHaveAttribute('href', '/de/datenschutz')
+  })
+})
+
 describe('Demo localisation', () => {
   it('renders German copy and sets the document language on /de/demo', async () => {
     visit('/de/demo')

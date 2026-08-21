@@ -22,6 +22,10 @@ const L = {
     error: 'Failed to submit demo request. Please try again.',
     pillars: { ops: 'Operations & Service', risk: 'Risk, Security & Compliance', data: 'Data & Infrastructure', sales: 'Sales & Marketing', corp: 'Corporate' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'You are requesting',
+    privacy: 'We use these details only to arrange your demo. Colleague AI s.r.o., Praha. See our',
+    privacyLink: 'Privacy Policy',
+    privacyHref: '/privacy',
     contact:'/contact', agents:'/agents', title2:'Book a Demo | Colleague AI', desc:'Schedule a personalized demo of governed enterprise AI agents.',
   },
   cs: {
@@ -33,6 +37,10 @@ const L = {
     error: 'Nepodařilo se odeslat žádost o demo. Zkuste to prosím znovu.',
     pillars: { ops: 'Provoz a služby', risk: 'Riziko, bezpečnost a compliance', data: 'Data a infrastruktura', sales: 'Obchod a marketing', corp: 'Korporátní' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Požadujete',
+    privacy: 'Tyto údaje použijeme pouze k domluvení ukázky. Colleague AI s.r.o., Praha. Viz naše',
+    privacyLink: 'Zásady ochrany osobních údajů',
+    privacyHref: '/cs/ochrana-soukromi',
     contact:'/cs/kontakt', agents:'/cs/agenti', title2:'Zarezervovat si demo | Colleague AI', desc:'Naplánujte si personalizovanou ukázku řízeného enterprise AI agenta.',
   },
   de: {
@@ -44,6 +52,10 @@ const L = {
     error: 'Fehler beim Senden der Demo-Anfrage. Bitte versuchen Sie es erneut.',
     pillars: { ops: 'Betrieb & Service', risk: 'Risiko, Sicherheit & Compliance', data: 'Daten & Infrastruktur', sales: 'Vertrieb & Marketing', corp: 'Unternehmen' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Sie fragen an',
+    privacy: 'Wir verwenden diese Angaben ausschließlich zur Vereinbarung Ihrer Demo. Colleague AI s.r.o., Prag. Siehe unsere',
+    privacyLink: 'Datenschutzerklärung',
+    privacyHref: '/de/datenschutz',
     contact:'/de/kontakt', agents:'/de/agenten', title2:'Demo buchen | Colleague AI', desc:'Vereinbaren Sie eine personalisierte Demo überwachter Enterprise-AI-Agenten.',
   },
   fr: {
@@ -55,6 +67,10 @@ const L = {
     error: 'Erreur lors de l’envoi de la demande de démo. Veuillez réessayer.',
     pillars: { ops: 'Opérations & service', risk: 'Risque, sécurité & conformité', data: 'Données & infrastructure', sales: 'Ventes & marketing', corp: 'Fonctions support' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Vous demandez',
+    privacy: 'Nous utilisons ces informations uniquement pour organiser votre démo. Colleague AI s.r.o., Prague. Voir notre',
+    privacyLink: 'politique de confidentialité',
+    privacyHref: '/fr/confidentialite',
     contact:'/fr/contact', agents:'/fr/agents', title2:'Réserver une démo | Colleague AI', desc:'Planifiez une démonstration personnalisée des agents IA gouvernés.',
   },
   es: {
@@ -66,6 +82,10 @@ const L = {
     error: 'Error al enviar la solicitud de demostración. Inténtelo de nuevo.',
     pillars: { ops: 'Operaciones y servicio', risk: 'Riesgo, seguridad y cumplimiento', data: 'Datos e infraestructura', sales: 'Ventas y marketing', corp: 'Corporativo' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Está solicitando',
+    privacy: 'Usamos estos datos únicamente para concertar su demostración. Colleague AI s.r.o., Praga. Consulte nuestra',
+    privacyLink: 'Política de privacidad',
+    privacyHref: '/es/privacidad',
     contact:'/es/contacto', agents:'/es/agentes', title2:'Reservar una demo | Colleague AI', desc:'Programe una demostración personalizada de agentes IA gobernados.',
   },
   it: {
@@ -77,6 +97,10 @@ const L = {
     error: 'Errore nell’invio della richiesta di demo. Riprova.',
     pillars: { ops: 'Operations e servizio', risk: 'Rischio, sicurezza e compliance', data: 'Dati e infrastruttura', sales: 'Vendite e marketing', corp: 'Corporate' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Stai richiedendo',
+    privacy: 'Utilizziamo questi dati solo per organizzare la tua demo. Colleague AI s.r.o., Praga. Consulta la nostra',
+    privacyLink: 'Informativa sulla privacy',
+    privacyHref: '/it/privacy',
     contact:'/it/contatti', agents:'/it/agenti', title2:'Prenota una demo | Colleague AI', desc:'Pianifica una demo personalizzata di agenti IA governati.',
   },
   pl: {
@@ -88,6 +112,10 @@ const L = {
     error: 'Błąd przy przesyłaniu prośby o demo. Spróbuj ponownie.',
     pillars: { ops: 'Operacje i usługi', risk: 'Ryzyko, bezpieczeństwo i zgodność', data: 'Dane i infrastruktura', sales: 'Sprzedaż i marketing', corp: 'Korporacyjne' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Zamawiasz',
+    privacy: 'Używamy tych danych wyłącznie do umówienia demonstracji. Colleague AI s.r.o., Praga. Zobacz naszą',
+    privacyLink: 'Politykę prywatności',
+    privacyHref: '/pl/prywatnosc',
     contact:'/pl/kontakt', agents:'/pl/agenci', title2:'Zarezerwuj demo | Colleague AI', desc:'Zaplanuj spersonalizowaną demonstrację nadzorowanych agentów AI.',
   },
   pt: {
@@ -99,6 +127,10 @@ const L = {
     error: 'Erro ao enviar a solicitação de demo. Tente novamente.',
     pillars: { ops: 'Operações e serviço', risk: 'Risco, segurança e conformidade', data: 'Dados e infraestrutura', sales: 'Vendas e marketing', corp: 'Corporativo' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
+    requested: 'Está a solicitar',
+    privacy: 'Usamos estes dados apenas para agendar a sua demonstração. Colleague AI s.r.o., Praga. Consulte a nossa',
+    privacyLink: 'Política de Privacidade',
+    privacyHref: '/pt/privacidade',
     contact:'/pt/contacto', agents:'/pt/agentes', title2:'Agendar uma demo | Colleague AI', desc:'Agende uma demonstração personalizada de agentes IA governados.',
   },
 };
@@ -116,8 +148,29 @@ function copy() {
   return L[m ? m[1] : 'en'] || L.en;
 }
 
+/**
+ * The access CTA in the catalogue sends visitors here as
+ * /demo?agent=<slug>&tier=<L3>. Reading it means the enquiry names a product
+ * instead of arriving blank, which is what sales previously had to guess at.
+ * Values are treated as untrusted: slug is pattern-checked, tier is matched
+ * against the tiers the catalogue actually ships.
+ */
+function requestedAgent() {
+  if (typeof window === 'undefined') return null;
+  const q = new URLSearchParams(window.location.search);
+  const slug = (q.get('agent') || '').trim();
+  const tier = (q.get('tier') || '').trim().toUpperCase();
+  if (!/^[a-z0-9][a-z0-9-]{2,60}$/.test(slug)) return null;
+  return {
+    slug,
+    tier: /^L[1-5]$/.test(tier) ? tier : '',
+    label: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+  };
+}
+
 export default function Demo() {
   const t = copy();
+  const [requested] = useState(requestedAgent);
 
   // CAI-008: set lang attribute + localized metadata for this locale. The
   // static shell (built by Vite into demo.html) always ships with English
@@ -182,7 +235,9 @@ export default function Demo() {
       const response = await fetch('/api/demo-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(
+          requested ? { ...formData, agentSlug: requested.slug, agentTier: requested.tier } : formData
+        ),
       });
       if (response.ok) {
         setSubmitted(true);
@@ -220,6 +275,9 @@ export default function Demo() {
         .demo-submit { background: ${C.terra}; color: #fff; padding: 13px 26px; border: none; border-radius: 100px; font-weight: 600; font-size: 15px; cursor: pointer; width: 100%; }
         .demo-submit:hover { background: #A94A2C; }
         .demo-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+        .demo-requested { background: #fff; border: 1px solid ${C.line}; border-left: 3px solid ${C.terra}; border-radius: 8px; padding: 11px 14px; margin: 0 0 20px; font-size: 14px; }
+        .demo-privacy { font-size: 12.5px; color: ${C.muted}; line-height: 1.5; margin: 14px 0 0; text-align: center; }
+        .demo-privacy a { color: ${C.terra}; }
         .success-msg { background: #E8F5E9; color: #2E7D32; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
         .error-msg { background: #FFEBEE; color: #C62828; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
         a:focus-visible { outline: 2px solid ${C.terra}; outline-offset: 2px; }
@@ -244,6 +302,12 @@ export default function Demo() {
             {error && <div className="error-msg" role="alert" aria-live="assertive">{t.error}</div>}
 
             <form onSubmit={handleSubmit} className="demo-form">
+              {requested && (
+                <p className="demo-requested">
+                  {t.requested}: <strong>{requested.label}</strong>
+                  {requested.tier ? ` · CAI ${requested.tier}` : ''}
+                </p>
+              )}
               <fieldset>
                 <legend>{t.formTitle}</legend>
 
@@ -286,6 +350,13 @@ export default function Demo() {
               <button type="submit" className="demo-submit" disabled={loading}>
                 {loading ? t.submitting : t.submit}
               </button>
+
+              {/* Article 13: who is collecting, what for, and where the full
+                  notice lives — stated where the data is actually entered. */}
+              <p className="demo-privacy">
+                {t.privacy}{' '}
+                <a href={t.privacyHref}>{t.privacyLink}</a>.
+              </p>
             </form>
           </>
         )}

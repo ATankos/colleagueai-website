@@ -134,6 +134,27 @@ test('rejects incomplete submissions', async () => {
   }
 });
 
+test('records which agent the enquiry came from', async () => {
+  await call({ ...VALID, agentSlug: 'reconciliation-root-cause-agent', agentTier: 'l3' })
+  const [lead] = await listLeads('demo')
+  assert.equal(lead.agentSlug, 'reconciliation-root-cause-agent')
+  assert.equal(lead.agentTier, 'L3', 'tier is normalised to upper case')
+})
+
+test('refuses a junk agent slug rather than storing it', async () => {
+  await call({ ...VALID, agentSlug: '../../etc/passwd', agentTier: 'L9' }, { ip: '198.51.100.41' })
+  const [lead] = await listLeads('demo')
+  assert.equal(lead.agentSlug, null, 'a slug that is not catalogue-shaped is dropped')
+  assert.equal(lead.agentTier, null, 'a tier outside L1-L5 is dropped')
+})
+
+test('a booking with no agent context is still accepted', async () => {
+  const res = await call(VALID, { ip: '198.51.100.42' })
+  assert.equal(res.statusCode, 200)
+  const [lead] = await listLeads('demo')
+  assert.equal(lead.agentSlug, null)
+})
+
 test('rejects a preferred date that has already passed', async () => {
   const res = await call({ ...VALID, preferredDate: '2020-01-01' }, { ip: '198.51.100.31' })
   assert.equal(res.statusCode, 400)
