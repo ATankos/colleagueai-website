@@ -44,9 +44,12 @@ jobs:
       - name: Partner commission ledger (approval gate, rate locking, reversals)
         run: node --test tests/commission-ledger.test.mjs
 
+      # Verified passing 8/8, including the revenue-critical assertions (STORE
+      # config carries no live price while checkout is off, partner attribution
+      # survives navigation, the pay CTA hands off client_reference_id). It was
+      # the last step here that could fail silently, so it gates now.
       - name: DOM smoke
         run: node --test tests/dom-smoke.test.mjs
-        continue-on-error: true
 
       - name: i18n integrity
         run: node tests/audit-i18n.mjs

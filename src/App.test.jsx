@@ -1,26 +1,24 @@
 /**
- * Pins the routing contract for the SPA bundle.
+ * Pins the contract between vercel.json and the SPA bundle.
  *
- * Why this file exists: an audit found that the repo's only unit tests rendered
- * ColleagueAIMarketplace, a component no production URL can reach. vercel.json
- * serves demo.html at exactly eight sources — /demo and its seven locale
- * variants — and App routes every one of those to <Demo />. The marketplace is
- * the fallback branch, and nothing falls back to it.
+ * demo.html is served at exactly eight sources — /demo and its seven locale
+ * variants — and every one of them must render the booking form. App used to
+ * branch: those eight paths got <Demo />, anything else got a marketplace view.
+ * Nothing was ever routed to "anything else", so that branch was unreachable and
+ * the 47 KB component behind it was dead code. Both are gone.
  *
- * That is worth a test rather than a comment. If someone widens the rewrites or
- * narrows the route pattern, one of these fails and says so, instead of the
- * booking form quietly disappearing behind a marketplace view for one locale —
- * which is the exact bug the CAI-001 fix had to repair once already.
+ * The test stays, because the risk it covers is still real and has bitten once
+ * before: a visitor reaching this bundle on a path the app does not expect and
+ * getting something other than the booking form. If someone widens the rewrites
+ * or reintroduces branching, this is where it surfaces.
  */
 import { render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import '@testing-library/jest-dom/vitest'
 import App from './App.jsx'
 
-// Both leaves are stubbed: this file is about which branch is taken, and the
-// real marketplace component is 47 KB of unrelated markup.
+// Demo has its own suite; here only the mounting matters.
 vi.mock('./Demo.jsx', () => ({ default: () => <div data-testid="demo" /> }))
-vi.mock('./ColleagueAIMarketplace.jsx', () => ({ default: () => <div data-testid="marketplace" /> }))
 
 /** Every source vercel.json rewrites to demo.html. Keep these in sync. */
 const DEMO_ROUTES = ['/demo', '/cs/demo', '/de/demo', '/fr/demo', '/es/demo', '/it/demo', '/pl/demo', '/pt/demo']
@@ -31,33 +29,29 @@ function visit(path) {
 
 afterEach(() => visit('/'))
 
-describe('App routing', () => {
+describe('App', () => {
   it.each(DEMO_ROUTES)('serves the booking form at %s', (path) => {
     visit(path)
     render(<App />)
 
     expect(screen.getByTestId('demo')).toBeInTheDocument()
-    expect(screen.queryByTestId('marketplace')).not.toBeInTheDocument()
   })
 
-  it('tolerates a trailing slash on a demo route', () => {
+  it('serves the booking form regardless of trailing slash', () => {
     visit('/de/demo/')
     render(<App />)
 
     expect(screen.getByTestId('demo')).toBeInTheDocument()
   })
 
-  it('does not mistake a nested path for the demo route', () => {
+  it('still serves the booking form on a path the rewrites do not currently use', () => {
+    // Not a route today. Asserted anyway: whatever reaches this bundle should be
+    // the booking form, never a blank screen or some other view. This is the
+    // regression the removed marketplace branch used to cause for non-English
+    // visitors, and the reason the branch is not coming back.
     visit('/demo/extra')
     render(<App />)
 
-    expect(screen.queryByTestId('demo')).not.toBeInTheDocument()
-  })
-
-  it('does not treat an unsupported locale prefix as a demo route', () => {
-    visit('/xx/demo')
-    render(<App />)
-
-    expect(screen.queryByTestId('demo')).not.toBeInTheDocument()
+    expect(screen.getByTestId('demo')).toBeInTheDocument()
   })
 })
