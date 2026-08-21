@@ -134,6 +134,19 @@ test('rejects incomplete submissions', async () => {
   }
 });
 
+test('rejects a preferred date that has already passed', async () => {
+  const res = await call({ ...VALID, preferredDate: '2020-01-01' }, { ip: '198.51.100.31' })
+  assert.equal(res.statusCode, 400)
+  assert.match(res.payload.error, /today or later/i)
+  assert.equal((await listLeads('demo')).length, 0, 'a past booking is not stored')
+})
+
+test('accepts today, so a visitor a day behind UTC is not turned away', async () => {
+  const today = new Date().toISOString().slice(0, 10)
+  const res = await call({ ...VALID, preferredDate: today }, { ip: '198.51.100.32' })
+  assert.equal(res.statusCode, 200)
+})
+
 test('rejects a malformed email or date', async () => {
   const bad = await call({ ...VALID, email: 'not-an-email' }, { ip: '198.51.100.20' });
   assert.equal(bad.statusCode, 400);
