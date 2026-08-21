@@ -35,6 +35,12 @@ jobs:
       - name: Rate limiter
         run: node --test tests/ratelimit.test.mjs
 
+      # Guards the rule this endpoint used to break: never report success for a
+      # booking that was not actually stored. It previously logged the visitor's
+      # details, returned {success:true}, and delivered the lead nowhere.
+      - name: Demo booking (lead is stored, or the visitor is told it was not)
+        run: node --test tests/demo-booking.test.mjs
+
       - name: Partner commission ledger (approval gate, rate locking, reversals)
         run: node --test tests/commission-ledger.test.mjs
 
