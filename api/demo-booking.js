@@ -139,7 +139,7 @@ export default async function handler(req, res) {
 
   // The booking is safe at this point. A failed notification is worth knowing
   // about but must not fail the request, since the lead is already durable.
-  let notified = { sent: false, reason: 'not-attempted' };
+  let notified;
   try {
     notified = await notify(record);
   } catch (error) {
