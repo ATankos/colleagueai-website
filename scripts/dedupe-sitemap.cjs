@@ -56,9 +56,19 @@ function dedupe(xml) {
 let touched = 0;
 for (const rel of FILES) {
   const file = path.join(process.cwd(), rel);
-  if (!fs.existsSync(file)) continue;
 
-  const original = fs.readFileSync(file, "utf8");
+  // Read first and let a missing file surface as a failed read, rather than
+  // asking whether it exists and then acting on the answer. Check-then-use is a
+  // time-of-check/time-of-use race (CodeQL js/file-system-race), and the single
+  // attempt is simpler anyway: dist/sitemap.xml is legitimately absent when the
+  // build has not run yet.
+  let original;
+  try {
+    original = fs.readFileSync(file, "utf8");
+  } catch (err) {
+    if (err.code === "ENOENT") continue;
+    throw err;
+  }
   const { xml, before, after } = dedupe(original);
 
   if (before === after) {
