@@ -165,13 +165,33 @@ test('partner worked example reconciles: contract minus 10% commission equals re
 // the Trust Center actually presents; retired wordings must not creep back in
 // through any master, generator or footer — in any language.
 test('no page still carries a retired compliance claim', () => {
-  const retired = ['ISO/IEC 42001 aligned', 'EU AI Act + DORA mapped', 'DORA mapped', 'Certified under CAI Score'];
+  const retired = ['ISO/IEC 42001 aligned', 'EU AI Act + DORA mapped', 'DORA mapped', 'Certified under CAI Score',
+    'certification framework', 'No customer data is ever processed', 'auditors will actually sign off'];
   const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html',
     ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
     const html = read(p);
     for (const claim of retired) assert.ok(!html.includes(claim), `${p} still says "${claim}"`);
   }
+});
+
+// The CAI Score is ColleagueAI's own classification, not independent assurance.
+// "Certified" reads as third-party attestation to a risk buyer, so the word is
+// retired in every language; only the dictionary key `dr_certify` may remain.
+test('no visible copy calls the CAI Score a certification, in any language', () => {
+  const stems = /\b\w*(certif|zertifi|certyfik|certifik)\w*/gi;
+  const pages = ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html', 'usage.html', 'partners.html',
+    ...LOCALES.flatMap((l) => ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html'].map((p) => `${l}/${p}`))];
+  for (const p of pages) {
+    const hits = (read(p).match(stems) || []).filter((w) => w !== 'dr_certify');
+    assert.deepEqual(hits, [], `${p} still uses: ${[...new Set(hits)].join(', ')}`);
+  }
+});
+
+test('partner page does not contradict its flat 10% offer', () => {
+  const html = read('partners.html');
+  assert.ok(!html.includes('Rates vary by partner level'), 'FAQ still says rates vary by partner level');
+  assert.ok(!/the partner level you are interested in/i.test(html), 'application copy still asks for a partner level');
 });
 
 test('catalogue drawer links never point at the partner page', () => {

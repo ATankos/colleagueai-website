@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-classified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI classifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-classified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
 <style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
@@ -505,12 +505,12 @@ display: flex !important;
 <p>In a category built on trust, we'd rather you verify. This page collects what we can show today: how the CAI Score works, where agents run, what data we do and do not process, who our subprocessors are, and how to reach us about security. Where we don't yet have something (a third-party attestation, a public customer story) we say so instead of implying otherwise.</p>
 
 <h2 id="governance">The CAI Score methodology</h2>
-<p>The CAI Score is a certification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable, then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
+<p>The CAI Score is a governance and risk-classification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable, then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.</p>
 <h3>L1 · Assist</h3><p>Informs and answers. Takes no action and changes no record. The human does the work; the agent just makes it faster to find and understand. Human role: does everything.</p>
 <h3>L2 · Draft</h3><p>Produces a work product (a document, a query, a report, an outreach message) for a human to review and approve. Nothing the agent makes is used until a person signs off. Human role: reviews &amp; approves.</p>
 <h3>L3 · Operate</h3><p>Executes routine, low-risk actions inside a bounded workflow, classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped. Human role: owns exceptions.</p>
 <h3>L4 · Decide (supervised)</h3><p>Supports decisions and controls in higher-stakes processes, compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny. Human role: stays accountable.</p>
-<h3>L5 · Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of certification, and not used by any agent in this catalogue today. Human role: sets the rails.</p>
+<h3>L5 · Autonomous</h3><p>Acts independently within hard, pre-approved guardrails. Reserved for the highest level of classification, and not used by any agent in this catalogue today. Human role: sets the rails.</p>
 <p class="note">The current catalogue ships at L2-L4. L4 agents require senior sign-off before go-live. Classifications are assigned by Colleague AI under this framework; no external assessor is engaged yet, and we don't claim third-party attestations we do not hold.</p>
 
 <h2 id="data">Architecture: where agents run, where data lives</h2>
@@ -526,7 +526,7 @@ display: flex !important;
 </div>
 <h3>What this website itself processes</h3>
 <ul>
-<li><strong>Live demo</strong> (/demo): not currently available. The interactive demo has been withdrawn, so this website sends no messages to an AI provider.</li>
+<li><strong>Demo booking</strong> (/demo): a booking form (email, company, role, areas of interest, preferred date and time zone) that reaches us by email via Resend and is kept for up to twelve months. The interactive AI demo has been withdrawn, so this website sends no messages to an AI provider.</li>
 <li><strong>Purchases</strong>: payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.</li>
 <li><strong>Downloads</strong>: agent packages are delivered through signed, time-limited URLs (15-minute expiry).</li>
 <li><strong>ROI calculator &amp; readiness check</strong>: run entirely in your browser; nothing is sent or stored.</li>

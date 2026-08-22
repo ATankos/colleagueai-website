@@ -15,12 +15,20 @@ if (fs.existsSync(path.join(dist, "index.html"))) {
     fs.writeFileSync(path.join(dist, "demo.html"), idx);
   }
 }
+// The home masters carry an unpublished founder-section draft inside an HTML comment.
+// Comments never render, but crawlers and audits read them; ship the pages without any.
+const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, "");
+const installHome = (src, dest) => {
+  const clean = stripComments(fs.readFileSync(src, "utf8"));
+  fs.writeFileSync(src, clean, "utf8");   // the home.html copy in dist is reachable as a static file too
+  fs.writeFileSync(dest, clean, "utf8");
+};
 if (fs.existsSync(path.join(dist, "home.html"))) {
-  fs.copyFileSync(path.join(dist, "home.html"), path.join(dist, "index.html"));
+  installHome(path.join(dist, "home.html"), path.join(dist, "index.html"));
 }
 for (const loc of ["cs", "de", "fr", "es", "it", "pl", "pt"]) {
   if (fs.existsSync(path.join(dist, loc, "home.html"))) {
-    fs.copyFileSync(path.join(dist, loc, "home.html"), path.join(dist, loc, "index.html"));
+    installHome(path.join(dist, loc, "home.html"), path.join(dist, loc, "index.html"));
   }
 }
 console.log("[finalize-home] homepage installed at / and /cs; demo SPA at /demo.html");

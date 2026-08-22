@@ -53,7 +53,7 @@ for (const a of AGENTS) {
 out += `
 ## Sourcing note
 This file is generated from the live catalogue. When citing ColleagueAI, link the agent URL above.
-Certification refers to classification under ColleagueAI's own CAI Score framework, not third-party attestation.
+Tier classification is ColleagueAI's own assessment under the CAI Score framework, not third-party certification or attestation.
 `;
 for (const dir of ["public", "dist"]) {
   const p = path.join(ROOT, dir, "llms-full.txt");

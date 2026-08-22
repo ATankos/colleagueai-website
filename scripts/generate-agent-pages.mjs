@@ -120,7 +120,7 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
 <section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
 <section><h2>What you get</h2><ul><li>Copilot Studio connect package</li><li>Microsoft 365 Copilot package</li><li>Agent dossier (PDF)</li></ul><p>One-time purchase. Access to your connect packages is arranged after your access request is approved and commercial setup is confirmed.</p></section>
-<section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
+<section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It classifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
 <div class="cta">
   <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request access →</a>
   <a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>
@@ -174,8 +174,10 @@ ${sections}
 }
 // sitemap: base + agent urls
 let sm = readFileSync(join(ROOT, 'public/sitemap.xml'), 'utf8');
-const entries = slugs.map(s =>
-  `  <url>\n    <loc>${BASE}/agents/${s}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`).join('\n');
+const extraUrls = [`${BASE}/demo`, `${BASE}/docs/agents/`];
+const entries = extraUrls.map(u =>
+  `  <url>\n    <loc>${u}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`).concat(slugs.map(s =>
+  `  <url>\n    <loc>${BASE}/agents/${s}</loc>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`)).join('\n');
 sm = sm.replace('</urlset>', entries + '\n</urlset>');
 writeFileSync(join(DIST, 'sitemap.xml'), sm);
 console.log(`[gen] ${slugs.length} agent pages + sitemap (${slugs.length + (sm.match(/<loc>/g).length - slugs.length)} urls) written to dist/`);

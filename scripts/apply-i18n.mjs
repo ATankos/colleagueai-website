@@ -34,7 +34,7 @@ const MARK_A = '<!-- CAI-I18N-X START (draft machine translations - pending prof
 const MARK_B = '<!-- CAI-I18N-X END -->';
 
 const PROMPT_HEAD = `You are a professional localization specialist for enterprise B2B software. Translate the English UI strings below into these 7 languages by code: cs (Czech), de (German), fr (French), es (Spanish), it (Italian), pl (Polish), pt (European Portuguese, pt-PT).
-CONTEXT: ColleagueAI - a governance "trust layer" certifying enterprise AI agents against the "CAI Score". Audience: enterprise buyers. Source is British English. Formal, professional register. Do not soften, add, or omit meaning.
+CONTEXT: ColleagueAI - a governance "trust layer" classifying enterprise AI agents against the "CAI Score". Audience: enterprise buyers. Source is British English. Formal, professional register. Do not soften, add, or omit meaning.
 DO NOT TRANSLATE (verbatim): ColleagueAI, CAI Score, CAI Token Economy Monitor, Entra ID, Active Directory, M365, SharePoint, Teams, Outlook, Azure, Azure OpenAI, Microsoft Copilot Studio, Power Automate, Stripe, RAG, RBAC, EU AI Act, DORA, ISO/IEC 42001; tier labels L1-L5 and names (Assist, Draft, Operate, Decide, Autonomous); numbers, currency, IDs, symbols.
 OUTPUT: Return ONLY valid JSON, keys preserved, shape: { "KEY": {"cs":"...","de":"...","fr":"...","es":"...","it":"...","pl":"...","pt":"..."} }. No commentary, no code fences.
 STRINGS (key: English):
