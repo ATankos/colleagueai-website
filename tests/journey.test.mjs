@@ -139,15 +139,34 @@ test('every localised partner page offers the email application route', () => {
 });
 
 // ── partner page ─────────────────────────────────────────────────────────────
-test('partner page shows three levels with qualified commission rates', () => {
+// The programme is referral-only at a flat 10% (Sales 15% and Strategic "from 20%"
+// were retired in the GTM remediation). These pin that model and the two defects
+// the re-audit found on this page: the worked example that still used the old
+// 40% tier arithmetic, and the referral card leaking English on locale pages.
+test('partner page offers a single referral level at a flat 10% rate', () => {
   const { window } = load('partners.html', 'https://www.colleagueai.ai/partners');
   const levels = [...window.document.querySelectorAll('[data-partner-level]')];
-  assert.equal(levels.length, 3, 'expected 3 partner levels');
-  const rates = levels.map((l) => l.querySelector('.pl-rate').textContent);
-  assert.ok(rates.some((r) => r.includes('10%')), 'referral rate missing');
-  assert.ok(rates.some((r) => r.includes('15%')), 'sales rate missing');
-  assert.ok(rates.some((r) => /From 20%|20%/.test(r)), 'strategic rate missing');
-  assert.ok(!rates.some((r) => /^\s*20%\s*Commission/.test(r)), 'strategic rate must not read as a flat entitlement');
+  assert.equal(levels.length, 1, 'expected exactly one partner level (referral)');
+  assert.equal(levels[0].getAttribute('data-partner-level'), 'referral');
+  assert.ok(levels[0].querySelector('.pl-rate').textContent.includes('10%'), 'referral rate missing');
+  const rates = window.document.body.textContent;
+  assert.ok(!/\b15%|From 20%/.test(rates), 'retired Sales/Strategic tier rates must not reappear');
+});
+
+test('partner worked example reconciles: contract minus 10% commission equals retained revenue', () => {
+  const html = read('partners.html');
+  for (const figure of ['$45,000', '$4,500', '$40,500']) {
+    assert.ok(html.includes(figure), `worked example is missing ${figure}`);
+  }
+  assert.ok(!html.includes('$27,000'), 'stale retained-revenue figure from the old 40% tier must not reappear');
+});
+
+test('partner referral card is localized on every locale page', () => {
+  const leaks = ['One simple referral commission', '>Become a Referral Partner<', '>You do<', 'Introduce an enterprise customer'];
+  for (const l of LOCALES) {
+    const html = read(`${l}/partners.html`);
+    for (const leak of leaks) assert.ok(!html.includes(leak), `${l}/partners.html leaks English: ${leak}`);
+  }
 });
 
 test('partner commission terms are qualified as non-binding', () => {
