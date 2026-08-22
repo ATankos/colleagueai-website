@@ -133,6 +133,14 @@ function prerenderDataI18n(html, code, i18n) {
     return open + escapeHtml(value) + close
   })
 
+  // data-i18n-ph: translate placeholder attributes (the runtime does this on load; crawlers need it baked in)
+  html = html.replace(/(<[a-z0-9-]+[^>]*\sdata-i18n-ph=["']([^"']+)["'][^>]*>)/gi, (open, _tag, key) => {
+    if (!Object.prototype.hasOwnProperty.call(dict, key)) return open
+    const value = dict[key]
+    if (typeof value !== 'string') return open
+    return open.replace(/\splaceholder="[^"]*"/i, ' placeholder="' + escapeHtml(value).replace(/"/g, '&quot;') + '"')
+  })
+
   // data-i18n-html elements carry markup (e.g. the hero H1) — prerender them with the raw localized HTML
   html = html.replace(/(<([a-z0-9-]+)(?=[^>]*\sdata-i18n-html=["']([^"']+)["'])[^>]*>)([\s\S]*?)(<\/\2>)/gi, (match, open, tag, key, body, close) => {
     if (!Object.prototype.hasOwnProperty.call(dict, key)) return match

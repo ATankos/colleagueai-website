@@ -229,6 +229,21 @@ describe('Demo agent context', () => {
     expect(payload.agentTier).toBe('L4')
   })
 
+  it('shows the indicative one-time package price for the tier, matching /pricing', () => {
+    visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
+    render(<Demo />)
+
+    expect(screen.getByText(/Indicative package price: \$25,000 \(one-time\)/)).toBeInTheDocument()
+  })
+
+  it('shows no price for a tier that is not sold', () => {
+    visit('/demo?agent=reconciliation-root-cause-agent&tier=L1')
+    render(<Demo />)
+
+    expect(screen.getByText(/You are requesting/i)).toBeInTheDocument()
+    expect(screen.queryByText(/Indicative package price/)).not.toBeInTheDocument()
+  })
+
   it('ignores a query string that is not catalogue-shaped', () => {
     visit('/demo?agent=../../etc/passwd&tier=L9')
     render(<Demo />)
