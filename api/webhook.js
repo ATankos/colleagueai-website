@@ -25,7 +25,7 @@ import {
   getPartnerStats,
 } from '../lib/db.js';
 
-const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.20');
+const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
 
 export const config = { api: { bodyParser: false } };
 
@@ -120,7 +120,7 @@ export default async function handler(req, res) {
   const missing = missingStripeConfig();
   if (missing.length > 0) {
     console.error('[webhook] Missing Stripe configuration:', missing.join(', '));
-    return res.status(500).json({ error: 'Webhook configuration error', missing });
+    return res.status(503).json({ error: 'Webhook is not enabled' });
   }
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-04-10' });

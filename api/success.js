@@ -45,7 +45,7 @@ export default async function handler(req, res) {
   const sessionId = Array.isArray(req.query.session_id) ? req.query.session_id[0] : req.query.session_id;
 
   if (!process.env.STRIPE_SECRET_KEY) {
-    return res.status(500).send(page('Not configured', '<h1>Checkout not configured</h1><p>Missing Stripe key.</p>'));
+    return res.status(503).send(page('Not available', '<h1>Checkout is not enabled</h1><p>Online purchase is not currently available. Please request access at /agents.</p>'));
   }
   if (!sessionId) {
     return res.status(400).send(page('Missing order', '<h1>Missing order</h1><p>No checkout session id in the link.</p>'));

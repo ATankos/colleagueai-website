@@ -41,8 +41,8 @@ const TIER_DESC = { // verbatim from the CAI Score section of /agents (locked co
   L3: ['Executes routine, low-risk actions inside a bounded workflow: classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.', 'Owns exceptions'],
   L4: ['Supports decisions and controls in higher-stakes processes: compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.', 'Stays accountable'],
 };
-const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, certify it on the CAI Score, and it runs in your own tenant: no rebuild, no data leaving your walls.';
-const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. No customer data is ever processed on our side. Your data stays in your tenant.';
+const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, classify it on the CAI Score, and it runs in your own tenant: no rebuild, no data leaving your walls.';
+const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. No customer business data is processed on our side. Your data stays in your tenant.';
 
 
 function page(a) {
@@ -70,13 +70,13 @@ function page(a) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(a.n)} | Certified ${esc(a.t)} Enterprise AI Agent | Colleague AI</title>
+<title>${esc(a.n)} | Governed ${esc(a.t)} Enterprise AI Agent | Colleague AI</title>
 <meta name="description" content="${esc(a.desc)}">
 <meta name="robots" content="index, follow, max-snippet:-1">
 <link rel="canonical" href="${url}">
 <meta property="og:type" content="website">
 <meta property="og:url" content="${url}">
-<meta property="og:title" content="${esc(a.n)} | Certified ${esc(a.t)} Enterprise AI Agent | Colleague AI">
+<meta property="og:title" content="${esc(a.n)} | Governed ${esc(a.t)} Enterprise AI Agent | Colleague AI">
 <meta property="og:description" content="${esc(a.desc)}">
 <meta property="og:image" content="${BASE}/og-image.png">
 <meta property="og:site_name" content="Colleague AI">
@@ -103,7 +103,7 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
 <body>
 <main>
 <nav class="crumb"><a href="/agents">← Agent Catalogue</a></nav>
-<div class="eyebrow">Certified under CAI Score™ · ${esc(tier)}</div>
+<div class="eyebrow">Classified under the CAI Score™ · ${esc(tier)}</div>
 <h1>${esc(a.n)}</h1>
 <p>${esc(a.desc)}</p>
 <div class="meta">
@@ -119,14 +119,14 @@ ${a.pains?.length ? `<section><h2>Pain points it removes</h2><ul>${a.pains.map(p
 ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? TIER[a.t] : '')} tier means</h2><p>${esc(TIER_DESC[a.t][0])} Human role: ${esc(TIER_DESC[a.t][1])}.</p></section>` : ''}
 <section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
-<section><h2>What you get</h2><ul><li>Copilot Studio connect package</li><li>Microsoft 365 Copilot package</li><li>Agent dossier (PDF)</li></ul><p>One-time purchase. Your connect packages unlock as soon as secure checkout completes.</p></section>
+<section><h2>What you get</h2><ul><li>Copilot Studio connect package</li><li>Microsoft 365 Copilot package</li><li>Agent dossier (PDF)</li></ul><p>One-time purchase. Access to your connect packages is arranged after your access request is approved and commercial setup is confirmed.</p></section>
 <section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It certifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
 <div class="cta">
-  <a class="btn btn-p" href="/agents#catalogue">Get this agent →</a>
-  <a class="btn btn-s" href="/contact">Request a demo</a>
+  <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request access →</a>
+  <a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>
-<footer>Runs in your tenant · No customer data processed by us · EU AI Act · DORA · ISO/IEC 42001 aligned · © Colleague AI 2026</footer>
+<footer>Runs in your tenant · No customer business data processed by us · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026</footer>
 </main>
 </body>
 </html>`;
