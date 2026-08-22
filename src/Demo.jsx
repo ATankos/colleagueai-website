@@ -23,6 +23,7 @@ const L = {
     pillars: { ops: 'Operations & Service', risk: 'Risk, Security & Compliance', data: 'Data & Infrastructure', sales: 'Sales & Marketing', corp: 'Corporate' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'You are requesting',
+    indicative: 'Indicative package price', oneTime: 'one-time',
     privacy: 'We use these details only to arrange your demo. Colleague AI s.r.o., Praha. See our',
     privacyLink: 'Privacy Policy',
     privacyHref: '/privacy',
@@ -38,6 +39,7 @@ const L = {
     pillars: { ops: 'Provoz a služby', risk: 'Riziko, bezpečnost a compliance', data: 'Data a infrastruktura', sales: 'Obchod a marketing', corp: 'Korporátní' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Požadujete',
+    indicative: 'Orientační cena balíčku', oneTime: 'jednorázově',
     privacy: 'Tyto údaje použijeme pouze k domluvení ukázky. Colleague AI s.r.o., Praha. Viz naše',
     privacyLink: 'Zásady ochrany osobních údajů',
     privacyHref: '/cs/ochrana-soukromi',
@@ -53,6 +55,7 @@ const L = {
     pillars: { ops: 'Betrieb & Service', risk: 'Risiko, Sicherheit & Compliance', data: 'Daten & Infrastruktur', sales: 'Vertrieb & Marketing', corp: 'Unternehmen' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Sie fragen an',
+    indicative: 'Indikativer Paketpreis', oneTime: 'einmalig',
     privacy: 'Wir verwenden diese Angaben ausschließlich zur Vereinbarung Ihrer Demo. Colleague AI s.r.o., Prag. Siehe unsere',
     privacyLink: 'Datenschutzerklärung',
     privacyHref: '/de/datenschutz',
@@ -68,6 +71,7 @@ const L = {
     pillars: { ops: 'Opérations & service', risk: 'Risque, sécurité & conformité', data: 'Données & infrastructure', sales: 'Ventes & marketing', corp: 'Fonctions support' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Vous demandez',
+    indicative: 'Prix indicatif du package', oneTime: 'paiement unique',
     privacy: 'Nous utilisons ces informations uniquement pour organiser votre démo. Colleague AI s.r.o., Prague. Voir notre',
     privacyLink: 'politique de confidentialité',
     privacyHref: '/fr/confidentialite',
@@ -83,6 +87,7 @@ const L = {
     pillars: { ops: 'Operaciones y servicio', risk: 'Riesgo, seguridad y cumplimiento', data: 'Datos e infraestructura', sales: 'Ventas y marketing', corp: 'Corporativo' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está solicitando',
+    indicative: 'Precio indicativo del paquete', oneTime: 'pago único',
     privacy: 'Usamos estos datos únicamente para concertar su demostración. Colleague AI s.r.o., Praga. Consulte nuestra',
     privacyLink: 'Política de privacidad',
     privacyHref: '/es/privacidad',
@@ -98,6 +103,7 @@ const L = {
     pillars: { ops: 'Operations e servizio', risk: 'Rischio, sicurezza e compliance', data: 'Dati e infrastruttura', sales: 'Vendite e marketing', corp: 'Corporate' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Stai richiedendo',
+    indicative: 'Prezzo indicativo del pacchetto', oneTime: 'una tantum',
     privacy: 'Utilizziamo questi dati solo per organizzare la tua demo. Colleague AI s.r.o., Praga. Consulta la nostra',
     privacyLink: 'Informativa sulla privacy',
     privacyHref: '/it/privacy',
@@ -113,6 +119,7 @@ const L = {
     pillars: { ops: 'Operacje i usługi', risk: 'Ryzyko, bezpieczeństwo i zgodność', data: 'Dane i infrastruktura', sales: 'Sprzedaż i marketing', corp: 'Korporacyjne' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Zamawiasz',
+    indicative: 'Orientacyjna cena pakietu', oneTime: 'jednorazowo',
     privacy: 'Używamy tych danych wyłącznie do umówienia demonstracji. Colleague AI s.r.o., Praga. Zobacz naszą',
     privacyLink: 'Politykę prywatności',
     privacyHref: '/pl/prywatnosc',
@@ -128,6 +135,7 @@ const L = {
     pillars: { ops: 'Operações e serviço', risk: 'Risco, segurança e conformidade', data: 'Dados e infraestrutura', sales: 'Vendas e marketing', corp: 'Corporativo' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está a solicitar',
+    indicative: 'Preço indicativo do pacote', oneTime: 'pagamento único',
     privacy: 'Usamos estes dados apenas para agendar a sua demonstração. Colleague AI s.r.o., Praga. Consulte a nossa',
     privacyLink: 'Política de Privacidade',
     privacyHref: '/pt/privacidade',
@@ -155,16 +163,22 @@ function copy() {
  * Values are treated as untrusted: slug is pattern-checked, tier is matched
  * against the tiers the catalogue actually ships.
  */
+// Indicative one-time package price per CAI tier, in USD. Must match /pricing
+// and the catalogue (L2 $12k · L3 $25k · L4 $45k); L1 and L5 are not sold.
+const PACKAGE_PRICE_USD = { L2: 12000, L3: 25000, L4: 45000 };
+
 function requestedAgent() {
   if (typeof window === 'undefined') return null;
   const q = new URLSearchParams(window.location.search);
   const slug = (q.get('agent') || '').trim();
   const tier = (q.get('tier') || '').trim().toUpperCase();
   if (!/^[a-z0-9][a-z0-9-]{2,60}$/.test(slug)) return null;
+  const safeTier = /^L[1-5]$/.test(tier) ? tier : '';
   return {
     slug,
-    tier: /^L[1-5]$/.test(tier) ? tier : '',
+    tier: safeTier,
     label: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+    priceUsd: PACKAGE_PRICE_USD[safeTier] || 0,
   };
 }
 
@@ -306,6 +320,9 @@ export default function Demo() {
                 <p className="demo-requested">
                   {t.requested}: <strong>{requested.label}</strong>
                   {requested.tier ? ` · CAI ${requested.tier}` : ''}
+                  {requested.priceUsd
+                    ? ` · ${t.indicative}: $${requested.priceUsd.toLocaleString('en-US')} (${t.oneTime})`
+                    : ''}
                 </p>
               )}
               <fieldset>
