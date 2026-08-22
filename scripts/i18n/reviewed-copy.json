@@ -20,7 +20,17 @@
     "Provide sufficient context for qualification": "Poskytnout dostatečný kontext pro kvalifikaci",
     "Allow ColleagueAI to manage the commercial process": "Přenechat obchodní proces ColleagueAI",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, demonstrace, nabídka, vyjednávání, uzavření smlouvy, implementace a zákaznická podpora.",
-    "Become a Referral Partner": "Stát se referenčním partnerem"
+    "Become a Referral Partner": "Stát se referenčním partnerem",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Běží ve vašem tenantu · Mapováno na EU AI Act · mapování DORA a ISO/IEC 42001 probíhá",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Staňte se partnerem ColleagueAI: doporučujte svým klientům balíčky řízených AI agentů a získejte paušální provizi 10 % z každého prodeje.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "Schválení partneři doporučují balíčky agentů ColleagueAI svým klientům a získávají paušálních 10 % z každého prodeje.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "Obchodní podmínky, atribuce a výplatní proces se potvrzují během partnerského onboardingu.",
+    "Last updated: 13 June 2026": "Poslední aktualizace: 13. června 2026",
+    "June 2026": "červen 2026",
+    ">Trust</a>": ">Důvěra</a>",
+    ">Partners</a>": ">Partneři</a>",
+    ">License</a>": ">Licence</a>",
+    ">Partner Agreement</a>": ">Partnerská smlouva</a>"
   },
   "de": {
     "Your unique partner link,": "Ihr einzigartiger Partner-Link,",
@@ -43,7 +53,16 @@
     "Provide sufficient context for qualification": "Ausreichenden Kontext für die Qualifizierung liefern",
     "Allow ColleagueAI to manage the commercial process": "ColleagueAI den kommerziellen Prozess führen lassen",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, Demonstration, Angebot, Verhandlung, Vertragsabschluss, Implementierung und Kundensupport.",
-    "Become a Referral Partner": "Empfehlungspartner werden"
+    "Become a Referral Partner": "Empfehlungspartner werden",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Läuft in Ihrem Tenant · Auf EU AI Act abgebildet · DORA- und ISO/IEC-42001-Mapping in Arbeit",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Partner von ColleagueAI werden: Empfehlen Sie Ihren Kunden Pakete überwachter KI-Agenten und erhalten Sie eine pauschale Provision von 10 % auf jeden Verkauf.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "Zugelassene Partner empfehlen ihren Kunden ColleagueAI-Agentenpakete und erhalten pauschal 10 % jedes Verkaufs.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "Kommerzielle Bedingungen, Attribution und Auszahlungsprozess werden beim Partner-Onboarding bestätigt.",
+    "Last updated: 13 June 2026": "Zuletzt aktualisiert: 13. Juni 2026",
+    "June 2026": "Juni 2026",
+    ">Partners</a>": ">Partner</a>",
+    ">License</a>": ">Lizenz</a>",
+    ">Partner Agreement</a>": ">Partnervereinbarung</a>"
   },
   "fr": {
     "Your unique partner link,": "Votre lien partenaire unique,",
@@ -65,7 +84,17 @@
     "Provide sufficient context for qualification": "Fournir un contexte suffisant pour la qualification",
     "Allow ColleagueAI to manage the commercial process": "Laisser ColleagueAI gérer le processus commercial",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, démonstration, proposition, négociation, contractualisation, implémentation et support client.",
-    "Become a Referral Partner": "Devenir partenaire apporteur"
+    "Become a Referral Partner": "Devenir partenaire apporteur",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Fonctionne dans votre tenant · Mapping EU AI Act réalisé · mapping DORA et ISO/IEC 42001 en cours",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Devenez partenaire de ColleagueAI : recommandez à vos clients des packages d’agents IA gouvernés et percevez une commission fixe de 10 % sur chaque vente.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "Les partenaires agréés recommandent les packages d’agents ColleagueAI à leurs clients et perçoivent 10 % fixes de chaque vente.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "Les conditions commerciales, l’attribution et le processus de paiement sont confirmés lors de l’onboarding partenaire.",
+    "Last updated: 13 June 2026": "Dernière mise à jour : 13 juin 2026",
+    "June 2026": "juin 2026",
+    ">Trust</a>": ">Confiance</a>",
+    ">Partners</a>": ">Partenaires</a>",
+    ">License</a>": ">Licence</a>",
+    ">Partner Agreement</a>": ">Accord de partenariat</a>"
   },
   "es": {
     "Your unique partner link,": "Su enlace de socio único,",
@@ -87,7 +116,16 @@
     "Provide sufficient context for qualification": "Aportar contexto suficiente para la cualificación",
     "Allow ColleagueAI to manage the commercial process": "Permitir que ColleagueAI gestione el proceso comercial",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, demostración, propuesta, negociación, contratación, implementación y soporte al cliente.",
-    "Become a Referral Partner": "Ser socio de referencia"
+    "Become a Referral Partner": "Ser socio de referencia",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Se ejecuta en su tenant · Mapeado al EU AI Act · mapeo de DORA e ISO/IEC 42001 en curso",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Sea partner de ColleagueAI: recomiende a sus clientes paquetes de agentes de IA gobernados y obtenga una comisión fija del 10 % por cada venta.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "Los partners aprobados recomiendan los paquetes de agentes ColleagueAI a sus clientes y obtienen un 10 % fijo de cada venta.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "Las condiciones comerciales, la atribución y el proceso de pago se confirman durante el onboarding de partners.",
+    "Last updated: 13 June 2026": "Última actualización: 13 de junio de 2026",
+    "June 2026": "junio de 2026",
+    ">Trust</a>": ">Confianza</a>",
+    ">License</a>": ">Licencia</a>",
+    ">Partner Agreement</a>": ">Acuerdo de partner</a>"
   },
   "it": {
     "Your unique partner link,": "Il tuo link partner univoco,",
@@ -110,7 +148,16 @@
     "Provide sufficient context for qualification": "Fornire contesto sufficiente per la qualificazione",
     "Allow ColleagueAI to manage the commercial process": "Lasciare che ColleagueAI gestisca il processo commerciale",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, dimostrazione, proposta, negoziazione, contrattualizzazione, implementazione e supporto al cliente.",
-    "Become a Referral Partner": "Diventa partner segnalatore"
+    "Become a Referral Partner": "Diventa partner segnalatore",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Gira nel vostro tenant · Mappato sull’EU AI Act · mappatura DORA e ISO/IEC 42001 in corso",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Diventa partner di ColleagueAI: raccomanda ai tuoi clienti pacchetti di agenti IA governati e ottieni una commissione fissa del 10% su ogni vendita.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "I partner approvati raccomandano i pacchetti di agenti ColleagueAI ai propri clienti e ricevono un 10% fisso su ogni vendita.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "Condizioni commerciali, attribuzione e processo di pagamento vengono confermati durante l’onboarding del partner.",
+    "Last updated: 13 June 2026": "Ultimo aggiornamento: 13 giugno 2026",
+    "June 2026": "giugno 2026",
+    ">Partners</a>": ">Partner</a>",
+    ">License</a>": ">Licenza</a>",
+    ">Partner Agreement</a>": ">Accordo di partnership</a>"
   },
   "pl": {
     "Your unique partner link,": "Twój unikalny link partnerski,",
@@ -132,7 +179,17 @@
     "Provide sufficient context for qualification": "Zapewnić wystarczający kontekst do kwalifikacji",
     "Allow ColleagueAI to manage the commercial process": "Umożliwić ColleagueAI prowadzenie procesu handlowego",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, demonstracja, oferta, negocjacje, umowa, wdrożenie i wsparcie klienta.",
-    "Become a Referral Partner": "Zostań partnerem polecającym"
+    "Become a Referral Partner": "Zostań partnerem polecającym",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Działa w Twoim tenancie · Zmapowane na EU AI Act · mapowanie DORA i ISO/IEC 42001 w toku",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Zostań partnerem ColleagueAI: polecaj swoim klientom pakiety nadzorowanych agentów AI i otrzymuj stałą prowizję 10% od każdej sprzedaży.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "Zatwierdzeni partnerzy polecają pakiety agentów ColleagueAI swoim klientom i otrzymują stałe 10% od każdej sprzedaży.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "Warunki handlowe, atrybucja i proces wypłat są potwierdzane podczas onboardingu partnera.",
+    "Last updated: 13 June 2026": "Ostatnia aktualizacja: 13 czerwca 2026",
+    "June 2026": "czerwiec 2026",
+    ">Trust</a>": ">Zaufanie</a>",
+    ">Partners</a>": ">Partnerzy</a>",
+    ">License</a>": ">Licencja</a>",
+    ">Partner Agreement</a>": ">Umowa partnerska</a>"
   },
   "pt": {
     "Your unique partner link,": "A sua ligação de parceiro única,",
@@ -154,6 +211,16 @@
     "Provide sufficient context for qualification": "Fornecer contexto suficiente para a qualificação",
     "Allow ColleagueAI to manage the commercial process": "Permitir que a ColleagueAI conduza o processo comercial",
     "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": "Discovery, demonstração, proposta, negociação, contratação, implementação e apoio ao cliente.",
-    "Become a Referral Partner": "Tornar-se parceiro de referência"
+    "Become a Referral Partner": "Tornar-se parceiro de referência",
+    "Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress": "Corre no seu tenant · Mapeado para o EU AI Act · mapeamento DORA e ISO/IEC 42001 em curso",
+    "Partner with ColleagueAI: refer governed AI agent packages to your clients and earn a flat 10% commission on every sale.": "Seja parceiro da ColleagueAI: recomende aos seus clientes pacotes de agentes de IA governados e receba uma comissão fixa de 10% em cada venda.",
+    "Approved partners refer ColleagueAI agent packages to their clients and earn a flat 10% of every sale.": "Os parceiros aprovados recomendam os pacotes de agentes ColleagueAI aos seus clientes e recebem 10% fixos de cada venda.",
+    "Commercial terms, attribution, and payout process are confirmed during partner onboarding.": "As condições comerciais, a atribuição e o processo de pagamento são confirmados durante o onboarding de parceiros.",
+    "Last updated: 13 June 2026": "Última atualização: 13 de junho de 2026",
+    "June 2026": "junho de 2026",
+    ">Trust</a>": ">Confiança</a>",
+    ">Partners</a>": ">Parceiros</a>",
+    ">License</a>": ">Licença</a>",
+    ">Partner Agreement</a>": ">Acordo de parceria</a>"
   }
 }

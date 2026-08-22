@@ -142,6 +142,36 @@ for (const a of AGENTS) {
   if (!existsSync(join(ROOT, 'public/docs/agents', (PDF_ALIAS2[slug] ?? slug) + '.pdf')))
     console.warn('[gen] missing dossier PDF for', slug);
 }
+// Dossier library: a real, crawlable landing for /docs/agents/ so the catalogue
+// drawer's "Download agent dossier (PDF)" resolves to something honest without
+// JavaScript (the drawer itself swaps in the agent's own PDF once it opens).
+{
+  const PDF_ALIAS3 = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const byTier = {};
+  for (const a of AGENTS) (byTier[a.t] ??= []).push(a);
+  const tierName = { L2: 'Draft', L3: 'Operate', L4: 'Decide (supervised)' };
+  const sections = Object.keys(byTier).sort().map(t => `<h2>CAI ${t} · ${esc(tierName[t] || t)}</h2><ul>` +
+    byTier[t].map(a => { const s = slugify(a.n); return `<li><a href="/docs/agents/${PDF_ALIAS3[s] ?? s}.pdf">${esc(a.n)}</a> <span class="dom">${esc(a.dom || '')}</span> · <a class="fs" href="/agents/${s}">factsheet</a></li>`; }).join('') + '</ul>').join('\n');
+  const index = `<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent dossiers (PDF) | Colleague AI</title><meta name="description" content="One PDF dossier per governed agent package: scope, CAI Score tier, controls and deployment boundary. English only.">
+<meta name="robots" content="index, follow"><link rel="canonical" href="${BASE}/docs/agents/"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
+main{max-width:780px;margin:0 auto;padding:48px 24px 80px}.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#C65D3A;text-decoration:none}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:11.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#8a857d;margin:40px 0 10px;text-transform:uppercase}
+p,li{font-size:15px}ul{margin:6px 0 0;padding-left:20px}li{padding:4px 0}a{color:#C65D3A}.dom{color:#8a857d;font-size:13px}.fs{font-size:13px}
+.note{font-size:13px;color:#6b665e;background:#fff;border:1px solid #d8d2c6;border-radius:10px;padding:14px 16px;margin-top:14px}
+footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}</style></head><body><main>
+<nav class="crumb"><a href="/agents">← Agent Catalogue</a></nav><div class="eyebrow">Documentation</div><h1>Agent dossiers (PDF)</h1>
+<p>One dossier per governed agent package: what it does, its CAI Score tier and human-oversight model, the controls it ships with, and the deployment boundary inside your own tenant.</p>
+<p class="note">Dossiers are in English. They describe the package as delivered after approval; indicative prices and commercial terms are on the <a href="/pricing">pricing page</a>. Access to the deployable packages themselves is released after commercial setup — <a href="/demo">request access</a>.</p>
+${sections}
+<footer>Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026 · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/imprint">Legal notice</a></footer>
+</main></body></html>`;
+  mkdirSync(join(DIST, 'docs', 'agents'), { recursive: true });
+  writeFileSync(join(DIST, 'docs', 'agents', 'index.html'), index);
+  console.log('[gen] dossier index written to dist/docs/agents/index.html');
+}
 // sitemap: base + agent urls
 let sm = readFileSync(join(ROOT, 'public/sitemap.xml'), 'utf8');
 const entries = slugs.map(s =>

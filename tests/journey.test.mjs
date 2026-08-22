@@ -161,6 +161,25 @@ test('partner worked example reconciles: contract minus 10% commission equals re
   assert.ok(!html.includes('$27,000'), 'stale retained-revenue figure from the old 40% tier must not reappear');
 });
 
+// One approved claims dictionary, everywhere. "aligned" overstates the evidence
+// the Trust Center actually presents; retired wordings must not creep back in
+// through any master, generator or footer — in any language.
+test('no page still carries a retired compliance claim', () => {
+  const retired = ['ISO/IEC 42001 aligned', 'EU AI Act + DORA mapped', 'DORA mapped', 'Certified under CAI Score'];
+  const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html',
+    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html'].map((p) => `${l}/${p}`))];
+  for (const p of pages) {
+    const html = read(p);
+    for (const claim of retired) assert.ok(!html.includes(claim), `${p} still says "${claim}"`);
+  }
+});
+
+test('catalogue drawer links never point at the partner page', () => {
+  const html = read('agents.html');
+  assert.ok(!/id="d-(doc|cs|m365)" href="\/partners"/.test(html), 'drawer link hard-wired to /partners');
+  assert.ok(html.includes('id="d-doc" href="/docs/agents/"'), 'dossier button should fall back to the dossier library');
+});
+
 test('partner referral card is localized on every locale page', () => {
   const leaks = ['One simple referral commission', '>Become a Referral Partner<', '>You do<', 'Introduce an enterprise customer'];
   for (const l of LOCALES) {
