@@ -79,7 +79,7 @@ export default async function handler(req, res) {
   }
   if (!process.env.STRIPE_SECRET_KEY) {
     console.error('[checkout] STRIPE_SECRET_KEY not set');
-    return res.status(500).json({ error: 'Checkout not configured' });
+    return res.status(503).json({ error: 'Checkout is not enabled', code: 'checkout_disabled' });
   }
 
   // Kill-switch: set CHECKOUT_ENABLED=false in the environment to take paid checkout offline

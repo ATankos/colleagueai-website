@@ -1,9 +1,8 @@
 {
-  "name": "Colleague AI — Flight Agent Demo",
+  "name": "Colleague AI - Governed enterprise AI agents",
   "short_name": "Colleague AI",
-  "description": "Watch an AI agent reason about your flight choices in real time.",
-  "start_url": "/demo",
-  "display": "standalone",
+  "description": "Governed AI agent packages with CAI Score risk tiers, named human accountability and audit evidence, running in your own tenant.",
+  "start_url": "/",  "display": "standalone",
   "background_color": "#F5EFE3",
   "theme_color": "#C7522A",
   "orientation": "portrait-primary",

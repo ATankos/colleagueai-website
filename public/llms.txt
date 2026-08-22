@@ -38,7 +38,7 @@ The agent catalogue includes use cases across:
 
 Production deployments are designed for enterprise governance, controlled access, audit trail, and customer-environment alignment.
 
-This website hosts no public AI demo, contact forms or partner registration. Enquiries reach ColleagueAI by email only; nothing typed on the site is submitted.
+This website has one form: the demo / access request at /demo, which submits your enquiry details (work email, company, role and preferred date) to ColleagueAI so we can arrange a demo. All other enquiries reach ColleagueAI by email.
 
 ## Contact
 
