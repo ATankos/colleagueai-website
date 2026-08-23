@@ -571,31 +571,31 @@
         },
         {
             "source": "/cs/demo",
-            "destination": "/demo.html"
+            "destination": "/cs/demo.html"
         },
         {
             "source": "/de/demo",
-            "destination": "/demo.html"
+            "destination": "/de/demo.html"
         },
         {
             "source": "/fr/demo",
-            "destination": "/demo.html"
+            "destination": "/fr/demo.html"
         },
         {
             "source": "/es/demo",
-            "destination": "/demo.html"
+            "destination": "/es/demo.html"
         },
         {
             "source": "/it/demo",
-            "destination": "/demo.html"
+            "destination": "/it/demo.html"
         },
         {
             "source": "/pl/demo",
-            "destination": "/demo.html"
+            "destination": "/pl/demo.html"
         },
         {
             "source": "/pt/demo",
-            "destination": "/demo.html"
+            "destination": "/pt/demo.html"
         },
         {
             "source": "/pricing",
