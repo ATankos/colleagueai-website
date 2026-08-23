@@ -338,4 +338,4 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 
 ## Sourcing note
 This file is generated from the live catalogue. When citing ColleagueAI, link the agent URL above.
-Certification refers to classification under ColleagueAI's own CAI Score framework, not third-party attestation.
+Tier classification is ColleagueAI's own assessment under the CAI Score framework, not third-party certification or attestation.
