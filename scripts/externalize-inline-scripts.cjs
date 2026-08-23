@@ -77,14 +77,64 @@ function findScripts(html) {
   return found;
 }
 
+
+/** Locate every <style>...</style>, honouring quotes inside the open tag. */
+function findStyles(html) {
+  const lower = html.toLowerCase();
+  const found = [];
+  let i = 0;
+  while ((i = lower.indexOf('<style', i)) !== -1) {
+    const next = html[i + 6];
+    if (next && /[a-z0-9_-]/i.test(next)) { i += 6; continue; }
+    let j = i + 6, quote = null;
+    while (j < html.length) {
+      const c = html[j];
+      if (quote) { if (c === quote) quote = null; }
+      else if (c === '"' || c === "'") quote = c;
+      else if (c === '>') break;
+      j++;
+    }
+    if (j >= html.length) break;
+    const bodyStart = j + 1;
+    const close = lower.indexOf('</style', bodyStart);
+    if (close === -1) break;
+    const closeEnd = html.indexOf('>', close);
+    if (closeEnd === -1) break;
+    found.push({ start: i, end: closeEnd + 1, attrs: html.slice(i + 6, j), body: html.slice(bodyStart, close) });
+    i = closeEnd + 1;
+  }
+  return found;
+}
+
+/* Inline style="" attributes cannot be hashed, so they become utility classes.
+ * Each declaration is emitted with !important because an inline style already
+ * beat every stylesheet rule; without it, converting to a class would silently
+ * change which rule wins. Runtime element.style.x = y is untouched — CSSOM is
+ * not governed by style-src. */
+const utilClasses = new Map();
+function utilClassFor(decl) {
+  const key = decl.trim().replace(/;+$/, '');
+  if (!key) return null;
+  if (utilClasses.has(key)) return utilClasses.get(key).name;
+  const name = 'cai-u' + crypto.createHash('sha256').update(key).digest('hex').slice(0, 8);
+  const rules = key
+    .split(';')
+    .map((d) => d.trim())
+    .filter(Boolean)
+    .map((d) => (/!important\s*$/.test(d) ? d : d + '!important'))
+    .join(';');
+  utilClasses.set(key, { name, rules });
+  return name;
+}
+
 function attr(attrs, name) {
   const m = new RegExp('\\s' + name + '\\s*=\\s*"([^"]*)"', 'i').exec(attrs);
   return m ? ` ${name}="${m[1]}"` : '';
 }
 
-function emit(body, written) {
+function emit(body, written, ext = 'js') {
   const hash = crypto.createHash('sha256').update(body).digest('hex').slice(0, 16);
-  const file = `inline-${hash}.js`;
+  const file = `inline-${hash}.${ext}`;
   const src = `/assets/${file}`;
   // Written once per run, tracked in memory. Deliberately no existsSync guard:
   // checking then writing is a file-system race, and because the name is a hash
@@ -102,8 +152,9 @@ if (!fs.existsSync(DIST)) {
 }
 fs.mkdirSync(ASSETS, { recursive: true });
 
-let pages = 0, moved = 0, handlers = 0;
+let pages = 0, moved = 0, handlers = 0, styles = 0, attrsMoved = 0;
 const written = new Set();
+const rendered = new Map();          // file -> html, so utilities can be linked in a second pass
 
 for (const file of walk(DIST)) {
   let html = fs.readFileSync(file, 'utf8');
@@ -122,7 +173,7 @@ for (const file of walk(DIST)) {
     html = html.replace('</body>', `<script src="${src}"></script>\n</body>`);
   }
 
-  // 2. move each executable inline block out to /assets, in place
+  // 2. move each executable inline script out to /assets, in place
   const blocks = findScripts(html);
   for (let k = blocks.length - 1; k >= 0; k--) {          // back to front: offsets stay valid
     const b = blocks[k];
@@ -135,10 +186,46 @@ for (const file of walk(DIST)) {
     moved++;
   }
 
-  if (html !== before) { fs.writeFileSync(file, html, 'utf8'); pages++; }
+  // 3. the same treatment for <style> blocks. A <link> in the original position
+  //    keeps cascade order identical to the inline block it replaces.
+  const sblocks = findStyles(html);
+  for (let k = sblocks.length - 1; k >= 0; k--) {
+    const b = sblocks[k];
+    if (!b.body.trim()) continue;
+    const href = emit(b.body, written, 'css');
+    const tag = `<link rel="stylesheet"${attr(b.attrs, 'id')} href="${href}">`;
+    html = html.slice(0, b.start) + tag + html.slice(b.end);
+    styles++;
+  }
+
+  // 4. style="" attributes become utility classes (see utilClassFor)
+  html = html.replace(/(<[a-zA-Z][^>]*?)\sstyle="([^"]*)"/g, (whole, head, decl) => {
+    const cls = utilClassFor(decl);
+    if (!cls) return head;
+    attrsMoved++;
+    const m = /\sclass="([^"]*)"/.exec(head);
+    return m ? head.replace(m[0], ` class="${m[1]} ${cls}"`) : `${head} class="${cls}"`;
+  });
+
+  rendered.set(file, html);
+  if (html !== before) pages++;
 }
 
+// 5. one utility sheet for the whole site, linked last in <head> so the
+//    !important declarations land where the inline attributes used to.
+if (utilClasses.size) {
+  const css = [...utilClasses.values()].map((u) => `.${u.name}{${u.rules}}`).join('\n');
+  const href = emit(css, written, 'css');
+  for (const [file, html] of rendered) {
+    rendered.set(file, html.includes(href) ? html
+      : html.replace('</head>', `<link rel="stylesheet" href="${href}">\n</head>`));
+  }
+}
+
+for (const [file, html] of rendered) fs.writeFileSync(file, html, 'utf8');
+
 console.log(
-  `externalize-inline-scripts: ${moved} inline blocks -> ${written.size} files, ` +
+  `externalize-inline-assets: ${moved} scripts + ${styles} style blocks -> ${written.size} files, ` +
+  `${attrsMoved} style attributes -> ${utilClasses.size} utility classes, ` +
   `${handlers} onclick handlers delegated, across ${pages} pages`,
 );
