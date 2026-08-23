@@ -17,7 +17,15 @@ if (fs.existsSync(path.join(dist, "index.html"))) {
 }
 // The home masters carry an unpublished founder-section draft inside an HTML comment.
 // Comments never render, but crawlers and audits read them; ship the pages without any.
-const stripComments = (html) => html.replace(/<!--[\s\S]*?-->/g, "");
+const stripComments = (html) => {
+  let previous;
+  let current = html;
+  do {
+    previous = current;
+    current = current.replace(/<!--[\s\S]*?-->/g, "");
+  } while (current !== previous);
+  return current;
+};
 const installHome = (src, dest) => {
   const clean = stripComments(fs.readFileSync(src, "utf8"));
   fs.writeFileSync(src, clean, "utf8");   // the home.html copy in dist is reachable as a static file too
