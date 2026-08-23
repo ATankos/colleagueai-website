@@ -166,9 +166,12 @@ test('partner worked example reconciles: contract minus 10% commission equals re
 // through any master, generator or footer — in any language.
 test('no page still carries a retired compliance claim', () => {
   const retired = ['ISO/IEC 42001 aligned', 'EU AI Act + DORA mapped', 'DORA mapped', 'Certified under CAI Score',
-    'certification framework', 'No customer data is ever processed', 'auditors will actually sign off'];
-  const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html',
-    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html'].map((p) => `${l}/${p}`))];
+    'certification framework', 'No customer data is ever processed', 'auditors will actually sign off',
+    // Round-5 retirements: readiness claims the Trust Center cannot evidence, in
+    // English and the German translations that outlived the English fix.
+    'production-grade', 'production-ready', 'produktionsreif', 'pass your audit', 'bestehen Ihr Audit'];
+  const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html', 'usage.html',
+    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'usage.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
     const html = read(p);
     for (const claim of retired) assert.ok(!html.includes(claim), `${p} still says "${claim}"`);
