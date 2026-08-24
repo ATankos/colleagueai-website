@@ -46,7 +46,7 @@
     "e2e:golive": "playwright test tests/e2e/golive.spec.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.117.1",
+    "@anthropic-ai/sdk": "^0.120.0",
     "@sentry/react": "^10.70.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
