@@ -26,7 +26,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src 'self'; script-src 'self' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+                    "value": "default-src 'self'; script-src 'self' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' https://fonts.googleapis.com; style-src-elem 'self' https://fonts.googleapis.com 'sha256-bo0+qE1l4AGRngsiGoLEJ9MH0OIBmfgWMszPAE1chxc='; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
