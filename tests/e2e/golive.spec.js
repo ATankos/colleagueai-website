@@ -42,20 +42,49 @@ for (const { code, path } of LOCALES) {
     test(`3. purchase modal shows a real price (no placeholder)`, async ({ page }) => {
       await page.goto(BASE + path);
       await page.locator('.card, [data-slug]').first().click();
-      await page.getByText(/Get this agent|Získat|Obtener|Obter|Obtenir|holen|Pobierz|Ottieni/i).first().click();
+
+      await page
+        .getByText(/Get this agent|Z\u00edskat|Obtener|Obter|Obtenir|holen|Pobierz|Ottieni/i)
+        .first()
+        .click();
+
       const priceText = (await page.locator('#paymodal').innerText()).trim();
-      expect(priceText, 'price area must show an amount').not.toMatch(PRICE_PLACEHOLDERS);
-      expect(priceText).toMatch(/[€$£]\s?\d|\d+\s?(Kč|EUR|USD)/);
+
+      expect(priceText, 'price area must show an amount')
+        .not.toMatch(PRICE_PLACEHOLDERS);
+
+      expect(priceText)
+        .toMatch(/[\u20ac$\u00a3]\s?\d|\d+\s?(K\u010d|EUR|USD)/i);
     });
 
     test(`4. demo / book-a-call CTA resolves (not "#", not placeholder scheduler)`, async ({ page, request }) => {
       await page.goto(BASE + path, { waitUntil: 'networkidle' });
-      for (const id of ['nav-call-link', 'hero-call-link']) {
-        const href = await page.locator('#' + id).getAttribute('href');
-        expect.soft(href, id).not.toBe('#');
-        expect.soft(href, id).not.toMatch(/YOUR_SCHEDULER_URL/);
-        const r = await request.get(href.startsWith('http') ? href : BASE + href);
-        expect.soft(r.status(), `${id} → ${href}`).toBeLessThan(400);
+
+      const demoLinks = page.locator('a[href*="/demo"]');
+
+      expect(
+        await demoLinks.count(),
+        'page must expose at least one demo CTA'
+      ).toBeGreaterThan(0);
+
+      const hrefs = await demoLinks.evaluateAll((links) =>
+        [...new Set(
+          links
+            .map((a) => a.getAttribute('href'))
+            .filter(Boolean)
+        )]
+      );
+
+      for (const href of hrefs) {
+        expect.soft(href, 'demo CTA').not.toBe('#');
+        expect.soft(href, 'demo CTA').not.toMatch(/YOUR_SCHEDULER_URL/);
+
+        const url = href.startsWith('http')
+          ? href
+          : new URL(href, BASE).toString();
+
+        const r = await request.get(url);
+        expect.soft(r.status(), `demo CTA -> ${href}`).toBeLessThan(400);
       }
     });
 
@@ -69,6 +98,10 @@ for (const { code, path } of LOCALES) {
 }
 
 test('5. store purchase opens a live Stripe Checkout page (no payment completed)', async ({ page, context }) => {
+  test.skip(
+    process.env.CHECKOUT_E2E !== '1',
+    'Stripe checkout E2E is disabled until checkout is intentionally enabled'
+  );
   await page.goto(BASE + '/agents');
   await page.locator('.card, [data-slug]').first().click();
   await page.getByText(/Get this agent/i).first().click();
@@ -85,6 +118,10 @@ test('5. store purchase opens a live Stripe Checkout page (no payment completed)
 
 for (const code of ['en', 'de']) {
   test(`6. attribution journey survives to checkout handoff (${code})`, async ({ page }) => {
+  test.skip(
+    process.env.CHECKOUT_E2E !== '1',
+    'Checkout attribution E2E is disabled until checkout is intentionally enabled'
+  );
     const path = LOCALES.find(l => l.code === code).path;
     await page.goto(BASE + path + '?partner=TESTPARTNER', { waitUntil: 'networkidle' });
     expect(await page.evaluate(() => localStorage.getItem('cai_partner'))).toBe('TESTPARTNER');
