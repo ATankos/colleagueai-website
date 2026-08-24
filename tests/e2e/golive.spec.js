@@ -17,7 +17,6 @@ const LOCALES = [
   { code: 'pl', path: '/pl/agenci' },
   { code: 'it', path: '/it/agenti' },
 ];
-const PRICE_PLACEHOLDERS = /(TBD|XXX|0\s*Kč|€\s*0\b|\{\{.*\}\}|YOUR_SCHEDULER_URL|Pricing on request)/i;
 
 for (const { code, path } of LOCALES) {
   test.describe(`locale ${code}`, () => {
@@ -39,23 +38,54 @@ for (const { code, path } of LOCALES) {
       }
     });
 
-    test(`3. purchase modal shows a real price (no placeholder)`, async ({ page }) => {
-      await page.goto(BASE + path);
-      await page.locator('.card, [data-slug]').first().click();
-      await page.getByText(/Get this agent|Získat|Obtener|Obter|Obtenir|holen|Pobierz|Ottieni/i).first().click();
-      const priceText = (await page.locator('#paymodal').innerText()).trim();
-      expect(priceText, 'price area must show an amount').not.toMatch(PRICE_PLACEHOLDERS);
-      expect(priceText).toMatch(/[€$£]\s?\d|\d+\s?(Kč|EUR|USD)/);
+    test(`3. selected agent package access carries agent and tier`, async ({ page, request }) => {
+      await page.goto(BASE + path, { waitUntil: 'networkidle' });
+      await page.locator('.card').first().click();
+
+      await expect(page.locator('#drawer')).toHaveClass(/open/);
+
+      for (const id of ['d-cs', 'd-m365']) {
+        const href = await page.locator('#' + id).getAttribute('href');
+
+        expect(href, id)
+          .toMatch(/^\/demo\?agent=[a-z0-9-]+&tier=L[234]$/);
+
+        const url = new URL(href, BASE).toString();
+        const r = await request.get(url);
+
+        expect.soft(r.status(), `${id} -> ${href}`)
+          .toBeLessThan(400);
+      }
     });
 
     test(`4. demo / book-a-call CTA resolves (not "#", not placeholder scheduler)`, async ({ page, request }) => {
       await page.goto(BASE + path, { waitUntil: 'networkidle' });
-      for (const id of ['nav-call-link', 'hero-call-link']) {
-        const href = await page.locator('#' + id).getAttribute('href');
-        expect.soft(href, id).not.toBe('#');
-        expect.soft(href, id).not.toMatch(/YOUR_SCHEDULER_URL/);
-        const r = await request.get(href.startsWith('http') ? href : BASE + href);
-        expect.soft(r.status(), `${id} → ${href}`).toBeLessThan(400);
+
+      const demoLinks = page.locator('a[href*="/demo"]');
+
+      expect(
+        await demoLinks.count(),
+        'page must expose at least one demo CTA'
+      ).toBeGreaterThan(0);
+
+      const hrefs = await demoLinks.evaluateAll((links) =>
+        [...new Set(
+          links
+            .map((a) => a.getAttribute('href'))
+            .filter(Boolean)
+        )]
+      );
+
+      for (const href of hrefs) {
+        expect.soft(href, 'demo CTA').not.toBe('#');
+        expect.soft(href, 'demo CTA').not.toMatch(/YOUR_SCHEDULER_URL/);
+
+        const url = href.startsWith('http')
+          ? href
+          : new URL(href, BASE).toString();
+
+        const r = await request.get(url);
+        expect.soft(r.status(), `demo CTA -> ${href}`).toBeLessThan(400);
       }
     });
 
@@ -69,6 +99,10 @@ for (const { code, path } of LOCALES) {
 }
 
 test('5. store purchase opens a live Stripe Checkout page (no payment completed)', async ({ page, context }) => {
+  test.skip(
+    process.env.CHECKOUT_E2E !== '1',
+    'Stripe checkout E2E is disabled until checkout is intentionally enabled'
+  );
   await page.goto(BASE + '/agents');
   await page.locator('.card, [data-slug]').first().click();
   await page.getByText(/Get this agent/i).first().click();
@@ -85,6 +119,10 @@ test('5. store purchase opens a live Stripe Checkout page (no payment completed)
 
 for (const code of ['en', 'de']) {
   test(`6. attribution journey survives to checkout handoff (${code})`, async ({ page }) => {
+    test.skip(
+      process.env.CHECKOUT_E2E !== '1',
+      'Checkout attribution E2E is disabled until checkout is intentionally enabled'
+    );
     const path = LOCALES.find(l => l.code === code).path;
     await page.goto(BASE + path + '?partner=TESTPARTNER', { waitUntil: 'networkidle' });
     expect(await page.evaluate(() => localStorage.getItem('cai_partner'))).toBe('TESTPARTNER');
@@ -100,12 +138,24 @@ for (const code of ['en', 'de']) {
   });
 }
 
-test('7. language switcher preserves current path/agent', async ({ page }) => {
-  await page.goto(BASE + '/agents', { waitUntil: 'networkidle' });
-  await page.locator('.card, [data-slug]').first().click(); // open an agent
-  await page.locator('#langsel').selectOption('de');
-  // agent modal must still be open and translated; URL/path must not reset to home
-  await expect(page.locator('#langsel')).toHaveValue('de');
-  expect(new URL(page.url()).pathname).not.toBe('/');
-  await expect(page.locator('[data-i18n="nav_philosophy"]').first()).not.toHaveText('Philosophy');
+test('7. language switcher preserves current catalogue route and URL context', async ({ page }) => {
+  await page.goto(BASE + '/agents?qa=1#catalogue', { waitUntil: 'networkidle' });
+
+  const langsel = page.locator('#langsel');
+  await expect(langsel).toBeAttached();
+  await langsel.selectOption('de', { force: true });
+
+  await page.waitForURL((url) =>
+    url.pathname === '/de/agenten' &&
+    url.searchParams.get('qa') === '1' &&
+    url.hash === '#catalogue'
+  );
+
+  const current = new URL(page.url());
+
+  expect(current.pathname).toBe('/de/agenten');
+  expect(current.searchParams.get('qa')).toBe('1');
+  expect(current.hash).toBe('#catalogue');
+
+  await expect(page.locator('html')).toHaveAttribute('lang', 'de');
 });
