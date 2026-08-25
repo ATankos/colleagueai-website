@@ -145,14 +145,20 @@ display: flex !important;
 <p><b>Updates are conditional, not periodic.</b> If nothing inside the covered scope changes in a given year, no new release is produced and none is owed. We would rather say that plainly than let &ldquo;updates&rdquo; be read as an annual version you are paying for.</p>
 
 <h2>Covered scope</h2>
-<p>The update obligation is limited to the following, as they affect the <em>standard agent package</em> we ship:</p>
+<p>The update obligation is bounded four ways, and all four apply together. This is the part worth reading closely, because it is what we are actually promising.</p>
+<p><b>One — a closed list.</b> The obligation attaches to these and nothing else, as they affect the <em>standard agent package</em> we ship:</p>
 <ul>
-  <li>The EU AI Act and its amending acts, in respect of the classification, human-oversight, logging and transparency characteristics of the package</li>
-  <li>ISO/IEC 42001 control expectations, as reflected in the Colleague AI Certified standard</li>
+  <li>The EU AI Act (Regulation (EU) 2024/1689) <b>as in force on the day your subscription starts</b>, plus any later amendment we add by notice under &ldquo;four&rdquo; below</li>
+  <li>Those ISO/IEC 42001 controls the Colleague AI Certified standard cites by number in its control map</li>
   <li>Revisions to the Colleague AI Certified standard itself</li>
-  <li>Microsoft Copilot Studio and Power Platform changes that break a shipped connect package</li>
+  <li>Microsoft Copilot Studio and Power Platform changes that <b>break</b> a shipped connect package</li>
 </ul>
-<p>Your own sector rules &mdash; DORA, MiFID, HIPAA, national implementations and anything specific to your industry or licence &mdash; are <b>outside</b> the covered scope and are not part of the update obligation.</p>
+<p><b>Two — a closed list of what it touches.</b> Even for something on that list, the obligation reaches only the package&rsquo;s CAI tier classification, its human-oversight design, the audit-trail fields it emits, the transparency disclosures it surfaces, and the documentation shipped with it. Not model quality, accuracy, latency, cost, security patching, or anything about your environment.</p>
+<p><b>Three — a materiality trigger.</b> A release is owed only where a change on that list takes effect during your subscription <em>and</em> means the standard package as shipped would no longer meet the Colleague AI Certified standard in one of those five respects. Where we assess a change as <em>not</em> requiring a release, we publish that assessment against your certificate &mdash; so the judgement is on the record either way, and your auditor can see it.</p>
+<p><b>Four — scope changes only forward.</b> We can extend the covered scope only by notice, effective at your next renewal, never retroactively inside a term you have paid for. If we narrow it, you may terminate and take a pro-rata refund.</p>
+<p><b>What we owe, and by when.</b> We make the updated standard certified release <em>available</em> within 60 days of the trigger, or before the change&rsquo;s own compliance deadline if that is later. We do not install it, migrate you, re-implement your customisations or support a version you decline to take. If you do not adopt an available release, your certificate reflects the version you are actually running &mdash; which is then no longer the current certified release.</p>
+<p><b>If we stop producing a package.</b> If we withdraw an agent, or decide not to produce an updated release for it, we tell you, cancel that subscription and refund the unused term pro rata. Your licence to the version you already bought is unaffected.</p>
+<p><b>Outside the covered scope, always:</b> your sector rules &mdash; DORA, MiFID II, HIPAA, PCI DSS, national implementations, supervisory guidance and anything specific to your licence; your own configuration, prompts, data, connectors or environment; any modified version of the agent; general product improvement and feature requests; security patching of Microsoft&rsquo;s platform or your tenant; and anything that depends on facts about your business we do not hold.</p>
 
 <h2>Certification applies to the version as supplied</h2>
 <p>Certification covers the licensed version as delivered, and configuration within its documented supported parameters. If the agent&rsquo;s logic, prompts, control flow or guardrails are modified beyond those parameters, the certification stops applying to the modified version. That is not a penalty &mdash; it is simply that we can only stand behind what we built.</p>
