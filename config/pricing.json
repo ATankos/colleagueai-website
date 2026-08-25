@@ -1,0 +1,17 @@
+{
+  "_comment": "SINGLE SOURCE OF TRUTH for commercial numbers. api/checkout.js and src/Demo.jsx import this; tests/pricing-consistency.test.mjs asserts the catalogue, pricing page and partner page agree with it. Change a price here and the guard tells you every surface that still disagrees.",
+  "currency": "usd",
+  "tiers": {
+    "L2": { "oneTimeCents": 790000,  "monthlyCents":  9900, "annualCents":  99000 },
+    "L3": { "oneTimeCents": 990000,  "monthlyCents": 14900, "annualCents": 149000 },
+    "L4": { "oneTimeCents": 1490000, "monthlyCents": 24900, "annualCents": 249000 },
+    "L5": { "oneTimeCents": 1990000, "monthlyCents": 39900, "annualCents": 399000 }
+  },
+  "annualIsMonths": 10,
+  "partnerCommissionRate": 0.10,
+  "certification": {
+    "productName": "Continuous Certification",
+    "statusActive": "Colleague AI Certified — Active",
+    "releaseName": "Colleague AI Certified Release"
+  }
+}

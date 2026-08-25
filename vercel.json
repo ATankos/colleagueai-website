@@ -402,6 +402,14 @@
             "destination": "/trust.html"
         },
         {
+            "source": "/certified",
+            "destination": "/certified.html"
+        },
+        {
+            "source": "/verify",
+            "destination": "/api/certificate"
+        },
+        {
             "source": "/partners",
             "destination": "/partners.html"
         },

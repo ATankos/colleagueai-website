@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continuous Certification | Colleague AI</title>
+<meta name="description" content="Continuous Certification keeps a purchased Colleague AI agent package listed as a current Colleague AI Certified Release, and delivers an updated certified release when a change in the covered scope requires one.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/certified">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.colleagueai.ai/certified">
+<meta property="og:title" content="Continuous Certification | Colleague AI">
+<meta property="og:description" content="What the Colleague AI Certified standard is, what it covers, and what it deliberately does not claim.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<style>
+body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
+main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
+.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#C65D3A;text-decoration:none}
+.eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
+h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#8a857d;margin:38px 0 10px;text-transform:uppercase}
+ul{margin:6px 0 0;padding-left:20px}li{margin-bottom:6px}
+table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #d8d2c6}th{color:#8a857d;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.callout{background:#fff;border:1px solid #d8d2c6;border-radius:14px;padding:20px 22px;margin-top:14px}
+.callout.warn{background:#FBF2EE;border-color:#E4C7BA}
+.verify{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.verify input{flex:1 1 240px;padding:11px 14px;border:1px solid #d8d2c6;border-radius:10px;font-size:15px;font-family:ui-monospace,Consolas,monospace}
+.btn{display:inline-block;padding:11px 24px;border-radius:999px;text-decoration:none;font-size:14.5px;border:0;cursor:pointer}
+.btn-p{background:#1D1B1A;color:#F5F0E8}
+footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+<body>
+<main>
+<nav class="crumb"><a href="/agents">&larr; Agent Catalogue</a> &nbsp;·&nbsp; <a href="/score">CAI Score</a> &nbsp;·&nbsp; <a href="/pricing">Pricing</a></nav>
+<div class="eyebrow">The programme</div>
+<h1>Continuous Certification</h1>
+<p>When you buy an agent package, the licence is one-time and perpetual: it is yours whether or not you ever pay us again. Continuous Certification is the separate, optional subscription that keeps <em>the version you bought</em> listed as a current Colleague AI Certified Release &mdash; and gives you the updated certified release if a change inside the covered scope means the standard package has to change.</p>
+
+<div class="callout warn">
+  <p style="margin:0"><b>What this is not.</b> The Colleague AI Certified standard is Colleague AI&rsquo;s own programme. It is <b>not</b> accreditation, attestation or certification by any third party, notified body or regulator, and it is not legal, regulatory or compliance advice. We do not represent that your use of an agent complies with any law that applies to you: that depends on your configuration, your data, your processes, your sector and your jurisdiction &mdash; none of which we can see.</p>
+</div>
+
+<h2>What the subscription includes</h2>
+<ul>
+  <li><b>Active certification status.</b> Your purchased version is listed as a current Colleague AI Certified Release for as long as the subscription runs.</li>
+  <li><b>Monitoring of the covered scope.</b> We watch for changes inside the scope below that would affect our own certification requirements.</li>
+  <li><b>Regulatory-driven updates.</b> If a change inside the covered scope requires a change to the standard agent package, you get the resulting certified release at no further licence fee.</li>
+  <li><b>A verifiable certificate.</b> A Certificate ID your auditor, client or board can check without going through you.</li>
+</ul>
+
+<h2>What it does not include</h2>
+<ul>
+  <li>Support, implementation or customisation work</li>
+  <li>Any processing of your business data</li>
+  <li>A feature roadmap, or releases on a schedule</li>
+</ul>
+<p><b>Updates are conditional, not periodic.</b> If nothing inside the covered scope changes in a given year, no new release is produced and none is owed. We would rather say that plainly than let &ldquo;updates&rdquo; be read as an annual version you are paying for.</p>
+
+<h2>Covered scope</h2>
+<p>The update obligation is limited to the following, as they affect the <em>standard agent package</em> we ship:</p>
+<ul>
+  <li>The EU AI Act and its amending acts, in respect of the classification, human-oversight, logging and transparency characteristics of the package</li>
+  <li>ISO/IEC 42001 control expectations, as reflected in the Colleague AI Certified standard</li>
+  <li>Revisions to the Colleague AI Certified standard itself</li>
+  <li>Microsoft Copilot Studio and Power Platform changes that break a shipped connect package</li>
+</ul>
+<p>Your own sector rules &mdash; DORA, MiFID, HIPAA, national implementations and anything specific to your industry or licence &mdash; are <b>outside</b> the covered scope and are not part of the update obligation.</p>
+
+<h2>Certification applies to the version as supplied</h2>
+<p>Certification covers the licensed version as delivered, and configuration within its documented supported parameters. If the agent&rsquo;s logic, prompts, control flow or guardrails are modified beyond those parameters, the certification stops applying to the modified version. That is not a penalty &mdash; it is simply that we can only stand behind what we built.</p>
+
+<h2>If the subscription ends</h2>
+<p>Certification status lapses and the version should no longer be described as a current Colleague AI Certified Release. <b>Your licence to the agent package is unaffected</b>, and so is your access to what you have already downloaded.</p>
+
+<h2>Price</h2>
+<table>
+  <thead><tr><th>CAI tier</th><th>Agent package (one-time)</th><th>Continuous Certification</th><th>Annual</th></tr></thead>
+  <tbody><tr><td><b>L2</b></td><td>$7,900</td><td>$99 / month</td><td>$990 / year</td></tr><tr><td><b>L3</b></td><td>$9,900</td><td>$149 / month</td><td>$1,490 / year</td></tr><tr><td><b>L4</b></td><td>$14,900</td><td>$249 / month</td><td>$2,490 / year</td></tr><tr><td><b>L5</b></td><td>$19,900</td><td>$399 / month</td><td>$3,990 / year</td></tr></tbody>
+</table>
+<p style="font-size:13.5px;color:#5c574f">Annual is billed at ten months. L5 is priced for completeness; no L5 agent package ships today. Prices are indicative and confirmed in writing before purchase.</p>
+
+<h2>Verify a certificate</h2>
+<p>Anyone holding a Certificate ID can check what it covers and whether it is currently active. The check returns no personal data about the holder.</p>
+<form class="verify" action="/api/certificate" method="get">
+  <label for="cert-id" style="position:absolute;left:-9999px">Certificate ID</label>
+  <input id="cert-id" name="id" placeholder="CAI-L4-1A2B3C4D" pattern="[Cc][Aa][Ii]-[Ll][1-5]-[0-9A-Fa-f]{8}" required>
+  <button class="btn btn-p" type="submit">Verify</button>
+</form>
+
+<footer>
+  Colleague AI s.r.o., &Scaron;kolsk&aacute; 1736/12, 110 00 Praha &middot; I&Ccaron;O 29540852 &middot;
+  <a href="/terms" style="color:#8a857d">Terms</a> &middot;
+  <a href="/license" style="color:#8a857d">Licence</a> &middot;
+  <a href="/trust" style="color:#8a857d">Trust</a>
+</footer>
+</main>
+</body>
+</html>
