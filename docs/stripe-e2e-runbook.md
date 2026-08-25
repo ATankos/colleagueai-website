@@ -19,7 +19,9 @@ Nothing in this document contains a secret, and no step asks you to share one.
    `https://<preview>.vercel.app/api/webhook`, events:
    `checkout.session.completed`, `checkout.session.async_payment_succeeded`,
    `checkout.session.async_payment_failed`, `charge.refunded`,
-   `charge.dispute.created`, `charge.dispute.closed`.
+   `charge.dispute.created`, `charge.dispute.closed`,
+   `invoice.paid`, `invoice.payment_failed`,
+   `customer.subscription.updated`, `customer.subscription.deleted`.
    Copy the signing secret (`whsec_…`).
 3. Settings → Payment methods: enable **Cards** (and "Bank transfers" only if you
    want to test the delayed lane in a second pass).
@@ -119,7 +121,37 @@ first purchase's entitlement is untouched), and no new entitlement email exists.
    commission and does NOT revoke the entitlement (by design). Local proof:
    `tests/webhook.test.mjs` 10a–10d, `tests/commission-ledger.test.mjs`.
 
-## 8. Optional second pass — delayed bank transfer
+## 8. Continuous Certification (the subscription half)
+
+Checkout attaches the certification subscription unless `cert=0`. With it
+attached the session is `mode: 'subscription'` and the one-time agent price is
+billed on the first invoice, so **one** payment covers both.
+
+1. Buy an L4 agent with certification (`4242…`). On the Stripe Dashboard the
+   payment shows two line items: the package and `Continuous Certification -
+   … (L4)` at $249/month.
+2. Upstash should now hold `certification:CAI-L4-XXXXXXXX` with `status:
+   "active"`, plus the `cert:sub:<subscription id>` index.
+3. Open `/api/certificate?id=CAI-L4-XXXXXXXX` → the verification page shows
+   **Colleague AI Certified — Active**, the tier, the term, and the scope
+   statement. Confirm it shows **no email and no customer name** — that is the
+   privacy contract, and `tests/certification.test.mjs` test 2 pins it.
+4. Dashboard → the subscription → **Cancel immediately**.
+   - `customer.subscription.deleted` delivers 200; the certificate flips to
+     `lapsed`; the verification page says "not currently certified".
+   - **The download entitlement must be untouched** — re-open the success URL
+     and download again. If that fails, stop: the perpetual licence is being
+     revoked by a subscription lapse, which is the one thing this model must
+     never do (`tests/webhook.test.mjs` 11d guards it locally).
+5. Failed renewal: Dashboard → the customer → attach a failing test card
+   (`4000 0000 0000 0341`) and let a renewal invoice fail →
+   `invoice.payment_failed` → the certificate reads `past_due`, **not** lapsed,
+   because Stripe is still retrying.
+6. Bank-transfer lane: request `method=bank` and confirm the session is
+   one-time only (Stripe has no `customer_balance` in subscription mode); the
+   log line says the certification was not attached.
+
+## 9. Optional second pass — delayed bank transfer
 
 With "Bank transfers" enabled in the test Dashboard: choose the bank lane,
 Stripe issues virtual account details; the session completes `unpaid` (webhook
@@ -128,7 +160,7 @@ from the payment page's test controls → `async_payment_succeeded` arrives →
 entitlement granted then, not before. `/api/success` meanwhile shows the
 "awaiting your bank transfer" page.
 
-## 9. Sign-off checklist
+## 10. Sign-off checklist
 
 - [ ] Preflight script: all PASS
 - [ ] Card happy path: paid → entitled → downloaded
@@ -137,6 +169,9 @@ entitlement granted then, not before. `/api/success` meanwhile shows the
 - [ ] Cross-customer swap: 403
 - [ ] 15-min expiry: 403 `expired`; success-page reopen re-issues
 - [ ] Full refund: commission reversed AND entitlement revoked
+- [ ] Certification issued on a subscription purchase, verifiable by ID, no PII in the response
+- [ ] Cancellation lapses the certificate and leaves the perpetual licence intact
+- [ ] Failed renewal reads past_due, not lapsed
 - [ ] (optional) bank-transfer lane grants only on clearance
 
 When every box is ticked, the commercial verdict moves to PASS pending R2 real

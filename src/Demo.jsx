@@ -4,6 +4,7 @@
  * Submits to: /api/demo-booking
  */
 import { useEffect, useState } from 'react';
+import PRICING from '../config/pricing.json';
 
 const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
 const serif = 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
@@ -163,9 +164,13 @@ function copy() {
  * Values are treated as untrusted: slug is pattern-checked, tier is matched
  * against the tiers the catalogue actually ships.
  */
-// Indicative one-time package price per CAI tier, in USD. Must match /pricing
-// and the catalogue (L2 $12k · L3 $25k · L4 $45k); L1 and L5 are not sold.
-const PACKAGE_PRICE_USD = { L2: 12000, L3: 25000, L4: 45000 };
+// Indicative one-time package price per CAI tier, in USD, read from the same
+// config the checkout endpoint and the pricing guard use, so the demo form can
+// never quote a number the rest of the site has moved on from. L1 is not sold and
+// no L5 agent ships yet, but both are priced in the config.
+const PACKAGE_PRICE_USD = Object.fromEntries(
+  Object.entries(PRICING.tiers).map(([tier, v]) => [tier, v.oneTimeCents / 100]),
+);
 
 function requestedAgent() {
   if (typeof window === 'undefined') return null;

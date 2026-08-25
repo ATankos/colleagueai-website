@@ -23,6 +23,11 @@ import {
   claimSession,
   releaseClaims,
   getPartnerStats,
+  issueCertification,
+  renewCertification,
+  markCertificationPastDue,
+  lapseCertification,
+  getCertificationBySubscription,
 } from '../lib/db.js';
 
 const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
@@ -124,6 +129,26 @@ async function fulfillSession(session, eventId) {
     throw new Error('Entitlement write failed');
   }
 
+  /* Continuous Certification, when the session was a subscription. The licence
+   * above is perpetual; this only records that the purchased version is currently
+   * a Colleague AI Certified Release. A failure here must NOT fail the whole
+   * fulfilment - the customer has paid for and received their agent either way. */
+  const subscriptionId = typeof session.subscription === 'string'
+    ? session.subscription
+    : session.subscription?.id;
+  if (subscriptionId) {
+    try {
+      const cert = await issueCertification({
+        email, slug, tier: session.metadata?.tier,
+        subscriptionId,
+        currentPeriodEnd: session.subscription?.current_period_end ?? null,
+      });
+      console.log('[webhook] Certification issued:', cert?.certificateId);
+    } catch (err) {
+      console.error('[webhook] Certification issue failed (licence unaffected):', err?.message ?? err);
+    }
+  }
+
   const rawCode = session.metadata?.partner ?? '';
   const partnerCode = /^[A-Za-z0-9_-]{1,64}$/.test(rawCode) ? rawCode : null;
   if (rawCode && !partnerCode) {
@@ -222,6 +247,55 @@ export default async function handler(req, res) {
       return res.status(200).json({ received: true, ...result });
     } catch (err) {
       return res.status(500).json({ error: err.message || 'Fulfilment failed' });
+    }
+  }
+
+  /* ---- Continuous Certification lifecycle ----
+   * The agent licence is perpetual and is never touched here: these events only
+   * move the certificate between active / past_due / lapsed. Every branch answers
+   * 200 even when no certificate exists, because a subscription created outside
+   * this flow (or an invoice for something else) is not an error we can retry away. */
+  if (event.type === 'invoice.paid' || event.type === 'invoice.payment_failed') {
+    const inv = event.data.object || {};
+    const subId = typeof inv.subscription === 'string' ? inv.subscription : inv.subscription?.id;
+    if (!subId) return res.status(200).json({ received: true, certification: 'no-subscription' });
+
+    try {
+      if (event.type === 'invoice.paid') {
+        const periodEnd = inv.lines?.data?.[0]?.period?.end ?? inv.period_end ?? null;
+        const cert = await renewCertification(subId, periodEnd);
+        return res.status(200).json({ received: true, certification: cert ? 'renewed' : 'no-certificate' });
+      }
+      // A failed payment is not yet a lapse - Stripe keeps retrying, and the
+      // customer keeps their certified status until the subscription actually ends.
+      const cert = await markCertificationPastDue(subId);
+      return res.status(200).json({ received: true, certification: cert ? 'past_due' : 'no-certificate' });
+    } catch (err) {
+      console.error('[webhook] Certification update failed:', err?.message ?? err);
+      return res.status(500).json({ error: 'Certification write failed' });
+    }
+  }
+
+  if (event.type === 'customer.subscription.deleted' || event.type === 'customer.subscription.updated') {
+    const sub = event.data.object || {};
+    const dead = event.type === 'customer.subscription.deleted' ||
+      ['canceled', 'unpaid', 'incomplete_expired'].includes(sub.status);
+
+    try {
+      if (dead) {
+        const cert = await lapseCertification(sub.id, sub.status || 'cancelled');
+        if (cert) console.log('[webhook] Certification lapsed (licence unaffected):', cert.certificateId);
+        return res.status(200).json({ received: true, certification: cert ? 'lapsed' : 'no-certificate' });
+      }
+      if (sub.status === 'active') {
+        const cert = await renewCertification(sub.id, sub.current_period_end ?? null);
+        return res.status(200).json({ received: true, certification: cert ? 'active' : 'no-certificate' });
+      }
+      const existing = await getCertificationBySubscription(sub.id);
+      return res.status(200).json({ received: true, certification: existing?.status ?? 'no-certificate' });
+    } catch (err) {
+      console.error('[webhook] Certification lifecycle write failed:', err?.message ?? err);
+      return res.status(500).json({ error: 'Certification write failed' });
     }
   }
 

@@ -10,6 +10,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
+import PRICING from '../config/pricing.json' with { type: 'json' };
 
 const LOCALES = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const MAIN_PAGES = ['home', 'pricing', 'trust', 'partners', 'contact'];
@@ -154,11 +155,20 @@ test('partner page offers a single referral level at a flat 10% rate', () => {
 });
 
 test('partner worked example reconciles: contract minus 10% commission equals retained revenue', () => {
+  // Derived from config/pricing.json so a price change cannot leave the partner
+  // page quoting an economics story the catalogue no longer sells.
+  const usd = (n) => '$' + n.toLocaleString('en-US');
+  const contract = PRICING.tiers.L4.oneTimeCents / 100;
+  const commission = contract * PRICING.partnerCommissionRate;
+  const retained = contract - commission;
+
   const html = read('partners.html');
-  for (const figure of ['$45,000', '$4,500', '$40,500']) {
+  for (const figure of [usd(contract), usd(commission), usd(retained)]) {
     assert.ok(html.includes(figure), `worked example is missing ${figure}`);
   }
-  assert.ok(!html.includes('$27,000'), 'stale retained-revenue figure from the old 40% tier must not reappear');
+  for (const stale of ['$27,000', '$45,000', '$40,500']) {
+    assert.ok(!html.includes(stale), `stale figure from a retired price list reappeared: ${stale}`);
+  }
 });
 
 // One approved claims dictionary, everywhere. "aligned" overstates the evidence
@@ -181,14 +191,98 @@ test('no page still carries a retired compliance claim', () => {
 // The CAI Score is ColleagueAI's own classification, not independent assurance.
 // "Certified" reads as third-party attestation to a risk buyer, so the word is
 // retired in every language; only the dictionary key `dr_certify` may remain.
-test('no visible copy calls the CAI Score a certification, in any language', () => {
+/* The word "certified" came back — deliberately, and narrowly.
+ *
+ * Rounds 1-5 retired it because it read as third-party attestation of the
+ * CUSTOMER's compliance. Continuous Certification reintroduces it for one thing
+ * only: Colleague AI's own programme, certifying its own releases against its own
+ * standard. So this guard changed from "block the stem" to "block the claim".
+ * The permitted and blocked vocabularies are specified in
+ * docs/continuous-certification.md section 3 and enforced here. */
+const CERT_PROGRAMME_OK = [
+  'Continuous Certification',
+  'Colleague AI Certified Release',
+  'Colleague AI Certified — Active',
+  'Colleague AI Certified standard',
+  'Certificate ID',
+  'certified release',
+  'certified version',
+];
+
+test('no page implies third-party or regulatory certification, in any language', () => {
+  // Claims that would put an auditor's finding straight back on the register.
+  const forbidden = [
+    /certified\s+compliant/i,
+    /compliant\s+with\s+all/i,
+    /guarantee[sd]?\s+compliance/i,
+    /ensures?\s+compliance/i,
+    /independently\s+certified/i,
+    /third[- ]party\s+certified/i,
+    /\baccredited\b/i,
+    /ISO\/IEC 42001[- ]certified/i,
+    /EU AI Act[- ]certified/i,
+    /DORA[- ]certified/i,
+    /Certified under CAI Score/i,
+    /certification framework/i,          // the CAI Score is a risk-classification framework
+  ];
+  const pages = ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html', 'usage.html',
+    'partners.html', 'pricing.html', 'certified.html',
+    ...LOCALES.flatMap((l) => ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html'].map((p) => `${l}/${p}`))];
+  for (const p of pages) {
+    const html = read(p);
+    for (const re of forbidden) {
+      assert.ok(!re.test(html), `${p} makes a retired certification claim: ${re}`);
+    }
+  }
+});
+
+test('the CAI Score itself is still never called a certification, in any language', () => {
+  /* Everywhere OUTSIDE the programme's own vocabulary, the stem stays banned:
+     the score classifies, it does not certify. Occurrences are allowed only when
+     they are part of an approved programme phrase. */
   const stems = /\b\w*(certif|zertifi|certyfik|certifik)\w*/gi;
   const pages = ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html', 'usage.html', 'partners.html',
     ...LOCALES.flatMap((l) => ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
-    const hits = (read(p).match(stems) || []).filter((w) => w !== 'dr_certify');
-    assert.deepEqual(hits, [], `${p} still uses: ${[...new Set(hits)].join(', ')}`);
+    /* This guard is about VISIBLE copy, so strip what a reader never sees, then
+       strip the approved programme copy: its translated sentences legitimately
+       carry the stem in seven languages (the pay_cert* dictionary values and the
+       #pay-cert-note paragraph). What is left must be clean. */
+    const PROGRAMME_KEY = '(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*';
+    let html = read(p)
+      .replace(/<!--[\s\S]*?-->/g, ' ')                                    // HTML comments
+      .replace(/^\s*\/\/.*$/gm, ' ')                                       // JS line comments
+      .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
+      // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
+      .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
+      .replace(new RegExp(`"${PROGRAMME_KEY}":"(\\\\.|[^"\\\\])*"`, 'g'), ' ')  // programme dictionary values
+      // the programme's own visible copy: every element bound to one of its keys
+      .replace(new RegExp(`<([a-z]+)[^>]*data-i18n(?:-html|-cai)?="${PROGRAMME_KEY}"[^>]*>[\\s\\S]*?<\\/\\1>`, 'g'), ' ')
+      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p>/g, ' ')
+      .replace(new RegExp(`data-i18n(?:-html|-cai)?="${PROGRAMME_KEY}"`, 'g'), ' ');
+    for (const ok of CERT_PROGRAMME_OK) html = html.split(ok).join(' ');
+    for (const ok of ['Certified Release', 'Certified — Active', 'certified release']) {
+      html = html.split(ok).join(' ');
+    }
+    const hits = (html.match(stems) || []).filter((w) => w !== 'dr_certify');
+    assert.deepEqual([...new Set(hits)], [], `${p} uses the stem outside the approved programme vocabulary: ${[...new Set(hits)].join(', ')}`);
   }
+});
+
+test('the certification programme page carries its scope limits', () => {
+  const html = read('certified.html');
+  const required = [
+    'not</b> accreditation, attestation or certification by any third party',
+    'not legal, regulatory or compliance advice',
+    'licence to the agent package is unaffected',
+    'conditional, not periodic',
+    'stops applying to the modified version',
+  ];
+  for (const r of required) {
+    assert.ok(html.includes(r), `/certified is missing its scope limit: "${r}"`);
+  }
+  // The obligation must never be stated as covering the customer's own obligations.
+  assert.ok(!/your (use|agent) (is|will be) compliant/i.test(html));
 });
 
 test('partner page does not contradict its flat 10% offer', () => {

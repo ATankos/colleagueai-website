@@ -16,6 +16,7 @@ import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import '@testing-library/jest-dom/vitest'
 import Demo from './Demo.jsx'
+import PRICING from '../config/pricing.json'
 
 const ENDPOINT = '/api/demo-booking'
 
@@ -230,10 +231,13 @@ describe('Demo agent context', () => {
   })
 
   it('shows the indicative one-time package price for the tier, matching /pricing', () => {
+    // Asserted against config/pricing.json rather than a literal, so a price change
+    // updates the site and this test together instead of silently diverging.
+    const expected = (PRICING.tiers.L3.oneTimeCents / 100).toLocaleString('en-US')
     visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
     render(<Demo />)
 
-    expect(screen.getByText(/Indicative package price: \$25,000 \(one-time\)/)).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(`Indicative package price: \\$${expected} \\(one-time\\)`))).toBeInTheDocument()
   })
 
   it('shows no price for a tier that is not sold', () => {
