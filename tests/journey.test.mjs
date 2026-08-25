@@ -269,6 +269,41 @@ test('the CAI Score itself is still never called a certification, in any languag
   }
 });
 
+/* The company is VAT-registered (DIČ CZ29540852, confirmed by the Finanční úřad
+ * 25 Aug 2026). An enterprise buyer's finance team validates that number before
+ * paying an invoice, so wherever the IČO is published the DIČ must appear with
+ * it — and the two must never disagree. */
+test('every page that publishes the company ID also publishes the VAT ID', () => {
+  const ICO = '29540852';
+  const DIC = 'CZ29540852';
+  const pages = ['imprint.html', 'contact.html', 'terms.html', 'privacy.html', 'license.html',
+    'partner-agreement.html', 'refund.html', 'certified.html', 'agents.html', 'home.html', 'pricing.html',
+    ...LOCALES.flatMap((l) => ['contact.html', 'home.html', 'imprint.html', 'terms.html', 'privacy.html'].map((p) => `${l}/${p}`))];
+
+  for (const p of pages) {
+    const html = read(p);
+    if (!html.includes(ICO)) continue;
+    assert.ok(html.includes(DIC), `${p} publishes the IČO but not the DIČ`);
+    // every rendered IČO must have the DIČ within reach, not just once on the page
+    // [\s\S] not . — these pages put the two rows on separate lines
+    const orphan = [...html.matchAll(new RegExp(`[\\s\\S]{0,60}${ICO}[\\s\\S]{0,140}`, 'g'))]
+      .map((m) => m[0])
+      .filter((ctx) => !ctx.includes(DIC));
+    assert.deepEqual(orphan, [], `${p} has an IČO with no DIČ beside it: ${orphan[0]?.slice(0, 90)}`);
+  }
+});
+
+test('the structured data publishes the VAT ID in a machine-readable field', () => {
+  for (const p of ['terms.html', 'privacy.html', 'contact.html', 'home.html', 'license.html']) {
+    const blocks = [...read(p).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    const withOrg = blocks.map((b) => JSON.parse(b[1])).filter((d) => JSON.stringify(d).includes('29540852'));
+    assert.ok(withOrg.length > 0, `${p} has no organization structured data`);
+    for (const d of withOrg) {
+      assert.ok(JSON.stringify(d).includes('"vatID":"CZ29540852"'), `${p} structured data is missing vatID`);
+    }
+  }
+});
+
 test('the certification programme page carries its scope limits', () => {
   const html = read('certified.html');
   const required = [
