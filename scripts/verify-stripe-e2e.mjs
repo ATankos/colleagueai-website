@@ -65,7 +65,7 @@ console.log(`Preflight against ${BASE}\n`);
   const r = await get(`/api/checkout?agent=${SLUG}&terms=accepted&method=card`);
   if (r.status === 303 || r.status === 302) {
     const loc = r.headers.get('location') || '';
-    ok('checkout redirects into Stripe hosted checkout', /https:\/\/checkout\.stripe\.com\//.test(loc), loc.slice(0, 80));
+    ok('checkout redirects into Stripe hosted checkout', /^https:\/\/checkout\.stripe\.com\//.test(loc), loc.slice(0, 80));
     console.log('        (Stripe IS configured on this deployment — the manual runbook applies)');
   } else if (r.status === 503) {
     ok('checkout disabled cleanly (503 checkout_disabled)', true);
