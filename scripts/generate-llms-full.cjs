@@ -26,7 +26,7 @@ const PILLAR = { ops: "Operations & Service Delivery", risk: "Risk, Security & C
 const slug = (n) => n.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 let out = `# ColleagueAI, full reference for AI assistants
 
-ColleagueAI (Colleague AI s.r.o., Prague, Czech Republic, IČO 29540852) is the trust layer for enterprise AI:
+ColleagueAI (Colleague AI s.r.o., Prague, Czech Republic, IČO 29540852, DIČ CZ29540852) is the trust layer for enterprise AI:
 ${AGENTS.length} governed agent packages, each classified on the CAI Score, a five-tier risk framework (L1 Assist,
 L2 Draft, L3 Operate, L4 Decide supervised, L5 Autonomous). Agents run in the customer's own Microsoft tenant
 (Copilot Studio, Power Automate, Azure); ColleagueAI hosts only the governance control plane and never processes
