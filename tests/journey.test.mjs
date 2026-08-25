@@ -312,12 +312,30 @@ test('the certification programme page carries its scope limits', () => {
     'licence to the agent package is unaffected',
     'conditional, not periodic',
     'stops applying to the modified version',
+    // The four limiters that bound the update obligation. If any of these
+    // disappears from the page, the public promise is wider than the contract
+    // in docs/continuous-certification.md §5 — which is the dangerous direction.
+    'as in force on the day your subscription starts',   // closed instrument list, date-anchored
+    'the obligation reaches only',                        // closed characteristic list
+    'we publish that assessment against your certificate',// materiality trigger, on the record
+    'effective at your next renewal, never retroactively',// scope changes only forward
+    'within 60 days of the trigger',                      // delivery bound
+    'refund the unused term pro rata',                    // discontinuation exit
   ];
   for (const r of required) {
     assert.ok(html.includes(r), `/certified is missing its scope limit: "${r}"`);
   }
   // The obligation must never be stated as covering the customer's own obligations.
   assert.ok(!/your (use|agent) (is|will be) compliant/i.test(html));
+
+  // Sector rules stay expressly outside the scope, by name.
+  for (const excluded of ['DORA', 'MiFID', 'HIPAA', 'national implementations']) {
+    assert.ok(html.includes(excluded), `/certified no longer excludes ${excluded} by name`);
+  }
+  // "and its amending acts" with no date anchor was the defect in the first draft:
+  // it silently imported every future amendment. It must not come back.
+  assert.ok(!/amending acts/i.test(html) || /as in force on the day/.test(html),
+    'the instrument list must stay anchored to the subscription start date');
 });
 
 test('partner page does not contradict its flat 10% offer', () => {

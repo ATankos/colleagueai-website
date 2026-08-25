@@ -117,23 +117,118 @@ Counsel to confirm: consumer-vs-B2B framing, refund/cancellation rights, the
 Czech-law governing clause already in the Terms, and whether the maintenance
 obligation creates any warranty exposure beyond what is written.
 
-## 5. Covered Scope — must be defined before sale
+## 5. Covered Scope — the boundary of the obligation
 
-The obligation is only as safe as this list. It must be **enumerated**, not
-open-ended. Proposed starting scope, for your and counsel's confirmation:
+**This is the clause with teeth.** Everything else in this document describes a
+subscription; this section decides how much engineering work a regulator, a
+standards body or Microsoft can compel Colleague AI to do for a fee already
+collected. An open-ended scope is an open-ended obligation.
 
-- Regulation (EU) 2024/1689 (EU AI Act) and its amending acts, as they apply to
-  the classification, human-oversight, logging and transparency characteristics
-  **of the standard agent package**
-- ISO/IEC 42001 control expectations **as reflected in the Colleague AI
-  Certified standard**
-- The Colleague AI Certified standard's own revisions
-- Microsoft Copilot Studio / Power Platform platform changes that break a
-  shipped connect package
+A scope is only bounded if all four limiters below hold. Each one is a separate
+question for counsel (section 8).
 
-Anything outside this list is out of scope, and the page must say that a
-customer's sector rules (DORA, MiFID, HIPAA, national implementations) are
-**not** covered by the update obligation.
+### 5.1 Limiter one — a closed list of instruments
+
+The obligation attaches to these instruments and no others:
+
+| # | Instrument | Anchor |
+| --- | --- | --- |
+| I-1 | Regulation (EU) 2024/1689 (EU AI Act), **as amended and in force on the subscription start date**, and any later amendment added under 5.4 | Art. 50 transparency obligations apply from 2 Aug 2026; Annex III standalone high-risk deferred to 2 Dec 2027; Annex I embedded high-risk to 2 Aug 2028 (Digital Omnibus on AI) |
+| I-2 | ISO/IEC 42001, **only** those controls the Colleague AI Certified standard cites by number in its control map | Includes the EN adoption of the same standard where its text differs |
+| I-3 | The Colleague AI Certified standard itself | Colleague AI's own document, versioned |
+| I-4 | Microsoft Copilot Studio and Power Platform **breaking** platform changes | Only where a shipped connect package stops functioning as documented |
+
+"And its amending acts" without a date anchor was the defect in the previous
+draft: it silently imported every future amendment, including ones with a
+compliance burden nobody has seen. The anchor plus 5.4 replaces that with
+prospective, notified additions.
+
+### 5.2 Limiter two — a closed list of package characteristics
+
+Even for an in-scope instrument, the obligation touches only these
+characteristics **of the standard, unmodified agent package as shipped**:
+
+- **C-1** its CAI tier classification and the basis recorded for it
+- **C-2** its human-oversight design (where a named human must act, and the
+  points at which the agent must stop)
+- **C-3** the audit-trail fields it emits and their retention shape
+- **C-4** the transparency disclosures it surfaces to end users
+- **C-5** the documentation set shipped with it (dossier, control map, tier
+  rationale)
+
+Nothing else. Not model quality, accuracy, latency, cost, security patching,
+compatibility with the Subscriber's other systems, or anything about the
+Subscriber's own deployment, data or configuration.
+
+### 5.3 Limiter three — a materiality trigger, not "any change"
+
+A release is owed only where **all** of the following are true:
+
+1. a change occurs in an instrument listed in 5.1, **and**
+2. it takes legal effect (or, for I-3/I-4, is published) during the
+   subscription term, **and**
+3. in Colleague AI's reasonable, documented assessment the standard package as
+   shipped would, because of that change, no longer meet the Colleague AI
+   Certified standard in respect of a characteristic listed in 5.2.
+
+Where a change is assessed as **not** triggering a release, Colleague AI
+publishes that assessment against the certificate. That is the discipline that
+keeps "reasonable assessment" from reading as "whenever we feel like it" — and
+it is also the evidence a subscriber's auditor will ask for.
+
+### 5.4 Limiter four — how the scope itself changes
+
+The scope list may be extended **only prospectively**, by notice, effective at
+the subscriber's next renewal. It is never extended retroactively inside a paid
+term. If Colleague AI narrows the scope, the subscriber may terminate and take
+a pro-rata refund of the unused term.
+
+### 5.5 Delivery bound
+
+The obligation is to **make an updated standard certified release available**,
+within a stated window (proposed: 60 days of the trigger date under 5.3, or
+before the change's own compliance deadline, whichever is later). It is not an
+obligation to install it, migrate the subscriber, re-implement customisations,
+retrain anyone, or support a version the subscriber declines to take.
+
+If the subscriber does not adopt an available updated release within a stated
+period, the certificate reflects the version actually in use — which is no
+longer the current certified release.
+
+### 5.6 Discontinuation
+
+If Colleague AI withdraws a standard agent package, or elects not to produce an
+updated release for one, the subscriber is notified, the subscription for that
+package is cancelled, and the unused term is refunded pro rata. The perpetual
+licence to the version already purchased is unaffected. **This case was missing
+from the previous draft entirely**, and without it the obligation has no exit.
+
+### 5.7 Express exclusions (must appear on the public page too)
+
+Outside the covered scope, and never part of the update obligation:
+
+- The subscriber's sector rules — DORA, MiFID II, HIPAA, PCI DSS, national
+  implementations, supervisory guidance, and anything specific to their licence
+- The subscriber's own configuration, prompts, data, connectors or environment
+- Any modified version of the agent (see section 4, unmodified versions only)
+- General product improvement, feature requests, performance and cost tuning
+- Security patching of Microsoft's platform or of the subscriber's tenant
+- Anything requiring facts about the subscriber's business that Colleague AI
+  does not hold
+
+### 5.8 Live items to resolve before the first sale
+
+- **Article 50 is already in force** (2 Aug 2026), with a grace period to
+  2 Dec 2026 for the Art. 50(2) machine-readable marking of synthetic content
+  for systems placed on the market before 2 Aug 2026. If any shipped package
+  produces synthetic content in scope of Art. 50, that is a trigger with a
+  **date already on the calendar** — decide whether the first certified
+  releases ship before it, or whether Art. 50(2) is expressly outside C-4.
+- **Which agents, if any, are Annex III high-risk** when deployed as intended.
+  The deferral to Dec 2027 buys time, it does not remove the question, and the
+  answer changes what C-1 commits Colleague AI to.
+- **The ISO/IEC 42001 control map** referenced in I-2 must exist as a
+  versioned document before it can bound anything.
 
 ## 6. Engineering contract
 
@@ -165,3 +260,88 @@ customer's sector rules (DORA, MiFID, HIPAA, national implementations) are
 - **The price change is a repositioning**: L4 moves from $45,000 to $14,900.
   Partner referral value per L4 deal moves from $4,500 to $1,490, and the
   worked example on /partners moves with it.
+
+## 8. Questions for counsel — closed, answerable, in priority order
+
+Not "please review this". These are the decisions only a lawyer can make, each
+phrased so the answer is short.
+
+**On the obligation itself**
+
+1. Does the clause in section 4, read with the limiters in section 5, create a
+   **contractual obligation to perform future development work**, and if so is
+   it sufficiently certain to be enforceable under Czech law? If it is too
+   uncertain, does that help us or hurt us?
+2. Does "in Colleague AI's reasonable, documented assessment" (5.3) survive as
+   a discretion, or will it be read against us as the drafter? Is publishing
+   the assessment enough to make it defensible?
+3. Is the 60-day delivery window (5.5) a firm deadline creating liability for
+   delay, and should it carry an express **exclusive remedy** (pro-rata refund
+   and termination, no damages)?
+4. Should the whole obligation carry a **liability cap** tied to fees paid for
+   the subscription — separate from the licence's own cap — and does Czech law
+   permit that cap between businesses?
+
+**On what we are saying about ourselves**
+
+5. Is "Colleague AI Certified" safe as a **trade mark-style programme name**
+   given it is not accreditation? Does the disclaimer in 5.7 and on /certified
+   discharge the risk, or does the word itself need qualifying at every use?
+6. Does describing our own programme as "certification" engage any Czech or EU
+   rule on conformity-assessment terminology, accreditation (Regulation (EC)
+   765/2008), or unfair commercial practices?
+7. Does the public **certificate verification page** — which states a third
+   party may rely on it — create a duty of care to that third party, and should
+   it carry an express no-reliance notice?
+
+**On the customer relationship**
+
+8. B2B only, or could a sole trader subscribe? If the latter, which consumer
+   rights attach (withdrawal, auto-renewal, price change notice), and does the
+   subscription need a separate consumer flow?
+9. Auto-renewal, price changes and termination: what notice does Czech law
+   require, and does the current Terms text provide it?
+10. On lapse we say the subscriber "must stop describing the agent as a current
+    Colleague AI Certified Release". Is that enforceable, and what is the
+    remedy if they do not?
+
+**On the sale we have already published**
+
+11. The site now states that for non-subscribers **a newer certified release is
+    a new licence purchase**. Is that safe as published pricing, and does it
+    need to appear in the Terms rather than only in marketing copy?
+12. Prices are shown in USD by a Czech company now VAT-registered
+    (DIČ CZ29540852). Do we need to state the VAT treatment on the page, and
+    does the answer differ for a full plátce DPH versus an identifikovaná osoba?
+
+## 9. What the obligation could cost — the exposure model
+
+Counsel bounds the legal risk; this bounds the engineering one. The obligation
+is per **standard package**, not per customer, which is the whole reason the
+model works — but it is worth writing the arithmetic down before signing it.
+
+```
+annual cost  =  distinct standard packages needing a release
+             ×  qualifying changes per year (section 5.3)
+             ×  engineering cost per certified release
+```
+
+- **Distinct packages**: 36 today. A change to a shared characteristic (say the
+  audit-trail fields, C-3) may hit all 36 at once; a tier-specific change hits
+  a subset. The realistic unit is "one master change, applied across the
+  catalogue", not 36 independent projects — but only if the packages genuinely
+  share an implementation. **If they have drifted, this number is 36.**
+- **Qualifying changes per year**: unknown, and the honest answer is that
+  2026–2028 is unusually dense (Art. 50 live now, Annex III Dec 2027, Annex I
+  Aug 2028) and later years may be quiet. Model the dense years, not the quiet
+  ones.
+- **Cost per release**: engineering, re-testing, re-issuing dossiers and
+  control maps for every affected package, and re-cutting the certificate
+  records.
+
+Against that, revenue is `subscribers × monthly price × 12`. At $249/month an
+L4 subscriber contributes $2,988 a year. **The break-even question is how many
+subscribers it takes to fund one catalogue-wide certified release** — if the
+answer is more subscribers than you expect to have during the dense
+2026–2028 window, the price is wrong, or the scope must be narrower, or both.
+That is a decision to take before the first sale, not after.
