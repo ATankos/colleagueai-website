@@ -50,7 +50,9 @@ function page(a) {
   const url = `${BASE}/agents/${slug}`;
   const tier = `${a.t} · ${TIER[a.t] ?? ''}`;
   // one legacy PDF name predates the agent's rename
-  const PDF_ALIAS = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const PDF_ALIAS = {} /* canonical acceptance-test-script-generator.pdf now exists with the corrected
+       content; the legacy oat- file stays on disk so old external links keep
+       working, but nothing on the site links it any more */;
   const pdf = `/docs/agents/${PDF_ALIAS[slug] ?? slug}.pdf`;
   const ld = {
     '@context': 'https://schema.org',
@@ -138,7 +140,9 @@ for (const a of AGENTS) {
   const slug = slugify(a.n);
   slugs.push(slug);
   writeFileSync(join(DIST, 'agents', slug + '.html'), page(a));
-  const PDF_ALIAS2 = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const PDF_ALIAS2 = {} /* canonical acceptance-test-script-generator.pdf now exists with the corrected
+       content; the legacy oat- file stays on disk so old external links keep
+       working, but nothing on the site links it any more */;
   if (!existsSync(join(ROOT, 'public/docs/agents', (PDF_ALIAS2[slug] ?? slug) + '.pdf')))
     console.warn('[gen] missing dossier PDF for', slug);
 }
@@ -146,7 +150,9 @@ for (const a of AGENTS) {
 // drawer's "Download agent dossier (PDF)" resolves to something honest without
 // JavaScript (the drawer itself swaps in the agent's own PDF once it opens).
 {
-  const PDF_ALIAS3 = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const PDF_ALIAS3 = {} /* canonical acceptance-test-script-generator.pdf now exists with the corrected
+       content; the legacy oat- file stays on disk so old external links keep
+       working, but nothing on the site links it any more */;
   const byTier = {};
   for (const a of AGENTS) (byTier[a.t] ??= []).push(a);
   const tierName = { L2: 'Draft', L3: 'Operate', L4: 'Decide (supervised)' };

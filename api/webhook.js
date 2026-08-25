@@ -29,6 +29,55 @@ const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10'
 
 export const config = { api: { bodyParser: false } };
 
+/**
+ * Build Stripe client options. STRIPE_API_HOST is a test-only hook: the local
+ * webhook test suite points it at an in-process fake so no call leaves the
+ * machine. It is never set in production.
+ */
+function stripeOptions() {
+  const opts = { apiVersion: '2024-04-10' };
+  if (process.env.STRIPE_API_HOST) {
+    const u = new URL(process.env.STRIPE_API_HOST);
+    opts.host = u.hostname;
+    if (u.port) opts.port = Number(u.port);
+    opts.protocol = u.protocol.replace(':', '');
+  }
+  return opts;
+}
+
+/**
+ * Resolve the Checkout Session behind a charge event.
+ *
+ * A live `charge.refunded` / `charge.dispute.*` event has no
+ * checkout_session_id in its metadata (the session id does not exist yet when
+ * checkout.js sets payment_intent_data.metadata), and event payloads carry
+ * payment_intent as a bare id string. Without this lookup every refund and
+ * dispute short-circuited to "no-session-reference": commissions were never
+ * reversed and entitlements never revoked. Metadata paths are kept first so a
+ * manually-tagged charge still resolves without an API call.
+ */
+async function sessionForCharge(stripe, obj) {
+  const direct =
+    obj.metadata?.checkout_session_id ||
+    obj.payment_intent?.metadata?.checkout_session_id ||
+    obj.metadata?.session_id ||
+    null;
+  if (direct) return { sessionId: direct, session: null };
+
+  const pi = typeof obj.payment_intent === 'string' ? obj.payment_intent : obj.payment_intent?.id;
+  if (!pi) return { sessionId: null, session: null };
+
+  try {
+    const list = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
+    const session = list?.data?.[0] ?? null;
+    if (!session) console.warn('[webhook] No checkout session found for payment_intent:', pi);
+    return { sessionId: session?.id ?? null, session };
+  } catch (err) {
+    console.error('[webhook] Session lookup by payment_intent failed:', err?.message ?? err);
+    return { sessionId: null, session: null, lookupFailed: true };
+  }
+}
+
 async function getRawBody(req) {
   return new Promise((resolve, reject) => {
     const chunks = [];
@@ -123,7 +172,7 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'Webhook is not enabled' });
   }
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-04-10' });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, stripeOptions());
 
   let rawBody;
   try {
@@ -192,13 +241,14 @@ export default async function handler(req, res) {
     event.type === 'charge.dispute.closed'
   ) {
     const obj = event.data.object || {};
-    const sessionId =
-      obj.metadata?.checkout_session_id ||
-      obj.payment_intent?.metadata?.checkout_session_id ||
-      obj.metadata?.session_id ||
-      null;
+    const { sessionId, session, lookupFailed } = await sessionForCharge(stripe, obj);
 
     if (!sessionId) {
+      if (lookupFailed) {
+        // Transient Stripe API failure: 500 so Stripe retries the event rather
+        // than the reversal being dropped forever.
+        return res.status(500).json({ error: 'Session lookup failed' });
+      }
       console.warn('[webhook] %s without a session reference; ledger untouched', event.type);
       return res.status(200).json({ received: true, commission: 'no-session-reference' });
     }
@@ -217,8 +267,12 @@ export default async function handler(req, res) {
 
       const fullyRefunded = event.type !== 'charge.refunded' || obj.refunded === true ||
         (obj.amount_refunded != null && obj.amount != null && obj.amount_refunded >= obj.amount);
-      const email = obj.billing_details?.email || obj.metadata?.email || null;
-      const slug = obj.metadata?.agent_slug || null;
+      // Charge metadata inherits from the PaymentIntent (agent_slug, tier), but fall
+      // back to the resolved session for both identifiers so revocation cannot be
+      // skipped just because a processor omitted the copy.
+      const email = obj.billing_details?.email || obj.metadata?.email ||
+        session?.customer_details?.email || session?.metadata?.email || null;
+      const slug = obj.metadata?.agent_slug || session?.metadata?.agent_slug || null;
       if (fullyRefunded && email && slug) {
         await revokeEntitlement(email, [slug], sessionId);
         console.log('[webhook] Entitlement revoked after %s for %s', event.type, sessionId);
