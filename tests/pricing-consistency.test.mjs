@@ -43,7 +43,8 @@ test('the checkout endpoint prices from the config, with no hard-coded fallbacks
 test('every catalogue agent is priced at its tier price', () => {
   const html = read('public/agents.html');
   const tierMap = JSON.parse(read('api/checkout.js').match(/const SLUG_TIER = (\{[\s\S]*?\});/)[1]);
-  const prices = JSON.parse(html.match(/perAgentPrice:(\{[\s\S]*?\}),/)[1]);
+  // both tables live in one page-level global now, shared by the cards and the panel
+  const prices = JSON.parse(html.match(/perAgent:(\{[^}]*\})/)[1]);
 
   const wrong = [];
   for (const [slug, price] of Object.entries(prices)) {
@@ -56,10 +57,52 @@ test('every catalogue agent is priced at its tier price', () => {
 
 test('the catalogue advertises the certification price for every tier', () => {
   const html = read('public/agents.html');
-  const cert = JSON.parse(html.match(/certMonthly:(\{[\s\S]*?\}),/)[1]);
+  const cert = JSON.parse(html.match(/certMonthly:(\{[^}]*\})/)[1]);
   for (const [tier, v] of Object.entries(PRICING.tiers)) {
     assert.equal(cert[tier], dollars(v.monthlyCents), `catalogue certMonthly.${tier} disagrees with the config`);
   }
+});
+
+/* The commercial ask was that the choice is visible AT the agent, not buried on
+   /pricing. These pin that: both numbers on the card, the comparison in the
+   drawer with the recommendation, and the same story on all 36 factsheets. */
+test('every catalogue card shows the one-time price and the certification price', () => {
+  const html = read('public/agents.html');
+  assert.ok(html.includes('class="cprice"'), 'cards no longer carry a price row');
+  assert.ok(/cardPrice=.*card_onetime/s.test(html), 'card price line is not built from the shared table');
+  assert.ok(/cardCert=.*certMonthly\[a\.t\]|CAI_PRICING\.certMonthly\[a\.t\]/s.test(html),
+    'card certification line is not priced per tier');
+});
+
+test('the drawer presents the certified option as the recommended one, with its limits', () => {
+  const html = read('public/agents.html');
+  for (const marker of ['cert-cols', 'cert-col best', 'data-i18n="cert_rec"', 'id="cert-price-a"', 'id="cert-price-b"']) {
+    assert.ok(html.includes(marker), `drawer comparison is missing ${marker}`);
+  }
+  // The recommendation must never be made by disparaging what the buyer still keeps.
+  const lede = html.match(/data-i18n="cert_lede">([^<]*)</)[1];
+  assert.ok(/yours forever/i.test(lede), 'the lede should state what the buyer keeps either way');
+  assert.ok(html.includes('data-i18n="cert_a1">Perpetual licence to this version'),
+    'the package-only column must still say the licence is perpetual');
+});
+
+test('the comparison copy exists in all eight languages', () => {
+  const html = read('public/agents.html');
+  const dict = JSON.parse(html.match(/var I18N=(\{[\s\S]*?\});\n/)[1]);
+  const keys = ['cert_rec', 'cert_lede', 'cert_col_a', 'cert_col_b', 'cert_a1', 'cert_a2', 'cert_a3', 'cert_a4',
+    'cert_b1', 'cert_b2', 'cert_b3', 'cert_b4', 'cert_foot', 'card_onetime', 'card_permonth', 'card_certified'];
+  for (const loc of ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    for (const k of keys) {
+      assert.ok(dict[loc] && dict[loc][k], `${loc} is missing the ${k} string`);
+    }
+  }
+});
+
+test('the factsheet generator prices from the config and states the trade-off', () => {
+  const gen = read('scripts/generate-agent-pages.mjs');
+  assert.ok(gen.includes("config/pricing.json"), 'the generator must not hard-code prices');
+  assert.ok(gen.includes('the only route to updated certified releases'), 'factsheets lost the recommendation');
+  assert.ok(gen.includes('not third-party accreditation'), 'factsheets lost the scope limit');
 });
 
 test('the pricing page quotes the current package prices and no retired ones', () => {

@@ -248,12 +248,18 @@ test('the CAI Score itself is still never called a certification, in any languag
        strip the approved programme copy: its translated sentences legitimately
        carry the stem in seven languages (the pay_cert* dictionary values and the
        #pay-cert-note paragraph). What is left must be clean. */
+    const PROGRAMME_KEY = '(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*';
     let html = read(p)
       .replace(/<!--[\s\S]*?-->/g, ' ')                                    // HTML comments
       .replace(/^\s*\/\/.*$/gm, ' ')                                       // JS line comments
-      .replace(/"(pay_cert[a-z_]*|dr_certify)":"(\\.|[^"\\])*"/g, ' ')       // programme dictionary values
-      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p>/g, ' ')        // the programme's own scope line
-      .replace(/data-i18n="dr_certify"/g, ' ');                            // the key name, not copy
+      .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
+      // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
+      .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
+      .replace(new RegExp(`"${PROGRAMME_KEY}":"(\\\\.|[^"\\\\])*"`, 'g'), ' ')  // programme dictionary values
+      // the programme's own visible copy: every element bound to one of its keys
+      .replace(new RegExp(`<([a-z]+)[^>]*data-i18n(?:-html|-cai)?="${PROGRAMME_KEY}"[^>]*>[\\s\\S]*?<\\/\\1>`, 'g'), ' ')
+      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p>/g, ' ')
+      .replace(new RegExp(`data-i18n(?:-html|-cai)?="${PROGRAMME_KEY}"`, 'g'), ' ');
     for (const ok of CERT_PROGRAMME_OK) html = html.split(ok).join(' ');
     for (const ok of ['Certified Release', 'Certified — Active', 'certified release']) {
       html = html.split(ok).join(' ');
