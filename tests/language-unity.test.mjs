@@ -162,19 +162,52 @@ test('the certification page is built for all eight languages', () => {
   }
 });
 
+/* A product name is the same word in every language — that is what makes it a
+   name. "Continuous Certification" is one, decided deliberately: the licence and
+   the certificate carry it, and an auditor holding a certificate in one language
+   and a page in another must see one programme, not two. So a value that is
+   NOTHING BUT product names is exempt from "this must be translated", and a
+   value that merely contains one is not.
+   The narrow exceptions below are words that happen to be spelled the same. */
+const PRODUCT_NAMES = ['Continuous Certification', 'Colleague AI', 'ColleagueAI', 'CAI Score'];
+const withoutNames = (s) => PRODUCT_NAMES.reduce((acc, n) => acc.split(n).join(' '), s);
+const isJustProductNames = (s) => withoutNames(s).replace(/[\s|·—–-]/g, '') === '';
+
+const SAME_IS_CORRECT = new Set([
+  'cs.f_licence', 'fr.f_licence',   // "Licence" is the Czech and the French word
+  'fr.nav',                         // and "Certification" is the French one
+]);
+const sameIsCorrect = (loc, key, en) =>
+  SAME_IS_CORRECT.has(`${loc}.${key}`) || isJustProductNames(en);
+
 test('each certification page is wholly in its own language, and self-canonical', () => {
   for (const loc of LOCALES) {
     const html = readFileSync(join(DIST, loc, 'certified.html'), 'utf8');
     const slug = ROUTES.slugs.certified[loc];
+    /* what a reader actually sees, with the product names taken out: otherwise
+       "Certification" is reported as an English leak on every page, because
+       "Continuous Certification" contains it. */
+    const shown = withoutNames(visible(html));
 
     assert.ok(html.includes(`<html lang="${loc}"`), `${loc}/certified declares the wrong language`);
     assert.ok(html.includes(`canonical" href="https://www.colleagueai.ai/${loc}/${slug}"`),
       `${loc}/certified does not point its canonical at its own localized URL`);
 
-    // English source strings must not survive anywhere in the translated page
-    for (const key of ['not_label', 'scope_h', 'inc_h', 'verify_h', 'price_h', 'end_h']) {
-      assert.ok(!html.includes(CERT.en[key]) || CERT[loc][key] === CERT.en[key],
-        `${loc}/certified still shows the English "${CERT.en[key]}"`);
+    // Every English source string must be gone from the translated page — not a
+    // hand-picked six. The first version of this loop listed the keys it cared
+    // about; verify_label was not on the list, so "Certificate ID" shipped on
+    // all seven localized pages past a green build. title and h1 were missing
+    // from the list too — those turned out to be right, but nothing here said
+    // so: they were passing by omission rather than by decision. Now they pass
+    // because isJustProductNames() gives the reason, and a guard nobody has to
+    // remember to extend cannot quietly go out of date.
+    for (const [key, en] of Object.entries(CERT.en)) {
+      if (typeof en !== 'string' || en.length < 4) continue;
+      if (sameIsCorrect(loc, key, en)) continue;
+      assert.notEqual(CERT[loc][key], en,
+        `certified-content.json ${loc}.${key} is still the English "${en.slice(0, 60)}"`);
+      assert.ok(!shown.includes(en),
+        `${loc}/certified still shows the English "${en.slice(0, 60)}"`);
     }
     // and the scope limits must be present in the local language
     assert.ok(html.includes(CERT[loc].l3_lab), `${loc}/certified lost the materiality trigger`);

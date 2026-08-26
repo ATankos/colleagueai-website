@@ -89,7 +89,7 @@
    "<b>Aktivní stav certifikace.</b> Vaše zakoupená verze je vedena jako aktuální Colleague AI Certified Release po celou dobu předplatného.",
    "<b>Sledování vymezeného rozsahu.</b> Sledujeme změny ve vymezeném rozsahu níže, které by ovlivnily naše vlastní certifikační požadavky.",
    "<b>Aktualizace vyvolané regulací.</b> Pokud změna ve vymezeném rozsahu vyžaduje úpravu standardního balíčku agenta, dostanete výsledné certifikované vydání bez dalšího licenčního poplatku.",
-   "<b>Ověřitelný certifikát.</b> Certificate ID, které si váš auditor, klient nebo představenstvo ověří bez vaší součinnosti."
+   "<b>Ověřitelný certifikát.</b> ID certifikátu, které si váš auditor, klient nebo představenstvo ověří bez vaší součinnosti."
   ],
   "exc_h": "Co nezahrnuje",
   "exc": [
@@ -135,8 +135,8 @@
   "per_year": "/ rok",
   "price_note": "Roční cena se účtuje jako deset měsíců. L5 je uvedena pro úplnost; žádný balíček agenta L5 se dnes nedodává. Ceny jsou orientační a před nákupem se potvrzují písemně.",
   "verify_h": "Ověřit certifikát",
-  "verify_p": "Kdokoli, kdo má Certificate ID, si může ověřit, co pokrývá a zda je právě aktivní. Kontrola nevrací žádné osobní údaje o držiteli.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Kdokoli, kdo má ID certifikátu, si může ověřit, co pokrývá a zda je právě aktivní. Kontrola nevrací žádné osobní údaje o držiteli.",
+  "verify_label": "ID certifikátu",
   "verify_btn": "Ověřit",
   "f_terms": "Podmínky",
   "f_licence": "Licence",
@@ -161,7 +161,7 @@
    "<b>Aktiver Zertifizierungsstatus.</b> Ihre gekaufte Version wird für die Laufzeit des Abonnements als aktueller Colleague AI Certified Release geführt.",
    "<b>Beobachtung des abgedeckten Rahmens.</b> Wir beobachten Änderungen im unten genannten Rahmen, die unsere eigenen Zertifizierungsanforderungen berühren würden.",
    "<b>Regulatorisch ausgelöste Updates.</b> Erfordert eine Änderung im abgedeckten Rahmen eine Anpassung des Standard-Agentenpakets, erhalten Sie das daraus entstehende zertifizierte Release ohne weitere Lizenzgebühr.",
-   "<b>Ein überprüfbares Zertifikat.</b> Eine Certificate ID, die Ihr Prüfer, Kunde oder Aufsichtsrat ohne Ihr Zutun prüfen kann."
+   "<b>Ein überprüfbares Zertifikat.</b> Eine Zertifikat-ID, die Ihr Prüfer, Kunde oder Aufsichtsrat ohne Ihr Zutun prüfen kann."
   ],
   "exc_h": "Was es nicht enthält",
   "exc": [
@@ -207,8 +207,8 @@
   "per_year": "/ Jahr",
   "price_note": "Jährlich wird mit zehn Monaten berechnet. L5 ist der Vollständigkeit halber angegeben; heute wird kein L5-Agentenpaket ausgeliefert. Preise sind indikativ und werden vor dem Kauf schriftlich bestätigt.",
   "verify_h": "Zertifikat prüfen",
-  "verify_p": "Wer eine Certificate ID hat, kann prüfen, was sie abdeckt und ob sie aktuell aktiv ist. Die Prüfung gibt keine personenbezogenen Daten des Inhabers zurück.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Wer eine Zertifikat-ID hat, kann prüfen, was sie abdeckt und ob sie aktuell aktiv ist. Die Prüfung gibt keine personenbezogenen Daten des Inhabers zurück.",
+  "verify_label": "Zertifikat-ID",
   "verify_btn": "Prüfen",
   "f_terms": "AGB",
   "f_licence": "Lizenz",
@@ -233,7 +233,7 @@
    "<b>Statut de certification actif.</b> Votre version achetée est référencée comme Colleague AI Certified Release en cours pendant toute la durée de l’abonnement.",
    "<b>Veille sur le périmètre couvert.</b> Nous surveillons les changements du périmètre ci-dessous qui affecteraient nos propres exigences de certification.",
    "<b>Mises à jour d’origine réglementaire.</b> Si un changement du périmètre couvert impose de modifier le package d’agent standard, vous recevez la version certifiée qui en résulte sans frais de licence supplémentaires.",
-   "<b>Un certificat vérifiable.</b> Un Certificate ID que votre auditeur, votre client ou votre conseil peut vérifier sans passer par vous."
+   "<b>Un certificat vérifiable.</b> Un identifiant de certificat que votre auditeur, votre client ou votre conseil peut vérifier sans passer par vous."
   ],
   "exc_h": "Ce qu’il ne comprend pas",
   "exc": [
@@ -279,8 +279,8 @@
   "per_year": "/ an",
   "price_note": "L’annuel est facturé dix mois. L5 est tarifé par souci d’exhaustivité ; aucun package d’agent L5 n’est livré aujourd’hui. Les prix sont indicatifs et confirmés par écrit avant l’achat.",
   "verify_h": "Vérifier un certificat",
-  "verify_p": "Toute personne détenant un Certificate ID peut vérifier ce qu’il couvre et s’il est actuellement actif. La vérification ne renvoie aucune donnée personnelle sur le titulaire.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Toute personne détenant un identifiant de certificat peut vérifier ce qu’il couvre et s’il est actuellement actif. La vérification ne renvoie aucune donnée personnelle sur le titulaire.",
+  "verify_label": "Identifiant du certificat",
   "verify_btn": "Vérifier",
   "f_terms": "Conditions",
   "f_licence": "Licence",
@@ -305,7 +305,7 @@
    "<b>Estado de certificación activo.</b> Su versión comprada figura como Colleague AI Certified Release vigente mientras dure la suscripción.",
    "<b>Vigilancia del ámbito cubierto.</b> Vigilamos los cambios dentro del ámbito indicado abajo que afectarían a nuestros propios requisitos de certificación.",
    "<b>Actualizaciones motivadas por la regulación.</b> Si un cambio en el ámbito cubierto obliga a modificar el paquete de agente estándar, recibe la versión certificada resultante sin coste de licencia adicional.",
-   "<b>Un certificado verificable.</b> Un Certificate ID que su auditor, su cliente o su consejo puede comprobar sin pasar por usted."
+   "<b>Un certificado verificable.</b> Un ID de certificado que su auditor, su cliente o su consejo puede comprobar sin pasar por usted."
   ],
   "exc_h": "Qué no incluye",
   "exc": [
@@ -351,8 +351,8 @@
   "per_year": "/ año",
   "price_note": "El anual se factura como diez meses. L5 se tarifica por exhaustividad; hoy no se entrega ningún paquete de agente L5. Los precios son indicativos y se confirman por escrito antes de la compra.",
   "verify_h": "Verificar un certificado",
-  "verify_p": "Cualquiera que tenga un Certificate ID puede comprobar qué cubre y si está activo en este momento. La comprobación no devuelve ningún dato personal del titular.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Cualquiera que tenga un ID de certificado puede comprobar qué cubre y si está activo en este momento. La comprobación no devuelve ningún dato personal del titular.",
+  "verify_label": "ID del certificado",
   "verify_btn": "Verificar",
   "f_terms": "Condiciones",
   "f_licence": "Licencia",
@@ -377,7 +377,7 @@
    "<b>Stato di certificazione attivo.</b> La versione acquistata è elencata come Colleague AI Certified Release corrente per tutta la durata dell’abbonamento.",
    "<b>Monitoraggio dell’ambito coperto.</b> Monitoriamo le modifiche nell’ambito indicato sotto che inciderebbero sui nostri requisiti di certificazione.",
    "<b>Aggiornamenti dettati dalla regolamentazione.</b> Se una modifica nell’ambito coperto impone di cambiare il pacchetto agente standard, ricevi la release certificata risultante senza ulteriori costi di licenza.",
-   "<b>Un certificato verificabile.</b> Un Certificate ID che il tuo revisore, cliente o consiglio può verificare senza passare da te."
+   "<b>Un certificato verificabile.</b> Un ID certificato che il tuo revisore, cliente o consiglio può verificare senza passare da te."
   ],
   "exc_h": "Che cosa non include",
   "exc": [
@@ -423,8 +423,8 @@
   "per_year": "/ anno",
   "price_note": "L’annuale è fatturato come dieci mesi. L5 è prezzato per completezza; oggi non viene consegnato alcun pacchetto agente L5. I prezzi sono indicativi e confermati per iscritto prima dell’acquisto.",
   "verify_h": "Verifica un certificato",
-  "verify_p": "Chiunque abbia un Certificate ID può verificare che cosa copre e se è attualmente attivo. La verifica non restituisce alcun dato personale del titolare.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Chiunque abbia un ID certificato può verificare che cosa copre e se è attualmente attivo. La verifica non restituisce alcun dato personale del titolare.",
+  "verify_label": "ID del certificato",
   "verify_btn": "Verifica",
   "f_terms": "Termini",
   "f_licence": "Licenza",
@@ -449,7 +449,7 @@
    "<b>Aktywny status certyfikacji.</b> Zakupiona wersja figuruje jako aktualny Colleague AI Certified Release przez cały czas trwania subskrypcji.",
    "<b>Monitorowanie objętego zakresu.</b> Śledzimy zmiany w zakresie wskazanym poniżej, które wpłynęłyby na nasze własne wymogi certyfikacyjne.",
    "<b>Aktualizacje wymuszone regulacją.</b> Jeśli zmiana w objętym zakresie wymaga modyfikacji standardowego pakietu agenta, otrzymujesz powstałe certyfikowane wydanie bez dodatkowej opłaty licencyjnej.",
-   "<b>Weryfikowalny certyfikat.</b> Certificate ID, które Twój audytor, klient lub zarząd sprawdzi bez Twojego udziału."
+   "<b>Weryfikowalny certyfikat.</b> Identyfikator certyfikatu, który Twój audytor, klient lub zarząd sprawdzi bez Twojego udziału."
   ],
   "exc_h": "Czego nie obejmuje",
   "exc": [
@@ -495,8 +495,8 @@
   "per_year": "/ rok",
   "price_note": "Cena roczna jest naliczana jak dziesięć miesięcy. L5 wyceniono dla kompletności; obecnie nie jest dostarczany żaden pakiet agenta L5. Ceny są orientacyjne i potwierdzane pisemnie przed zakupem.",
   "verify_h": "Zweryfikuj certyfikat",
-  "verify_p": "Każdy, kto ma Certificate ID, może sprawdzić, co obejmuje i czy jest obecnie aktywny. Sprawdzenie nie zwraca żadnych danych osobowych posiadacza.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Każdy, kto ma identyfikator certyfikatu, może sprawdzić, co obejmuje i czy jest obecnie aktywny. Sprawdzenie nie zwraca żadnych danych osobowych posiadacza.",
+  "verify_label": "Identyfikator certyfikatu",
   "verify_btn": "Zweryfikuj",
   "f_terms": "Regulamin",
   "f_licence": "Licencja",
@@ -521,7 +521,7 @@
    "<b>Estado de certificação ativo.</b> A versão que comprou fica listada como Colleague AI Certified Release atual enquanto a subscrição estiver ativa.",
    "<b>Monitorização do âmbito abrangido.</b> Acompanhamos as alterações no âmbito indicado abaixo que afetariam os nossos próprios requisitos de certificação.",
    "<b>Atualizações motivadas pela regulação.</b> Se uma alteração no âmbito abrangido obrigar a mudar o pacote de agente padrão, recebe a versão certificada resultante sem mais nenhuma taxa de licença.",
-   "<b>Um certificado verificável.</b> Um Certificate ID que o seu auditor, cliente ou conselho pode verificar sem passar por si."
+   "<b>Um certificado verificável.</b> Um ID de certificado que o seu auditor, cliente ou conselho pode verificar sem passar por si."
   ],
   "exc_h": "O que não inclui",
   "exc": [
@@ -567,8 +567,8 @@
   "per_year": "/ ano",
   "price_note": "O anual é faturado como dez meses. O L5 tem preço por completude; hoje não é entregue nenhum pacote de agente L5. Os preços são indicativos e confirmados por escrito antes da compra.",
   "verify_h": "Verificar um certificado",
-  "verify_p": "Quem tiver um Certificate ID pode verificar o que abrange e se está atualmente ativo. A verificação não devolve quaisquer dados pessoais do titular.",
-  "verify_label": "Certificate ID",
+  "verify_p": "Quem tiver um ID de certificado pode verificar o que abrange e se está atualmente ativo. A verificação não devolve quaisquer dados pessoais do titular.",
+  "verify_label": "ID do certificado",
   "verify_btn": "Verificar",
   "f_terms": "Termos",
   "f_licence": "Licença",
