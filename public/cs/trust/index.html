@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI certifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-classified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","description":"The trust layer for enterprise AI. Colleague AI classifies AI agents against the CAI Score, a five-tier risk classification framework, and ships pre-classified, audit-ready agents that run in the client's own environment.","logo":"https://www.colleagueai.ai/logo.svg"}</script>
 <style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
@@ -482,7 +482,7 @@ display: flex !important;
     </nav>
   </div>
   <nav class="cai-hdr-mnav" id="caihdrm">
-    <a href="/cs/agenti">Katalog</a><a href="/score">CAI Score</a><a href="/pricing">Ceník</a><a href="/cs/duvera">Trust</a><a href="/cs/partneri">Partners</a><a href="/cs/kontakt">Kontakt</a>
+    <a href="/cs/agenti">Katalog</a><a href="/score">CAI Score</a><a href="/pricing">Ceník</a><a href="/cs/duvera">Důvěra</a><a href="/cs/partneri">Partneři</a><a href="/cs/kontakt">Kontakt</a>
   </nav>
 </header>
 <!-- cai-site-header:end -->
@@ -500,17 +500,17 @@ display: flex !important;
 </section>
 <main>
 <nav class="crumb"><a href="/cs/agenti">← Agent Katalog</a></nav>
-<div class="eyebrow">Centrum důvěry · Verify us, don't take our word</div>
+<div class="eyebrow">Centrum důvěry · Ověřte si nás, neberte nás za slovo</div>
 <h1>Důkazy na jednom místě.</h1>
 <p>V kategorii postavené na důvěře byste si nás raději měli ověřit. Tato stránka shromažďuje, co dnes můžeme ukázat: jak CAI Score funguje, kde agenti běží, jaká data zpracováváme a jaká ne, kdo jsou naši zpracovatelé a jak nás kontaktovat ohledně bezpečnosti. Kde něco zatím nemáme (atestaci třetí strany, veřejnou zákaznickou referenci) říkáme to, místo abychom naznačovali opak.</p>
 
 <h2 id="governance">Metodika CAI Score</h2>
-<p>CAI Score je certifikační rámec pro AI agenty: pětistupňová klasifikace rizik, která přesně definuje, kolik agent dělá sám a kde zůstává odpovědný jmenovaný člověk, a poté to doloží pro audit. Čtěte zdola nahoru: čím vyšší stupeň, tím více agent smí dělat a tím více lidského dohledu, protokolování a odpovědnosti rámec kolem něj zabuduje.</p>
+<p>CAI Score je klasifikační rámec pro AI agenty: pětistupňová klasifikace rizik, která přesně definuje, kolik agent dělá sám a kde zůstává odpovědný jmenovaný člověk, a poté to doloží pro audit. Čtěte zdola nahoru: čím vyšší stupeň, tím více agent smí dělat a tím více lidského dohledu, protokolování a odpovědnosti rámec kolem něj zabuduje.</p>
 <h3>L1 · Asistuje</h3><p>Informuje a odpovídá. Neprovádí žádnou akci a nemění žádný záznam. Práci dělá člověk; agent ji jen zrychluje při hledání a porozumění. Role člověka: dělá vše.</p>
 <h3>L2 · Navrhuje</h3><p>Vytváří pracovní výstup (dokument, dotaz, zprávu, oslovovací zprávu) k revizi a schválení člověkem. Nic, co agent vytvoří, se nepoužije, dokud to osoba neschválí. Role člověka: reviduje &amp; schvaluje.</p>
 <h3>L3 · Operuje</h3><p>Provádí rutinní akce s nízkým rizikem v ohraničeném workflow, klasifikovat, směrovat, vyřídit, protokolovat. Výjimky a cokoli neobvyklého se předává člověku. Každá akce má časové razítko. Role člověka: řeší výjimky.</p>
 <h3>L4 · Rozhoduje (pod dohledem)</h3><p>Podporuje rozhodnutí a kontroly v procesech s vyšším rizikem, compliance, smlouvy, bezpečnost, čtyři oči. Jmenovaný člověk zůstává odpovědný za rozhodnutí; agent ho podporuje a dokládá. Postaveno pro kontrolu vysoce rizikových procesů. Role člověka: zůstává odpovědný.</p>
-<h3>L5 · Autonomní</h3><p>Jedná nezávisle v pevných, předem schválených mantinelech. Vyhrazeno pro nejvyšší úroveň certifikace, a dnes je nevyužívá žádný agent v tomto katalogu. Role člověka: nastavuje mantinely.</p>
+<h3>L5 · Autonomní</h3><p>Jedná nezávisle v pevných, předem schválených mantinelech. Vyhrazeno pro nejvyšší úroveň klasifikace, a dnes je nevyužívá žádný agent v tomto katalogu. Role člověka: nastavuje mantinely.</p>
 <p class="note">Aktuální katalog je dodáván na stupních L2-L4. Agenti L4 vyžadují před spuštěním souhlas vedení. Klasifikace přiděluje Colleague AI v rámci tohoto rámce; zatím není zapojen žádný externí posuzovatel a netvrdíme, že máme atestace třetích stran, které nemáme.</p>
 
 <h2 id="data">Architektura: kde agenti běží a kde zůstávají data</h2>
@@ -526,7 +526,7 @@ display: flex !important;
 </div>
 <h3>Co tato webová stránka sama zpracovává</h3>
 <ul>
-<li><strong>Živé demo</strong> (/demo): not currently available. Interaktivní demo bylo staženo, takže tento web neodesílá žádné zprávy poskytovateli AI.</li>
+<li><strong>Rezervace dema</strong> (/demo): rezervační formulář (e-mail, společnost, pozice, oblasti zájmu, preferované datum a časové pásmo), který nám přijde e-mailem přes Resend a uchováváme jej nejvýše dvanáct měsíců. Interaktivní AI demo bylo staženo, takže tento web neposílá žádné zprávy poskytovateli AI.</li>
 <li><strong>Nákupy</strong>: platba je plně zpracována přes Stripe; nikdy nevidíme údaje o kartě. Po nákupu ukládáme váš e-mail, slugy licencovaných agentů a ID relace Stripe, abychom vám mohli uvolnit stažení.</li>
 <li><strong>Stahování</strong>: balíčky agentů jsou doručovány prostřednictvím podepsaných, časově omezených URL (platnost 15 minut).</li>
 <li><strong>Kalkulačka ROI &amp; kontrola připravenosti</strong>: běží zcela ve vašem prohlížeči; nic se neodesílá ani neukládá.</li>
@@ -535,7 +535,7 @@ display: flex !important;
 
 <h2>Subdodavatelé zpracování</h2>
 <table>
-<tr><th>Provider</th><th>Účel</th><th>Zapojená data</th></tr>
+<tr><th>Poskytovatel</th><th>Účel</th><th>Zapojená data</th></tr>
 <tr><td>Vercel</td><td>Hosting webu, edge síť, webová analytika</td><td>Standardní protokoly požadavků, anonymní metriky používání</td></tr>
 <tr><td>Stripe</td><td>Zpracování plateb</td><td>Platební údaje (uchovává Stripe), e-mail kupujícího</td></tr>
 <tr><td>Upstash</td><td>Úložiště klíč-hodnota pro oprávnění a partnerské záznamy</td><td>E-mail kupujícího, slugy licencovaných agentů, partnerské kódy</td></tr>
