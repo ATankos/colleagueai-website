@@ -40,8 +40,8 @@ const localeFiles = () => {
 
 // visible text only: script/style bodies and attributes are not what a reader sees
 const visible = (html) => html
-  .replace(/<script[\s\S]*?<\/script>/g, ' ')
-  .replace(/<style[\s\S]*?<\/style>/g, ' ')
+  .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+  .replace(/<style[\s\S]*?<\/style>/gi, ' ')
   .replace(/<[^>]+>/g, ' ');
 
 test('the built site exists (run npm run build first)', () => {
