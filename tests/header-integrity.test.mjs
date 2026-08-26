@@ -24,7 +24,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { join } from 'node:path';
+import { join, sep } from 'node:path';
 
 const DIST = fileURLToPath(new URL('../dist', import.meta.url));
 const LOCALES = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
@@ -61,7 +61,11 @@ const countOpen = (html, tag) => {
 };
 const countClose = (html, tag) => html.split(`</${tag}>`).length - 1;
 
-const rel = (p) => p.slice(DIST.length + 1);
+// Normalised to forward slashes: path.join gives "cs\\agents.html" on Windows,
+// so a rel(p).startsWith('cs/') filter matched nothing there and the locale
+// comparison silently ran over an empty set. Green on CI's ubuntu, red only
+// on a Windows checkout - the worst way round.
+const rel = (p) => p.slice(DIST.length + 1).split(sep).join('/');
 
 test('every header opens and closes the same number of navs and divs', () => {
   const bad = [];
