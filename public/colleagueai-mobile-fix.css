@@ -503,6 +503,26 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 #cainavDrawer.cai-open, .cainav-drawer.cai-open { display: block !important; }
 
 
+
+
+/* === Imprint full-width viewport layout === */
+body.cai-imprint-page {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+body.cai-imprint-page > main {
+  width: 100% !important;
+  max-width: 800px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 32px 20px !important;
+  box-sizing: border-box !important;
+}
+
 /* === Unified header on non-landing pages (matches the landing bar) === */
 .cai-uni-header{position:sticky;top:0;z-index:50;background:rgba(34,33,31,.97);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
 .cai-uni-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:64px;max-width:1200px;margin:0 auto;padding:0 20px}
@@ -522,7 +542,7 @@ header .logo, header .cai-hdr-logo, header .logo-text { white-space: nowrap !imp
 .cai-uni-mnav .cai-uni-demo{margin-top:12px;text-align:center;padding:13px;border-bottom:none}
 .cai-uni-mlang{padding-top:14px}
 .cai-uni-mlang .cai-uni-lang{width:100%;min-height:44px;font-size:16px}
-@media (max-width:860px){ .cai-uni-links{display:none} .cai-uni-burger{display:flex} }
+@media (max-width:1120px){ .cai-uni-links{display:none} .cai-uni-burger{display:flex} }
 
 
 /* Design consistency: primary buttons use the terracotta accent everywhere */
