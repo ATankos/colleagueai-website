@@ -252,21 +252,23 @@ test('the CAI Score itself is still never called a certification, in any languag
        strip the approved programme copy: its translated sentences legitimately
        carry the stem in seven languages (the pay_cert* dictionary values and the
        #pay-cert-note paragraph). What is left must be clean. */
-    const PROGRAMME_KEY = '(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*';
+    /* Literal patterns, not constructed ones: a RegExp assembled from a string is
+       a regex-injection question even when the string is a local constant, and
+       these never vary. */
     let html = read(p)
       .replace(/<!--[\s\S]*?-->/g, ' ')                                    // HTML comments
       .replace(/^\s*\/\/.*$/gm, ' ')                                       // JS line comments
       .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
       // the URL-locale controller embeds i18n.routes.json, so the localized SLUGS
       // (certifikace, zertyfikacja, …) appear as routing data, not as copy
-      .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script>/g, ' ')
+      .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script>/gi, ' ')
       // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
       .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
-      .replace(new RegExp(`"${PROGRAMME_KEY}":"(\\\\.|[^"\\\\])*"`, 'g'), ' ')  // programme dictionary values
+      .replace(/"(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*":"(\\.|[^"\\])*"/g, ' ')
       // the programme's own visible copy: every element bound to one of its keys
-      .replace(new RegExp(`<([a-z]+)[^>]*data-i18n(?:-html|-cai)?="${PROGRAMME_KEY}"[^>]*>[\\s\\S]*?<\\/\\1>`, 'g'), ' ')
-      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p>/g, ' ')
-      .replace(new RegExp(`data-i18n(?:-html|-cai)?="${PROGRAMME_KEY}"`, 'g'), ' ');
+      .replace(/<([a-z]+)[^>]*data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p>/gi, ' ')
+      .replace(/data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"/g, ' ');
     for (const ok of CERT_PROGRAMME_OK) html = html.split(ok).join(' ');
     for (const ok of ['Certified Release', 'Certified — Active', 'certified release']) {
       html = html.split(ok).join(' ');
@@ -292,10 +294,12 @@ test('every page that publishes the company ID also publishes the VAT ID', () =>
     if (!html.includes(ICO)) continue;
     assert.ok(html.includes(DIC), `${p} publishes the IČO but not the DIČ`);
     // every rendered IČO must have the DIČ within reach, not just once on the page
-    // [\s\S] not . — these pages put the two rows on separate lines
-    const orphan = [...html.matchAll(new RegExp(`[\\s\\S]{0,60}${ICO}[\\s\\S]{0,140}`, 'g'))]
-      .map((m) => m[0])
-      .filter((ctx) => !ctx.includes(DIC));
+    // plain index scanning: no regex built from data, and no backtracking
+    const orphan = [];
+    for (let at = html.indexOf(ICO); at !== -1; at = html.indexOf(ICO, at + 1)) {
+      const ctx = html.slice(Math.max(0, at - 60), at + ICO.length + 140);
+      if (!ctx.includes(DIC)) orphan.push(ctx);
+    }
     assert.deepEqual(orphan, [], `${p} has an IČO with no DIČ beside it: ${orphan[0]?.slice(0, 90)}`);
   }
 });
@@ -351,7 +355,7 @@ test('each locale serves pricing on its own slug with matching lang and canonica
   for (const loc of LOCALES) {
     const html = read(`${loc}/pricing.html`);
     const htmlTag = html.match(/<html\b[^>]*>/)[0];
-    assert.match(htmlTag, new RegExp(`lang="${loc}"`), `${loc}: wrong lang attribute -> ${htmlTag}`);
+    assert.ok(htmlTag.includes(`lang="${loc}"`), `${loc}: wrong lang attribute -> ${htmlTag}`);
     assert.equal((html.match(/<link rel="canonical"/g) || []).length, 1, `${loc}: expected exactly one canonical`);
     assert.ok(html.includes(`https://www.colleagueai.ai${pricingPath(loc)}`), `${loc}: canonical does not use the localised slug`);
     assert.ok(html.includes('hreflang="x-default"'), `${loc}: hreflang block missing`);

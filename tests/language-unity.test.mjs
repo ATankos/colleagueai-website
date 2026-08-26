@@ -98,7 +98,7 @@ test('each certification page is wholly in its own language, and self-canonical'
     const html = readFileSync(join(DIST, loc, 'certified.html'), 'utf8');
     const slug = ROUTES.slugs.certified[loc];
 
-    assert.match(html, new RegExp(`<html lang="${loc}"`), `${loc}/certified declares the wrong language`);
+    assert.ok(html.includes(`<html lang="${loc}"`), `${loc}/certified declares the wrong language`);
     assert.ok(html.includes(`canonical" href="https://www.colleagueai.ai/${loc}/${slug}"`),
       `${loc}/certified does not point its canonical at its own localized URL`);
 

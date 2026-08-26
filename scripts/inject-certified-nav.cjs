@@ -31,32 +31,90 @@ const localeOf = (rel) => {
   return LOCALES.includes(first) ? first : 'en';
 };
 
-const esc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+/* Deliberately NO regular expressions below.
+ *
+ * The first version scanned for the Pricing anchor with a RegExp built from the
+ * locale's URL, inside a <nav>...</nav> match. CodeQL was right to object: a
+ * pattern assembled from data is a regex-injection question however carefully it
+ * is escaped, and `([^>]*?)href="..."` followed by `[^>]*>` backtracks
+ * polynomially on any tag that does not match. Plain indexOf scanning has none
+ * of those properties, is linear, and is easier to be sure about.
+ */
+
+/** The <a ...>...</a> whose OPENING TAG contains `pos` (an href sits there), or null. */
+function anchorAround(html, pos) {
+  // walk back over any `<a` that is really `<article`, `<aside`, …
+  let open = html.lastIndexOf('<a', pos);
+  while (open !== -1) {
+    const after = html[open + 2];
+    if (after === ' ' || after === '\t' || after === '\n' || after === '>') break;
+    open = html.lastIndexOf('<a', open - 1);
+  }
+  if (open === -1) return null;
+
+  const gt = html.indexOf('>', open);
+  if (gt === -1 || pos > gt) return null;   // href must be inside this opening tag
+  const close = html.indexOf('</a>', gt);
+  if (close === -1) return null;
+  return { start: open, tagEnd: gt, end: close + 4 };
+}
+
+/** value of class="..." on the opening tag, or '' */
+function classOf(html, a) {
+  const tag = html.slice(a.start, a.tagEnd + 1);
+  const at = tag.indexOf('class="');
+  if (at === -1) return '';
+  const from = at + 'class="'.length;
+  const to = tag.indexOf('"', from);
+  return to === -1 ? '' : tag.slice(from, to);
+}
+
+/** every <nav ...>...</nav> span, as [start, end) index pairs */
+function navSpans(html) {
+  const spans = [];
+  let i = 0;
+  for (;;) {
+    const open = html.indexOf('<nav', i);
+    if (open === -1) break;
+    const after = html[open + 4];
+    if (after !== ' ' && after !== '\t' && after !== '\n' && after !== '>') { i = open + 4; continue; }
+    const close = html.indexOf('</nav>', open);
+    if (close === -1) break;
+    spans.push([open, close + '</nav>'.length]);
+    i = close + 1;
+  }
+  return spans;
+}
 
 function inject(html, loc) {
   const certHref = url(loc, 'certified');
-  const label = C[loc]?.nav || C.en.nav;
-  // Both the localized pricing path and the English one: some locale pages still
-  // carry /pricing where the localizer has not rewritten the href.
+  const label = (C[loc] && C[loc].nav) || C.en.nav;
+  // the localized pricing path, and the English one for locale pages whose href
+  // the localizer has not rewritten
   const targets = [...new Set([url(loc, 'pricing'), '/pricing'])];
 
   let out = html;
   let added = 0;
 
-  out = out.replace(/<nav\b[^>]*>[\s\S]*?<\/nav>/g, (nav) => {
-    if (nav.includes(`href="${certHref}"`)) return nav;          // already there
+  // Right-to-left, so an insertion never shifts the spans still to be processed.
+  const spans = navSpans(out);
+  for (let s = spans.length - 1; s >= 0; s -= 1) {
+    const [navStart, navEnd] = spans[s];
+    const nav = out.slice(navStart, navEnd);
+    if (nav.indexOf(`href="${certHref}"`) !== -1) continue;   // already there
+
     for (const target of targets) {
-      const re = new RegExp(`(<a\\b([^>]*?)href="${esc(target)}"[^>]*>[\\s\\S]*?<\\/a>)`);
-      const m = nav.match(re);
-      if (!m) continue;
-      // reuse the sibling's class so the item inherits the nav's own styling
-      const cls = (m[0].match(/class="([^"]*)"/) || [, ''])[1];
-      const clsAttr = cls ? ` class="${cls}"` : '';
+      const at = nav.indexOf(`href="${target}"`);
+      if (at === -1) continue;
+      const a = anchorAround(nav, at);
+      if (!a) continue;
+      const cls = classOf(nav, a);
+      const item = `<a${cls ? ` class="${cls}"` : ''} href="${certHref}">${label}</a>`;
+      out = out.slice(0, navStart + a.end) + item + out.slice(navStart + a.end);
       added += 1;
-      return nav.replace(re, `$1<a${clsAttr} href="${certHref}">${label}</a>`);
+      break;
     }
-    return nav;
-  });
+  }
 
   return { out, added };
 }
@@ -71,10 +129,10 @@ const walk = (dir) => {
     if (!name.endsWith('.html')) continue;
     const rel = path.relative(DIST, p);
     const html = fs.readFileSync(p, 'utf8');
-    if (!/<nav\b/.test(html)) continue;
+    if (html.indexOf('<nav') === -1) continue;
     // never add a self-link: the certification page's own breadcrumb already
     // sits on the destination, and a crumb that links to itself reads as a bug
-    if (/(^|\/)certified\.html$/.test(rel.split(path.sep).join('/'))) continue;
+    if (rel.split(path.sep).join('/').endsWith('certified.html')) continue;
     const { out, added } = inject(html, localeOf(rel));
     if (added) { fs.writeFileSync(p, out, 'utf8'); files += 1; items += added; }
   }
