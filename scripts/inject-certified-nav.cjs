@@ -121,21 +121,37 @@ function inject(html, loc) {
 
 let files = 0;
 let items = 0;
+
+/* No stat-then-read, and no exists-then-walk.
+ *
+ * `statSync(p)` followed by `readFileSync(p)` asks the filesystem about a path
+ * twice and assumes the second answer matches the first — the classic
+ * time-of-check/time-of-use shape, which CodeQL flags. Here it is also simply
+ * wasteful: readdirSync already knows whether each entry is a directory, so
+ * withFileTypes gets the same answer for free and leaves exactly one syscall
+ * per path. A missing dist/ is handled the same way — by trying, not by asking
+ * first.
+ */
 const walk = (dir) => {
-  for (const name of fs.readdirSync(dir)) {
-    const p = path.join(dir, name);
-    const st = fs.statSync(p);
-    if (st.isDirectory()) { walk(p); continue; }
-    if (!name.endsWith('.html')) continue;
+  let entries;
+  try {
+    entries = fs.readdirSync(dir, { withFileTypes: true });
+  } catch {
+    return; // no dist/ yet, or not a directory: nothing to inject into
+  }
+  for (const entry of entries) {
+    const p = path.join(dir, entry.name);
+    if (entry.isDirectory()) { walk(p); continue; }
+    if (!entry.name.endsWith('.html')) continue;
     const rel = path.relative(DIST, p);
-    const html = fs.readFileSync(p, 'utf8');
-    if (html.indexOf('<nav') === -1) continue;
     // never add a self-link: the certification page's own breadcrumb already
     // sits on the destination, and a crumb that links to itself reads as a bug
     if (rel.split(path.sep).join('/').endsWith('certified.html')) continue;
+    const html = fs.readFileSync(p, 'utf8');
+    if (html.indexOf('<nav') === -1) continue;
     const { out, added } = inject(html, localeOf(rel));
     if (added) { fs.writeFileSync(p, out, 'utf8'); files += 1; items += added; }
   }
 };
-if (fs.existsSync(DIST)) walk(DIST);
+walk(DIST);
 console.log(`[certified-nav] ${items} menu item(s) inserted across ${files} page(s)`);

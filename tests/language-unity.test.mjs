@@ -13,7 +13,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 
@@ -25,24 +25,93 @@ const LOCALES = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const localeFiles = () => {
   const out = [];
   const walk = (dir, loc) => {
-    for (const name of readdirSync(dir)) {
-      const p = join(dir, name);
-      if (statSync(p).isDirectory()) { walk(p, loc); continue; }
-      if (name.endsWith('.html')) out.push([loc, p]);
+    let entries;
+    try {
+      entries = readdirSync(dir, { withFileTypes: true });
+    } catch {
+      return; // not built, or not a directory
+    }
+    for (const entry of entries) {
+      const p = join(dir, entry.name);
+      if (entry.isDirectory()) { walk(p, loc); continue; }
+      if (entry.name.endsWith('.html')) out.push([loc, p]);
     }
   };
-  for (const loc of LOCALES) {
-    const d = join(DIST, loc);
-    if (existsSync(d)) walk(d, loc);
-  }
+  for (const loc of LOCALES) walk(join(DIST, loc), loc);
   return out;
 };
 
-// visible text only: script/style bodies and attributes are not what a reader sees
-const visible = (html) => html
-  .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-  .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-  .replace(/<[^>]+>/g, ' ');
+/* Markup is scanned here, never matched with a regular expression.
+ *
+ * /<script[\s\S]*?<\/script>/ looks obviously right and is not: HTML allows
+ * whitespace inside an end tag, so `</script >` slips past the filter and the
+ * whole script body lands in the "visible text" these assertions read — which
+ * is how a checker starts passing for the wrong reason. CodeQL flags exactly
+ * this shape (Bad HTML filtering regexp). An index scan has no such blind
+ * spot, is linear, and is easier to be sure about.
+ */
+const isNameChar = (c) => (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
+const isSpace = (c) => c === ' ' || c === '\t' || c === '\n' || c === '\r' || c === '\f';
+
+/** lowercase tag name of the tag starting at `lt`, or '' when it is not a tag */
+const tagNameAt = (lc, lt) => {
+  let j = lt + 1;
+  if (lc[j] === '/') j += 1;
+  let name = '';
+  while (j < lc.length && isNameChar(lc[j])) { name += lc[j]; j += 1; }
+  return name;
+};
+
+/** index just past `</name>`, tolerating `</name >` and any case; -1 if absent */
+const endTagAfter = (lc, name, from) => {
+  const close = `</${name}`;
+  for (let j = lc.indexOf(close, from); j !== -1; j = lc.indexOf(close, j + 1)) {
+    let k = j + close.length;
+    while (k < lc.length && isSpace(lc[k])) k += 1;
+    if (lc[k] === '>') return k + 1;
+  }
+  return -1;
+};
+
+/** outer HTML of every <name ...>…</name> element, in document order */
+const elements = (html, name) => {
+  const lc = html.toLowerCase();
+  const found = [];
+  for (let lt = lc.indexOf(`<${name}`); lt !== -1; lt = lc.indexOf(`<${name}`, lt + 1)) {
+    if (tagNameAt(lc, lt) !== name) continue; // <navbar> is not <nav>
+    const gt = html.indexOf('>', lt);
+    if (gt === -1) break;
+    const end = endTagAfter(lc, name, gt);
+    if (end === -1) continue;
+    found.push(html.slice(lt, end));
+  }
+  return found;
+};
+
+// visible text only: comments, script/style bodies and tags are not what a reader sees
+const visible = (html) => {
+  const lc = html.toLowerCase();
+  let out = '';
+  let i = 0;
+  while (i < html.length) {
+    const lt = html.indexOf('<', i);
+    if (lt === -1) { out += html.slice(i); break; }
+    out += html.slice(i, lt);
+    if (html.startsWith('<!--', lt)) {
+      const close = html.indexOf('-->', lt + 4);
+      out += ' ';
+      i = close === -1 ? html.length : close + 3;
+      continue;
+    }
+    const gt = html.indexOf('>', lt);
+    if (gt === -1) break; // a stray '<' with no tag after it
+    const name = tagNameAt(lc, lt);
+    const end = name === 'script' || name === 'style' ? endTagAfter(lc, name, gt) : -1;
+    out += ' ';
+    i = end === -1 ? gt + 1 : end;
+  }
+  return out;
+};
 
 test('the built site exists (run npm run build first)', () => {
   assert.ok(existsSync(DIST), 'dist/ not found — this suite reads the built site');
@@ -151,7 +220,7 @@ test('a localized menu never links an English destination for a localized page',
   const bad = [];
   for (const [loc, p] of localeFiles()) {
     const html = readFileSync(p, 'utf8');
-    const navs = html.match(/<nav\b[^>]*>[\s\S]*?<\/nav>/g) || [];
+    const navs = elements(html, 'nav');
     for (const nav of navs) {
       if (nav.includes('href="/certified"')) bad.push(`${loc}:${p.split(loc + '/')[1]}`);
     }

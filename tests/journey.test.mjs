@@ -261,13 +261,13 @@ test('the CAI Score itself is still never called a certification, in any languag
       .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
       // the URL-locale controller embeds i18n.routes.json, so the localized SLUGS
       // (certifikace, zertyfikacja, …) appear as routing data, not as copy
-      .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script>/gi, ' ')
+      .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script\s*>/gi, ' ')
       // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
       .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
       .replace(/"(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*":"(\\.|[^"\\])*"/g, ' ')
       // the programme's own visible copy: every element bound to one of its keys
       .replace(/<([a-z]+)[^>]*data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"[^>]*>[\s\S]*?<\/\1>/gi, ' ')
-      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p>/gi, ' ')
+      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p\s*>/gi, ' ')
       .replace(/data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"/g, ' ');
     for (const ok of CERT_PROGRAMME_OK) html = html.split(ok).join(' ');
     for (const ok of ['Certified Release', 'Certified — Active', 'certified release']) {
