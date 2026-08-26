@@ -60,17 +60,29 @@ function checkFile(file, errors) {
     errors.push(`${file}: missing h1`);
   }
 
-  // Count anchors only. <link rel="alternate"> hreflang tags are required metadata
-  // (exactly one per locale on every page) and are not duplicated navigation, so
-  // counting them made this guard fire on pages that simply gained a nav entry.
+  // What this guard is for: a language switcher rendered more than once. What it
+  // used to count: every anchor whose href carried ANY locale prefix, the page's
+  // own included. On /pl/agents that is 38 links to /pl/... — the page's ordinary
+  // navigation, and the more correctly it is localized the closer it creeps to
+  // the limit. Measured across the built site, foreign-locale anchors are zero
+  // everywhere; the number that kept rising was never switcher duplication.
+  //
+  // So count only links that leave the page's own language. A switcher offers
+  // every other locale, so one copy is (locales - 1) foreign links; the limit
+  // below tolerates a header and a footer copy and catches a third.
+  // (Today the switcher is a <select>, which has no anchors at all — this guard
+  // fires only if one is ever rendered as links again.)
+  const own = locales.find((l) => file.split(path.sep).includes(l)) || "en";
   const anchorsOnly = html.replace(/<link\b[^>]*>/gi, "");
-  const languageHrefCount = locales.reduce((sum, locale) => {
+  const foreignLanguageHrefs = locales.reduce((sum, locale) => {
+    if (locale === own) return sum;
     const re = new RegExp(`href=["'][^"']*\\/${locale}(\\/|["'#?])`, "gi");
     return sum + (anchorsOnly.match(re) || []).length;
   }, 0);
 
-  if (languageHrefCount > 30) {
-    errors.push(`${file}: possible duplicated language links (${languageHrefCount})`);
+  const LIMIT = 2 * (locales.length - 1);
+  if (foreignLanguageHrefs > LIMIT) {
+    errors.push(`${file}: possible duplicated language switcher (${foreignLanguageHrefs} links to other languages, limit ${LIMIT})`);
   }
 }
 

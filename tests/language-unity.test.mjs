@@ -249,16 +249,34 @@ test('Certification sits in the main menu of every page that has one, in the rig
   }
 });
 
-test('a localized menu never links an English destination for a localized page', () => {
+test('no localized page links an English destination', () => {
+  /* This started as a certification-only check, which is why it passed while
+     1,169 other links were wrong: the menu on /pl/zaufanie said "Cennik" and
+     pointed at /pricing, and the body CTAs did the same for Score, Catalogue,
+     Trust, Partners and Demo, in all seven languages. Nothing redirected them —
+     the URL-locale controller treats the path as the single source of truth —
+     so a Polish reader clicking a Polish label simply arrived in English.
+     Every one of those destinations already existed under its own locale. */
+  const ENGLISH_ROUTES = ['/agents', '/pricing', '/trust', '/partners',
+    '/certified', '/score', '/demo', '/contact'];
   const bad = [];
   for (const [loc, p] of localeFiles()) {
     const html = readFileSync(p, 'utf8');
-    const navs = elements(html, 'nav');
-    for (const nav of navs) {
-      if (nav.includes('href="/certified"')) bad.push(`${loc}:${p.split(loc + '/')[1]}`);
+    for (const route of ENGLISH_ROUTES) {
+      for (const needle of [`href="${route}"`, `href="${route}/"`]) {
+        if (html.includes(needle)) bad.push(`${loc}:${p.split(loc + '/')[1]} → ${route}`);
+      }
     }
   }
-  assert.deepEqual(bad, [], 'localized navs pointing at the English certification page: ' + bad.slice(0, 5).join(', '));
+  assert.deepEqual(bad, [], `${bad.length} localized links landing on English pages, e.g. ` + bad.slice(0, 5).join(', '));
+});
+
+test('the English site still links English destinations', () => {
+  // the rewrite must be locale-scoped: dist/*.html at the root is the English site
+  const html = readFileSync(join(DIST, 'trust.html'), 'utf8');
+  for (const route of ['/agents', '/pricing', '/score', '/certified']) {
+    assert.ok(html.includes(`href="${route}"`), `the English trust page lost its ${route} link`);
+  }
 });
 
 test('every localized certification route is served by a rewrite', () => {
