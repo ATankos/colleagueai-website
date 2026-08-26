@@ -40,7 +40,7 @@
     "qa:backtop": "npm run build && node scripts/run-playwright-static.cjs tests/e2e/back-to-top.spec.ts",
     "qa:e2e": "npm run ci:e2e",
     "test:e2e": "npm run ci:e2e",
-    "postbuild": "node scripts/dedupe-sitemap.cjs && node scripts/inject-fixed-backtop.cjs && node scripts/finalize-home.cjs && node scripts/apply-mobile-fix.cjs && node scripts/slim-locale-payloads.cjs && node scripts/externalize-inline-scripts.cjs && node scripts/enable-checkout-preview.cjs",
+    "postbuild": "node scripts/dedupe-sitemap.cjs && node scripts/inject-fixed-backtop.cjs && node scripts/finalize-home.cjs && node scripts/apply-mobile-fix.cjs && node scripts/slim-locale-payloads.cjs && node scripts/generate-certified-pages.cjs && node scripts/inject-certified-nav.cjs && node scripts/externalize-inline-scripts.cjs && node scripts/enable-checkout-preview.cjs",
     "ci:e2e": "npm run build && node scripts/run-playwright-static.cjs tests/e2e/full-site-qa.spec.ts --project=chromium-desktop --workers=1 --reporter=line",
     "e2e:site": "playwright test tests/e2e/full-site-qa.spec.ts tests/e2e/back-to-top.spec.ts",
     "e2e:golive": "playwright test tests/e2e/golive.spec.js"

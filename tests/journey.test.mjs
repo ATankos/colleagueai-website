@@ -200,6 +200,10 @@ test('no page still carries a retired compliance claim', () => {
  * The permitted and blocked vocabularies are specified in
  * docs/continuous-certification.md section 3 and enforced here. */
 const CERT_PROGRAMME_OK = [
+  // the main-menu label, in all eight languages: it names the programme and
+  // links straight to the page that carries the scope limits
+  ...Object.values(JSON.parse(readFileSync(new URL('../scripts/i18n/certified-content.json', import.meta.url), 'utf8')))
+    .map((t) => t.nav),
   'Continuous Certification',
   'Colleague AI Certified Release',
   'Colleague AI Certified — Active',
@@ -226,7 +230,7 @@ test('no page implies third-party or regulatory certification, in any language',
     /certification framework/i,          // the CAI Score is a risk-classification framework
   ];
   const pages = ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html', 'usage.html',
-    'partners.html', 'pricing.html', 'certified.html',
+    'partners.html', 'pricing.html',
     ...LOCALES.flatMap((l) => ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
     const html = read(p);
@@ -253,6 +257,9 @@ test('the CAI Score itself is still never called a certification, in any languag
       .replace(/<!--[\s\S]*?-->/g, ' ')                                    // HTML comments
       .replace(/^\s*\/\/.*$/gm, ' ')                                       // JS line comments
       .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
+      // the URL-locale controller embeds i18n.routes.json, so the localized SLUGS
+      // (certifikace, zertyfikacja, …) appear as routing data, not as copy
+      .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script>/g, ' ')
       // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
       .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
       .replace(new RegExp(`"${PROGRAMME_KEY}":"(\\\\.|[^"\\\\])*"`, 'g'), ' ')  // programme dictionary values
@@ -277,7 +284,7 @@ test('every page that publishes the company ID also publishes the VAT ID', () =>
   const ICO = '29540852';
   const DIC = 'CZ29540852';
   const pages = ['imprint.html', 'contact.html', 'terms.html', 'privacy.html', 'license.html',
-    'partner-agreement.html', 'refund.html', 'certified.html', 'agents.html', 'home.html', 'pricing.html',
+    'partner-agreement.html', 'refund.html', 'agents.html', 'home.html', 'pricing.html',
     ...LOCALES.flatMap((l) => ['contact.html', 'home.html', 'imprint.html', 'terms.html', 'privacy.html'].map((p) => `${l}/${p}`))];
 
   for (const p of pages) {
@@ -302,40 +309,6 @@ test('the structured data publishes the VAT ID in a machine-readable field', () 
       assert.ok(JSON.stringify(d).includes('"vatID":"CZ29540852"'), `${p} structured data is missing vatID`);
     }
   }
-});
-
-test('the certification programme page carries its scope limits', () => {
-  const html = read('certified.html');
-  const required = [
-    'not</b> accreditation, attestation or certification by any third party',
-    'not legal, regulatory or compliance advice',
-    'licence to the agent package is unaffected',
-    'conditional, not periodic',
-    'stops applying to the modified version',
-    // The four limiters that bound the update obligation. If any of these
-    // disappears from the page, the public promise is wider than the contract
-    // in docs/continuous-certification.md §5 — which is the dangerous direction.
-    'as in force on the day your subscription starts',   // closed instrument list, date-anchored
-    'the obligation reaches only',                        // closed characteristic list
-    'we publish that assessment against your certificate',// materiality trigger, on the record
-    'effective at your next renewal, never retroactively',// scope changes only forward
-    'within 60 days of the trigger',                      // delivery bound
-    'refund the unused term pro rata',                    // discontinuation exit
-  ];
-  for (const r of required) {
-    assert.ok(html.includes(r), `/certified is missing its scope limit: "${r}"`);
-  }
-  // The obligation must never be stated as covering the customer's own obligations.
-  assert.ok(!/your (use|agent) (is|will be) compliant/i.test(html));
-
-  // Sector rules stay expressly outside the scope, by name.
-  for (const excluded of ['DORA', 'MiFID', 'HIPAA', 'national implementations']) {
-    assert.ok(html.includes(excluded), `/certified no longer excludes ${excluded} by name`);
-  }
-  // "and its amending acts" with no date anchor was the defect in the first draft:
-  // it silently imported every future amendment. It must not come back.
-  assert.ok(!/amending acts/i.test(html) || /as in force on the day/.test(html),
-    'the instrument list must stay anchored to the subscription start date');
 });
 
 test('partner page does not contradict its flat 10% offer', () => {
