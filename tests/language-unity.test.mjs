@@ -189,7 +189,10 @@ test('each certification page is wholly in its own language, and self-canonical'
        "Continuous Certification" contains it. */
     const shown = withoutNames(visible(html));
 
-    assert.ok(html.includes(`<html lang="${loc}"`), `${loc}/certified declares the wrong language`);
+    /* attribute order is not a contract: the page now inherits the site shell,
+       whose <html> tag carries data-cai-page before lang. Read the attribute. */
+    const declared = (html.match(/<html[^>]*\slang="([^"]+)"/) || [])[1];
+    assert.equal(declared, loc, `${loc}/certified declares lang="${declared}"`);
     assert.ok(html.includes(`canonical" href="https://www.colleagueai.ai/${loc}/${slug}"`),
       `${loc}/certified does not point its canonical at its own localized URL`);
 
