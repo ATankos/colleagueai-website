@@ -111,6 +111,23 @@ test('every language selector is wired to a handler the page actually loads', ()
 });
 
 test('every page of a locale shows the same menu', () => {
+  const stripTags = (input) => {
+    let out = '';
+    let inTag = false;
+    for (let i = 0; i < input.length; i++) {
+      const ch = input[i];
+      if (ch === '<') {
+        inTag = true;
+        continue;
+      }
+      if (ch === '>' && inTag) {
+        inTag = false;
+        continue;
+      }
+      if (!inTag) out += ch;
+    }
+    return out;
+  };
   const labels = (html) => {
     const open = html.indexOf('<nav');
     if (open === -1) return null;
@@ -122,7 +139,7 @@ test('every page of a locale shows the same menu', () => {
       const gt = nav.indexOf('>', i);
       const end = nav.indexOf('</a>', gt);
       if (gt === -1 || end === -1) break;
-      out.push(nav.slice(gt + 1, end).replace(/<[^>]*>/g, '').trim());
+      out.push(stripTags(nav.slice(gt + 1, end)).trim());
     }
     return out;
   };
