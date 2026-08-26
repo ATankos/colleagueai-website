@@ -406,6 +406,34 @@
             "destination": "/certified.html"
         },
         {
+            "source": "/cs/certifikace",
+            "destination": "/cs/certified.html"
+        },
+        {
+            "source": "/de/zertifizierung",
+            "destination": "/de/certified.html"
+        },
+        {
+            "source": "/fr/certification",
+            "destination": "/fr/certified.html"
+        },
+        {
+            "source": "/es/certificacion",
+            "destination": "/es/certified.html"
+        },
+        {
+            "source": "/it/certificazione",
+            "destination": "/it/certified.html"
+        },
+        {
+            "source": "/pl/certyfikacja",
+            "destination": "/pl/certified.html"
+        },
+        {
+            "source": "/pt/certificacao",
+            "destination": "/pt/certified.html"
+        },
+        {
             "source": "/verify",
             "destination": "/api/certificate"
         },

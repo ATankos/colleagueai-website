@@ -127,9 +127,12 @@ test('the partner worked example uses the current L4 price and its own 10%', () 
   assert.ok(html.includes('$' + (contract - commission).toLocaleString('en-US')), 'retained-revenue figure is stale');
 });
 
+// reads dist/, so run after `npm run build`
 test('the demo form and the certification page read from the config too', () => {
   assert.ok(read('src/Demo.jsx').includes("config/pricing.json"), 'Demo.jsx must not hard-code package prices');
-  const cert = read('public/certified.html');
+  // the certification page is generated for eight languages, so its prices are
+  // checked on the BUILT English page rather than a master that no longer exists
+  const cert = read('dist/certified.html');
   for (const [tier, v] of Object.entries(PRICING.tiers)) {
     assert.ok(cert.includes(usd(v.oneTimeCents)), `/certified is missing the ${tier} package price`);
     assert.ok(cert.includes(`$${dollars(v.monthlyCents)} / month`), `/certified is missing the ${tier} monthly price`);
@@ -138,7 +141,7 @@ test('the demo form and the certification page read from the config too', () => 
 
 test('no retired price survives anywhere in the English masters', () => {
   const retired = ['$27,000', '$40,500', '$4,500'];
-  const pages = ['agents.html', 'pricing.html', 'partners.html', 'home.html', 'score.html', 'certified.html'];
+  const pages = ['agents.html', 'pricing.html', 'partners.html', 'home.html', 'score.html'];
   for (const p of pages) {
     const html = read('public/' + p);
     for (const r of retired) {

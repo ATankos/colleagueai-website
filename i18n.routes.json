@@ -111,6 +111,16 @@
       "it": "partner-agreement",
       "pl": "partner-agreement",
       "pt": "partner-agreement"
+    },
+    "certified": {
+      "en": "certified",
+      "cs": "certifikace",
+      "de": "zertifizierung",
+      "fr": "certification",
+      "es": "certificacion",
+      "it": "certificazione",
+      "pl": "certyfikacja",
+      "pt": "certificacao"
     }
   }
 }
