@@ -88,7 +88,7 @@ test('the drawer presents the certified option as the recommended one, with its 
 
 test('the comparison copy exists in all eight languages', () => {
   const html = read('public/agents.html');
-  const dict = JSON.parse(html.match(/var I18N=(\{[\s\S]*?\});\n/)[1]);
+  const dict = JSON.parse(html.match(/var I18N=(\{[\s\S]*?\});\r?\n/)[1]);
   const keys = ['cert_rec', 'cert_lede', 'cert_col_a', 'cert_col_b', 'cert_a1', 'cert_a2', 'cert_a3', 'cert_a4',
     'cert_b1', 'cert_b2', 'cert_b3', 'cert_b4', 'cert_foot', 'card_onetime', 'card_permonth', 'card_certified'];
   for (const loc of ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
