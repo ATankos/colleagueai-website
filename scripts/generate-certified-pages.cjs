@@ -37,27 +37,108 @@ const href = (loc, page) => {
 };
 
 const STYLE = `
-body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
-main{max-width:780px;margin:0 auto;padding:48px 24px 80px}
-.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#C65D3A;text-decoration:none}
-.eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
-h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
-h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#8a857d;margin:38px 0 10px;text-transform:uppercase}
-ul{margin:6px 0 0;padding-left:20px}li{margin-bottom:6px}
-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
-th,td{text-align:left;padding:9px 10px;border-bottom:1px solid #d8d2c6}
-th{color:#8a857d;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
-.callout{background:#fff;border:1px solid #d8d2c6;border-radius:14px;padding:20px 22px;margin-top:14px}
-.callout.warn{background:#FBF2EE;border-color:#E4C7BA}
-.verify{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
-.verify input{flex:1 1 240px;padding:11px 14px;border:1px solid #d8d2c6;border-radius:10px;font-size:15px;font-family:ui-monospace,Consolas,monospace}
-.btn{display:inline-block;padding:11px 24px;border-radius:999px;text-decoration:none;font-size:14.5px;border:0;cursor:pointer}
-.btn-p{background:#1D1B1A;color:#F5F0E8}
-.vis-hidden{position:absolute;left:-9999px}
-.note{font-size:13.5px;color:#5c574f}
-footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
-footer a{color:#8a857d}
+.cai-cert .crumb{font-size:13px;margin-bottom:28px}.cai-cert .crumb a{color:#C65D3A;text-decoration:none}
+.cai-cert .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+.cai-cert h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
+.cai-cert h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#8a857d;margin:38px 0 10px;text-transform:uppercase}
+.cai-cert ul{margin:6px 0 0;padding-left:20px}.cai-cert li{margin-bottom:6px}
+.cai-cert table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
+.cai-cert th,.cai-cert td{text-align:left;padding:9px 10px;border-bottom:1px solid #d8d2c6}
+.cai-cert th{color:#8a857d;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.cai-cert .callout{background:#fff;border:1px solid #d8d2c6;border-radius:14px;padding:20px 22px;margin-top:14px}
+.cai-cert .callout.warn{background:#FBF2EE;border-color:#E4C7BA}
+.cai-cert .verify{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.cai-cert .verify input{flex:1 1 240px;padding:11px 14px;border:1px solid #d8d2c6;border-radius:10px;font-size:15px;font-family:ui-monospace,Consolas,monospace}
+.cai-cert .vis-hidden{position:absolute;left:-9999px}
+.cai-cert .note{font-size:13.5px;color:#5c574f}
+.cai-cert .cert-legal{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+.cai-cert .cert-legal a{color:#8a857d}
 `.trim();
+
+/* The page takes the site's shell and owns only what goes inside <main>.
+ *
+ * It used to be a document of its own: its own <head>, its own stylesheet, and
+ * no <header> at all — which is why it had no fixed menu bar and read as a
+ * different product from every page linking to it. A page cannot be asked to
+ * match the site and then be handed its own design.
+ *
+ * trust.html is the donor. It exists in every locale, it is a plain content
+ * page, and the same pipeline builds it — so this page cannot drift from the
+ * site's chrome unless trust.html drifts too, which nobody would miss.
+ */
+const shellFor = (loc) => fs.readFileSync(
+  loc === 'en' ? path.join(DIST, 'trust.html') : path.join(DIST, loc, 'trust.html'), 'utf8');
+
+/** replace the inner content of the first <tag>…</tag> */
+function replaceInner(html, tag, inner) {
+  const open = html.indexOf(`<${tag}`);
+  const gt = open === -1 ? -1 : html.indexOf('>', open);
+  const close = gt === -1 ? -1 : html.indexOf(`</${tag}`, gt);
+  if (close === -1) throw new Error(`the shell has no usable <${tag}> element`);
+  return html.slice(0, gt + 1) + inner + html.slice(close);
+}
+
+/** point an existing meta at a new value; one the shell does not carry is skipped */
+function setMeta(html, attr, key, value) {
+  const needle = `<meta ${attr}="${key}"`;
+  const at = html.indexOf(needle);
+  if (at === -1) return html;
+  const end = html.indexOf('>', at);
+  return `${html.slice(0, at)}<meta ${attr}="${key}" content="${value}">${html.slice(end + 1)}`;
+}
+
+/** the donor's structured data describes the trust page, not this one */
+function dropLdJson(html) {
+  const at = html.indexOf('<script type="application/ld+json">');
+  if (at === -1) return html;
+  const end = html.indexOf('</script>', at);
+  return html.slice(0, at) + html.slice(end + '</script>'.length);
+}
+
+/** swap the donor's contiguous hreflang + canonical block for this page's */
+function setLocaleLinks(html, block) {
+  const start = html.indexOf('<link rel="alternate" hreflang=');
+  const canon = start === -1 ? -1 : html.indexOf('<link rel="canonical"', start);
+  const end = canon === -1 ? -1 : html.indexOf('>', canon);
+  if (end === -1) throw new Error('the shell has no hreflang/canonical block to replace');
+  return html.slice(0, start) + block + html.slice(end + 1);
+}
+
+/* The built pages leave <main> unclosed and carry no <footer>: the content is a
+   run of <section>s that the browser closes at </body>. So the graft is
+   positional — from the <main> tag to the scripts that sit just before
+   </body> — and it emits the closing tag the donor never had. */
+function trailingScripts(html, bodyEnd) {
+  let start = bodyEnd;
+  for (;;) {
+    let i = start;
+    while (i > 0 && ' \t\r\n'.includes(html[i - 1])) i -= 1;
+    if (!html.slice(0, i).endsWith('</script>')) break;
+    const open = html.lastIndexOf('<script', i);
+    if (open === -1) break;
+    start = open;
+  }
+  return html.slice(start, bodyEnd);
+}
+
+function graftBody(html, content) {
+  /* Everything after </header> is replaced, not just <main>.
+     The donor puts a page guide — "Průvodce stránkou Trust", with anchors into
+     trust's own sections — BETWEEN </header> and <main>. Grafting from <main>
+     left that on the certification page, in every language. The header is the
+     part being borrowed; the body is not. */
+  const headerEnd = html.indexOf('</header>');
+  const bodyEnd = html.indexOf('</body>');
+  if (headerEnd === -1 || bodyEnd === -1) throw new Error('the shell has no </header> or no </body>');
+  const start = headerEnd + '</header>'.length;
+  const tail = trailingScripts(html, bodyEnd);
+  return `${html.slice(0, start)}\n<main>\n${content}\n</main>\n${tail}${html.slice(bodyEnd)}`;
+}
+
+const attrSafe = (value, key) => {
+  if (value.includes('"')) throw new Error(`certified-content ${key} contains a quote and cannot go in a meta tag`);
+  return value;
+};
 
 function page(loc) {
   const t = C[loc];
@@ -66,31 +147,7 @@ function page(loc) {
     `<tr><td><b>${tier}</b></td><td>${usd(v.oneTimeCents)}</td>` +
     `<td>$${v.monthlyCents / 100} ${t.per_month}</td><td>${usd(v.annualCents)} ${t.per_year}</td></tr>`).join('');
 
-  const alternates = LOCALES.map((l) =>
-    `<link rel="alternate" hreflang="${l}" href="${BASE}${href(l, 'certified')}">`).join('\n');
-
-  return `<!doctype html>
-<html lang="${t.lang}">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${t.title}</title>
-<meta name="description" content="${t.desc}">
-<meta name="robots" content="index, follow, max-snippet:-1">
-<link rel="canonical" href="${url}">
-${alternates}
-<link rel="alternate" hreflang="x-default" href="${BASE}/certified">
-<meta property="og:type" content="website">
-<meta property="og:url" content="${url}">
-<meta property="og:title" content="${t.title}">
-<meta property="og:description" content="${t.ogdesc}">
-<meta property="og:image" content="${BASE}/og-image.png">
-<meta property="og:locale" content="${t.lang}">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<style>${STYLE}</style>
-</head>
-<body>
-<main>
+  const content = `<div class="cai-cert">
 <nav class="crumb"><a href="${href(loc, 'agents')}">&larr; ${t.crumb_agents}</a> &nbsp;&middot;&nbsp; <a href="${loc === 'en' ? '/score' : '/' + loc + '/score'}">${t.crumb_score}</a> &nbsp;&middot;&nbsp; <a href="${href(loc, 'pricing')}">${t.crumb_pricing}</a></nav>
 <div class="eyebrow">${t.eyebrow}</div>
 <h1>${t.h1}</h1>
@@ -139,16 +196,37 @@ ${alternates}
   <button class="btn btn-p" type="submit">${t.verify_btn}</button>
 </form>
 
-<footer>
+<div class="cert-legal">
   Colleague AI s.r.o., &Scaron;kolsk&aacute; 1736/12, 110 00 Praha &middot; I&Ccaron;O 29540852 &middot; DI&Ccaron; CZ29540852 &middot;
   <a href="${href(loc, 'terms')}">${t.f_terms}</a> &middot;
   <a href="${href(loc, 'license')}">${t.f_licence}</a> &middot;
   <a href="${href(loc, 'trust')}">${t.f_trust}</a>
-</footer>
-</main>
-</body>
-</html>
-`;
+</div>
+</div>`;
+
+  const localeLinks = [
+    ...LOCALES.filter((l) => l !== 'en').map((l) =>
+      `<link rel="alternate" hreflang="${l}" href="${BASE}${href(l, 'certified')}" />`),
+    `<link rel="alternate" hreflang="en" href="${BASE}/certified" />`,
+    `<link rel="alternate" hreflang="x-default" href="${BASE}/certified" />`,
+    `<link rel="canonical" href="${url}" />`,
+  ].join('\n');
+
+  let out = shellFor(loc);
+  out = out.split('data-cai-page="trust"').join('data-cai-page="certified"');
+  out = replaceInner(out, 'title', t.title);
+  out = setMeta(out, 'name', 'description', attrSafe(t.desc, `${loc}.desc`));
+  out = setMeta(out, 'property', 'og:url', url);
+  out = setMeta(out, 'property', 'og:title', attrSafe(t.title, `${loc}.title`));
+  out = setMeta(out, 'property', 'og:description', attrSafe(t.ogdesc, `${loc}.ogdesc`));
+  out = setMeta(out, 'name', 'twitter:title', attrSafe(t.title, `${loc}.title`));
+  out = setMeta(out, 'name', 'twitter:description', attrSafe(t.ogdesc, `${loc}.ogdesc`));
+  out = setMeta(out, 'property', 'og:image:alt', attrSafe(t.title, `${loc}.title`));
+  out = dropLdJson(out);
+  out = setLocaleLinks(out, localeLinks);
+  out = graftBody(out, content);
+  const headEnd = out.indexOf('</head>');
+  return `${out.slice(0, headEnd)}<style id="cai-certified-css">${STYLE}</style>\n${out.slice(headEnd)}`;
 }
 
 let written = 0;
@@ -158,4 +236,4 @@ for (const loc of LOCALES) {
   fs.writeFileSync(path.join(dir, 'certified.html'), page(loc), 'utf8');
   written += 1;
 }
-console.log(`[certified] ${written} pages written (${LOCALES.join(', ')})`);
+console.log(`[certified] ${written} pages written from the site shell (${LOCALES.join(', ')})`);

@@ -49,6 +49,21 @@ function anchorTagAt(html, pos) {
   return html.slice(open, gt);
 }
 
+const ORIGINS = ['https://www.colleagueai.ai', 'https://colleagueai.ai',
+  'http://www.colleagueai.ai', 'http://colleagueai.ai'];
+
+/** every written form of a link to `page`, paired with its localized replacement */
+function variants(page, dest) {
+  const out = [];
+  for (const tail of ['', '/']) {
+    out.push({ needle: `href="/${page}${tail}"`, replacement: `href="${dest}"` });
+    for (const origin of ORIGINS) {
+      out.push({ needle: `href="${origin}/${page}${tail}"`, replacement: `href="${origin}${dest}"` });
+    }
+  }
+  return out;
+}
+
 function rewrite(html, loc) {
   let out = html;
   let changed = 0;
@@ -62,7 +77,12 @@ function rewrite(html, loc) {
        one. (Nothing new is introduced: an anchor that was not already a
        self-reference cannot become one, because only the locale prefix and the
        slug change.) */
-    for (const needle of [`href="/${page}"`, `href="/${page}/"`]) {
+    /* Both shapes, because both are in the markup. The first pass only matched
+       root-relative hrefs and missed 172 absolute ones — 144 of them the "Book
+       a demo" button, the most-clicked link on the site, which sent every
+       localized visitor to the English form. An absolute link is rewritten
+       absolute so a CTA meant to survive being copied still does. */
+    for (const { needle, replacement } of variants(page, dest)) {
       let from = 0;
       for (;;) {
         const at = out.indexOf(needle, from);
@@ -73,9 +93,9 @@ function rewrite(html, loc) {
           from = at + needle.length;
           continue;
         }
-        out = out.slice(0, at) + `href="${dest}"` + out.slice(at + needle.length);
+        out = out.slice(0, at) + replacement + out.slice(at + needle.length);
         changed += 1;
-        from = at + `href="${dest}"`.length;
+        from = at + replacement.length;
       }
     }
   }

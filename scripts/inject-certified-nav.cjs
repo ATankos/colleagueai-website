@@ -86,7 +86,7 @@ function navSpans(html) {
   return spans;
 }
 
-function inject(html, loc) {
+function inject(html, loc, isCertifiedPage) {
   const certHref = url(loc, 'certified');
   const label = (C[loc] && C[loc].nav) || C.en.nav;
   // the localized pricing path, and the English one for locale pages whose href
@@ -109,7 +109,12 @@ function inject(html, loc) {
       const a = anchorAround(nav, at);
       if (!a) continue;
       const cls = classOf(nav, a);
-      const item = `<a${cls ? ` class="${cls}"` : ''} href="${certHref}">${label}</a>`;
+      /* On the certification page itself the item is still present — the menu
+         must be the same on every page — and marks itself the way every other
+         page marks its own entry. Skipping it here was what left this page with
+         a menu one item shorter than the site's. */
+      const current = isCertifiedPage ? ' aria-current="page"' : '';
+      const item = `<a${cls ? ` class="${cls}"` : ''} href="${certHref}"${current}>${label}</a>`;
       out = out.slice(0, navStart + a.end) + item + out.slice(navStart + a.end);
       added += 1;
       break;
@@ -144,12 +149,10 @@ const walk = (dir) => {
     if (entry.isDirectory()) { walk(p); continue; }
     if (!entry.name.endsWith('.html')) continue;
     const rel = path.relative(DIST, p);
-    // never add a self-link: the certification page's own breadcrumb already
-    // sits on the destination, and a crumb that links to itself reads as a bug
-    if (rel.split(path.sep).join('/').endsWith('certified.html')) continue;
+    const isCertifiedPage = rel.split(path.sep).join('/').endsWith('certified.html');
     const html = fs.readFileSync(p, 'utf8');
     if (html.indexOf('<nav') === -1) continue;
-    const { out, added } = inject(html, localeOf(rel));
+    const { out, added } = inject(html, localeOf(rel), isCertifiedPage);
     if (added) { fs.writeFileSync(p, out, 'utf8'); files += 1; items += added; }
   }
 };
