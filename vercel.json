@@ -26,7 +26,7 @@
                 },
                 {
                     "key": "Content-Security-Policy",
-                    "value": "default-src 'self'; script-src 'self' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+                    "value": "default-src 'self'; script-src 'self' https://plausible.io https://va.vercel-scripts.com https://*.ingest.de.sentry.io https://*.sentry.io; worker-src 'self' blob:; style-src 'self' https://fonts.googleapis.com; style-src-elem 'self' https://fonts.googleapis.com 'sha256-bo0+qE1l4AGRngsiGoLEJ9MH0OIBmfgWMszPAE1chxc='; style-src-attr 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://*.ingest.de.sentry.io https://*.sentry.io https://vitals.vercel-insights.com https://va.vercel-scripts.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
                 },
                 {
                     "key": "Access-Control-Allow-Origin",
@@ -402,6 +402,42 @@
             "destination": "/trust.html"
         },
         {
+            "source": "/certified",
+            "destination": "/certified.html"
+        },
+        {
+            "source": "/cs/certifikace",
+            "destination": "/cs/certified.html"
+        },
+        {
+            "source": "/de/zertifizierung",
+            "destination": "/de/certified.html"
+        },
+        {
+            "source": "/fr/certification",
+            "destination": "/fr/certified.html"
+        },
+        {
+            "source": "/es/certificacion",
+            "destination": "/es/certified.html"
+        },
+        {
+            "source": "/it/certificazione",
+            "destination": "/it/certified.html"
+        },
+        {
+            "source": "/pl/certyfikacja",
+            "destination": "/pl/certified.html"
+        },
+        {
+            "source": "/pt/certificacao",
+            "destination": "/pt/certified.html"
+        },
+        {
+            "source": "/verify",
+            "destination": "/api/certificate"
+        },
+        {
             "source": "/partners",
             "destination": "/partners.html"
         },
@@ -571,31 +607,31 @@
         },
         {
             "source": "/cs/demo",
-            "destination": "/demo.html"
+            "destination": "/cs/demo.html"
         },
         {
             "source": "/de/demo",
-            "destination": "/demo.html"
+            "destination": "/de/demo.html"
         },
         {
             "source": "/fr/demo",
-            "destination": "/demo.html"
+            "destination": "/fr/demo.html"
         },
         {
             "source": "/es/demo",
-            "destination": "/demo.html"
+            "destination": "/es/demo.html"
         },
         {
             "source": "/it/demo",
-            "destination": "/demo.html"
+            "destination": "/it/demo.html"
         },
         {
             "source": "/pl/demo",
-            "destination": "/demo.html"
+            "destination": "/pl/demo.html"
         },
         {
             "source": "/pt/demo",
-            "destination": "/demo.html"
+            "destination": "/pt/demo.html"
         },
         {
             "source": "/pricing",

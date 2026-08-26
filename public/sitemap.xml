@@ -14,6 +14,14 @@
     <changefreq>weekly</changefreq><priority>1.0</priority>
   </url>
 <url><loc>https://www.colleagueai.ai/trust</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://www.colleagueai.ai/certified</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+<url><loc>https://www.colleagueai.ai/cs/certifikace</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.colleagueai.ai/de/zertifizierung</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.colleagueai.ai/fr/certification</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.colleagueai.ai/es/certificacion</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.colleagueai.ai/it/certificazione</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.colleagueai.ai/pl/certyfikacja</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.colleagueai.ai/pt/certificacao</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.colleagueai.ai/partners</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 <url><loc>https://www.colleagueai.ai/privacy</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>
 <url><loc>https://www.colleagueai.ai/terms</loc><changefreq>yearly</changefreq><priority>0.4</priority></url>

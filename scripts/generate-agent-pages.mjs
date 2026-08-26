@@ -8,6 +8,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import vm from 'node:vm';
+import PRICING from '../config/pricing.json' with { type: 'json' };
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -50,7 +51,9 @@ function page(a) {
   const url = `${BASE}/agents/${slug}`;
   const tier = `${a.t} · ${TIER[a.t] ?? ''}`;
   // one legacy PDF name predates the agent's rename
-  const PDF_ALIAS = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const PDF_ALIAS = {} /* canonical acceptance-test-script-generator.pdf now exists with the corrected
+       content; the legacy oat- file stays on disk so old external links keep
+       working, but nothing on the site links it any more */;
   const pdf = `/docs/agents/${PDF_ALIAS[slug] ?? slug}.pdf`;
   const ld = {
     '@context': 'https://schema.org',
@@ -64,6 +67,9 @@ function page(a) {
         { '@type': 'ListItem', position: 2, name: a.n, item: url }] },
     ],
   };
+  const usdFmt = (n) => '$' + n.toLocaleString('en-US');
+  const price = (t) => (PRICING.tiers[t] ? usdFmt(PRICING.tiers[t].oneTimeCents / 100) : 'Price on request');
+  const cert = (t) => (PRICING.tiers[t] ? usdFmt(PRICING.tiers[t].monthlyCents / 100) : '');
   const sec = (h, b) => b ? `<section><h2>${esc(h)}</h2><p>${esc(b)}</p></section>` : '';
   return `<!doctype html>
 <html lang="en">
@@ -120,6 +126,9 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
 <section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
 <section><h2>What you get</h2><ul><li>Copilot Studio connect package</li><li>Microsoft 365 Copilot package</li><li>Agent dossier (PDF)</li></ul><p>One-time purchase. Access to your connect packages is arranged after your access request is approved and commercial setup is confirmed.</p></section>
+<section><h2>Price</h2><p><b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases.</p>
+<p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
+<p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>
 <section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It classifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
 <div class="cta">
   <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request access →</a>
@@ -138,7 +147,9 @@ for (const a of AGENTS) {
   const slug = slugify(a.n);
   slugs.push(slug);
   writeFileSync(join(DIST, 'agents', slug + '.html'), page(a));
-  const PDF_ALIAS2 = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const PDF_ALIAS2 = {} /* canonical acceptance-test-script-generator.pdf now exists with the corrected
+       content; the legacy oat- file stays on disk so old external links keep
+       working, but nothing on the site links it any more */;
   if (!existsSync(join(ROOT, 'public/docs/agents', (PDF_ALIAS2[slug] ?? slug) + '.pdf')))
     console.warn('[gen] missing dossier PDF for', slug);
 }
@@ -146,7 +157,9 @@ for (const a of AGENTS) {
 // drawer's "Download agent dossier (PDF)" resolves to something honest without
 // JavaScript (the drawer itself swaps in the agent's own PDF once it opens).
 {
-  const PDF_ALIAS3 = { 'acceptance-test-script-generator': 'oat-test-script-generator' };
+  const PDF_ALIAS3 = {} /* canonical acceptance-test-script-generator.pdf now exists with the corrected
+       content; the legacy oat- file stays on disk so old external links keep
+       working, but nothing on the site links it any more */;
   const byTier = {};
   for (const a of AGENTS) (byTier[a.t] ??= []).push(a);
   const tierName = { L2: 'Draft', L3: 'Operate', L4: 'Decide (supervised)' };

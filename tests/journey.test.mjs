@@ -10,6 +10,7 @@ import { test } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
+import PRICING from '../config/pricing.json' with { type: 'json' };
 
 const LOCALES = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const MAIN_PAGES = ['home', 'pricing', 'trust', 'partners', 'contact'];
@@ -154,11 +155,20 @@ test('partner page offers a single referral level at a flat 10% rate', () => {
 });
 
 test('partner worked example reconciles: contract minus 10% commission equals retained revenue', () => {
+  // Derived from config/pricing.json so a price change cannot leave the partner
+  // page quoting an economics story the catalogue no longer sells.
+  const usd = (n) => '$' + n.toLocaleString('en-US');
+  const contract = PRICING.tiers.L4.oneTimeCents / 100;
+  const commission = contract * PRICING.partnerCommissionRate;
+  const retained = contract - commission;
+
   const html = read('partners.html');
-  for (const figure of ['$45,000', '$4,500', '$40,500']) {
+  for (const figure of [usd(contract), usd(commission), usd(retained)]) {
     assert.ok(html.includes(figure), `worked example is missing ${figure}`);
   }
-  assert.ok(!html.includes('$27,000'), 'stale retained-revenue figure from the old 40% tier must not reappear');
+  for (const stale of ['$27,000', '$45,000', '$40,500']) {
+    assert.ok(!html.includes(stale), `stale figure from a retired price list reappeared: ${stale}`);
+  }
 });
 
 // One approved claims dictionary, everywhere. "aligned" overstates the evidence
@@ -166,9 +176,12 @@ test('partner worked example reconciles: contract minus 10% commission equals re
 // through any master, generator or footer — in any language.
 test('no page still carries a retired compliance claim', () => {
   const retired = ['ISO/IEC 42001 aligned', 'EU AI Act + DORA mapped', 'DORA mapped', 'Certified under CAI Score',
-    'certification framework', 'No customer data is ever processed', 'auditors will actually sign off'];
-  const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html',
-    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html'].map((p) => `${l}/${p}`))];
+    'certification framework', 'No customer data is ever processed', 'auditors will actually sign off',
+    // Round-5 retirements: readiness claims the Trust Center cannot evidence, in
+    // English and the German translations that outlived the English fix.
+    'production-grade', 'production-ready', 'produktionsreif', 'pass your audit', 'bestehen Ihr Audit'];
+  const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html', 'usage.html',
+    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'usage.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
     const html = read(p);
     for (const claim of retired) assert.ok(!html.includes(claim), `${p} still says "${claim}"`);
@@ -178,13 +191,127 @@ test('no page still carries a retired compliance claim', () => {
 // The CAI Score is ColleagueAI's own classification, not independent assurance.
 // "Certified" reads as third-party attestation to a risk buyer, so the word is
 // retired in every language; only the dictionary key `dr_certify` may remain.
-test('no visible copy calls the CAI Score a certification, in any language', () => {
+/* The word "certified" came back — deliberately, and narrowly.
+ *
+ * Rounds 1-5 retired it because it read as third-party attestation of the
+ * CUSTOMER's compliance. Continuous Certification reintroduces it for one thing
+ * only: Colleague AI's own programme, certifying its own releases against its own
+ * standard. So this guard changed from "block the stem" to "block the claim".
+ * The permitted and blocked vocabularies are specified in
+ * docs/continuous-certification.md section 3 and enforced here. */
+const CERT_PROGRAMME_OK = [
+  // the main-menu label, in all eight languages: it names the programme and
+  // links straight to the page that carries the scope limits
+  ...Object.values(JSON.parse(readFileSync(new URL('../scripts/i18n/certified-content.json', import.meta.url), 'utf8')))
+    .map((t) => t.nav),
+  'Continuous Certification',
+  'Colleague AI Certified Release',
+  'Colleague AI Certified — Active',
+  'Colleague AI Certified standard',
+  'Certificate ID',
+  'certified release',
+  'certified version',
+];
+
+test('no page implies third-party or regulatory certification, in any language', () => {
+  // Claims that would put an auditor's finding straight back on the register.
+  const forbidden = [
+    /certified\s+compliant/i,
+    /compliant\s+with\s+all/i,
+    /guarantee[sd]?\s+compliance/i,
+    /ensures?\s+compliance/i,
+    /independently\s+certified/i,
+    /third[- ]party\s+certified/i,
+    /\baccredited\b/i,
+    /ISO\/IEC 42001[- ]certified/i,
+    /EU AI Act[- ]certified/i,
+    /DORA[- ]certified/i,
+    /Certified under CAI Score/i,
+    /certification framework/i,          // the CAI Score is a risk-classification framework
+  ];
+  const pages = ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html', 'usage.html',
+    'partners.html', 'pricing.html',
+    ...LOCALES.flatMap((l) => ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html'].map((p) => `${l}/${p}`))];
+  for (const p of pages) {
+    const html = read(p);
+    for (const re of forbidden) {
+      assert.ok(!re.test(html), `${p} makes a retired certification claim: ${re}`);
+    }
+  }
+});
+
+test('the CAI Score itself is still never called a certification, in any language', () => {
+  /* Everywhere OUTSIDE the programme's own vocabulary, the stem stays banned:
+     the score classifies, it does not certify. Occurrences are allowed only when
+     they are part of an approved programme phrase. */
   const stems = /\b\w*(certif|zertifi|certyfik|certifik)\w*/gi;
   const pages = ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html', 'usage.html', 'partners.html',
     ...LOCALES.flatMap((l) => ['home.html', 'agents.html', 'score.html', 'trust.html', 'responsible-ai.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
-    const hits = (read(p).match(stems) || []).filter((w) => w !== 'dr_certify');
-    assert.deepEqual(hits, [], `${p} still uses: ${[...new Set(hits)].join(', ')}`);
+    /* This guard is about VISIBLE copy, so strip what a reader never sees, then
+       strip the approved programme copy: its translated sentences legitimately
+       carry the stem in seven languages (the pay_cert* dictionary values and the
+       #pay-cert-note paragraph). What is left must be clean. */
+    /* Literal patterns, not constructed ones: a RegExp assembled from a string is
+       a regex-injection question even when the string is a local constant, and
+       these never vary. */
+    let html = read(p)
+      .replace(/<!--[\s\S]*?-->/g, ' ')                                    // HTML comments
+      .replace(/^\s*\/\/.*$/gm, ' ')                                       // JS line comments
+      .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
+      // the URL-locale controller embeds i18n.routes.json, so the localized SLUGS
+      // (certifikace, zertyfikacja, …) appear as routing data, not as copy
+      .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script\s*>/gi, ' ')
+      // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
+      .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
+      .replace(/"(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*":"(\\.|[^"\\])*"/g, ' ')
+      // the programme's own visible copy: every element bound to one of its keys
+      .replace(/<([a-z]+)[^>]*data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"[^>]*>[\s\S]*?<\/\1>/gi, ' ')
+      .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p\s*>/gi, ' ')
+      .replace(/data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"/g, ' ');
+    for (const ok of CERT_PROGRAMME_OK) html = html.split(ok).join(' ');
+    for (const ok of ['Certified Release', 'Certified — Active', 'certified release']) {
+      html = html.split(ok).join(' ');
+    }
+    const hits = (html.match(stems) || []).filter((w) => w !== 'dr_certify');
+    assert.deepEqual([...new Set(hits)], [], `${p} uses the stem outside the approved programme vocabulary: ${[...new Set(hits)].join(', ')}`);
+  }
+});
+
+/* The company is VAT-registered (DIČ CZ29540852, confirmed by the Finanční úřad
+ * 25 Aug 2026). An enterprise buyer's finance team validates that number before
+ * paying an invoice, so wherever the IČO is published the DIČ must appear with
+ * it — and the two must never disagree. */
+test('every page that publishes the company ID also publishes the VAT ID', () => {
+  const ICO = '29540852';
+  const DIC = 'CZ29540852';
+  const pages = ['imprint.html', 'contact.html', 'terms.html', 'privacy.html', 'license.html',
+    'partner-agreement.html', 'refund.html', 'agents.html', 'home.html', 'pricing.html',
+    ...LOCALES.flatMap((l) => ['contact.html', 'home.html', 'imprint.html', 'terms.html', 'privacy.html'].map((p) => `${l}/${p}`))];
+
+  for (const p of pages) {
+    const html = read(p);
+    if (!html.includes(ICO)) continue;
+    assert.ok(html.includes(DIC), `${p} publishes the IČO but not the DIČ`);
+    // every rendered IČO must have the DIČ within reach, not just once on the page
+    // plain index scanning: no regex built from data, and no backtracking
+    const orphan = [];
+    for (let at = html.indexOf(ICO); at !== -1; at = html.indexOf(ICO, at + 1)) {
+      const ctx = html.slice(Math.max(0, at - 60), at + ICO.length + 140);
+      if (!ctx.includes(DIC)) orphan.push(ctx);
+    }
+    assert.deepEqual(orphan, [], `${p} has an IČO with no DIČ beside it: ${orphan[0]?.slice(0, 90)}`);
+  }
+});
+
+test('the structured data publishes the VAT ID in a machine-readable field', () => {
+  for (const p of ['terms.html', 'privacy.html', 'contact.html', 'home.html', 'license.html']) {
+    const blocks = [...read(p).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+    const withOrg = blocks.map((b) => JSON.parse(b[1])).filter((d) => JSON.stringify(d).includes('29540852'));
+    assert.ok(withOrg.length > 0, `${p} has no organization structured data`);
+    for (const d of withOrg) {
+      assert.ok(JSON.stringify(d).includes('"vatID":"CZ29540852"'), `${p} structured data is missing vatID`);
+    }
   }
 });
 
@@ -228,7 +355,7 @@ test('each locale serves pricing on its own slug with matching lang and canonica
   for (const loc of LOCALES) {
     const html = read(`${loc}/pricing.html`);
     const htmlTag = html.match(/<html\b[^>]*>/)[0];
-    assert.match(htmlTag, new RegExp(`lang="${loc}"`), `${loc}: wrong lang attribute -> ${htmlTag}`);
+    assert.ok(htmlTag.includes(`lang="${loc}"`), `${loc}: wrong lang attribute -> ${htmlTag}`);
     assert.equal((html.match(/<link rel="canonical"/g) || []).length, 1, `${loc}: expected exactly one canonical`);
     assert.ok(html.includes(`https://www.colleagueai.ai${pricingPath(loc)}`), `${loc}: canonical does not use the localised slug`);
     assert.ok(html.includes('hreflang="x-default"'), `${loc}: hreflang block missing`);
