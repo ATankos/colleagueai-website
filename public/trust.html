@@ -527,7 +527,7 @@ display: flex !important;
 <h3>What this website itself processes</h3>
 <ul>
 <li><strong>Demo booking</strong> (/demo): a booking form (email, company, role, areas of interest, preferred date and time zone) that reaches us by email via Resend and is kept for up to twelve months. The interactive AI demo has been withdrawn, so this website sends no messages to an AI provider.</li>
-<li><strong>Purchases</strong>: payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.</li>
+<li><strong>Purchases</strong>: when paid checkout is enabled, payment will be handled entirely by Stripe; we will not see card details. Following a purchase, the buyer email, licensed agent slugs and Stripe session id may be stored so downloads can be released.</li>
 <li><strong>Downloads</strong>: agent packages are delivered through signed, time-limited URLs (15-minute expiry).</li>
 <li><strong>ROI calculator &amp; readiness check</strong>: run entirely in your browser; nothing is sent or stored.</li>
 <li><strong>Partner links</strong>: a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.</li>
@@ -549,7 +549,7 @@ display: flex !important;
 <h2 id="security">Security practices</h2>
 <ul>
 <li>TLS everywhere with HTTP Strict Transport Security (2-year max-age, preload) and a Content-Security-Policy restricting where code and content can load from, plus nosniff, frame-ancestors, referrer and permissions policies.</li>
-<li>Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.</li>
+<li>When paid checkout is enabled, Stripe webhooks will be verified against their cryptographic signature with replay-window enforcement, processed idempotently, and storage failures will cause retries rather than silent loss.</li>
 <li>Commission attribution is gated: only registered partner codes are credited, and referral values are sanitized before storage.</li>
 <li>Secrets live in the hosting platform's environment configuration, never in code, never in the client bundle (verified by an automated scan on every build).</li>
 <li>Responsible disclosure: see <a href="/.well-known/security.txt">security.txt</a> or write to <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. We respond to good-faith reports and won't pursue researchers acting in good faith.</li>

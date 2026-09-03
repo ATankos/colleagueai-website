@@ -1160,7 +1160,7 @@
     "pl": "(/demo): wiadomości, które wpiszesz, są wysyłane do API firmy Anthropic w celu generowania odpowiedzi, z limitami liczby żądań na IP i globalnymi. Nie wklejaj poufnych danych do dema.",
     "pt": "(/demo): as mensagens que escreve são enviadas para a API da Anthropic para gerar respostas, com limites de taxa por IP e globais. Não cole dados confidenciais na demonstração."
   },
-  ": payment is handled entirely by Stripe; we never see card details. After a purchase we store your email, the licensed agent slugs and the Stripe session id, so we can release downloads to you.": {
+  ": when paid checkout is enabled, payment will be handled entirely by Stripe; we will not see card details. Following a purchase, the buyer email, licensed agent slugs and Stripe session id may be stored so downloads can be released.": {
     "cs": ": platba je plně zpracována přes Stripe; nikdy nevidíme údaje o kartě. Po nákupu ukládáme váš e-mail, slugy licencovaných agentů a ID relace Stripe, abychom vám mohli uvolnit stažení.",
     "de": ": Die Zahlung wird vollständig über Stripe abgewickelt; wir sehen niemals Kartendaten. Nach einem Kauf speichern wir Ihre E-Mail-Adresse, die Slugs der lizenzierten Agenten und die Stripe-Sitzungs-ID, damit wir Ihnen die Downloads freigeben können.",
     "fr": ": le paiement est entièrement géré par Stripe ; nous ne voyons jamais les détails de la carte. Après un achat, nous stockons votre e-mail, les slugs des agents sous licence et l'identifiant de session Stripe, afin de pouvoir vous débloquer les téléchargements.",
@@ -1376,7 +1376,7 @@
     "pl": "TLS wszędzie z HTTP Strict Transport Security (max-age 2 lata, preload) oraz Content-Security-Policy ograniczającą, skąd można ładować kod i treści, a także zasady nosniff, frame-ancestors, referrer i permissions.",
     "pt": "TLS em todo o lado com HTTP Strict Transport Security (max-age de 2 anos, preload) e uma Content-Security-Policy que restringe de onde código e conteúdo podem ser carregados, além de políticas nosniff, frame-ancestors, referrer e permissions."
   },
-  "Stripe webhooks are verified against their cryptographic signature with replay-window enforcement, processed idempotently (a redelivered event can never double-apply), and storage failures cause retries rather than silent loss.": {
+  "When paid checkout is enabled, Stripe webhooks will be verified against their cryptographic signature with replay-window enforcement, processed idempotently, and storage failures will cause retries rather than silent loss.": {
     "cs": "Webhooky Stripe jsou ověřovány proti svému kryptografickému podpisu s vynucením okna pro replay, zpracovávány idempotentně (znovu doručená událost se nikdy nemůže aplikovat dvakrát) a selhání úložiště vedou k opakování namísto tiché ztráty.",
     "de": "Stripe-Webhooks werden gegen ihre kryptografische Signatur mit Replay-Fenster-Durchsetzung verifiziert, idempotent verarbeitet (ein erneut zugestelltes Ereignis kann nie doppelt angewendet werden), und Speicherfehler führen zu Wiederholungen statt zu stillem Verlust.",
     "fr": "Les webhooks Stripe sont vérifiés par rapport à leur signature cryptographique avec application d'une fenêtre anti-rejeu, traités de manière idempotente (un événement redélivré ne peut jamais s'appliquer deux fois), et les échecs de stockage entraînent des reprises plutôt qu'une perte silencieuse.",
