@@ -557,23 +557,23 @@
   "pl": "Dostępność, przystępność, struktura, wrażliwość i jakość wymaganych danych biznesowych.",
   "pt": "Disponibilidade, acessibilidade, estrutura, sensibilidade e qualidade dos dados de negócio necessários."
  },
- "Implementation scope": {
-  "cs": "Rozsah implementace",
-  "de": "Implementierungsumfang",
-  "fr": "Périmètre d'implémentation",
-  "es": "Alcance de la implementación",
-  "it": "Ambito di implementazione",
-  "pl": "Zakres wdrożenia",
-  "pt": "Âmbito de implementação"
+ "Deployment guidance": {
+  "cs": "Pokyny k nasazení",
+  "de": "Deployment-Leitfaden",
+  "fr": "Guide de déploiement",
+  "es": "Guía de despliegue",
+  "it": "Guida al deployment",
+  "pl": "Wytyczne dotyczące wdrożenia",
+  "pt": "Orientação para implementação"
  },
- "Testing, localization, documentation, user training, deployment support and post-launch optimization.": {
-  "cs": "Testování, lokalizace, dokumentace, školení uživatelů, podpora nasazení a optimalizace po spuštění.",
-  "de": "Tests, Lokalisierung, Dokumentation, Anwenderschulung, Deployment-Unterstützung und Optimierung nach dem Start.",
-  "fr": "Tests, localisation, documentation, formation des utilisateurs, support au déploiement et optimisation après lancement.",
-  "es": "Pruebas, localización, documentación, formación de usuarios, soporte al despliegue y optimización posterior al lanzamiento.",
-  "it": "Test, localizzazione, documentazione, formazione degli utenti, supporto al deployment e ottimizzazione post-lancio.",
-  "pl": "Testy, lokalizacja, dokumentacja, szkolenia użytkowników, wsparcie wdrożenia i optymalizacja po uruchomieniu.",
-  "pt": "Testes, localização, documentação, formação de utilizadores, apoio à implementação e otimização pós-lançamento."
+ "Testing, localization, documentation, user guidance, deployment documentation and handover materials. Implementation is performed by the customer or an approved implementation partner.": {
+  "cs": "Testování, lokalizace, dokumentace, uživatelské pokyny, dokumentace k nasazení a předávací materiály. Implementaci provádí zákazník nebo schválený implementační partner.",
+  "de": "Tests, Lokalisierung, Dokumentation, Anwenderleitfäden, Deployment-Dokumentation und Übergabematerialien. Die Implementierung erfolgt durch den Kunden oder einen freigegebenen Implementierungspartner.",
+  "fr": "Tests, localisation, documentation, guides utilisateurs, documentation de déploiement et éléments de transfert. L’implémentation est réalisée par le client ou un partenaire d’implémentation agréé.",
+  "es": "Pruebas, localización, documentación, orientación para usuarios, documentación de despliegue y materiales de entrega. La implementación la realiza el cliente o un partner de implementación aprobado.",
+  "it": "Test, localizzazione, documentazione, guida utente, documentazione di deployment e materiali di consegna. L’implementazione viene eseguita dal cliente o da un partner di implementazione approvato.",
+  "pl": "Testy, lokalizacja, dokumentacja, wskazówki dla użytkowników, dokumentacja wdrożeniowa i materiały przekazania. Implementację wykonuje klient lub zatwierdzony partner wdrożeniowy.",
+  "pt": "Testes, localização, documentação, orientação para utilizadores, documentação de implementação e materiais de entrega. A implementação é realizada pelo cliente ou por um parceiro de implementação aprovado."
  },
  "What may be included": {
   "cs": "Co může být součástí",
@@ -692,14 +692,14 @@
   "pl": "Wskazówki dla użytkowników",
   "pt": "Orientação para utilizadores"
  },
- "Initial implementation support": {
-  "cs": "Počáteční podpora implementace",
-  "de": "Anfängliche Implementierungsunterstützung",
-  "fr": "Support initial à l'implémentation",
-  "es": "Soporte inicial de implementación",
-  "it": "Supporto iniziale all'implementazione",
-  "pl": "Wstępne wsparcie wdrożenia",
-  "pt": "Apoio inicial à implementação"
+ "Deployment documentation and guidance": {
+  "cs": "Dokumentace a pokyny k nasazení",
+  "de": "Deployment-Dokumentation und Leitfaden",
+  "fr": "Documentation et guide de déploiement",
+  "es": "Documentación y guía de despliegue",
+  "it": "Documentazione e guida al deployment",
+  "pl": "Dokumentacja i wytyczne dotyczące wdrożenia",
+  "pt": "Documentação e orientação para implementação"
  },
  "Early engagements": {
   "cs": "První zakázky",
@@ -764,14 +764,14 @@
   "pl": "Czy podana cena jest opłatą jednorazową?",
   "pt": "O preço apresentado é um pagamento único?"
  },
- "The commercial structure depends on the solution. An engagement may include a one-time agent package, implementation services and an ongoing governance, support or update component.": {
-  "cs": "Obchodní struktura závisí na řešení. Zakázka může zahrnovat jednorázový balíček agenta, implementační služby a průběžnou složku governance, podpory nebo aktualizací.",
-  "de": "Die kommerzielle Struktur hängt von der Lösung ab. Ein Projekt kann ein einmaliges Agentenpaket, Implementierungsleistungen und eine laufende Governance-, Support- oder Update-Komponente umfassen.",
-  "fr": "La structure commerciale dépend de la solution. Un projet peut inclure un package d'agent unique, des services d'implémentation et une composante récurrente de gouvernance, de support ou de mises à jour.",
-  "es": "La estructura comercial depende de la solución. Un proyecto puede incluir un paquete de agente único, servicios de implementación y un componente recurrente de gobernanza, soporte o actualizaciones.",
-  "it": "La struttura commerciale dipende dalla soluzione. Un progetto può includere un pacchetto agente una tantum, servizi di implementazione e una componente ricorrente di governance, supporto o aggiornamenti.",
-  "pl": "Struktura handlowa zależy od rozwiązania. Projekt może obejmować jednorazowy pakiet agenta, usługi wdrożeniowe oraz bieżący komponent governance, wsparcia lub aktualizacji.",
-  "pt": "A estrutura comercial depende da solução. Um projeto pode incluir um pacote de agente único, serviços de implementação e uma componente contínua de governação, suporte ou atualizações."
+ "An engagement may include a one-time agent package and optional ongoing governance, support or update components. Deployment and integrations are performed by the customer or an approved implementation partner.": {
+  "cs": "Zakázka může zahrnovat jednorázový balíček agenta a volitelné průběžné služby governance, podpory nebo aktualizací. Nasazení a integrace provádí zákazník nebo schválený implementační partner.",
+  "de": "Ein Projekt kann ein einmaliges Agentenpaket sowie optionale laufende Governance-, Support- oder Update-Komponenten umfassen. Deployment und Integrationen erfolgen durch den Kunden oder einen freigegebenen Implementierungspartner.",
+  "fr": "Un engagement peut inclure un package d’agent à paiement unique ainsi que des composantes facultatives continues de gouvernance, support ou mises à jour. Le déploiement et les intégrations sont réalisés par le client ou un partenaire d’implémentation agréé.",
+  "es": "Un proyecto puede incluir un paquete de agente de pago único y componentes opcionales continuos de gobernanza, soporte o actualizaciones. El despliegue y las integraciones los realiza el cliente o un partner de implementación aprobado.",
+  "it": "Un incarico può includere un pacchetto agente una tantum e componenti opzionali continuative di governance, supporto o aggiornamento. Deployment e integrazioni sono eseguiti dal cliente o da un partner di implementazione approvato.",
+  "pl": "Zakres może obejmować jednorazowy pakiet agenta oraz opcjonalne bieżące elementy governance, wsparcia lub aktualizacji. Wdrożenie i integracje wykonuje klient lub zatwierdzony partner wdrożeniowy.",
+  "pt": "Um projeto pode incluir um pacote de agente de pagamento único e componentes opcionais contínuos de governação, suporte ou atualização. A implementação e as integrações são realizadas pelo cliente ou por um parceiro de implementação aprovado."
  },
  "Why do agents have different prices?": {
   "cs": "Proč mají agenti různé ceny?",

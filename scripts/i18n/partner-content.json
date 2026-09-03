@@ -152,14 +152,14 @@
   "pl": "Umożliwić ColleagueAI prowadzenie procesu handlowego",
   "pt": "Permitir que a ColleagueAI conduza o processo comercial"
  },
- "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.": {
-  "cs": "Discovery, demonstrace, nabídka, vyjednávání, uzavření smlouvy, implementace a zákaznická podpora.",
-  "de": "Discovery, Demonstration, Angebot, Verhandlung, Vertragsabschluss, Implementierung und Kundensupport.",
-  "fr": "Discovery, démonstration, proposition, négociation, contractualisation, implémentation et support client.",
-  "es": "Discovery, demostración, propuesta, negociación, contratación, implementación y soporte al cliente.",
-  "it": "Discovery, dimostrazione, proposta, negoziazione, contrattualizzazione, implementazione e supporto al cliente.",
-  "pl": "Discovery, demonstracja, oferta, negocjacje, umowa, wdrożenie i wsparcie klienta.",
-  "pt": "Discovery, demonstração, proposta, negociação, contratação, implementação e apoio ao cliente."
+ "Product packaging, demonstrations, commercial contracting, governance guidance, documentation and package support.": {
+  "cs": "Produktové balíčky, demonstrace, obchodní smlouvy, pokyny ke governance, dokumentace a podpora balíčku.",
+  "de": "Produktpaketierung, Demonstrationen, kommerzielle Vertragsgestaltung, Governance-Leitlinien, Dokumentation und Paketsupport.",
+  "fr": "Packaging produit, démonstrations, contractualisation commerciale, conseils de gouvernance, documentation et support du package.",
+  "es": "Paquetización del producto, demostraciones, contratación comercial, orientación de gobernanza, documentación y soporte del paquete.",
+  "it": "Packaging del prodotto, dimostrazioni, contrattualizzazione commerciale, guida alla governance, documentazione e supporto del pacchetto.",
+  "pl": "Pakiety produktowe, demonstracje, umowy handlowe, wytyczne governance, dokumentacja i wsparcie pakietu.",
+  "pt": "Pacotes de produto, demonstrações, contratação comercial, orientação de governação, documentação e suporte do pacote."
  },
  "Become a Referral Partner": {
   "cs": "Stát se referenčním partnerem",
