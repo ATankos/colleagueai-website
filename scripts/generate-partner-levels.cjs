@@ -1,4 +1,4 @@
-/* generate-partner-levels.cjs — inject the three-level partner programme
+﻿/* generate-partner-levels.cjs â€” inject the three-level partner programme
    (levels, contribution table, worked example, programme terms) into every
    localized partner page. Idempotent: the block is replaced, never duplicated.
    Commission percentages and USD values are never localized. */
@@ -24,7 +24,7 @@ const C = {
       desc: "For partners who identify and introduce qualified prospective customers.",
       doLabel: "You do",
       items: ["Identify a relevant prospective customer", "Make a documented introduction", "Provide sufficient context for qualification", "Allow ColleagueAI to manage the commercial process"],
-      weDo: "Discovery, demonstration, proposal, negotiation, contracting, implementation and customer support.",
+      weDo: "Product packaging, demonstrations, commercial contracting, governance guidance, documentation and package support.",
       cta: "Become a Referral Partner", href: "#partner-apply" },
     { id: "sales", name: "Sales Partner", rate: "15%",
       desc: "For partners who actively qualify opportunities and participate in progressing the commercial relationship.",
@@ -41,10 +41,10 @@ const C = {
   tableH: "Partner contribution and typical commission",
   colA: "Partner contribution", colB: "Typical commission",
   rows: [
-    ["Qualified referral or introduction", "5%–10%"],
-    ["Meeting arrangement and active sales support", "10%–15%"],
-    ["Full presentation and commercial close", "15%–25%"],
-    ["Authorized reseller with sales and initial support", "20%–35%"]
+    ["Qualified referral or introduction", "5%â€“10%"],
+    ["Meeting arrangement and active sales support", "10%â€“15%"],
+    ["Full presentation and commercial close", "15%â€“25%"],
+    ["Authorized reseller with sales and initial support", "20%â€“35%"]
   ],
   tableNote: "Final commission terms depend on the partner's role, transaction size, discount level, customer responsibilities, territory and ongoing support obligations.",
   exH: "Example transaction",
@@ -97,7 +97,7 @@ const CSS = `<style id="cai-partner-levels-css">
 #partner-levels .pl-lbl{font-family:ui-monospace,Consolas,monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:6px}
 #partner-levels .pl-card ul{list-style:none;margin:0 0 14px}
 #partner-levels .pl-card li{font-size:13.5px;color:var(--graphite-soft);padding:5px 0;border-top:1px solid var(--line-soft)}
-#partner-levels .pl-card li::before{content:"— ";color:var(--terra)}
+#partner-levels .pl-card li::before{content:"â€” ";color:var(--terra)}
 #partner-levels .pl-we{font-size:13px;color:var(--graphite-soft);background:var(--cream-2);border-radius:10px;padding:10px 12px;margin-bottom:14px}
 #partner-levels .pl-note{font-size:12.5px;color:var(--muted);margin-bottom:14px}
 #partner-levels .pl-cta{margin-top:auto}
@@ -113,14 +113,14 @@ const CSS = `<style id="cai-partner-levels-css">
 #partner-levels .pl-terms{margin-top:30px;max-width:900px}
 #partner-levels .pl-terms ul{list-style:none;margin-top:12px}
 #partner-levels .pl-terms li{font-size:14px;color:var(--graphite-soft);padding:8px 0;border-bottom:1px solid var(--line-soft)}
-#partner-levels .pl-terms li::before{content:"·  ";color:var(--terra);font-weight:700}
+#partner-levels .pl-terms li::before{content:"Â·  ";color:var(--terra);font-weight:700}
 #partner-levels .pl-disc{font-size:12.5px;color:var(--muted);margin-top:16px;border-left:3px solid var(--line);padding-left:14px}
 #partner-levels .pl-small{font-size:12.5px;color:var(--muted);margin-top:12px}
 #partner-levels .pl-form{margin-top:38px;background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:26px;max-width:900px}
 #partner-levels .pl-formlead{font-size:15px;color:var(--graphite-soft);margin-top:10px;max-width:70ch}
 #partner-levels .pl-ask{list-style:none;padding:0;margin:20px 0 0;max-width:70ch}
 #partner-levels .pl-ask li{font-size:14.5px;color:var(--graphite-soft);padding:8px 0;border-bottom:1px solid var(--line)}
-#partner-levels .pl-ask li::before{content:"→ ";color:var(--terra);font-weight:700}
+#partner-levels .pl-ask li::before{content:"â†’ ";color:var(--terra);font-weight:700}
 #partner-levels .pl-fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 @media (max-width:680px){#partner-levels .pl-fgrid{grid-template-columns:1fr}}
 #partner-levels .pl-full{grid-column:1/-1}
