@@ -135,7 +135,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
 </style>
 <script id="cai-url-locale-controller">
 (function () {
-  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"ÄŒeÅ¡tina","de":"Deutsch","fr":"FranÃ§ais","es":"EspaÃ±ol","it":"Italiano","pl":"Polski","pt":"PortuguÃªs"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"pricing":{"en":"pricing","cs":"cenik","de":"preise","fr":"tarifs","es":"precios","it":"prezzi","pl":"cennik","pt":"precos"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"},"license":{"en":"license","cs":"license","de":"license","fr":"license","es":"license","it":"license","pl":"license","pt":"license"},"imprint":{"en":"imprint","cs":"imprint","de":"imprint","fr":"imprint","es":"imprint","it":"imprint","pl":"imprint","pt":"imprint"},"partner-agreement":{"en":"partner-agreement","cs":"partner-agreement","de":"partner-agreement","fr":"partner-agreement","es":"partner-agreement","it":"partner-agreement","pl":"partner-agreement","pt":"partner-agreement"},"certified":{"en":"certified","cs":"certifikace","de":"zertifizierung","fr":"certification","es":"certificacion","it":"certificazione","pl":"certyfikacja","pt":"certificacao"}}};
+  var D = {"def":"en","locales":["en","cs","de","fr","es","it","pl","pt"],"labels":{"en":"English","cs":"Čeština","de":"Deutsch","fr":"Français","es":"Español","it":"Italiano","pl":"Polski","pt":"Português"},"slugs":{"agents":{"en":"agents","cs":"agenti","de":"agenten","fr":"agents","es":"agentes","it":"agenti","pl":"agenci","pt":"agentes"},"pricing":{"en":"pricing","cs":"cenik","de":"preise","fr":"tarifs","es":"precios","it":"prezzi","pl":"cennik","pt":"precos"},"trust":{"en":"trust","cs":"duvera","de":"vertrauen","fr":"confiance","es":"confianza","it":"fiducia","pl":"zaufanie","pt":"confianca"},"partners":{"en":"partners","cs":"partneri","de":"partner","fr":"partenaires","es":"socios","it":"partner","pl":"partnerzy","pt":"parceiros"},"privacy":{"en":"privacy","cs":"ochrana-soukromi","de":"datenschutz","fr":"confidentialite","es":"privacidad","it":"privacy","pl":"prywatnosc","pt":"privacidade"},"terms":{"en":"terms","cs":"podminky","de":"nutzungsbedingungen","fr":"conditions","es":"terminos","it":"termini","pl":"warunki","pt":"termos"},"license":{"en":"license","cs":"license","de":"license","fr":"license","es":"license","it":"license","pl":"license","pt":"license"},"imprint":{"en":"imprint","cs":"imprint","de":"imprint","fr":"imprint","es":"imprint","it":"imprint","pl":"imprint","pt":"imprint"},"partner-agreement":{"en":"partner-agreement","cs":"partner-agreement","de":"partner-agreement","fr":"partner-agreement","es":"partner-agreement","it":"partner-agreement","pl":"partner-agreement","pt":"partner-agreement"},"certified":{"en":"certified","cs":"certifikace","de":"zertifizierung","fr":"certification","es":"certificacion","it":"certificazione","pl":"certyfikacja","pt":"certificacao"}}};
   var parts = location.pathname.split("/").filter(Boolean);
   var hasLocale = D.locales.indexOf(parts[0]) >= 0;
   var locale = hasLocale ? parts[0] : D.def;
@@ -329,7 +329,7 @@ display: flex !important;
 <h1>Enterprise AI agents priced by complexity, risk and business impact</h1>
 <p class="sub">Start with a focused AI agent or build a governed multi-agent solution. Pricing depends on workflow complexity, autonomy, integration requirements, governance requirements and package scope.</p>
 <div class="btns"><a class="btn p" href="/contact" data-cta="request_proposal">Request a tailored proposal</a><a class="btn s" href="/agents" data-cta="explore_agents">Explore agent solutions</a></div>
-<p class="note">An individual agent package is a one-time price set by its CAI tier: $7,900 (L2), $9,900 (L3) or $14,900 (L4), and the licence to that package is perpetual. <a href="/certified">Continuous Certification</a> is a separate optional subscription from $99 per month that keeps your purchased version listed as a current Colleague AI Certified Release: it is Colleague AIâ€™s own programme, not third-party accreditation, and it does not certify how you use the agent. The ranges below cover broader package scopes that can add integration specifications, governance and multi-agent design on top of the package price. Deployment and implementation remain with the customer or an approved implementation partner.</p>
+<p class="note">An individual agent package is a one-time price set by its CAI tier: $7,900 (L2), $9,900 (L3) or $14,900 (L4), and the licence to that package is perpetual. <a href="/certified">Continuous Certification</a> is a separate optional subscription from $99 per month that keeps your purchased version listed as a current Colleague AI Certified Release: it is Colleague AI’s own programme, not third-party accreditation, and it does not certify how you use the agent. The ranges below cover broader package scopes that can add integration specifications, governance and multi-agent design on top of the package price. Deployment and implementation remain with the customer or an approved implementation partner.</p>
 </section>
 
 <nav class="jump wrap" aria-label="On this page">
@@ -344,8 +344,8 @@ display: flex !important;
 
 <article class="tier" data-tier="1" data-tier-name="Essential Agents">
 <span class="badge">Best for focused workflows</span>
-<h3>Starter â€” Essential Agents</h3>
-<div class="range">$8,000â€“$15,000<small>Starting range</small></div>
+<h3>Starter — Essential Agents</h3>
+<div class="range">$8,000–$15,000<small>Starting range</small></div>
 <p>Focused assistants for lower-risk workflows, information access and employee productivity.</p>
 <ul><li>HR support</li><li>Email assistance</li><li>Enterprise knowledge search</li><li>FAQ automation</li><li>Meeting preparation and follow-up</li></ul>
 <div class="tfoot"><a class="btn s" href="/contact" data-cta="tier_1">Request a tailored proposal</a></div>
@@ -353,8 +353,8 @@ display: flex !important;
 
 <article class="tier feat" data-tier="2" data-tier-name="Business Operations Agents">
 <span class="badge">Most popular</span>
-<h3>Workflow â€” Business Operations Agents</h3>
-<div class="range">$15,000â€“$25,000<small>Starting range</small></div>
+<h3>Workflow — Business Operations Agents</h3>
+<div class="range">$15,000–$25,000<small>Starting range</small></div>
 <p>Operational agents that support recurring business processes across commercial and corporate teams.</p>
 <ul><li>Sales</li><li>Procurement</li><li>Marketing</li><li>Customer Success</li><li>Business Operations</li></ul>
 <div class="tfoot"><a class="btn p" href="/contact" data-cta="tier_2">Request a tailored proposal</a></div>
@@ -362,8 +362,8 @@ display: flex !important;
 
 <article class="tier" data-tier="3" data-tier-name="Advanced Decision-Support Agents">
 <span class="badge">Advanced analytics</span>
-<h3>Department â€” Advanced Decision-Support Agents</h3>
-<div class="range">$25,000â€“$40,000<small>Starting range</small></div>
+<h3>Department — Advanced Decision-Support Agents</h3>
+<div class="range">$25,000–$40,000<small>Starting range</small></div>
 <p>Analytical and decision-support agents designed for complex reporting, planning and management workflows.</p>
 <ul><li>Finance</li><li>Business Intelligence</li><li>Reporting</li><li>Planning</li><li>Executive Support</li></ul>
 <div class="tfoot"><a class="btn s" href="/contact" data-cta="tier_3">Request a tailored proposal</a></div>
@@ -371,8 +371,8 @@ display: flex !important;
 
 <article class="tier" data-tier="4" data-tier-name="Risk and Governance Agents">
 <span class="badge">High-control environments</span>
-<h3>Governance â€” Risk and Governance Agents</h3>
-<div class="range">$40,000â€“$60,000<small>Starting range</small></div>
+<h3>Governance — Risk and Governance Agents</h3>
+<div class="range">$40,000–$60,000<small>Starting range</small></div>
 <p>Governed agents for regulated, control-intensive and high-consequence business processes.</p>
 <ul><li>Compliance</li><li>Risk Management</li><li>Governance</li><li>Internal Audit</li></ul>
 <div class="tfoot"><a class="btn s" href="/contact" data-cta="tier_4">Request a tailored proposal</a></div>
@@ -380,8 +380,8 @@ display: flex !important;
 
 <article class="tier" data-tier="5" data-tier-name="Enterprise Multi-Agent Systems">
 <span class="badge">Enterprise transformation</span>
-<h3>Portfolio â€” Enterprise Multi-Agent Systems</h3>
-<div class="range">$60,000â€“$100,000<small>Starting range</small></div>
+<h3>Portfolio — Enterprise Multi-Agent Systems</h3>
+<div class="range">$60,000–$100,000<small>Starting range</small></div>
 <p>Coordinated multi-agent solutions spanning multiple workflows, functions, systems or governance layers.</p>
 <ul><li>Multiple specialized agents</li><li>Cross-functional orchestration</li><li>Several enterprise integration specifications</li><li>Shared governance controls</li><li>Multi-stage approval workflows</li></ul>
 <div class="tfoot"><a class="btn s" href="/contact" data-cta="tier_5">Discuss a multi-agent solution</a></div>
@@ -473,8 +473,8 @@ display: flex !important;
 </main>
 
 <footer><div class="wrap">
-Â© Colleague AI 2026 Â· <a href="/terms">Terms</a> Â· <a href="/privacy">Privacy</a> Â· <a href="/refund">Refund Policy</a> Â· <a href="/license">License</a> Â· <a href="/partner-agreement">Partner Agreement</a> Â· <a href="/imprint">Legal notice</a> Â· <a href="/responsible-ai">Responsible AI</a> Â· <a href="/accessibility">Accessibility</a> Â· <a href="/contact">Contact</a>
-<div class="co">Colleague AI s.r.o. Â· Å kolskÃ¡ 1736/12, NovÃ© MÄ›sto, 110 00 Praha, Czech Republic Â· IÄŒO 29540852 Â· DIÄŒ CZ29540852 Â· MÄ›stskÃ½ soud v Praze, C 448176 Â· hello@colleagueai.ai</div>
+© Colleague AI 2026 · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/refund">Refund Policy</a> · <a href="/license">License</a> · <a href="/partner-agreement">Partner Agreement</a> · <a href="/imprint">Legal notice</a> · <a href="/responsible-ai">Responsible AI</a> · <a href="/accessibility">Accessibility</a> · <a href="/contact">Contact</a>
+<div class="co">Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha, Czech Republic · IČO 29540852 · DIČ CZ29540852 · Městský soud v Praze, C 448176 · hello@colleagueai.ai</div>
 </div></footer>
 <script>
 (function(){
@@ -515,4 +515,3 @@ var b=document.getElementById('burger'),m=document.getElementById('mnav');
 </script>
 </body>
 </html>
-
