@@ -127,6 +127,51 @@ test('the partner worked example uses the current L4 price and its own 10%', () 
   assert.ok(html.includes('$' + (contract - commission).toLocaleString('en-US')), 'retained-revenue figure is stale');
 });
 
+/* The three tier-price assertions above are why the ten-referral example rotted
+   unseen: the L4 figures on this page ARE tier prices and were duly reprised,
+   while the example is the one set of numbers derived from the CATALOGUE, which
+   nothing here was reading. It advertised "avg. $22,000" - above the dearest
+   agent ColleagueAI sells - overstating a partner's year by 125%.
+
+   The invariant worth keeping is the cheap one: an average of the catalogue
+   cannot exceed the dearest thing in it. That comparison alone would have failed
+   the moment the reprice landed, without anyone needing to know the new mean.
+   The exact-mean and arithmetic checks below then say what the figures should
+   be, so the next reprice is told rather than discovered. */
+test('the ten-referral example averages the catalogue that exists, not a retired one', () => {
+  const html = read('public/partners.html');
+  const prices = Object.values(JSON.parse(read('public/agents.html').match(/perAgent:(\{[^}]*\})/)[1]));
+  const dearest = Math.max(...prices);
+  const avg = Math.round(prices.reduce((a, b) => a + b, 0) / prices.length / 100) * 100;
+  const referrals = 10;
+  const total = avg * referrals;
+  const earn = Math.round(total * PRICING.partnerCommissionRate);
+  const shown = (s) => Number(String(s).replace(/[^0-9]/g, ''));
+
+  // Every language carries its own copy of the tag, so a fix that reaches only
+  // the English card leaves seven pages advertising the old number.
+  const tags = [...html.matchAll(/"ag3_tag":"([^"]*)"/g)].map((m) => m[1]);
+  assert.equal(tags.length, 8, `the ten-referral tag should exist in all eight languages, found ${tags.length}`);
+  for (const tag of tags) {
+    const n = shown(tag.match(/\$[\d,]+/)[0]);
+    assert.ok(n <= dearest,
+      `a locale advertises an average of $${n.toLocaleString('en-US')}, above the dearest agent in the catalogue ($${dearest.toLocaleString('en-US')})`);
+    assert.equal(n, avg, `locale tag "${tag}" is not the catalogue mean $${avg.toLocaleString('en-US')}`);
+  }
+
+  // The visible card: average, total and commission must agree with each other
+  // and with the rate, each computed independently rather than assumed equal --
+  // they coincide only because ten referrals at 10% happens to return exactly
+  // one average, which a change to either number would quietly end.
+  const card = html.slice(html.indexOf('>10 referrals in a year<'));
+  assert.equal(shown(card.match(/class="ag-tag">[^<]*?(\$[\d,]+)/)[1]), avg, 'the card average is not the catalogue mean');
+  assert.equal(shown(card.match(/class="pr-val">(\$[\d,]+)/)[1]), total,
+    `${referrals} referrals averaging $${avg.toLocaleString('en-US')} is $${total.toLocaleString('en-US')} of sales`);
+  assert.equal(shown(card.match(/class="earn-val">(\$[\d,]+)/)[1]), earn,
+    `${PRICING.partnerCommissionRate * 100}% of $${total.toLocaleString('en-US')} is $${earn.toLocaleString('en-US')}`);
+});
+
+
 // reads dist/, so run after `npm run build`
 test('the demo form and the certification page read from the config too', () => {
   assert.ok(read('src/Demo.jsx').includes("config/pricing.json"), 'Demo.jsx must not hard-code package prices');
