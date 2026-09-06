@@ -194,3 +194,43 @@ test('no retired price survives anywhere in the English masters', () => {
     }
   }
 });
+
+/* Two translation systems localise the partner page, and only one of them is
+   visible from the page itself. public/partners.html carries a `var I18N`
+   dictionary, but the BUILT locale pages take this element from
+   scripts/i18n/reviewed-copy.json, which is keyed by the ENGLISH SOURCE STRING.
+   Renumbering the English tag from $22,000 to $9,800 orphaned all seven
+   translations, and /cs/partneri served "Mix of agents - avg. $9,800" under a
+   Czech heading until this was caught in production.
+
+   This pins the one string. A general "every key must still match something"
+   guard was tried and abandoned: the restorer runs over locale pages, so many
+   legitimate keys target text that exists only there and never in an English
+   master ("Bereitstellung & data" corrects a half-translated German heading).
+   Twenty of the eighty-six keys are unmatched against the English masters and
+   most of those are correct, so the broad assertion would have been noise.
+
+   One of the twenty is not noise: the /pricing paragraph listing the tier
+   prices is keyed to English that predates the <a href="/certified"> link now
+   inside it, so it is already orphaned and /cs/cenik serves that paragraph in
+   English today. That needs its own fix and its own assertion; it is not this
+   commit. */
+const LOCALES = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
+const reviewedCopy = () => JSON.parse(read('scripts/i18n/reviewed-copy.json'));
+const figuresIn = (s) => (String(s).match(/\$[\d,]+/g) || []);
+
+test('the ten-referral tag is still translated in every locale', () => {
+  const html = read('public/partners.html');
+  const card = html.slice(html.indexOf('>10 referrals in a year<'), html.indexOf('>10 referrals in a year<') + 900);
+  const english = card.match(/class="ag-tag">([^<]*)/)[1].trim();
+  const copy = reviewedCopy();
+
+  for (const loc of LOCALES) {
+    const translated = copy[loc] && copy[loc][english];
+    assert.ok(translated,
+      `${loc} has no reviewed translation keyed to "${english}" -- the English text changed and orphaned it, so /${loc} renders this line in English`);
+    assert.deepEqual(figuresIn(translated), figuresIn(english),
+      `${loc}: the translation quotes ${figuresIn(translated).join(', ') || 'no figure'} where the English says ${figuresIn(english).join(', ')}`);
+  }
+});
+
