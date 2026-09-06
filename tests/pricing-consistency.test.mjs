@@ -234,3 +234,57 @@ test('the ten-referral tag is still translated in every locale', () => {
   }
 });
 
+/* The /pricing note -- the paragraph stating the tier prices and the $99
+   subscription -- contains an inline link, so generate-pricing-pages.cjs cannot
+   translate it: that translator matches whole text nodes. It is localised by the
+   reviewed-copy restorer instead, keyed by English source text. The key fell
+   behind the page twice over (the /certified link was added, and a sentence was
+   reworded), and /cs/cenik served the whole paragraph in English until this was
+   caught. One key covers all seven locales because the href is still the English
+   /certified when the restorer runs; localize-internal-links.cjs rewrites it in
+   postbuild, which is why the translations must keep that href too. */
+test('the /pricing note paragraph is keyed to the paragraph that is on the page', () => {
+  const html = read('public/pricing.html');
+  const english = html.match(/<p class="note">([\s\S]*?)<\/p>/)[1];
+  assert.match(english, /An individual agent package/, 'the page note is no longer the pricing note');
+  assert.ok(english.includes('<a href="/certified">'),
+    'the note no longer links /certified -- the reviewed key and localize-internal-links both assume it does');
+
+  const copy = reviewedCopy();
+  for (const loc of LOCALES) {
+    const translated = copy[loc] && copy[loc][english];
+    assert.ok(translated,
+      `${loc} has no reviewed translation keyed to the current /pricing note, so /${loc} serves that whole paragraph in English`);
+    assert.ok(translated.includes('<a href="/certified">'),
+      `${loc}: the translation drops the /certified link, so postbuild cannot localise it`);
+    assert.deepEqual(figuresIn(translated), figuresIn(english),
+      `${loc}: the note quotes ${figuresIn(translated).join(', ')} where the English says ${figuresIn(english).join(', ')}`);
+  }
+});
+
+/* generate-pricing-pages.cjs translates this page by looking each English string
+   up in pricing-content.json, so a string on the page with no entry is simply
+   served in English in all seven languages -- in the visible FAQ and in the
+   FAQPage JSON-LD, which is what search engines read. Two answers were in that
+   state: one had never been translated, and one was orphaned by a single word
+   ("integrations" became "integration requirements" on the English side). */
+test('every /pricing FAQ question and answer has a reviewed translation', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+  const pairs = [...html.matchAll(/<details><summary>([^<]*)<\/summary><p>([^<]*)<\/p>/g)];
+  assert.ok(pairs.length >= 6, `expected the pricing FAQ to still be on the page, found ${pairs.length} entries`);
+
+  for (const [, question, answer] of pairs) {
+    for (const [what, english] of [['question', question], ['answer', answer]]) {
+      const entry = dict[english];
+      assert.ok(entry,
+        `this ${what} has no entry in pricing-content.json, so all seven locales serve it in English: "${english.slice(0, 80)}${english.length > 80 ? '...' : ''}"`);
+      for (const loc of LOCALES) {
+        assert.ok(entry[loc] && entry[loc] !== english,
+          `${loc}: the ${what} "${english.slice(0, 60)}..." is untranslated`);
+      }
+    }
+  }
+});
+
+

@@ -791,14 +791,14 @@
     "pl": "Czy oferujecie rozwiązania wieloagentowe?",
     "pt": "Oferecem soluções multiagente?"
   },
-  "Yes. Multi-agent solutions are designed and priced individually based on the number of agents, workflows, integrations, governance controls and organizational scope.": {
-    "cs": "Ano. Multiagentní řešení se navrhují a oceňují individuálně podle počtu agentů, procesů, integrací, kontrolních mechanismů governance a rozsahu v organizaci.",
-    "de": "Ja. Multi-Agenten-Lösungen werden individuell konzipiert und bepreist, basierend auf Anzahl der Agenten, Workflows, Integrationen, Governance-Kontrollen und organisatorischem Umfang.",
-    "fr": "Oui. Les solutions multi-agents sont conçues et tarifées individuellement selon le nombre d'agents, de workflows, d'intégrations, de contrôles de gouvernance et le périmètre organisationnel.",
-    "es": "Sí. Las soluciones multiagente se diseñan y cotizan individualmente según el número de agentes, flujos de trabajo, integraciones, controles de gobernanza y alcance organizativo.",
-    "it": "Sì. Le soluzioni multi-agente sono progettate e quotate individualmente in base al numero di agenti, workflow, integrazioni, controlli di governance e ambito organizzativo.",
-    "pl": "Tak. Rozwiązania wieloagentowe są projektowane i wyceniane indywidualnie na podstawie liczby agentów, procesów, integracji, mechanizmów governance i zakresu organizacyjnego.",
-    "pt": "Sim. As soluções multiagente são concebidas e orçamentadas individualmente com base no número de agentes, fluxos de trabalho, integrações, controlos de governação e âmbito organizacional."
+  "Yes. Multi-agent solutions are designed and priced individually based on the number of agents, workflows, integration requirements, governance controls and organizational scope.": {
+    "cs": "Ano. Multiagentní řešení se navrhují a oceňují individuálně podle počtu agentů, procesů, požadavků na integrace, kontrolních mechanismů governance a rozsahu v organizaci.",
+    "de": "Ja. Multi-Agenten-Lösungen werden individuell konzipiert und bepreist, basierend auf Anzahl der Agenten, Workflows, Integrationsanforderungen, Governance-Kontrollen und organisatorischem Umfang.",
+    "fr": "Oui. Les solutions multi-agents sont conçues et tarifées individuellement selon le nombre d'agents, de workflows, d'exigences d'intégration, de contrôles de gouvernance et le périmètre organisationnel.",
+    "es": "Sí. Las soluciones multiagente se diseñan y cotizan individualmente según el número de agentes, flujos de trabajo, requisitos de integración, controles de gobernanza y alcance organizativo.",
+    "it": "Sì. Le soluzioni multi-agente sono progettate e quotate individualmente in base al numero di agenti, workflow, requisiti di integrazione, controlli di governance e ambito organizzativo.",
+    "pl": "Tak. Rozwiązania wieloagentowe są projektowane i wyceniane indywidualnie na podstawie liczby agentów, procesów, wymagań integracyjnych, mechanizmów governance i zakresu organizacyjnego.",
+    "pt": "Sim. As soluções multiagente são concebidas e orçamentadas individualmente com base no número de agentes, fluxos de trabalho, requisitos de integração, controlos de governação e âmbito organizacional."
   },
   "Do you guarantee ROI?": {
     "cs": "Garantujete ROI?",
@@ -1348,5 +1348,14 @@
     "it": "Sistemi, API, database, repository documentali e piattaforme di comunicazione a cui il pacchetto deve essere progettato per collegarsi.",
     "pl": "Systemy, API, bazy danych, repozytoria dokumentów i platformy komunikacyjne, z którymi pakiet ma być zaprojektowany do współpracy.",
     "pt": "Sistemas, APIs, bases de dados, repositórios documentais e plataformas de comunicação às quais o pacote deve ser concebido para se ligar."
+  },
+  "The commercial structure depends on the solution. An engagement may include a one-time agent package and optional ongoing governance, support or update components.": {
+    "cs": "Obchodní struktura závisí na řešení. Zakázka může zahrnovat jednorázový balíček agenta a volitelné průběžné komponenty governance, podpory nebo aktualizací.",
+    "de": "Die kommerzielle Struktur hängt von der Lösung ab. Ein Projekt kann ein einmaliges Agentenpaket sowie optionale laufende Governance-, Support- oder Update-Komponenten umfassen.",
+    "fr": "La structure commerciale dépend de la solution. Un projet peut inclure un package d’agent unique et des composants facultatifs et continus de gouvernance, de support ou de mises à jour.",
+    "es": "La estructura comercial depende de la solución. Un proyecto puede incluir un paquete de agente único y componentes opcionales y continuos de gobernanza, soporte o actualizaciones.",
+    "it": "La struttura commerciale dipende dalla soluzione. Un progetto può includere un pacchetto agente una tantum e componenti opzionali e continuativi di governance, supporto o aggiornamenti.",
+    "pl": "Struktura komercyjna zależy od rozwiązania. Projekt może obejmować jednorazowy pakiet agenta oraz opcjonalne, bieżące komponenty governance, wsparcia lub aktualizacji.",
+    "pt": "A estrutura comercial depende da solução. Um projeto pode incluir um pacote de agente único e componentes opcionais e contínuos de governação, apoio ou atualizações."
   }
 }
