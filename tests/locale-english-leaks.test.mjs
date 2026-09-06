@@ -125,3 +125,57 @@ test('no reviewed-copy key is swallowed by a longer overlapping key', () => {
   }
   assert.deepEqual(dead, [], 'these keys can never match:\n  ' + dead.join('\n  '));
 });
+
+/* Metadata is where both of the next two defects hid, and it is invisible to
+   everything above: the leak detector reads visible text nodes, and metadata
+   lives in attributes that never appear between tags. It is also invisible in a
+   browser — you only ever see it in a search result or a shared link. */
+
+test('the imprint metadata is translated in every locale', () => {
+  const dict = JSON.parse(readFileSync(new URL('../scripts/i18n/reviewed-copy.json', import.meta.url), 'utf8'));
+  // The English title carries an &amp; and the description a comma-and; both are
+  // matched verbatim by the restorer, so they are looked up as literal keys.
+  const keys = Object.keys(dict.cs).filter((k) => /Legal Notice|Company identification, registered office/.test(k));
+  assert.equal(keys.length, 2,
+    `expected the imprint title and description among the reviewed keys, found ${keys.length} — /imprint serves English metadata in all seven locales`);
+  for (const en of keys) {
+    for (const loc of LOCALES) {
+      const t = dict[loc] && dict[loc][en];
+      assert.ok(t && t !== en, `${loc}: imprint metadata ${JSON.stringify(en.slice(0, 40))} is untranslated`);
+    }
+  }
+});
+
+test('og:url names the page you are on, not its English twin', { skip: existsSync(dist('cs/imprint.html')) ? false : 'needs npm run build' }, () => {
+  const wrong = [];
+  let checked = 0;
+  for (const loc of LOCALES) {
+    for (const page of ['imprint.html', 'agents.html', 'partners.html', 'privacy.html', 'score.html', 'trust.html', 'usage.html']) {
+      let html;
+      try { html = read(`${loc}/${page}`); } catch { continue; }
+      const og = html.match(/<meta property="og:url" content="([^"]*)"/);
+      const canonical = html.match(/<link rel="canonical" href="([^"]*)"/);
+      if (!og || !canonical) continue;
+      checked += 1;
+      if (og[1].replace(/\/$/, '') !== canonical[1].replace(/\/$/, '')) {
+        wrong.push(`${loc}/${page}: og:url=${og[1]} canonical=${canonical[1]}`);
+      }
+    }
+  }
+  assert.ok(checked >= 40, `expected to check the localized pages, only saw ${checked} — did the build run?`);
+  assert.deepEqual(wrong, [],
+    'these pages tell social crawlers they are the English page:\n  ' + wrong.join('\n  '));
+});
+
+test('no locale imprint serves the English title or description', { skip: existsSync(dist('cs/imprint.html')) ? false : 'needs npm run build' }, () => {
+  const english = read('imprint.html');
+  const title = english.match(/<title>([^<]*)<\/title>/)[1];
+  const description = english.match(/<meta name="description" content="([^"]*)"/)[1];
+  const bad = [];
+  for (const loc of LOCALES) {
+    const html = read(`${loc}/imprint.html`);
+    if (html.includes(title)) bad.push(`${loc}: English <title> / og:title`);
+    if (html.includes(description)) bad.push(`${loc}: English description`);
+  }
+  assert.deepEqual(bad, [], 'imprint metadata reverted to English:\n  ' + bad.join('\n  '));
+});
