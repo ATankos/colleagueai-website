@@ -67,7 +67,17 @@
     "See also our": "Viz také naše",
     "Contact": "Kontakt",
     "Czech Republic": "Česká republika",
-    "Privacy Policy": "Zásady ochrany soukromí"
+    "Privacy Policy": "Zásady ochrany soukromí",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "Úrovně stanovují povinnosti; role rozhodují, kdo je nese. Nařízení dělí povinnosti mezi poskytovatele systému (ten, kdo jej vyvine a uvede na trh pod vlastním jménem) a zavádějící subjekt (ten, kdo jej provozuje z vlastní pravomoci). Při obvyklém nasazení je Colleague AI poskytovatelem balíčku agenta a vy jste zavádějícím subjektem — podle článku 25 se však poskytovatelem stáváte i vy, pokud jej přeznačíte, podstatně jej změníte nebo jej přeúčelujete k novému vysoce rizikovému použití. Povinnosti zavádějícího subjektu zůstávají v obou případech na vás: skutečný lidský dohled, uchovávání automatických protokolů agenta nejméně šest měsíců, sledování a hlášení incidentů a informování dotčených osob tam, kde je to vyžadováno. CAI Score dává oběma stranám důkazy k těmto povinnostem; nepřenáší je ani jich nezbavuje.",
+    "Questions, answered": "Otázky a odpovědi",
+    "What certification covers →": "Co certifikace zahrnuje →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, spisová značka C 448176",
+    ", and\n": " a\n",
+    "← ColleagueAI": "← Zpět na ColleagueAI",
+    "// accountability": "// odpovědnost",
+    "// architecture": "// architektura",
+    "// regulation": "// regulace",
+    "// audit": "// audit"
   },
   "de": {
     "Your unique partner link,": "Ihr einzigartiger Partner-Link,",
@@ -137,7 +147,17 @@
     "See also our": "Siehe auch unsere",
     "Contact": "Kontakt",
     "Czech Republic": "Tschechien",
-    "Privacy Policy": "Datenschutzerklärung"
+    "Privacy Policy": "Datenschutzerklärung",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "Stufen legen die Pflichten fest; Rollen entscheiden, wer sie trägt. Die Verordnung teilt die Pflichten zwischen dem Anbieter eines Systems (wer es entwickelt und unter eigenem Namen in Verkehr bringt) und dem Betreiber (wer es in eigener Verantwortung betreibt) auf. In einer typischen Bereitstellung ist Colleague AI der Anbieter des Agentenpakets und Sie sind der Betreiber — nach Artikel 25 werden Sie jedoch selbst zum Anbieter, wenn Sie es umbenennen, wesentlich verändern oder für eine neue Hochrisiko-Verwendung umwidmen. Die Pflichten des Betreibers bleiben in jedem Fall bei Ihnen: echte menschliche Aufsicht, Aufbewahrung der automatischen Protokolle des Agenten für mindestens sechs Monate, Überwachung und Meldung von Vorfällen sowie Information betroffener Personen, wo dies erforderlich ist. Der CAI Score liefert beiden Seiten die Nachweise für diese Pflichten; er überträgt sie nicht und hebt sie nicht auf.",
+    "Questions, answered": "Fragen und Antworten",
+    "What certification covers →": "Was die Zertifizierung abdeckt →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, Aktenzeichen C 448176",
+    ", and\n": " und\n",
+    "← ColleagueAI": "← Zurück zu ColleagueAI",
+    "// accountability": "// verantwortung",
+    "// architecture": "// architektur",
+    "// regulation": "// regulierung",
+    "// audit": "// audit"
   },
   "fr": {
     "Your unique partner link,": "Votre lien partenaire unique,",
@@ -206,7 +226,17 @@
     "See also our": "Voir également nos",
     "Contact": "Contact",
     "Czech Republic": "République tchèque",
-    "Privacy Policy": "Politique de confidentialité"
+    "Privacy Policy": "Politique de confidentialité",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "Les niveaux fixent les obligations ; les rôles déterminent qui les porte. Le règlement répartit les obligations entre le fournisseur d’un système (celui qui le développe et le met sur le marché sous son propre nom) et le déployeur (celui qui l’exploite sous sa propre autorité). Dans un déploiement typique, Colleague AI est le fournisseur du package d’agent et vous êtes le déployeur — mais en vertu de l’article 25, vous devenez vous-même fournisseur si vous le renommez, le modifiez substantiellement ou le réaffectez à un nouvel usage à haut risque. Les obligations du déployeur vous incombent dans tous les cas : un contrôle humain effectif, la conservation des journaux automatiques de l’agent pendant au moins six mois, la surveillance et le signalement des incidents, et l’information des personnes concernées lorsque cela est requis. Le CAI Score fournit aux deux parties les preuves relatives à ces obligations ; il ne les transfère ni ne les éteint.",
+    "Questions, answered": "Questions et réponses",
+    "What certification covers →": "Ce que couvre la certification →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, dossier C 448176",
+    ", and\n": " et\n",
+    "← ColleagueAI": "← Retour à ColleagueAI",
+    "// accountability": "// responsabilité",
+    "// architecture": "// architecture",
+    "// regulation": "// réglementation",
+    "// audit": "// audit"
   },
   "es": {
     "Your unique partner link,": "Su enlace de socio único,",
@@ -275,7 +305,17 @@
     "See also our": "Consulte también nuestros",
     "Contact": "Contacto",
     "Czech Republic": "República Checa",
-    "Privacy Policy": "Política de privacidad"
+    "Privacy Policy": "Política de privacidad",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "Los niveles fijan las obligaciones; los roles deciden quién las asume. El Reglamento reparte los deberes entre el proveedor de un sistema (quien lo desarrolla y lo introduce en el mercado con su propio nombre) y el responsable del despliegue (quien lo utiliza bajo su propia autoridad). En un despliegue habitual, Colleague AI es el proveedor del paquete de agente y usted es el responsable del despliegue — pero, en virtud del artículo 25, usted pasa a ser proveedor si lo renombra, lo modifica sustancialmente o lo reutiliza para un nuevo uso de alto riesgo. Los deberes del responsable del despliegue siguen siendo suyos en cualquier caso: supervisión humana efectiva, conservación de los registros automáticos del agente durante al menos seis meses, seguimiento y notificación de incidentes, e información a las personas afectadas cuando así se exija. El CAI Score aporta a ambas partes las pruebas de estos deberes; no los transfiere ni los extingue.",
+    "Questions, answered": "Preguntas y respuestas",
+    "What certification covers →": "Qué cubre la certificación →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, expediente C 448176",
+    ", and\n": " y\n",
+    "← ColleagueAI": "← Volver a ColleagueAI",
+    "// accountability": "// responsabilidad",
+    "// architecture": "// arquitectura",
+    "// regulation": "// regulación",
+    "// audit": "// auditoría"
   },
   "it": {
     "Your unique partner link,": "Il tuo link partner univoco,",
@@ -344,7 +384,17 @@
     "See also our": "Vedi anche i nostri",
     "Contact": "Contatti",
     "Czech Republic": "Repubblica Ceca",
-    "Privacy Policy": "Informativa sulla privacy"
+    "Privacy Policy": "Informativa sulla privacy",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "I livelli stabiliscono gli obblighi; i ruoli decidono chi li assume. Il regolamento ripartisce gli obblighi tra il fornitore di un sistema (chi lo sviluppa e lo immette sul mercato con il proprio nome) e il deployer (chi lo utilizza sotto la propria autorità). In un’implementazione tipica Colleague AI è il fornitore del pacchetto agente e voi siete il deployer — ma ai sensi dell’articolo 25 diventate voi stessi fornitori se lo rinominate, lo modificate in modo sostanziale o lo riutilizzate per un nuovo impiego ad alto rischio. Gli obblighi del deployer restano comunque in capo a voi: sorveglianza umana effettiva, conservazione dei log automatici dell’agente per almeno sei mesi, monitoraggio e segnalazione degli incidenti e informazione delle persone interessate ove richiesto. Il CAI Score fornisce a entrambe le parti le prove di questi obblighi; non li trasferisce né li estingue.",
+    "Questions, answered": "Domande e risposte",
+    "What certification covers →": "Che cosa copre la certificazione →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, fascicolo C 448176",
+    ", and\n": " e\n",
+    "← ColleagueAI": "← Torna a ColleagueAI",
+    "// accountability": "// responsabilità",
+    "// architecture": "// architettura",
+    "// regulation": "// regolamentazione",
+    "// audit": "// audit"
   },
   "pl": {
     "Your unique partner link,": "Twój unikalny link partnerski,",
@@ -414,7 +464,17 @@
     "See also our": "Zobacz także nasze",
     "Contact": "Kontakt",
     "Czech Republic": "Czechy",
-    "Privacy Policy": "Polityka prywatności"
+    "Privacy Policy": "Polityka prywatności",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "Poziomy określają obowiązki; role rozstrzygają, kto je ponosi. Rozporządzenie dzieli obowiązki między dostawcę systemu (tego, kto go opracowuje i wprowadza do obrotu pod własną nazwą) a podmiot stosujący (tego, kto go użytkuje w ramach własnych uprawnień). W typowym wdrożeniu Colleague AI jest dostawcą pakietu agenta, a Państwo są podmiotem stosującym — jednak zgodnie z artykułem 25 sami stają się Państwo dostawcą, jeśli zmienią jego oznaczenie, istotnie go zmodyfikują lub przeznaczą do nowego zastosowania wysokiego ryzyka. Obowiązki podmiotu stosującego pozostają w obu przypadkach po Państwa stronie: rzeczywisty nadzór ludzki, przechowywanie automatycznych rejestrów agenta przez co najmniej sześć miesięcy, monitorowanie i zgłaszanie incydentów oraz informowanie osób, których to dotyczy, gdy jest to wymagane. CAI Score dostarcza obu stronom dowodów dotyczących tych obowiązków; nie przenosi ich ani nie znosi.",
+    "Questions, answered": "Pytania i odpowiedzi",
+    "What certification covers →": "Co obejmuje certyfikacja →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, sygnatura akt C 448176",
+    ", and\n": " oraz\n",
+    "← ColleagueAI": "← Powrót do ColleagueAI",
+    "// accountability": "// odpowiedzialność",
+    "// architecture": "// architektura",
+    "// regulation": "// regulacje",
+    "// audit": "// audyt"
   },
   "pt": {
     "Your unique partner link,": "A sua ligação de parceiro única,",
@@ -484,6 +544,16 @@
     "See also our": "Consulte também os nossos",
     "Contact": "Contacto",
     "Czech Republic": "República Checa",
-    "Privacy Policy": "Política de Privacidade"
+    "Privacy Policy": "Política de Privacidade",
+    "Tiers set the obligations; roles decide who carries them. The Act splits duties between the provider of a system (whoever develops it and puts it on the market under their own name) and the deployer (whoever runs it under their own authority). In a typical deployment Colleague AI is the provider of the agent package and you are the deployer &mdash; but under Article 25 you become a provider yourself if you rebrand it, modify it substantially, or repurpose it into a new high-risk use. The deployer's duties stay with you either way: real human oversight, keeping the agent's automatic logs at least six months, monitoring and reporting incidents, and informing affected people where required. The CAI Score gives both sides the evidence for these duties; it doesn't transfer or discharge them.": "Os níveis definem as obrigações; os papéis decidem quem as suporta. O regulamento reparte os deveres entre o prestador de um sistema (quem o desenvolve e o coloca no mercado em seu próprio nome) e o responsável pela implantação (quem o utiliza sob a sua própria autoridade). Numa implantação típica, a Colleague AI é o prestador do pacote de agente e o cliente é o responsável pela implantação — mas, nos termos do artigo 25.º, passa a ser prestador se o renomear, o alterar substancialmente ou o reafetar a uma nova utilização de risco elevado. Os deveres do responsável pela implantação mantêm-se consigo em qualquer caso: supervisão humana efetiva, conservação dos registos automáticos do agente durante pelo menos seis meses, monitorização e comunicação de incidentes e informação das pessoas afetadas quando exigido. O CAI Score fornece a ambas as partes os elementos de prova destes deveres; não os transfere nem os extingue.",
+    "Questions, answered": "Perguntas e respostas",
+    "What certification covers →": "O que a certificação abrange →",
+    "Městský soud v Praze, file C 448176": "Městský soud v Praze, processo C 448176",
+    ", and\n": " e\n",
+    "← ColleagueAI": "← Voltar para ColleagueAI",
+    "// accountability": "// responsabilidade",
+    "// architecture": "// arquitetura",
+    "// regulation": "// regulação",
+    "// audit": "// auditoria"
   }
 }
