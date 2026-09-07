@@ -94,3 +94,35 @@ test('no built locale page serves one of them back in English', {
     }
   }
 });
+
+/* The whole partner-levels section -- the referral card, the programme terms,
+   the carve-out above -- used to sit between <!-- cai-partner-levels:start/end -->
+   markers, and scripts/generate-partner-levels.cjs stripped whatever was between
+   them and injected a retired three-level programme (Referral 10%, Sales 15%,
+   Strategic from 20%) in its place. It had been inert for a while because its
+   anchor, <section id="generate">, is no longer on the page: 34 "no anchor"
+   warnings a build and "injected into 0 files". Inert, not harmless -- restoring
+   that anchor would have replaced hand-maintained commercial copy with two
+   commission rates the company had already withdrawn. The script and its
+   dictionary are gone; this keeps the markers from coming back and quietly
+   putting the section back under a generator. */
+test('the partner-levels section is source, not generated output', () => {
+  const html = read('public/partners.html');
+  assert.ok(!html.includes('cai-partner-levels:start') && !html.includes('cai-partner-levels:end'),
+    'the partner section is wrapped in generator markers again — whatever generates it will strip this copy, the carve-out included');
+});
+
+/* Removing a build step is easy to get half-right: delete the file, leave the
+   `node scripts/...` in package.json, and the build dies on the next deploy
+   rather than here. */
+test('every build step points at a script that exists', () => {
+  const pkg = JSON.parse(read('package.json'));
+  const missing = [];
+  for (const phase of ['build', 'postbuild']) {
+    for (const m of (pkg.scripts[phase] || '').matchAll(/node (scripts\/[\w.-]+)/g)) {
+      if (!existsSync(new URL('../' + m[1], import.meta.url))) missing.push(`${phase}: ${m[1]}`);
+    }
+  }
+  assert.deepEqual(missing, [], 'package.json runs scripts that are not in the repo: ' + missing.join(', '));
+});
+
