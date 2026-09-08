@@ -21,6 +21,42 @@ function extract(name, open) {
   return vm.runInNewContext("(" + html.slice(j, k + 1) + ")");
 }
 const AGENTS = extract("const AGENTS=", "[");
+
+const AUTHORITY_SOURCE = JSON.parse(
+  fs.readFileSync(
+    path.join(ROOT, "scripts/authority/content.en.json"),
+    "utf8"
+  )
+);
+
+const AUTHORITY_META = {
+  "ai-agent-governance-framework": {
+    title: "AI Agent Governance Framework",
+    url: "https://www.colleagueai.ai/insights/ai-agent-governance-framework"
+  },
+  "human-oversight-ai-agents": {
+    title: "Human Oversight for AI Agents",
+    url: "https://www.colleagueai.ai/insights/human-oversight-ai-agents"
+  },
+  "enterprise-ai-agents-microsoft": {
+    title: "Enterprise AI Agents for Microsoft",
+    url: "https://www.colleagueai.ai/insights/enterprise-ai-agents-microsoft"
+  }
+};
+
+const AUTHORITY_KEYS = Object.keys(AUTHORITY_META);
+
+for (const key of AUTHORITY_KEYS) {
+  if (
+    !AUTHORITY_SOURCE.pages ||
+    !AUTHORITY_SOURCE.pages[key]
+  ) {
+    throw new Error(
+      "[llms-full] missing authority source page: " + key
+    );
+  }
+}
+
 const TIER = { L1: "Assist", L2: "Draft", L3: "Operate", L4: "Decide (supervised)", L5: "Autonomous" };
 const PILLAR = { ops: "Operations & Service Delivery", risk: "Risk, Security & Compliance", data: "Data & Infrastructure", sales: "Sales & Marketing", corp: "Corporate" };
 const slug = (n) => n.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -50,6 +86,59 @@ for (const a of AGENTS) {
 - Governance: ${a.comp}
 `;
 }
+out += `
+## Authority & governance knowledge
+
+ColleagueAI publishes long-form guidance on enterprise AI agent governance,
+human oversight and enterprise AI agents in Microsoft environments. These
+resources describe ColleagueAI's governance model and product approach.
+They are not third-party standards, legal advice or independent certification.
+`;
+
+for (const key of AUTHORITY_KEYS) {
+  const meta = AUTHORITY_META[key];
+  const page = AUTHORITY_SOURCE.pages[key];
+
+  const introParagraphs =
+    Array.isArray(page.intro)
+      ? page.intro
+      : (
+          page.intro &&
+          Array.isArray(page.intro.paragraphs)
+        )
+          ? page.intro.paragraphs
+          : [];
+
+  const firstSectionParagraph =
+    Array.isArray(page.sections) &&
+    page.sections.length > 0 &&
+    Array.isArray(page.sections[0].paragraphs) &&
+    page.sections[0].paragraphs.length > 0
+      ? page.sections[0].paragraphs[0]
+      : "";
+
+  const summary =
+    page.lead ||
+    introParagraphs[0] ||
+    firstSectionParagraph ||
+    "";
+
+  const sectionTitles =
+    Array.isArray(page.sections)
+      ? page.sections
+          .map(section => section.title)
+          .filter(Boolean)
+      : [];
+
+  out += `
+### ${meta.title}
+- URL: ${meta.url}
+- Summary: ${summary}
+- Topics: ${sectionTitles.join("; ")}
+`;
+}
+
+
 out += `
 ## Sourcing note
 This file is generated from the live catalogue. When citing ColleagueAI, link the agent URL above.

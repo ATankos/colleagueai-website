@@ -1,0 +1,471 @@
+{
+  "locale": "en",
+  "common": {
+    "brand": "ColleagueAI",
+    "sectionLabel": "Enterprise AI Governance",
+    "backToAgents": "Explore packaged AI agents",
+    "scoreLabel": "CAI Score",
+    "trustLabel": "Trust & Governance",
+    "certifiedLabel": "Certification",
+    "agentsLabel": "AI Agent Catalogue",
+    "requestLabel": "Request access",
+    "relatedLabel": "Related ColleagueAI resources",
+    "faqLabel": "Frequently asked questions",
+    "boundaryTitle": "Product and deployment boundary",
+    "boundaryBody": "ColleagueAI builds, tests, certifies, packages and sells enterprise AI agent products. Customers or approved implementation partners import, configure, integrate, deploy and operate those products inside the customer's Microsoft environment. Customer Microsoft licensing, Copilot Studio runtime, Power Platform, Azure, Dataverse, connectors and other runtime services remain the customer's responsibility."
+  },
+  "pages": {
+    "ai-agent-governance-framework": {
+      "eyebrow": "Governance framework",
+      "lead": "Enterprise AI agents need more than technical controls. They need explicit ownership, risk classification, human oversight, evidence, deployment controls and a lifecycle that makes accountability visible before and after go-live.",
+      "intro": [
+        "An AI agent can retrieve information, reason across context, call tools, initiate workflows and in some cases take actions without a human executing each individual step. That makes agent governance different from ordinary software governance and different from governance of a standalone generative AI assistant.",
+        "The practical governance question is not simply whether an organisation allows AI. It is whether every agent has a known purpose, owner, authority boundary, data boundary, escalation path, test record and operating status.",
+        "A useful framework therefore governs the complete agent lifecycle: idea, design, build, test, approval, deployment, monitoring, change and retirement."
+      ],
+      "sections": [
+        {
+          "id": "principles",
+          "title": "1. Start with governance principles",
+          "paragraphs": [
+            "A governance model should begin with a small number of principles that apply consistently across the agent estate. These principles should be understandable by product owners, developers, risk functions, compliance teams and business users.",
+            "The most important principles are traceable ownership, least privilege, proportional control, human accountability, evidence by design and controlled change. Higher-risk agents should require stronger controls rather than forcing the same process on every use case."
+          ],
+          "bullets": [
+            "Every agent has a named business owner and a named technical owner.",
+            "Every agent operates within an explicit purpose and authority boundary.",
+            "Access to systems, data and actions follows least-privilege principles.",
+            "Human oversight is designed according to the consequences of error.",
+            "Testing and approval evidence is retained and reproducible.",
+            "Material changes trigger reassessment rather than silently expanding capability."
+          ]
+        },
+        {
+          "id": "inventory",
+          "title": "2. Maintain an authoritative agent inventory",
+          "paragraphs": [
+            "Organisations cannot govern agents they cannot identify. An enterprise inventory is therefore the foundational governance control.",
+            "The inventory should not be a simple list of names. It should provide enough information for governance teams to understand what the agent does, where it runs, which systems it can access and who is accountable for it."
+          ],
+          "bullets": [
+            "Agent name, version and lifecycle status.",
+            "Business purpose and intended users.",
+            "Business owner, technical owner and support owner.",
+            "Microsoft environment, solution and deployment location.",
+            "Connected systems, connectors, tools and data categories.",
+            "Action permissions and transaction authority.",
+            "Risk classification and required approval level.",
+            "Human-oversight model.",
+            "Test evidence, certification state and last review date."
+          ]
+        },
+        {
+          "id": "classification",
+          "title": "3. Classify risk before deployment",
+          "paragraphs": [
+            "Risk classification determines how much governance an agent requires. The important variables are not only the model being used, but what the complete agent can see, decide and do.",
+            "A read-only information assistant is fundamentally different from an agent that can approve transactions, communicate externally, modify records or trigger downstream processes.",
+            "The CAI Score is ColleagueAI's structured approach to classifying enterprise agent risk. It considers autonomy, impact, data sensitivity, tool access, reversibility, oversight and governance requirements. Classification should occur before deployment and again when material capability changes."
+          ]
+        },
+        {
+          "id": "ownership",
+          "title": "4. Separate business accountability from technical ownership",
+          "paragraphs": [
+            "Technical teams can build and maintain an agent, but they should not become the sole owners of the business outcome. The business function using the agent must remain accountable for the process and consequences.",
+            "A mature model therefore distinguishes business ownership, technical ownership and governance assurance. This prevents accountability from disappearing between technology and operations.",
+            "The ownership model should also define decision rights. The business owner should approve the intended purpose, acceptable outcomes and material process changes, while the technical owner remains responsible for the integrity of the solution components, configuration and technical controls. Governance, risk, security or compliance functions can provide challenge and assurance without becoming substitutes for accountable business ownership."
+          ]
+        },
+        {
+          "id": "access",
+          "title": "5. Govern identity, access and tool permissions",
+          "paragraphs": [
+            "Agent capability is largely determined by the systems and actions available to it. Governance must therefore treat connectors, credentials, service identities and action permissions as first-class controls.",
+            "Permissions should reflect the minimum required to fulfil the intended use case. Where possible, high-impact actions should be separated from low-risk retrieval and analysis functions."
+          ],
+          "bullets": [
+            "Use dedicated identities where the platform and architecture support them.",
+            "Restrict connectors and actions to approved use cases.",
+            "Avoid broad permissions merely for development convenience.",
+            "Record privileged actions in auditable logs.",
+            "Use approval gates for irreversible or high-impact actions.",
+            "Revalidate permissions when the workflow or integration changes."
+          ]
+        },
+        {
+          "id": "oversight",
+          "title": "6. Design human oversight as part of the workflow",
+          "paragraphs": [
+            "Human oversight should not be a generic statement that a human remains responsible. It should identify exactly where people review, approve, intervene or stop the agent.",
+            "The appropriate model depends on risk. Some agents can operate autonomously within tightly bounded low-risk tasks. Others require human approval before a consequential action. High-risk use cases may require continuous supervision or may not be suitable for autonomous execution at all.",
+            "The control should specify the point of intervention, the reviewer, the information available to that reviewer and the action the reviewer is authorised to take. A nominal approval step is not sufficient if the person cannot understand the proposed outcome or cannot stop it. Oversight should therefore be tested as an operational control rather than documented only as a policy statement."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Test the agent as a system, not only as a prompt",
+          "paragraphs": [
+            "Agent assurance requires testing of the complete workflow. Prompt quality matters, but so do permissions, tool calls, failure behaviour, data handling, escalation logic, output quality and recovery from unexpected inputs.",
+            "A production package should preserve evidence of what was tested, the expected behaviour, known limitations and the version that passed the test."
+          ],
+          "bullets": [
+            "Functional and scenario testing.",
+            "Permission and connector testing.",
+            "Failure and exception paths.",
+            "Human-approval and escalation paths.",
+            "Sensitive-data handling.",
+            "Output-quality criteria.",
+            "Logging and evidence generation.",
+            "Regression testing after material changes."
+          ]
+        },
+        {
+          "id": "deployment",
+          "title": "8. Make deployment a controlled handover",
+          "paragraphs": [
+            "A packaged agent should arrive with a clear deployment boundary. The vendor can provide the tested solution package, documentation, configuration guidance, governance evidence and deployment instructions, but the customer controls its own tenant and operating environment.",
+            "For ColleagueAI products, deployment and runtime remain in the customer's Microsoft environment. The customer or its approved implementation partner performs tenant-specific configuration, integrations, deployment and operation.",
+            "A controlled handover should also identify prerequisites, environment variables, connection references, required roles, known limitations and post-import validation steps. That allows the customer or implementation partner to reproduce the tested configuration without relying on undocumented knowledge from the original builder. The deployed version should remain traceable to the package and evidence that were approved."
+          ]
+        },
+        {
+          "id": "monitoring",
+          "title": "9. Monitor operating risk and material change",
+          "paragraphs": [
+            "Approval at launch is not the end of governance. Agent behaviour can change when prompts, models, tools, permissions, knowledge sources or connected systems change.",
+            "Continuous governance should therefore focus on material changes, exceptions, incidents, usage patterns, approval overrides and evidence that the deployed configuration still matches the approved design.",
+            "Monitoring should be connected to explicit review triggers. Examples include a new connector, broader permissions, a different model, a new knowledge source, a rise in overrides, repeated exceptions or a change in the business process. Those signals should determine when the agent requires investigation, remediation, recertification or a fresh governance decision rather than remaining indefinitely approved."
+          ]
+        },
+        {
+          "id": "retirement",
+          "title": "10. Govern retirement as seriously as launch",
+          "paragraphs": [
+            "Unused or superseded agents should not retain dormant access indefinitely. Retirement should remove permissions, disable integrations, archive evidence and update the enterprise inventory.",
+            "A clean retirement process reduces attack surface and prevents organisations from accumulating unowned AI capabilities.",
+            "Retirement should also close operational and governance dependencies. Owners should confirm that scheduled flows are disabled, service credentials are revoked where appropriate, downstream integrations no longer expect the agent, retained evidence meets policy requirements and users are directed to the replacement process if one exists. The inventory should record the retirement date and final disposition."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "A practical governance lifecycle",
+        "steps": [
+          "Discover and register the use case.",
+          "Assign accountable owners.",
+          "Classify the agent's risk.",
+          "Define data, tool and authority boundaries.",
+          "Design human oversight.",
+          "Build and test the complete workflow.",
+          "Review evidence and approve deployment.",
+          "Deploy in the customer's controlled environment.",
+          "Monitor operation and material changes.",
+          "Reassess, recertify or retire."
+        ]
+      },
+      "faq": [
+        {
+          "q": "What is AI agent governance?",
+          "a": "AI agent governance is the set of ownership, risk, access, oversight, testing, evidence, deployment and lifecycle controls used to ensure AI agents operate within approved organisational boundaries."
+        },
+        {
+          "q": "Is AI agent governance the same as model governance?",
+          "a": "No. Model governance focuses primarily on the model. Agent governance must also cover tools, permissions, data sources, actions, workflow logic, human oversight, deployment configuration and operational behaviour."
+        },
+        {
+          "q": "Who should own an enterprise AI agent?",
+          "a": "The business process should have an accountable business owner, while the technical solution should have a technical owner. Governance or risk functions can provide independent assurance, but accountability should not be delegated entirely to them."
+        },
+        {
+          "q": "Do all AI agents need the same controls?",
+          "a": "No. Controls should be proportionate to risk. A low-impact read-only agent should not require the same approval model as an agent that can modify financial records or communicate externally."
+        },
+        {
+          "q": "Where do ColleagueAI agents run?",
+          "a": "ColleagueAI agent products are designed to be imported, configured, deployed and operated in the customer's Microsoft environment. ColleagueAI does not operate the customer's agent runtime."
+        }
+      ]
+    },
+    "human-oversight-ai-agents": {
+      "eyebrow": "Human oversight",
+      "lead": "Human oversight is effective only when it is designed into the agent workflow. Enterprises need explicit intervention points, decision rights, escalation paths and evidence that people can understand and control consequential agent behaviour.",
+      "intro": [
+        "The phrase human in the loop is often used too broadly. A human receiving an occasional report is not the same as a human approving an action before it occurs, and neither is the same as a supervisor who can interrupt an active workflow.",
+        "Meaningful oversight begins by identifying what could go wrong, how serious the consequence would be, whether the action is reversible and how quickly a person must be able to intervene.",
+        "The result should be a risk-based oversight model rather than a generic requirement that every agent asks for approval at every step."
+      ],
+      "sections": [
+        {
+          "id": "meaning",
+          "title": "1. Define what human oversight actually means",
+          "paragraphs": [
+            "Human oversight is the organisational and technical ability for an authorised person to understand, review, approve, challenge, intervene in or stop agent behaviour when appropriate.",
+            "The design should specify who performs the oversight, what information they receive, what decisions they can make and what happens when they do not respond.",
+            "Human oversight should be defined as a control with a specific purpose, not simply the presence of a person somewhere in the process. The organisation should be able to explain what the reviewer is expected to detect, prevent or decide, what information is available to that person and what authority the reviewer has when the agent produces an uncertain or unacceptable result."
+          ]
+        },
+        {
+          "id": "models",
+          "title": "2. Choose the right oversight model",
+          "paragraphs": [
+            "Different agent risks require different forms of oversight. The useful distinction is not simply autonomous versus non-autonomous, but where human decision rights sit within the workflow.",
+            "Different oversight models suit different types of agent behaviour. Some use cases may require approval before an action is executed, while others may rely on exception review, periodic sampling or retrospective monitoring. The choice should reflect the consequence and reversibility of the action rather than applying one approval pattern to every agent regardless of risk."
+          ],
+          "bullets": [
+            "Human-in-the-loop: a person must approve a defined action before execution.",
+            "Human-on-the-loop: the agent can operate within limits while a person supervises and can intervene.",
+            "Human-over-the-loop: governance owners review performance, exceptions and controls at a broader operational level.",
+            "Human-out-of-the-loop: permitted only where the organisation has consciously accepted autonomous execution within a tightly bounded low-risk domain."
+          ]
+        },
+        {
+          "id": "risk",
+          "title": "3. Base oversight intensity on consequence and reversibility",
+          "paragraphs": [
+            "The more consequential and irreversible an action is, the stronger the case for approval before execution. Low-impact and easily reversible actions can often tolerate more autonomy.",
+            "External communication, financial decisions, access changes, regulatory decisions and modifications to authoritative records generally require more stringent oversight than retrieval, summarisation or drafting.",
+            "The oversight requirement should therefore follow the agent's effective risk profile, including the systems it can access, the sensitivity of the data involved, the actions it can perform and the potential impact of an error. An agent that only retrieves approved information is fundamentally different from one that can update records, trigger payments, change permissions or initiate regulated decisions."
+          ]
+        },
+        {
+          "id": "approval",
+          "title": "4. Put approval at the consequential step",
+          "paragraphs": [
+            "Approval should sit immediately before the action that creates material impact. Requiring approval too early can be meaningless because the actual action may change later in the workflow.",
+            "The reviewer should see enough context to make a genuine decision: proposed action, relevant evidence, material assumptions, affected records and any uncertainty or exception raised by the agent.",
+            "Approval controls must provide enough context for a reviewer to make a meaningful decision. Showing only an approve or reject button can create the appearance of control without giving the person the evidence needed to exercise judgment. The reviewer should understand the proposed action, relevant inputs, material assumptions, exceptions and consequences before approval is recorded."
+          ]
+        },
+        {
+          "id": "intervention",
+          "title": "5. Give supervisors a real intervention mechanism",
+          "paragraphs": [
+            "A supervisor must be able to do more than observe. Depending on the use case, intervention may mean rejecting an action, editing a proposed output, pausing the workflow, disabling a connector or stopping the agent entirely.",
+            "The intervention path should be tested before production rather than assumed to work.",
+            "Intervention also needs to work under real operating conditions. Organisations should define who can stop, amend, reverse or bypass agent behaviour, how quickly that intervention can occur and what happens to work already in progress. Emergency authority may need to be broader than routine permissions, but exceptional intervention should still be logged and subsequently reviewed."
+          ]
+        },
+        {
+          "id": "escalation",
+          "title": "6. Design escalation for uncertainty and exceptions",
+          "paragraphs": [
+            "Agents should not be forced to produce an answer when the correct behaviour is escalation. A well-designed workflow identifies confidence limits, policy exceptions, missing information and situations requiring specialist review.",
+            "Escalation is particularly important where a plausible but incorrect output could be more harmful than an explicit failure.",
+            "Escalation paths should distinguish ordinary operational uncertainty from events that require specialist judgment. A routine exception may go to a business reviewer, while suspected fraud, sensitive-data exposure, policy conflict, repeated control failure or a security concern may require escalation to risk, compliance, privacy or security teams. Those destinations should be defined before production use."
+          ]
+        },
+        {
+          "id": "evidence",
+          "title": "7. Preserve evidence of human decisions",
+          "paragraphs": [
+            "For material decisions, organisations should be able to reconstruct what the agent proposed, what information the reviewer saw, who approved or rejected it and when the decision occurred.",
+            "This evidence supports auditability, incident analysis, control testing and future improvement of the agent.",
+            "Oversight is difficult to defend if the organisation cannot reconstruct what the reviewer actually saw and decided. Useful evidence may include the initiating request, relevant source information, the agent's proposed action, the approval rule that applied, the identity of the reviewer, the final decision and the resulting system response. Evidence design should support both operational investigation and later governance review."
+          ]
+        },
+        {
+          "id": "fatigue",
+          "title": "8. Avoid approval fatigue",
+          "paragraphs": [
+            "A workflow that asks humans to approve hundreds of trivial actions can create the appearance of control while reducing real attention. Reviewers begin to click through approvals mechanically.",
+            "Risk-based oversight should concentrate human attention on exceptions and consequential actions. Low-risk routine steps can often be automated when boundaries and monitoring are strong.",
+            "Human controls can fail when review volume exceeds the attention available. If users receive large numbers of low-value approvals, they may begin to approve reflexively or allow queues to accumulate. Risk-based thresholds, exception-focused review, sensible batching and clear service expectations can reduce approval fatigue while preserving human attention for decisions where judgment materially changes the risk."
+          ]
+        },
+        {
+          "id": "competence",
+          "title": "9. Ensure the human is capable of meaningful review",
+          "paragraphs": [
+            "A nominal reviewer who lacks the knowledge, authority, context or time to challenge the agent does not provide effective oversight.",
+            "Oversight roles should therefore define competency, decision authority, expected response time and available escalation channels.",
+            "The effectiveness of oversight also depends on reviewer competence and authority. A reviewer needs enough subject-matter knowledge to recognise an unacceptable outcome and enough organisational authority to reject or escalate it. Training should cover the purpose of the agent, known limitations, relevant policies, escalation triggers and the meaning of the information presented during review."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "10. Test oversight like any other control",
+          "paragraphs": [
+            "Human-control paths need scenario testing. Organisations should test approval, rejection, timeout, escalation, supervisor absence, conflicting instructions and emergency shutdown behaviour.",
+            "The goal is to establish that the control works under realistic operating conditions, not merely that an approval button exists.",
+            "Testing should demonstrate that the oversight mechanism works, not merely that it appears in the workflow. Scenarios should include approval rejection, delayed review, unavailable reviewers, attempted bypass, escalation, connector failure, malformed inputs and actions outside the approved scope. The test evidence should show that the system fails safely and that human intervention produces the intended operational result."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Human oversight design checklist",
+        "steps": [
+          "Identify the consequential agent actions.",
+          "Assess impact, reversibility and urgency.",
+          "Select the appropriate oversight model.",
+          "Assign authorised reviewers.",
+          "Define the evidence shown to reviewers.",
+          "Create approve, reject, edit and escalate paths.",
+          "Set timeout and fallback behaviour.",
+          "Log material human decisions.",
+          "Test intervention and shutdown.",
+          "Review whether oversight remains effective after changes."
+        ]
+      },
+      "faq": [
+        {
+          "q": "What does human-in-the-loop mean for an AI agent?",
+          "a": "It means a defined agent action cannot proceed until an authorised human reviews and approves it. The approval should occur at a meaningful decision point rather than being a generic acknowledgement."
+        },
+        {
+          "q": "Does every enterprise AI agent need human approval?",
+          "a": "No. The required oversight should depend on risk, impact and reversibility. Low-risk bounded tasks can support more autonomy, while consequential actions generally need stronger human control."
+        },
+        {
+          "q": "What is the difference between human-in-the-loop and human-on-the-loop?",
+          "a": "Human-in-the-loop requires approval before a defined action. Human-on-the-loop allows the agent to operate within limits while a human supervises and can intervene."
+        },
+        {
+          "q": "Can human oversight become ineffective?",
+          "a": "Yes. Excessive approvals, poor context, unclear authority and untrained reviewers can turn oversight into a checkbox. Effective oversight must give the reviewer meaningful information and genuine control."
+        },
+        {
+          "q": "How does ColleagueAI support oversight?",
+          "a": "ColleagueAI packages agents with documented governance, risk and oversight requirements. The customer configures and operates the deployed workflow and its human-approval controls in the customer's Microsoft environment."
+        }
+      ]
+    },
+    "enterprise-ai-agents-microsoft": {
+      "eyebrow": "Microsoft enterprise AI",
+      "lead": "Microsoft's enterprise stack gives organisations several building blocks for AI agents. The strategic question is how to turn those components into governed, testable and deployable business products rather than isolated experiments.",
+      "intro": [
+        "An enterprise AI agent is more than a chatbot. It combines instructions, knowledge, identity, tools, workflow logic and governance controls to perform a defined business task.",
+        "In Microsoft environments, those capabilities can span Copilot Studio, Power Automate, Microsoft 365, Azure, Dataverse and approved connectors. The exact architecture depends on the use case and the customer's tenant.",
+        "The challenge for many organisations is not access to the technology. It is designing a repeatable path from use case to governed production deployment."
+      ],
+      "sections": [
+        {
+          "id": "stack",
+          "title": "1. Understand the Microsoft agent stack",
+          "paragraphs": [
+            "Copilot Studio provides the core environment for creating and managing conversational and agent experiences. Power Automate can orchestrate workflow actions. Dataverse and Microsoft 365 can provide business context, while Azure services can support additional integration, identity, security and application requirements.",
+            "An enterprise design should use only the components required by the use case. Adding technology without a governance or functional need increases complexity.",
+            "The architecture should also make identity and execution context explicit. Teams need to know whether an action runs as the signed-in user, through a service connection or through another governed identity, because that choice affects permissions, auditability and separation of duties. The design should document those dependencies before production approval."
+          ]
+        },
+        {
+          "id": "package",
+          "title": "2. Treat the agent as a deployable product",
+          "paragraphs": [
+            "Production readiness requires more than a working development environment. A deployable agent should have controlled solution components, configuration guidance, documented dependencies, test evidence, governance requirements, release notes and a clear handover model.",
+            "This is the distinction between demonstrating an agent and packaging an agent for enterprise adoption.",
+            "Packaging should make deployment repeatable rather than dependent on the original builder. Environment variables, connection references, required security roles, prerequisite components and post-import validation steps should be documented so that another authorised team can reproduce the intended configuration without relying on undocumented development knowledge."
+          ]
+        },
+        {
+          "id": "tenant",
+          "title": "3. Keep the customer tenant boundary explicit",
+          "paragraphs": [
+            "Enterprise buyers need clarity about where the agent runs and who controls the environment. For ColleagueAI products, the customer imports, configures, integrates, deploys and operates the agent within the customer's own Microsoft environment.",
+            "ColleagueAI does not provide the customer's Microsoft licences or operate the customer's Copilot Studio, Power Platform, Azure, Dataverse or connector runtime.",
+            "That tenant boundary is also a security and accountability boundary. Customer administrators decide which environments, identities, data sources and connectors are available to the agent, while customer governance teams determine whether those choices satisfy internal policy. Product documentation should make the boundary clear enough that responsibilities cannot be mistaken during procurement or deployment."
+          ]
+        },
+        {
+          "id": "connectors",
+          "title": "4. Design connectors around minimum necessary access",
+          "paragraphs": [
+            "Connectors turn an agent from an information interface into an operational system. They therefore deserve the same scrutiny as other privileged integrations.",
+            "The agent should receive only the access needed for its approved purpose. Customer-specific integration and authentication choices remain part of the customer's deployment architecture.",
+            "Connection references and authentication methods should be reviewed as part of the release rather than treated as incidental configuration. Write-capable connectors, privileged APIs and cross-system actions deserve stronger controls than read-only access. Where possible, permissions should be scoped to the narrowest resources and operations required by the approved business process."
+          ]
+        },
+        {
+          "id": "solutions",
+          "title": "5. Use managed solution and release discipline",
+          "paragraphs": [
+            "Enterprise deployment should distinguish development, test and production environments and should use controlled solution movement rather than manual recreation of components wherever possible.",
+            "Versioning should make it possible to identify exactly which package was tested and deployed. Material changes should be traceable to a new release.",
+            "A disciplined application-lifecycle model also needs rollback and promotion criteria. Teams should know which version is approved for production, which configuration belongs to each environment and how to restore a previously accepted release if a material defect appears. Manual edits in production should be exceptional, documented and reconciled back into the controlled solution."
+          ]
+        },
+        {
+          "id": "governance",
+          "title": "6. Add governance before production",
+          "paragraphs": [
+            "Technical deployment does not equal governance approval. Organisations still need ownership, risk classification, access controls, human oversight, evidence and a process for approving the use case.",
+            "The CAI Score provides one structured mechanism for connecting an agent's risk profile to proportionate governance expectations.",
+            "Production approval should therefore produce evidence, not simply a meeting decision. The record should identify the business owner, technical owner, approved purpose, material risks, required human controls, accepted limitations and the version being authorised. That evidence makes later review, recertification and investigation materially easier."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Test the end-to-end Microsoft workflow",
+          "paragraphs": [
+            "Testing should include the agent instructions, knowledge sources, connector behaviour, Power Automate flows, permissions, failure handling and approval paths that are actually part of the deployed solution.",
+            "A test report should identify the tested version, scenarios, expected results, exceptions and known limitations.",
+            "Testing should also exercise negative and boundary scenarios: unavailable systems, insufficient permissions, malformed inputs, conflicting instructions, approval rejection, connector failure and attempts to perform actions outside the approved scope. These scenarios show whether the surrounding workflow fails safely rather than measuring only whether the happy path works."
+          ]
+        },
+        {
+          "id": "data",
+          "title": "8. Make data boundaries understandable",
+          "paragraphs": [
+            "Business users and governance teams should know what data the agent can access, which systems provide that data and what the agent can do with it.",
+            "Data governance is therefore a deployment concern as much as a model concern. Customer configuration determines the specific tenant data sources, permissions and retention settings used by the production agent.",
+            "Microsoft environment controls such as data-loss-prevention policies, environment access, security roles and connector restrictions can materially change the effective risk of the same agent package. Governance documentation should therefore separate product-level assumptions from customer-specific controls and identify which assumptions must be validated during deployment."
+          ]
+        },
+        {
+          "id": "operate",
+          "title": "9. Separate product support from customer operation",
+          "paragraphs": [
+            "A vendor can support the product package, documentation, defects, updates and certification without becoming the operator of the customer's business process.",
+            "For ColleagueAI, the commercial product is the packaged agent and associated documentation, testing and governance materials. Customer-specific implementation and operation remain with the customer or its approved implementation partner.",
+            "This distinction matters when defining service levels and support expectations. Product support can address package defects, documentation, compatibility, updates and certification status, while incidents caused by customer credentials, tenant configuration, downstream systems or runtime capacity remain within the customer's operational model unless separately handled by an approved implementation partner."
+          ]
+        },
+        {
+          "id": "buy-build",
+          "title": "10. Decide what should be built and what should be packaged",
+          "paragraphs": [
+            "Some highly differentiated workflows justify custom development. Other common enterprise processes are better suited to a pre-built starting point that can be imported, configured and governed inside the customer's environment.",
+            "A packaged approach can reduce repeated design and documentation work, while the customer still retains control of tenant-specific integration, security and operation.",
+            "The decision should consider repeatability, differentiation and governance cost as well as development effort. A common process with stable controls may benefit from a packaged baseline, while a workflow that depends on proprietary logic, unusual integrations or rapidly changing operating rules may justify custom engineering. In both cases, customer-specific production accountability remains necessary."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "From packaged agent to customer deployment",
+        "steps": [
+          "Select a business use case and appropriate agent package.",
+          "Review prerequisites, risk classification and documentation.",
+          "Import the solution into the customer's controlled Microsoft environment.",
+          "Configure customer-specific connections and permissions.",
+          "Validate tenant-specific integrations.",
+          "Run customer acceptance and governance checks.",
+          "Deploy through the customer's release process.",
+          "Operate under customer identity, security and support controls.",
+          "Monitor material changes and exceptions.",
+          "Apply updates or recertification when required."
+        ]
+      },
+      "faq": [
+        {
+          "q": "What Microsoft technologies can an enterprise AI agent use?",
+          "a": "Depending on the use case, an agent can use Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure services and approved connectors. The exact architecture depends on the customer's requirements and tenant."
+        },
+        {
+          "q": "Does ColleagueAI host customer agents?",
+          "a": "No. ColleagueAI packages and sells agent products. Customers or approved implementation partners deploy and operate those products inside the customer's Microsoft environment."
+        },
+        {
+          "q": "Who pays for Microsoft licences and runtime?",
+          "a": "The customer is responsible for Microsoft licensing and runtime services required in its environment, including relevant Copilot Studio, Power Platform, Azure, Dataverse and connector costs."
+        },
+        {
+          "q": "What is included in a packaged enterprise agent?",
+          "a": "The exact package depends on the product, but the intended model includes the deployable Microsoft solution or connect package, installation and configuration guidance, admin and user documentation, governance materials, test evidence, release information, licence and certification information."
+        },
+        {
+          "q": "Is a packaged agent the same as implementation services?",
+          "a": "No. A packaged agent is a product that provides a tested starting point and deployment materials. Customer-specific configuration, integrations, deployment and operation are performed by the customer or its approved implementation partner."
+        }
+      ]
+    }
+  }
+}

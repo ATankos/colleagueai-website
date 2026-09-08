@@ -1,0 +1,213 @@
+{
+  "version": 1,
+  "site": "https://www.colleagueai.ai",
+  "defaultLocale": "en",
+
+  "locales": [
+    "en",
+    "cs",
+    "de",
+    "fr",
+    "es",
+    "it",
+    "pl",
+    "pt"
+  ],
+
+  "pages": {
+    "ai-agent-governance-framework": {
+      "section": "insights",
+
+      "slugs": {
+        "en": "ai-agent-governance-framework",
+        "cs": "ramec-governance-ai-agentu",
+        "de": "governance-framework-fuer-ki-agenten",
+        "fr": "cadre-gouvernance-agents-ia",
+        "es": "marco-gobernanza-agentes-ia",
+        "it": "framework-governance-agenti-ai",
+        "pl": "ramy-governance-agentow-ai",
+        "pt": "framework-governanca-agentes-ia"
+      },
+
+      "identity": {
+        "en": {
+          "title": "AI Agent Governance Framework | ColleagueAI",
+          "h1": "AI Agent Governance Framework",
+          "description": "A practical enterprise framework for governing AI agents across ownership, risk, access, human oversight, evidence, testing, deployment and continuous assurance."
+        },
+        "cs": {
+          "title": "Rámec governance AI agentů | ColleagueAI",
+          "h1": "Rámec governance AI agentů",
+          "description": "Praktický podnikový rámec pro řízení AI agentů napříč vlastnictvím, riziky, přístupy, lidským dohledem, důkazy, testováním, nasazením a průběžným ověřováním."
+        },
+        "de": {
+          "title": "Governance-Framework für KI-Agenten | ColleagueAI",
+          "h1": "Governance-Framework für KI-Agenten",
+          "description": "Ein praxisnahes Enterprise-Framework für Governance von KI-Agenten über Ownership, Risiko, Zugriff, menschliche Aufsicht, Evidenz, Tests, Deployment und laufende Assurance."
+        },
+        "fr": {
+          "title": "Cadre de gouvernance des agents IA | ColleagueAI",
+          "h1": "Cadre de gouvernance des agents IA",
+          "description": "Un cadre d’entreprise pratique pour gouverner les agents IA : responsabilités, risques, accès, supervision humaine, preuves, tests, déploiement et assurance continue."
+        },
+        "es": {
+          "title": "Marco de gobernanza de agentes de IA | ColleagueAI",
+          "h1": "Marco de gobernanza de agentes de IA",
+          "description": "Un marco empresarial práctico para gobernar agentes de IA en propiedad, riesgo, acceso, supervisión humana, evidencias, pruebas, despliegue y aseguramiento continuo."
+        },
+        "it": {
+          "title": "Framework di governance degli agenti AI | ColleagueAI",
+          "h1": "Framework di governance degli agenti AI",
+          "description": "Un framework enterprise pratico per governare gli agenti AI su responsabilità, rischio, accessi, supervisione umana, evidenze, test, deployment e assurance continua."
+        },
+        "pl": {
+          "title": "Ramy governance agentów AI | ColleagueAI",
+          "h1": "Ramy governance agentów AI",
+          "description": "Praktyczne ramy korporacyjne do zarządzania agentami AI w obszarach odpowiedzialności, ryzyka, dostępu, nadzoru człowieka, dowodów, testów, wdrożenia i ciągłego assurance."
+        },
+        "pt": {
+          "title": "Framework de governança de agentes de IA | ColleagueAI",
+          "h1": "Framework de governança de agentes de IA",
+          "description": "Um framework empresarial prático para governar agentes de IA em propriedade, risco, acesso, supervisão humana, evidências, testes, implantação e assurance contínua."
+        }
+      },
+
+      "authorityLinks": [
+        "/score",
+        "/trust",
+        "/certified",
+        "/agents"
+      ]
+    },
+
+    "human-oversight-ai-agents": {
+      "section": "insights",
+
+      "slugs": {
+        "en": "human-oversight-ai-agents",
+        "cs": "lidsky-dohled-ai-agentu",
+        "de": "menschliche-aufsicht-ki-agenten",
+        "fr": "supervision-humaine-agents-ia",
+        "es": "supervision-humana-agentes-ia",
+        "it": "supervisione-umana-agenti-ai",
+        "pl": "nadzor-czlowieka-agenci-ai",
+        "pt": "supervisao-humana-agentes-ia"
+      },
+
+      "identity": {
+        "en": {
+          "title": "Human Oversight for Enterprise AI Agents | ColleagueAI",
+          "h1": "Human Oversight for Enterprise AI Agents",
+          "description": "How enterprises design meaningful human oversight for AI agents through approval points, escalation, intervention, accountability, evidence and risk-based autonomy."
+        },
+        "cs": {
+          "title": "Lidský dohled nad podnikovými AI agenty | ColleagueAI",
+          "h1": "Lidský dohled nad podnikovými AI agenty",
+          "description": "Jak podniky navrhují smysluplný lidský dohled nad AI agenty pomocí schvalování, eskalací, zásahů, odpovědnosti, důkazů a autonomie podle rizika."
+        },
+        "de": {
+          "title": "Menschliche Aufsicht für Enterprise-KI-Agenten | ColleagueAI",
+          "h1": "Menschliche Aufsicht für Enterprise-KI-Agenten",
+          "description": "Wie Unternehmen wirksame menschliche Aufsicht durch Freigaben, Eskalation, Intervention, Verantwortlichkeit, Evidenz und risikobasierte Autonomie gestalten."
+        },
+        "fr": {
+          "title": "Supervision humaine des agents IA d’entreprise | ColleagueAI",
+          "h1": "Supervision humaine des agents IA d’entreprise",
+          "description": "Comment concevoir une supervision humaine effective grâce aux approbations, escalades, interventions, responsabilités, preuves et niveaux d’autonomie fondés sur le risque."
+        },
+        "es": {
+          "title": "Supervisión humana de agentes de IA empresariales | ColleagueAI",
+          "h1": "Supervisión humana de agentes de IA empresariales",
+          "description": "Cómo diseñar una supervisión humana efectiva mediante aprobaciones, escalado, intervención, responsabilidad, evidencias y autonomía basada en riesgo."
+        },
+        "it": {
+          "title": "Supervisione umana degli agenti AI enterprise | ColleagueAI",
+          "h1": "Supervisione umana degli agenti AI enterprise",
+          "description": "Come progettare una supervisione umana efficace tramite approvazioni, escalation, intervento, accountability, evidenze e autonomia basata sul rischio."
+        },
+        "pl": {
+          "title": "Nadzór człowieka nad agentami AI w przedsiębiorstwie | ColleagueAI",
+          "h1": "Nadzór człowieka nad agentami AI w przedsiębiorstwie",
+          "description": "Jak projektować skuteczny nadzór człowieka poprzez punkty akceptacji, eskalację, interwencję, odpowiedzialność, dowody i autonomię zależną od ryzyka."
+        },
+        "pt": {
+          "title": "Supervisão humana de agentes de IA empresariais | ColleagueAI",
+          "h1": "Supervisão humana de agentes de IA empresariais",
+          "description": "Como estruturar supervisão humana efetiva com aprovações, escalonamento, intervenção, responsabilidade, evidências e autonomia baseada em risco."
+        }
+      },
+
+      "authorityLinks": [
+        "/score",
+        "/trust",
+        "/certified",
+        "/agents"
+      ]
+    },
+
+    "enterprise-ai-agents-microsoft": {
+      "section": "insights",
+
+      "slugs": {
+        "en": "enterprise-ai-agents-microsoft",
+        "cs": "podnikovi-ai-agenti-microsoft",
+        "de": "enterprise-ki-agenten-microsoft",
+        "fr": "agents-ia-entreprise-microsoft",
+        "es": "agentes-ia-empresariales-microsoft",
+        "it": "agenti-ai-enterprise-microsoft",
+        "pl": "agenci-ai-enterprise-microsoft",
+        "pt": "agentes-ia-empresariais-microsoft"
+      },
+
+      "identity": {
+        "en": {
+          "title": "Enterprise AI Agents for Microsoft Environments | ColleagueAI",
+          "h1": "Enterprise AI Agents for Microsoft Environments",
+          "description": "A practical guide to packaged enterprise AI agents for Microsoft environments, including Copilot Studio, Power Automate, Azure, governance, deployment ownership and operational boundaries."
+        },
+        "cs": {
+          "title": "Podnikoví AI agenti pro prostředí Microsoft | ColleagueAI",
+          "h1": "Podnikoví AI agenti pro prostředí Microsoft",
+          "description": "Praktický průvodce balíčkovanými podnikovými AI agenty pro prostředí Microsoft včetně Copilot Studio, Power Automate, Azure, governance, odpovědnosti za nasazení a provozních hranic."
+        },
+        "de": {
+          "title": "Enterprise-KI-Agenten für Microsoft-Umgebungen | ColleagueAI",
+          "h1": "Enterprise-KI-Agenten für Microsoft-Umgebungen",
+          "description": "Praxisleitfaden für paketierte Enterprise-KI-Agenten in Microsoft-Umgebungen mit Copilot Studio, Power Automate, Azure, Governance, Deployment-Verantwortung und Betriebsgrenzen."
+        },
+        "fr": {
+          "title": "Agents IA d’entreprise pour les environnements Microsoft | ColleagueAI",
+          "h1": "Agents IA d’entreprise pour les environnements Microsoft",
+          "description": "Guide pratique des agents IA d’entreprise packagés pour Microsoft : Copilot Studio, Power Automate, Azure, gouvernance, responsabilité du déploiement et limites opérationnelles."
+        },
+        "es": {
+          "title": "Agentes de IA empresariales para entornos Microsoft | ColleagueAI",
+          "h1": "Agentes de IA empresariales para entornos Microsoft",
+          "description": "Guía práctica de agentes de IA empresariales empaquetados para Microsoft: Copilot Studio, Power Automate, Azure, gobernanza, responsabilidad de despliegue y límites operativos."
+        },
+        "it": {
+          "title": "Agenti AI enterprise per ambienti Microsoft | ColleagueAI",
+          "h1": "Agenti AI enterprise per ambienti Microsoft",
+          "description": "Guida pratica agli agenti AI enterprise pacchettizzati per Microsoft, inclusi Copilot Studio, Power Automate, Azure, governance, responsabilità del deployment e confini operativi."
+        },
+        "pl": {
+          "title": "Agenci AI enterprise dla środowisk Microsoft | ColleagueAI",
+          "h1": "Agenci AI enterprise dla środowisk Microsoft",
+          "description": "Praktyczny przewodnik po pakietowanych agentach AI dla środowisk Microsoft, obejmujący Copilot Studio, Power Automate, Azure, governance, odpowiedzialność za wdrożenie i granice operacyjne."
+        },
+        "pt": {
+          "title": "Agentes de IA empresariais para ambientes Microsoft | ColleagueAI",
+          "h1": "Agentes de IA empresariais para ambientes Microsoft",
+          "description": "Guia prático de agentes de IA empresariais empacotados para Microsoft, incluindo Copilot Studio, Power Automate, Azure, governança, responsabilidade pela implantação e limites operacionais."
+        }
+      },
+
+      "authorityLinks": [
+        "/score",
+        "/trust",
+        "/certified",
+        "/agents"
+      ]
+    }
+  }
+}
