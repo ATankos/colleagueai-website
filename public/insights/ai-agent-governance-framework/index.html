@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en" data-cai-page="authority-ai-agent-governance-framework">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI Agent Governance Framework | ColleagueAI</title>
+<meta name="description" content="A practical enterprise framework for governing AI agents across ownership, risk, access, human oversight, evidence, testing, deployment and continuous assurance.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights/governance-framework-fuer-ki-agenten">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights/cadre-gouvernance-agents-ia">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights/framework-governance-agenti-ai">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights/ramy-governance-agentow-ai">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights/framework-governanca-agentes-ia">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<meta property="og:title" content="AI Agent Governance Framework | ColleagueAI">
+<meta property="og:description" content="A practical enterprise framework for governing AI agents across ownership, risk, access, human oversight, evidence, testing, deployment and continuous assurance.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Agent Governance Framework | ColleagueAI">
+<meta name="twitter:description" content="A practical enterprise framework for governing AI agents across ownership, risk, access, human oversight, evidence, testing, deployment and continuous assurance.">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.colleagueai.ai/insights/ai-agent-governance-framework#article","headline":"AI Agent Governance Framework","description":"A practical enterprise framework for governing AI agents across ownership, risk, access, human oversight, evidence, testing, deployment and continuous assurance.","mainEntityOfPage":"https://www.colleagueai.ai/insights/ai-agent-governance-framework","inLanguage":"en","author":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI"},"publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"},"about":["Enterprise AI agents","AI agent governance","Human oversight","Microsoft Copilot Studio","Enterprise AI governance"]},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/insights/ai-agent-governance-framework#faq","mainEntity":[{"@type":"Question","name":"What is AI agent governance?","acceptedAnswer":{"@type":"Answer","text":"AI agent governance is the set of ownership, risk, access, oversight, testing, evidence, deployment and lifecycle controls used to ensure AI agents operate within approved organisational boundaries."}},{"@type":"Question","name":"Is AI agent governance the same as model governance?","acceptedAnswer":{"@type":"Answer","text":"No. Model governance focuses primarily on the model. Agent governance must also cover tools, permissions, data sources, actions, workflow logic, human oversight, deployment configuration and operational behaviour."}},{"@type":"Question","name":"Who should own an enterprise AI agent?","acceptedAnswer":{"@type":"Answer","text":"The business process should have an accountable business owner, while the technical solution should have a technical owner. Governance or risk functions can provide independent assurance, but accountability should not be delegated entirely to them."}},{"@type":"Question","name":"Do all AI agents need the same controls?","acceptedAnswer":{"@type":"Answer","text":"No. Controls should be proportionate to risk. A low-impact read-only agent should not require the same approval model as an agent that can modify financial records or communicate externally."}},{"@type":"Question","name":"Where do ColleagueAI agents run?","acceptedAnswer":{"@type":"Answer","text":"ColleagueAI agent products are designed to be imported, configured, deployed and operated in the customer's Microsoft environment. ColleagueAI does not operate the customer's agent runtime."}}]}]}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{
+  padding:72px 0 42px;
+}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  line-height:1.58;
+  color:#4E4943;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:54px;
+  align-items:start;
+  padding-bottom:80px;
+}
+article{
+  min-width:0;
+}
+article>p{
+  font-size:17px;
+}
+section{
+  scroll-margin-top:30px;
+  margin-top:52px;
+}
+h2{
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+}
+li{margin:8px 0}
+.framework{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+}
+.framework ol{
+  padding-left:22px;
+}
+.boundary{
+  background:#1D1B1A;
+  color:#F5F0E8;
+  border-radius:24px;
+  padding:28px;
+  margin-top:50px;
+}
+.boundary h2{
+  color:#fff;
+}
+.boundary p{
+  color:#E7E0D7;
+}
+.faq{
+  border-top:1px solid var(--line);
+  padding:16px 0;
+}
+.faq:last-child{
+  border-bottom:1px solid var(--line);
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:17px;
+}
+.side{
+  position:sticky;
+  top:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.side h2{
+  font-size:17px;
+  margin-bottom:12px;
+}
+.side a{
+  display:block;
+  padding:8px 0;
+  font-weight:750;
+  text-decoration:none;
+}
+
+.relevant-agents{
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.relevant-agents h2{
+  margin:0 0 12px;
+  font-size:1.05rem;
+}
+
+.relevant-agents ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.relevant-agents li{
+  margin:8px 0;
+}
+
+.relevant-agents a{
+  font-weight:650;
+}
+
+.cta{
+  margin-top:24px;
+  display:inline-block !important;
+  background:var(--ink);
+  color:var(--bg) !important;
+  padding:11px 18px !important;
+  border-radius:999px;
+}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .hero{padding-top:48px}
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">Language</span>
+      <select
+        id="langsel"
+        class="lang"
+        aria-label="Language"
+      >
+        <option value="en" selected>English</option><option value="cs">Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="crumb">
+      <a href="/">Home</a>
+      &nbsp;/&nbsp;
+      Insights
+    </div>
+
+    <div class="eyebrow">Governance framework</div>
+
+    <h1>AI Agent Governance Framework</h1>
+
+    <p class="lead">Enterprise AI agents need more than technical controls. They need explicit ownership, risk classification, human oversight, evidence, deployment controls and a lifecycle that makes accountability visible before and after go-live.</p>
+  </div>
+
+  <div class="layout">
+
+    <article>
+
+      <p>An AI agent can retrieve information, reason across context, call tools, initiate workflows and in some cases take actions without a human executing each individual step. That makes agent governance different from ordinary software governance and different from governance of a standalone generative AI assistant.</p>
+<p>The practical governance question is not simply whether an organisation allows AI. It is whether every agent has a known purpose, owner, authority boundary, data boundary, escalation path, test record and operating status.</p>
+<p>A useful framework therefore governs the complete agent lifecycle: idea, design, build, test, approval, deployment, monitoring, change and retirement.</p>
+
+      
+<section id="principles">
+  <h2>1. Start with governance principles</h2>
+  <p>A governance model should begin with a small number of principles that apply consistently across the agent estate. These principles should be understandable by product owners, developers, risk functions, compliance teams and business users.</p>
+<p>The most important principles are traceable ownership, least privilege, proportional control, human accountability, evidence by design and controlled change. Higher-risk agents should require stronger controls rather than forcing the same process on every use case.</p>
+  <ul><li>Every agent has a named business owner and a named technical owner.</li><li>Every agent operates within an explicit purpose and authority boundary.</li><li>Access to systems, data and actions follows least-privilege principles.</li><li>Human oversight is designed according to the consequences of error.</li><li>Testing and approval evidence is retained and reproducible.</li><li>Material changes trigger reassessment rather than silently expanding capability.</li></ul>
+</section>
+
+<section id="inventory">
+  <h2>2. Maintain an authoritative agent inventory</h2>
+  <p>Organisations cannot govern agents they cannot identify. An enterprise inventory is therefore the foundational governance control.</p>
+<p>The inventory should not be a simple list of names. It should provide enough information for governance teams to understand what the agent does, where it runs, which systems it can access and who is accountable for it.</p>
+  <ul><li>Agent name, version and lifecycle status.</li><li>Business purpose and intended users.</li><li>Business owner, technical owner and support owner.</li><li>Microsoft environment, solution and deployment location.</li><li>Connected systems, connectors, tools and data categories.</li><li>Action permissions and transaction authority.</li><li>Risk classification and required approval level.</li><li>Human-oversight model.</li><li>Test evidence, certification state and last review date.</li></ul>
+</section>
+
+<section id="classification">
+  <h2>3. Classify risk before deployment</h2>
+  <p>Risk classification determines how much governance an agent requires. The important variables are not only the model being used, but what the complete agent can see, decide and do.</p>
+<p>A read-only information assistant is fundamentally different from an agent that can approve transactions, communicate externally, modify records or trigger downstream processes.</p>
+<p>The CAI Score is ColleagueAI's structured approach to classifying enterprise agent risk. It considers autonomy, impact, data sensitivity, tool access, reversibility, oversight and governance requirements. Classification should occur before deployment and again when material capability changes.</p>
+  
+</section>
+
+<section id="ownership">
+  <h2>4. Separate business accountability from technical ownership</h2>
+  <p>Technical teams can build and maintain an agent, but they should not become the sole owners of the business outcome. The business function using the agent must remain accountable for the process and consequences.</p>
+<p>A mature model therefore distinguishes business ownership, technical ownership and governance assurance. This prevents accountability from disappearing between technology and operations.</p>
+<p>The ownership model should also define decision rights. The business owner should approve the intended purpose, acceptable outcomes and material process changes, while the technical owner remains responsible for the integrity of the solution components, configuration and technical controls. Governance, risk, security or compliance functions can provide challenge and assurance without becoming substitutes for accountable business ownership.</p>
+  
+</section>
+
+<section id="access">
+  <h2>5. Govern identity, access and tool permissions</h2>
+  <p>Agent capability is largely determined by the systems and actions available to it. Governance must therefore treat connectors, credentials, service identities and action permissions as first-class controls.</p>
+<p>Permissions should reflect the minimum required to fulfil the intended use case. Where possible, high-impact actions should be separated from low-risk retrieval and analysis functions.</p>
+  <ul><li>Use dedicated identities where the platform and architecture support them.</li><li>Restrict connectors and actions to approved use cases.</li><li>Avoid broad permissions merely for development convenience.</li><li>Record privileged actions in auditable logs.</li><li>Use approval gates for irreversible or high-impact actions.</li><li>Revalidate permissions when the workflow or integration changes.</li></ul>
+</section>
+
+<section id="oversight">
+  <h2>6. Design human oversight as part of the workflow</h2>
+  <p>Human oversight should not be a generic statement that a human remains responsible. It should identify exactly where people review, approve, intervene or stop the agent.</p>
+<p>The appropriate model depends on risk. Some agents can operate autonomously within tightly bounded low-risk tasks. Others require human approval before a consequential action. High-risk use cases may require continuous supervision or may not be suitable for autonomous execution at all.</p>
+<p>The control should specify the point of intervention, the reviewer, the information available to that reviewer and the action the reviewer is authorised to take. A nominal approval step is not sufficient if the person cannot understand the proposed outcome or cannot stop it. Oversight should therefore be tested as an operational control rather than documented only as a policy statement.</p>
+  
+</section>
+
+<section id="testing">
+  <h2>7. Test the agent as a system, not only as a prompt</h2>
+  <p>Agent assurance requires testing of the complete workflow. Prompt quality matters, but so do permissions, tool calls, failure behaviour, data handling, escalation logic, output quality and recovery from unexpected inputs.</p>
+<p>A production package should preserve evidence of what was tested, the expected behaviour, known limitations and the version that passed the test.</p>
+  <ul><li>Functional and scenario testing.</li><li>Permission and connector testing.</li><li>Failure and exception paths.</li><li>Human-approval and escalation paths.</li><li>Sensitive-data handling.</li><li>Output-quality criteria.</li><li>Logging and evidence generation.</li><li>Regression testing after material changes.</li></ul>
+</section>
+
+<section id="deployment">
+  <h2>8. Make deployment a controlled handover</h2>
+  <p>A packaged agent should arrive with a clear deployment boundary. The vendor can provide the tested solution package, documentation, configuration guidance, governance evidence and deployment instructions, but the customer controls its own tenant and operating environment.</p>
+<p>For ColleagueAI products, deployment and runtime remain in the customer's Microsoft environment. The customer or its approved implementation partner performs tenant-specific configuration, integrations, deployment and operation.</p>
+<p>A controlled handover should also identify prerequisites, environment variables, connection references, required roles, known limitations and post-import validation steps. That allows the customer or implementation partner to reproduce the tested configuration without relying on undocumented knowledge from the original builder. The deployed version should remain traceable to the package and evidence that were approved.</p>
+  
+</section>
+
+<section id="monitoring">
+  <h2>9. Monitor operating risk and material change</h2>
+  <p>Approval at launch is not the end of governance. Agent behaviour can change when prompts, models, tools, permissions, knowledge sources or connected systems change.</p>
+<p>Continuous governance should therefore focus on material changes, exceptions, incidents, usage patterns, approval overrides and evidence that the deployed configuration still matches the approved design.</p>
+<p>Monitoring should be connected to explicit review triggers. Examples include a new connector, broader permissions, a different model, a new knowledge source, a rise in overrides, repeated exceptions or a change in the business process. Those signals should determine when the agent requires investigation, remediation, recertification or a fresh governance decision rather than remaining indefinitely approved.</p>
+  
+</section>
+
+<section id="retirement">
+  <h2>10. Govern retirement as seriously as launch</h2>
+  <p>Unused or superseded agents should not retain dormant access indefinitely. Retirement should remove permissions, disable integrations, archive evidence and update the enterprise inventory.</p>
+<p>A clean retirement process reduces attack surface and prevents organisations from accumulating unowned AI capabilities.</p>
+<p>Retirement should also close operational and governance dependencies. Owners should confirm that scheduled flows are disabled, service credentials are revoked where appropriate, downstream integrations no longer expect the agent, retained evidence meets policy requirements and users are directed to the replacement process if one exists. The inventory should record the retirement date and final disposition.</p>
+  
+</section>
+
+      
+<section class="framework" id="lifecycle">
+  <h2>A practical governance lifecycle</h2>
+  <ol>
+    <li>Discover and register the use case.</li><li>Assign accountable owners.</li><li>Classify the agent's risk.</li><li>Define data, tool and authority boundaries.</li><li>Design human oversight.</li><li>Build and test the complete workflow.</li><li>Review evidence and approve deployment.</li><li>Deploy in the customer's controlled environment.</li><li>Monitor operation and material changes.</li><li>Reassess, recertify or retire.</li>
+  </ol>
+</section>
+
+      <section class="boundary" id="deployment-boundary">
+        <h2>Product and deployment boundary</h2>
+        <p>ColleagueAI builds, tests, certifies, packages and sells enterprise AI agent products. Customers or approved implementation partners import, configure, integrate, deploy and operate those products inside the customer's Microsoft environment. Customer Microsoft licensing, Copilot Studio runtime, Power Platform, Azure, Dataverse, connectors and other runtime services remain the customer's responsibility.</p>
+      </section>
+
+      
+<section id="faq">
+  <h2>Frequently asked questions</h2>
+  
+<details class="faq">
+  <summary>What is AI agent governance?</summary>
+  <p>AI agent governance is the set of ownership, risk, access, oversight, testing, evidence, deployment and lifecycle controls used to ensure AI agents operate within approved organisational boundaries.</p>
+</details>
+
+<details class="faq">
+  <summary>Is AI agent governance the same as model governance?</summary>
+  <p>No. Model governance focuses primarily on the model. Agent governance must also cover tools, permissions, data sources, actions, workflow logic, human oversight, deployment configuration and operational behaviour.</p>
+</details>
+
+<details class="faq">
+  <summary>Who should own an enterprise AI agent?</summary>
+  <p>The business process should have an accountable business owner, while the technical solution should have a technical owner. Governance or risk functions can provide independent assurance, but accountability should not be delegated entirely to them.</p>
+</details>
+
+<details class="faq">
+  <summary>Do all AI agents need the same controls?</summary>
+  <p>No. Controls should be proportionate to risk. A low-impact read-only agent should not require the same approval model as an agent that can modify financial records or communicate externally.</p>
+</details>
+
+<details class="faq">
+  <summary>Where do ColleagueAI agents run?</summary>
+  <p>ColleagueAI agent products are designed to be imported, configured, deployed and operated in the customer's Microsoft environment. ColleagueAI does not operate the customer's agent runtime.</p>
+</details>
+</section>
+
+    </article>
+
+    
+    <section class="relevant-agents" aria-labelledby="relevant-agents-title">
+      <h2 id="relevant-agents-title">Relevant agents</h2>
+      <ul>
+        
+          <li>
+            <a href="/agents/risk-control-oversight-agent">
+              Risk Control Oversight Agent
+            </a>
+          </li>
+        
+          <li>
+            <a href="/agents/compliance-and-audit-action-tracker">
+              Compliance &amp; Audit Action Tracker
+            </a>
+          </li>
+        
+          <li>
+            <a href="/agents/four-eyes-control-assistant">
+              Four-Eyes Control Assistant
+            </a>
+          </li>
+        
+      </ul>
+    </section>
+  
+
+    <aside class="side">
+      <h2>Related ColleagueAI resources</h2>
+
+      <a href="/score">CAI Score</a>
+      <a href="/trust">Trust &amp; Governance</a>
+      <a href="/certified">Certification</a>
+      <a href="/agents">AI Agent Catalogue</a>
+
+      <a class="cta" href="/demo">Request access</a>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ColleagueAI — Governed Enterprise AI Agents
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      case "en": window.location.assign("/insights/ai-agent-governance-framework"); break;
+case "cs": window.location.assign("/cs/insights/ramec-governance-ai-agentu"); break;
+case "de": window.location.assign("/de/insights/governance-framework-fuer-ki-agenten"); break;
+case "fr": window.location.assign("/fr/insights/cadre-gouvernance-agents-ia"); break;
+case "es": window.location.assign("/es/insights/marco-gobernanza-agentes-ia"); break;
+case "it": window.location.assign("/it/insights/framework-governance-agenti-ai"); break;
+case "pl": window.location.assign("/pl/insights/ramy-governance-agentow-ai"); break;
+case "pt": window.location.assign("/pt/insights/framework-governanca-agentes-ia"); break;
+      default:
+        break;
+    }
+  });
+})();
+</script>
+</body>
+</html>

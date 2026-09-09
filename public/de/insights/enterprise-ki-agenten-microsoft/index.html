@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="de" data-cai-page="authority-enterprise-ai-agents-microsoft">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Enterprise-KI-Agenten für Microsoft-Umgebungen | ColleagueAI</title>
+<meta name="description" content="Praxisleitfaden für paketierte Enterprise-KI-Agenten in Microsoft-Umgebungen mit Copilot Studio, Power Automate, Azure, Governance, Deployment-Verantwortung und Betriebsgrenzen.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/enterprise-ai-agents-microsoft">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/enterprise-ai-agents-microsoft">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights/agents-ia-entreprise-microsoft">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights/agentes-ia-empresariales-microsoft">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights/agenti-ai-enterprise-microsoft">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights/agenci-ai-enterprise-microsoft">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights/agentes-ia-empresariais-microsoft">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft">
+<meta property="og:title" content="Enterprise-KI-Agenten für Microsoft-Umgebungen | ColleagueAI">
+<meta property="og:description" content="Praxisleitfaden für paketierte Enterprise-KI-Agenten in Microsoft-Umgebungen mit Copilot Studio, Power Automate, Azure, Governance, Deployment-Verantwortung und Betriebsgrenzen.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Enterprise-KI-Agenten für Microsoft-Umgebungen | ColleagueAI">
+<meta name="twitter:description" content="Praxisleitfaden für paketierte Enterprise-KI-Agenten in Microsoft-Umgebungen mit Copilot Studio, Power Automate, Azure, Governance, Deployment-Verantwortung und Betriebsgrenzen.">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft#article","headline":"Enterprise-KI-Agenten für Microsoft-Umgebungen","description":"Praxisleitfaden für paketierte Enterprise-KI-Agenten in Microsoft-Umgebungen mit Copilot Studio, Power Automate, Azure, Governance, Deployment-Verantwortung und Betriebsgrenzen.","mainEntityOfPage":"https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft","inLanguage":"de","author":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI"},"publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"},"about":["Enterprise-KI-Agenten","Governance von KI-Agenten","Menschliche Aufsicht","Microsoft Copilot Studio","Enterprise-KI-Governance"]},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft#faq","mainEntity":[{"@type":"Question","name":"Welche Microsoft-Technologien kann ein Enterprise-KI-Agent verwenden?","acceptedAnswer":{"@type":"Answer","text":"Je nach Use Case kann ein Agent Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure-Dienste und freigegebene Konnektoren nutzen. Die konkrete Architektur hängt von Anforderungen und Tenant des Kunden ab."}},{"@type":"Question","name":"Hostet ColleagueAI Kundenagenten?","acceptedAnswer":{"@type":"Answer","text":"Nein. ColleagueAI paketiert und verkauft Agentenprodukte. Kunden oder freigegebene Implementierungspartner deployen und betreiben diese Produkte in der Microsoft-Umgebung des Kunden."}},{"@type":"Question","name":"Wer bezahlt Microsoft-Lizenzen und Runtime?","acceptedAnswer":{"@type":"Answer","text":"Der Kunde ist für erforderliche Microsoft-Lizenzen und Runtime-Dienste verantwortlich, einschließlich relevanter Kosten für Copilot Studio, Power Platform, Azure, Dataverse und Konnektoren."}},{"@type":"Question","name":"Was ist in einem paketierten Enterprise-Agenten enthalten?","acceptedAnswer":{"@type":"Answer","text":"Der genaue Umfang hängt vom Produkt ab. Das Zielmodell umfasst die deploybare Microsoft Solution oder das Connect Package, Installations- und Konfigurationsanleitungen, Admin- und User-Dokumentation, Governance-Materialien, Testnachweise, Release-Informationen, Lizenz und Zertifizierungsinformationen."}},{"@type":"Question","name":"Ist ein paketierter Agent dasselbe wie Implementierungsservices?","acceptedAnswer":{"@type":"Answer","text":"Nein. Ein paketierter Agent ist ein Produkt mit einem getesteten Ausgangspunkt und Deployment-Materialien. Kundenspezifische Konfiguration, Integrationen, Deployment und Betrieb erfolgen durch den Kunden oder dessen freigegebenen Implementierungspartner."}}]}]}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{
+  padding:72px 0 42px;
+}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  line-height:1.58;
+  color:#4E4943;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:54px;
+  align-items:start;
+  padding-bottom:80px;
+}
+article{
+  min-width:0;
+}
+article>p{
+  font-size:17px;
+}
+section{
+  scroll-margin-top:30px;
+  margin-top:52px;
+}
+h2{
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+}
+li{margin:8px 0}
+.framework{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+}
+.framework ol{
+  padding-left:22px;
+}
+.boundary{
+  background:#1D1B1A;
+  color:#F5F0E8;
+  border-radius:24px;
+  padding:28px;
+  margin-top:50px;
+}
+.boundary h2{
+  color:#fff;
+}
+.boundary p{
+  color:#E7E0D7;
+}
+.faq{
+  border-top:1px solid var(--line);
+  padding:16px 0;
+}
+.faq:last-child{
+  border-bottom:1px solid var(--line);
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:17px;
+}
+.side{
+  position:sticky;
+  top:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.side h2{
+  font-size:17px;
+  margin-bottom:12px;
+}
+.side a{
+  display:block;
+  padding:8px 0;
+  font-weight:750;
+  text-decoration:none;
+}
+
+.relevant-agents{
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.relevant-agents h2{
+  margin:0 0 12px;
+  font-size:1.05rem;
+}
+
+.relevant-agents ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.relevant-agents li{
+  margin:8px 0;
+}
+
+.relevant-agents a{
+  font-weight:650;
+}
+
+.cta{
+  margin-top:24px;
+  display:inline-block !important;
+  background:var(--ink);
+  color:var(--bg) !important;
+  padding:11px 18px !important;
+  border-radius:999px;
+}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .hero{padding-top:48px}
+}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/de/">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">Sprache</span>
+      <select
+        id="langsel"
+        class="lang"
+        aria-label="Sprache"
+      >
+        <option value="en">English</option><option value="cs">Čeština</option><option value="de" selected>Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="crumb">
+      <a href="/">Startseite</a>
+      &nbsp;/&nbsp;
+      Einblicke
+    </div>
+
+    <div class="eyebrow">Microsoft Enterprise AI</div>
+
+    <h1>Enterprise-KI-Agenten für Microsoft-Umgebungen</h1>
+
+    <p class="lead">Der Microsoft-Enterprise-Stack bietet mehrere Bausteine für KI-Agenten. Die strategische Aufgabe besteht darin, daraus governte, testbare und deploybare Business-Produkte zu machen statt isolierter Experimente.</p>
+  </div>
+
+  <div class="layout">
+
+    <article>
+
+      <p>Ein Enterprise-KI-Agent ist mehr als ein Chatbot. Er verbindet Instruktionen, Wissen, Identität, Tools, Workflow-Logik und Governance-Kontrollen, um eine definierte Business-Aufgabe auszuführen.</p>
+<p>In Microsoft-Umgebungen können diese Fähigkeiten Copilot Studio, Power Automate, Microsoft 365, Azure, Dataverse und freigegebene Konnektoren umfassen. Die konkrete Architektur hängt vom Use Case und Tenant des Kunden ab.</p>
+<p>Für viele Unternehmen besteht die Herausforderung nicht im Zugang zur Technologie, sondern in einem wiederholbaren Weg vom Use Case zum kontrollierten Produktions-Deployment.</p>
+
+      
+<section id="stack">
+  <h2>1. Den Microsoft-Agenten-Stack verstehen</h2>
+  <p>Copilot Studio bietet die Kernumgebung für die Erstellung und Verwaltung von Conversational- und Agentenlösungen. Power Automate kann Workflow-Aktionen orchestrieren. Dataverse und Microsoft 365 können Business-Kontext bereitstellen, während Azure-Dienste zusätzliche Integrations-, Identitäts-, Sicherheits- und Applikationsanforderungen unterstützen können.</p>
+<p>Ein Enterprise-Design sollte nur die Komponenten verwenden, die der Use Case wirklich benötigt. Zusätzliche Technologie ohne funktionalen oder Governance-Nutzen erhöht unnötig die Komplexität.</p>
+<p>Die Architektur sollte eindeutig beschreiben, unter welcher Identität und in welchem Ausführungskontext einzelne Aktionen stattfinden. Teams müssen wissen, ob Aktionen im Kontext des angemeldeten Benutzers, über eine Service-Verbindung oder über eine andere kontrollierte Identität ausgeführt werden, da dies Berechtigungen, Auditierbarkeit und Funktionstrennung beeinflusst. Diese Abhängigkeiten sollten vor der Produktivfreigabe dokumentiert werden.</p>
+  
+</section>
+
+<section id="package">
+  <h2>2. Den Agenten als deploybares Produkt behandeln</h2>
+  <p>Produktionsreife erfordert mehr als eine funktionierende Entwicklungsumgebung. Ein deploybarer Agent sollte kontrollierte Solution-Komponenten, Konfigurationshinweise, dokumentierte Abhängigkeiten, Testnachweise, Governance-Anforderungen, Release Notes und ein klares Übergabemodell enthalten.</p>
+<p>Dies unterscheidet eine Agenten-Demo von einem für Enterprise-Adoption paketierten Produkt.</p>
+<p>Das Paket sollte eine wiederholbare Bereitstellung ermöglichen, ohne vom ursprünglichen Entwickler abhängig zu sein. Umgebungsvariablen, Connection References, benötigte Sicherheitsrollen, vorausgesetzte Komponenten und Validierungsschritte nach dem Import sollten so dokumentiert sein, dass ein anderes autorisiertes Team die vorgesehene Konfiguration reproduzieren kann.</p>
+  
+</section>
+
+<section id="tenant">
+  <h2>3. Die Kunden-Tenant-Grenze explizit halten</h2>
+  <p>Enterprise-Käufer benötigen Klarheit darüber, wo der Agent läuft und wer die Umgebung kontrolliert. Bei ColleagueAI-Produkten importiert, konfiguriert, integriert, deployt und betreibt der Kunde den Agenten in seiner eigenen Microsoft-Umgebung.</p>
+<p>ColleagueAI stellt weder Kundenlizenzen für Microsoft bereit noch betreibt es die Copilot-Studio-, Power-Platform-, Azure-, Dataverse- oder Konnektor-Runtime des Kunden.</p>
+<p>Die Tenant-Grenze ist zugleich eine Sicherheits- und Verantwortungsgrenze. Administratoren des Kunden entscheiden, welche Umgebungen, Identitäten, Datenquellen und Connectoren dem Agenten zur Verfügung stehen, während die Governance-Funktionen des Kunden prüfen, ob diese Einstellungen den internen Anforderungen entsprechen. Die Produktdokumentation sollte diese Grenze klar genug darstellen, um Missverständnisse bei Kauf und Bereitstellung zu vermeiden.</p>
+  
+</section>
+
+<section id="connectors">
+  <h2>4. Konnektoren nach minimal notwendigem Zugriff gestalten</h2>
+  <p>Konnektoren machen aus einem Informationsinterface ein operatives System. Sie verdienen daher dieselbe Prüfung wie andere privilegierte Integrationen.</p>
+<p>Der Agent sollte nur die für den genehmigten Zweck notwendigen Berechtigungen erhalten. Kundenspezifische Integrations- und Authentifizierungsentscheidungen bleiben Teil der Deployment-Architektur des Kunden.</p>
+<p>Connection References und Authentifizierungsmodelle sollten Teil der Release-Prüfung sein und nicht nur als technische Konfigurationsdetails behandelt werden. Connectoren mit Schreibzugriff, privilegierte APIs und systemübergreifende Aktionen benötigen stärkere Kontrollen als reine Lesezugriffe. Berechtigungen sollten möglichst auf den engsten Umfang an Ressourcen und Operationen beschränkt werden, der für den genehmigten Prozess erforderlich ist.</p>
+  
+</section>
+
+<section id="solutions">
+  <h2>5. Kontrollierte Solution- und Release-Prozesse verwenden</h2>
+  <p>Enterprise-Deployment sollte Development-, Test- und Production-Umgebungen trennen und kontrollierte Solution-Migration anstelle manueller Rekonstruktion verwenden, wo immer dies möglich ist.</p>
+<p>Versionierung sollte exakt zeigen, welches Package getestet und deployt wurde. Wesentliche Änderungen sollten einer neuen Release-Version zugeordnet werden können.</p>
+<p>Ein kontrollierter Application Lifecycle benötigt außerdem Regeln für Rollback und Promotion zwischen Umgebungen. Teams sollten wissen, welche Version für die Produktion genehmigt ist, welche Konfiguration zu welcher Umgebung gehört und wie bei einem wesentlichen Fehler eine zuvor akzeptierte Version wiederhergestellt werden kann. Direkte manuelle Änderungen in Produktion sollten Ausnahmefälle bleiben, dokumentiert und anschließend in die kontrollierte Lösung übernommen werden.</p>
+  
+</section>
+
+<section id="governance">
+  <h2>6. Governance vor Produktion ergänzen</h2>
+  <p>Technisches Deployment ist nicht dasselbe wie Governance-Freigabe. Organisationen benötigen weiterhin Ownership, Risikoklassifizierung, Zugriffskontrollen, menschliche Aufsicht, Nachweise und einen formalen Freigabeprozess.</p>
+<p>Der CAI Score bietet einen strukturierten Mechanismus, um das Risikoprofil eines Agenten mit verhältnismäßigen Governance-Anforderungen zu verbinden.</p>
+<p>Eine Produktionsfreigabe sollte deshalb konkrete Governance-Nachweise erzeugen und nicht lediglich das Ergebnis eines Meetings sein. Der Datensatz sollte Business Owner, Technical Owner, genehmigten Zweck, wesentliche Risiken, erforderliche menschliche Kontrollen, akzeptierte Einschränkungen und die autorisierte Version dokumentieren. Dies erleichtert spätere Reviews, Rezertifizierungen und Incident-Untersuchungen erheblich.</p>
+  
+</section>
+
+<section id="testing">
+  <h2>7. Den vollständigen Microsoft-Workflow testen</h2>
+  <p>Tests sollten Agenteninstruktionen, Wissensquellen, Konnektorverhalten, Power-Automate-Flows, Berechtigungen, Fehlerbehandlung und Freigabepfade umfassen, die tatsächlich Teil der deployten Lösung sind.</p>
+<p>Ein Test Report sollte getestete Version, Szenarien, erwartete Ergebnisse, Ausnahmen und bekannte Einschränkungen dokumentieren.</p>
+<p>Tests sollten auch negative und Grenzszenarien abdecken: nicht verfügbare Systeme, unzureichende Berechtigungen, fehlerhafte Eingaben, widersprüchliche Anweisungen, abgelehnte Genehmigungen, Connector-Ausfälle und Versuche, Aktionen außerhalb des genehmigten Umfangs auszuführen. Solche Szenarien zeigen, ob der gesamte Workflow sicher fehlschlägt, statt lediglich den idealen Happy Path zu prüfen.</p>
+  
+</section>
+
+<section id="data">
+  <h2>8. Datengrenzen verständlich machen</h2>
+  <p>Business-Nutzer und Governance-Teams sollten wissen, auf welche Daten ein Agent zugreifen kann, aus welchen Systemen diese Daten stammen und was der Agent damit tun darf.</p>
+<p>Data Governance ist deshalb ebenso eine Deployment-Frage wie eine Modellfrage. Die Kundenkonfiguration legt konkrete Tenant-Datenquellen, Berechtigungen und Retention-Einstellungen für den Produktionsagenten fest.</p>
+<p>Microsoft-Umgebungskontrollen wie Data-Loss-Prevention-Richtlinien, Umgebungszugriff, Sicherheitsrollen oder Connector-Einschränkungen können das tatsächliche Risiko desselben Agentenpakets erheblich verändern. Governance-Dokumentation sollte deshalb Annahmen auf Produktebene von kundenspezifischen Kontrollen trennen und festhalten, welche Voraussetzungen bei der Bereitstellung verifiziert werden müssen.</p>
+  
+</section>
+
+<section id="operate">
+  <h2>9. Produktsupport und Kundenbetrieb trennen</h2>
+  <p>Ein Anbieter kann Product Package, Dokumentation, Defects, Updates und Zertifizierung unterstützen, ohne Betreiber des Business-Prozesses des Kunden zu werden.</p>
+<p>Bei ColleagueAI ist das kommerzielle Produkt der paketierte Agent inklusive Dokumentation, Tests und Governance-Materialien. Kundenspezifische Implementierung und Betrieb verbleiben beim Kunden oder dessen freigegebenem Implementierungspartner.</p>
+<p>Diese Abgrenzung ist auch für Support-Level und Betriebserwartungen wichtig. Produktsupport kann Paketfehler, Dokumentation, Kompatibilität, Updates und Zertifizierungsstatus abdecken, während Probleme aufgrund kundeneigener Zugangsdaten, Tenant-Konfiguration, nachgelagerter Systeme oder verfügbarer Runtime-Kapazität Bestandteil des Betriebsmodells des Kunden bleiben, sofern sie nicht separat von einem zugelassenen Implementierungspartner betreut werden.</p>
+  
+</section>
+
+<section id="buy-build">
+  <h2>10. Entscheiden, was individuell gebaut und was paketiert werden sollte</h2>
+  <p>Stark differenzierte Workflows können Custom Development rechtfertigen. Viele wiederkehrende Enterprise-Prozesse eignen sich dagegen für einen vorgefertigten Ausgangspunkt, der in der Kundenumgebung importiert, konfiguriert und kontrolliert wird.</p>
+<p>Ein paketierter Ansatz kann wiederholte Design- und Dokumentationsarbeit reduzieren, während der Kunde die Kontrolle über Tenant-spezifische Integration, Security und Betrieb behält.</p>
+<p>Die Entscheidung zwischen Eigenentwicklung und einem vorgefertigten Paket sollte neben dem Entwicklungsaufwand auch Wiederholbarkeit, Differenzierungsbedarf und Governance-Kosten berücksichtigen. Ein standardisierter Prozess mit stabilen Kontrollen kann von einer vorgefertigten Grundlage profitieren, während proprietäre Logik, ungewöhnliche Integrationen oder häufig wechselnde Regeln eine individuelle Entwicklung rechtfertigen können. In beiden Fällen bleibt die Verantwortung für die Produktionsumgebung beim Kunden.</p>
+  
+</section>
+
+      
+<section class="framework" id="lifecycle">
+  <h2>Vom paketierten Agenten zum Kunden-Deployment</h2>
+  <ol>
+    <li>Business Use Case und geeignetes Agentenpaket auswählen.</li><li>Voraussetzungen, Risikoklassifizierung und Dokumentation prüfen.</li><li>Solution in die kontrollierte Microsoft-Umgebung des Kunden importieren.</li><li>Kundenspezifische Connections und Berechtigungen konfigurieren.</li><li>Tenant-spezifische Integrationen validieren.</li><li>Customer Acceptance und Governance Checks durchführen.</li><li>Über den Release-Prozess des Kunden deployen.</li><li>Unter Kundenidentität, Security und Support-Kontrollen betreiben.</li><li>Wesentliche Änderungen und Ausnahmen überwachen.</li><li>Updates oder Rezertifizierung anwenden, wenn erforderlich.</li>
+  </ol>
+</section>
+
+      <section class="boundary" id="deployment-boundary">
+        <h2>Produkt- und Deployment-Grenze</h2>
+        <p>ColleagueAI entwickelt, testet, zertifiziert, paketiert und verkauft Enterprise-KI-Agenten als Produkte. Kunden oder freigegebene Implementierungspartner importieren, konfigurieren, integrieren, deployen und betreiben diese Produkte in der Microsoft-Umgebung des Kunden. Microsoft-Lizenzen, Copilot-Studio-Runtime, Power Platform, Azure, Dataverse, Konnektoren und weitere Runtime-Dienste liegen in der Verantwortung des Kunden.</p>
+      </section>
+
+      
+<section id="faq">
+  <h2>Häufig gestellte Fragen</h2>
+  
+<details class="faq">
+  <summary>Welche Microsoft-Technologien kann ein Enterprise-KI-Agent verwenden?</summary>
+  <p>Je nach Use Case kann ein Agent Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure-Dienste und freigegebene Konnektoren nutzen. Die konkrete Architektur hängt von Anforderungen und Tenant des Kunden ab.</p>
+</details>
+
+<details class="faq">
+  <summary>Hostet ColleagueAI Kundenagenten?</summary>
+  <p>Nein. ColleagueAI paketiert und verkauft Agentenprodukte. Kunden oder freigegebene Implementierungspartner deployen und betreiben diese Produkte in der Microsoft-Umgebung des Kunden.</p>
+</details>
+
+<details class="faq">
+  <summary>Wer bezahlt Microsoft-Lizenzen und Runtime?</summary>
+  <p>Der Kunde ist für erforderliche Microsoft-Lizenzen und Runtime-Dienste verantwortlich, einschließlich relevanter Kosten für Copilot Studio, Power Platform, Azure, Dataverse und Konnektoren.</p>
+</details>
+
+<details class="faq">
+  <summary>Was ist in einem paketierten Enterprise-Agenten enthalten?</summary>
+  <p>Der genaue Umfang hängt vom Produkt ab. Das Zielmodell umfasst die deploybare Microsoft Solution oder das Connect Package, Installations- und Konfigurationsanleitungen, Admin- und User-Dokumentation, Governance-Materialien, Testnachweise, Release-Informationen, Lizenz und Zertifizierungsinformationen.</p>
+</details>
+
+<details class="faq">
+  <summary>Ist ein paketierter Agent dasselbe wie Implementierungsservices?</summary>
+  <p>Nein. Ein paketierter Agent ist ein Produkt mit einem getesteten Ausgangspunkt und Deployment-Materialien. Kundenspezifische Konfiguration, Integrationen, Deployment und Betrieb erfolgen durch den Kunden oder dessen freigegebenen Implementierungspartner.</p>
+</details>
+</section>
+
+    </article>
+
+    
+    <section class="relevant-agents" aria-labelledby="relevant-agents-title">
+      <h2 id="relevant-agents-title">Relevante Agenten</h2>
+      <ul>
+        
+          <li>
+            <a href="/de/agents/power-query-code-generator">
+              Power Query Code Generator
+            </a>
+          </li>
+        
+          <li>
+            <a href="/de/agents/service-delivery-manager-copilot">
+              Service Delivery Manager Copilot
+            </a>
+          </li>
+        
+          <li>
+            <a href="/de/agents/cyber-security-reporting-agent">
+              Cyber Security Reporting Agent
+            </a>
+          </li>
+        
+      </ul>
+    </section>
+  
+
+    <aside class="side">
+      <h2>Verwandte ColleagueAI-Ressourcen</h2>
+
+      <a href="/de/score">CAI Score</a>
+      <a href="/de/vertrauen">Trust &amp; Governance</a>
+      <a href="/de/zertifizierung">Zertifizierung</a>
+      <a href="/de/agenten">KI-Agenten-Katalog</a>
+
+      <a class="cta" href="/de/demo">Zugang anfragen</a>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ColleagueAI — Kontrollierte KI-Agenten für Unternehmen
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      case "en": window.location.assign("/insights/enterprise-ai-agents-microsoft"); break;
+case "cs": window.location.assign("/cs/insights/podnikovi-ai-agenti-microsoft"); break;
+case "de": window.location.assign("/de/insights/enterprise-ki-agenten-microsoft"); break;
+case "fr": window.location.assign("/fr/insights/agents-ia-entreprise-microsoft"); break;
+case "es": window.location.assign("/es/insights/agentes-ia-empresariales-microsoft"); break;
+case "it": window.location.assign("/it/insights/agenti-ai-enterprise-microsoft"); break;
+case "pl": window.location.assign("/pl/insights/agenci-ai-enterprise-microsoft"); break;
+case "pt": window.location.assign("/pt/insights/agentes-ia-empresariais-microsoft"); break;
+      default:
+        break;
+    }
+  });
+})();
+</script>
+</body>
+</html>

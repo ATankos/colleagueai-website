@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="cs" data-cai-page="authority-ai-agent-governance-framework">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rámec governance AI agentů | ColleagueAI</title>
+<meta name="description" content="Praktický podnikový rámec pro řízení AI agentů napříč vlastnictvím, riziky, přístupy, lidským dohledem, důkazy, testováním, nasazením a průběžným ověřováním.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights/governance-framework-fuer-ki-agenten">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights/cadre-gouvernance-agents-ia">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights/framework-governance-agenti-ai">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights/ramy-governance-agentow-ai">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights/framework-governanca-agentes-ia">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu">
+<meta property="og:title" content="Rámec governance AI agentů | ColleagueAI">
+<meta property="og:description" content="Praktický podnikový rámec pro řízení AI agentů napříč vlastnictvím, riziky, přístupy, lidským dohledem, důkazy, testováním, nasazením a průběžným ověřováním.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Rámec governance AI agentů | ColleagueAI">
+<meta name="twitter:description" content="Praktický podnikový rámec pro řízení AI agentů napříč vlastnictvím, riziky, přístupy, lidským dohledem, důkazy, testováním, nasazením a průběžným ověřováním.">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu#article","headline":"Rámec governance AI agentů","description":"Praktický podnikový rámec pro řízení AI agentů napříč vlastnictvím, riziky, přístupy, lidským dohledem, důkazy, testováním, nasazením a průběžným ověřováním.","mainEntityOfPage":"https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu","inLanguage":"cs","author":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI"},"publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"},"about":["Podnikoví AI agenti","Governance AI agentů","Lidský dohled","Microsoft Copilot Studio","Governance podnikové AI"]},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu#faq","mainEntity":[{"@type":"Question","name":"Co je governance AI agentů?","acceptedAnswer":{"@type":"Answer","text":"Governance AI agentů je soubor pravidel pro vlastnictví, riziko, přístupy, lidský dohled, testování, důkazy, nasazení a životní cyklus, které zajišťují, že agenti fungují v rámci schválených organizačních hranic."}},{"@type":"Question","name":"Je governance AI agentů totéž jako governance modelu?","acceptedAnswer":{"@type":"Answer","text":"Ne. Governance modelu se soustředí především na samotný model. Governance agenta musí zahrnout také nástroje, oprávnění, datové zdroje, akce, workflow logiku, lidský dohled, konfiguraci nasazení a provozní chování."}},{"@type":"Question","name":"Kdo má vlastnit podnikového AI agenta?","acceptedAnswer":{"@type":"Answer","text":"Obchodní proces má mít odpovědného vlastníka za obchodní oblast a technické řešení technického vlastníka. Funkce governance nebo řízení rizik mohou poskytovat nezávislé ověření, ale odpovědnost by na ně neměla být plně přenesena."}},{"@type":"Question","name":"Potřebují všichni AI agenti stejné kontroly?","acceptedAnswer":{"@type":"Answer","text":"Ne. Kontroly mají být přiměřené riziku. Nízkorizikový agent s přístupem pouze pro čtení nepotřebuje stejný schvalovací model jako agent, který může měnit finanční záznamy nebo komunikovat externě."}},{"@type":"Question","name":"Kde běží agenti ColleagueAI?","acceptedAnswer":{"@type":"Answer","text":"Produkty agentů ColleagueAI jsou navrženy tak, aby je zákazník importoval, konfiguroval, nasadil a provozoval ve vlastním prostředí Microsoft. ColleagueAI neprovozuje runtime zákaznického agenta."}}]}]}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{
+  padding:72px 0 42px;
+}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  line-height:1.58;
+  color:#4E4943;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:54px;
+  align-items:start;
+  padding-bottom:80px;
+}
+article{
+  min-width:0;
+}
+article>p{
+  font-size:17px;
+}
+section{
+  scroll-margin-top:30px;
+  margin-top:52px;
+}
+h2{
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+}
+li{margin:8px 0}
+.framework{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+}
+.framework ol{
+  padding-left:22px;
+}
+.boundary{
+  background:#1D1B1A;
+  color:#F5F0E8;
+  border-radius:24px;
+  padding:28px;
+  margin-top:50px;
+}
+.boundary h2{
+  color:#fff;
+}
+.boundary p{
+  color:#E7E0D7;
+}
+.faq{
+  border-top:1px solid var(--line);
+  padding:16px 0;
+}
+.faq:last-child{
+  border-bottom:1px solid var(--line);
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:17px;
+}
+.side{
+  position:sticky;
+  top:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.side h2{
+  font-size:17px;
+  margin-bottom:12px;
+}
+.side a{
+  display:block;
+  padding:8px 0;
+  font-weight:750;
+  text-decoration:none;
+}
+
+.relevant-agents{
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.relevant-agents h2{
+  margin:0 0 12px;
+  font-size:1.05rem;
+}
+
+.relevant-agents ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.relevant-agents li{
+  margin:8px 0;
+}
+
+.relevant-agents a{
+  font-weight:650;
+}
+
+.cta{
+  margin-top:24px;
+  display:inline-block !important;
+  background:var(--ink);
+  color:var(--bg) !important;
+  padding:11px 18px !important;
+  border-radius:999px;
+}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .hero{padding-top:48px}
+}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/cs/">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">Jazyk</span>
+      <select
+        id="langsel"
+        class="lang"
+        aria-label="Jazyk"
+      >
+        <option value="en">English</option><option value="cs" selected>Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="crumb">
+      <a href="/">Domů</a>
+      &nbsp;/&nbsp;
+      Analýzy
+    </div>
+
+    <div class="eyebrow">Rámec governance</div>
+
+    <h1>Rámec governance AI agentů</h1>
+
+    <p class="lead">Podnikoví AI agenti potřebují více než technické kontroly. Potřebují jasné vlastnictví, klasifikaci rizika, lidský dohled, důkazy, řízení nasazení a životní cyklus, který zajišťuje viditelnou odpovědnost před spuštěním i po něm.</p>
+  </div>
+
+  <div class="layout">
+
+    <article>
+
+      <p>AI agent může vyhledávat informace, pracovat s kontextem, volat nástroje, spouštět workflow a v některých případech provádět akce bez toho, aby člověk ručně vykonal každý jednotlivý krok. Governance agentů se proto liší od běžné governance softwaru i od řízení samostatného generativního AI asistenta.</p>
+<p>Praktická otázka governance není jen to, zda organizace AI povoluje. Klíčové je, zda má každý agent známý účel, vlastníka, hranici oprávnění, datovou hranici, eskalační cestu, testovací záznam a provozní stav.</p>
+<p>Použitelný rámec proto řídí celý životní cyklus agenta: nápad, návrh, vývoj, testování, schválení, nasazení, monitoring, změny a vyřazení.</p>
+
+      
+<section id="principles">
+  <h2>1. Začněte principy governance</h2>
+  <p>Model governance by měl začínat malým počtem principů, které se konzistentně používají napříč celým portfoliem agentů. Principům musí rozumět vlastníci produktů, vývojáři, risk, compliance i business uživatelé.</p>
+<p>Nejdůležitějšími principy jsou dohledatelné vlastnictví, minimální potřebná oprávnění, přiměřenost kontrol, lidská odpovědnost, důkazy už od návrhu a řízené změny. Vyšší riziko má znamenat silnější kontroly, nikoli stejný proces pro každý use case.</p>
+  <ul><li>Každý agent má určeného vlastníka za obchodní oblast a technického vlastníka.</li><li>Každý agent funguje v rámci jasně definovaného účelu a hranice oprávnění.</li><li>Přístup k systémům, datům a akcím dodržuje princip minimálních oprávnění.</li><li>Lidský dohled odpovídá možným důsledkům chyby.</li><li>Důkazy o testování a schválení jsou uchované a reprodukovatelné.</li><li>Významné změny spouštějí nové posouzení místo tichého rozšiřování schopností.</li></ul>
+</section>
+
+<section id="inventory">
+  <h2>2. Udržujte autoritativní inventář agentů</h2>
+  <p>Organizace nemůže řídit agenty, které nedokáže identifikovat. Podnikový inventář je proto základním kontrolním mechanismem governance.</p>
+<p>Inventář nemá být jen seznam názvů. Musí poskytovat dostatek informací k pochopení toho, co agent dělá, kde běží, k jakým systémům má přístup a kdo za něj odpovídá.</p>
+  <ul><li>Název agenta, verze a stav životního cyklu.</li><li>Business účel a zamýšlení uživatelé.</li><li>Vlastník za obchodní oblast, technický vlastník a vlastník podpory.</li><li>Prostředí Microsoft, řešení a místo nasazení.</li><li>Připojené systémy, konektory, nástroje a kategorie dat.</li><li>Oprávnění k akcím a transakční pravomoci.</li><li>Klasifikace rizika a požadovaná úroveň schválení.</li><li>Model lidského dohledu.</li><li>Testovací důkazy, stav certifikace a datum poslední revize.</li></ul>
+</section>
+
+<section id="classification">
+  <h2>3. Klasifikujte riziko před nasazením</h2>
+  <p>Klasifikace rizika určuje, jak silnou governance agent potřebuje. Rozhodující není jen použitý model, ale to, co celý agent může vidět, rozhodovat a dělat.</p>
+<p>Informační agent s přístupem pouze pro čtení je zásadně odlišný od agenta, který může schvalovat transakce, komunikovat externě, měnit záznamy nebo spouštět navazující procesy.</p>
+<p>CAI Score je strukturovaný přístup ColleagueAI ke klasifikaci rizika podnikových agentů. Posuzuje autonomii, dopad, citlivost dat, přístup k nástrojům, reverzibilitu, dohled a požadavky governance. Klasifikace má proběhnout před nasazením a znovu při významné změně schopností.</p>
+  
+</section>
+
+<section id="ownership">
+  <h2>4. Oddělte business odpovědnost od technického vlastnictví</h2>
+  <p>Technické týmy mohou agenta vytvářet a udržovat, ale neměly by být jediným vlastníkem business výsledku. Business funkce, která agenta používá, musí zůstat odpovědná za proces a jeho důsledky.</p>
+<p>Vyspělý model proto rozlišuje business vlastnictví, technické vlastnictví a nezávislé governance assurance. Tím se zabrání tomu, aby odpovědnost zmizela mezi IT a provozem.</p>
+<p>Model vlastnictví by měl zároveň jasně vymezovat rozhodovací pravomoci. Vlastník za obchodní oblast schvaluje zamýšlený účel, přijatelné výsledky a významné změny procesu, zatímco technický vlastník odpovídá za integritu komponent řešení, konfigurace a technických kontrol. Funkce governance, řízení rizik, bezpečnosti nebo compliance mohou poskytovat nezávislou kontrolu a oponenturu, ale neměly by nahrazovat jasnou odpovědnost obchodního vlastníka.</p>
+  
+</section>
+
+<section id="access">
+  <h2>5. Řiďte identity, přístupy a oprávnění nástrojů</h2>
+  <p>Schopnosti agenta jsou do značné míry určeny systémy a akcemi, ke kterým má přístup. Governance proto musí pracovat s konektory, přístupovými údaji, servisními identitami a oprávněními jako s plnohodnotnými kontrolními prvky.</p>
+<p>Oprávnění musí odpovídat pouze tomu, co je nutné pro schválený use case. Pokud je to možné, vysoce dopadové akce mají být oddělené od nízkorizikového vyhledávání a analýzy.</p>
+  <ul><li>Používejte dedikované identity tam, kde to platforma a architektura umožňují.</li><li>Omezte konektory a akce pouze na schválené use cases.</li><li>Nedávejte široká oprávnění jen kvůli pohodlnému vývoji.</li><li>Privilegované akce zaznamenávejte do auditovatelných logů.</li><li>Pro nevratné nebo vysoce dopadové akce používejte schvalovací brány.</li><li>Při změně workflow nebo integrace znovu ověřte oprávnění.</li></ul>
+</section>
+
+<section id="oversight">
+  <h2>6. Navrhněte lidský dohled přímo do workflow</h2>
+  <p>Lidský dohled nemá být jen obecné prohlášení, že člověk zůstává odpovědný. Musí přesně určit, kde lidé kontrolují, schvalují, zasahují nebo agenta zastavují.</p>
+<p>Správný model závisí na riziku. Někteří agenti mohou autonomně pracovat v úzce vymezených nízkorizikových úlohách. Jiní vyžadují schválení člověka před významnou akcí. Vysoce rizikové use cases mohou vyžadovat průběžný dohled nebo nemusí být vhodné pro autonomní provádění vůbec.</p>
+<p>Kontrola by měla přesně určit okamžik zásahu, osobu provádějící kontrolu, informace, které má tato osoba k dispozici, a kroky, které je oprávněna provést. Formální schvalovací krok nestačí, pokud člověk nedokáže navrhovaný výsledek pochopit nebo jej zastavit. Lidský dohled by proto měl být testován jako skutečná provozní kontrola, nikoli pouze popsán v interní směrnici.</p>
+  
+</section>
+
+<section id="testing">
+  <h2>7. Testujte agenta jako celý systém, ne pouze prompt</h2>
+  <p>Assurance agenta vyžaduje testování kompletního workflow. Kvalita promptu je důležitá, ale stejně důležitá jsou oprávnění, volání nástrojů, chování při chybě, práce s daty, eskalační logika, kvalita výstupů a zotavení z neočekávaných vstupů.</p>
+<p>Produkční balíček má uchovávat důkazy o tom, co bylo testováno, jaké bylo očekávané chování, jaká jsou známá omezení a která verze testem prošla.</p>
+  <ul><li>Funkční a scénářové testování.</li><li>Testování oprávnění a konektorů.</li><li>Chybové a výjimečné scénáře.</li><li>Schvalovací a eskalační cesty.</li><li>Práce s citlivými daty.</li><li>Kritéria kvality výstupu.</li><li>Logování a tvorba důkazů.</li><li>Regresní testování po významných změnách.</li></ul>
+</section>
+
+<section id="deployment">
+  <h2>8. Z nasazení udělejte řízené předání</h2>
+  <p>Balíčkovaný agent musí mít jasnou hranici nasazení. Dodavatel může dodat otestovaný balíček řešení, dokumentaci, pokyny ke konfiguraci, governance důkazy a instrukce k nasazení, ale zákazník spravuje vlastní tenant a provozní prostředí.</p>
+<p>U produktů ColleagueAI zůstává nasazení a runtime v prostředí Microsoft zákazníka. Konfiguraci specifickou pro tenant, integrace, nasazení a provoz provádí zákazník nebo jeho schválený implementační partner.</p>
+<p>Řízené předání by mělo rovněž popsat předpoklady, proměnné prostředí, reference připojení, požadované role, známá omezení a kroky ověření po importu. Zákazník nebo implementační partner tak může reprodukovat otestovanou konfiguraci bez závislosti na nezdokumentovaných znalostech původního vývojáře. Nasazená verze musí zůstat dohledatelně propojena s balíčkem a důkazy, které byly schváleny.</p>
+  
+</section>
+
+<section id="monitoring">
+  <h2>9. Sledujte provozní riziko a významné změny</h2>
+  <p>Schválení při spuštění není konec governance. Chování agenta se může změnit při změně promptů, modelů, nástrojů, oprávnění, znalostních zdrojů nebo připojených systémů.</p>
+<p>Průběžná governance se proto musí zaměřovat na významné změny, výjimky, incidenty, vzorce používání, override schválení a důkazy, že nasazená konfigurace stále odpovídá schválenému návrhu.</p>
+<p>Monitoring by měl být propojen s jasně definovanými spouštěči nové kontroly. Může jít například o nový konektor, širší oprávnění, jiný model, nový zdroj znalostí, nárůst manuálních zásahů, opakované výjimky nebo změnu obchodního procesu. Tyto signály by měly určovat, kdy agent vyžaduje prověření, nápravu, recertifikaci nebo nové governance rozhodnutí, namísto toho, aby zůstával schválen bez časového omezení.</p>
+  
+</section>
+
+<section id="retirement">
+  <h2>10. Řiďte vyřazení stejně důsledně jako spuštění</h2>
+  <p>Nepoužívaní nebo nahrazení agenti by neměli neomezeně držet neaktivní přístupy. Vyřazení má odebrat oprávnění, deaktivovat integrace, archivovat důkazy a aktualizovat podnikový inventář.</p>
+<p>Řádný proces vyřazení snižuje plochu útoku a brání tomu, aby organizace hromadila AI schopnosti bez vlastníka.</p>
+<p>Vyřazení agenta by mělo uzavřít také jeho provozní a governance závislosti. Vlastníci musí potvrdit, že naplánované toky jsou vypnuté, servisní přístupové údaje jsou podle potřeby zneplatněny, navazující integrace již agenta neočekávají, důkazy jsou uchovány podle interních pravidel a uživatelé jsou případně přesměrováni na náhradní proces. Inventář by měl zaznamenat datum vyřazení i konečný stav agenta.</p>
+  
+</section>
+
+      
+<section class="framework" id="lifecycle">
+  <h2>Praktický životní cyklus governance</h2>
+  <ol>
+    <li>Identifikovat a registrovat use case.</li><li>Přiřadit odpovědné vlastníky.</li><li>Klasifikovat riziko agenta.</li><li>Definovat hranice dat, nástrojů a oprávnění.</li><li>Navrhnout lidský dohled.</li><li>Vyvinout a otestovat kompletní workflow.</li><li>Posoudit důkazy a schválit nasazení.</li><li>Nasadit do řízeného prostředí zákazníka.</li><li>Monitorovat provoz a významné změny.</li><li>Znovu posoudit, recertifikovat nebo vyřadit.</li>
+  </ol>
+</section>
+
+      <section class="boundary" id="deployment-boundary">
+        <h2>Hranice produktu a nasazení</h2>
+        <p>ColleagueAI vytváří, testuje, certifikuje, balíčkuje a prodává podnikové produkty AI agentů. Zákazník nebo schválený implementační partner tyto produkty importuje, konfiguruje, integruje, nasazuje a provozuje ve vlastním prostředí Microsoft zákazníka. Licence Microsoft, runtime Copilot Studio, Power Platform, Azure, Dataverse, konektory a další runtime služby zůstávají odpovědností zákazníka.</p>
+      </section>
+
+      
+<section id="faq">
+  <h2>Často kladené otázky</h2>
+  
+<details class="faq">
+  <summary>Co je governance AI agentů?</summary>
+  <p>Governance AI agentů je soubor pravidel pro vlastnictví, riziko, přístupy, lidský dohled, testování, důkazy, nasazení a životní cyklus, které zajišťují, že agenti fungují v rámci schválených organizačních hranic.</p>
+</details>
+
+<details class="faq">
+  <summary>Je governance AI agentů totéž jako governance modelu?</summary>
+  <p>Ne. Governance modelu se soustředí především na samotný model. Governance agenta musí zahrnout také nástroje, oprávnění, datové zdroje, akce, workflow logiku, lidský dohled, konfiguraci nasazení a provozní chování.</p>
+</details>
+
+<details class="faq">
+  <summary>Kdo má vlastnit podnikového AI agenta?</summary>
+  <p>Obchodní proces má mít odpovědného vlastníka za obchodní oblast a technické řešení technického vlastníka. Funkce governance nebo řízení rizik mohou poskytovat nezávislé ověření, ale odpovědnost by na ně neměla být plně přenesena.</p>
+</details>
+
+<details class="faq">
+  <summary>Potřebují všichni AI agenti stejné kontroly?</summary>
+  <p>Ne. Kontroly mají být přiměřené riziku. Nízkorizikový agent s přístupem pouze pro čtení nepotřebuje stejný schvalovací model jako agent, který může měnit finanční záznamy nebo komunikovat externě.</p>
+</details>
+
+<details class="faq">
+  <summary>Kde běží agenti ColleagueAI?</summary>
+  <p>Produkty agentů ColleagueAI jsou navrženy tak, aby je zákazník importoval, konfiguroval, nasadil a provozoval ve vlastním prostředí Microsoft. ColleagueAI neprovozuje runtime zákaznického agenta.</p>
+</details>
+</section>
+
+    </article>
+
+    
+    <section class="relevant-agents" aria-labelledby="relevant-agents-title">
+      <h2 id="relevant-agents-title">Související agenti</h2>
+      <ul>
+        
+          <li>
+            <a href="/cs/agents/risk-control-oversight-agent">
+              Risk Control Oversight Agent
+            </a>
+          </li>
+        
+          <li>
+            <a href="/cs/agents/compliance-and-audit-action-tracker">
+              Compliance &amp; Audit Action Tracker
+            </a>
+          </li>
+        
+          <li>
+            <a href="/cs/agents/four-eyes-control-assistant">
+              Four-Eyes Control Assistant
+            </a>
+          </li>
+        
+      </ul>
+    </section>
+  
+
+    <aside class="side">
+      <h2>Související zdroje ColleagueAI</h2>
+
+      <a href="/cs/score">CAI Score</a>
+      <a href="/cs/duvera">Důvěra a governance</a>
+      <a href="/cs/certifikace">Certifikace</a>
+      <a href="/cs/agenti">Katalog AI agentů</a>
+
+      <a class="cta" href="/cs/demo">Požádat o přístup</a>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ColleagueAI — Řízené podnikové AI agenty
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      case "en": window.location.assign("/insights/ai-agent-governance-framework"); break;
+case "cs": window.location.assign("/cs/insights/ramec-governance-ai-agentu"); break;
+case "de": window.location.assign("/de/insights/governance-framework-fuer-ki-agenten"); break;
+case "fr": window.location.assign("/fr/insights/cadre-gouvernance-agents-ia"); break;
+case "es": window.location.assign("/es/insights/marco-gobernanza-agentes-ia"); break;
+case "it": window.location.assign("/it/insights/framework-governance-agenti-ai"); break;
+case "pl": window.location.assign("/pl/insights/ramy-governance-agentow-ai"); break;
+case "pt": window.location.assign("/pt/insights/framework-governanca-agentes-ia"); break;
+      default:
+        break;
+    }
+  });
+})();
+</script>
+</body>
+</html>
