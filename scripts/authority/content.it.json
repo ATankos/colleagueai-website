@@ -1,0 +1,471 @@
+{
+  "locale": "it",
+  "common": {
+    "brand": "ColleagueAI",
+    "sectionLabel": "Governance AI enterprise",
+    "backToAgents": "Esplora gli agenti AI pacchettizzati",
+    "scoreLabel": "CAI Score",
+    "trustLabel": "Trust e governance",
+    "certifiedLabel": "Certificazione",
+    "agentsLabel": "Catalogo agenti AI",
+    "requestLabel": "Richiedi accesso",
+    "relatedLabel": "Risorse ColleagueAI correlate",
+    "faqLabel": "Domande frequenti",
+    "boundaryTitle": "Confine tra prodotto e deployment",
+    "boundaryBody": "ColleagueAI progetta, testa, certifica, pacchettizza e vende prodotti di agenti AI enterprise. I clienti o i partner di implementazione approvati importano, configurano, integrano, distribuiscono e gestiscono questi prodotti nell'ambiente Microsoft del cliente. Le licenze Microsoft, il runtime di Copilot Studio, Power Platform, Azure, Dataverse, i connettori e gli altri servizi runtime restano responsabilità del cliente."
+  },
+  "pages": {
+    "ai-agent-governance-framework": {
+      "eyebrow": "Framework di governance",
+      "lead": "Gli agenti AI enterprise richiedono più dei soli controlli tecnici. Servono ownership esplicita, classificazione del rischio, supervisione umana, evidenze, controllo del deployment e un ciclo di vita che renda chiara la responsabilità prima e dopo il go-live.",
+      "intro": [
+        "Un agente AI può recuperare informazioni, ragionare sul contesto, invocare strumenti, avviare workflow e, in alcuni casi, eseguire azioni senza che una persona compia manualmente ogni singolo passaggio. Per questo la governance degli agenti è diversa dalla governance software tradizionale e da quella di un semplice assistente di AI generativa.",
+        "La domanda pratica non è soltanto se un'organizzazione consenta l'AI. È necessario sapere se ogni agente ha uno scopo definito, un owner, un limite di autorità, un perimetro dati, un percorso di escalation, evidenze di test e uno stato operativo noto.",
+        "Un framework efficace governa quindi l'intero ciclo di vita: idea, design, sviluppo, test, approvazione, deployment, monitoraggio, cambiamento e ritiro."
+      ],
+      "sections": [
+        {
+          "id": "principles",
+          "title": "1. Partire dai principi di governance",
+          "paragraphs": [
+            "Un modello di governance dovrebbe partire da pochi principi coerenti applicabili all'intero portafoglio di agenti. Devono essere comprensibili a product owner, sviluppatori, risk, compliance e funzioni di business.",
+            "I principi fondamentali sono ownership tracciabile, least privilege, controlli proporzionati, accountability umana, evidence by design e gestione controllata dei cambiamenti."
+          ],
+          "bullets": [
+            "Ogni agente ha un business owner e un technical owner identificati.",
+            "Ogni agente opera entro uno scopo e un limite di autorità espliciti.",
+            "L'accesso a sistemi, dati e azioni segue il principio del least privilege.",
+            "La supervisione umana è proporzionata alle conseguenze potenziali di un errore.",
+            "Le evidenze di test e approvazione sono conservate e riproducibili.",
+            "I cambiamenti materiali attivano una nuova valutazione."
+          ]
+        },
+        {
+          "id": "inventory",
+          "title": "2. Mantenere un inventario autorevole degli agenti",
+          "paragraphs": [
+            "Un'organizzazione non può governare agenti che non riesce a identificare. Un inventario enterprise è quindi un controllo di governance fondamentale.",
+            "L'inventario deve andare oltre un semplice elenco di nomi e consentire di comprendere cosa fa l'agente, dove opera, a quali sistemi accede e chi ne è responsabile."
+          ],
+          "bullets": [
+            "Nome dell'agente, versione e stato del ciclo di vita.",
+            "Scopo di business e utenti previsti.",
+            "Business owner, technical owner e support owner.",
+            "Ambiente Microsoft, solution e luogo di deployment.",
+            "Sistemi collegati, connettori, strumenti e categorie di dati.",
+            "Permessi di azione e autorità transazionale.",
+            "Classificazione del rischio e livello di approvazione richiesto.",
+            "Modello di supervisione umana.",
+            "Evidenze di test, stato di certificazione e data dell'ultima revisione."
+          ]
+        },
+        {
+          "id": "classification",
+          "title": "3. Classificare il rischio prima del deployment",
+          "paragraphs": [
+            "La classificazione del rischio determina il livello di governance necessario. Non conta solo il modello utilizzato, ma ciò che l'agente completo può vedere, decidere e fare.",
+            "Un agente informativo read-only è radicalmente diverso da un agente che può approvare transazioni, comunicare all'esterno, modificare record o attivare processi downstream.",
+            "Il CAI Score è l'approccio strutturato di ColleagueAI per classificare il rischio degli agenti enterprise. Considera autonomia, impatto, sensibilità dei dati, accesso agli strumenti, reversibilità, supervisione e requisiti di governance."
+          ]
+        },
+        {
+          "id": "ownership",
+          "title": "4. Separare accountability di business e ownership tecnica",
+          "paragraphs": [
+            "I team tecnici possono costruire e mantenere un agente, ma non dovrebbero essere gli unici responsabili del risultato di business. La funzione che utilizza l'agente deve restare responsabile del processo e delle sue conseguenze.",
+            "Un modello maturo distingue quindi business ownership, technical ownership e governance assurance.",
+            "Il modello di ownership dovrebbe definire con chiarezza anche i diritti decisionali. Il responsabile di business approva lo scopo previsto, i risultati accettabili e le modifiche sostanziali al processo, mentre il responsabile tecnico resta responsabile dell'integrità dei componenti della soluzione, della configurazione e dei controlli tecnici. Le funzioni di governance, rischio, sicurezza o compliance possono fornire verifica indipendente senza sostituire la responsabilità del business."
+          ]
+        },
+        {
+          "id": "access",
+          "title": "5. Governare identità, accessi e permessi degli strumenti",
+          "paragraphs": [
+            "Le capacità di un agente dipendono in larga misura dai sistemi e dalle azioni a cui può accedere. Connettori, credenziali, service identity e permessi devono quindi essere trattati come controlli primari.",
+            "I permessi devono essere limitati al minimo necessario per il caso d'uso approvato."
+          ],
+          "bullets": [
+            "Usare identità dedicate quando architettura e piattaforma lo consentono.",
+            "Limitare connettori e azioni ai casi d'uso approvati.",
+            "Evitare permessi ampi concessi solo per comodità di sviluppo.",
+            "Registrare le azioni privilegiate in log auditabili.",
+            "Usare approval gate per azioni irreversibili o ad alto impatto.",
+            "Rivalidare i permessi dopo cambiamenti al workflow o alle integrazioni."
+          ]
+        },
+        {
+          "id": "oversight",
+          "title": "6. Integrare la supervisione umana nel workflow",
+          "paragraphs": [
+            "La supervisione umana non deve essere una dichiarazione generica secondo cui una persona resta responsabile. Deve definire chiaramente dove le persone revisionano, approvano, intervengono o arrestano l'agente.",
+            "Il modello appropriato dipende dal rischio. Alcuni agenti possono operare autonomamente in attività a basso rischio e strettamente delimitate; altri richiedono approvazione umana prima di azioni rilevanti.",
+            "Il controllo dovrebbe specificare il momento dell'intervento, chi effettua la revisione, quali informazioni sono disponibili e quali azioni tale persona è autorizzata a intraprendere. Un passaggio di approvazione formale non è sufficiente se il revisore non è in grado di comprendere o fermare il risultato proposto. La supervisione umana dovrebbe quindi essere testata come un controllo operativo reale."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Testare l'agente come sistema completo",
+          "paragraphs": [
+            "L'assurance dell'agente richiede test dell'intero workflow. Sono importanti il prompt, i permessi, le chiamate agli strumenti, il comportamento in errore, il trattamento dei dati, la logica di escalation, la qualità dell'output e la gestione degli input imprevisti.",
+            "Un pacchetto di produzione deve conservare evidenze di ciò che è stato testato, del comportamento previsto, delle limitazioni note e della versione che ha superato i test."
+          ],
+          "bullets": [
+            "Test funzionali e per scenario.",
+            "Test di permessi e connettori.",
+            "Percorsi di errore ed eccezione.",
+            "Percorsi di approvazione ed escalation.",
+            "Gestione dei dati sensibili.",
+            "Criteri di qualità dell'output.",
+            "Logging e generazione delle evidenze.",
+            "Regression test dopo cambiamenti materiali."
+          ]
+        },
+        {
+          "id": "deployment",
+          "title": "8. Rendere il deployment un handover controllato",
+          "paragraphs": [
+            "Un agente pacchettizzato deve avere un chiaro confine di deployment. Il fornitore può fornire una solution testata, documentazione, indicazioni di configurazione, evidenze di governance e istruzioni di deployment, mentre il cliente controlla il proprio tenant e l'ambiente operativo.",
+            "Per i prodotti ColleagueAI, deployment e runtime restano nell'ambiente Microsoft del cliente. Configurazione specifica del tenant, integrazioni, deployment e operation sono svolti dal cliente o dal partner di implementazione approvato.",
+            "Un handover controllato dovrebbe inoltre documentare prerequisiti, variabili di ambiente, riferimenti di connessione, ruoli richiesti, limitazioni note e passaggi di validazione successivi all'importazione. In questo modo il cliente o il partner di implementazione può riprodurre la configurazione testata senza dipendere da conoscenze non documentate dello sviluppatore originale. La versione distribuita deve restare tracciabile al pacchetto e alle evidenze approvate."
+          ]
+        },
+        {
+          "id": "monitoring",
+          "title": "9. Monitorare rischio operativo e cambiamenti materiali",
+          "paragraphs": [
+            "L'approvazione iniziale non conclude la governance. Il comportamento dell'agente può cambiare quando cambiano prompt, modelli, strumenti, permessi, fonti di conoscenza o sistemi collegati.",
+            "La governance continua deve quindi concentrarsi su cambiamenti materiali, eccezioni, incidenti, pattern di utilizzo e prove che la configurazione deployata sia ancora coerente con il design approvato.",
+            "Il monitoraggio dovrebbe essere collegato a trigger espliciti per una nuova revisione. Tra questi possono rientrare un nuovo connettore, permessi più ampi, un modello diverso, una nuova fonte di conoscenza, un aumento degli override, eccezioni ripetute o una modifica del processo aziendale. Questi segnali dovrebbero determinare quando sono necessari indagine, remediation, ricertificazione o una nuova decisione di governance."
+          ]
+        },
+        {
+          "id": "retirement",
+          "title": "10. Governare il ritiro con lo stesso rigore del lancio",
+          "paragraphs": [
+            "Agenti non più usati o sostituiti non dovrebbero conservare accessi inattivi indefinitamente. Il ritiro deve rimuovere permessi, disattivare integrazioni, archiviare evidenze e aggiornare l'inventario.",
+            "Un processo di retirement pulito riduce la superficie di attacco e impedisce l'accumulo di capacità AI senza owner.",
+            "Il ritiro di un agente dovrebbe chiudere anche le relative dipendenze operative e di governance. I responsabili devono confermare che i flussi pianificati siano disabilitati, le credenziali di servizio revocate dove necessario, le integrazioni downstream aggiornate e le evidenze conservate secondo le policy applicabili. L'inventario dovrebbe registrare la data di ritiro e lo stato finale dell'agente."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Un ciclo di governance pratico",
+        "steps": [
+          "Identificare e registrare il caso d'uso.",
+          "Assegnare owner responsabili.",
+          "Classificare il rischio dell'agente.",
+          "Definire limiti di dati, strumenti e autorità.",
+          "Progettare la supervisione umana.",
+          "Costruire e testare il workflow completo.",
+          "Revisionare le evidenze e approvare il deployment.",
+          "Deployare nell'ambiente controllato del cliente.",
+          "Monitorare operation e cambiamenti materiali.",
+          "Rivalutare, ricertificare o ritirare."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Che cos'è la governance degli agenti AI?",
+          "a": "È l'insieme di controlli su ownership, rischio, accesso, supervisione umana, test, evidenze, deployment e ciclo di vita che mantengono gli agenti entro i limiti approvati dell'organizzazione."
+        },
+        {
+          "q": "La governance degli agenti è uguale alla model governance?",
+          "a": "No. La governance degli agenti deve includere anche strumenti, permessi, fonti dati, azioni, workflow, supervisione umana, configurazione di deployment e comportamento operativo."
+        },
+        {
+          "q": "Chi dovrebbe essere responsabile di un agente AI enterprise?",
+          "a": "Il processo dovrebbe avere un business owner responsabile e la soluzione un technical owner. Le funzioni di risk o governance possono fornire assurance indipendente."
+        },
+        {
+          "q": "Tutti gli agenti richiedono gli stessi controlli?",
+          "a": "No. I controlli devono essere proporzionati al rischio."
+        },
+        {
+          "q": "Dove vengono eseguiti gli agenti ColleagueAI?",
+          "a": "I prodotti ColleagueAI sono progettati per essere importati, configurati, deployati e gestiti nell'ambiente Microsoft del cliente. ColleagueAI non gestisce il runtime del cliente."
+        }
+      ]
+    },
+    "human-oversight-ai-agents": {
+      "eyebrow": "Supervisione umana",
+      "lead": "La supervisione umana è efficace solo se viene progettata nel workflow dell'agente. Le aziende necessitano di punti di intervento chiari, diritti decisionali, percorsi di escalation ed evidenze che dimostrino che le persone possono comprendere e controllare i comportamenti rilevanti dell'agente.",
+      "intro": [
+        "L'espressione human-in-the-loop viene spesso usata in modo troppo generico. Una persona che riceve un report occasionale non equivale a chi deve approvare un'azione prima dell'esecuzione, né a un supervisore capace di interrompere un workflow attivo.",
+        "Una supervisione significativa parte dall'identificazione di ciò che può andare storto, della gravità delle conseguenze, della reversibilità dell'azione e della rapidità necessaria per l'intervento umano.",
+        "Il risultato dovrebbe essere un modello basato sul rischio, non una regola generale che impone approvazione per ogni passaggio."
+      ],
+      "sections": [
+        {
+          "id": "meaning",
+          "title": "1. Definire cosa significa realmente supervisione umana",
+          "paragraphs": [
+            "La supervisione umana è la capacità organizzativa e tecnica di una persona autorizzata di comprendere, revisionare, approvare, contestare, modificare o fermare il comportamento dell'agente.",
+            "Il design deve specificare chi supervisiona, quali informazioni riceve, quali decisioni può prendere e cosa accade in assenza di risposta.",
+            "La supervisione umana dovrebbe essere definita come un controllo con uno scopo preciso e non semplicemente come la presenza di una persona nel processo. L'organizzazione dovrebbe poter spiegare cosa il revisore deve rilevare, impedire o decidere, quali informazioni gli sono disponibili e quale autorità possiede quando l'agente produce un risultato incerto o non accettabile."
+          ]
+        },
+        {
+          "id": "models",
+          "title": "2. Scegliere il modello di supervisione corretto",
+          "paragraphs": [
+            "Rischi diversi richiedono forme diverse di supervisione. La distinzione importante non è soltanto autonomo o non autonomo, ma dove si trovano i diritti decisionali umani nel workflow.",
+            "Comportamenti diversi degli agenti richiedono modelli diversi di supervisione. Alcuni casi d'uso possono richiedere approvazione prima dell'azione, mentre altri possono utilizzare revisione delle eccezioni, campionamento periodico o monitoraggio successivo. La scelta dovrebbe dipendere dall'impatto e dalla reversibilità dell'azione, non dall'applicazione dello stesso modello di approvazione a tutti gli agenti."
+          ],
+          "bullets": [
+            "Human-in-the-loop: una persona deve approvare una determinata azione prima dell'esecuzione.",
+            "Human-on-the-loop: l'agente opera entro limiti prestabiliti mentre una persona supervisiona e può intervenire.",
+            "Human-over-the-loop: i governance owner esaminano performance, eccezioni e controlli a livello operativo.",
+            "Human-out-of-the-loop: solo quando l'organizzazione ha accettato consapevolmente l'esecuzione autonoma in un dominio strettamente delimitato e a basso rischio."
+          ]
+        },
+        {
+          "id": "risk",
+          "title": "3. Basare l'intensità sul rischio e sulla reversibilità",
+          "paragraphs": [
+            "Quanto maggiore è l'impatto e minore la reversibilità di un'azione, tanto più forte è il motivo per richiedere approvazione preventiva.",
+            "Comunicazioni esterne, decisioni finanziarie, modifiche agli accessi, decisioni regolamentari e cambiamenti ai record autorevoli richiedono generalmente una supervisione più forte.",
+            "I requisiti di supervisione dovrebbero quindi riflettere il profilo di rischio effettivo dell'agente, compresi i sistemi accessibili, la sensibilità dei dati, le azioni possibili e il potenziale impatto di un errore. Un agente che recupera esclusivamente informazioni approvate presenta un rischio molto diverso da uno che può modificare record, avviare pagamenti o attivare decisioni regolamentate."
+          ]
+        },
+        {
+          "id": "approval",
+          "title": "4. Posizionare l'approvazione prima dell'azione rilevante",
+          "paragraphs": [
+            "L'approvazione deve avvenire immediatamente prima del passaggio che produce l'impatto materiale. Un'approvazione troppo anticipata può perdere significato.",
+            "Il reviewer deve ricevere contesto sufficiente per prendere una decisione reale.",
+            "Un controllo di approvazione deve fornire un contesto sufficiente affinché una persona possa prendere una decisione realmente informata. Semplici pulsanti di approvazione o rifiuto possono creare l'apparenza del controllo senza offrire gli elementi necessari al giudizio. Prima dell'approvazione, il revisore dovrebbe comprendere l'azione proposta, gli input rilevanti, le ipotesi principali, le eccezioni e le possibili conseguenze."
+          ]
+        },
+        {
+          "id": "intervention",
+          "title": "5. Fornire veri meccanismi di intervento",
+          "paragraphs": [
+            "Un supervisore deve poter fare più che osservare. Può essere necessario rifiutare un'azione, modificare un output, mettere in pausa il workflow, disattivare un connettore o fermare l'agente.",
+            "Il percorso di intervento deve essere testato prima della produzione.",
+            "I meccanismi di intervento devono funzionare anche in condizioni operative reali. L'organizzazione dovrebbe stabilire chi può fermare, modificare, annullare o bypassare il comportamento dell'agente, con quale rapidità e cosa accade alle attività già in corso. I poteri di emergenza possono essere più ampi dei normali diritti operativi, ma gli interventi straordinari devono sempre essere registrati e successivamente riesaminati."
+          ]
+        },
+        {
+          "id": "escalation",
+          "title": "6. Progettare l'escalation per incertezza ed eccezioni",
+          "paragraphs": [
+            "Un agente non dovrebbe essere costretto a produrre una risposta quando il comportamento corretto è l'escalation. Un buon design identifica limiti di confidenza, eccezioni di policy, informazioni mancanti e casi che richiedono revisione specialistica.",
+            "L'escalation è particolarmente importante quando un output plausibile ma errato può essere più dannoso di un fallimento esplicito.",
+            "L'escalation dovrebbe distinguere l'incertezza operativa ordinaria dagli eventi che richiedono una valutazione specialistica. Un'eccezione standard può essere indirizzata al responsabile del processo, mentre sospetti di frode, esposizione di dati sensibili, conflitti con le policy, ripetuti fallimenti dei controlli o problemi di sicurezza possono richiedere l'intervento delle funzioni rischio, compliance, privacy o security."
+          ]
+        },
+        {
+          "id": "evidence",
+          "title": "7. Conservare evidenze delle decisioni umane",
+          "paragraphs": [
+            "Per decisioni rilevanti deve essere possibile ricostruire cosa ha proposto l'agente, cosa ha visto il reviewer, chi ha approvato o rifiutato e quando.",
+            "Queste evidenze supportano auditability, analisi degli incidenti e test dei controlli.",
+            "La supervisione umana è difficile da dimostrare se l'organizzazione non riesce successivamente a ricostruire ciò che il revisore ha effettivamente visto e deciso. Le evidenze possono includere la richiesta iniziale, le informazioni di origine rilevanti, l'azione proposta dall'agente, la regola di approvazione applicata, l'identità del revisore, la decisione finale e la successiva risposta del sistema. Devono supportare sia le indagini sia le revisioni di governance."
+          ]
+        },
+        {
+          "id": "fatigue",
+          "title": "8. Evitare l'approval fatigue",
+          "paragraphs": [
+            "Un workflow che richiede centinaia di approvazioni banali può creare l'apparenza di controllo riducendo invece l'attenzione reale.",
+            "La supervisione basata sul rischio deve concentrare l'attenzione umana sulle eccezioni e sulle azioni significative.",
+            "I controlli umani possono perdere efficacia quando il volume delle approvazioni supera la reale capacità di attenzione delle persone. Un elevato numero di richieste a basso impatto può portare ad approvazioni automatiche o a un significativo accumulo di attività. Soglie basate sul rischio, revisione per eccezione, ragionevole raggruppamento e tempi di risposta chiari aiutano a preservare l'attenzione umana per le decisioni realmente importanti."
+          ]
+        },
+        {
+          "id": "competence",
+          "title": "9. Assicurare che il reviewer possa realmente controllare",
+          "paragraphs": [
+            "Un reviewer privo di competenza, autorità, contesto o tempo sufficiente non fornisce una supervisione efficace.",
+            "I ruoli di supervisione devono definire competenza, autorità decisionale, tempi di risposta e canali di escalation.",
+            "L'efficacia della supervisione dipende anche dalla competenza e dall'autorità della persona che effettua la revisione. Il revisore deve possedere conoscenze sufficienti del dominio per riconoscere un risultato non accettabile e autorità organizzativa sufficiente per rifiutarlo o sottoporlo a escalation. La formazione dovrebbe coprire lo scopo dell'agente, le limitazioni note, le regole rilevanti e i trigger di escalation."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "10. Testare la supervisione come qualsiasi altro controllo",
+          "paragraphs": [
+            "I percorsi umani richiedono test per scenario: approvazione, rifiuto, timeout, escalation, assenza del supervisore, istruzioni conflittuali e arresto di emergenza.",
+            "L'obiettivo è dimostrare che il controllo funziona in condizioni operative realistiche.",
+            "I test dovrebbero dimostrare che il meccanismo di supervisione umana funziona realmente e non soltanto che è presente nel workflow. Gli scenari dovrebbero includere approvazioni rifiutate, revisioni ritardate, revisori non disponibili, tentativi di bypass, escalation, guasti dei connettori, input errati e azioni fuori dall'ambito approvato. Le evidenze dovrebbero confermare un comportamento sicuro in caso di errore."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Checklist di progettazione della supervisione umana",
+        "steps": [
+          "Identificare le azioni rilevanti dell'agente.",
+          "Valutare impatto, reversibilità e urgenza.",
+          "Scegliere il modello di supervisione.",
+          "Assegnare reviewer autorizzati.",
+          "Definire evidenze e contesto per il reviewer.",
+          "Creare percorsi di approvazione, rifiuto, modifica ed escalation.",
+          "Definire timeout e fallback.",
+          "Registrare le decisioni umane rilevanti.",
+          "Testare intervento e shutdown.",
+          "Rivalutare l'efficacia dopo i cambiamenti."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Cosa significa human-in-the-loop per un agente AI?",
+          "a": "Significa che una determinata azione non può procedere fino a quando una persona autorizzata non l'ha revisionata e approvata."
+        },
+        {
+          "q": "Tutti gli agenti enterprise richiedono approvazione umana?",
+          "a": "No. Dipende dal rischio, dall'impatto e dalla reversibilità."
+        },
+        {
+          "q": "Qual è la differenza tra human-in-the-loop e human-on-the-loop?",
+          "a": "Human-in-the-loop richiede approvazione preventiva. Human-on-the-loop consente all'agente di operare entro limiti mentre una persona supervisiona e può intervenire."
+        },
+        {
+          "q": "La supervisione umana può diventare inefficace?",
+          "a": "Sì. Troppe approvazioni, poco contesto o reviewer senza reale autorità possono trasformarla in una formalità."
+        },
+        {
+          "q": "Come supporta ColleagueAI la supervisione?",
+          "a": "ColleagueAI pacchettizza agenti con requisiti documentati di governance, rischio e supervisione. Il cliente configura e gestisce i controlli nel proprio ambiente Microsoft."
+        }
+      ]
+    },
+    "enterprise-ai-agents-microsoft": {
+      "eyebrow": "Microsoft Enterprise AI",
+      "lead": "Lo stack enterprise Microsoft fornisce diversi componenti per costruire agenti AI. La sfida strategica è trasformarli in prodotti di business governati, testabili e deployabili anziché in esperimenti isolati.",
+      "intro": [
+        "Un agente AI enterprise è più di un chatbot. Combina istruzioni, conoscenza, identità, strumenti, logica di workflow e controlli di governance per svolgere un'attività di business definita.",
+        "Negli ambienti Microsoft, queste capacità possono includere Copilot Studio, Power Automate, Microsoft 365, Azure, Dataverse e connettori approvati.",
+        "Per molte organizzazioni la sfida non è accedere alla tecnologia, ma creare un percorso ripetibile dal caso d'uso al deployment governato in produzione."
+      ],
+      "sections": [
+        {
+          "id": "stack",
+          "title": "1. Comprendere lo stack Microsoft per gli agenti",
+          "paragraphs": [
+            "Copilot Studio fornisce l'ambiente principale per creare e gestire esperienze conversational e agentiche. Power Automate può orchestrare azioni di workflow. Dataverse e Microsoft 365 possono fornire contesto di business, mentre Azure può supportare ulteriori esigenze di integrazione, identità e sicurezza.",
+            "Un design enterprise dovrebbe utilizzare solo i componenti realmente necessari.",
+            "L'architettura dovrebbe descrivere chiaramente anche l'identità e il contesto di esecuzione utilizzati per ogni azione. I team devono sapere se un'azione viene eseguita con l'identità dell'utente connesso, tramite una connessione di servizio o attraverso un'altra identità controllata, poiché questa scelta influenza permessi, auditabilità e separazione dei compiti. Tali dipendenze dovrebbero essere documentate prima dell'approvazione della produzione."
+          ]
+        },
+        {
+          "id": "package",
+          "title": "2. Trattare l'agente come un prodotto deployabile",
+          "paragraphs": [
+            "La readiness di produzione richiede più di un ambiente di sviluppo funzionante. Un agente deployabile deve avere componenti controllati, guidance di configurazione, dipendenze documentate, evidenze di test, requisiti di governance e release notes.",
+            "Questa è la differenza tra una demo e un prodotto pronto per l'adozione enterprise.",
+            "Il pacchetto dovrebbe consentire una distribuzione ripetibile senza dipendere dallo sviluppatore originale. Variabili di ambiente, riferimenti di connessione, ruoli di sicurezza richiesti, componenti previsti e passaggi di validazione dopo l'importazione dovrebbero essere documentati in modo che un altro team autorizzato possa riprodurre la configurazione prevista senza affidarsi a conoscenze di sviluppo non documentate."
+          ]
+        },
+        {
+          "id": "tenant",
+          "title": "3. Rendere esplicito il confine del tenant cliente",
+          "paragraphs": [
+            "I buyer enterprise devono sapere dove viene eseguito l'agente e chi controlla l'ambiente. Per i prodotti ColleagueAI, il cliente importa, configura, integra, deploya e gestisce l'agente nel proprio ambiente Microsoft.",
+            "ColleagueAI non fornisce le licenze Microsoft del cliente e non gestisce il runtime Copilot Studio, Power Platform, Azure, Dataverse o i connettori del cliente.",
+            "Il confine del tenant rappresenta anche un confine di sicurezza e responsabilità. Gli amministratori del cliente decidono quali ambienti, identità, fonti dati e connettori sono disponibili per l'agente, mentre le funzioni di governance del cliente valutano se tali configurazioni rispettano le policy interne. La documentazione del prodotto deve descrivere chiaramente questa separazione per evitare ambiguità durante acquisto e distribuzione."
+          ]
+        },
+        {
+          "id": "connectors",
+          "title": "4. Progettare i connettori con accesso minimo necessario",
+          "paragraphs": [
+            "I connettori trasformano un agente informativo in un sistema operativo e devono quindi essere governati come integrazioni privilegiate.",
+            "L'agente deve ricevere soltanto l'accesso necessario per lo scopo approvato.",
+            "I riferimenti di connessione e i metodi di autenticazione dovrebbero far parte della revisione della release e non essere trattati come semplici dettagli tecnici. Connettori con accesso in scrittura, API privilegiate e azioni tra sistemi richiedono controlli più forti rispetto all'accesso in sola lettura. Le autorizzazioni dovrebbero essere limitate al minimo insieme di risorse e operazioni necessario per il processo approvato."
+          ]
+        },
+        {
+          "id": "solutions",
+          "title": "5. Usare disciplina di solution e release",
+          "paragraphs": [
+            "Il deployment enterprise dovrebbe separare development, test e production e utilizzare movimenti controllati delle solution ove possibile.",
+            "Il versioning deve permettere di identificare esattamente quale package è stato testato e deployato.",
+            "Un ciclo di vita applicativo controllato necessita anche di regole per rollback e promozione tra ambienti. I team devono sapere quale versione è approvata per la produzione, quale configurazione appartiene a ciascun ambiente e come ripristinare una versione precedentemente accettata in caso di difetto significativo. Le modifiche manuali direttamente in produzione dovrebbero essere eccezionali, documentate e successivamente riportate nella soluzione controllata."
+          ]
+        },
+        {
+          "id": "governance",
+          "title": "6. Aggiungere governance prima della produzione",
+          "paragraphs": [
+            "Il deployment tecnico non equivale ad approvazione di governance. Servono ownership, classificazione del rischio, controlli di accesso, supervisione umana, evidenze e un processo di approvazione.",
+            "Il CAI Score fornisce un meccanismo strutturato per collegare il profilo di rischio dell'agente a requisiti di governance proporzionati.",
+            "L'approvazione per la produzione dovrebbe quindi generare evidenze concrete e non essere soltanto il risultato di una riunione. Il record dovrebbe identificare responsabile di business, responsabile tecnico, scopo approvato, rischi principali, controlli umani richiesti, limitazioni accettate e versione autorizzata. Questa evidenza semplifica notevolmente revisioni successive, ricertificazione e indagini sugli incidenti."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Testare il workflow Microsoft end-to-end",
+          "paragraphs": [
+            "I test devono includere istruzioni dell'agente, fonti di conoscenza, comportamento dei connettori, flow Power Automate, permessi, gestione degli errori e percorsi di approvazione.",
+            "Il test report deve identificare versione, scenari, risultati attesi, eccezioni e limitazioni note.",
+            "I test dovrebbero includere anche scenari negativi e casi limite: sistemi non disponibili, permessi insufficienti, input errati, istruzioni conflittuali, approvazioni rifiutate, guasti dei connettori e tentativi di eseguire azioni oltre l'ambito autorizzato. Questi scenari mostrano se l'intero workflow fallisce in modo sicuro invece di verificare soltanto il percorso ideale."
+          ]
+        },
+        {
+          "id": "data",
+          "title": "8. Rendere comprensibili i limiti dei dati",
+          "paragraphs": [
+            "Utenti business e team di governance devono sapere a quali dati può accedere l'agente, da quali sistemi provengono e cosa può fare con essi.",
+            "La data governance è quindi una questione di deployment oltre che di modello.",
+            "I controlli dell'ambiente Microsoft, come policy di prevenzione della perdita di dati, accesso agli ambienti, ruoli di sicurezza o restrizioni sui connettori, possono modificare in modo significativo il rischio effettivo dello stesso pacchetto di agente. La documentazione di governance dovrebbe quindi distinguere le assunzioni a livello di prodotto dai controlli specifici del cliente e indicare quali devono essere verificati durante la distribuzione."
+          ]
+        },
+        {
+          "id": "operate",
+          "title": "9. Separare supporto prodotto e operation del cliente",
+          "paragraphs": [
+            "Un vendor può supportare package, documentazione, defect, update e certificazione senza diventare operatore del processo di business del cliente.",
+            "Per ColleagueAI, il prodotto commerciale è l'agente pacchettizzato con documentazione, test e materiali di governance. Implementazione specifica e operation restano al cliente o al partner approvato.",
+            "Questa distinzione è importante anche nel definire livelli di supporto e aspettative operative. Il supporto prodotto può coprire difetti del pacchetto, documentazione, compatibilità, aggiornamenti e stato di certificazione, mentre gli incidenti derivanti da credenziali del cliente, configurazione del tenant, sistemi downstream o capacità runtime disponibile restano parte del modello operativo del cliente, salvo copertura separata da parte di un partner approvato."
+          ]
+        },
+        {
+          "id": "buy-build",
+          "title": "10. Decidere cosa costruire e cosa pacchettizzare",
+          "paragraphs": [
+            "Alcuni workflow altamente differenziati giustificano sviluppo custom. Altri processi enterprise ricorrenti sono più adatti a un punto di partenza pre-built che può essere importato, configurato e governato nell'ambiente cliente.",
+            "Un approccio pacchettizzato riduce il lavoro ripetitivo di design e documentazione.",
+            "La decisione tra sviluppo interno e utilizzo di un pacchetto preconfigurato dovrebbe considerare, oltre allo sforzo di sviluppo, anche ripetibilità, necessità di differenziazione e costo della governance. Un processo comune con controlli stabili può beneficiare di una base preconfigurata, mentre logica proprietaria, integrazioni insolite o regole in rapido cambiamento possono giustificare uno sviluppo personalizzato. In entrambi i casi, il cliente resta responsabile dell'ambiente di produzione."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Dal prodotto pacchettizzato al deployment del cliente",
+        "steps": [
+          "Selezionare un caso d'uso e il package appropriato.",
+          "Revisionare prerequisiti, classificazione del rischio e documentazione.",
+          "Importare la solution nell'ambiente Microsoft controllato del cliente.",
+          "Configurare connessioni e permessi specifici.",
+          "Validare le integrazioni tenant-specific.",
+          "Eseguire customer acceptance e governance check.",
+          "Deployare attraverso il release process del cliente.",
+          "Operare sotto controlli di identità, security e supporto del cliente.",
+          "Monitorare cambiamenti materiali ed eccezioni.",
+          "Applicare update o ricertificazione quando necessario."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Quali tecnologie Microsoft può usare un agente AI enterprise?",
+          "a": "A seconda del caso d'uso, Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure e connettori approvati."
+        },
+        {
+          "q": "ColleagueAI ospita gli agenti dei clienti?",
+          "a": "No. ColleagueAI pacchettizza e vende prodotti di agenti. Il cliente o il partner approvato li deploya e li gestisce nell'ambiente Microsoft del cliente."
+        },
+        {
+          "q": "Chi paga le licenze Microsoft e il runtime?",
+          "a": "Il cliente è responsabile delle licenze e dei servizi runtime richiesti, inclusi Copilot Studio, Power Platform, Azure, Dataverse e connettori."
+        },
+        {
+          "q": "Cosa include un agente enterprise pacchettizzato?",
+          "a": "Il contenuto dipende dal prodotto, ma il modello comprende solution Microsoft deployabile, guide di installazione e configurazione, documentazione admin e utente, materiali di governance, evidenze di test, release information, licenza e certificazione."
+        },
+        {
+          "q": "Un agente pacchettizzato equivale a servizi di implementazione?",
+          "a": "No. È un prodotto che fornisce un punto di partenza testato e materiali per il deployment. Configurazione, integrazioni, deployment e operation specifici del cliente restano al cliente o al partner approvato."
+        }
+      ]
+    }
+  }
+}

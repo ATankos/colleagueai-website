@@ -1,0 +1,471 @@
+{
+  "locale": "cs",
+  "common": {
+    "brand": "ColleagueAI",
+    "sectionLabel": "Governance podnikové AI",
+    "backToAgents": "Prozkoumat balíčky AI agentů",
+    "scoreLabel": "CAI Score",
+    "trustLabel": "Důvěra a governance",
+    "certifiedLabel": "Certifikace",
+    "agentsLabel": "Katalog AI agentů",
+    "requestLabel": "Požádat o přístup",
+    "relatedLabel": "Související zdroje ColleagueAI",
+    "faqLabel": "Často kladené otázky",
+    "boundaryTitle": "Hranice produktu a nasazení",
+    "boundaryBody": "ColleagueAI vytváří, testuje, certifikuje, balíčkuje a prodává podnikové produkty AI agentů. Zákazník nebo schválený implementační partner tyto produkty importuje, konfiguruje, integruje, nasazuje a provozuje ve vlastním prostředí Microsoft zákazníka. Licence Microsoft, runtime Copilot Studio, Power Platform, Azure, Dataverse, konektory a další runtime služby zůstávají odpovědností zákazníka."
+  },
+  "pages": {
+    "ai-agent-governance-framework": {
+      "eyebrow": "Rámec governance",
+      "lead": "Podnikoví AI agenti potřebují více než technické kontroly. Potřebují jasné vlastnictví, klasifikaci rizika, lidský dohled, důkazy, řízení nasazení a životní cyklus, který zajišťuje viditelnou odpovědnost před spuštěním i po něm.",
+      "intro": [
+        "AI agent může vyhledávat informace, pracovat s kontextem, volat nástroje, spouštět workflow a v některých případech provádět akce bez toho, aby člověk ručně vykonal každý jednotlivý krok. Governance agentů se proto liší od běžné governance softwaru i od řízení samostatného generativního AI asistenta.",
+        "Praktická otázka governance není jen to, zda organizace AI povoluje. Klíčové je, zda má každý agent známý účel, vlastníka, hranici oprávnění, datovou hranici, eskalační cestu, testovací záznam a provozní stav.",
+        "Použitelný rámec proto řídí celý životní cyklus agenta: nápad, návrh, vývoj, testování, schválení, nasazení, monitoring, změny a vyřazení."
+      ],
+      "sections": [
+        {
+          "id": "principles",
+          "title": "1. Začněte principy governance",
+          "paragraphs": [
+            "Model governance by měl začínat malým počtem principů, které se konzistentně používají napříč celým portfoliem agentů. Principům musí rozumět vlastníci produktů, vývojáři, risk, compliance i business uživatelé.",
+            "Nejdůležitějšími principy jsou dohledatelné vlastnictví, minimální potřebná oprávnění, přiměřenost kontrol, lidská odpovědnost, důkazy už od návrhu a řízené změny. Vyšší riziko má znamenat silnější kontroly, nikoli stejný proces pro každý use case."
+          ],
+          "bullets": [
+            "Každý agent má určeného vlastníka za obchodní oblast a technického vlastníka.",
+            "Každý agent funguje v rámci jasně definovaného účelu a hranice oprávnění.",
+            "Přístup k systémům, datům a akcím dodržuje princip minimálních oprávnění.",
+            "Lidský dohled odpovídá možným důsledkům chyby.",
+            "Důkazy o testování a schválení jsou uchované a reprodukovatelné.",
+            "Významné změny spouštějí nové posouzení místo tichého rozšiřování schopností."
+          ]
+        },
+        {
+          "id": "inventory",
+          "title": "2. Udržujte autoritativní inventář agentů",
+          "paragraphs": [
+            "Organizace nemůže řídit agenty, které nedokáže identifikovat. Podnikový inventář je proto základním kontrolním mechanismem governance.",
+            "Inventář nemá být jen seznam názvů. Musí poskytovat dostatek informací k pochopení toho, co agent dělá, kde běží, k jakým systémům má přístup a kdo za něj odpovídá."
+          ],
+          "bullets": [
+            "Název agenta, verze a stav životního cyklu.",
+            "Business účel a zamýšlení uživatelé.",
+            "Vlastník za obchodní oblast, technický vlastník a vlastník podpory.",
+            "Prostředí Microsoft, řešení a místo nasazení.",
+            "Připojené systémy, konektory, nástroje a kategorie dat.",
+            "Oprávnění k akcím a transakční pravomoci.",
+            "Klasifikace rizika a požadovaná úroveň schválení.",
+            "Model lidského dohledu.",
+            "Testovací důkazy, stav certifikace a datum poslední revize."
+          ]
+        },
+        {
+          "id": "classification",
+          "title": "3. Klasifikujte riziko před nasazením",
+          "paragraphs": [
+            "Klasifikace rizika určuje, jak silnou governance agent potřebuje. Rozhodující není jen použitý model, ale to, co celý agent může vidět, rozhodovat a dělat.",
+            "Informační agent s přístupem pouze pro čtení je zásadně odlišný od agenta, který může schvalovat transakce, komunikovat externě, měnit záznamy nebo spouštět navazující procesy.",
+            "CAI Score je strukturovaný přístup ColleagueAI ke klasifikaci rizika podnikových agentů. Posuzuje autonomii, dopad, citlivost dat, přístup k nástrojům, reverzibilitu, dohled a požadavky governance. Klasifikace má proběhnout před nasazením a znovu při významné změně schopností."
+          ]
+        },
+        {
+          "id": "ownership",
+          "title": "4. Oddělte business odpovědnost od technického vlastnictví",
+          "paragraphs": [
+            "Technické týmy mohou agenta vytvářet a udržovat, ale neměly by být jediným vlastníkem business výsledku. Business funkce, která agenta používá, musí zůstat odpovědná za proces a jeho důsledky.",
+            "Vyspělý model proto rozlišuje business vlastnictví, technické vlastnictví a nezávislé governance assurance. Tím se zabrání tomu, aby odpovědnost zmizela mezi IT a provozem.",
+            "Model vlastnictví by měl zároveň jasně vymezovat rozhodovací pravomoci. Vlastník za obchodní oblast schvaluje zamýšlený účel, přijatelné výsledky a významné změny procesu, zatímco technický vlastník odpovídá za integritu komponent řešení, konfigurace a technických kontrol. Funkce governance, řízení rizik, bezpečnosti nebo compliance mohou poskytovat nezávislou kontrolu a oponenturu, ale neměly by nahrazovat jasnou odpovědnost obchodního vlastníka."
+          ]
+        },
+        {
+          "id": "access",
+          "title": "5. Řiďte identity, přístupy a oprávnění nástrojů",
+          "paragraphs": [
+            "Schopnosti agenta jsou do značné míry určeny systémy a akcemi, ke kterým má přístup. Governance proto musí pracovat s konektory, přístupovými údaji, servisními identitami a oprávněními jako s plnohodnotnými kontrolními prvky.",
+            "Oprávnění musí odpovídat pouze tomu, co je nutné pro schválený use case. Pokud je to možné, vysoce dopadové akce mají být oddělené od nízkorizikového vyhledávání a analýzy."
+          ],
+          "bullets": [
+            "Používejte dedikované identity tam, kde to platforma a architektura umožňují.",
+            "Omezte konektory a akce pouze na schválené use cases.",
+            "Nedávejte široká oprávnění jen kvůli pohodlnému vývoji.",
+            "Privilegované akce zaznamenávejte do auditovatelných logů.",
+            "Pro nevratné nebo vysoce dopadové akce používejte schvalovací brány.",
+            "Při změně workflow nebo integrace znovu ověřte oprávnění."
+          ]
+        },
+        {
+          "id": "oversight",
+          "title": "6. Navrhněte lidský dohled přímo do workflow",
+          "paragraphs": [
+            "Lidský dohled nemá být jen obecné prohlášení, že člověk zůstává odpovědný. Musí přesně určit, kde lidé kontrolují, schvalují, zasahují nebo agenta zastavují.",
+            "Správný model závisí na riziku. Někteří agenti mohou autonomně pracovat v úzce vymezených nízkorizikových úlohách. Jiní vyžadují schválení člověka před významnou akcí. Vysoce rizikové use cases mohou vyžadovat průběžný dohled nebo nemusí být vhodné pro autonomní provádění vůbec.",
+            "Kontrola by měla přesně určit okamžik zásahu, osobu provádějící kontrolu, informace, které má tato osoba k dispozici, a kroky, které je oprávněna provést. Formální schvalovací krok nestačí, pokud člověk nedokáže navrhovaný výsledek pochopit nebo jej zastavit. Lidský dohled by proto měl být testován jako skutečná provozní kontrola, nikoli pouze popsán v interní směrnici."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Testujte agenta jako celý systém, ne pouze prompt",
+          "paragraphs": [
+            "Assurance agenta vyžaduje testování kompletního workflow. Kvalita promptu je důležitá, ale stejně důležitá jsou oprávnění, volání nástrojů, chování při chybě, práce s daty, eskalační logika, kvalita výstupů a zotavení z neočekávaných vstupů.",
+            "Produkční balíček má uchovávat důkazy o tom, co bylo testováno, jaké bylo očekávané chování, jaká jsou známá omezení a která verze testem prošla."
+          ],
+          "bullets": [
+            "Funkční a scénářové testování.",
+            "Testování oprávnění a konektorů.",
+            "Chybové a výjimečné scénáře.",
+            "Schvalovací a eskalační cesty.",
+            "Práce s citlivými daty.",
+            "Kritéria kvality výstupu.",
+            "Logování a tvorba důkazů.",
+            "Regresní testování po významných změnách."
+          ]
+        },
+        {
+          "id": "deployment",
+          "title": "8. Z nasazení udělejte řízené předání",
+          "paragraphs": [
+            "Balíčkovaný agent musí mít jasnou hranici nasazení. Dodavatel může dodat otestovaný balíček řešení, dokumentaci, pokyny ke konfiguraci, governance důkazy a instrukce k nasazení, ale zákazník spravuje vlastní tenant a provozní prostředí.",
+            "U produktů ColleagueAI zůstává nasazení a runtime v prostředí Microsoft zákazníka. Konfiguraci specifickou pro tenant, integrace, nasazení a provoz provádí zákazník nebo jeho schválený implementační partner.",
+            "Řízené předání by mělo rovněž popsat předpoklady, proměnné prostředí, reference připojení, požadované role, známá omezení a kroky ověření po importu. Zákazník nebo implementační partner tak může reprodukovat otestovanou konfiguraci bez závislosti na nezdokumentovaných znalostech původního vývojáře. Nasazená verze musí zůstat dohledatelně propojena s balíčkem a důkazy, které byly schváleny."
+          ]
+        },
+        {
+          "id": "monitoring",
+          "title": "9. Sledujte provozní riziko a významné změny",
+          "paragraphs": [
+            "Schválení při spuštění není konec governance. Chování agenta se může změnit při změně promptů, modelů, nástrojů, oprávnění, znalostních zdrojů nebo připojených systémů.",
+            "Průběžná governance se proto musí zaměřovat na významné změny, výjimky, incidenty, vzorce používání, override schválení a důkazy, že nasazená konfigurace stále odpovídá schválenému návrhu.",
+            "Monitoring by měl být propojen s jasně definovanými spouštěči nové kontroly. Může jít například o nový konektor, širší oprávnění, jiný model, nový zdroj znalostí, nárůst manuálních zásahů, opakované výjimky nebo změnu obchodního procesu. Tyto signály by měly určovat, kdy agent vyžaduje prověření, nápravu, recertifikaci nebo nové governance rozhodnutí, namísto toho, aby zůstával schválen bez časového omezení."
+          ]
+        },
+        {
+          "id": "retirement",
+          "title": "10. Řiďte vyřazení stejně důsledně jako spuštění",
+          "paragraphs": [
+            "Nepoužívaní nebo nahrazení agenti by neměli neomezeně držet neaktivní přístupy. Vyřazení má odebrat oprávnění, deaktivovat integrace, archivovat důkazy a aktualizovat podnikový inventář.",
+            "Řádný proces vyřazení snižuje plochu útoku a brání tomu, aby organizace hromadila AI schopnosti bez vlastníka.",
+            "Vyřazení agenta by mělo uzavřít také jeho provozní a governance závislosti. Vlastníci musí potvrdit, že naplánované toky jsou vypnuté, servisní přístupové údaje jsou podle potřeby zneplatněny, navazující integrace již agenta neočekávají, důkazy jsou uchovány podle interních pravidel a uživatelé jsou případně přesměrováni na náhradní proces. Inventář by měl zaznamenat datum vyřazení i konečný stav agenta."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Praktický životní cyklus governance",
+        "steps": [
+          "Identifikovat a registrovat use case.",
+          "Přiřadit odpovědné vlastníky.",
+          "Klasifikovat riziko agenta.",
+          "Definovat hranice dat, nástrojů a oprávnění.",
+          "Navrhnout lidský dohled.",
+          "Vyvinout a otestovat kompletní workflow.",
+          "Posoudit důkazy a schválit nasazení.",
+          "Nasadit do řízeného prostředí zákazníka.",
+          "Monitorovat provoz a významné změny.",
+          "Znovu posoudit, recertifikovat nebo vyřadit."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Co je governance AI agentů?",
+          "a": "Governance AI agentů je soubor pravidel pro vlastnictví, riziko, přístupy, lidský dohled, testování, důkazy, nasazení a životní cyklus, které zajišťují, že agenti fungují v rámci schválených organizačních hranic."
+        },
+        {
+          "q": "Je governance AI agentů totéž jako governance modelu?",
+          "a": "Ne. Governance modelu se soustředí především na samotný model. Governance agenta musí zahrnout také nástroje, oprávnění, datové zdroje, akce, workflow logiku, lidský dohled, konfiguraci nasazení a provozní chování."
+        },
+        {
+          "q": "Kdo má vlastnit podnikového AI agenta?",
+          "a": "Obchodní proces má mít odpovědného vlastníka za obchodní oblast a technické řešení technického vlastníka. Funkce governance nebo řízení rizik mohou poskytovat nezávislé ověření, ale odpovědnost by na ně neměla být plně přenesena."
+        },
+        {
+          "q": "Potřebují všichni AI agenti stejné kontroly?",
+          "a": "Ne. Kontroly mají být přiměřené riziku. Nízkorizikový agent s přístupem pouze pro čtení nepotřebuje stejný schvalovací model jako agent, který může měnit finanční záznamy nebo komunikovat externě."
+        },
+        {
+          "q": "Kde běží agenti ColleagueAI?",
+          "a": "Produkty agentů ColleagueAI jsou navrženy tak, aby je zákazník importoval, konfiguroval, nasadil a provozoval ve vlastním prostředí Microsoft. ColleagueAI neprovozuje runtime zákaznického agenta."
+        }
+      ]
+    },
+    "human-oversight-ai-agents": {
+      "eyebrow": "Lidský dohled",
+      "lead": "Lidský dohled je účinný pouze tehdy, když je navržen přímo do workflow agenta. Organizace potřebují jasné body zásahu, rozhodovací pravomoci, eskalační cesty a důkazy, že lidé dokážou porozumět významnému chování agenta a ovládat ho.",
+      "intro": [
+        "Pojem human-in-the-loop se často používá příliš obecně. Člověk, který občas dostane report, není totéž jako člověk, který musí akci schválit před jejím provedením, a ani jedno není totéž jako dohled, který může aktivní workflow přerušit.",
+        "Smysluplný dohled začíná identifikací toho, co se může pokazit, jak závažný by byl důsledek, zda je akce vratná a jak rychle musí být člověk schopen zasáhnout.",
+        "Výsledkem má být model dohledu založený na riziku, nikoliv obecný požadavek, aby každý agent žádal o schválení při každém kroku."
+      ],
+      "sections": [
+        {
+          "id": "meaning",
+          "title": "1. Definujte, co lidský dohled skutečně znamená",
+          "paragraphs": [
+            "Lidský dohled je organizační a technická schopnost oprávněné osoby porozumět, zkontrolovat, schválit, zpochybnit, ovlivnit nebo zastavit chování agenta tam, kde je to potřeba.",
+            "Návrh musí určit, kdo dohled vykonává, jaké informace dostává, jaká rozhodnutí může učinit a co se stane, pokud nereaguje.",
+            "Lidský dohled by měl být definován jako kontrola s konkrétním účelem, nikoli pouze jako přítomnost člověka někde v procesu. Organizace by měla umět vysvětlit, co má kontrolující osoba odhalit, čemu má zabránit nebo o čem má rozhodnout, jaké informace má k dispozici a jakou má pravomoc v případě, že agent vytvoří nejistý nebo nepřijatelný výsledek."
+          ]
+        },
+        {
+          "id": "models",
+          "title": "2. Zvolte správný model dohledu",
+          "paragraphs": [
+            "Různá rizika agentů vyžadují různé formy dohledu. Důležité není jen rozdělení autonomní versus neautonomní, ale umístění lidských rozhodovacích práv ve workflow.",
+            "Různým typům chování agentů odpovídají různé modely dohledu. Některé případy použití mohou vyžadovat schválení před provedením akce, zatímco jiné mohou využívat kontrolu výjimek, pravidelné vzorkování nebo následný monitoring. Volba by měla vycházet z dopadu a vratnosti dané akce, nikoli z jednotného schvalovacího modelu používaného pro všechny agenty bez ohledu na jejich riziko."
+          ],
+          "bullets": [
+            "Human-in-the-loop: člověk musí definovanou akci schválit před jejím provedením.",
+            "Human-on-the-loop: agent může pracovat v nastavených hranicích, zatímco člověk dohlíží a může zasáhnout.",
+            "Human-over-the-loop: vlastníci governance sledují výkon, výjimky a kontroly na širší provozní úrovni.",
+            "Human-out-of-the-loop: pouze tam, kde organizace vědomě přijala autonomní provádění v úzce vymezené nízkorizikové oblasti."
+          ]
+        },
+        {
+          "id": "risk",
+          "title": "3. Intenzitu dohledu určujte podle dopadu a reverzibility",
+          "paragraphs": [
+            "Čím závažnější a méně vratná je akce, tím silnější je důvod vyžadovat schválení před jejím provedením. Nízkodopadové a snadno vratné akce mohou tolerovat více autonomie.",
+            "Externí komunikace, finanční rozhodnutí, změny přístupů, regulatorní rozhodnutí a změny autoritativních záznamů obecně vyžadují přísnější dohled než vyhledávání, sumarizace nebo drafting.",
+            "Požadavky na dohled by proto měly vycházet ze skutečného rizikového profilu agenta, včetně systémů, ke kterým má přístup, citlivosti zpracovávaných dat, akcí, které může provádět, a možného dopadu chyby. Agent, který pouze vyhledává schválené informace, představuje zásadně jiné riziko než agent schopný měnit záznamy, spouštět platby, upravovat oprávnění nebo iniciovat regulovaná rozhodnutí."
+          ]
+        },
+        {
+          "id": "approval",
+          "title": "4. Umístěte schválení těsně před významnou akci",
+          "paragraphs": [
+            "Schválení má být bezprostředně před krokem, který vytváří materiální dopad. Pokud je příliš brzy, může být bezvýznamné, protože skutečná akce se může později ve workflow změnit.",
+            "Schvalovatel musí vidět dostatek kontextu pro skutečné rozhodnutí: navrhovanou akci, relevantní důkazy, důležité předpoklady, dotčené záznamy a případnou nejistotu nebo výjimku.",
+            "Schvalovací kontrola musí poskytovat dostatek kontextu, aby mohl člověk učinit skutečně informované rozhodnutí. Samotná tlačítka schválit nebo zamítnout mohou vytvářet dojem kontroly, aniž by měl schvalovatel potřebné podklady pro úsudek. Před zaznamenáním schválení by měl rozumět navrhované akci, relevantním vstupům, významným předpokladům, výjimkám a možným důsledkům."
+          ]
+        },
+        {
+          "id": "intervention",
+          "title": "5. Dejte dohledu skutečný mechanismus zásahu",
+          "paragraphs": [
+            "Dohlížející osoba musí mít možnost dělat více než jen pozorovat. Podle use case může zásah znamenat odmítnutí akce, úpravu navrženého výstupu, pozastavení workflow, deaktivaci konektoru nebo úplné zastavení agenta.",
+            "Zásahová cesta musí být otestována před produkcí, ne pouze předpokládána.",
+            "Možnost zásahu musí fungovat také v reálných provozních podmínkách. Organizace by měla určit, kdo může chování agenta zastavit, změnit, vrátit nebo obejít, jak rychle může k zásahu dojít a co se stane s již rozpracovanými úlohami. Nouzová oprávnění mohou být širší než běžná provozní práva, ale mimořádné zásahy by měly být vždy zaznamenány a následně přezkoumány."
+          ]
+        },
+        {
+          "id": "escalation",
+          "title": "6. Navrhněte eskalaci pro nejistotu a výjimky",
+          "paragraphs": [
+            "Agent nemá být nucen vytvořit odpověď v situaci, kdy je správným chováním eskalace. Dobře navržené workflow identifikuje limity jistoty, policy výjimky, chybějící informace a situace vyžadující odbornou kontrolu.",
+            "Eskalace je zvlášť důležitá tam, kde může být věrohodný, ale chybný výstup škodlivější než explicitní selhání.",
+            "Eskalace by měla rozlišovat běžnou provozní nejistotu od událostí vyžadujících odborné posouzení. Standardní výjimka může směřovat k odpovědnému pracovníkovi procesu, zatímco podezření na podvod, únik citlivých dat, konflikt s interní politikou, opakované selhání kontroly nebo bezpečnostní problém může vyžadovat eskalaci na risk, compliance, privacy nebo security tým. Tyto cílové role je vhodné definovat ještě před produkčním nasazením."
+          ]
+        },
+        {
+          "id": "evidence",
+          "title": "7. Uchovávejte důkazy o lidských rozhodnutích",
+          "paragraphs": [
+            "U významných rozhodnutí musí být možné zpětně rekonstruovat, co agent navrhl, jaké informace schvalovatel viděl, kdo návrh schválil nebo odmítl a kdy rozhodnutí proběhlo.",
+            "Tyto důkazy podporují auditovatelnost, analýzu incidentů, testování kontrol a budoucí zlepšování agenta.",
+            "Lidský dohled je obtížné obhájit, pokud organizace nedokáže zpětně rekonstruovat, co člověk skutečně viděl a o čem rozhodl. Užitečné důkazy mohou zahrnovat původní požadavek, relevantní zdrojové informace, navrhovanou akci agenta, použité schvalovací pravidlo, identitu schvalovatele, konečné rozhodnutí a následnou reakci systému. Evidence by měla podporovat jak provozní šetření, tak pozdější governance kontrolu."
+          ]
+        },
+        {
+          "id": "fatigue",
+          "title": "8. Vyhněte se únavě ze schvalování",
+          "paragraphs": [
+            "Workflow, které vyžaduje schválení stovek triviálních akcí, může vytvářet dojem kontroly, ale ve skutečnosti snižovat pozornost. Revieweři začnou schválení mechanicky odklikávat.",
+            "Dohled založený na riziku má soustředit lidskou pozornost na výjimky a významné akce. Nízkorizikové rutinní kroky lze často automatizovat, pokud jsou dobře nastavené hranice a monitoring.",
+            "Lidské kontroly mohou selhávat, pokud objem schvalování překročí reálnou kapacitu lidí věnovat mu pozornost. Velké množství málo významných požadavků může vést k automatickému schvalování nebo k hromadění nevyřízených položek. Rizikově orientované limity, kontrola zaměřená na výjimky, rozumné dávkování a jasná očekávání ohledně reakční doby mohou snížit únavu ze schvalování a zachovat lidskou pozornost pro skutečně důležitá rozhodnutí."
+          ]
+        },
+        {
+          "id": "competence",
+          "title": "9. Zajistěte, aby člověk byl schopný skutečné kontroly",
+          "paragraphs": [
+            "Formální schvalovatel bez znalostí, pravomoci, kontextu nebo času ke zpochybnění agenta neposkytuje účinný dohled.",
+            "Role dohledu proto musí definovat kompetence, rozhodovací pravomoci, očekávanou dobu reakce a dostupné eskalační kanály.",
+            "Účinnost dohledu závisí také na odbornosti a pravomoci osoby, která kontrolu provádí. Kontrolující musí mít dostatečnou znalost oblasti, aby rozpoznal nepřijatelný výsledek, a současně dostatečnou organizační pravomoc jej odmítnout nebo eskalovat. Školení by mělo pokrývat účel agenta, známá omezení, relevantní pravidla, spouštěče eskalace a význam informací zobrazovaných během kontroly."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "10. Testujte dohled stejně jako ostatní kontroly",
+          "paragraphs": [
+            "Lidské kontrolní cesty vyžadují scénářové testování. Organizace mají testovat schválení, odmítnutí, timeout, eskalaci, nepřítomnost supervisora, konfliktní instrukce a emergency shutdown.",
+            "Cílem je prokázat, že kontrola funguje v realistických provozních podmínkách, ne pouze že existuje tlačítko Schválit.",
+            "Testování by mělo prokazovat, že mechanismus lidského dohledu skutečně funguje, nikoli pouze že je součástí workflow. Scénáře by měly zahrnovat zamítnutí schválení, opožděnou kontrolu, nedostupného schvalovatele, pokus o obejití, eskalaci, selhání konektoru, chybné vstupy a akce mimo schválený rozsah. Testovací důkazy by měly potvrdit bezpečné selhání systému a očekávaný provozní výsledek lidského zásahu."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Checklist návrhu lidského dohledu",
+        "steps": [
+          "Identifikovat významné akce agenta.",
+          "Posoudit dopad, reverzibilitu a urgentnost.",
+          "Zvolit správný model dohledu.",
+          "Přiřadit oprávněné schvalovatele.",
+          "Definovat důkazy zobrazené schvalovateli.",
+          "Vytvořit cesty schválení, odmítnutí, editace a eskalace.",
+          "Nastavit timeout a fallback chování.",
+          "Logovat významná lidská rozhodnutí.",
+          "Otestovat zásah a shutdown.",
+          "Po změnách ověřit, zda dohled zůstává účinný."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Co znamená human-in-the-loop u AI agenta?",
+          "a": "Znamená to, že definovaná akce agenta nemůže pokračovat, dokud ji oprávněný člověk nezkontroluje a neschválí. Schválení má proběhnout v reálném rozhodovacím bodě, ne jen jako formální potvrzení."
+        },
+        {
+          "q": "Potřebuje každý podnikový AI agent lidské schválení?",
+          "a": "Ne. Potřebná úroveň dohledu závisí na riziku, dopadu a reverzibilitě. Nízkorizikové úlohy mohou mít více autonomie, zatímco významné akce obecně vyžadují silnější lidskou kontrolu."
+        },
+        {
+          "q": "Jaký je rozdíl mezi human-in-the-loop a human-on-the-loop?",
+          "a": "Human-in-the-loop vyžaduje schválení před definovanou akcí. Human-on-the-loop umožňuje agentovi pracovat v nastavených hranicích, zatímco člověk dohlíží a může zasáhnout."
+        },
+        {
+          "q": "Může být lidský dohled neúčinný?",
+          "a": "Ano. Příliš mnoho schválení, nedostatek kontextu, nejasné pravomoci a nepřipravení revieweři mohou dohled změnit na checkbox. Účinný dohled musí poskytovat dostatek informací a skutečnou možnost kontroly."
+        },
+        {
+          "q": "Jak ColleagueAI podporuje lidský dohled?",
+          "a": "ColleagueAI balíčkuje agenty s dokumentovanými požadavky governance, rizika a lidského dohledu. Zákazník konfiguruje a provozuje nasazené workflow a jeho schvalovací kontroly ve vlastním prostředí Microsoft."
+        }
+      ]
+    },
+    "enterprise-ai-agents-microsoft": {
+      "eyebrow": "Podniková AI v Microsoftu",
+      "lead": "Podnikový Microsoft stack poskytuje několik stavebních bloků pro AI agenty. Strategická otázka je, jak z těchto komponent vytvořit governované, testovatelné a nasaditelné business produkty místo izolovaných experimentů.",
+      "intro": [
+        "Podnikový AI agent je více než chatbot. Kombinuje instrukce, znalosti, identitu, nástroje, workflow logiku a governance kontroly tak, aby vykonával definovanou business úlohu.",
+        "V prostředí Microsoft mohou tyto schopnosti zahrnovat Copilot Studio, Power Automate, Microsoft 365, Azure, Dataverse a schválené konektory. Přesná architektura závisí na use case a tenant prostředí zákazníka.",
+        "Pro mnoho organizací není hlavní problém přístup k technologii. Problémem je vytvořit opakovatelnou cestu od use case ke governovanému produkčnímu nasazení."
+      ],
+      "sections": [
+        {
+          "id": "stack",
+          "title": "1. Pochopte Microsoft agent stack",
+          "paragraphs": [
+            "Copilot Studio poskytuje hlavní prostředí pro tvorbu a správu konverzačních a agentních řešení. Power Automate může orchestrace workflow akcí. Dataverse a Microsoft 365 mohou poskytovat business kontext, zatímco Azure služby mohou podpořit další integrační, identity, bezpečnostní a aplikační požadavky.",
+            "Podnikový návrh má používat pouze komponenty, které jsou pro use case skutečně potřebné. Přidávání technologie bez funkčního nebo governance důvodu zvyšuje složitost.",
+            "Architektura by měla také jednoznačně popsat identitu a kontext, ve kterém jsou jednotlivé akce prováděny. Týmy musí vědět, zda akce běží pod identitou přihlášeného uživatele, prostřednictvím servisního připojení nebo jiné řízené identity, protože tato volba ovlivňuje oprávnění, auditovatelnost i oddělení pravomocí. Tyto závislosti by měly být zdokumentovány ještě před schválením produkčního nasazení."
+          ]
+        },
+        {
+          "id": "package",
+          "title": "2. Zacházejte s agentem jako s nasaditelným produktem",
+          "paragraphs": [
+            "Produkční připravenost vyžaduje více než funkční vývojové prostředí. Nasaditelný agent má mít řízené komponenty řešení, pokyny ke konfiguraci, zdokumentované závislosti, testovací důkazy, governance požadavky, poznámky k vydání a jasný model předání.",
+            "Právě tím se liší demonstrace agenta od produktu připraveného pro podnikové nasazení.",
+            "Balíček by měl umožňovat opakovatelné nasazení bez závislosti na původním vývojáři. Proměnné prostředí, reference připojení, požadované bezpečnostní role, předpokládané komponenty a ověřovací kroky po importu by měly být zdokumentovány tak, aby jiný oprávněný tým dokázal vytvořit zamýšlenou konfiguraci bez spoléhání na nezdokumentované znalosti z vývoje."
+          ]
+        },
+        {
+          "id": "tenant",
+          "title": "3. Udržujte hranici zákaznického tenantu explicitní",
+          "paragraphs": [
+            "Podnikoví zákazníci potřebují jasně vědět, kde agent běží a kdo prostředí ovládá. U produktů ColleagueAI zákazník importuje, konfiguruje, integruje, nasazuje a provozuje agenta ve vlastním prostředí Microsoft.",
+            "ColleagueAI neposkytuje zákaznické Microsoft licence ani neprovozuje zákaznický runtime Copilot Studio, Power Platform, Azure, Dataverse nebo konektorů.",
+            "Hranice tenantu je současně hranicí bezpečnosti a odpovědnosti. Administrátoři zákazníka rozhodují, která prostředí, identity, datové zdroje a konektory má agent k dispozici, zatímco governance týmy zákazníka posuzují, zda tato nastavení odpovídají interním pravidlům. Produktová dokumentace musí tuto hranici popsat dostatečně jasně, aby při nákupu ani nasazení nedocházelo k nejasnostem ohledně odpovědností."
+          ]
+        },
+        {
+          "id": "connectors",
+          "title": "4. Navrhujte konektory podle minimálního potřebného přístupu",
+          "paragraphs": [
+            "Konektory mění agenta z informačního rozhraní na provozní systém. Proto si zaslouží stejnou míru kontroly jako jiné privilegované integrace.",
+            "Agent má dostat pouze takový přístup, který je nezbytný pro schválený účel. Volba autentizace a zákaznických integrací zůstává součástí architektury nasazení zákazníka.",
+            "Reference připojení a způsoby autentizace by měly být součástí kontroly release a neměly by být považovány pouze za technický detail konfigurace. Konektory s možností zápisu, privilegovaná API a akce mezi více systémy vyžadují silnější kontroly než přístup pouze pro čtení. Oprávnění by měla být pokud možno omezena na nejužší rozsah zdrojů a operací potřebných pro schválený proces."
+          ]
+        },
+        {
+          "id": "solutions",
+          "title": "5. Používejte řízené solution a release postupy",
+          "paragraphs": [
+            "Podnikové nasazení má oddělovat development, test a production prostředí a tam, kde je to možné, používat řízený přesun solutions místo ručního znovuvytváření komponent.",
+            "Versioning musí umožnit přesně určit, který package byl testován a nasazen. Významné změny mají být dohledatelné k nové release.",
+            "Řízený aplikační životní cyklus potřebuje také pravidla pro rollback a postup mezi prostředími. Týmy by měly vědět, která verze je schválena pro produkci, jaká konfigurace patří do jednotlivých prostředí a jak obnovit dříve přijatou verzi, pokud se objeví závažná chyba. Ruční úpravy přímo v produkci by měly být výjimečné, zdokumentované a následně promítnuté zpět do řízeného řešení."
+          ]
+        },
+        {
+          "id": "governance",
+          "title": "6. Přidejte governance před produkčním nasazením",
+          "paragraphs": [
+            "Technické nasazení není totéž jako governance schválení. Organizace stále potřebuje vlastníky, klasifikaci rizika, přístupové kontroly, lidský dohled, důkazy a proces schválení use case.",
+            "CAI Score poskytuje strukturovaný mechanismus pro propojení rizikového profilu agenta s přiměřenými governance požadavky.",
+            "Schválení do produkce by proto mělo vytvářet konkrétní důkazy, nikoli pouze závěr schůzky. Záznam by měl identifikovat obchodního vlastníka, technického vlastníka, schválený účel, významná rizika, požadované lidské kontroly, přijatá omezení a verzi, která byla autorizována. Taková evidence výrazně usnadňuje pozdější kontrolu, recertifikaci i vyšetřování incidentů."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Testujte end-to-end Microsoft workflow",
+          "paragraphs": [
+            "Testování má zahrnovat instrukce agenta, znalostní zdroje, chování konektorů, Power Automate flows, oprávnění, failure handling a schvalovací cesty, které jsou skutečně součástí nasazeného řešení.",
+            "Test report má identifikovat testovanou verzi, scénáře, očekávané výsledky, výjimky a známá omezení.",
+            "Testování by mělo zahrnovat také negativní a hraniční scénáře: nedostupné systémy, nedostatečná oprávnění, chybné vstupy, konfliktní instrukce, zamítnutí schválení, selhání konektoru a pokusy provést akce mimo schválený rozsah. Tyto scénáře ukazují, zda celý workflow selhává bezpečně, namísto toho, aby testování měřilo pouze funkčnost ideálního průchodu."
+          ]
+        },
+        {
+          "id": "data",
+          "title": "8. Udělejte datové hranice srozumitelné",
+          "paragraphs": [
+            "Business uživatelé i governance týmy musí vědět, k jakým datům má agent přístup, ze kterých systémů data pocházejí a co s nimi agent může dělat.",
+            "Data governance je proto stejně důležitou součástí nasazení jako samotný model. Konfigurace zákazníka určuje konkrétní tenantové datové zdroje, oprávnění a nastavení uchovávání dat produkčního agenta.",
+            "Kontroly prostředí Microsoft, například zásady ochrany před únikem dat, přístup k prostředím, bezpečnostní role nebo omezení konektorů, mohou zásadně změnit skutečné riziko stejného balíčku agenta. Governance dokumentace by proto měla oddělovat předpoklady na úrovni produktu od kontrol specifických pro zákazníka a určit, které předpoklady musí být při nasazení ověřeny."
+          ]
+        },
+        {
+          "id": "operate",
+          "title": "9. Oddělte podporu produktu od provozu zákazníka",
+          "paragraphs": [
+            "Dodavatel může podporovat produktový package, dokumentaci, opravy chyb, aktualizace a certifikaci, aniž by se stal provozovatelem zákaznického business procesu.",
+            "U ColleagueAI je komerčním produktem balíčkovaný agent a související dokumentace, testování a governance materiály. Implementace specifická pro zákazníka a provoz zůstávají na zákazníkovi nebo jeho schváleném implementačním partnerovi.",
+            "Toto rozlišení je důležité také při definování úrovní podpory a provozních očekávání. Produktová podpora může řešit vady balíčku, dokumentaci, kompatibilitu, aktualizace a stav certifikace, zatímco incidenty způsobené přístupovými údaji zákazníka, konfigurací tenantu, navazujícími systémy nebo dostupnou runtime kapacitou zůstávají součástí provozního modelu zákazníka, pokud je samostatně nepokrývá schválený implementační partner."
+          ]
+        },
+        {
+          "id": "buy-build",
+          "title": "10. Rozhodněte, co má být custom a co balíčkované",
+          "paragraphs": [
+            "Některá vysoce specifická workflow ospravedlňují vlastní vývoj. Jiné běžné podnikové procesy se lépe hodí pro pre-built výchozí bod, který lze importovat, konfigurovat a governovat uvnitř zákaznického prostředí.",
+            "Balíčkovaný přístup může snížit opakovanou práci na návrhu a dokumentaci, zatímco zákazník si ponechává kontrolu nad tenantovými integracemi, bezpečností a provozem.",
+            "Rozhodnutí mezi vývojem a využitím hotového balíčku by mělo vedle vývojové náročnosti zohledňovat také opakovatelnost, míru diferenciace a náklady na governance. Běžný proces se stabilními kontrolami může dobře využít předpřipravený základ, zatímco workflow založené na proprietární logice, neobvyklých integracích nebo rychle se měnících pravidlech může odůvodnit vývoj na míru. V obou případech zůstává odpovědnost za produkční prostředí na straně zákazníka."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Od balíčkovaného agenta k nasazení zákazníkem",
+        "steps": [
+          "Vybrat business use case a vhodný agent package.",
+          "Prověřit prerequisites, klasifikaci rizika a dokumentaci.",
+          "Importovat solution do řízeného prostředí Microsoft zákazníka.",
+          "Nakonfigurovat zákaznické connections a oprávnění.",
+          "Ověřit tenantově specifické integrace.",
+          "Provést akceptační testování zákazníkem a governance kontroly.",
+          "Nasadit přes release proces zákazníka.",
+          "Provozovat pod identitou, bezpečností a support kontrolami zákazníka.",
+          "Monitorovat významné změny a výjimky.",
+          "Při potřebě aplikovat aktualizace nebo recertifikaci."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Jaké Microsoft technologie může podnikový AI agent používat?",
+          "a": "Podle use case může agent používat Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure služby a schválené konektory. Přesná architektura závisí na požadavcích a tenantu zákazníka."
+        },
+        {
+          "q": "Hostuje ColleagueAI zákaznické agenty?",
+          "a": "Ne. ColleagueAI balíčkuje a prodává produkty agentů. Zákazníci nebo schválení implementační partneři je nasazují a provozují ve vlastním prostředí Microsoft zákazníka."
+        },
+        {
+          "q": "Kdo platí Microsoft licence a runtime?",
+          "a": "Zákazník odpovídá za Microsoft licence a runtime služby potřebné ve vlastním prostředí, včetně relevantních nákladů na Copilot Studio, Power Platform, Azure, Dataverse a konektory."
+        },
+        {
+          "q": "Co obsahuje balíček podnikového agenta?",
+          "a": "Přesný obsah závisí na produktu, ale cílový model zahrnuje nasaditelné řešení Microsoft nebo balíček konektorů, instalační a konfigurační pokyny, dokumentaci pro administrátory a uživatele, governance materiály, testovací důkazy, informace o vydání, licenci a informace o certifikaci."
+        },
+        {
+          "q": "Je balíčkovaný agent totéž jako implementační služba?",
+          "a": "Ne. Balíčkovaný agent je produkt poskytující otestovaný výchozí bod a materiály pro nasazení. Konfiguraci pro konkrétního zákazníka, integrace, nasazení a provoz provádí zákazník nebo jeho schválený implementační partner."
+        }
+      ]
+    }
+  }
+}

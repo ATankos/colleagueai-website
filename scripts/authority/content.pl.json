@@ -1,0 +1,471 @@
+{
+  "locale": "pl",
+  "common": {
+    "brand": "ColleagueAI",
+    "sectionLabel": "Governance AI w przedsiębiorstwie",
+    "backToAgents": "Przeglądaj pakietowane agenty AI",
+    "scoreLabel": "CAI Score",
+    "trustLabel": "Zaufanie i governance",
+    "certifiedLabel": "Certyfikacja",
+    "agentsLabel": "Katalog agentów AI",
+    "requestLabel": "Poproś o dostęp",
+    "relatedLabel": "Powiązane zasoby ColleagueAI",
+    "faqLabel": "Najczęściej zadawane pytania",
+    "boundaryTitle": "Granica produktu i wdrożenia",
+    "boundaryBody": "ColleagueAI projektuje, testuje, certyfikuje, pakuje i sprzedaje produkty agentów AI dla przedsiębiorstw. Klienci lub zatwierdzeni partnerzy wdrożeniowi importują, konfigurują, integrują, wdrażają i obsługują te produkty w środowisku Microsoft klienta. Licencje Microsoft, runtime Copilot Studio, Power Platform, Azure, Dataverse, konektory i inne usługi runtime pozostają odpowiedzialnością klienta."
+  },
+  "pages": {
+    "ai-agent-governance-framework": {
+      "eyebrow": "Ramy governance",
+      "lead": "Agenci AI w przedsiębiorstwie wymagają więcej niż tylko kontroli technicznych. Potrzebują jasno określonej odpowiedzialności, klasyfikacji ryzyka, nadzoru człowieka, dowodów, kontroli wdrożenia i cyklu życia zapewniającego przejrzystą odpowiedzialność przed uruchomieniem i po nim.",
+      "intro": [
+        "Agent AI może wyszukiwać informacje, analizować kontekst, wywoływać narzędzia, uruchamiać workflow i w niektórych przypadkach wykonywać działania bez ręcznego wykonywania każdego kroku przez człowieka. Governance agentów różni się więc od tradycyjnego governance oprogramowania oraz od governance samodzielnego asystenta generatywnej AI.",
+        "Praktyczne pytanie nie brzmi tylko, czy organizacja pozwala na AI. Chodzi o to, czy każdy agent ma znany cel, właściciela, granice uprawnień i danych, ścieżkę eskalacji, dowody testowe oraz określony status operacyjny.",
+        "Skuteczne ramy obejmują cały cykl życia: pomysł, projekt, budowę, testowanie, zatwierdzenie, wdrożenie, monitoring, zmiany i wycofanie."
+      ],
+      "sections": [
+        {
+          "id": "principles",
+          "title": "1. Zacznij od zasad governance",
+          "paragraphs": [
+            "Model governance powinien rozpoczynać się od niewielkiej liczby spójnych zasad obowiązujących w całym portfelu agentów. Muszą być zrozumiałe dla product ownerów, developerów, risk, compliance i biznesu.",
+            "Najważniejsze zasady to identyfikowalna odpowiedzialność, least privilege, proporcjonalne kontrole, odpowiedzialność człowieka, evidence by design oraz kontrola zmian."
+          ],
+          "bullets": [
+            "Każdy agent ma określonego business ownera i technical ownera.",
+            "Każdy agent działa w jasno zdefiniowanym celu i zakresie uprawnień.",
+            "Dostęp do systemów, danych i działań opiera się na zasadzie least privilege.",
+            "Nadzór człowieka jest proporcjonalny do potencjalnych skutków błędu.",
+            "Dowody testów i zatwierdzeń są zachowywane i odtwarzalne.",
+            "Istotne zmiany uruchamiają ponowną ocenę."
+          ]
+        },
+        {
+          "id": "inventory",
+          "title": "2. Utrzymuj wiarygodny rejestr agentów",
+          "paragraphs": [
+            "Organizacja nie może skutecznie zarządzać agentami, których nie potrafi zidentyfikować. Rejestr agentów jest więc podstawowym mechanizmem governance.",
+            "Rejestr powinien zawierać więcej niż nazwy: musi umożliwiać zrozumienie celu, miejsca działania, dostępów oraz odpowiedzialności."
+          ],
+          "bullets": [
+            "Nazwa agenta, wersja i status cyklu życia.",
+            "Cel biznesowy i docelowi użytkownicy.",
+            "Business owner, technical owner i support owner.",
+            "Środowisko Microsoft, solution i lokalizacja wdrożenia.",
+            "Połączone systemy, konektory, narzędzia i kategorie danych.",
+            "Uprawnienia do działań i autorytet transakcyjny.",
+            "Klasyfikacja ryzyka i wymagany poziom zatwierdzenia.",
+            "Model nadzoru człowieka.",
+            "Dowody testowe, status certyfikacji i data ostatniego przeglądu."
+          ]
+        },
+        {
+          "id": "classification",
+          "title": "3. Klasyfikuj ryzyko przed wdrożeniem",
+          "paragraphs": [
+            "Klasyfikacja ryzyka określa poziom wymaganej governance. Liczy się nie tylko model, ale to, co cały agent może zobaczyć, zdecydować i zrobić.",
+            "Agent tylko do odczytu różni się zasadniczo od agenta mogącego zatwierdzać transakcje, komunikować się zewnętrznie, modyfikować rekordy lub uruchamiać dalsze procesy.",
+            "CAI Score to ustrukturyzowane podejście ColleagueAI do klasyfikacji ryzyka agentów enterprise. Uwzględnia autonomię, wpływ, wrażliwość danych, dostęp do narzędzi, odwracalność, nadzór i wymagania governance."
+          ]
+        },
+        {
+          "id": "ownership",
+          "title": "4. Oddziel odpowiedzialność biznesową od technicznej",
+          "paragraphs": [
+            "Zespół techniczny może budować i utrzymywać agenta, ale nie powinien być jedynym właścicielem wyniku biznesowego. Funkcja biznesowa korzystająca z agenta pozostaje odpowiedzialna za proces i konsekwencje.",
+            "Dojrzały model rozdziela business ownership, technical ownership i governance assurance.",
+            "Model odpowiedzialności powinien również jasno określać prawa decyzyjne. Właściciel biznesowy zatwierdza zamierzony cel, akceptowalne rezultaty i istotne zmiany procesu, natomiast właściciel techniczny pozostaje odpowiedzialny za integralność komponentów rozwiązania, konfiguracji i kontroli technicznych. Funkcje governance, ryzyka, bezpieczeństwa lub compliance mogą zapewniać niezależną weryfikację, ale nie powinny zastępować odpowiedzialności biznesowej."
+          ]
+        },
+        {
+          "id": "access",
+          "title": "5. Zarządzaj tożsamością, dostępem i uprawnieniami narzędzi",
+          "paragraphs": [
+            "Możliwości agenta są w dużym stopniu określone przez systemy i działania, do których ma dostęp. Konektory, credentials, service identities i uprawnienia należy traktować jako kluczowe kontrole.",
+            "Uprawnienia powinny być ograniczone do minimum potrzebnego dla zatwierdzonego use case."
+          ],
+          "bullets": [
+            "Używaj dedykowanych tożsamości, jeśli pozwala na to architektura.",
+            "Ogranicz konektory i działania do zatwierdzonych use cases.",
+            "Nie przyznawaj szerokich uprawnień jedynie dla wygody developmentu.",
+            "Rejestruj działania uprzywilejowane w audytowalnych logach.",
+            "Używaj approval gates dla działań nieodwracalnych lub o dużym wpływie.",
+            "Ponownie waliduj uprawnienia po zmianach workflow lub integracji."
+          ]
+        },
+        {
+          "id": "oversight",
+          "title": "6. Zaprojektuj nadzór człowieka bezpośrednio w workflow",
+          "paragraphs": [
+            "Nadzór człowieka nie powinien być ogólnym stwierdzeniem, że człowiek pozostaje odpowiedzialny. Musi jasno określać, gdzie człowiek przegląda, zatwierdza, interweniuje lub zatrzymuje agenta.",
+            "Odpowiedni model zależy od ryzyka. Niektórzy agenci mogą działać autonomicznie w wąsko ograniczonych zadaniach o niskim ryzyku, podczas gdy inni wymagają zatwierdzenia przed istotnym działaniem.",
+            "Kontrola powinna określać moment interwencji, osobę dokonującą przeglądu, informacje dostępne dla tej osoby oraz działania, do których jest uprawniona. Formalny etap zatwierdzania nie wystarcza, jeżeli osoba zatwierdzająca nie jest w stanie zrozumieć lub zatrzymać proponowanego rezultatu. Nadzór człowieka powinien więc być testowany jako rzeczywista kontrola operacyjna, a nie jedynie zapisany w polityce."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Testuj agenta jako cały system",
+          "paragraphs": [
+            "Assurance agenta wymaga testowania całego workflow. Ważne są prompt, uprawnienia, wywołania narzędzi, zachowanie przy błędach, przetwarzanie danych, eskalacja, jakość outputu i reakcja na nietypowe dane wejściowe.",
+            "Pakiet produkcyjny powinien przechowywać dowody tego, co zostało przetestowane, jakie zachowanie było oczekiwane, jakie istnieją ograniczenia i która wersja przeszła test."
+          ],
+          "bullets": [
+            "Testy funkcjonalne i scenariuszowe.",
+            "Testy uprawnień i konektorów.",
+            "Ścieżki błędów i wyjątków.",
+            "Ścieżki zatwierdzania i eskalacji.",
+            "Obsługa danych wrażliwych.",
+            "Kryteria jakości outputu.",
+            "Logging i generowanie dowodów.",
+            "Testy regresji po istotnych zmianach."
+          ]
+        },
+        {
+          "id": "deployment",
+          "title": "8. Traktuj wdrożenie jako kontrolowane przekazanie",
+          "paragraphs": [
+            "Pakietowany agent powinien mieć jasno zdefiniowaną granicę wdrożenia. Dostawca może dostarczyć przetestowaną solution, dokumentację, guidance konfiguracji, dowody governance i instrukcje deploymentu, ale klient kontroluje własny tenant i środowisko operacyjne.",
+            "W przypadku produktów ColleagueAI deployment i runtime pozostają w środowisku Microsoft klienta. Konfiguracja specyficzna dla tenantu, integracje, wdrożenie i operation są wykonywane przez klienta lub zatwierdzonego partnera wdrożeniowego.",
+            "Kontrolowane przekazanie powinno również dokumentować wymagania wstępne, zmienne środowiskowe, odwołania do połączeń, wymagane role, znane ograniczenia oraz kroki walidacji po imporcie. Dzięki temu klient lub partner wdrożeniowy może odtworzyć przetestowaną konfigurację bez zależności od nieudokumentowanej wiedzy pierwotnego twórcy. Wdrożona wersja powinna pozostać możliwa do powiązania z zatwierdzonym pakietem i materiałem dowodowym."
+          ]
+        },
+        {
+          "id": "monitoring",
+          "title": "9. Monitoruj ryzyko operacyjne i istotne zmiany",
+          "paragraphs": [
+            "Zatwierdzenie przed startem nie kończy governance. Zachowanie agenta może się zmienić wraz ze zmianą promptów, modeli, narzędzi, uprawnień, źródeł wiedzy lub systemów połączonych.",
+            "Ciągła governance powinna koncentrować się na istotnych zmianach, wyjątkach, incydentach, wzorcach użycia i dowodach, że wdrożona konfiguracja nadal odpowiada zatwierdzonemu projektowi.",
+            "Monitoring powinien być powiązany z jasno określonymi wyzwalaczami ponownego przeglądu. Mogą nimi być nowy konektor, szersze uprawnienia, inny model, nowe źródło wiedzy, wzrost liczby obejść, powtarzające się wyjątki lub zmiana procesu biznesowego. Takie sygnały powinny określać, kiedy agent wymaga analizy, działań naprawczych, recertyfikacji lub nowej decyzji governance."
+          ]
+        },
+        {
+          "id": "retirement",
+          "title": "10. Zarządzaj wycofaniem równie rygorystycznie jak uruchomieniem",
+          "paragraphs": [
+            "Nieużywani lub zastąpieni agenci nie powinni zachowywać nieaktywnych dostępów bezterminowo. Wycofanie powinno usuwać uprawnienia, wyłączać integracje, archiwizować dowody i aktualizować rejestr.",
+            "Czysty proces wycofania ogranicza attack surface i zapobiega powstawaniu osieroconych zdolności AI.",
+            "Wycofanie agenta powinno również zamknąć jego zależności operacyjne i governance. Właściciele powinni potwierdzić wyłączenie zaplanowanych przepływów, unieważnienie odpowiednich poświadczeń usługowych, dostosowanie zależnych integracji oraz zachowanie dowodów zgodnie z obowiązującymi zasadami. Użytkowników należy w razie potrzeby skierować do procesu zastępczego, a w rejestrze zapisać datę wycofania i końcowy status agenta."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Praktyczny cykl governance",
+        "steps": [
+          "Zidentyfikować i zarejestrować use case.",
+          "Przypisać odpowiedzialnych ownerów.",
+          "Sklasyfikować ryzyko agenta.",
+          "Zdefiniować granice danych, narzędzi i uprawnień.",
+          "Zaprojektować nadzór człowieka.",
+          "Zbudować i przetestować pełny workflow.",
+          "Ocenić dowody i zatwierdzić deployment.",
+          "Wdrożyć do kontrolowanego środowiska klienta.",
+          "Monitorować operation i istotne zmiany.",
+          "Ponownie ocenić, recertyfikować lub wycofać."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Czym jest governance agentów AI?",
+          "a": "To zestaw kontroli dotyczących ownership, ryzyka, dostępu, nadzoru człowieka, testów, dowodów, deploymentu i cyklu życia, które utrzymują agentów w zatwierdzonych granicach organizacji."
+        },
+        {
+          "q": "Czy governance agentów to to samo co model governance?",
+          "a": "Nie. Governance agentów obejmuje dodatkowo narzędzia, uprawnienia, źródła danych, działania, workflow, nadzór człowieka, konfigurację deploymentu i zachowanie operacyjne."
+        },
+        {
+          "q": "Kto powinien być właścicielem agenta AI?",
+          "a": "Proces powinien mieć odpowiedzialnego business ownera, a rozwiązanie technical ownera. Funkcje risk lub governance mogą zapewniać niezależne assurance."
+        },
+        {
+          "q": "Czy wszyscy agenci potrzebują takich samych kontroli?",
+          "a": "Nie. Kontrole powinny być proporcjonalne do ryzyka."
+        },
+        {
+          "q": "Gdzie działają agenci ColleagueAI?",
+          "a": "Produkty ColleagueAI są przeznaczone do importu, konfiguracji, wdrożenia i operation w środowisku Microsoft klienta. ColleagueAI nie obsługuje runtime klienta."
+        }
+      ]
+    },
+    "human-oversight-ai-agents": {
+      "eyebrow": "Nadzór człowieka",
+      "lead": "Nadzór człowieka jest skuteczny tylko wtedy, gdy został zaprojektowany w workflow agenta. Przedsiębiorstwa potrzebują jasno określonych punktów interwencji, praw decyzyjnych, ścieżek eskalacji i dowodów, że człowiek może zrozumieć i kontrolować istotne zachowania agenta.",
+      "intro": [
+        "Termin human-in-the-loop jest często używany zbyt szeroko. Osoba otrzymująca okazjonalny raport nie jest tym samym co osoba, która musi zatwierdzić działanie przed wykonaniem, ani nadzorca mogący zatrzymać aktywny workflow.",
+        "Znaczący nadzór zaczyna się od określenia, co może pójść źle, jak poważne mogą być konsekwencje, czy działanie jest odwracalne i jak szybko człowiek musi być w stanie interweniować.",
+        "Rezultatem powinien być model oparty na ryzyku, a nie ogólny wymóg zatwierdzania każdego kroku."
+      ],
+      "sections": [
+        {
+          "id": "meaning",
+          "title": "1. Zdefiniuj, co naprawdę oznacza nadzór człowieka",
+          "paragraphs": [
+            "Nadzór człowieka to organizacyjna i techniczna możliwość upoważnionej osoby do zrozumienia, przeglądu, zatwierdzania, kwestionowania, modyfikowania lub zatrzymywania zachowania agenta.",
+            "Projekt powinien określać, kto nadzoruje, jakie informacje otrzymuje, jakie decyzje może podejmować i co dzieje się w razie braku reakcji.",
+            "Nadzór człowieka powinien być definiowany jako kontrola o konkretnym celu, a nie jedynie obecność człowieka gdzieś w procesie. Organizacja powinna potrafić wyjaśnić, co osoba dokonująca przeglądu ma wykryć, zatrzymać lub rozstrzygnąć, jakie informacje otrzymuje oraz jakie ma uprawnienia, gdy agent generuje wynik niepewny lub nieakceptowalny."
+          ]
+        },
+        {
+          "id": "models",
+          "title": "2. Wybierz odpowiedni model nadzoru",
+          "paragraphs": [
+            "Różne poziomy ryzyka wymagają różnych form nadzoru. Kluczowe nie jest tylko autonomiczny versus nieautonomiczny, ale miejsce praw decyzyjnych człowieka w workflow.",
+            "Różne zachowania agentów wymagają różnych modeli nadzoru. Niektóre przypadki użycia mogą wymagać zatwierdzenia przed wykonaniem działania, podczas gdy inne mogą wykorzystywać przegląd wyjątków, okresowe próbkowanie lub monitoring retrospektywny. Wybór powinien zależeć od wpływu i odwracalności działania, a nie od stosowania jednego modelu zatwierdzania do wszystkich agentów."
+          ],
+          "bullets": [
+            "Human-in-the-loop: człowiek musi zatwierdzić określone działanie przed wykonaniem.",
+            "Human-on-the-loop: agent działa w ustalonych granicach, a człowiek monitoruje i może interweniować.",
+            "Human-over-the-loop: właściciele governance przeglądają wydajność, wyjątki i kontrole na poziomie operacyjnym.",
+            "Human-out-of-the-loop: tylko tam, gdzie organizacja świadomie zaakceptowała autonomię w ściśle ograniczonym obszarze niskiego ryzyka."
+          ]
+        },
+        {
+          "id": "risk",
+          "title": "3. Dopasuj nadzór do wpływu i odwracalności",
+          "paragraphs": [
+            "Im większy wpływ i mniejsza odwracalność działania, tym silniejszy argument za zatwierdzeniem przed wykonaniem.",
+            "Komunikacja zewnętrzna, decyzje finansowe, zmiany dostępu, decyzje regulacyjne i modyfikacje autorytatywnych rekordów zwykle wymagają silniejszego nadzoru.",
+            "Wymagania dotyczące nadzoru powinny zatem wynikać z rzeczywistego profilu ryzyka agenta, w tym systemów, do których ma dostęp, wrażliwości danych, możliwych działań oraz potencjalnego wpływu błędu. Agent ograniczony do wyszukiwania zatwierdzonych informacji ma zasadniczo inny profil ryzyka niż agent mogący zmieniać rekordy, inicjować płatności lub uruchamiać decyzje regulowane."
+          ]
+        },
+        {
+          "id": "approval",
+          "title": "4. Umieść zatwierdzenie bezpośrednio przed istotnym działaniem",
+          "paragraphs": [
+            "Zatwierdzenie powinno nastąpić bezpośrednio przed krokiem powodującym materialny efekt. Zbyt wczesne zatwierdzenie może stracić znaczenie.",
+            "Reviewer powinien otrzymać wystarczający kontekst do podjęcia rzeczywistej decyzji.",
+            "Kontrola zatwierdzająca musi dostarczać wystarczającego kontekstu, aby człowiek mógł podjąć rzeczywiście świadomą decyzję. Sam przycisk zatwierdź lub odrzuć może tworzyć pozór kontroli bez zapewnienia informacji potrzebnych do oceny. Przed zatwierdzeniem osoba dokonująca przeglądu powinna rozumieć proponowane działanie, istotne dane wejściowe, ważne założenia, wyjątki i możliwe konsekwencje."
+          ]
+        },
+        {
+          "id": "intervention",
+          "title": "5. Zapewnij realne mechanizmy interwencji",
+          "paragraphs": [
+            "Nadzorca musi mieć możliwość zrobić więcej niż obserwować. W zależności od use case może odrzucić działanie, zmienić output, zatrzymać workflow, wyłączyć konektor lub całkowicie zatrzymać agenta.",
+            "Ścieżka interwencji powinna zostać przetestowana przed produkcją.",
+            "Mechanizmy interwencji muszą działać również w rzeczywistych warunkach operacyjnych. Organizacja powinna określić, kto może zatrzymać, zmienić, cofnąć lub obejść zachowanie agenta, jak szybko może to zrobić oraz co dzieje się z już rozpoczętymi zadaniami. Uprawnienia awaryjne mogą być szersze niż zwykłe prawa operacyjne, ale każde nadzwyczajne użycie powinno być rejestrowane i później przeglądane."
+          ]
+        },
+        {
+          "id": "escalation",
+          "title": "6. Zaprojektuj eskalację dla niepewności i wyjątków",
+          "paragraphs": [
+            "Agent nie powinien być zmuszany do udzielenia odpowiedzi, jeśli właściwym zachowaniem jest eskalacja. Dobry projekt wykrywa limity pewności, wyjątki policy, brakujące informacje i przypadki wymagające specjalistycznej oceny.",
+            "Eskalacja jest szczególnie ważna tam, gdzie wiarygodny, ale błędny output byłby bardziej szkodliwy niż jawne niepowodzenie.",
+            "Eskalacja powinna odróżniać zwykłą niepewność operacyjną od zdarzeń wymagających specjalistycznej oceny. Standardowy wyjątek może trafić do właściciela procesu, natomiast podejrzenie oszustwa, ujawnienie wrażliwych danych, konflikt z polityką, powtarzające się niepowodzenie kontroli lub problem bezpieczeństwa mogą wymagać eskalacji do funkcji ryzyka, compliance, prywatności lub bezpieczeństwa."
+          ]
+        },
+        {
+          "id": "evidence",
+          "title": "7. Zachowuj dowody decyzji człowieka",
+          "paragraphs": [
+            "Dla istotnych decyzji organizacja powinna móc odtworzyć, co zaproponował agent, co widział reviewer, kto zatwierdził lub odrzucił i kiedy.",
+            "Takie dowody wspierają audytowalność, analizę incydentów i testowanie kontroli.",
+            "Nadzór człowieka trudno wykazać, jeżeli organizacja nie potrafi później odtworzyć, co osoba dokonująca przeglądu faktycznie widziała i jaką podjęła decyzję. Przydatne dowody mogą obejmować pierwotne żądanie, odpowiednie informacje źródłowe, proponowane działanie agenta, zastosowaną regułę zatwierdzania, tożsamość osoby zatwierdzającej, końcową decyzję i późniejszą reakcję systemu."
+          ]
+        },
+        {
+          "id": "fatigue",
+          "title": "8. Unikaj approval fatigue",
+          "paragraphs": [
+            "Workflow wymagający setek banalnych zatwierdzeń może tworzyć pozór kontroli, jednocześnie obniżając realną uwagę.",
+            "Nadzór oparty na ryzyku powinien skupiać uwagę człowieka na wyjątkach i działaniach istotnych.",
+            "Kontrole wykonywane przez ludzi mogą tracić skuteczność, gdy liczba zatwierdzeń przekracza realną zdolność skupienia uwagi. Duża liczba mało istotnych żądań może prowadzić do automatycznych zatwierdzeń lub narastania zaległości. Progi oparte na ryzyku, przegląd wyjątków, rozsądne grupowanie i jasne oczekiwania dotyczące czasu reakcji pomagają zachować uwagę dla naprawdę istotnych decyzji."
+          ]
+        },
+        {
+          "id": "competence",
+          "title": "9. Upewnij się, że reviewer może rzeczywiście kontrolować",
+          "paragraphs": [
+            "Reviewer bez wiedzy, uprawnień, kontekstu lub czasu nie zapewnia skutecznego nadzoru.",
+            "Role nadzorcze powinny określać kompetencje, uprawnienia decyzyjne, oczekiwany czas reakcji i kanały eskalacji.",
+            "Skuteczność nadzoru zależy również od kompetencji i uprawnień osoby dokonującej przeglądu. Musi ona posiadać wystarczającą wiedzę dziedzinową, aby rozpoznać wynik nieakceptowalny, oraz odpowiednie uprawnienia organizacyjne, aby go odrzucić lub eskalować. Szkolenie powinno obejmować cel agenta, znane ograniczenia, właściwe reguły, wyzwalacze eskalacji i znaczenie informacji prezentowanych podczas przeglądu."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "10. Testuj nadzór jak każdy inny mechanizm kontrolny",
+          "paragraphs": [
+            "Ścieżki kontroli człowieka wymagają testów scenariuszowych: zatwierdzenia, odrzucenia, timeoutu, eskalacji, nieobecności nadzorcy, sprzecznych instrukcji i emergency shutdown.",
+            "Celem jest wykazanie, że kontrola działa w realistycznych warunkach.",
+            "Testy powinny wykazywać, że mechanizm nadzoru człowieka rzeczywiście działa, a nie tylko istnieje w przepływie pracy. Scenariusze powinny obejmować odrzucone zatwierdzenie, opóźniony przegląd, niedostępnego zatwierdzającego, próbę obejścia kontroli, eskalację, awarię konektora, błędne dane wejściowe oraz działania poza zatwierdzonym zakresem. Dowody testowe powinny potwierdzać bezpieczne zachowanie systemu w razie niepowodzenia."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Checklist projektowania nadzoru człowieka",
+        "steps": [
+          "Zidentyfikować istotne działania agenta.",
+          "Ocenić wpływ, odwracalność i pilność.",
+          "Wybrać właściwy model nadzoru.",
+          "Przypisać autoryzowanych reviewerów.",
+          "Zdefiniować dowody i kontekst dla reviewera.",
+          "Stworzyć ścieżki zatwierdzenia, odrzucenia, edycji i eskalacji.",
+          "Zdefiniować timeout i fallback.",
+          "Logować istotne decyzje człowieka.",
+          "Testować interwencję i shutdown.",
+          "Po zmianach ponownie oceniać skuteczność."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Co oznacza human-in-the-loop dla agenta AI?",
+          "a": "Oznacza, że określone działanie nie może zostać wykonane, dopóki upoważniony człowiek go nie przejrzy i nie zatwierdzi."
+        },
+        {
+          "q": "Czy każdy agent enterprise potrzebuje zatwierdzenia człowieka?",
+          "a": "Nie. Zależy to od ryzyka, wpływu i odwracalności."
+        },
+        {
+          "q": "Jaka jest różnica między human-in-the-loop i human-on-the-loop?",
+          "a": "Human-in-the-loop wymaga zatwierdzenia przed działaniem. Human-on-the-loop pozwala agentowi działać w granicach, podczas gdy człowiek monitoruje i może interweniować."
+        },
+        {
+          "q": "Czy nadzór człowieka może być nieskuteczny?",
+          "a": "Tak. Zbyt wiele zatwierdzeń, brak kontekstu lub reviewerzy bez realnych uprawnień mogą zamienić nadzór w formalność."
+        },
+        {
+          "q": "Jak ColleagueAI wspiera nadzór?",
+          "a": "ColleagueAI pakuje agentów z udokumentowanymi wymaganiami governance, ryzyka i nadzoru. Klient konfiguruje i obsługuje kontrole we własnym środowisku Microsoft."
+        }
+      ]
+    },
+    "enterprise-ai-agents-microsoft": {
+      "eyebrow": "Microsoft Enterprise AI",
+      "lead": "Enterprise stack Microsoft dostarcza wiele komponentów do budowy agentów AI. Kluczowym zadaniem jest przekształcenie ich w governowane, testowalne i wdrażalne produkty biznesowe zamiast izolowanych eksperymentów.",
+      "intro": [
+        "Enterprise agent AI to więcej niż chatbot. Łączy instrukcje, wiedzę, tożsamość, narzędzia, logikę workflow i mechanizmy governance w celu wykonania określonego zadania biznesowego.",
+        "W środowisku Microsoft możliwości te mogą obejmować Copilot Studio, Power Automate, Microsoft 365, Azure, Dataverse i zatwierdzone konektory.",
+        "Dla wielu organizacji wyzwaniem nie jest dostęp do technologii, lecz zbudowanie powtarzalnej ścieżki od use case do governowanego wdrożenia produkcyjnego."
+      ],
+      "sections": [
+        {
+          "id": "stack",
+          "title": "1. Zrozum stack agentów Microsoft",
+          "paragraphs": [
+            "Copilot Studio zapewnia główne środowisko do budowania i zarządzania agentami. Power Automate może koordynować działania przepływu pracy. Dataverse i Microsoft 365 mogą dostarczać kontekst biznesowy, a Azure wspiera dodatkowe wymagania integracyjne, identity i security.",
+            "Architektura powinna wykorzystywać tylko komponenty rzeczywiście potrzebne dla use case.",
+            "Architektura powinna jasno opisywać również tożsamość i kontekst wykonywania poszczególnych działań. Zespoły muszą wiedzieć, czy działanie wykonywane jest w kontekście zalogowanego użytkownika, za pośrednictwem połączenia usługowego czy z użyciem innej kontrolowanej tożsamości, ponieważ wpływa to na uprawnienia, możliwość audytu i rozdział obowiązków. Zależności te powinny być udokumentowane przed zatwierdzeniem produkcyjnym."
+          ]
+        },
+        {
+          "id": "package",
+          "title": "2. Traktuj agenta jako produkt gotowy do wdrożenia",
+          "paragraphs": [
+            "Gotowość produkcyjna wymaga więcej niż działające środowisko developerskie. Wdrażalny agent powinien zawierać kontrolowane komponenty solution, guidance konfiguracji, udokumentowane zależności, dowody testowe, wymagania governance i release notes.",
+            "To odróżnia demonstrację od produktu przygotowanego do enterprise adoption.",
+            "Pakiet powinien umożliwiać powtarzalne wdrożenie bez zależności od pierwotnego twórcy. Zmienne środowiskowe, odwołania do połączeń, wymagane role bezpieczeństwa, oczekiwane komponenty i kroki walidacji po imporcie powinny być opisane tak, aby inny autoryzowany zespół mógł odtworzyć zamierzoną konfigurację bez polegania na nieudokumentowanej wiedzy deweloperskiej."
+          ]
+        },
+        {
+          "id": "tenant",
+          "title": "3. Zachowaj jasną granicę tenantu klienta",
+          "paragraphs": [
+            "Klienci enterprise muszą wiedzieć, gdzie działa agent i kto kontroluje środowisko. W produktach ColleagueAI klient importuje, konfiguruje, integruje, wdraża i obsługuje agenta we własnym środowisku Microsoft.",
+            "ColleagueAI nie zapewnia licencji Microsoft klienta ani nie obsługuje jego runtime Copilot Studio, Power Platform, Azure, Dataverse czy konektorów.",
+            "Granica tenantu jest jednocześnie granicą bezpieczeństwa i odpowiedzialności. Administratorzy klienta decydują, które środowiska, tożsamości, źródła danych i konektory są dostępne dla agenta, a funkcje governance klienta oceniają zgodność tych ustawień z zasadami wewnętrznymi. Dokumentacja produktu powinna jasno opisywać tę granicę, aby podczas zakupu i wdrożenia nie było wątpliwości dotyczących odpowiedzialności."
+          ]
+        },
+        {
+          "id": "connectors",
+          "title": "4. Projektuj konektory według minimalnie potrzebnego dostępu",
+          "paragraphs": [
+            "Konektory przekształcają agenta informacyjnego w system operacyjny i powinny być kontrolowane jak integracje uprzywilejowane.",
+            "Agent powinien otrzymać wyłącznie dostęp wymagany dla zatwierdzonego celu.",
+            "Odwołania do połączeń i metody uwierzytelniania powinny być częścią przeglądu wydania, a nie jedynie technicznym szczegółem konfiguracji. Konektory z dostępem do zapisu, uprzywilejowane API oraz działania obejmujące wiele systemów wymagają silniejszych kontroli niż dostęp tylko do odczytu. Uprawnienia powinny być ograniczone do minimalnego zestawu zasobów i operacji potrzebnych w zatwierdzonym procesie."
+          ]
+        },
+        {
+          "id": "solutions",
+          "title": "5. Stosuj dyscyplinę solution i release",
+          "paragraphs": [
+            "Enterprise deployment powinien oddzielać development, test i production oraz wykorzystywać kontrolowane przemieszczanie solution, gdy jest to możliwe.",
+            "Versioning powinien jednoznacznie wskazywać, który package został przetestowany i wdrożony.",
+            "Kontrolowany cykl życia aplikacji wymaga również zasad wycofywania wersji i promowania zmian pomiędzy środowiskami. Zespoły powinny wiedzieć, która wersja jest zatwierdzona do produkcji, jaka konfiguracja należy do każdego środowiska oraz jak przywrócić wcześniej zaakceptowaną wersję w przypadku istotnego błędu. Bezpośrednie ręczne zmiany w produkcji powinny być wyjątkowe, udokumentowane i później przenoszone do kontrolowanego rozwiązania."
+          ]
+        },
+        {
+          "id": "governance",
+          "title": "6. Dodaj governance przed produkcją",
+          "paragraphs": [
+            "Techniczne wdrożenie nie jest tym samym co approval governance. Nadal potrzebne są ownership, klasyfikacja ryzyka, kontrole dostępu, nadzór człowieka, dowody i proces zatwierdzania.",
+            "CAI Score zapewnia ustrukturyzowany mechanizm łączenia profilu ryzyka agenta z proporcjonalnymi wymaganiami governance.",
+            "Zatwierdzenie produkcyjne powinno więc tworzyć konkretne dowody, a nie być jedynie wynikiem spotkania. Rejestr powinien identyfikować właściciela biznesowego, właściciela technicznego, zatwierdzony cel, najważniejsze ryzyka, wymagane kontrole człowieka, zaakceptowane ograniczenia oraz autoryzowaną wersję. Taka dokumentacja znacząco ułatwia późniejsze przeglądy, recertyfikację i analizę incydentów."
+          ]
+        },
+        {
+          "id": "testing",
+          "title": "7. Testuj workflow Microsoft end-to-end",
+          "paragraphs": [
+            "Testy powinny obejmować instrukcje agenta, źródła wiedzy, działanie konektorów, flow Power Automate, uprawnienia, obsługę błędów i ścieżki zatwierdzeń.",
+            "Test report powinien określać wersję, scenariusze, oczekiwane wyniki, wyjątki i znane ograniczenia.",
+            "Testy powinny obejmować również scenariusze negatywne i graniczne: niedostępne systemy, niewystarczające uprawnienia, błędne dane wejściowe, sprzeczne instrukcje, odrzucone zatwierdzenia, awarie konektorów oraz próby wykonania działań poza zatwierdzonym zakresem. Takie scenariusze pokazują, czy cały przepływ pracy zachowuje się bezpiecznie w przypadku błędu, zamiast testować wyłącznie idealny przebieg."
+          ]
+        },
+        {
+          "id": "data",
+          "title": "8. Uczyń granice danych zrozumiałymi",
+          "paragraphs": [
+            "Użytkownicy biznesowi i zespoły governance powinni wiedzieć, do jakich danych agent ma dostęp, z jakich systemów pochodzą i co może z nimi zrobić.",
+            "Data governance jest więc kwestią deploymentu tak samo jak modelu.",
+            "Kontrole środowiska Microsoft, takie jak zasady zapobiegania utracie danych, dostęp do środowisk, role bezpieczeństwa lub ograniczenia konektorów, mogą znacząco zmienić rzeczywiste ryzyko tego samego pakietu agenta. Dokumentacja governance powinna zatem oddzielać założenia na poziomie produktu od kontroli specyficznych dla klienta oraz wskazywać, które założenia muszą zostać zweryfikowane podczas wdrożenia."
+          ]
+        },
+        {
+          "id": "operate",
+          "title": "9. Oddziel wsparcie produktu od operation klienta",
+          "paragraphs": [
+            "Dostawca może wspierać package, dokumentację, defecty, aktualizacje i certyfikację bez stawania się operatorem procesu biznesowego klienta.",
+            "W ColleagueAI produktem komercyjnym jest pakietowany agent wraz z dokumentacją, testami i materiałami governance. Wdrożenie specyficzne dla klienta i operation pozostają po stronie klienta lub zatwierdzonego partnera.",
+            "To rozróżnienie jest również istotne przy definiowaniu poziomów wsparcia i oczekiwań operacyjnych. Wsparcie produktu może obejmować wady pakietu, dokumentację, zgodność, aktualizacje i status certyfikacji, natomiast incydenty wynikające z poświadczeń klienta, konfiguracji tenantu, systemów zależnych lub dostępnej pojemności wykonawczej pozostają częścią modelu operacyjnego klienta, chyba że są osobno obsługiwane przez zatwierdzonego partnera."
+          ]
+        },
+        {
+          "id": "buy-build",
+          "title": "10. Zdecyduj, co budować, a co pakietować",
+          "paragraphs": [
+            "Niektóre wysoko zróżnicowane workflow uzasadniają development custom. Inne powszechne procesy lepiej pasują do pre-built punktu startowego importowanego i konfigurowanego w środowisku klienta.",
+            "Podejście pakietowane ogranicza powtarzalną pracę projektową i dokumentacyjną.",
+            "Decyzja pomiędzy budową własnego rozwiązania a wykorzystaniem gotowego pakietu powinna uwzględniać nie tylko wysiłek deweloperski, ale również powtarzalność, potrzebę różnicowania i koszt governance. Standardowy proces ze stabilnymi kontrolami może dobrze wykorzystać gotową bazę, natomiast logika własnościowa, nietypowe integracje lub szybko zmieniające się zasady mogą uzasadniać rozwiązanie budowane indywidualnie. W obu przypadkach klient pozostaje odpowiedzialny za środowisko produkcyjne."
+          ]
+        }
+      ],
+      "framework": {
+        "title": "Od pakietowanego agenta do wdrożenia klienta",
+        "steps": [
+          "Wybrać use case i odpowiedni package.",
+          "Przejrzeć wymagania wstępne, klasyfikację ryzyka i dokumentację.",
+          "Zaimportować solution do kontrolowanego środowiska Microsoft klienta.",
+          "Skonfigurować połączenia i uprawnienia klienta.",
+          "Zweryfikować integracje tenant-specific.",
+          "Przeprowadzić customer acceptance i governance checks.",
+          "Wdrożyć przez release process klienta.",
+          "Obsługiwać pod kontrolami identity, security i support klienta.",
+          "Monitorować istotne zmiany i wyjątki.",
+          "Stosować aktualizacje lub recertyfikację w razie potrzeby."
+        ]
+      },
+      "faq": [
+        {
+          "q": "Jakich technologii Microsoft może używać agent AI enterprise?",
+          "a": "W zależności od use case: Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure i zatwierdzone konektory."
+        },
+        {
+          "q": "Czy ColleagueAI hostuje agentów klientów?",
+          "a": "Nie. ColleagueAI pakuje i sprzedaje produkty agentów. Klient lub zatwierdzony partner wdraża je i obsługuje w środowisku Microsoft klienta."
+        },
+        {
+          "q": "Kto płaci za licencje Microsoft i runtime?",
+          "a": "Klient odpowiada za wymagane licencje i usługi runtime, w tym Copilot Studio, Power Platform, Azure, Dataverse i konektory."
+        },
+        {
+          "q": "Co zawiera pakietowany agent enterprise?",
+          "a": "Zakres zależy od produktu, ale model obejmuje deployable Microsoft solution, instrukcje instalacji i konfiguracji, dokumentację admin i user, materiały governance, dowody testowe, release information, licencję i certyfikację."
+        },
+        {
+          "q": "Czy pakietowany agent oznacza usługę wdrożeniową?",
+          "a": "Nie. Jest to produkt z przetestowanym punktem startowym i materiałami deploymentowymi. Konfiguracja, integracje, wdrożenie i operation dla klienta pozostają po stronie klienta lub partnera."
+        }
+      ]
+    }
+  }
+}
