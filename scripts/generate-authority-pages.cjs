@@ -294,7 +294,7 @@ function languageOptions(locale, key) {
 
       return (
         '<option value="' +
-        pagePath(code, key) +
+        code +
         '"' +
         selected +
         ">" +
@@ -462,6 +462,15 @@ function schema(key, locale, identity, content) {
 function template(key, locale, identity, content, common) {
   const url = SITE + pagePath(locale, key);
   const l = labels[locale] || labels.en;
+
+  const languageSwitchCases = manifest.locales
+    .map(
+      (code) =>
+        `case ${JSON.stringify(code)}: window.location.assign(${JSON.stringify(
+          pagePath(code, key)
+        )}); break;`
+    )
+    .join("\n");
 
   return `<!doctype html>
 <html lang="${locale}" data-cai-page="authority-${esc(key)}">
@@ -701,9 +710,9 @@ footer{
     <label>
       <span style="position:absolute;left:-9999px">${esc(l.language)}</span>
       <select
+        id="authority-langsel"
         class="lang"
         aria-label="${esc(l.language)}"
-        onchange="if(this.value) location.href=this.value"
       >
         ${languageOptions(locale, key)}
       </select>
@@ -772,6 +781,20 @@ footer{
   </div>
 </footer>
 
+<script>
+(() => {
+  const selector = document.getElementById("authority-langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      ${languageSwitchCases}
+      default:
+        break;
+    }
+  });
+})();
+</script>
 </body>
 </html>`;
 }
