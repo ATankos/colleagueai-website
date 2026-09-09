@@ -1169,7 +1169,7 @@
     "pl": ": płatność jest obsługiwana w całości przez Stripe; nigdy nie widzimy danych karty. Po zakupie przechowujemy Twój e-mail, slugi licencjonowanych agentów oraz identyfikator sesji Stripe, aby udostępnić Ci pliki do pobrania.",
     "pt": ": o pagamento é tratado inteiramente pela Stripe; nunca vemos os dados do cartão. Após uma compra, armazenamos o seu e-mail, os slugs dos agentes licenciados e o id de sessão Stripe, para podermos libertar-lhe as transferências."
   },
-  ": secure package delivery is enabled for commercially released agents after the applicable product has passed the ColleagueAI release and certification gates.": {
+  ": secure package delivery is enabled for commercially released agents after the applicable product has passed the ColleagueAI release and product assurance gates.": {
     "cs": ": balíčky agentů jsou doručovány prostřednictvím podepsaných, časově omezených URL (platnost 15 minut).",
     "de": ": Agentenpakete werden über signierte, zeitlich begrenzte URLs (15 Minuten Gültigkeit) ausgeliefert.",
     "fr": ": les packages d'agents sont livrés via des URL signées et à durée limitée (expiration de 15 minutes).",
