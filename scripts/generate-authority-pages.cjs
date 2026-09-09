@@ -799,23 +799,46 @@ footer{
 </html>`;
 }
 
+function normalizeRequestedLocale(value) {
+  switch (value) {
+    case "en": return "en";
+    case "cs": return "cs";
+    case "de": return "de";
+    case "fr": return "fr";
+    case "es": return "es";
+    case "it": return "it";
+    case "pl": return "pl";
+    case "pt": return "pt";
+    default:
+      throw new Error("Unsupported locale: " + value);
+  }
+}
+
 function loadContent(locale) {
   const file = path.join(
     SOURCE,
     "content." + locale + ".json"
   );
 
-  if (!fs.existsSync(file)) {
-    throw new Error(
-      "Missing authority content for locale: " +
-        locale +
-        " (" +
-        file +
-        ")"
-    );
+  let raw;
+
+  try {
+    raw = fs.readFileSync(file, "utf8");
+  } catch (error) {
+    if (error && error.code === "ENOENT") {
+      throw new Error(
+        "Missing authority content for locale: " +
+          locale +
+          " (" +
+          file +
+          ")"
+      );
+    }
+
+    throw error;
   }
 
-  return JSON.parse(fs.readFileSync(file, "utf8"));
+  return JSON.parse(raw);
 }
 
 function validateLocaleContent(locale, data) {
@@ -876,7 +899,11 @@ function main() {
   const requested = process.argv
     .slice(2)
     .filter((arg) => arg.startsWith("--locale="))
-    .map((arg) => arg.split("=")[1]);
+    .map((arg) =>
+      normalizeRequestedLocale(
+        arg.slice("--locale=".length)
+      )
+    );
 
   const locales = requested.length
     ? requested
