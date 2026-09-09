@@ -710,7 +710,7 @@ footer{
     <label>
       <span style="position:absolute;left:-9999px">${esc(l.language)}</span>
       <select
-        id="authority-langsel"
+        id="langsel"
         class="lang"
         aria-label="${esc(l.language)}"
       >
@@ -783,7 +783,7 @@ footer{
 
 <script>
 (() => {
-  const selector = document.getElementById("authority-langsel");
+  const selector = document.getElementById("langsel");
   if (!selector) return;
 
   selector.addEventListener("change", () => {
