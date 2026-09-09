@@ -799,17 +799,6 @@ footer{
 </html>`;
 }
 
-const CONTENT_FILES = Object.freeze({
-  en: "content.en.json",
-  cs: "content.cs.json",
-  de: "content.de.json",
-  fr: "content.fr.json",
-  es: "content.es.json",
-  it: "content.it.json",
-  pl: "content.pl.json",
-  pt: "content.pt.json"
-});
-
 function normalizeRequestedLocale(value) {
   switch (value) {
     case "en": return "en";
