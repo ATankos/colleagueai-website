@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="es" data-cai-page="authority-ai-agent-governance-framework">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Marco de gobernanza de agentes de IA | ColleagueAI</title>
+<meta name="description" content="Un marco empresarial práctico para gobernar agentes de IA en propiedad, riesgo, acceso, supervisión humana, evidencias, pruebas, despliegue y aseguramiento continuo.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights/ramec-governance-ai-agentu">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights/governance-framework-fuer-ki-agenten">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights/cadre-gouvernance-agents-ia">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights/framework-governance-agenti-ai">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights/ramy-governance-agentow-ai">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights/framework-governanca-agentes-ia">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia">
+<meta property="og:title" content="Marco de gobernanza de agentes de IA | ColleagueAI">
+<meta property="og:description" content="Un marco empresarial práctico para gobernar agentes de IA en propiedad, riesgo, acceso, supervisión humana, evidencias, pruebas, despliegue y aseguramiento continuo.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Marco de gobernanza de agentes de IA | ColleagueAI">
+<meta name="twitter:description" content="Un marco empresarial práctico para gobernar agentes de IA en propiedad, riesgo, acceso, supervisión humana, evidencias, pruebas, despliegue y aseguramiento continuo.">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia#article","headline":"Marco de gobernanza de agentes de IA","description":"Un marco empresarial práctico para gobernar agentes de IA en propiedad, riesgo, acceso, supervisión humana, evidencias, pruebas, despliegue y aseguramiento continuo.","mainEntityOfPage":"https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia","inLanguage":"es","author":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI"},"publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"},"about":["Agentes de IA empresariales","Gobernanza de agentes de IA","Supervisión humana","Microsoft Copilot Studio","Gobernanza de IA empresarial"]},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/es/insights/marco-gobernanza-agentes-ia#faq","mainEntity":[{"@type":"Question","name":"¿Qué es la gobernanza de agentes de IA?","acceptedAnswer":{"@type":"Answer","text":"Es el conjunto de controles de propiedad, riesgo, acceso, supervisión humana, pruebas, evidencias, despliegue y ciclo de vida que mantiene a los agentes dentro de los límites aprobados de la organización."}},{"@type":"Question","name":"¿Es lo mismo que la gobernanza de modelos?","acceptedAnswer":{"@type":"Answer","text":"No. La gobernanza de agentes también debe cubrir herramientas, permisos, fuentes de datos, acciones, lógica de workflow, supervisión humana y configuración operativa."}},{"@type":"Question","name":"¿Quién debe ser responsable de un agente empresarial?","acceptedAnswer":{"@type":"Answer","text":"El proceso debe tener un propietario de negocio responsable y la solución un propietario técnico. Riesgos o gobernanza pueden aportar assurance independiente."}},{"@type":"Question","name":"¿Todos los agentes necesitan los mismos controles?","acceptedAnswer":{"@type":"Answer","text":"No. Los controles deben ser proporcionales al riesgo."}},{"@type":"Question","name":"¿Dónde se ejecutan los agentes ColleagueAI?","acceptedAnswer":{"@type":"Answer","text":"Los productos ColleagueAI están diseñados para ser importados, configurados, desplegados y operados en el entorno Microsoft del cliente. ColleagueAI no opera el runtime del cliente."}}]}]}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{
+  padding:72px 0 42px;
+}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  line-height:1.58;
+  color:#4E4943;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:54px;
+  align-items:start;
+  padding-bottom:80px;
+}
+article{
+  min-width:0;
+}
+article>p{
+  font-size:17px;
+}
+section{
+  scroll-margin-top:30px;
+  margin-top:52px;
+}
+h2{
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+}
+li{margin:8px 0}
+.framework{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+}
+.framework ol{
+  padding-left:22px;
+}
+.boundary{
+  background:#1D1B1A;
+  color:#F5F0E8;
+  border-radius:24px;
+  padding:28px;
+  margin-top:50px;
+}
+.boundary h2{
+  color:#fff;
+}
+.boundary p{
+  color:#E7E0D7;
+}
+.faq{
+  border-top:1px solid var(--line);
+  padding:16px 0;
+}
+.faq:last-child{
+  border-bottom:1px solid var(--line);
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:17px;
+}
+.side{
+  position:sticky;
+  top:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.side h2{
+  font-size:17px;
+  margin-bottom:12px;
+}
+.side a{
+  display:block;
+  padding:8px 0;
+  font-weight:750;
+  text-decoration:none;
+}
+
+.relevant-agents{
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.relevant-agents h2{
+  margin:0 0 12px;
+  font-size:1.05rem;
+}
+
+.relevant-agents ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.relevant-agents li{
+  margin:8px 0;
+}
+
+.relevant-agents a{
+  font-weight:650;
+}
+
+.cta{
+  margin-top:24px;
+  display:inline-block !important;
+  background:var(--ink);
+  color:var(--bg) !important;
+  padding:11px 18px !important;
+  border-radius:999px;
+}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .hero{padding-top:48px}
+}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/es/">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">Idioma</span>
+      <select
+        id="langsel"
+        class="lang"
+        aria-label="Idioma"
+      >
+        <option value="en">English</option><option value="cs">Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es" selected>Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="crumb">
+      <a href="/">Inicio</a>
+      &nbsp;/&nbsp;
+      Análisis
+    </div>
+
+    <div class="eyebrow">Marco de gobernanza</div>
+
+    <h1>Marco de gobernanza de agentes de IA</h1>
+
+    <p class="lead">Los agentes de IA empresariales necesitan más que controles técnicos. Requieren propiedad clara, clasificación de riesgo, supervisión humana, evidencias, control del despliegue y un ciclo de vida que haga visible la responsabilidad antes y después de producción.</p>
+  </div>
+
+  <div class="layout">
+
+    <article>
+
+      <p>Un agente de IA puede recuperar información, razonar sobre contexto, invocar herramientas, iniciar workflows y, en algunos casos, ejecutar acciones sin que una persona realice manualmente cada paso. Por eso, la gobernanza de agentes es distinta de la gobernanza tradicional de software y de la de un asistente generativo aislado.</p>
+<p>La cuestión práctica no es solo si una organización permite la IA. Es si cada agente tiene un propósito conocido, un propietario, límites de autoridad y datos, una vía de escalado, evidencias de prueba y un estado operativo definido.</p>
+<p>Un marco útil gobierna todo el ciclo de vida: idea, diseño, desarrollo, pruebas, aprobación, despliegue, monitorización, cambios y retirada.</p>
+
+      
+<section id="principles">
+  <h2>1. Empezar por principios de gobernanza</h2>
+  <p>Un modelo de gobernanza debe comenzar con un conjunto reducido de principios consistentes aplicables a todo el parque de agentes. Deben ser comprensibles para product owners, desarrolladores, riesgos, compliance y negocio.</p>
+<p>Los principios clave son propiedad trazable, mínimo privilegio, controles proporcionales, responsabilidad humana, evidencias desde el diseño y cambios controlados.</p>
+  <ul><li>Cada agente tiene un propietario de negocio y un propietario técnico identificados.</li><li>Cada agente opera dentro de un propósito y límite de autoridad explícitos.</li><li>El acceso a sistemas, datos y acciones sigue el principio de mínimo privilegio.</li><li>La supervisión humana se diseña según las consecuencias potenciales de un error.</li><li>Las evidencias de prueba y aprobación se conservan y pueden reproducirse.</li><li>Los cambios materiales desencadenan una nueva evaluación.</li></ul>
+</section>
+
+<section id="inventory">
+  <h2>2. Mantener un inventario autoritativo de agentes</h2>
+  <p>Una organización no puede gobernar agentes que no puede identificar. Por ello, el inventario empresarial es un control fundamental.</p>
+<p>El inventario debe ir más allá de una lista de nombres y permitir entender qué hace el agente, dónde opera, a qué sistemas accede y quién responde por él.</p>
+  <ul><li>Nombre, versión y estado del ciclo de vida.</li><li>Propósito de negocio y usuarios previstos.</li><li>Propietario de negocio, propietario técnico y responsable de soporte.</li><li>Entorno Microsoft, solución y ubicación de despliegue.</li><li>Sistemas conectados, conectores, herramientas y categorías de datos.</li><li>Permisos de acción y autoridad transaccional.</li><li>Clasificación de riesgo y nivel de aprobación requerido.</li><li>Modelo de supervisión humana.</li><li>Evidencias de prueba, estado de certificación y fecha de última revisión.</li></ul>
+</section>
+
+<section id="classification">
+  <h2>3. Clasificar el riesgo antes del despliegue</h2>
+  <p>La clasificación de riesgo determina cuánta gobernanza necesita un agente. No importa solo el modelo utilizado, sino lo que el agente completo puede ver, decidir y hacer.</p>
+<p>Un agente de consulta en modo lectura es muy distinto de uno capaz de aprobar transacciones, comunicarse externamente, modificar registros o activar procesos.</p>
+<p>CAI Score es el enfoque estructurado de ColleagueAI para clasificar el riesgo de agentes empresariales. Considera autonomía, impacto, sensibilidad de datos, acceso a herramientas, reversibilidad, supervisión y requisitos de gobernanza.</p>
+  
+</section>
+
+<section id="ownership">
+  <h2>4. Separar responsabilidad de negocio y propiedad técnica</h2>
+  <p>Los equipos técnicos pueden construir y mantener un agente, pero no deben ser los únicos responsables del resultado de negocio. La función que utiliza el agente debe seguir siendo responsable del proceso y sus consecuencias.</p>
+<p>Un modelo maduro distingue entre propiedad de negocio, propiedad técnica y garantía de gobernanza.</p>
+<p>El modelo de responsabilidad también debe definir claramente los derechos de decisión. El responsable de negocio aprueba el propósito previsto, los resultados aceptables y los cambios materiales del proceso, mientras que el responsable técnico mantiene la responsabilidad sobre la integridad de los componentes de la solución, la configuración y los controles técnicos. Las funciones de gobernanza, riesgo, seguridad o cumplimiento pueden aportar revisión independiente sin sustituir la responsabilidad del negocio.</p>
+  
+</section>
+
+<section id="access">
+  <h2>5. Gobernar identidad, accesos y permisos de herramientas</h2>
+  <p>La capacidad de un agente depende en gran medida de los sistemas y acciones a los que puede acceder. Los conectores, credenciales, identidades de servicio y permisos deben tratarse como controles de primer nivel.</p>
+<p>Los permisos deben limitarse al mínimo necesario para el caso de uso aprobado.</p>
+  <ul><li>Usar identidades dedicadas cuando la arquitectura lo permita.</li><li>Restringir conectores y acciones a casos de uso aprobados.</li><li>Evitar permisos amplios concedidos solo por comodidad de desarrollo.</li><li>Registrar acciones privilegiadas en logs auditables.</li><li>Utilizar gates de aprobación para acciones irreversibles o de alto impacto.</li><li>Revalidar permisos cuando cambien workflows o integraciones.</li></ul>
+</section>
+
+<section id="oversight">
+  <h2>6. Diseñar la supervisión humana dentro del workflow</h2>
+  <p>La supervisión humana no debe ser una declaración genérica de que una persona sigue siendo responsable. Debe indicar exactamente dónde las personas revisan, aprueban, intervienen o detienen al agente.</p>
+<p>El modelo adecuado depende del riesgo. Algunos agentes pueden operar de forma autónoma en tareas acotadas y de bajo riesgo; otros necesitan aprobación humana antes de una acción relevante.</p>
+<p>El control debe especificar el punto de intervención, la persona que realiza la revisión, la información disponible para ella y las acciones que está autorizada a realizar. Una aprobación meramente formal no es suficiente si la persona no puede comprender o detener el resultado propuesto. Por ello, la supervisión humana debe probarse como un control operativo real y no limitarse a una declaración de política.</p>
+  
+</section>
+
+<section id="testing">
+  <h2>7. Probar el agente como un sistema completo</h2>
+  <p>El assurance del agente requiere probar el workflow completo. Importan el prompt, los permisos, llamadas a herramientas, comportamiento ante fallos, tratamiento de datos, escalado, calidad del output y recuperación ante entradas inesperadas.</p>
+<p>Un paquete de producción debe conservar evidencia de qué se probó, qué comportamiento se esperaba, qué limitaciones existen y qué versión superó las pruebas.</p>
+  <ul><li>Pruebas funcionales y por escenarios.</li><li>Pruebas de permisos y conectores.</li><li>Rutas de fallo y excepción.</li><li>Rutas de aprobación y escalado.</li><li>Tratamiento de datos sensibles.</li><li>Criterios de calidad de salida.</li><li>Logging y generación de evidencias.</li><li>Pruebas de regresión tras cambios materiales.</li></ul>
+</section>
+
+<section id="deployment">
+  <h2>8. Convertir el despliegue en una transferencia controlada</h2>
+  <p>Un agente empaquetado debe tener una frontera de despliegue clara. El proveedor puede aportar una solución probada, documentación, guías de configuración, evidencias de gobernanza e instrucciones de despliegue, pero el cliente controla su propio tenant y entorno operativo.</p>
+<p>En los productos ColleagueAI, el despliegue y el runtime permanecen en el entorno Microsoft del cliente. La configuración específica del tenant, las integraciones, el despliegue y la operación los realiza el cliente o su partner de implementación aprobado.</p>
+<p>Una transferencia controlada también debe documentar los requisitos previos, variables de entorno, referencias de conexión, roles necesarios, limitaciones conocidas y pasos de validación posteriores a la importación. Esto permite al cliente o a su socio de implementación reproducir la configuración probada sin depender de conocimientos no documentados del desarrollador original. La versión desplegada debe seguir siendo trazable hasta el paquete y las evidencias aprobadas.</p>
+  
+</section>
+
+<section id="monitoring">
+  <h2>9. Monitorizar el riesgo operativo y los cambios materiales</h2>
+  <p>La aprobación inicial no pone fin a la gobernanza. El comportamiento del agente puede cambiar cuando se modifican prompts, modelos, herramientas, permisos, fuentes de conocimiento o sistemas conectados.</p>
+<p>La gobernanza continua debe centrarse en cambios materiales, excepciones, incidentes, patrones de uso y evidencias de que la configuración desplegada sigue correspondiendo al diseño aprobado.</p>
+<p>La monitorización debe vincularse a desencadenantes explícitos de revisión. Entre ellos pueden estar un nuevo conector, permisos más amplios, un modelo diferente, una nueva fuente de conocimiento, un aumento de anulaciones, excepciones repetidas o cambios en el proceso empresarial. Estas señales deben determinar cuándo el agente necesita investigación, corrección, recertificación o una nueva decisión de gobernanza.</p>
+  
+</section>
+
+<section id="retirement">
+  <h2>10. Gobernar la retirada con el mismo rigor que el lanzamiento</h2>
+  <p>Los agentes sin uso o sustituidos no deben conservar accesos inactivos indefinidamente. La retirada debe eliminar permisos, desactivar integraciones, archivar evidencias y actualizar el inventario.</p>
+<p>Un proceso de retirada limpio reduce la superficie de ataque y evita acumular capacidades de IA sin propietario.</p>
+<p>La retirada del agente también debe cerrar sus dependencias operativas y de gobernanza. Los responsables deben confirmar que los flujos programados están desactivados, las credenciales de servicio se han revocado cuando corresponda, las integraciones dependientes ya no esperan al agente y las evidencias se conservan según la política aplicable. El inventario debe registrar la fecha de retirada y la disposición final del agente.</p>
+  
+</section>
+
+      
+<section class="framework" id="lifecycle">
+  <h2>Un ciclo práctico de gobernanza</h2>
+  <ol>
+    <li>Identificar y registrar el caso de uso.</li><li>Asignar propietarios responsables.</li><li>Clasificar el riesgo del agente.</li><li>Definir límites de datos, herramientas y autoridad.</li><li>Diseñar la supervisión humana.</li><li>Construir y probar el workflow completo.</li><li>Revisar evidencias y aprobar el despliegue.</li><li>Desplegar en el entorno controlado del cliente.</li><li>Monitorizar operación y cambios relevantes.</li><li>Reevaluar, recertificar o retirar.</li>
+  </ol>
+</section>
+
+      <section class="boundary" id="deployment-boundary">
+        <h2>Límite de producto y despliegue</h2>
+        <p>ColleagueAI diseña, prueba, certifica, empaqueta y vende productos de agentes de IA empresariales. Los clientes o partners de implementación aprobados importan, configuran, integran, despliegan y operan estos productos dentro del entorno Microsoft del cliente. Las licencias Microsoft, el runtime de Copilot Studio, Power Platform, Azure, Dataverse, los conectores y otros servicios de ejecución siguen siendo responsabilidad del cliente.</p>
+      </section>
+
+      
+<section id="faq">
+  <h2>Preguntas frecuentes</h2>
+  
+<details class="faq">
+  <summary>¿Qué es la gobernanza de agentes de IA?</summary>
+  <p>Es el conjunto de controles de propiedad, riesgo, acceso, supervisión humana, pruebas, evidencias, despliegue y ciclo de vida que mantiene a los agentes dentro de los límites aprobados de la organización.</p>
+</details>
+
+<details class="faq">
+  <summary>¿Es lo mismo que la gobernanza de modelos?</summary>
+  <p>No. La gobernanza de agentes también debe cubrir herramientas, permisos, fuentes de datos, acciones, lógica de workflow, supervisión humana y configuración operativa.</p>
+</details>
+
+<details class="faq">
+  <summary>¿Quién debe ser responsable de un agente empresarial?</summary>
+  <p>El proceso debe tener un propietario de negocio responsable y la solución un propietario técnico. Riesgos o gobernanza pueden aportar assurance independiente.</p>
+</details>
+
+<details class="faq">
+  <summary>¿Todos los agentes necesitan los mismos controles?</summary>
+  <p>No. Los controles deben ser proporcionales al riesgo.</p>
+</details>
+
+<details class="faq">
+  <summary>¿Dónde se ejecutan los agentes ColleagueAI?</summary>
+  <p>Los productos ColleagueAI están diseñados para ser importados, configurados, desplegados y operados en el entorno Microsoft del cliente. ColleagueAI no opera el runtime del cliente.</p>
+</details>
+</section>
+
+    </article>
+
+    
+    <section class="relevant-agents" aria-labelledby="relevant-agents-title">
+      <h2 id="relevant-agents-title">Agentes relacionados</h2>
+      <ul>
+        
+          <li>
+            <a href="/es/agents/risk-control-oversight-agent">
+              Risk Control Oversight Agent
+            </a>
+          </li>
+        
+          <li>
+            <a href="/es/agents/compliance-and-audit-action-tracker">
+              Compliance &amp; Audit Action Tracker
+            </a>
+          </li>
+        
+          <li>
+            <a href="/es/agents/four-eyes-control-assistant">
+              Four-Eyes Control Assistant
+            </a>
+          </li>
+        
+      </ul>
+    </section>
+  
+
+    <aside class="side">
+      <h2>Recursos relacionados de ColleagueAI</h2>
+
+      <a href="/es/score">CAI Score</a>
+      <a href="/es/confianza">Confianza y gobernanza</a>
+      <a href="/es/certificacion">Certificación</a>
+      <a href="/es/agentes">Catálogo de agentes de IA</a>
+
+      <a class="cta" href="/es/demo">Solicitar acceso</a>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ColleagueAI — Agentes de IA empresariales gobernados
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      case "en": window.location.assign("/insights/ai-agent-governance-framework"); break;
+case "cs": window.location.assign("/cs/insights/ramec-governance-ai-agentu"); break;
+case "de": window.location.assign("/de/insights/governance-framework-fuer-ki-agenten"); break;
+case "fr": window.location.assign("/fr/insights/cadre-gouvernance-agents-ia"); break;
+case "es": window.location.assign("/es/insights/marco-gobernanza-agentes-ia"); break;
+case "it": window.location.assign("/it/insights/framework-governance-agenti-ai"); break;
+case "pl": window.location.assign("/pl/insights/ramy-governance-agentow-ai"); break;
+case "pt": window.location.assign("/pt/insights/framework-governanca-agentes-ia"); break;
+      default:
+        break;
+    }
+  });
+})();
+</script>
+</body>
+</html>

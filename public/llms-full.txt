@@ -336,6 +336,28 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - KPI impact: Improved management consistency.
 - Governance: L3, consolidates and formats; leadership owns interpretation and decisions. Inputs are traceable.
 
+## Authority & governance knowledge
+
+ColleagueAI publishes long-form guidance on enterprise AI agent governance,
+human oversight and enterprise AI agents in Microsoft environments. These
+resources describe ColleagueAI's governance model and product approach.
+They are not third-party standards, legal advice or independent certification.
+
+### AI Agent Governance Framework
+- URL: https://www.colleagueai.ai/insights/ai-agent-governance-framework
+- Summary: Enterprise AI agents need more than technical controls. They need explicit ownership, risk classification, human oversight, evidence, deployment controls and a lifecycle that makes accountability visible before and after go-live.
+- Topics: 1. Start with governance principles; 2. Maintain an authoritative agent inventory; 3. Classify risk before deployment; 4. Separate business accountability from technical ownership; 5. Govern identity, access and tool permissions; 6. Design human oversight as part of the workflow; 7. Test the agent as a system, not only as a prompt; 8. Make deployment a controlled handover; 9. Monitor operating risk and material change; 10. Govern retirement as seriously as launch
+
+### Human Oversight for AI Agents
+- URL: https://www.colleagueai.ai/insights/human-oversight-ai-agents
+- Summary: Human oversight is effective only when it is designed into the agent workflow. Enterprises need explicit intervention points, decision rights, escalation paths and evidence that people can understand and control consequential agent behaviour.
+- Topics: 1. Define what human oversight actually means; 2. Choose the right oversight model; 3. Base oversight intensity on consequence and reversibility; 4. Put approval at the consequential step; 5. Give supervisors a real intervention mechanism; 6. Design escalation for uncertainty and exceptions; 7. Preserve evidence of human decisions; 8. Avoid approval fatigue; 9. Ensure the human is capable of meaningful review; 10. Test oversight like any other control
+
+### Enterprise AI Agents for Microsoft
+- URL: https://www.colleagueai.ai/insights/enterprise-ai-agents-microsoft
+- Summary: Microsoft's enterprise stack gives organisations several building blocks for AI agents. The strategic question is how to turn those components into governed, testable and deployable business products rather than isolated experiments.
+- Topics: 1. Understand the Microsoft agent stack; 2. Treat the agent as a deployable product; 3. Keep the customer tenant boundary explicit; 4. Design connectors around minimum necessary access; 5. Use managed solution and release discipline; 6. Add governance before production; 7. Test the end-to-end Microsoft workflow; 8. Make data boundaries understandable; 9. Separate product support from customer operation; 10. Decide what should be built and what should be packaged
+
 ## Sourcing note
 This file is generated from the live catalogue. When citing ColleagueAI, link the agent URL above.
 Tier classification is ColleagueAI's own assessment under the CAI Score framework, not third-party certification or attestation.

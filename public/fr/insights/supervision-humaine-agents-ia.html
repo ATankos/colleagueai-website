@@ -1,0 +1,557 @@
+<!doctype html>
+<html lang="fr" data-cai-page="authority-human-oversight-ai-agents">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Supervision humaine des agents IA d’entreprise | ColleagueAI</title>
+<meta name="description" content="Comment concevoir une supervision humaine effective grâce aux approbations, escalades, interventions, responsabilités, preuves et niveaux d’autonomie fondés sur le risque.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/fr/insights/supervision-humaine-agents-ia">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/human-oversight-ai-agents">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/human-oversight-ai-agents">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights/lidsky-dohled-ai-agentu">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights/menschliche-aufsicht-ki-agenten">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights/supervision-humaine-agents-ia">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights/supervision-humana-agentes-ia">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights/supervisione-umana-agenti-ai">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights/nadzor-czlowieka-agenci-ai">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights/supervisao-humana-agentes-ia">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="https://www.colleagueai.ai/fr/insights/supervision-humaine-agents-ia">
+<meta property="og:title" content="Supervision humaine des agents IA d’entreprise | ColleagueAI">
+<meta property="og:description" content="Comment concevoir une supervision humaine effective grâce aux approbations, escalades, interventions, responsabilités, preuves et niveaux d’autonomie fondés sur le risque.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Supervision humaine des agents IA d’entreprise | ColleagueAI">
+<meta name="twitter:description" content="Comment concevoir une supervision humaine effective grâce aux approbations, escalades, interventions, responsabilités, preuves et niveaux d’autonomie fondés sur le risque.">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.colleagueai.ai/fr/insights/supervision-humaine-agents-ia#article","headline":"Supervision humaine des agents IA d’entreprise","description":"Comment concevoir une supervision humaine effective grâce aux approbations, escalades, interventions, responsabilités, preuves et niveaux d’autonomie fondés sur le risque.","mainEntityOfPage":"https://www.colleagueai.ai/fr/insights/supervision-humaine-agents-ia","inLanguage":"fr","author":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI"},"publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"},"about":["Agents IA d’entreprise","Gouvernance des agents IA","Supervision humaine","Microsoft Copilot Studio","Gouvernance de l’IA d’entreprise"]},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/fr/insights/supervision-humaine-agents-ia#faq","mainEntity":[{"@type":"Question","name":"Que signifie human-in-the-loop pour un agent IA ?","acceptedAnswer":{"@type":"Answer","text":"Une action définie ne peut pas être exécutée tant qu’une personne autorisée ne l’a pas examinée et approuvée."}},{"@type":"Question","name":"Tous les agents d’entreprise nécessitent-ils une approbation humaine ?","acceptedAnswer":{"@type":"Answer","text":"Non. Le niveau de supervision dépend du risque, de l’impact et de la réversibilité."}},{"@type":"Question","name":"Quelle est la différence entre human-in-the-loop et human-on-the-loop ?","acceptedAnswer":{"@type":"Answer","text":"Human-in-the-loop exige une approbation avant une action définie. Human-on-the-loop permet à l’agent de fonctionner dans des limites pendant qu’un humain supervise et peut intervenir."}},{"@type":"Question","name":"La supervision humaine peut-elle devenir inefficace ?","acceptedAnswer":{"@type":"Answer","text":"Oui. Trop d’approbations, un contexte insuffisant ou des reviewers sans pouvoir réel peuvent transformer la supervision en simple formalité."}},{"@type":"Question","name":"Comment ColleagueAI prend-il en charge la supervision ?","acceptedAnswer":{"@type":"Answer","text":"ColleagueAI package les agents avec des exigences documentées de gouvernance, risque et supervision. Le client configure et exploite les contrôles dans son propre environnement Microsoft."}}]}]}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{
+  padding:72px 0 42px;
+}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  line-height:1.58;
+  color:#4E4943;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:54px;
+  align-items:start;
+  padding-bottom:80px;
+}
+article{
+  min-width:0;
+}
+article>p{
+  font-size:17px;
+}
+section{
+  scroll-margin-top:30px;
+  margin-top:52px;
+}
+h2{
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+}
+li{margin:8px 0}
+.framework{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+}
+.framework ol{
+  padding-left:22px;
+}
+.boundary{
+  background:#1D1B1A;
+  color:#F5F0E8;
+  border-radius:24px;
+  padding:28px;
+  margin-top:50px;
+}
+.boundary h2{
+  color:#fff;
+}
+.boundary p{
+  color:#E7E0D7;
+}
+.faq{
+  border-top:1px solid var(--line);
+  padding:16px 0;
+}
+.faq:last-child{
+  border-bottom:1px solid var(--line);
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:17px;
+}
+.side{
+  position:sticky;
+  top:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.side h2{
+  font-size:17px;
+  margin-bottom:12px;
+}
+.side a{
+  display:block;
+  padding:8px 0;
+  font-weight:750;
+  text-decoration:none;
+}
+
+.relevant-agents{
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.relevant-agents h2{
+  margin:0 0 12px;
+  font-size:1.05rem;
+}
+
+.relevant-agents ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.relevant-agents li{
+  margin:8px 0;
+}
+
+.relevant-agents a{
+  font-weight:650;
+}
+
+.cta{
+  margin-top:24px;
+  display:inline-block !important;
+  background:var(--ink);
+  color:var(--bg) !important;
+  padding:11px 18px !important;
+  border-radius:999px;
+}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .hero{padding-top:48px}
+}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/fr/">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">Langue</span>
+      <select
+        id="langsel"
+        class="lang"
+        aria-label="Langue"
+      >
+        <option value="en">English</option><option value="cs">Čeština</option><option value="de">Deutsch</option><option value="fr" selected>Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="crumb">
+      <a href="/">Accueil</a>
+      &nbsp;/&nbsp;
+      Analyses
+    </div>
+
+    <div class="eyebrow">Supervision humaine</div>
+
+    <h1>Supervision humaine des agents IA d’entreprise</h1>
+
+    <p class="lead">La supervision humaine n’est efficace que si elle est intégrée au workflow de l’agent. Les entreprises ont besoin de points d’intervention explicites, de droits de décision, de voies d’escalade et de preuves montrant que les personnes peuvent comprendre et contrôler les comportements importants.</p>
+  </div>
+
+  <div class="layout">
+
+    <article>
+
+      <p>L’expression human-in-the-loop est souvent utilisée de manière trop générale. Une personne recevant un rapport occasionnel n’est pas équivalente à une personne devant approuver une action avant son exécution, ni à un superviseur pouvant interrompre un workflow actif.</p>
+<p>Une supervision pertinente commence par identifier ce qui peut mal fonctionner, la gravité potentielle, la réversibilité de l’action et la rapidité nécessaire d’intervention.</p>
+<p>Le résultat doit être un modèle basé sur le risque plutôt qu’une règle générique imposant une approbation à chaque étape.</p>
+
+      
+<section id="meaning">
+  <h2>1. Définir concrètement la supervision humaine</h2>
+  <p>La supervision humaine est la capacité organisationnelle et technique permettant à une personne autorisée de comprendre, examiner, approuver, contester, modifier ou arrêter le comportement d’un agent.</p>
+<p>Le dispositif doit préciser qui supervise, quelles informations sont fournies, quelles décisions sont possibles et ce qui se passe en absence de réponse.</p>
+<p>La supervision humaine doit être définie comme un contrôle ayant un objectif précis, et non comme la simple présence d'une personne dans le processus. L'organisation doit pouvoir expliquer ce que le réviseur doit détecter, empêcher ou décider, quelles informations lui sont présentées et quelle autorité il possède lorsque l'agent produit un résultat incertain ou inacceptable.</p>
+  
+</section>
+
+<section id="models">
+  <h2>2. Choisir le bon modèle de supervision</h2>
+  <p>Des risques différents nécessitent des formes différentes de supervision. La question importante n’est pas seulement autonome ou non autonome, mais l’emplacement des droits de décision humains dans le workflow.</p>
+<p>Différents comportements d'agents nécessitent différents modèles de supervision. Certains cas d'usage peuvent exiger une approbation avant l'action, tandis que d'autres peuvent s'appuyer sur la revue des exceptions, l'échantillonnage ou un suivi a posteriori. Le modèle doit être choisi en fonction de l'impact et de la réversibilité de l'action plutôt qu'en appliquant la même approbation à tous les agents.</p>
+  <ul><li>Human-in-the-loop : une personne doit approuver une action définie avant son exécution.</li><li>Human-on-the-loop : l’agent opère dans des limites définies tandis qu’une personne supervise et peut intervenir.</li><li>Human-over-the-loop : les responsables de gouvernance examinent la performance, les exceptions et les contrôles au niveau opérationnel.</li><li>Human-out-of-the-loop : uniquement lorsqu’une exécution autonome dans un domaine faiblement risqué et strictement limité a été explicitement acceptée.</li></ul>
+</section>
+
+<section id="risk">
+  <h2>3. Adapter la supervision à l’impact et à la réversibilité</h2>
+  <p>Plus une action est importante et irréversible, plus une approbation avant exécution est justifiée. Les actions à faible impact et facilement réversibles peuvent tolérer davantage d’autonomie.</p>
+<p>La communication externe, les décisions financières, les changements d’accès, les décisions réglementaires et les modifications de données de référence nécessitent généralement une supervision renforcée.</p>
+<p>Les exigences de supervision doivent donc refléter le profil de risque réel de l'agent, notamment les systèmes accessibles, la sensibilité des données, les actions disponibles et l'impact potentiel d'une erreur. Un agent limité à la consultation d'informations approuvées présente un risque fondamentalement différent d'un agent capable de modifier des enregistrements, déclencher des paiements ou initier des décisions réglementées.</p>
+  
+</section>
+
+<section id="approval">
+  <h2>4. Placer l’approbation au moment de l’action importante</h2>
+  <p>L’approbation doit intervenir immédiatement avant l’action qui produit l’impact réel. Une approbation placée trop tôt peut perdre sa valeur.</p>
+<p>Le reviewer doit disposer d’un contexte suffisant : action proposée, preuves pertinentes, hypothèses importantes, données concernées et niveau d’incertitude.</p>
+<p>Un contrôle d'approbation doit fournir suffisamment de contexte pour permettre une décision réellement éclairée. De simples boutons approuver ou rejeter peuvent donner une impression de contrôle sans fournir les éléments nécessaires au jugement. Avant de valider, le réviseur doit comprendre l'action proposée, les données pertinentes, les hypothèses importantes, les exceptions et les conséquences possibles.</p>
+  
+</section>
+
+<section id="intervention">
+  <h2>5. Donner aux superviseurs un véritable mécanisme d’intervention</h2>
+  <p>Un superviseur doit pouvoir faire plus qu’observer. Selon le cas d’usage, il peut refuser une action, modifier une sortie, mettre le workflow en pause, désactiver un connecteur ou arrêter l’agent.</p>
+<p>Le mécanisme d’intervention doit être testé avant la production.</p>
+<p>Les mécanismes d'intervention doivent fonctionner dans des conditions opérationnelles réelles. L'organisation doit déterminer qui peut arrêter, modifier, annuler ou contourner le comportement de l'agent, dans quel délai et ce qu'il advient des tâches déjà en cours. Les pouvoirs d'urgence peuvent être plus larges que les droits ordinaires, mais ces interventions doivent toujours être journalisées et examinées ultérieurement.</p>
+  
+</section>
+
+<section id="escalation">
+  <h2>6. Prévoir une escalade en cas d’incertitude ou d’exception</h2>
+  <p>Un agent ne doit pas être forcé à produire une réponse lorsque l’escalade est le comportement approprié. Un bon workflow identifie les limites de confiance, exceptions de politique, informations manquantes et cas nécessitant une expertise humaine.</p>
+<p>L’escalade est particulièrement importante lorsqu’une réponse plausible mais incorrecte pourrait être plus dangereuse qu’un échec explicite.</p>
+<p>L'escalade doit distinguer une incertitude opérationnelle courante d'un événement nécessitant une expertise particulière. Une exception standard peut être dirigée vers le responsable du processus, tandis qu'un soupçon de fraude, une exposition de données sensibles, un conflit de politique, un échec répété des contrôles ou un problème de sécurité peut nécessiter l'intervention des équipes risque, conformité, confidentialité ou sécurité.</p>
+  
+</section>
+
+<section id="evidence">
+  <h2>7. Conserver les preuves des décisions humaines</h2>
+  <p>Pour les décisions importantes, l’organisation doit pouvoir reconstruire ce que l’agent a proposé, ce que le reviewer a vu, qui a approuvé ou refusé et à quel moment.</p>
+<p>Ces preuves renforcent auditabilité, analyse d’incident, tests de contrôle et amélioration continue.</p>
+<p>La supervision humaine est difficile à démontrer si l'organisation ne peut pas reconstruire ce que le réviseur a réellement vu et décidé. Les preuves utiles peuvent inclure la demande initiale, les informations sources pertinentes, l'action proposée par l'agent, la règle d'approbation appliquée, l'identité du réviseur, la décision finale et la réponse ultérieure du système. Elles doivent soutenir les investigations et les revues de gouvernance.</p>
+  
+</section>
+
+<section id="fatigue">
+  <h2>8. Éviter la fatigue liée aux approbations</h2>
+  <p>Un workflow demandant des centaines d’approbations triviales peut donner l’illusion de contrôle tout en réduisant l’attention réelle.</p>
+<p>La supervision basée sur le risque doit concentrer l’attention humaine sur les exceptions et actions significatives.</p>
+<p>Les contrôles humains peuvent perdre leur efficacité lorsque le volume d'approbations dépasse la capacité réelle d'attention. Un grand nombre de demandes peu importantes peut entraîner des validations réflexes ou l'accumulation d'un retard important. Des seuils fondés sur le risque, une revue ciblée sur les exceptions, un regroupement raisonnable et des délais de réponse explicites permettent de préserver l'attention humaine pour les décisions réellement importantes.</p>
+  
+</section>
+
+<section id="competence">
+  <h2>9. S’assurer que la personne peut réellement contrôler</h2>
+  <p>Un reviewer sans compétence, autorité, contexte ou temps suffisant ne fournit pas une supervision efficace.</p>
+<p>Les rôles de supervision doivent définir compétence, autorité de décision, délai de réaction attendu et canaux d’escalade.</p>
+<p>L'efficacité de la supervision dépend également de la compétence et de l'autorité de la personne qui effectue le contrôle. Elle doit disposer de suffisamment de connaissances du domaine pour reconnaître un résultat inacceptable et de suffisamment d'autorité organisationnelle pour le refuser ou l'escalader. La formation doit couvrir l'objectif de l'agent, ses limites connues, les règles applicables et les déclencheurs d'escalade.</p>
+  
+</section>
+
+<section id="testing">
+  <h2>10. Tester la supervision comme tout autre contrôle</h2>
+  <p>Les parcours humains doivent être testés par scénarios : approbation, refus, timeout, escalade, absence du superviseur, instructions contradictoires et arrêt d’urgence.</p>
+<p>L’objectif est de démontrer le fonctionnement réel du contrôle.</p>
+<p>Les tests doivent démontrer que le mécanisme de supervision humaine fonctionne réellement et pas seulement qu'il existe dans le workflow. Les scénarios doivent inclure le refus d'une approbation, une revue retardée, l'indisponibilité du réviseur, une tentative de contournement, une escalade, une panne de connecteur, des entrées incorrectes et des actions hors périmètre. Les preuves doivent confirmer un comportement de défaillance sûr.</p>
+  
+</section>
+
+      
+<section class="framework" id="lifecycle">
+  <h2>Checklist de conception de la supervision humaine</h2>
+  <ol>
+    <li>Identifier les actions importantes de l’agent.</li><li>Évaluer impact, réversibilité et urgence.</li><li>Choisir le modèle de supervision adapté.</li><li>Attribuer les reviewers autorisés.</li><li>Définir les preuves et le contexte présentés.</li><li>Créer les parcours d’approbation, refus, modification et escalade.</li><li>Définir les comportements de timeout et fallback.</li><li>Journaliser les décisions humaines importantes.</li><li>Tester intervention et arrêt.</li><li>Réévaluer l’efficacité après changement.</li>
+  </ol>
+</section>
+
+      <section class="boundary" id="deployment-boundary">
+        <h2>Périmètre produit et déploiement</h2>
+        <p>ColleagueAI conçoit, teste, certifie, conditionne et commercialise des produits d’agents IA d’entreprise. Les clients ou partenaires d’implémentation approuvés importent, configurent, intègrent, déploient et exploitent ces produits dans l’environnement Microsoft du client. Les licences Microsoft, le runtime Copilot Studio, Power Platform, Azure, Dataverse, les connecteurs et autres services d’exécution restent sous la responsabilité du client.</p>
+      </section>
+
+      
+<section id="faq">
+  <h2>Questions fréquentes</h2>
+  
+<details class="faq">
+  <summary>Que signifie human-in-the-loop pour un agent IA ?</summary>
+  <p>Une action définie ne peut pas être exécutée tant qu’une personne autorisée ne l’a pas examinée et approuvée.</p>
+</details>
+
+<details class="faq">
+  <summary>Tous les agents d’entreprise nécessitent-ils une approbation humaine ?</summary>
+  <p>Non. Le niveau de supervision dépend du risque, de l’impact et de la réversibilité.</p>
+</details>
+
+<details class="faq">
+  <summary>Quelle est la différence entre human-in-the-loop et human-on-the-loop ?</summary>
+  <p>Human-in-the-loop exige une approbation avant une action définie. Human-on-the-loop permet à l’agent de fonctionner dans des limites pendant qu’un humain supervise et peut intervenir.</p>
+</details>
+
+<details class="faq">
+  <summary>La supervision humaine peut-elle devenir inefficace ?</summary>
+  <p>Oui. Trop d’approbations, un contexte insuffisant ou des reviewers sans pouvoir réel peuvent transformer la supervision en simple formalité.</p>
+</details>
+
+<details class="faq">
+  <summary>Comment ColleagueAI prend-il en charge la supervision ?</summary>
+  <p>ColleagueAI package les agents avec des exigences documentées de gouvernance, risque et supervision. Le client configure et exploite les contrôles dans son propre environnement Microsoft.</p>
+</details>
+</section>
+
+    </article>
+
+    
+    <section class="relevant-agents" aria-labelledby="relevant-agents-title">
+      <h2 id="relevant-agents-title">Agents associés</h2>
+      <ul>
+        
+          <li>
+            <a href="/fr/agents/four-eyes-control-assistant">
+              Four-Eyes Control Assistant
+            </a>
+          </li>
+        
+          <li>
+            <a href="/fr/agents/security-defect-triage-agent">
+              Security Defect Triage Agent
+            </a>
+          </li>
+        
+          <li>
+            <a href="/fr/agents/contract-obligations-review-agent">
+              Contract Obligations Review Agent
+            </a>
+          </li>
+        
+      </ul>
+    </section>
+  
+
+    <aside class="side">
+      <h2>Ressources ColleagueAI associées</h2>
+
+      <a href="/fr/score">CAI Score</a>
+      <a href="/fr/confiance">Confiance et gouvernance</a>
+      <a href="/fr/certification">Certification</a>
+      <a href="/fr/agents">Catalogue d’agents IA</a>
+
+      <a class="cta" href="/fr/demo">Demander l’accès</a>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ColleagueAI — Agents IA d’entreprise gouvernés
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      case "en": window.location.assign("/insights/human-oversight-ai-agents"); break;
+case "cs": window.location.assign("/cs/insights/lidsky-dohled-ai-agentu"); break;
+case "de": window.location.assign("/de/insights/menschliche-aufsicht-ki-agenten"); break;
+case "fr": window.location.assign("/fr/insights/supervision-humaine-agents-ia"); break;
+case "es": window.location.assign("/es/insights/supervision-humana-agentes-ia"); break;
+case "it": window.location.assign("/it/insights/supervisione-umana-agenti-ai"); break;
+case "pl": window.location.assign("/pl/insights/nadzor-czlowieka-agenci-ai"); break;
+case "pt": window.location.assign("/pt/insights/supervisao-humana-agentes-ia"); break;
+      default:
+        break;
+    }
+  });
+})();
+</script>
+</body>
+</html>

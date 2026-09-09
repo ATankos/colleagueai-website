@@ -1,0 +1,558 @@
+<!doctype html>
+<html lang="cs" data-cai-page="authority-enterprise-ai-agents-microsoft">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Podnikoví AI agenti pro prostředí Microsoft | ColleagueAI</title>
+<meta name="description" content="Praktický průvodce balíčkovanými podnikovými AI agenty pro prostředí Microsoft včetně Copilot Studio, Power Automate, Azure, governance, odpovědnosti za nasazení a provozních hranic.">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft">
+<link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/enterprise-ai-agents-microsoft">
+<link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/enterprise-ai-agents-microsoft">
+<link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft">
+<link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights/enterprise-ki-agenten-microsoft">
+<link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights/agents-ia-entreprise-microsoft">
+<link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights/agentes-ia-empresariales-microsoft">
+<link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights/agenti-ai-enterprise-microsoft">
+<link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights/agenci-ai-enterprise-microsoft">
+<link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights/agentes-ia-empresariais-microsoft">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft">
+<meta property="og:title" content="Podnikoví AI agenti pro prostředí Microsoft | ColleagueAI">
+<meta property="og:description" content="Praktický průvodce balíčkovanými podnikovými AI agenty pro prostředí Microsoft včetně Copilot Studio, Power Automate, Azure, governance, odpovědnosti za nasazení a provozních hranic.">
+<meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Podnikoví AI agenti pro prostředí Microsoft | ColleagueAI">
+<meta name="twitter:description" content="Praktický průvodce balíčkovanými podnikovými AI agenty pro prostředí Microsoft včetně Copilot Studio, Power Automate, Azure, governance, odpovědnosti za nasazení a provozních hranic.">
+<meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","@id":"https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft#article","headline":"Podnikoví AI agenti pro prostředí Microsoft","description":"Praktický průvodce balíčkovanými podnikovými AI agenty pro prostředí Microsoft včetně Copilot Studio, Power Automate, Azure, governance, odpovědnosti za nasazení a provozních hranic.","mainEntityOfPage":"https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft","inLanguage":"cs","author":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI"},"publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"},"about":["Podnikoví AI agenti","Governance AI agentů","Lidský dohled","Microsoft Copilot Studio","Governance podnikové AI"]},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/cs/insights/podnikovi-ai-agenti-microsoft#faq","mainEntity":[{"@type":"Question","name":"Jaké Microsoft technologie může podnikový AI agent používat?","acceptedAnswer":{"@type":"Answer","text":"Podle use case může agent používat Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure služby a schválené konektory. Přesná architektura závisí na požadavcích a tenantu zákazníka."}},{"@type":"Question","name":"Hostuje ColleagueAI zákaznické agenty?","acceptedAnswer":{"@type":"Answer","text":"Ne. ColleagueAI balíčkuje a prodává produkty agentů. Zákazníci nebo schválení implementační partneři je nasazují a provozují ve vlastním prostředí Microsoft zákazníka."}},{"@type":"Question","name":"Kdo platí Microsoft licence a runtime?","acceptedAnswer":{"@type":"Answer","text":"Zákazník odpovídá za Microsoft licence a runtime služby potřebné ve vlastním prostředí, včetně relevantních nákladů na Copilot Studio, Power Platform, Azure, Dataverse a konektory."}},{"@type":"Question","name":"Co obsahuje balíček podnikového agenta?","acceptedAnswer":{"@type":"Answer","text":"Přesný obsah závisí na produktu, ale cílový model zahrnuje nasaditelné řešení Microsoft nebo balíček konektorů, instalační a konfigurační pokyny, dokumentaci pro administrátory a uživatele, governance materiály, testovací důkazy, informace o vydání, licenci a informace o certifikaci."}},{"@type":"Question","name":"Je balíčkovaný agent totéž jako implementační služba?","acceptedAnswer":{"@type":"Answer","text":"Ne. Balíčkovaný agent je produkt poskytující otestovaný výchozí bod a materiály pro nasazení. Konfiguraci pro konkrétního zákazníka, integrace, nasazení a provoz provádí zákazník nebo jeho schválený implementační partner."}}]}]}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{
+  padding:72px 0 42px;
+}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  line-height:1.58;
+  color:#4E4943;
+}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 280px;
+  gap:54px;
+  align-items:start;
+  padding-bottom:80px;
+}
+article{
+  min-width:0;
+}
+article>p{
+  font-size:17px;
+}
+section{
+  scroll-margin-top:30px;
+  margin-top:52px;
+}
+h2{
+  font-size:clamp(26px,4vw,38px);
+  line-height:1.08;
+  letter-spacing:-.04em;
+  margin:0 0 18px;
+}
+li{margin:8px 0}
+.framework{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+}
+.framework ol{
+  padding-left:22px;
+}
+.boundary{
+  background:#1D1B1A;
+  color:#F5F0E8;
+  border-radius:24px;
+  padding:28px;
+  margin-top:50px;
+}
+.boundary h2{
+  color:#fff;
+}
+.boundary p{
+  color:#E7E0D7;
+}
+.faq{
+  border-top:1px solid var(--line);
+  padding:16px 0;
+}
+.faq:last-child{
+  border-bottom:1px solid var(--line);
+}
+.faq summary{
+  cursor:pointer;
+  font-weight:800;
+  font-size:17px;
+}
+.side{
+  position:sticky;
+  top:24px;
+  background:rgba(255,255,255,.72);
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:22px;
+}
+.side h2{
+  font-size:17px;
+  margin-bottom:12px;
+}
+.side a{
+  display:block;
+  padding:8px 0;
+  font-weight:750;
+  text-decoration:none;
+}
+
+.relevant-agents{
+  margin-top:28px;
+  padding-top:22px;
+  border-top:1px solid var(--line);
+}
+
+.relevant-agents h2{
+  margin:0 0 12px;
+  font-size:1.05rem;
+}
+
+.relevant-agents ul{
+  margin:0;
+  padding-left:20px;
+}
+
+.relevant-agents li{
+  margin:8px 0;
+}
+
+.relevant-agents a{
+  font-weight:650;
+}
+
+.cta{
+  margin-top:24px;
+  display:inline-block !important;
+  background:var(--ink);
+  color:var(--bg) !important;
+  padding:11px 18px !important;
+  border-radius:999px;
+}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .layout{grid-template-columns:1fr}
+  .side{position:static}
+  .hero{padding-top:48px}
+}
+</style>
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="/cs/">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">Jazyk</span>
+      <select
+        id="langsel"
+        class="lang"
+        aria-label="Jazyk"
+      >
+        <option value="en">English</option><option value="cs" selected>Čeština</option><option value="de">Deutsch</option><option value="fr">Français</option><option value="es">Español</option><option value="it">Italiano</option><option value="pl">Polski</option><option value="pt">Português</option>
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div class="crumb">
+      <a href="/">Domů</a>
+      &nbsp;/&nbsp;
+      Analýzy
+    </div>
+
+    <div class="eyebrow">Podniková AI v Microsoftu</div>
+
+    <h1>Podnikoví AI agenti pro prostředí Microsoft</h1>
+
+    <p class="lead">Podnikový Microsoft stack poskytuje několik stavebních bloků pro AI agenty. Strategická otázka je, jak z těchto komponent vytvořit governované, testovatelné a nasaditelné business produkty místo izolovaných experimentů.</p>
+  </div>
+
+  <div class="layout">
+
+    <article>
+
+      <p>Podnikový AI agent je více než chatbot. Kombinuje instrukce, znalosti, identitu, nástroje, workflow logiku a governance kontroly tak, aby vykonával definovanou business úlohu.</p>
+<p>V prostředí Microsoft mohou tyto schopnosti zahrnovat Copilot Studio, Power Automate, Microsoft 365, Azure, Dataverse a schválené konektory. Přesná architektura závisí na use case a tenant prostředí zákazníka.</p>
+<p>Pro mnoho organizací není hlavní problém přístup k technologii. Problémem je vytvořit opakovatelnou cestu od use case ke governovanému produkčnímu nasazení.</p>
+
+      
+<section id="stack">
+  <h2>1. Pochopte Microsoft agent stack</h2>
+  <p>Copilot Studio poskytuje hlavní prostředí pro tvorbu a správu konverzačních a agentních řešení. Power Automate může orchestrace workflow akcí. Dataverse a Microsoft 365 mohou poskytovat business kontext, zatímco Azure služby mohou podpořit další integrační, identity, bezpečnostní a aplikační požadavky.</p>
+<p>Podnikový návrh má používat pouze komponenty, které jsou pro use case skutečně potřebné. Přidávání technologie bez funkčního nebo governance důvodu zvyšuje složitost.</p>
+<p>Architektura by měla také jednoznačně popsat identitu a kontext, ve kterém jsou jednotlivé akce prováděny. Týmy musí vědět, zda akce běží pod identitou přihlášeného uživatele, prostřednictvím servisního připojení nebo jiné řízené identity, protože tato volba ovlivňuje oprávnění, auditovatelnost i oddělení pravomocí. Tyto závislosti by měly být zdokumentovány ještě před schválením produkčního nasazení.</p>
+  
+</section>
+
+<section id="package">
+  <h2>2. Zacházejte s agentem jako s nasaditelným produktem</h2>
+  <p>Produkční připravenost vyžaduje více než funkční vývojové prostředí. Nasaditelný agent má mít řízené komponenty řešení, pokyny ke konfiguraci, zdokumentované závislosti, testovací důkazy, governance požadavky, poznámky k vydání a jasný model předání.</p>
+<p>Právě tím se liší demonstrace agenta od produktu připraveného pro podnikové nasazení.</p>
+<p>Balíček by měl umožňovat opakovatelné nasazení bez závislosti na původním vývojáři. Proměnné prostředí, reference připojení, požadované bezpečnostní role, předpokládané komponenty a ověřovací kroky po importu by měly být zdokumentovány tak, aby jiný oprávněný tým dokázal vytvořit zamýšlenou konfiguraci bez spoléhání na nezdokumentované znalosti z vývoje.</p>
+  
+</section>
+
+<section id="tenant">
+  <h2>3. Udržujte hranici zákaznického tenantu explicitní</h2>
+  <p>Podnikoví zákazníci potřebují jasně vědět, kde agent běží a kdo prostředí ovládá. U produktů ColleagueAI zákazník importuje, konfiguruje, integruje, nasazuje a provozuje agenta ve vlastním prostředí Microsoft.</p>
+<p>ColleagueAI neposkytuje zákaznické Microsoft licence ani neprovozuje zákaznický runtime Copilot Studio, Power Platform, Azure, Dataverse nebo konektorů.</p>
+<p>Hranice tenantu je současně hranicí bezpečnosti a odpovědnosti. Administrátoři zákazníka rozhodují, která prostředí, identity, datové zdroje a konektory má agent k dispozici, zatímco governance týmy zákazníka posuzují, zda tato nastavení odpovídají interním pravidlům. Produktová dokumentace musí tuto hranici popsat dostatečně jasně, aby při nákupu ani nasazení nedocházelo k nejasnostem ohledně odpovědností.</p>
+  
+</section>
+
+<section id="connectors">
+  <h2>4. Navrhujte konektory podle minimálního potřebného přístupu</h2>
+  <p>Konektory mění agenta z informačního rozhraní na provozní systém. Proto si zaslouží stejnou míru kontroly jako jiné privilegované integrace.</p>
+<p>Agent má dostat pouze takový přístup, který je nezbytný pro schválený účel. Volba autentizace a zákaznických integrací zůstává součástí architektury nasazení zákazníka.</p>
+<p>Reference připojení a způsoby autentizace by měly být součástí kontroly release a neměly by být považovány pouze za technický detail konfigurace. Konektory s možností zápisu, privilegovaná API a akce mezi více systémy vyžadují silnější kontroly než přístup pouze pro čtení. Oprávnění by měla být pokud možno omezena na nejužší rozsah zdrojů a operací potřebných pro schválený proces.</p>
+  
+</section>
+
+<section id="solutions">
+  <h2>5. Používejte řízené solution a release postupy</h2>
+  <p>Podnikové nasazení má oddělovat development, test a production prostředí a tam, kde je to možné, používat řízený přesun solutions místo ručního znovuvytváření komponent.</p>
+<p>Versioning musí umožnit přesně určit, který package byl testován a nasazen. Významné změny mají být dohledatelné k nové release.</p>
+<p>Řízený aplikační životní cyklus potřebuje také pravidla pro rollback a postup mezi prostředími. Týmy by měly vědět, která verze je schválena pro produkci, jaká konfigurace patří do jednotlivých prostředí a jak obnovit dříve přijatou verzi, pokud se objeví závažná chyba. Ruční úpravy přímo v produkci by měly být výjimečné, zdokumentované a následně promítnuté zpět do řízeného řešení.</p>
+  
+</section>
+
+<section id="governance">
+  <h2>6. Přidejte governance před produkčním nasazením</h2>
+  <p>Technické nasazení není totéž jako governance schválení. Organizace stále potřebuje vlastníky, klasifikaci rizika, přístupové kontroly, lidský dohled, důkazy a proces schválení use case.</p>
+<p>CAI Score poskytuje strukturovaný mechanismus pro propojení rizikového profilu agenta s přiměřenými governance požadavky.</p>
+<p>Schválení do produkce by proto mělo vytvářet konkrétní důkazy, nikoli pouze závěr schůzky. Záznam by měl identifikovat obchodního vlastníka, technického vlastníka, schválený účel, významná rizika, požadované lidské kontroly, přijatá omezení a verzi, která byla autorizována. Taková evidence výrazně usnadňuje pozdější kontrolu, recertifikaci i vyšetřování incidentů.</p>
+  
+</section>
+
+<section id="testing">
+  <h2>7. Testujte end-to-end Microsoft workflow</h2>
+  <p>Testování má zahrnovat instrukce agenta, znalostní zdroje, chování konektorů, Power Automate flows, oprávnění, failure handling a schvalovací cesty, které jsou skutečně součástí nasazeného řešení.</p>
+<p>Test report má identifikovat testovanou verzi, scénáře, očekávané výsledky, výjimky a známá omezení.</p>
+<p>Testování by mělo zahrnovat také negativní a hraniční scénáře: nedostupné systémy, nedostatečná oprávnění, chybné vstupy, konfliktní instrukce, zamítnutí schválení, selhání konektoru a pokusy provést akce mimo schválený rozsah. Tyto scénáře ukazují, zda celý workflow selhává bezpečně, namísto toho, aby testování měřilo pouze funkčnost ideálního průchodu.</p>
+  
+</section>
+
+<section id="data">
+  <h2>8. Udělejte datové hranice srozumitelné</h2>
+  <p>Business uživatelé i governance týmy musí vědět, k jakým datům má agent přístup, ze kterých systémů data pocházejí a co s nimi agent může dělat.</p>
+<p>Data governance je proto stejně důležitou součástí nasazení jako samotný model. Konfigurace zákazníka určuje konkrétní tenantové datové zdroje, oprávnění a nastavení uchovávání dat produkčního agenta.</p>
+<p>Kontroly prostředí Microsoft, například zásady ochrany před únikem dat, přístup k prostředím, bezpečnostní role nebo omezení konektorů, mohou zásadně změnit skutečné riziko stejného balíčku agenta. Governance dokumentace by proto měla oddělovat předpoklady na úrovni produktu od kontrol specifických pro zákazníka a určit, které předpoklady musí být při nasazení ověřeny.</p>
+  
+</section>
+
+<section id="operate">
+  <h2>9. Oddělte podporu produktu od provozu zákazníka</h2>
+  <p>Dodavatel může podporovat produktový package, dokumentaci, opravy chyb, aktualizace a certifikaci, aniž by se stal provozovatelem zákaznického business procesu.</p>
+<p>U ColleagueAI je komerčním produktem balíčkovaný agent a související dokumentace, testování a governance materiály. Implementace specifická pro zákazníka a provoz zůstávají na zákazníkovi nebo jeho schváleném implementačním partnerovi.</p>
+<p>Toto rozlišení je důležité také při definování úrovní podpory a provozních očekávání. Produktová podpora může řešit vady balíčku, dokumentaci, kompatibilitu, aktualizace a stav certifikace, zatímco incidenty způsobené přístupovými údaji zákazníka, konfigurací tenantu, navazujícími systémy nebo dostupnou runtime kapacitou zůstávají součástí provozního modelu zákazníka, pokud je samostatně nepokrývá schválený implementační partner.</p>
+  
+</section>
+
+<section id="buy-build">
+  <h2>10. Rozhodněte, co má být custom a co balíčkované</h2>
+  <p>Některá vysoce specifická workflow ospravedlňují vlastní vývoj. Jiné běžné podnikové procesy se lépe hodí pro pre-built výchozí bod, který lze importovat, konfigurovat a governovat uvnitř zákaznického prostředí.</p>
+<p>Balíčkovaný přístup může snížit opakovanou práci na návrhu a dokumentaci, zatímco zákazník si ponechává kontrolu nad tenantovými integracemi, bezpečností a provozem.</p>
+<p>Rozhodnutí mezi vývojem a využitím hotového balíčku by mělo vedle vývojové náročnosti zohledňovat také opakovatelnost, míru diferenciace a náklady na governance. Běžný proces se stabilními kontrolami může dobře využít předpřipravený základ, zatímco workflow založené na proprietární logice, neobvyklých integracích nebo rychle se měnících pravidlech může odůvodnit vývoj na míru. V obou případech zůstává odpovědnost za produkční prostředí na straně zákazníka.</p>
+  
+</section>
+
+      
+<section class="framework" id="lifecycle">
+  <h2>Od balíčkovaného agenta k nasazení zákazníkem</h2>
+  <ol>
+    <li>Vybrat business use case a vhodný agent package.</li><li>Prověřit prerequisites, klasifikaci rizika a dokumentaci.</li><li>Importovat solution do řízeného prostředí Microsoft zákazníka.</li><li>Nakonfigurovat zákaznické connections a oprávnění.</li><li>Ověřit tenantově specifické integrace.</li><li>Provést akceptační testování zákazníkem a governance kontroly.</li><li>Nasadit přes release proces zákazníka.</li><li>Provozovat pod identitou, bezpečností a support kontrolami zákazníka.</li><li>Monitorovat významné změny a výjimky.</li><li>Při potřebě aplikovat aktualizace nebo recertifikaci.</li>
+  </ol>
+</section>
+
+      <section class="boundary" id="deployment-boundary">
+        <h2>Hranice produktu a nasazení</h2>
+        <p>ColleagueAI vytváří, testuje, certifikuje, balíčkuje a prodává podnikové produkty AI agentů. Zákazník nebo schválený implementační partner tyto produkty importuje, konfiguruje, integruje, nasazuje a provozuje ve vlastním prostředí Microsoft zákazníka. Licence Microsoft, runtime Copilot Studio, Power Platform, Azure, Dataverse, konektory a další runtime služby zůstávají odpovědností zákazníka.</p>
+      </section>
+
+      
+<section id="faq">
+  <h2>Často kladené otázky</h2>
+  
+<details class="faq">
+  <summary>Jaké Microsoft technologie může podnikový AI agent používat?</summary>
+  <p>Podle use case může agent používat Copilot Studio, Power Automate, Microsoft 365, Dataverse, Azure služby a schválené konektory. Přesná architektura závisí na požadavcích a tenantu zákazníka.</p>
+</details>
+
+<details class="faq">
+  <summary>Hostuje ColleagueAI zákaznické agenty?</summary>
+  <p>Ne. ColleagueAI balíčkuje a prodává produkty agentů. Zákazníci nebo schválení implementační partneři je nasazují a provozují ve vlastním prostředí Microsoft zákazníka.</p>
+</details>
+
+<details class="faq">
+  <summary>Kdo platí Microsoft licence a runtime?</summary>
+  <p>Zákazník odpovídá za Microsoft licence a runtime služby potřebné ve vlastním prostředí, včetně relevantních nákladů na Copilot Studio, Power Platform, Azure, Dataverse a konektory.</p>
+</details>
+
+<details class="faq">
+  <summary>Co obsahuje balíček podnikového agenta?</summary>
+  <p>Přesný obsah závisí na produktu, ale cílový model zahrnuje nasaditelné řešení Microsoft nebo balíček konektorů, instalační a konfigurační pokyny, dokumentaci pro administrátory a uživatele, governance materiály, testovací důkazy, informace o vydání, licenci a informace o certifikaci.</p>
+</details>
+
+<details class="faq">
+  <summary>Je balíčkovaný agent totéž jako implementační služba?</summary>
+  <p>Ne. Balíčkovaný agent je produkt poskytující otestovaný výchozí bod a materiály pro nasazení. Konfiguraci pro konkrétního zákazníka, integrace, nasazení a provoz provádí zákazník nebo jeho schválený implementační partner.</p>
+</details>
+</section>
+
+    </article>
+
+    
+    <section class="relevant-agents" aria-labelledby="relevant-agents-title">
+      <h2 id="relevant-agents-title">Související agenti</h2>
+      <ul>
+        
+          <li>
+            <a href="/cs/agents/power-query-code-generator">
+              Power Query Code Generator
+            </a>
+          </li>
+        
+          <li>
+            <a href="/cs/agents/service-delivery-manager-copilot">
+              Service Delivery Manager Copilot
+            </a>
+          </li>
+        
+          <li>
+            <a href="/cs/agents/cyber-security-reporting-agent">
+              Cyber Security Reporting Agent
+            </a>
+          </li>
+        
+      </ul>
+    </section>
+  
+
+    <aside class="side">
+      <h2>Související zdroje ColleagueAI</h2>
+
+      <a href="/cs/score">CAI Score</a>
+      <a href="/cs/duvera">Důvěra a governance</a>
+      <a href="/cs/certifikace">Certifikace</a>
+      <a href="/cs/agenti">Katalog AI agentů</a>
+
+      <a class="cta" href="/cs/demo">Požádat o přístup</a>
+    </aside>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    ColleagueAI — Řízené podnikové AI agenty
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      case "en": window.location.assign("/insights/enterprise-ai-agents-microsoft"); break;
+case "cs": window.location.assign("/cs/insights/podnikovi-ai-agenti-microsoft"); break;
+case "de": window.location.assign("/de/insights/enterprise-ki-agenten-microsoft"); break;
+case "fr": window.location.assign("/fr/insights/agents-ia-entreprise-microsoft"); break;
+case "es": window.location.assign("/es/insights/agentes-ia-empresariales-microsoft"); break;
+case "it": window.location.assign("/it/insights/agenti-ai-enterprise-microsoft"); break;
+case "pl": window.location.assign("/pl/insights/agenci-ai-enterprise-microsoft"); break;
+case "pt": window.location.assign("/pt/insights/agentes-ia-empresariais-microsoft"); break;
+      default:
+        break;
+    }
+  });
+})();
+</script>
+</body>
+</html>
