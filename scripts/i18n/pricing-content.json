@@ -847,12 +847,12 @@
   },
   "Bring a use case and we will assess scope, governance requirements and a realistic deployment path, then prepare a tailored proposal.": {
     "cs": "Přineste use case a my posoudíme rozsah, požadavky na governance a realistickou cestu k nasazení, poté připravíme nabídku na míru.",
-    "de": "Bringen Sie einen Use Case mit: wir bewerten Umfang, Governance-Anforderungen und einen realistischen Implementierungsweg und erstellen dann ein individuelles Angebot.",
-    "fr": "Apportez un cas d'usage : nous évaluerons le périmètre, les exigences de gouvernance et un chemin d'implémentation réaliste, puis préparerons une proposition sur mesure.",
-    "es": "Traiga un caso de uso y evaluaremos el alcance, los requisitos de gobernanza y una ruta de implementación realista, para después preparar una propuesta a medida.",
-    "it": "Portate un caso d'uso: valuteremo ambito, requisiti di governance e un percorso di implementazione realistico, quindi prepareremo una proposta su misura.",
+    "de": "Bringen Sie einen Use Case mit: wir bewerten Umfang, Governance-Anforderungen und einen realistischen Bereitstellungsweg und erstellen dann ein individuelles Angebot.",
+    "fr": "Apportez un cas d'usage : nous évaluerons le périmètre, les exigences de gouvernance et un chemin de déploiement réaliste, puis préparerons une proposition sur mesure.",
+    "es": "Traiga un caso de uso y evaluaremos el alcance, los requisitos de gobernanza y una ruta de despliegue realista, para después preparar una propuesta a medida.",
+    "it": "Portate un caso d'uso: valuteremo ambito, requisiti di governance e un percorso di distribuzione realistico, quindi prepareremo una proposta su misura.",
     "pl": "Przedstaw przypadek użycia, a my ocenimy zakres, wymagania governance i realistyczną ścieżkę wdrożenia, a następnie przygotujemy ofertę dopasowaną.",
-    "pt": "Traga um caso de uso e avaliaremos o âmbito, os requisitos de governação e um caminho de implementação realista, preparando depois uma proposta personalizada."
+    "pt": "Traga um caso de uso e avaliaremos o âmbito, os requisitos de governação e um percurso realista de colocação em produção, preparando depois uma proposta personalizada."
   },
   "Full name": {
     "cs": "Celé jméno",

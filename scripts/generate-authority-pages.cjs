@@ -246,9 +246,7 @@ const RELEVANT_AGENT_LABEL = {
 };
 
 function relevantAgentPath(locale, slug) {
-  return locale === "en"
-    ? "/agents/" + slug
-    : "/" + locale + "/agents/" + slug;
+  return "/agents/" + slug;
 }
 
 function renderRelevantAgents(locale, key) {
