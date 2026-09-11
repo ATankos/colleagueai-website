@@ -6,9 +6,8 @@ L2 Draft, L3 Operate, L4 Decide supervised, L5 Autonomous). Agents run in the cu
 (Copilot Studio, Power Automate, Azure); ColleagueAI hosts only the governance control plane and never processes
 customer business data. The catalogue ships at L2-L4; no agent runs fully autonomously today.
 
-Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /score (CAI Score),
-/certified (certification), /trust (trust centre), /pricing, /demo, /insights,
-/responsible-ai (commitments), /partners, /refund, /contact.
+Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /trust (trust centre),
+/responsible-ai (commitments), /partners, /refund, /contact, /demo.
 Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 
 ## Agent catalogue (36 packages)
