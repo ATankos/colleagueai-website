@@ -7,8 +7,12 @@ ColleagueAI provides governed AI agents and AI controls for enterprise operation
 ## Primary pages
 
 - https://www.colleagueai.ai/agents
-- https://www.colleagueai.ai/pricing
+- https://www.colleagueai.ai/score
+- https://www.colleagueai.ai/certified
 - https://www.colleagueai.ai/trust
+- https://www.colleagueai.ai/pricing
+- https://www.colleagueai.ai/demo
+- https://www.colleagueai.ai/insights
 - https://www.colleagueai.ai/partners
 - https://www.colleagueai.ai/privacy
 - https://www.colleagueai.ai/terms
@@ -22,7 +26,7 @@ ColleagueAI provides governed AI agents and AI controls for enterprise operation
 
 ## What ColleagueAI offers
 
-ColleagueAI helps organizations deploy production-grade AI agents with governance, auditability, access control, risk scoring, and enterprise deployment controls.
+ColleagueAI provides governed AI agent packages with governance, auditability, access control, risk scoring, and deployment controls. Customers deploy and run the agents in their own Microsoft environment; ColleagueAI does not provide customer implementation services.
 
 The agent catalogue includes use cases across:
 - Operations
