@@ -722,7 +722,7 @@ footer{
 
   <div class="hero">
     <div class="crumb">
-      <a href="/">${esc(l.home)}</a>
+      <a href="${homePath(locale)}">${esc(l.home)}</a>
       &nbsp;/&nbsp;
       ${esc(l.insights)}
     </div>
