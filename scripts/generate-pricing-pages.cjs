@@ -102,7 +102,28 @@ function render(loc) {
   const nav = buildNav(b, loc);
   const url = SITE + canonicalPath(loc, "pricing");
 
-  if (loc !== DEFAULT_LOCALE) html = translate(html, loc);
+  if (loc !== DEFAULT_LOCALE) {
+  html = translate(html, loc);
+
+  html = html.replace(
+    /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g,
+    (full, json) => {
+      let translated = json;
+
+      for (const en of KEYS) {
+        const t = DICT[en][loc];
+        if (!t || t === en) continue;
+
+        const from = JSON.stringify(en);
+        const to = JSON.stringify(t);
+
+        translated = translated.split(from).join(to);
+      }
+
+      return '<script type="application/ld+json">' + translated + '</script>';
+    }
+  );
+}
 
   // localized internal links (longest paths first so /agents does not eat /agents#x)
   const map = {
