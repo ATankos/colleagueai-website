@@ -95,6 +95,36 @@ function pagePath(locale, key) {
   return "/" + locale + "/insights/" + slug;
 }
 
+function hubPath(locale) {
+  return locale === DEFAULT
+    ? "/insights"
+    : "/" + locale + "/insights";
+}
+
+function hubAlternateBlock() {
+  const out = [];
+
+  out.push(
+    '<link rel="alternate" hreflang="x-default" href="' +
+      SITE +
+      hubPath(DEFAULT) +
+      '">'
+  );
+
+  for (const locale of manifest.locales) {
+    out.push(
+      '<link rel="alternate" hreflang="' +
+        locale +
+        '" href="' +
+        SITE +
+        hubPath(locale) +
+        '">'
+    );
+  }
+
+  return out.join("\n");
+}
+
 function href(locale, route) {
   const translated = {
     score: {
@@ -455,6 +485,346 @@ function schema(key, locale, identity, content) {
       }
     ]
   };
+}
+
+
+const HUB_COPY = {
+  en: {
+    title: "Enterprise AI Insights | ColleagueAI",
+    h1: "Enterprise AI Insights",
+    eyebrow: "Insights",
+    lead: "Practical guidance on enterprise AI agents, governance, human oversight and Microsoft-based deployment.",
+    read: "Read insight"
+  },
+  cs: {
+    title: "Anal?zy podnikov? AI | ColleagueAI",
+    h1: "Anal?zy podnikov? AI",
+    eyebrow: "Anal?zy",
+    lead: "Praktick? informace o podnikov?ch AI agentech, governance, lidsk?m dohledu a nasazen? v prost?ed? Microsoft.",
+    read: "P?e??st anal?zu"
+  },
+  de: {
+    title: "Enterprise-KI-Einblicke | ColleagueAI",
+    h1: "Enterprise-KI-Einblicke",
+    eyebrow: "Einblicke",
+    lead: "Praxisnahe Orientierung zu Enterprise-KI-Agenten, Governance, menschlicher Aufsicht und Microsoft-basiertem Deployment.",
+    read: "Artikel lesen"
+  },
+  fr: {
+    title: "Analyses sur l?IA d?entreprise | ColleagueAI",
+    h1: "Analyses sur l?IA d?entreprise",
+    eyebrow: "Analyses",
+    lead: "Conseils pratiques sur les agents IA d?entreprise, la gouvernance, la supervision humaine et le d?ploiement dans Microsoft.",
+    read: "Lire l?analyse"
+  },
+  es: {
+    title: "An?lisis de IA empresarial | ColleagueAI",
+    h1: "An?lisis de IA empresarial",
+    eyebrow: "An?lisis",
+    lead: "Orientaci?n pr?ctica sobre agentes de IA empresariales, gobernanza, supervisi?n humana y despliegue en Microsoft.",
+    read: "Leer an?lisis"
+  },
+  it: {
+    title: "Approfondimenti sull?AI enterprise | ColleagueAI",
+    h1: "Approfondimenti sull?AI enterprise",
+    eyebrow: "Approfondimenti",
+    lead: "Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.",
+    read: "Leggi l?approfondimento"
+  },
+  pl: {
+    title: "Analizy AI dla przedsi?biorstw | ColleagueAI",
+    h1: "Analizy AI dla przedsi?biorstw",
+    eyebrow: "Analizy",
+    lead: "Praktyczne materia?y o agentach AI, governance, nadzorze cz?owieka i wdro?eniach w ?rodowisku Microsoft.",
+    read: "Czytaj analiz?"
+  },
+  pt: {
+    title: "Insights de IA empresarial | ColleagueAI",
+    h1: "Insights de IA empresarial",
+    eyebrow: "Insights",
+    lead: "Orienta??o pr?tica sobre agentes de IA empresariais, governan?a, supervis?o humana e implanta??o em ambientes Microsoft.",
+    read: "Ler insight"
+  }
+};
+
+function hubTemplate(locale) {
+  const copy = HUB_COPY[locale] || HUB_COPY.en;
+  const l = labels[locale] || labels.en;
+  const url = SITE + hubPath(locale);
+
+  const languageSwitchCases = manifest.locales
+    .map(
+      (code) =>
+        `case ${JSON.stringify(code)}: window.location.assign(${JSON.stringify(
+          hubPath(code)
+        )}); break;`
+    )
+    .join("\\n");
+
+  const cards = Object.entries(manifest.pages)
+    .map(([key, page]) => {
+      const identity = page.identity[locale] || page.identity.en;
+
+      return `
+        <article class="card">
+          <h2>
+            <a href="${esc(pagePath(locale, key))}">
+              ${esc(identity.h1)}
+            </a>
+          </h2>
+          <p>${esc(identity.description)}</p>
+          <a class="read" href="${esc(pagePath(locale, key))}">
+            ${esc(copy.read)} ?
+          </a>
+        </article>
+      `;
+    })
+    .join("\\n");
+
+  const itemList = Object.entries(manifest.pages).map(
+    ([key, page], index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      url: SITE + pagePath(locale, key),
+      name: (page.identity[locale] || page.identity.en).h1
+    })
+  );
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": url + "#page",
+        url,
+        name: copy.h1,
+        description: copy.lead,
+        inLanguage: locale,
+        publisher: {
+          "@type": "Organization",
+          "@id": SITE + "/#org",
+          name: "ColleagueAI",
+          url: SITE
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": url + "#insights",
+        numberOfItems: itemList.length,
+        itemListElement: itemList
+      }
+    ]
+  };
+
+  return `<!doctype html>
+<html lang="${locale}" data-cai-page="authority-insights-hub">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>${esc(copy.title)}</title>
+<meta name="description" content="${esc(copy.lead)}">
+<meta name="robots" content="index, follow, max-snippet:-1">
+<link rel="canonical" href="${url}">
+${hubAlternateBlock()}
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ColleagueAI">
+<meta property="og:url" content="${url}">
+<meta property="og:title" content="${esc(copy.title)}">
+<meta property="og:description" content="${esc(copy.lead)}">
+<meta property="og:image" content="${SITE}/og-image.png">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(copy.title)}">
+<meta name="twitter:description" content="${esc(copy.lead)}">
+<meta name="twitter:image" content="${SITE}/og-image.png">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<script type="application/ld+json">${jsonScript(schemaData)}</script>
+
+<style>
+:root{
+  --bg:#F5F0E8;
+  --ink:#1D1B1A;
+  --muted:#6B665E;
+  --line:#D8D2C6;
+  --paper:#FFFDF8;
+  --accent:#C65D3A;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+}
+a{color:var(--accent);text-underline-offset:3px}
+.wrap{
+  width:min(1120px,calc(100% - 36px));
+  margin-inline:auto;
+}
+.top{
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
+}
+.top-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+}
+.brand{
+  color:var(--ink);
+  font-weight:900;
+  text-decoration:none;
+  letter-spacing:-.03em;
+}
+.lang{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--ink);
+  padding:8px 12px;
+  border-radius:999px;
+}
+.hero{padding:72px 0 42px}
+.crumb{
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+.eyebrow{
+  font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:12px;
+  color:var(--accent);
+  font-weight:800;
+}
+h1{
+  max-width:900px;
+  font-size:clamp(42px,7vw,76px);
+  line-height:.98;
+  letter-spacing:-.055em;
+  margin:14px 0 22px;
+}
+.lead{
+  max-width:830px;
+  font-size:20px;
+  color:#4E4943;
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px;
+  padding:16px 0 90px;
+}
+.card{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:28px;
+}
+.card h2{
+  font-size:25px;
+  line-height:1.12;
+  letter-spacing:-.035em;
+  margin:0 0 16px;
+}
+.card h2 a{
+  color:var(--ink);
+  text-decoration:none;
+}
+.card p{
+  color:#4E4943;
+  margin-bottom:24px;
+}
+.read{font-weight:800}
+footer{
+  border-top:1px solid var(--line);
+  padding:28px 0 50px;
+  color:var(--muted);
+  font-size:13px;
+}
+@media(max-width:820px){
+  .grid{grid-template-columns:1fr}
+  .hero{padding-top:48px}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="${homePath(locale)}">ColleagueAI</a>
+
+    <label>
+      <span style="position:absolute;left:-9999px">${esc(l.language)}</span>
+      <select id="langsel" class="lang" aria-label="${esc(l.language)}">
+        ${languageOptions(locale)}
+      </select>
+    </label>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <div class="crumb">
+      <a href="${homePath(locale)}">${esc(l.home)}</a>
+      &nbsp;/&nbsp;
+      ${esc(l.insights)}
+    </div>
+
+    <div class="eyebrow">${esc(copy.eyebrow)}</div>
+    <h1>${esc(copy.h1)}</h1>
+    <p class="lead">${esc(copy.lead)}</p>
+  </div>
+
+  <section class="grid" aria-label="${esc(copy.h1)}">
+    ${cards}
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    ${esc(AUTHORITY_FOOTER[locale] || AUTHORITY_FOOTER.en)}
+  </div>
+</footer>
+
+<script>
+(() => {
+  const selector = document.getElementById("langsel");
+  if (!selector) return;
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+      ${languageSwitchCases}
+      default:
+        break;
+    }
+  });
+})();
+</script>
+
+</body>
+</html>`;
+}
+
+function writeHubPage(baseDir, locale, html) {
+  html = html.replace(/[ \t]+$/gm, "");
+  const relative = hubPath(locale).replace(/^\/+/, "");
+
+  const htmlFile = path.join(baseDir, relative + ".html");
+  const indexFile = path.join(baseDir, relative, "index.html");
+
+  fs.mkdirSync(path.dirname(htmlFile), { recursive: true });
+  fs.mkdirSync(path.dirname(indexFile), { recursive: true });
+
+  fs.writeFileSync(htmlFile, html, "utf8");
+  fs.writeFileSync(indexFile, html, "utf8");
+
+  return [htmlFile, indexFile];
 }
 
 function template(key, locale, identity, content, common) {
@@ -916,6 +1286,18 @@ function main() {
 
     const data = loadContent(locale);
     validateLocaleContent(locale, data);
+
+    const hubHtml = hubTemplate(locale);
+
+    for (const target of ["public", "dist"]) {
+      if (!fs.existsSync(path.join(ROOT, target))) continue;
+
+      written += writeHubPage(
+        path.join(ROOT, target),
+        locale,
+        hubHtml
+      ).length;
+    }
 
     for (const [key, page] of Object.entries(manifest.pages)) {
       const identity = page.identity[locale];

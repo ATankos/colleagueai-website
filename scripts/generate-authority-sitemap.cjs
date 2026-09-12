@@ -35,6 +35,49 @@ function pagePath(locale, key) {
   return "/" + locale + "/insights/" + slug;
 }
 
+function hubPath(locale) {
+  return locale === DEFAULT
+    ? "/insights"
+    : "/" + locale + "/insights";
+}
+
+function hubAlternates() {
+  const lines = [];
+
+  lines.push(
+    '    <xhtml:link rel="alternate" hreflang="x-default" href="' +
+      SITE +
+      hubPath(DEFAULT) +
+      '"/>'
+  );
+
+  for (const locale of manifest.locales) {
+    lines.push(
+      '    <xhtml:link rel="alternate" hreflang="' +
+        locale +
+        '" href="' +
+        SITE +
+        hubPath(locale) +
+        '"/>'
+    );
+  }
+
+  return lines.join("\n");
+}
+
+function hubBlock(locale) {
+  const loc = SITE + hubPath(locale);
+
+  return [
+    "  <url>",
+    "    <loc>" + loc + "</loc>",
+    hubAlternates(),
+    "    <changefreq>monthly</changefreq>",
+    "    <priority>0.85</priority>",
+    "  </url>"
+  ].join("\n");
+}
+
 function alternates(key) {
   const lines = [];
 
@@ -87,7 +130,10 @@ function removeExistingAuthorityBlocks(xml) {
     const isAuthority =
       /^https:\/\/www\.colleagueai\.ai\/(?:[a-z]{2}\/)?insights\/[^/]+$/.test(loc);
 
-    return isAuthority ? "" : block;
+    const isInsightsHub =
+      /^https:\/\/www\.colleagueai\.ai\/(?:[a-z]{2}\/)?insights$/.test(loc);
+
+    return isAuthority || isInsightsHub ? "" : block;
   });
 }
 
@@ -123,6 +169,10 @@ function updateSitemap(file) {
   xml = removeExistingAuthorityBlocks(xml);
 
   const blocks = [];
+
+  for (const locale of manifest.locales) {
+    blocks.push(hubBlock(locale));
+  }
 
   for (const key of Object.keys(manifest.pages)) {
     for (const locale of manifest.locales) {

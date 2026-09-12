@@ -628,6 +628,118 @@
     <loc>https://www.colleagueai.ai/pt/partner-agreement</loc>
   </url>
 <url>
+    <loc>https://www.colleagueai.ai/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/cs/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/de/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/fr/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/es/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/it/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/pl/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
+    <loc>https://www.colleagueai.ai/pt/insights</loc>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights"/>
+    <xhtml:link rel="alternate" hreflang="cs" href="https://www.colleagueai.ai/cs/insights"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.colleagueai.ai/de/insights"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.colleagueai.ai/fr/insights"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.colleagueai.ai/es/insights"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://www.colleagueai.ai/it/insights"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://www.colleagueai.ai/pl/insights"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.colleagueai.ai/pt/insights"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+<url>
     <loc>https://www.colleagueai.ai/insights/ai-agent-governance-framework</loc>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.colleagueai.ai/insights/ai-agent-governance-framework"/>
