@@ -91,7 +91,9 @@ function page(a) {
 <style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:760px;margin:0 auto;padding:48px 24px 80px}
-.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#C65D3A;text-decoration:none}
+.crumb{font-size:13px;margin-bottom:18px}.crumb a{color:#C65D3A;text-decoration:none}
+.fact-lang{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;font-size:12.5px;color:#6f6a62}
+.fact-lang select{font:500 12.5px ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1D1B1A;border:1px solid #d8d2c6;border-radius:999px;padding:6px 10px;background:#fff}
 .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
 h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
 .meta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 30px}
@@ -109,6 +111,19 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
 <body>
 <main>
 <nav class="crumb"><a href="/agents">← Agent Catalogue</a></nav>
+<div class="fact-lang">
+  <span>This factsheet is available in English. Catalogue language:</span>
+  <select id="factsheet-lang" aria-label="Catalogue language">
+    <option value="en" selected>English</option>
+    <option value="cs">?e?tina</option>
+    <option value="de">Deutsch</option>
+    <option value="fr">Fran?ais</option>
+    <option value="es">Espa?ol</option>
+    <option value="it">Italiano</option>
+    <option value="pl">Polski</option>
+    <option value="pt">Portugu?s</option>
+  </select>
+</div>
 <div class="eyebrow">Classified under the CAI Score™ · ${esc(tier)}</div>
 <h1>${esc(a.n)}</h1>
 <p>${esc(a.desc)}</p>
@@ -137,6 +152,36 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
 </div>
 <footer>Runs in your tenant · No customer business data processed by us · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026</footer>
 </main>
+<script>
+(function () {
+  var select = document.getElementById("factsheet-lang");
+  if (!select) return;
+
+  var routes = {
+    en: location.pathname,
+    cs: "/cs/agenti",
+    de: "/de/agenten",
+    fr: "/fr/agents",
+    es: "/es/agentes",
+    it: "/it/agenti",
+    pl: "/pl/agenci",
+    pt: "/pt/agentes"
+  };
+
+  select.addEventListener("change", function () {
+    var target = routes[select.value];
+    if (!target) return;
+
+    try {
+      localStorage.setItem("cai-lang", select.value);
+    } catch (e) {}
+
+    if (select.value !== "en") {
+      location.assign(target);
+    }
+  });
+})();
+</script>
 </body>
 </html>`;
 }

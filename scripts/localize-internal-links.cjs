@@ -26,7 +26,7 @@ const LOCALES = ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 /* The English routes that have a localized twin. Pages carrying a slug map get
    the translated slug; the rest keep the English word under the locale prefix,
    which is how they are already built and routed (/pl/score, /pl/demo). */
-const PAGES = ['agents', 'pricing', 'trust', 'partners', 'certified', 'score', 'demo', 'contact'];
+const PAGES = ['agents', 'pricing', 'trust', 'partners', 'certified', 'score', 'demo', 'contact', 'privacy', 'terms', 'license', 'imprint', 'partner-agreement'];
 
 const target = (loc, page) => {
   const slug = ROUTES.slugs[page]?.[loc] || page;
