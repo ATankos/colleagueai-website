@@ -809,23 +809,23 @@
     "pl": "Oczekiwane korzyści i mierniki sukcesu można zdefiniować podczas discovery. Rzeczywiste wyniki zależą od adopcji, jakości procesów, gotowości danych, zakresu wdrożenia po stronie klienta i realizacji organizacyjnej.",
     "pt": "Os benefícios esperados e as medidas de sucesso podem ser definidos durante o discovery. Os resultados reais dependem da adoção, qualidade dos processos, maturidade dos dados, âmbito do deployment e execução organizacional."
   },
-  "Can pricing change after discovery?": {
-    "cs": "Může se cena po discovery změnit?",
-    "de": "Kann sich der Preis nach dem Discovery ändern?",
-    "fr": "Le tarif peut-il évoluer après le cadrage ?",
-    "es": "¿Puede cambiar el precio tras el discovery?",
-    "it": "Il prezzo può cambiare dopo il discovery?",
-    "pl": "Czy cena może się zmienić po discovery?",
-    "pt": "O preço pode mudar após o discovery?"
+  "Are the published agent prices fixed?": {
+    "cs": "Jsou zveřejněné ceny agentů pevné?",
+    "de": "Sind die veröffentlichten Agentenpreise fest?",
+    "fr": "Les prix publiés des agents sont-ils fixes ?",
+    "es": "¿Los precios publicados de los agentes son fijos?",
+    "it": "I prezzi pubblicati degli agenti sono fissi?",
+    "pl": "Czy opublikowane ceny agentów są stałe?",
+    "pt": "Os preços publicados dos agentes são fixos?"
   },
-  "Yes. The initial range is indicative. A final proposal is prepared after the required scope, dependencies, risks and delivery responsibilities have been confirmed.": {
-    "cs": "Ano. Počáteční rozpětí je orientační. Finální nabídka se připravuje po potvrzení potřebného rozsahu, závislostí, rizik a odpovědností za dodávku.",
-    "de": "Ja. Der anfängliche Bereich ist indikativ. Ein finales Angebot wird erstellt, nachdem der erforderliche Umfang, Abhängigkeiten, Risiken und Lieferverantwortlichkeiten bestätigt wurden.",
-    "fr": "Oui. La fourchette initiale est indicative. Une proposition finale est établie après confirmation du périmètre requis, des dépendances, des risques et des responsabilités de livraison.",
-    "es": "Sí. El rango inicial es indicativo. La propuesta final se prepara tras confirmar el alcance necesario, las dependencias, los riesgos y las responsabilidades de entrega.",
-    "it": "Sì. La fascia iniziale è indicativa. Una proposta finale viene preparata dopo la conferma dell'ambito richiesto, delle dipendenze, dei rischi e delle responsabilità di delivery.",
-    "pl": "Tak. Początkowy zakres jest orientacyjny. Ostateczna oferta powstaje po potwierdzeniu wymaganego zakresu, zależności, ryzyk i odpowiedzialności za dostarczenie.",
-    "pt": "Sim. O intervalo inicial é indicativo. A proposta final é preparada após confirmação do âmbito necessário, dependências, riscos e responsabilidades de entrega."
+  "Yes. The published one-time licence price of an individual agent package is fixed by its CAI tier.": {
+    "cs": "Ano. Zveřejněná jednorázová cena licence jednotlivého balíčku agenta je pevně stanovena podle jeho úrovně CAI.",
+    "de": "Ja. Der veröffentlichte einmalige Lizenzpreis eines einzelnen Agentenpakets ist durch seine CAI-Stufe festgelegt.",
+    "fr": "Oui. Le prix publié de la licence unique d’un package d’agent individuel est fixé selon son niveau CAI.",
+    "es": "Sí. El precio publicado de la licencia única de un paquete de agente individual está fijado según su nivel CAI.",
+    "it": "Sì. Il prezzo pubblicato della licenza una tantum di un singolo pacchetto agente è fissato in base al livello CAI.",
+    "pl": "Tak. Opublikowana jednorazowa cena licencji pojedynczego pakietu agenta jest ustalona według jego poziomu CAI.",
+    "pt": "Sim. O preço publicado da licença única de um pacote individual de agente é fixado pelo respetivo nível CAI."
   },
   "Start with one governed enterprise workflow.": {
     "cs": "Začněte jedním řízeným podnikovým procesem.",
@@ -1340,32 +1340,32 @@
     "pl": "Struktura komercyjna zależy od rozwiązania. Projekt może obejmować jednorazowy pakiet agenta oraz opcjonalne, bieżące komponenty governance, wsparcia lub aktualizacji.",
     "pt": "A estrutura comercial depende da solução. Um projeto pode incluir um pacote de agente único e componentes opcionais e contínuos de governação, apoio ou atualizações."
   },
-  "CAI L2 ? Draft": {
-    "cs": "CAI L2 ? N?vrh",
-    "de": "CAI L2 ? Entwurf",
-    "fr": "CAI L2 ? Brouillon",
-    "es": "CAI L2 ? Borrador",
-    "it": "CAI L2 ? Bozza",
-    "pl": "CAI L2 ? Wersja robocza",
-    "pt": "CAI L2 ? Rascunho"
+  "CAI L2 — Draft": {
+    "cs": "CAI L2 — Návrh",
+    "de": "CAI L2 — Entwurf",
+    "fr": "CAI L2 — Brouillon",
+    "es": "CAI L2 — Borrador",
+    "it": "CAI L2 — Bozza",
+    "pl": "CAI L2 — Wersja robocza",
+    "pt": "CAI L2 — Rascunho"
   },
   "L2 Agent Package": {
-    "cs": "Bal??ek agenta L2",
+    "cs": "Balíček agenta L2",
     "de": "L2-Agentenpaket",
-    "fr": "Package d?agent L2",
+    "fr": "Package d’agent L2",
     "es": "Paquete de agente L2",
     "it": "Pacchetto agente L2",
     "pl": "Pakiet agenta L2",
     "pt": "Pacote de agente L2"
   },
   "Governed agent packages for drafting, assistance and lower-risk business workflows.": {
-    "cs": "??zen? bal??ky agent? pro tvorbu n?vrh?, asistenci a obchodn? procesy s ni???m rizikem.",
-    "de": "Governed-Agentenpakete f?r Entw?rfe, Assistenz und Gesch?ftsabl?ufe mit geringerem Risiko.",
-    "fr": "Packages d?agents gouvern?s pour la r?daction, l?assistance et les workflows m?tier ? faible risque.",
-    "es": "Paquetes de agentes gobernados para redacci?n, asistencia y flujos de trabajo empresariales de menor riesgo.",
+    "cs": "Řízené balíčky agentů pro tvorbu návrhů, asistenci a obchodní procesy s nižším rizikem.",
+    "de": "Governed-Agentenpakete für Entwürfe, Assistenz und Geschäftsabläufe mit geringerem Risiko.",
+    "fr": "Packages d’agents gouvernés pour la rédaction, l’assistance et les workflows métier à faible risque.",
+    "es": "Paquetes de agentes gobernados para redacción, asistencia y flujos de trabajo empresariales de menor riesgo.",
     "it": "Pacchetti di agenti governati per bozze, assistenza e workflow aziendali a rischio inferiore.",
-    "pl": "Pakiety zarz?dzanych agent?w do tworzenia wersji roboczych, wsparcia i proces?w biznesowych o ni?szym ryzyku.",
-    "pt": "Pacotes de agentes com governance para elabora??o, assist?ncia e workflows empresariais de menor risco."
+    "pl": "Pakiety zarządzanych agentów do tworzenia wersji roboczych, wsparcia i procesów biznesowych o niższym ryzyku.",
+    "pt": "Pacotes de agentes com governance para elaboração, assistência e workflows empresariais de menor risco."
   },
   "Explore L2 agents": {
     "cs": "Prozkoumat agenty L2",
@@ -1373,35 +1373,35 @@
     "fr": "Explorer les agents L2",
     "es": "Explorar agentes L2",
     "it": "Esplora gli agenti L2",
-    "pl": "Zobacz agent?w L2",
+    "pl": "Zobacz agentów L2",
     "pt": "Explorar agentes L2"
   },
-  "CAI L3 ? Operate": {
-    "cs": "CAI L3 ? Provoz",
-    "de": "CAI L3 ? Operate",
-    "fr": "CAI L3 ? Operate",
-    "es": "CAI L3 ? Operate",
-    "it": "CAI L3 ? Operate",
-    "pl": "CAI L3 ? Operate",
-    "pt": "CAI L3 ? Operate"
+  "CAI L3 — Operate": {
+    "cs": "CAI L3 — Provoz",
+    "de": "CAI L3 — Operate",
+    "fr": "CAI L3 — Operate",
+    "es": "CAI L3 — Operate",
+    "it": "CAI L3 — Operate",
+    "pl": "CAI L3 — Operate",
+    "pt": "CAI L3 — Operate"
   },
   "L3 Agent Package": {
-    "cs": "Bal??ek agenta L3",
+    "cs": "Balíček agenta L3",
     "de": "L3-Agentenpaket",
-    "fr": "Package d?agent L3",
+    "fr": "Package d’agent L3",
     "es": "Paquete de agente L3",
     "it": "Pacchetto agente L3",
     "pl": "Pakiet agenta L3",
     "pt": "Pacote de agente L3"
   },
   "Governed agent packages for operational workflows with defined controls and human oversight.": {
-    "cs": "??zen? bal??ky agent? pro provozn? procesy s definovan?mi kontrolami a lidsk?m dohledem.",
-    "de": "Governed-Agentenpakete f?r operative Workflows mit definierten Kontrollen und menschlicher Aufsicht.",
-    "fr": "Packages d?agents gouvern?s pour les workflows op?rationnels avec contr?les d?finis et supervision humaine.",
-    "es": "Paquetes de agentes gobernados para flujos operativos con controles definidos y supervisi?n humana.",
+    "cs": "Řízené balíčky agentů pro provozní procesy s definovanými kontrolami a lidským dohledem.",
+    "de": "Governed-Agentenpakete für operative Workflows mit definierten Kontrollen und menschlicher Aufsicht.",
+    "fr": "Packages d’agents gouvernés pour les workflows opérationnels avec contrôles définis et supervision humaine.",
+    "es": "Paquetes de agentes gobernados para flujos operativos con controles definidos y supervisión humana.",
     "it": "Pacchetti di agenti governati per workflow operativi con controlli definiti e supervisione umana.",
-    "pl": "Pakiety zarz?dzanych agent?w do proces?w operacyjnych z okre?lonymi kontrolami i nadzorem cz?owieka.",
-    "pt": "Pacotes de agentes com governance para workflows operacionais com controlos definidos e supervis?o humana."
+    "pl": "Pakiety zarządzanych agentów do procesów operacyjnych z określonymi kontrolami i nadzorem człowieka.",
+    "pt": "Pacotes de agentes com governance para workflows operacionais com controlos definidos e supervisão humana."
   },
   "Explore L3 agents": {
     "cs": "Prozkoumat agenty L3",
@@ -1409,35 +1409,35 @@
     "fr": "Explorer les agents L3",
     "es": "Explorar agentes L3",
     "it": "Esplora gli agenti L3",
-    "pl": "Zobacz agent?w L3",
+    "pl": "Zobacz agentów L3",
     "pt": "Explorar agentes L3"
   },
-  "CAI L4 ? Decide (supervised)": {
-    "cs": "CAI L4 ? Rozhodov?n? (s dohledem)",
-    "de": "CAI L4 ? Entscheiden (beaufsichtigt)",
-    "fr": "CAI L4 ? D?cider (supervis?)",
-    "es": "CAI L4 ? Decidir (supervisado)",
-    "it": "CAI L4 ? Decidere (supervisionato)",
-    "pl": "CAI L4 ? Decyzje (nadzorowane)",
-    "pt": "CAI L4 ? Decidir (supervisionado)"
+  "CAI L4 — Decide (supervised)": {
+    "cs": "CAI L4 — Rozhodování (s dohledem)",
+    "de": "CAI L4 — Entscheiden (beaufsichtigt)",
+    "fr": "CAI L4 — Décider (supervisé)",
+    "es": "CAI L4 — Decidir (supervisado)",
+    "it": "CAI L4 — Decidere (supervisionato)",
+    "pl": "CAI L4 — Decyzje (nadzorowane)",
+    "pt": "CAI L4 — Decidir (supervisionado)"
   },
   "L4 Agent Package": {
-    "cs": "Bal??ek agenta L4",
+    "cs": "Balíček agenta L4",
     "de": "L4-Agentenpaket",
-    "fr": "Package d?agent L4",
+    "fr": "Package d’agent L4",
     "es": "Paquete de agente L4",
     "it": "Pacchetto agente L4",
     "pl": "Pakiet agenta L4",
     "pt": "Pacote de agente L4"
   },
   "Governed agent packages for higher-consequence decision-support workflows with accountable human supervision.": {
-    "cs": "??zen? bal??ky agent? pro rozhodovac? procesy s vy???mi dopady a odpov?dn?m lidsk?m dohledem.",
-    "de": "Governed-Agentenpakete f?r Entscheidungsunterst?tzung mit h?herer Tragweite und verantwortlicher menschlicher Aufsicht.",
-    "fr": "Packages d?agents gouvern?s pour les workflows d?aide ? la d?cision ? plus fort impact avec supervision humaine responsable.",
-    "es": "Paquetes de agentes gobernados para flujos de apoyo a decisiones de mayor impacto con supervisi?n humana responsable.",
+    "cs": "Řízené balíčky agentů pro rozhodovací procesy s vyššími dopady a odpovědným lidským dohledem.",
+    "de": "Governed-Agentenpakete für Entscheidungsunterstützung mit höherer Tragweite und verantwortlicher menschlicher Aufsicht.",
+    "fr": "Packages d’agents gouvernés pour les workflows d’aide à la décision à plus fort impact avec supervision humaine responsable.",
+    "es": "Paquetes de agentes gobernados para flujos de apoyo a decisiones de mayor impacto con supervisión humana responsable.",
     "it": "Pacchetti di agenti governati per workflow di supporto decisionale a maggiore impatto con supervisione umana responsabile.",
-    "pl": "Pakiety zarz?dzanych agent?w do proces?w wspomagania decyzji o wi?kszych konsekwencjach z odpowiedzialnym nadzorem cz?owieka.",
-    "pt": "Pacotes de agentes com governance para workflows de apoio ? decis?o de maior impacto com supervis?o humana respons?vel."
+    "pl": "Pakiety zarządzanych agentów do procesów wspomagania decyzji o większych konsekwencjach z odpowiedzialnym nadzorem człowieka.",
+    "pt": "Pacotes de agentes com governance para workflows de apoio à decisão de maior impacto com supervisão humana responsável."
   },
   "Explore L4 agents": {
     "cs": "Prozkoumat agenty L4",
@@ -1445,52 +1445,142 @@
     "fr": "Explorer les agents L4",
     "es": "Explorar agentes L4",
     "it": "Esplora gli agenti L4",
-    "pl": "Zobacz agent?w L4",
+    "pl": "Zobacz agentów L4",
     "pt": "Explorar agentes L4"
   },
   "one-time licence": {
-    "cs": "jednor?zov? licence",
+    "cs": "jednorázová licence",
     "de": "einmalige Lizenz",
     "fr": "licence unique",
-    "es": "licencia ?nica",
+    "es": "licencia única",
     "it": "licenza una tantum",
     "pl": "licencja jednorazowa",
-    "pt": "licen?a ?nica"
+    "pt": "licença única"
   },
   "Packaged enterprise AI agents with fixed one-time licence pricing by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.": {
-    "cs": "Bal??ky podnikov?ch AI agent? s pevnou jednor?zovou cenou licence podle ?rovn? CAI: 7 900 USD pro L2, 9 900 USD pro L3 a 14 900 USD pro L4.",
-    "de": "Enterprise-KI-Agentenpakete mit festen einmaligen Lizenzpreisen nach CAI-Stufe: 7.900 USD f?r L2, 9.900 USD f?r L3 und 14.900 USD f?r L4.",
-    "fr": "Packages d?agents IA d?entreprise avec un prix de licence unique fixe selon le niveau CAI : 7 900 USD pour L2, 9 900 USD pour L3 et 14 900 USD pour L4.",
-    "es": "Paquetes de agentes de IA empresariales con un precio de licencia ?nico fijo seg?n el nivel CAI: 7.900 USD para L2, 9.900 USD para L3 y 14.900 USD para L4.",
+    "cs": "Balíčky podnikových AI agentů s pevnou jednorázovou cenou licence podle úrovně CAI: 7 900 USD pro L2, 9 900 USD pro L3 a 14 900 USD pro L4.",
+    "de": "Enterprise-KI-Agentenpakete mit festen einmaligen Lizenzpreisen nach CAI-Stufe: 7.900 USD für L2, 9.900 USD für L3 und 14.900 USD für L4.",
+    "fr": "Packages d’agents IA d’entreprise avec un prix de licence unique fixe selon le niveau CAI : 7 900 USD pour L2, 9 900 USD pour L3 et 14 900 USD pour L4.",
+    "es": "Paquetes de agentes de IA empresariales con un precio de licencia único fijo según el nivel CAI: 7.900 USD para L2, 9.900 USD para L3 y 14.900 USD para L4.",
     "it": "Pacchetti di agenti AI enterprise con prezzo di licenza una tantum fisso in base al livello CAI: 7.900 USD per L2, 9.900 USD per L3 e 14.900 USD per L4.",
-    "pl": "Pakiety agent?w AI dla przedsi?biorstw ze sta?? jednorazow? cen? licencji wed?ug poziomu CAI: 7 900 USD dla L2, 9 900 USD dla L3 i 14 900 USD dla L4.",
-    "pt": "Pacotes de agentes de IA empresariais com pre?o fixo de licen?a ?nica por n?vel CAI: 7 900 USD para L2, 9 900 USD para L3 e 14 900 USD para L4."
+    "pl": "Pakiety agentów AI dla przedsiębiorstw ze stałą jednorazową ceną licencji według poziomu CAI: 7 900 USD dla L2, 9 900 USD dla L3 i 14 900 USD dla L4.",
+    "pt": "Pacotes de agentes de IA empresariais com preço fixo de licença única por nível CAI: 7 900 USD para L2, 9 900 USD para L3 e 14 900 USD para L4."
   },
   "Each individual agent package has a fixed one-time licence price based on its CAI tier. Continuous Certification is a separate optional subscription.": {
-    "cs": "Ka?d? jednotliv? bal??ek agenta m? pevnou jednor?zovou cenu licence podle sv? ?rovn? CAI. Continuous Certification je samostatn? voliteln? p?edplatn?.",
+    "cs": "Každý jednotlivý balíček agenta má pevnou jednorázovou cenu licence podle své úrovně CAI. Continuous Certification je samostatné volitelné předplatné.",
     "de": "Jedes einzelne Agentenpaket hat einen festen einmaligen Lizenzpreis entsprechend seiner CAI-Stufe. Continuous Certification ist ein separates optionales Abonnement.",
-    "fr": "Chaque package d?agent individuel dispose d?un prix de licence unique fixe selon son niveau CAI. Continuous Certification est un abonnement optionnel distinct.",
-    "es": "Cada paquete de agente individual tiene un precio de licencia ?nico fijo seg?n su nivel CAI. Continuous Certification es una suscripci?n opcional independiente.",
-    "it": "Ogni singolo pacchetto agente ha un prezzo di licenza una tantum fisso in base al livello CAI. Continuous Certification ? un abbonamento opzionale separato.",
-    "pl": "Ka?dy indywidualny pakiet agenta ma sta?? jednorazow? cen? licencji zale?n? od poziomu CAI. Continuous Certification jest oddzieln? opcjonaln? subskrypcj?.",
-    "pt": "Cada pacote individual de agente tem um pre?o fixo de licen?a ?nica com base no respetivo n?vel CAI. Continuous Certification ? uma subscri??o opcional separada."
+    "fr": "Chaque package d’agent individuel dispose d’un prix de licence unique fixe selon son niveau CAI. Continuous Certification est un abonnement optionnel distinct.",
+    "es": "Cada paquete de agente individual tiene un precio de licencia único fijo según su nivel CAI. Continuous Certification es una suscripción opcional independiente.",
+    "it": "Ogni singolo pacchetto agente ha un prezzo di licenza una tantum fisso in base al livello CAI. Continuous Certification è un abbonamento opzionale separato.",
+    "pl": "Każdy indywidualny pakiet agenta ma stałą jednorazową cenę licencji zależną od poziomu CAI. Continuous Certification jest oddzielną opcjonalną subskrypcją.",
+    "pt": "Cada pacote individual de agente tem um preço fixo de licença única com base no respetivo nível CAI. Continuous Certification é uma subscrição opcional separada."
   },
   "Individual agent pricing is determined by CAI tier: L2, L3 or L4.": {
-    "cs": "Cena jednotliv?ho agenta je ur?ena ?rovn? CAI: L2, L3 nebo L4.",
+    "cs": "Cena jednotlivého agenta je určena úrovní CAI: L2, L3 nebo L4.",
     "de": "Der Preis eines einzelnen Agenten wird durch die CAI-Stufe bestimmt: L2, L3 oder L4.",
-    "fr": "Le prix d?un agent individuel est d?termin? par son niveau CAI : L2, L3 ou L4.",
+    "fr": "Le prix d’un agent individuel est déterminé par son niveau CAI : L2, L3 ou L4.",
     "es": "El precio de un agente individual viene determinado por su nivel CAI: L2, L3 o L4.",
-    "it": "Il prezzo di un singolo agente ? determinato dal livello CAI: L2, L3 o L4.",
-    "pl": "Cena pojedynczego agenta jest okre?lana przez poziom CAI: L2, L3 lub L4.",
-    "pt": "O pre?o de um agente individual ? determinado pelo n?vel CAI: L2, L3 ou L4."
+    "it": "Il prezzo di un singolo agente è determinato dal livello CAI: L2, L3 o L4.",
+    "pl": "Cena pojedynczego agenta jest określana przez poziom CAI: L2, L3 lub L4.",
+    "pt": "O preço de um agente individual é determinado pelo nível CAI: L2, L3 ou L4."
   },
-  "The published price of an individual agent package is fixed by its CAI tier. Separately scoped products or partner services may be priced independently.": {
-    "cs": "Zve?ejn?n? cena jednotliv?ho bal??ku agenta je pevn? stanovena podle jeho ?rovn? CAI. Samostatn? vymezen? produkty nebo slu?by partner? mohou b?t ocen?ny nez?visle.",
-    "de": "Der ver?ffentlichte Preis eines einzelnen Agentenpakets ist durch seine CAI-Stufe festgelegt. Separat definierte Produkte oder Partnerleistungen k?nnen unabh?ngig bepreist werden.",
-    "fr": "Le prix publi? d?un package d?agent individuel est fix? selon son niveau CAI. Les produits distincts ou les services de partenaires peuvent ?tre tarif?s s?par?ment.",
-    "es": "El precio publicado de un paquete de agente individual est? fijado seg?n su nivel CAI. Los productos con un alcance independiente o los servicios de partners pueden tener un precio separado.",
-    "it": "Il prezzo pubblicato di un singolo pacchetto agente ? fissato in base al livello CAI. Prodotti con ambito separato o servizi dei partner possono avere prezzi indipendenti.",
-    "pl": "Opublikowana cena indywidualnego pakietu agenta jest ustalona wed?ug poziomu CAI. Produkty o odr?bnym zakresie lub us?ugi partner?w mog? by? wyceniane niezale?nie.",
-    "pt": "O pre?o publicado de um pacote individual de agente ? fixado pelo respetivo n?vel CAI. Produtos com ?mbito separado ou servi?os de parceiros podem ter pre?os independentes."
+  "The published price of an individual agent package is fixed by its CAI tier. Continuous Certification is a separate optional subscription.": {
+    "cs": "Zveřejněná cena jednotlivého balíčku agenta je pevně stanovena podle jeho úrovně CAI. Continuous Certification je samostatné volitelné předplatné.",
+    "de": "Der veröffentlichte Preis eines einzelnen Agentenpakets ist durch seine CAI-Stufe festgelegt. Continuous Certification ist ein separates optionales Abonnement.",
+    "fr": "Le prix publié d’un package d’agent individuel est fixé selon son niveau CAI. Continuous Certification est un abonnement optionnel distinct.",
+    "es": "El precio publicado de un paquete de agente individual está fijado según su nivel CAI. Continuous Certification es una suscripción opcional independiente.",
+    "it": "Il prezzo pubblicato di un singolo pacchetto agente è fissato in base al livello CAI. Continuous Certification è un abbonamento opzionale separato.",
+    "pl": "Opublikowana cena indywidualnego pakietu agenta jest ustalona według poziomu CAI. Continuous Certification jest oddzielną opcjonalną subskrypcją.",
+    "pt": "O preço publicado de um pacote individual de agente é fixado pelo respetivo nível CAI. Continuous Certification é uma subscrição opcional separada."
+  },
+  "Enterprise AI agent packages with fixed pricing by CAI tier": {
+    "cs": "Balíčky podnikových AI agentů s pevnými cenami podle úrovně CAI",
+    "de": "Enterprise-KI-Agentenpakete mit festen Preisen nach CAI-Stufe",
+    "fr": "Packages d’agents IA d’entreprise avec tarification fixe par niveau CAI",
+    "es": "Paquetes de agentes de IA empresariales con precios fijos por nivel CAI",
+    "it": "Pacchetti di agenti AI enterprise con prezzi fissi per livello CAI",
+    "pl": "Pakiety agentów AI dla przedsiębiorstw ze stałymi cenami według poziomu CAI",
+    "pt": "Pacotes de agentes de IA empresariais com preços fixos por nível CAI"
+  },
+  "Start with one agent package or combine multiple agents into a governed multi-agent environment. Individual agent pricing is fixed by CAI tier: L2, L3 or L4.": {
+    "cs": "Začněte jedním balíčkem agenta nebo zkombinujte více agentů do řízeného multiagentního prostředí. Cena jednotlivého agenta je pevně stanovena podle úrovně CAI: L2, L3 nebo L4.",
+    "de": "Starten Sie mit einem Agentenpaket oder kombinieren Sie mehrere Agenten in einer gesteuerten Multi-Agenten-Umgebung. Der Preis eines einzelnen Agenten ist nach CAI-Stufe festgelegt: L2, L3 oder L4.",
+    "fr": "Commencez par un package d’agent ou combinez plusieurs agents dans un environnement multi-agents gouverné. Le prix de chaque agent est fixé par niveau CAI : L2, L3 ou L4.",
+    "es": "Empiece con un paquete de agente o combine varios agentes en un entorno multiagente gobernado. El precio de cada agente está fijado por nivel CAI: L2, L3 o L4.",
+    "it": "Inizia con un pacchetto agente oppure combina più agenti in un ambiente multi-agente governato. Il prezzo del singolo agente è fissato in base al livello CAI: L2, L3 o L4.",
+    "pl": "Zacznij od jednego pakietu agenta lub połącz wielu agentów w zarządzanym środowisku wieloagentowym. Cena pojedynczego agenta jest ustalona według poziomu CAI: L2, L3 lub L4.",
+    "pt": "Comece com um pacote de agente ou combine vários agentes num ambiente multiagente governado. O preço de cada agente é fixado pelo nível CAI: L2, L3 ou L4."
+  },
+  "Catalogue pricing is fixed by CAI tier: L2, L3 or L4. Every customer pays the published price for the same agent package and tier.": {
+    "cs": "Katalogové ceny jsou pevně stanoveny podle úrovně CAI: L2, L3 nebo L4. Každý zákazník platí zveřejněnou cenu za stejný balíček agenta a úroveň.",
+    "de": "Die Katalogpreise sind nach CAI-Stufe festgelegt: L2, L3 oder L4. Jeder Kunde zahlt den veröffentlichten Preis für dasselbe Agentenpaket und dieselbe Stufe.",
+    "fr": "Les prix catalogue sont fixés par niveau CAI : L2, L3 ou L4. Chaque client paie le prix publié pour le même package d’agent et le même niveau.",
+    "es": "Los precios de catálogo están fijados por nivel CAI: L2, L3 o L4. Cada cliente paga el precio publicado por el mismo paquete de agente y nivel.",
+    "it": "I prezzi di catalogo sono fissati in base al livello CAI: L2, L3 o L4. Ogni cliente paga il prezzo pubblicato per lo stesso pacchetto agente e livello.",
+    "pl": "Ceny katalogowe są ustalone według poziomu CAI: L2, L3 lub L4. Każdy klient płaci opublikowaną cenę za ten sam pakiet agenta i poziom.",
+    "pt": "Os preços de catálogo são fixados pelo nível CAI: L2, L3 ou L4. Cada cliente paga o preço publicado pelo mesmo pacote de agente e nível."
+  },
+  "Published catalogue prices are fixed one-time licence prices for individual agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4. Continuous Certification is a separate optional subscription.": {
+    "cs": "Zveřejněné katalogové ceny jsou pevné jednorázové ceny licence pro jednotlivé balíčky agentů: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4. Continuous Certification je samostatné volitelné předplatné.",
+    "de": "Die veröffentlichten Katalogpreise sind feste einmalige Lizenzpreise für einzelne Agentenpakete: $7,900 für L2, $9,900 für L3 und $14,900 für L4. Continuous Certification ist ein separates optionales Abonnement.",
+    "fr": "Les prix catalogue publiés sont des prix de licence unique fixes pour les packages d’agents individuels : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4. Continuous Certification est un abonnement optionnel distinct.",
+    "es": "Los precios de catálogo publicados son precios fijos de licencia única para paquetes de agentes individuales: $7,900 para L2, $9,900 para L3 y $14,900 para L4. Continuous Certification es una suscripción opcional independiente.",
+    "it": "I prezzi di catalogo pubblicati sono prezzi fissi di licenza una tantum per i singoli pacchetti agente: $7,900 per L2, $9,900 per L3 e $14,900 per L4. Continuous Certification è un abbonamento opzionale separato.",
+    "pl": "Opublikowane ceny katalogowe są stałymi jednorazowymi cenami licencji dla pojedynczych pakietów agentów: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4. Continuous Certification jest oddzielną opcjonalną subskrypcją.",
+    "pt": "Os preços de catálogo publicados são preços fixos de licença única para pacotes individuais de agentes: $7,900 para L2, $9,900 para L3 e $14,900 para L4. Continuous Certification é uma subscrição opcional separada."
+  },
+  "Customers can combine multiple individually licensed agent packages across functions and systems. Each agent retains its published CAI-tier price, while deployment, integrations and operation remain with the customer or its approved implementation partner.": {
+    "cs": "Zákazníci mohou kombinovat více samostatně licencovaných balíčků agentů napříč funkcemi a systémy. Každý agent si zachovává zveřejněnou cenu podle úrovně CAI, zatímco nasazení, integrace a provoz zůstávají na zákazníkovi nebo jeho schváleném implementačním partnerovi.",
+    "de": "Kunden können mehrere einzeln lizenzierte Agentenpakete funktions- und systemübergreifend kombinieren. Für jeden Agenten gilt weiterhin der veröffentlichte Preis seiner CAI-Stufe; Deployment, Integrationen und Betrieb liegen beim Kunden oder seinem zugelassenen Implementierungspartner.",
+    "fr": "Les clients peuvent combiner plusieurs packages d’agents sous licence individuelle entre différentes fonctions et différents systèmes. Chaque agent conserve le prix publié de son niveau CAI, tandis que le déploiement, les intégrations et l’exploitation restent à la charge du client ou de son partenaire d’implémentation agréé.",
+    "es": "Los clientes pueden combinar varios paquetes de agentes con licencia individual entre distintas funciones y sistemas. Cada agente mantiene el precio publicado de su nivel CAI, mientras que el despliegue, las integraciones y la operación corresponden al cliente o a su partner de implementación aprobado.",
+    "it": "I clienti possono combinare più pacchetti agente con licenza individuale tra funzioni e sistemi. Ogni agente mantiene il prezzo pubblicato del proprio livello CAI, mentre deployment, integrazioni e gestione restano a carico del cliente o del suo partner di implementazione approvato.",
+    "pl": "Klienci mogą łączyć wiele oddzielnie licencjonowanych pakietów agentów w różnych funkcjach i systemach. Każdy agent zachowuje opublikowaną cenę swojego poziomu CAI, natomiast wdrożenie, integracje i eksploatacja pozostają po stronie klienta lub jego zatwierdzonego partnera wdrożeniowego.",
+    "pt": "Os clientes podem combinar vários pacotes de agentes licenciados individualmente entre funções e sistemas. Cada agente mantém o preço publicado do respetivo nível CAI, enquanto o deployment, as integrações e a operação permanecem a cargo do cliente ou do respetivo parceiro de implementação aprovado."
+  },
+  "Yes. Each individual agent package has a fixed one-time licence price based on its CAI tier: $7,900 for L2, $9,900 for L3 or $14,900 for L4. Continuous Certification is a separate optional subscription.": {
+    "cs": "Ano. Každý jednotlivý balíček agenta má pevnou jednorázovou cenu licence podle své úrovně CAI: $7,900 pro L2, $9,900 pro L3 nebo $14,900 pro L4. Continuous Certification je samostatné volitelné předplatné.",
+    "de": "Ja. Jedes einzelne Agentenpaket hat einen festen einmaligen Lizenzpreis entsprechend seiner CAI-Stufe: $7,900 für L2, $9,900 für L3 oder $14,900 für L4. Continuous Certification ist ein separates optionales Abonnement.",
+    "fr": "Oui. Chaque package d’agent individuel dispose d’un prix de licence unique fixe selon son niveau CAI : $7,900 pour L2, $9,900 pour L3 ou $14,900 pour L4. Continuous Certification est un abonnement optionnel distinct.",
+    "es": "Sí. Cada paquete de agente individual tiene un precio fijo de licencia única según su nivel CAI: $7,900 para L2, $9,900 para L3 o $14,900 para L4. Continuous Certification es una suscripción opcional independiente.",
+    "it": "Sì. Ogni singolo pacchetto agente ha un prezzo fisso di licenza una tantum in base al livello CAI: $7,900 per L2, $9,900 per L3 o $14,900 per L4. Continuous Certification è un abbonamento opzionale separato.",
+    "pl": "Tak. Każdy pojedynczy pakiet agenta ma stałą jednorazową cenę licencji według poziomu CAI: $7,900 dla L2, $9,900 dla L3 lub $14,900 dla L4. Continuous Certification jest oddzielną opcjonalną subskrypcją.",
+    "pt": "Sim. Cada pacote individual de agente tem um preço fixo de licença única com base no respetivo nível CAI: $7,900 para L2, $9,900 para L3 ou $14,900 para L4. Continuous Certification é uma subscrição opcional separada."
+  },
+  "Integration specifications and connector documentation may be included in the agent package. Integration implementation is performed by the customer or an approved implementation partner.": {
+    "cs": "Specifikace integrací a dokumentace konektorů mohou být součástí balíčku agenta. Implementaci integrací provádí zákazník nebo schválený implementační partner.",
+    "de": "Integrationsspezifikationen und Connector-Dokumentation können im Agentenpaket enthalten sein. Die Implementierung der Integrationen erfolgt durch den Kunden oder einen zugelassenen Implementierungspartner.",
+    "fr": "Les spécifications d’intégration et la documentation des connecteurs peuvent être incluses dans le package d’agent. La mise en œuvre des intégrations est réalisée par le client ou par un partenaire d’implémentation agréé.",
+    "es": "Las especificaciones de integración y la documentación de conectores pueden incluirse en el paquete del agente. La implementación de las integraciones la realiza el cliente o un partner de implementación aprobado.",
+    "it": "Le specifiche di integrazione e la documentazione dei connettori possono essere incluse nel pacchetto agente. L’implementazione delle integrazioni viene eseguita dal cliente o da un partner di implementazione approvato.",
+    "pl": "Specyfikacje integracji i dokumentacja konektorów mogą być zawarte w pakiecie agenta. Implementację integracji wykonuje klient lub zatwierdzony partner wdrożeniowy.",
+    "pt": "As especificações de integração e a documentação dos conectores podem ser incluídas no pacote do agente. A implementação das integrações é realizada pelo cliente ou por um parceiro de implementação aprovado."
+  },
+  "Yes. Agent packages are designed for deployment in the customer's Microsoft environment. The customer or its approved implementation partner connects, configures and operates the package in that environment.": {
+    "cs": "Ano. Balíčky agentů jsou navrženy pro nasazení v prostředí Microsoft zákazníka. Zákazník nebo jeho schválený implementační partner balíček v tomto prostředí připojí, nakonfiguruje a provozuje.",
+    "de": "Ja. Agentenpakete sind für die Bereitstellung in der Microsoft-Umgebung des Kunden konzipiert. Der Kunde oder sein zugelassener Implementierungspartner verbindet, konfiguriert und betreibt das Paket in dieser Umgebung.",
+    "fr": "Oui. Les packages d’agents sont conçus pour être déployés dans l’environnement Microsoft du client. Le client ou son partenaire d’implémentation agréé connecte, configure et exploite le package dans cet environnement.",
+    "es": "Sí. Los paquetes de agentes están diseñados para desplegarse en el entorno Microsoft del cliente. El cliente o su partner de implementación aprobado conecta, configura y opera el paquete en ese entorno.",
+    "it": "Sì. I pacchetti agente sono progettati per essere distribuiti nell’ambiente Microsoft del cliente. Il cliente o un partner di implementazione approvato collega, configura e gestisce il pacchetto in tale ambiente.",
+    "pl": "Tak. Pakiety agentów są przeznaczone do wdrożenia w środowisku Microsoft klienta. Klient lub jego zatwierdzony partner wdrożeniowy łączy, konfiguruje i obsługuje pakiet w tym środowisku.",
+    "pt": "Sim. Os pacotes de agentes foram concebidos para deployment no ambiente Microsoft do cliente. O cliente ou o respetivo parceiro de implementação aprovado liga, configura e opera o pacote nesse ambiente."
+  },
+  "Yes. Customers can combine multiple individually licensed agent packages into governed multi-agent workflows. Each agent retains its published CAI-tier price; customer-specific deployment and integration remain with the customer or an approved implementation partner.": {
+    "cs": "Ano. Zákazníci mohou kombinovat více samostatně licencovaných balíčků agentů do řízených multiagentních workflow. Každý agent si zachovává zveřejněnou cenu podle úrovně CAI; nasazení a integrace specifické pro zákazníka zůstávají na zákazníkovi nebo schváleném implementačním partnerovi.",
+    "de": "Ja. Kunden können mehrere einzeln lizenzierte Agentenpakete zu gesteuerten Multi-Agenten-Workflows kombinieren. Für jeden Agenten gilt weiterhin der veröffentlichte Preis seiner CAI-Stufe; kundenspezifisches Deployment und Integrationen liegen beim Kunden oder einem zugelassenen Implementierungspartner.",
+    "fr": "Oui. Les clients peuvent combiner plusieurs packages d’agents sous licence individuelle dans des workflows multi-agents gouvernés. Chaque agent conserve le prix publié de son niveau CAI ; le déploiement et les intégrations spécifiques au client restent à la charge du client ou d’un partenaire d’implémentation agréé.",
+    "es": "Sí. Los clientes pueden combinar varios paquetes de agentes con licencia individual en workflows multiagente gobernados. Cada agente mantiene el precio publicado de su nivel CAI; el despliegue y las integraciones específicas del cliente corresponden al cliente o a un partner de implementación aprobado.",
+    "it": "Sì. I clienti possono combinare più pacchetti agente con licenza individuale in workflow multi-agente governati. Ogni agente mantiene il prezzo pubblicato del proprio livello CAI; deployment e integrazioni specifiche del cliente restano a carico del cliente o di un partner di implementazione approvato.",
+    "pl": "Tak. Klienci mogą łączyć wiele oddzielnie licencjonowanych pakietów agentów w zarządzane workflow wieloagentowe. Każdy agent zachowuje opublikowaną cenę swojego poziomu CAI; wdrożenie i integracje specyficzne dla klienta pozostają po stronie klienta lub zatwierdzonego partnera wdrożeniowego.",
+    "pt": "Sim. Os clientes podem combinar vários pacotes de agentes licenciados individualmente em workflows multiagente governados. Cada agente mantém o preço publicado do respetivo nível CAI; o deployment e as integrações específicas do cliente permanecem a cargo do cliente ou de um parceiro de implementação aprovado."
+  },
+  "No. ROI outputs are estimates based on customer-provided assumptions. Actual results depend on adoption, process quality, data readiness and customer execution.": {
+    "cs": "Ne. Výstupy ROI jsou odhady založené na předpokladech zadaných zákazníkem. Skutečné výsledky závisejí na adopci, kvalitě procesů, připravenosti dat a realizaci na straně zákazníka.",
+    "de": "Nein. ROI-Ergebnisse sind Schätzungen auf Grundlage der vom Kunden angegebenen Annahmen. Die tatsächlichen Ergebnisse hängen von Akzeptanz, Prozessqualität, Datenbereitschaft und Umsetzung durch den Kunden ab.",
+    "fr": "Non. Les résultats de ROI sont des estimations fondées sur les hypothèses fournies par le client. Les résultats réels dépendent de l’adoption, de la qualité des processus, de la maturité des données et de l’exécution par le client.",
+    "es": "No. Los resultados de ROI son estimaciones basadas en los supuestos proporcionados por el cliente. Los resultados reales dependen de la adopción, la calidad de los procesos, la disponibilidad de los datos y la ejecución por parte del cliente.",
+    "it": "No. I risultati ROI sono stime basate sulle ipotesi fornite dal cliente. I risultati effettivi dipendono da adozione, qualità dei processi, maturità dei dati ed esecuzione da parte del cliente.",
+    "pl": "Nie. Wyniki ROI są szacunkami opartymi na założeniach podanych przez klienta. Rzeczywiste rezultaty zależą od adopcji, jakości procesów, gotowości danych i realizacji po stronie klienta.",
+    "pt": "Não. Os resultados de ROI são estimativas baseadas nos pressupostos fornecidos pelo cliente. Os resultados reais dependem da adoção, qualidade dos processos, maturidade dos dados e execução pelo cliente."
   }
 }
