@@ -1727,14 +1727,14 @@
     "pl": "Łączna sprzedaż",
     "pt": "Vendas totais"
   },
-  "// Illustrative only. Actual prices vary by agent and region. Commission subject to partner terms.": {
-    "cs": "// Pouze ilustrativní. Skutečné ceny se liší podle agenta a regionu. Provize podléhá partnerským podmínkám.",
-    "de": "// Nur zur Veranschaulichung. Tatsächliche Preise variieren je nach Agent und Region. Provision unterliegt den Partnerbedingungen.",
-    "fr": "// À titre indicatif uniquement. Les prix réels varient selon l'agent et la région. Commission soumise aux conditions partenaires.",
-    "es": "// Solo ilustrativo. Los precios reales varían según el agente y la región. Comisión sujeta a los términos de socio.",
-    "it": "// Solo a scopo illustrativo. I prezzi effettivi variano in base all'agente e alla regione. Commissione soggetta ai termini per i partner.",
-    "pl": "// Wyłącznie poglądowe. Rzeczywiste ceny różnią się w zależności od agenta i regionu. Prowizja podlega warunkom partnerskim.",
-    "pt": "// Apenas ilustrativo. Os preços reais variam consoante o agente e a região. Comissão sujeita aos termos de parceiro."
+  "// Illustrative only. Agent prices are fixed by CAI tier. Commission subject to partner terms.": {
+    "cs": "// Pouze ilustrativní. Ceny agentů jsou pevně stanoveny podle úrovně CAI. Provize podléhá partnerským podmínkám.",
+    "de": "// Nur zur Veranschaulichung. Die Agentenpreise sind nach CAI-Stufe festgelegt. Provision unterliegt den Partnerbedingungen.",
+    "fr": "// À titre indicatif uniquement. Les prix des agents sont fixes selon le niveau CAI. Commission soumise aux conditions partenaires.",
+    "es": "// Solo ilustrativo. Los precios de los agentes son fijos según el nivel CAI. Comisión sujeta a los términos de socio.",
+    "it": "// Solo a scopo illustrativo. I prezzi degli agenti sono fissi in base al livello CAI. Commissione soggetta ai termini per i partner.",
+    "pl": "// Wyłącznie poglądowe. Ceny agentów są stałe według poziomu CAI. Prowizja podlega warunkom partnerskim.",
+    "pt": "// Apenas ilustrativo. Os preços dos agentes são fixos por nível CAI. Comissão sujeita aos termos de parceiro."
   },
   "Your unique partner link,": {
     "cs": "Váš jedinečný partnerský odkaz,",
@@ -2141,14 +2141,14 @@
     "pl": "Uzyskaj zatwierdzenie",
     "pt": "Obter aprovação"
   },
-  "If there is a fit, we confirm your partner level, commission rate and attribution method in a signed partner agreement.": {
-    "cs": "Pokud si budeme vzájemně vyhovovat, potvrdíme vaši úroveň partnerství, výši provize a způsob přiřazení v podepsané partnerské smlouvě.",
-    "de": "Bei passender Eignung bestätigen wir Ihre Partnerstufe, den Provisionssatz und die Attributionsmethode in einem unterzeichneten Partnervertrag.",
-    "fr": "En cas d'adéquation, nous confirmons votre niveau de partenariat, votre taux de commission et la méthode d'attribution dans un contrat de partenariat signé.",
-    "es": "Si hay encaje, confirmamos su nivel de partner, la tasa de comisión y el método de atribución en un acuerdo de partner firmado.",
-    "it": "Se c'è affinità, confermiamo il vostro livello di partnership, la percentuale di provvigione e il metodo di attribuzione in un accordo di partnership firmato.",
-    "pl": "Jeśli będzie dopasowanie, potwierdzimy Twój poziom partnerstwa, stawkę prowizji i metodę atrybucji w podpisanej umowie partnerskiej.",
-    "pt": "Se houver enquadramento, confirmamos o seu nível de parceria, a taxa de comissão e o método de atribuição num acordo de parceria assinado."
+  "If there is a fit, we confirm your 10% referral commission and attribution method in a signed partner agreement.": {
+    "cs": "Pokud si budeme vzájemně vyhovovat, potvrdíme vaši 10% provizi za doporučení a způsob přiřazení v podepsané partnerské smlouvě.",
+    "de": "Bei passender Eignung bestätigen wir Ihre Empfehlungsprovision von 10 % und die Attributionsmethode in einem unterzeichneten Partnervertrag.",
+    "fr": "En cas d’adéquation, nous confirmons votre commission de recommandation de 10 % et la méthode d’attribution dans un contrat de partenariat signé.",
+    "es": "Si hay encaje, confirmamos su comisión de recomendación del 10 % y el método de atribución en un acuerdo de partner firmado.",
+    "it": "Se c'è affinità, confermiamo la vostra commissione di segnalazione del 10% e il metodo di attribuzione in un accordo di partnership firmato.",
+    "pl": "Jeśli będzie dopasowanie, potwierdzimy 10% prowizję za polecenie i metodę atrybucji w podpisanej umowie partnerskiej.",
+    "pt": "Se houver enquadramento, confirmamos a sua comissão de referência de 10% e o método de atribuição num acordo de parceria assinado."
   },
   "Partner agreement": {
     "cs": "Partnerská smlouva",

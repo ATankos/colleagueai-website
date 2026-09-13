@@ -1,5 +1,5 @@
-/**
- * tests/journey.test.mjs — browserless end-to-end journeys over the real static pages.
+﻿/**
+ * tests/journey.test.mjs â€” browserless end-to-end journeys over the real static pages.
  *
  * Covers the buyer path (home -> pricing -> proposal form) and the partner path,
  * plus cross-page navigation and localisation invariants. Runs in jsdom, so it
@@ -25,7 +25,7 @@ function load(file, url) {
   return dom;
 }
 
-// ── navigation ───────────────────────────────────────────────────────────────
+// â”€â”€ navigation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 test('every main page exposes the same primary navigation, including Pricing', () => {
   for (const page of MAIN_PAGES) {
     const html = read(`${page}.html`);
@@ -66,7 +66,7 @@ test('every internal nav target resolves to a file or a configured rewrite', () 
   assert.deepEqual(missing, [], 'unresolved header links: ' + missing.join(', '));
 });
 
-// ── pricing page ─────────────────────────────────────────────────────────────
+// â”€â”€ pricing page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 test('pricing page presents the three fixed CAI tiers and prices', () => {
   const { window } = load('pricing.html', 'https://www.colleagueai.ai/pricing');
   const tiers = [...window.document.querySelectorAll('.tiers .tier')];
@@ -116,7 +116,7 @@ test('pricing FAQ renders every question as a keyboard-accessible disclosure', (
   for (const d of items) assert.ok(d.querySelector('summary'), 'FAQ entry without a summary');
 });
 
-// ── proposal call to action ─────────────────────────────────────────────────
+// â”€â”€ proposal call to action â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 test('pricing page routes proposals to email, with no form to submit', () => {
   const { window } = load('pricing.html', 'https://www.colleagueai.ai/pricing');
   const doc = window.document;
@@ -153,7 +153,7 @@ test('every localised partner page offers the email application route', () => {
   assert.deepEqual(missing, [], 'partner pages without a working apply route: ' + missing.join(', '));
 });
 
-// ── partner page ─────────────────────────────────────────────────────────────
+// â”€â”€ partner page â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 // The programme is referral-only at a flat 10% (Sales 15% and Strategic "from 20%"
 // were retired in the GTM remediation). These pin that model and the two defects
 // the re-audit found on this page: the worked example that still used the old
@@ -187,7 +187,7 @@ test('partner worked example reconciles: contract minus 10% commission equals re
 
 // One approved claims dictionary, everywhere. "aligned" overstates the evidence
 // the Trust Center actually presents; retired wordings must not creep back in
-// through any master, generator or footer — in any language.
+// through any master, generator or footer â€” in any language.
 test('no page still carries a retired compliance claim', () => {
   const retired = ['ISO/IEC 42001 aligned', 'EU AI Act + DORA mapped', 'DORA mapped', 'Certified under CAI Score',
     'certification framework', 'No customer data is ever processed', 'auditors will actually sign off',
@@ -205,7 +205,7 @@ test('no page still carries a retired compliance claim', () => {
 // The CAI Score is ColleagueAI's own classification, not independent assurance.
 // "Certified" reads as third-party attestation to a risk buyer, so the word is
 // retired in every language; only the dictionary key `dr_certify` may remain.
-/* The word "certified" came back — deliberately, and narrowly.
+/* The word "certified" came back â€” deliberately, and narrowly.
  *
  * Rounds 1-5 retired it because it read as third-party attestation of the
  * CUSTOMER's compliance. Continuous Certification reintroduces it for one thing
@@ -220,7 +220,7 @@ const CERT_PROGRAMME_OK = [
     .map((t) => t.nav),
   'Continuous Certification',
   'Colleague AI Certified Release',
-  'Colleague AI Certified — Active',
+  'Colleague AI Certified â€” Active',
   'Colleague AI Certified standard',
   'Certificate ID',
   'certified release',
@@ -274,7 +274,7 @@ test('the CAI Score itself is still never called a certification, in any languag
       .replace(/^\s*\/\/.*$/gm, ' ')                                       // JS line comments
       .replace(/\/\*[\s\S]*?\*\//g, ' ')                                    // JS block comments
       // the URL-locale controller embeds i18n.routes.json, so the localized SLUGS
-      // (certifikace, zertyfikacja, …) appear as routing data, not as copy
+      // (certifikace, zertyfikacja, â€¦) appear as routing data, not as copy
       .replace(/<script\b[^>]*>[\s\S]*?"slugs"[\s\S]*?<\/script\s*>/gi, ' ')
       // in-code fallbacks for the programme's own keys, e.g. (T('card_certified'))||'certified'
       .replace(/\(\(window\.T&&T\('(?:pay_cert|cert_|card_|dr_cert)[a-z0-9_]*'\)\)\|\|'[^']*'\)/g, ' ')
@@ -284,7 +284,7 @@ test('the CAI Score itself is still never called a certification, in any languag
       .replace(/<p[^>]*id="pay-cert-note"[^>]*>[\s\S]*?<\/p\s*>/gi, ' ')
       .replace(/data-i18n(?:-html|-cai)?="(pay_cert|cert_|card_certified|dr_certify|dr_cert)[a-z0-9_]*"/g, ' ');
     for (const ok of CERT_PROGRAMME_OK) html = html.split(ok).join(' ');
-    for (const ok of ['Certified Release', 'Certified — Active', 'certified release']) {
+    for (const ok of ['Certified Release', 'Certified â€” Active', 'certified release']) {
       html = html.split(ok).join(' ');
     }
     const hits = (html.match(stems) || []).filter((w) => w !== 'dr_certify');
@@ -292,10 +292,10 @@ test('the CAI Score itself is still never called a certification, in any languag
   }
 });
 
-/* The company is VAT-registered (DIČ CZ29540852, confirmed by the Finanční úřad
+/* The company is VAT-registered (DIÄŒ CZ29540852, confirmed by the FinanÄnÃ­ ÃºÅ™ad
  * 25 Aug 2026). An enterprise buyer's finance team validates that number before
- * paying an invoice, so wherever the IČO is published the DIČ must appear with
- * it — and the two must never disagree. */
+ * paying an invoice, so wherever the IÄŒO is published the DIÄŒ must appear with
+ * it â€” and the two must never disagree. */
 test('every page that publishes the company ID also publishes the VAT ID', () => {
   const ICO = '29540852';
   const DIC = 'CZ29540852';
@@ -306,15 +306,15 @@ test('every page that publishes the company ID also publishes the VAT ID', () =>
   for (const p of pages) {
     const html = read(p);
     if (!html.includes(ICO)) continue;
-    assert.ok(html.includes(DIC), `${p} publishes the IČO but not the DIČ`);
-    // every rendered IČO must have the DIČ within reach, not just once on the page
+    assert.ok(html.includes(DIC), `${p} publishes the IÄŒO but not the DIÄŒ`);
+    // every rendered IÄŒO must have the DIÄŒ within reach, not just once on the page
     // plain index scanning: no regex built from data, and no backtracking
     const orphan = [];
     for (let at = html.indexOf(ICO); at !== -1; at = html.indexOf(ICO, at + 1)) {
       const ctx = html.slice(Math.max(0, at - 60), at + ICO.length + 140);
       if (!ctx.includes(DIC)) orphan.push(ctx);
     }
-    assert.deepEqual(orphan, [], `${p} has an IČO with no DIČ beside it: ${orphan[0]?.slice(0, 90)}`);
+    assert.deepEqual(orphan, [], `${p} has an IÄŒO with no DIÄŒ beside it: ${orphan[0]?.slice(0, 90)}`);
   }
 });
 
@@ -349,9 +349,9 @@ test('partner referral card is localized on every locale page', () => {
   }
 });
 
-test('partner commission terms are qualified as non-binding', () => {
+test('partner referral commission is fixed and agreement-qualified', () => {
   const html = read('partners.html');
-  assert.ok(html.includes('do not create an entitlement to payment'), 'commission disclaimer missing');
+  assert.ok(html.includes('The standard Referral Partner commission is 10% of eligible net revenue.'), 'standard 10% referral commission missing');
   assert.ok(html.includes('subject to approval and a signed partner agreement'), 'agreement caveat missing');
 });
 
@@ -364,7 +364,7 @@ test('partner pages render exactly one header and keep the language selector', (
   }
 });
 
-// ── localisation ─────────────────────────────────────────────────────────────
+// â”€â”€ localisation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 test('each locale serves pricing on its own slug with matching lang and canonical', () => {
   for (const loc of LOCALES) {
     const html = read(`${loc}/pricing.html`);
@@ -417,3 +417,4 @@ test('the pricing jump navigation resolves to real sections in every language', 
     }
   }
 });
+
