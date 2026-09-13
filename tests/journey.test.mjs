@@ -67,32 +67,46 @@ test('every internal nav target resolves to a file or a configured rewrite', () 
 });
 
 // ── pricing page ─────────────────────────────────────────────────────────────
-test('pricing page presents five tiers with Tier 2 highlighted and ranges shown', () => {
+test('pricing page presents the three fixed CAI tiers and prices', () => {
   const { window } = load('pricing.html', 'https://www.colleagueai.ai/pricing');
-  const tiers = [...window.document.querySelectorAll('[data-tier]')];
-  assert.equal(tiers.length, 5, 'expected 5 pricing tiers');
-  const featured = tiers.filter((t) => t.classList.contains('feat'));
-  assert.equal(featured.length, 1, 'exactly one tier should carry the emphasis');
-  assert.equal(featured[0].getAttribute('data-tier'), '2', 'Tier 2 should be the highlighted one');
-  for (const t of tiers) {
-    assert.match(t.querySelector('.range').textContent, /\$[\d,]+/, 'tier is missing a price range');
-  }
+  const tiers = [...window.document.querySelectorAll('.tiers .tier')];
+
+  assert.equal(tiers.length, 3, 'expected 3 CAI pricing tiers');
+
+  const prices = tiers.map((t) => t.querySelector('.range')?.textContent || '');
+
+  assert.ok(prices[0].includes('$7,900'), 'L2 price missing');
+  assert.ok(prices[1].includes('$9,900'), 'L3 price missing');
+  assert.ok(prices[2].includes('$14,900'), 'L4 price missing');
 });
 
-test('pricing ranges are framed as indicative, never as a fixed quote', () => {
+test('individual agent catalogue uses fixed CAI tier pricing', () => {
   const html = read('pricing.html');
-  assert.ok(html.includes('indicative starting points, not binding quotations'), 'disclaimer missing');
-  assert.ok(!/\bfixed price\b|\bfinal price is\b/i.test(html), 'page implies a fixed quotation');
+
+  assert.ok(html.includes('$7,900'), 'L2 price missing');
+  assert.ok(html.includes('$9,900'), 'L3 price missing');
+  assert.ok(html.includes('$14,900'), 'L4 price missing');
+
+  assert.ok(
+    html.includes('one-time price set by its CAI tier'),
+    'fixed CAI tier pricing statement missing'
+  );
 });
 
-test('pricing structured data is valid and advertises no fixed offer price', () => {
+test('pricing structured data is valid and reflects the CAI tier model', () => {
   const html = read('pricing.html');
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
+
   assert.ok(blocks.length > 0, 'no JSON-LD on the pricing page');
+
   const graph = JSON.parse(blocks[0][1]);
   const types = (graph['@graph'] || [graph]).map((n) => n['@type']);
+  const json = JSON.stringify(graph);
+
   assert.ok(types.includes('FAQPage'), 'FAQPage schema missing');
-  assert.ok(!JSON.stringify(graph).includes('"Offer"'), 'must not publish Offer prices for indicative ranges');
+  assert.ok(json.includes('$7,900'), 'L2 price missing from structured data');
+  assert.ok(json.includes('$9,900'), 'L3 price missing from structured data');
+  assert.ok(json.includes('$14,900'), 'L4 price missing from structured data');
 });
 
 test('pricing FAQ renders every question as a keyboard-accessible disclosure', () => {
