@@ -115,13 +115,13 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
   <span>This factsheet is available in English. Catalogue language:</span>
   <select id="factsheet-lang" aria-label="Catalogue language">
     <option value="en" selected>English</option>
-    <option value="cs">?e?tina</option>
+    <option value="cs">Čeština</option>
     <option value="de">Deutsch</option>
-    <option value="fr">Fran?ais</option>
-    <option value="es">Espa?ol</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
     <option value="it">Italiano</option>
     <option value="pl">Polski</option>
-    <option value="pt">Portugu?s</option>
+    <option value="pt">Português</option>
   </select>
 </div>
 <div class="eyebrow">Classified under the CAI Score™ · ${esc(tier)}</div>
