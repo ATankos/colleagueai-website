@@ -143,7 +143,7 @@ const attrSafe = (value, key) => {
 function page(loc) {
   const t = C[loc];
   const url = `${BASE}${href(loc, 'certified')}`;
-  const rows = Object.entries(PRICING.tiers).map(([tier, v]) =>
+  const rows = Object.entries(PRICING.tiers).filter(([tier]) => ['L2', 'L3', 'L4'].includes(tier)).map(([tier, v]) =>
     `<tr><td><b>${tier}</b></td><td>${usd(v.oneTimeCents)}</td>` +
     `<td>$${v.monthlyCents / 100} ${t.per_month}</td><td>${usd(v.annualCents)} ${t.per_year}</td></tr>`).join('');
 
