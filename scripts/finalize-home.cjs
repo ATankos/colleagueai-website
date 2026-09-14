@@ -74,8 +74,14 @@ const stripComments = (html) => {
   } while (current !== previous);
   return current;
 };
+const accessibleHomePalette = (html) => html
+  // cai-accessible-home-palette: these two original tokens failed AA contrast
+  // for the homepage's small kicker/metadata/footer text.
+  .split("--terra:#C65D3A;--terra-solid:#A94A2C").join("--terra:#A94A2C;--terra-solid:#A94A2C")
+  .split("--muted:#8A857C;--soft:#4A4641").join("--muted:#6F6A62;--soft:#4A4641");
+
 const installHome = (src, dest) => {
-  const clean = stripComments(fs.readFileSync(src, "utf8"));
+  const clean = accessibleHomePalette(stripComments(fs.readFileSync(src, "utf8")));
   fs.writeFileSync(src, clean, "utf8");   // the home.html copy in dist is reachable as a static file too
   fs.writeFileSync(dest, clean, "utf8");
 };

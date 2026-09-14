@@ -78,3 +78,20 @@ test("built catalogue pages contain no stale June footer text or corrupted langu
     }
   }
 });
+
+
+test("Lighthouse accessibility is a real release gate and keeps its reports", () => {
+  const workflow = read(path.join(ROOT, ".github", "workflows", "lighthouse.yml"));
+  const step = workflow.match(/- name: Run Lighthouse[\s\S]*?(?=\n\s+- name:)/);
+  assert.ok(step, "Lighthouse workflow is missing the Run Lighthouse step");
+  assert.ok(!/continue-on-error:\s*true/.test(step[0]),
+    "Lighthouse failures are still being converted into a green workflow");
+  assert.ok(/include-hidden-files:\s*true/.test(workflow),
+    "Lighthouse reports live in .lighthouseci and must be uploaded as hidden files");
+
+  const home = read(path.join(ROOT, "public", "home.html"));
+  assert.ok(home.includes("--terra:#A94A2C;--terra-solid:#A94A2C"),
+    "homepage still uses the low-contrast terracotta token for small text");
+  assert.ok(home.includes("--muted:#6F6A62;--soft:#4A4641"),
+    "homepage still uses the low-contrast muted token for small text");
+});
