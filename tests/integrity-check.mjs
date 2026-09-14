@@ -66,7 +66,7 @@ for (const file of files) {
 
   // 1b. Inline classic scripts must parse. This catches generated-JS defects
   //     such as a literal "\\n" being emitted between switch cases.
-  const inlineScripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)];
+  const inlineScripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)];
   for (let scriptIndex = 0; scriptIndex < inlineScripts.length; scriptIndex += 1) {
     const attrs = inlineScripts[scriptIndex][1] || '';
     const code = inlineScripts[scriptIndex][2] || '';
