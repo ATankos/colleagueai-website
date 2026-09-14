@@ -369,3 +369,26 @@ test('the pricing CTA cannot reintroduce tailored-proposal scoping', () => {
       `dist/${loc}/pricing.html is missing the localized bottom-band paragraph`);
   }
 });
+
+
+test('the pricing page cannot claim five package tiers', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+
+  assert.ok(!/Five packaging tiers/i.test(html),
+    'pricing page still claims five package tiers');
+  assert.ok(html.includes('Three package tiers'),
+    'pricing page must state that the catalogue has three package tiers');
+  assert.ok(!dict['Five packaging tiers'],
+    'pricing translation dictionary still contains the retired five-tier heading');
+  assert.ok(dict['Three package tiers'],
+    'pricing translation dictionary is missing the three-tier heading');
+
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    assert.ok(dict['Three package tiers'][loc],
+      loc + ' is missing the localized three-tier heading');
+    const built = read('dist/' + loc + '/pricing.html');
+    assert.ok(built.includes(dict['Three package tiers'][loc]),
+      'dist/' + loc + '/pricing.html is missing the localized three-tier heading');
+  }
+});

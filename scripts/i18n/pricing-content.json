@@ -26,15 +26,6 @@
     "pl": "Poznaj rozwiązania agentowe",
     "pt": "Explorar soluções de agentes"
   },
-  "Five packaging tiers": {
-    "cs": "Pět úrovní balíčků",
-    "de": "Fünf Paketstufen",
-    "fr": "Cinq niveaux de packages",
-    "es": "Cinco niveles de paquetes",
-    "it": "Cinque livelli di pacchetti",
-    "pl": "Pięć poziomów pakietów",
-    "pt": "Cinco níveis de pacotes"
-  },
   "Best for focused workflows": {
     "cs": "Nejlepší pro zaměřené procesy",
     "de": "Ideal für fokussierte Workflows",
@@ -1636,5 +1627,14 @@
     "it": "Presentateci un caso d’uso concreto; vi aiuteremo a individuare il pacchetto agente a prezzo fisso appropriato e a chiarire i prerequisiti per un deployment gestito dal cliente.",
     "pl": "Przedstaw konkretny przypadek użycia, a pomożemy dobrać odpowiedni pakiet agenta o stałej cenie i wyjaśnić wymagania wstępne dla wdrożenia zarządzanego przez klienta.",
     "pt": "Apresente-nos um caso de utilização concreto; ajudaremos a identificar o pacote de agente de preço fixo adequado e a esclarecer os pré-requisitos para um deployment gerido pelo cliente."
+  },
+  "Three package tiers": {
+    "cs": "Tři úrovně balíčků",
+    "de": "Drei Paketstufen",
+    "fr": "Trois niveaux de packages",
+    "es": "Tres niveles de paquetes",
+    "it": "Tre livelli di pacchetti",
+    "pl": "Trzy poziomy pakietów",
+    "pt": "Três níveis de pacotes"
   }
 }
