@@ -288,3 +288,56 @@ test('every /pricing FAQ question and answer has a reviewed translation', () => 
 });
 
 
+
+
+test('the pricing page cannot imply discovery-based variable licence pricing', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+
+  const forbidden = [
+    /Why the Governance package carries a higher range/i,
+    /indicative range/i,
+    /What determines your final investment\?/i,
+    /move an engagement within, or outside/i,
+    /The exact package varies by engagement/i,
+    /prepare an indicative proposal/i
+  ];
+  for (const pattern of forbidden) {
+    assert.ok(!pattern.test(html), `pricing page still contains legacy variable-pricing copy: ${pattern}`);
+  }
+
+  assert.ok(html.includes('What affects customer deployment effort?'),
+    'pricing page must separate customer deployment effort from the fixed licence price');
+  assert.ok(html.includes('The published agent licence price is fixed.'),
+    'pricing page must explicitly state that the published licence price is fixed');
+  assert.ok(html.includes('Each agent package is a standardized product sold at its published CAI-tier licence price.'),
+    'pricing page must state that the package is standardized');
+
+  const retiredKey = /(indicative (pricing|price|range|proposal)|priced by complexity|pricing.*complexity|higher range|final investment|ranges shown|final price depends|range reflects|move an engagement|exact package varies by engagement|tailored proposal|what affects price)/i;
+  const staleKeys = Object.keys(dict).filter((key) => retiredKey.test(key));
+  assert.deepEqual(staleKeys, [], 'pricing translation dictionary still carries retired variable-pricing keys: ' + staleKeys.join(' | '));
+
+  const localizedKeys = [
+    'What affects customer deployment effort?',
+    "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's implementation approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.",
+    'What the agent package includes',
+    'Each agent package is a standardized product sold at its published CAI-tier licence price. Package contents are defined for the selected agent; customer-specific deployment work is outside the licence and remains with the customer or its implementation partner.',
+    'Discuss your agent portfolio'
+  ];
+  for (const key of localizedKeys) {
+    assert.ok(dict[key], `pricing translation dictionary is missing: ${key}`);
+    for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+      assert.ok(dict[key][loc], `${loc} is missing pricing translation for: ${key}`);
+    }
+  }
+
+  // CI runs this suite after npm run build. Verify the generated locale pages
+  // actually received the new reviewed copy rather than falling back to English.
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    const built = read(`dist/${loc}/pricing.html`);
+    assert.ok(built.includes(dict['What affects customer deployment effort?'][loc]),
+      `dist/${loc}/pricing.html is missing the localized deployment-effort heading`);
+    assert.ok(built.includes(dict['What the agent package includes'][loc]),
+      `dist/${loc}/pricing.html is missing the localized standardized-package heading`);
+  }
+});
