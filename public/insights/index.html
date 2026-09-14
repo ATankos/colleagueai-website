@@ -142,91 +142,6 @@ footer{
   .hero{padding-top:48px}
 }
 </style>
-<style id="cai-fixed-backtop-css">
-#cai-fixed-backtop {
-position: fixed !important;
-right: 22px !important;
-bottom: 22px !important;
-width: 48px !important;
-height: 48px !important;
-border: 0 !important;
-border-radius: 999px !important;
-background: #1d1b1a !important;
-color: #fff !important;
-font-size: 16px !important;
-font-weight: 700 !important;
-z-index: 2147483647 !important;
-cursor: pointer !important;
-display: none !important;
-align-items: center !important;
-justify-content: center !important;
-line-height: 1 !important;
-}
-#cai-fixed-backtop[data-show="true"] {
-display: flex !important;
-}
-</style>
-<script id="cai-fixed-backtop-js">
-(function () {
-  function ready(fn) {
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
-    else fn();
-  }
-  function getY() {
-    return window.scrollY ||
-      (document.scrollingElement && document.scrollingElement.scrollTop) ||
-      (document.documentElement && document.documentElement.scrollTop) ||
-      (document.body && document.body.scrollTop) ||
-      0;
-  }
-  function forceTop() {
-    var html = document.documentElement;
-    var body = document.body;
-    var oldHtml = html ? html.style.scrollBehavior : "";
-    var oldBody = body ? body.style.scrollBehavior : "";
-    if (html) html.style.scrollBehavior = "auto";
-    if (body) body.style.scrollBehavior = "auto";
-    try { window.scrollTo(0, 0); } catch (e) {}
-    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
-    var nodes = [document.scrollingElement, html, body];
-    for (var i = 0; i < nodes.length; i += 1) {
-      if (!nodes[i]) continue;
-      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
-    }
-    if (html) html.style.scrollBehavior = oldHtml || "";
-    if (body) body.style.scrollBehavior = oldBody || "";
-  }
-  ready(function () {
-    var button = document.getElementById("cai-fixed-backtop");
-    if (!button) {
-      button = document.createElement("button");
-      button.id = "cai-fixed-backtop";
-      button.type = "button";
-      button.textContent = "Top";
-      button.setAttribute("aria-label", "Back to top");
-      document.body.appendChild(button);
-    }
-    function show() {
-      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
-    }
-    function clickHandler(event) {
-      if (event) { event.preventDefault(); event.stopPropagation(); }
-      forceTop();
-      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
-      window.setTimeout(forceTop, 50);
-      window.setTimeout(forceTop, 150);
-      window.setTimeout(forceTop, 400);
-      window.setTimeout(show, 450);
-    }
-    button.addEventListener("click", clickHandler, true);
-    button.addEventListener("pointerup", clickHandler, true);
-    button.addEventListener("touchend", clickHandler, true);
-    window.addEventListener("scroll", show, { passive: true });
-    window.addEventListener("load", show);
-    show();
-  });
-}());
-</script>
 </head>
 <body>
 
@@ -266,10 +181,11 @@ display: flex !important;
           </h2>
           <p>A practical enterprise framework for governing AI agents across ownership, risk, access, human oversight, evidence, testing, deployment and continuous assurance.</p>
           <a class="read" href="/insights/ai-agent-governance-framework">
-            Read insight ?
+            Read insight →
           </a>
         </article>
-      \n
+
+
         <article class="card">
           <h2>
             <a href="/insights/human-oversight-ai-agents">
@@ -278,10 +194,11 @@ display: flex !important;
           </h2>
           <p>How enterprises design meaningful human oversight for AI agents through approval points, escalation, intervention, accountability, evidence and risk-based autonomy.</p>
           <a class="read" href="/insights/human-oversight-ai-agents">
-            Read insight ?
+            Read insight →
           </a>
         </article>
-      \n
+
+
         <article class="card">
           <h2>
             <a href="/insights/enterprise-ai-agents-microsoft">
@@ -290,7 +207,7 @@ display: flex !important;
           </h2>
           <p>A practical guide to packaged enterprise AI agents for Microsoft environments, including Copilot Studio, Power Automate, Azure, governance, deployment ownership and operational boundaries.</p>
           <a class="read" href="/insights/enterprise-ai-agents-microsoft">
-            Read insight ?
+            Read insight →
           </a>
         </article>
 
@@ -310,7 +227,14 @@ display: flex !important;
 
   selector.addEventListener("change", () => {
     switch (selector.value) {
-      case "en": window.location.assign("/insights"); break;\ncase "cs": window.location.assign("/cs/insights"); break;\ncase "de": window.location.assign("/de/insights"); break;\ncase "fr": window.location.assign("/fr/insights"); break;\ncase "es": window.location.assign("/es/insights"); break;\ncase "it": window.location.assign("/it/insights"); break;\ncase "pl": window.location.assign("/pl/insights"); break;\ncase "pt": window.location.assign("/pt/insights"); break;
+      case "en": window.location.assign("/insights"); break;
+case "cs": window.location.assign("/cs/insights"); break;
+case "de": window.location.assign("/de/insights"); break;
+case "fr": window.location.assign("/fr/insights"); break;
+case "es": window.location.assign("/es/insights"); break;
+case "it": window.location.assign("/it/insights"); break;
+case "pl": window.location.assign("/pl/insights"); break;
+case "pt": window.location.assign("/pt/insights"); break;
       default:
         break;
     }
