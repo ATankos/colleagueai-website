@@ -43,7 +43,7 @@ const TIER_DESC = { // verbatim from the CAI Score section of /agents (locked co
   L4: ['Supports decisions and controls in higher-stakes processes: compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.', 'Stays accountable'],
 };
 const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, classify it on the CAI Score, and it runs in your own tenant: no rebuild, no data leaving your walls.';
-const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. No customer business data is processed on our side. Your data stays in your tenant.';
+const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. Customer business content remains in the customer-controlled Microsoft environment. ColleagueAI processes separate governance-layer metadata as described in the Trust Center.';
 
 
 function page(a) {
