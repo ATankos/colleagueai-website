@@ -341,3 +341,31 @@ test('the pricing page cannot imply discovery-based variable licence pricing', (
       `dist/${loc}/pricing.html is missing the localized standardized-package heading`);
   }
 });
+
+
+test('the pricing CTA cannot reintroduce tailored-proposal scoping', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+
+  assert.ok(!/Request a tailored proposal/i.test(html),
+    'pricing page still contains the legacy Request a tailored proposal CTA');
+  assert.ok(!/prepare a tailored proposal/i.test(html),
+    'pricing page still implies a tailored proposal after scoping');
+
+  const band = "Bring a use case and we will help you identify the appropriate fixed-price agent package and clarify customer-managed deployment prerequisites.";
+  assert.ok(html.includes(band),
+    'pricing page is missing the fixed-price package-selection bottom-band copy');
+  assert.ok(dict[band],
+    'pricing translation dictionary is missing the new bottom-band copy');
+
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    assert.ok(dict[band][loc], `${loc} is missing the localized bottom-band copy`);
+    const built = read(`dist/${loc}/pricing.html`);
+    assert.ok(!/Request a tailored proposal/i.test(built),
+      `dist/${loc}/pricing.html still exposes the English legacy CTA`);
+    assert.ok(built.includes(dict['Discuss your agent portfolio'][loc]),
+      `dist/${loc}/pricing.html is missing the localized portfolio CTA`);
+    assert.ok(built.includes(dict[band][loc]),
+      `dist/${loc}/pricing.html is missing the localized bottom-band paragraph`);
+  }
+});

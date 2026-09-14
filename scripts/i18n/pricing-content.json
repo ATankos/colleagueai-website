@@ -1627,5 +1627,14 @@
     "it": "Scriveteci in merito al workflow che desiderate governare. Vi aiuteremo a individuare i pacchetti agente a prezzo fisso appropriati e a chiarire i prerequisiti per un deployment gestito dal cliente.",
     "pl": "Napisz do nas o procesie, który chcesz objąć governance. Pomożemy dobrać odpowiednie pakiety agentów o stałej cenie i wyjaśnić wymagania wstępne dla wdrożenia zarządzanego przez klienta.",
     "pt": "Envie-nos informações sobre o workflow que pretende governar. Ajudaremos a identificar os pacotes de agentes de preço fixo adequados e a esclarecer os pré-requisitos para um deployment gerido pelo cliente."
+  },
+  "Bring a use case and we will help you identify the appropriate fixed-price agent package and clarify customer-managed deployment prerequisites.": {
+    "cs": "Přineste konkrétní use case a pomůžeme vám vybrat vhodný balíček agenta s pevnou cenou a vyjasnit předpoklady pro nasazení řízené zákazníkem.",
+    "de": "Bringen Sie einen konkreten Anwendungsfall mit; wir helfen Ihnen, das passende Agentenpaket zum Festpreis auszuwählen und die Voraussetzungen für eine kundenseitig gesteuerte Bereitstellung zu klären.",
+    "fr": "Présentez-nous un cas d’usage concret ; nous vous aiderons à identifier le package d’agent à prix fixe approprié et à clarifier les prérequis d’un déploiement géré par le client.",
+    "es": "Comparta un caso de uso concreto y le ayudaremos a identificar el paquete de agente de precio fijo adecuado y a aclarar los requisitos previos para un despliegue gestionado por el cliente.",
+    "it": "Presentateci un caso d’uso concreto; vi aiuteremo a individuare il pacchetto agente a prezzo fisso appropriato e a chiarire i prerequisiti per un deployment gestito dal cliente.",
+    "pl": "Przedstaw konkretny przypadek użycia, a pomożemy dobrać odpowiedni pakiet agenta o stałej cenie i wyjaśnić wymagania wstępne dla wdrożenia zarządzanego przez klienta.",
+    "pt": "Apresente-nos um caso de utilização concreto; ajudaremos a identificar o pacote de agente de preço fixo adequado e a esclarecer os pré-requisitos para um deployment gerido pelo cliente."
   }
 }
