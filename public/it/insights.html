@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Approfondimenti sull?AI enterprise | ColleagueAI</title>
+<title>Approfondimenti sull’AI enterprise | ColleagueAI</title>
 <meta name="description" content="Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.">
 <meta name="robots" content="index, follow, max-snippet:-1">
 <link rel="canonical" href="https://www.colleagueai.ai/it/insights">
@@ -20,18 +20,18 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ColleagueAI">
 <meta property="og:url" content="https://www.colleagueai.ai/it/insights">
-<meta property="og:title" content="Approfondimenti sull?AI enterprise | ColleagueAI">
+<meta property="og:title" content="Approfondimenti sull’AI enterprise | ColleagueAI">
 <meta property="og:description" content="Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.">
 <meta property="og:image" content="https://www.colleagueai.ai/og-image.png">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Approfondimenti sull?AI enterprise | ColleagueAI">
+<meta name="twitter:title" content="Approfondimenti sull’AI enterprise | ColleagueAI">
 <meta name="twitter:description" content="Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.">
 <meta name="twitter:image" content="https://www.colleagueai.ai/og-image.png">
 
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.colleagueai.ai/it/insights#page","url":"https://www.colleagueai.ai/it/insights","name":"Approfondimenti sull?AI enterprise","description":"Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.","inLanguage":"it","publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"}},{"@type":"ItemList","@id":"https://www.colleagueai.ai/it/insights#insights","numberOfItems":3,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.colleagueai.ai/it/insights/framework-governance-agenti-ai","name":"Framework di governance degli agenti AI"},{"@type":"ListItem","position":2,"url":"https://www.colleagueai.ai/it/insights/supervisione-umana-agenti-ai","name":"Supervisione umana degli agenti AI enterprise"},{"@type":"ListItem","position":3,"url":"https://www.colleagueai.ai/it/insights/agenti-ai-enterprise-microsoft","name":"Agenti AI enterprise per ambienti Microsoft"}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"CollectionPage","@id":"https://www.colleagueai.ai/it/insights#page","url":"https://www.colleagueai.ai/it/insights","name":"Approfondimenti sull’AI enterprise","description":"Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.","inLanguage":"it","publisher":{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"ColleagueAI","url":"https://www.colleagueai.ai"}},{"@type":"ItemList","@id":"https://www.colleagueai.ai/it/insights#insights","numberOfItems":3,"itemListElement":[{"@type":"ListItem","position":1,"url":"https://www.colleagueai.ai/it/insights/framework-governance-agenti-ai","name":"Framework di governance degli agenti AI"},{"@type":"ListItem","position":2,"url":"https://www.colleagueai.ai/it/insights/supervisione-umana-agenti-ai","name":"Supervisione umana degli agenti AI enterprise"},{"@type":"ListItem","position":3,"url":"https://www.colleagueai.ai/it/insights/agenti-ai-enterprise-microsoft","name":"Agenti AI enterprise per ambienti Microsoft"}]}]}</script>
 
 <style>
 :root{
@@ -142,91 +142,6 @@ footer{
   .hero{padding-top:48px}
 }
 </style>
-<style id="cai-fixed-backtop-css">
-#cai-fixed-backtop {
-position: fixed !important;
-right: 22px !important;
-bottom: 22px !important;
-width: 48px !important;
-height: 48px !important;
-border: 0 !important;
-border-radius: 999px !important;
-background: #1d1b1a !important;
-color: #fff !important;
-font-size: 16px !important;
-font-weight: 700 !important;
-z-index: 2147483647 !important;
-cursor: pointer !important;
-display: none !important;
-align-items: center !important;
-justify-content: center !important;
-line-height: 1 !important;
-}
-#cai-fixed-backtop[data-show="true"] {
-display: flex !important;
-}
-</style>
-<script id="cai-fixed-backtop-js">
-(function () {
-  function ready(fn) {
-    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
-    else fn();
-  }
-  function getY() {
-    return window.scrollY ||
-      (document.scrollingElement && document.scrollingElement.scrollTop) ||
-      (document.documentElement && document.documentElement.scrollTop) ||
-      (document.body && document.body.scrollTop) ||
-      0;
-  }
-  function forceTop() {
-    var html = document.documentElement;
-    var body = document.body;
-    var oldHtml = html ? html.style.scrollBehavior : "";
-    var oldBody = body ? body.style.scrollBehavior : "";
-    if (html) html.style.scrollBehavior = "auto";
-    if (body) body.style.scrollBehavior = "auto";
-    try { window.scrollTo(0, 0); } catch (e) {}
-    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
-    var nodes = [document.scrollingElement, html, body];
-    for (var i = 0; i < nodes.length; i += 1) {
-      if (!nodes[i]) continue;
-      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
-    }
-    if (html) html.style.scrollBehavior = oldHtml || "";
-    if (body) body.style.scrollBehavior = oldBody || "";
-  }
-  ready(function () {
-    var button = document.getElementById("cai-fixed-backtop");
-    if (!button) {
-      button = document.createElement("button");
-      button.id = "cai-fixed-backtop";
-      button.type = "button";
-      button.textContent = "Top";
-      button.setAttribute("aria-label", "Back to top");
-      document.body.appendChild(button);
-    }
-    function show() {
-      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
-    }
-    function clickHandler(event) {
-      if (event) { event.preventDefault(); event.stopPropagation(); }
-      forceTop();
-      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
-      window.setTimeout(forceTop, 50);
-      window.setTimeout(forceTop, 150);
-      window.setTimeout(forceTop, 400);
-      window.setTimeout(show, 450);
-    }
-    button.addEventListener("click", clickHandler, true);
-    button.addEventListener("pointerup", clickHandler, true);
-    button.addEventListener("touchend", clickHandler, true);
-    window.addEventListener("scroll", show, { passive: true });
-    window.addEventListener("load", show);
-    show();
-  });
-}());
-</script>
 </head>
 <body>
 
@@ -252,11 +167,11 @@ display: flex !important;
     </div>
 
     <div class="eyebrow">Approfondimenti</div>
-    <h1>Approfondimenti sull?AI enterprise</h1>
+    <h1>Approfondimenti sull’AI enterprise</h1>
     <p class="lead">Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.</p>
   </div>
 
-  <section class="grid" aria-label="Approfondimenti sull?AI enterprise">
+  <section class="grid" aria-label="Approfondimenti sull’AI enterprise">
 
         <article class="card">
           <h2>
@@ -266,10 +181,11 @@ display: flex !important;
           </h2>
           <p>Un framework enterprise pratico per governare gli agenti AI su responsabilità, rischio, accessi, supervisione umana, evidenze, test, deployment e assurance continua.</p>
           <a class="read" href="/it/insights/framework-governance-agenti-ai">
-            Leggi l?approfondimento ?
+            Leggi l’approfondimento →
           </a>
         </article>
-      \n
+
+
         <article class="card">
           <h2>
             <a href="/it/insights/supervisione-umana-agenti-ai">
@@ -278,10 +194,11 @@ display: flex !important;
           </h2>
           <p>Come progettare una supervisione umana efficace tramite approvazioni, escalation, intervento, accountability, evidenze e autonomia basata sul rischio.</p>
           <a class="read" href="/it/insights/supervisione-umana-agenti-ai">
-            Leggi l?approfondimento ?
+            Leggi l’approfondimento →
           </a>
         </article>
-      \n
+
+
         <article class="card">
           <h2>
             <a href="/it/insights/agenti-ai-enterprise-microsoft">
@@ -290,7 +207,7 @@ display: flex !important;
           </h2>
           <p>Guida pratica agli agenti AI enterprise pacchettizzati per Microsoft, inclusi Copilot Studio, Power Automate, Azure, governance, responsabilità del deployment e confini operativi.</p>
           <a class="read" href="/it/insights/agenti-ai-enterprise-microsoft">
-            Leggi l?approfondimento ?
+            Leggi l’approfondimento →
           </a>
         </article>
 
@@ -310,7 +227,14 @@ display: flex !important;
 
   selector.addEventListener("change", () => {
     switch (selector.value) {
-      case "en": window.location.assign("/insights"); break;\ncase "cs": window.location.assign("/cs/insights"); break;\ncase "de": window.location.assign("/de/insights"); break;\ncase "fr": window.location.assign("/fr/insights"); break;\ncase "es": window.location.assign("/es/insights"); break;\ncase "it": window.location.assign("/it/insights"); break;\ncase "pl": window.location.assign("/pl/insights"); break;\ncase "pt": window.location.assign("/pt/insights"); break;
+      case "en": window.location.assign("/insights"); break;
+case "cs": window.location.assign("/cs/insights"); break;
+case "de": window.location.assign("/de/insights"); break;
+case "fr": window.location.assign("/fr/insights"); break;
+case "es": window.location.assign("/es/insights"); break;
+case "it": window.location.assign("/it/insights"); break;
+case "pl": window.location.assign("/pl/insights"); break;
+case "pt": window.location.assign("/pt/insights"); break;
       default:
         break;
     }
