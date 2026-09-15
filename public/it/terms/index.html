@@ -42,6 +42,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   var page = rest.length ? pageFromSlug(rest[0]) : null;
   function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
   function urlFor(loc) {
+    var alt = document.querySelector('link[rel="alternate"][hreflang="' + loc + '"]');
+    if (alt && alt.href) { try { var u = new URL(alt.href, location.origin); return u.pathname + location.search + location.hash; } catch (e) {} }
     if (page) return canonical(loc, page) + location.search + location.hash;
     var tail = "/" + rest.join("/");
     var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
@@ -56,7 +58,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   function sync() {
     var list = document.querySelectorAll("#langsel");
     for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
-    var sel = document.getElementById("langsel");
+    var sel = document.getElementById("langsel") || document.getElementById("homelang") || document.getElementById("contactlang") || document.getElementById("pagelang");
     if (!sel) return;
     var want = D.locales.join("|");
     var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
@@ -107,7 +109,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
   header .logo, header .cai-hdr-logo { font-size: 19px !important; }
 }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","logo":"https://www.colleagueai.ai/logo.svg","identifier":[{"@type":"PropertyValue","propertyID":"IČO","value":"29540852"},{"@type":"PropertyValue","propertyID":"DIČ","value":"CZ29540852"}],"vatID":"CZ29540852","address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12, Nové Město","postalCode":"110 00","addressLocality":"Praha","addressCountry":"CZ"}},{"@type":"WebPage","name":"Termini di servizio | Colleague AI","description":"Colleague AI Termini di servizio: i termini contrattuali che regolano l’uso di questo sito, dei nostri pacchetti agente, delle licenze e dei servizi correlati.","url":"https://www.colleagueai.ai/terms","@id":"https://www.colleagueai.ai/terms#webpage","publisher":{"@id":"https://www.colleagueai.ai/#org"},"isPartOf":{"@id":"https://www.colleagueai.ai/#website"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","logo":"https://www.colleagueai.ai/logo.svg","identifier":[{"@type":"PropertyValue","propertyID":"IČO","value":"29540852"},{"@type":"PropertyValue","propertyID":"DIČ","value":"CZ29540852"}],"vatID":"CZ29540852","address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12, Nové Město","postalCode":"110 00","addressLocality":"Praha","addressCountry":"CZ"}},{"@type":"WebPage","name":"Termini di servizio | Colleague AI","description":"Colleague AI Termini di servizio: i termini contrattuali che regolano l’uso di questo sito, dei nostri pacchetti agente, delle licenze e dei servizi correlati.","url":"https://www.colleagueai.ai/it/termini","@id":"https://www.colleagueai.ai/it/termini#webpage","publisher":{"@id":"https://www.colleagueai.ai/#org"},"isPartOf":{"@id":"https://www.colleagueai.ai/#website"}}]}</script>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
 position: fixed !important;

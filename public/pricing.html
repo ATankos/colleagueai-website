@@ -23,7 +23,7 @@
 <meta name="theme-color" content="#22211F">
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","@id":"https://www.colleagueai.ai/pricing#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://www.colleagueai.ai/"},{"@type":"ListItem","position":2,"name":"Pricing","item":"https://www.colleagueai.ai/pricing"}]},{"@type":"Service","@id":"https://www.colleagueai.ai/pricing#service","name":"Governed enterprise AI agent packages","serviceType":"Governed enterprise AI agent packages","provider":{"@id":"https://www.colleagueai.ai/#org"},"description":"Packaged enterprise AI agents with fixed one-time licence pricing by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.","areaServed":"Europe"},{"@type":"FAQPage","@id":"https://www.colleagueai.ai/pricing#faq","mainEntity":[{"@type":"Question","name":"Is the displayed price a one-time fee?","acceptedAnswer":{"@type":"Answer","text":"Each individual agent package has a fixed one-time licence price based on its CAI tier. Continuous Certification is a separate optional subscription."}},{"@type":"Question","name":"Why do agents have different prices?","acceptedAnswer":{"@type":"Answer","text":"Individual agent pricing is determined by CAI tier: L2, L3 or L4."}},{"@type":"Question","name":"Can we start with one agent?","acceptedAnswer":{"@type":"Answer","text":"Yes. Organizations can begin with a focused use case and expand into a wider portfolio or multi-agent environment after validating the initial business outcome."}},{"@type":"Question","name":"Are integrations included?","acceptedAnswer":{"@type":"Answer","text":"Integration specifications and connector documentation may be included in the agent package. Integration implementation is performed by the customer or an approved implementation partner."}},{"@type":"Question","name":"Can the solution run in our environment?","acceptedAnswer":{"@type":"Answer","text":"Yes. Agent packages are designed for deployment in the customer's Microsoft environment. The customer or its approved implementation partner connects, configures and operates the package in that environment."}},{"@type":"Question","name":"Do you offer multi-agent solutions?","acceptedAnswer":{"@type":"Answer","text":"Yes. Customers can combine multiple individually licensed agent packages into governed multi-agent workflows. Each agent retains its published CAI-tier price; customer-specific deployment and integration remain with the customer or an approved implementation partner."}},{"@type":"Question","name":"Do you guarantee ROI?","acceptedAnswer":{"@type":"Answer","text":"No. ROI outputs are estimates based on customer-provided assumptions. Actual results depend on adoption, process quality, data readiness and customer execution."}},{"@type":"Question","name":"Are the published agent prices fixed?","acceptedAnswer":{"@type":"Answer","text":"The published price of an individual agent package is fixed by its CAI tier. Continuous Certification is a separate optional subscription."}}]}]}</script>
 <style>
-:root{--cream:#F5F0E8;--paper:#FBF8F2;--graphite:#2B2A28;--terra:#C65D3A;--terra-solid:#A94A2C;--line:#E2D9CB;--muted:#8A857C;--soft:#4A4641}
+:root{--cream:#F5F0E8;--paper:#FBF8F2;--graphite:#2B2A28;--terra:#C65D3A;--terra-solid:#A94A2C;--line:#E2D9CB;--muted:#6B655E;--soft:#4A4641}
 *{box-sizing:border-box}body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--cream);color:var(--graphite);line-height:1.6}
 a{text-decoration:none;color:inherit}
 .wrap{max-width:1120px;margin:0 auto;padding:0 22px}
@@ -95,7 +95,7 @@ section{padding:62px 0}
 .faq p{font-size:14.5px;color:var(--soft);margin:0 0 16px;max-width:720px}
 footer{background:var(--graphite);color:#CFC8BB;font-size:13px;padding:34px 0}
 footer a{color:#CFC8BB;text-decoration:underline}
-footer .co{margin-top:12px;color:#8A857C;font-size:12px}
+footer .co{margin-top:12px;color:#CFC8BB;font-size:12px}
 .formsec{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:28px}
 .fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:20px}
 @media(max-width:680px){.fgrid{grid-template-columns:1fr}}
@@ -144,6 +144,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   var page = rest.length ? pageFromSlug(rest[0]) : null;
   function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
   function urlFor(loc) {
+    var alt = document.querySelector('link[rel="alternate"][hreflang="' + loc + '"]');
+    if (alt && alt.href) { try { var u = new URL(alt.href, location.origin); return u.pathname + location.search + location.hash; } catch (e) {} }
     if (page) return canonical(loc, page) + location.search + location.hash;
     var tail = "/" + rest.join("/");
     var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
@@ -158,7 +160,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   function sync() {
     var list = document.querySelectorAll("#langsel");
     for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
-    var sel = document.getElementById("langsel");
+    var sel = document.getElementById("langsel") || document.getElementById("homelang") || document.getElementById("contactlang") || document.getElementById("pagelang");
     if (!sel) return;
     var want = D.locales.join("|");
     var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
@@ -341,7 +343,6 @@ display: flex !important;
 <h2 id="tiers-h">Three package tiers</h2>
 <p class="sub">Catalogue pricing is fixed by CAI tier: L2, L3 or L4. Every customer pays the published price for the same agent package and tier.</p>
 <div class="tiers">
-
 
 <article class="tier" data-tier="L2" data-tier-name="Draft">
 <span class="badge">CAI L2 — Draft</span>

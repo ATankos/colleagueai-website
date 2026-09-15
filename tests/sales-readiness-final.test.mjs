@@ -172,3 +172,28 @@ test("shared mobile stylesheet cannot override homepage contrast back to legacy 
   assert.ok(built.includes('id="main"'),
     "built homepage must preserve the main landmark");
 });
+
+
+test('demo fixed-price labels are non-indicative in all languages', () => {
+  const demo = read(path.join(ROOT, 'src', 'Demo.jsx'));
+  const retired = [
+    'Indicative package price',
+    'Orientační cena balíčku',
+    'Indikativer Paketpreis',
+    'Prix indicatif du package',
+    'Precio indicativo del paquete',
+    'Prezzo indicativo del pacchetto',
+    'Orientacyjna cena pakietu',
+    'Preço indicativo do pacote',
+  ];
+  for (const phrase of retired) {
+    assert.ok(!demo.includes(phrase), `demo still contains retired fixed-price wording: ${phrase}`);
+  }
+  const current = [
+    'Package price','Cena balíčku','Paketpreis','Prix du package',
+    'Precio del paquete','Prezzo del pacchetto','Cena pakietu','Preço do pacote',
+  ];
+  for (const phrase of current) {
+    assert.ok(demo.includes(phrase), `demo is missing fixed-price label: ${phrase}`);
+  }
+});

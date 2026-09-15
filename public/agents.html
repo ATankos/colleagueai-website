@@ -64,7 +64,7 @@ try{document.documentElement.className+=' js';}catch(e){}</script>
     --paper:#FBF8F2;
     --graphite:#2B2A28;
     --graphite-soft:#54514C;
-    --muted:#8A857C;
+    --muted:#6B655E;
     --terra:#C65D3A;--terra-solid:#A94A2C;
     --terra-deep:#9E3D22;
     --line:#E2D9CB;
@@ -2512,6 +2512,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   var page = rest.length ? pageFromSlug(rest[0]) : null;
   function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
   function urlFor(loc) {
+    var alt = document.querySelector('link[rel="alternate"][hreflang="' + loc + '"]');
+    if (alt && alt.href) { try { var u = new URL(alt.href, location.origin); return u.pathname + location.search + location.hash; } catch (e) {} }
     if (page) return canonical(loc, page) + location.search + location.hash;
     var tail = "/" + rest.join("/");
     var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
@@ -2526,7 +2528,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   function sync() {
     var list = document.querySelectorAll("#langsel");
     for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
-    var sel = document.getElementById("langsel");
+    var sel = document.getElementById("langsel") || document.getElementById("homelang") || document.getElementById("contactlang") || document.getElementById("pagelang");
     if (!sel) return;
     var want = D.locales.join("|");
     var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
@@ -3157,27 +3159,6 @@ display: flex !important;
     </div>
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- CAI_AUTHORITY_GRAPH_START -->
@@ -4064,5 +4045,78 @@ window.__rebuildGAQuiz=function(){};
 })();
 </script>
 <script id="cai-moved-anchors">(function(){var m={"philosophy":"/score","tenant-architecture":"/score","trust":"/score","score":"/score","readiness":"/score","deploy":"/score","faq":"/score","cai-score-guide":"/score","usage-intelligence":"/usage"};var id=location.hash.replace("#","");if(m[id]&&!document.getElementById(id)){var loc=(location.pathname.match(/^\/(cs|de|es|fr|it|pl|pt)\//)||[])[1];location.replace((loc?"/"+loc:"")+m[id]+"#"+id);}})();</script>
+
+<style id="cai-agents-a11y-contrast-fix">
+/* Core sales-page accessibility: preserve the brand palette while meeting WCAG AA. */
+
+/* Terracotta text on light surfaces needs the darker brand rust. */
+.hero .eyebrow,
+.sec-head .eyebrow,
+.enterprise-arch .eyebrow,
+#cai-view-intro .cai-vi-links a,
+.card .cp-cert,
+.card .open,
+.slider-head .sv,
+.proof-demo-kicker,
+.proof-demo-badge,
+.cai-reader-kicker,
+footer .logo b {
+  color: var(--terra-deep, #9E3D22) !important;
+}
+
+/* The partner band is dark, so use the light brand accent there. */
+#adopt .eyebrow {
+  color: #E8A07F !important;
+}
+
+/* "Any" has no tier colour token; keep the selected state readable. */
+.chip.tier.active[data-tier="all"] {
+  background: var(--graphite) !important;
+  border-color: var(--graphite) !important;
+  color: var(--paper) !important;
+}
+
+/* L3 badges: darker terracotta supports white text at AA contrast. */
+.sc-tier,
+.card[style*="--bc:var(--t3)"] .badge,
+.step[style*="--sc:var(--t3)"] .sbadge {
+  background: var(--terra-solid, #A94A2C) !important;
+  color: #fff !important;
+}
+
+/* L2 sand is intentionally light; pair it with graphite rather than white. */
+.card[style*="--bc:var(--t2)"] .badge,
+.step[style*="--sc:var(--t2)"] .sbadge {
+  color: var(--graphite) !important;
+}
+
+/* Stabilise the ROI panel for automated and keyboard accessibility checks.
+   Its declared light-on-dark colours already pass; the reveal transition can
+   otherwise be sampled mid-opacity by Lighthouse/axe. */
+.calc.reveal {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+}
+.calc-out .ch-note,
+.res-hero .rsub,
+.res-cell .rl,
+.calc-disc {
+  color: #CFC8BB !important;
+}
+.calc-disc strong {
+  color: #F5F0E8 !important;
+}
+</style>
+
+<style id="cai-process-badge-a11y-fix">
+/* Runtime-generated process-tier badges: one accessible treatment for L2/L3/L4.
+   Tier identity remains visible in the badge text itself. */
+.step .sbadge {
+  background: var(--graphite, #2B2A28) !important;
+  color: #FFFFFF !important;
+}
+</style>
+
 </body>
 </html>
