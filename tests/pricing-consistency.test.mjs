@@ -319,7 +319,7 @@ test('the pricing page cannot imply discovery-based variable licence pricing', (
 
   const localizedKeys = [
     'What affects customer deployment effort?',
-    "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's implementation approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.",
+    "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.",
     'What the agent package includes',
     'Each agent package is a standardized product sold at its published CAI-tier licence price. Package contents are defined for the selected agent; customer-specific deployment work is outside the licence and remains with the customer or its implementation partner.',
     'Discuss your agent portfolio'
