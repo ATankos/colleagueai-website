@@ -95,3 +95,80 @@ test("Lighthouse accessibility is a real release gate and keeps its reports", ()
   assert.ok(home.includes("--muted:#6F6A62;--soft:#4A4641"),
     "homepage still uses the low-contrast muted token for small text");
 });
+
+
+test("built homepages satisfy the Lighthouse accessibility defects from PR 419", () => {
+  const builtHomes = [
+    path.join(DIST, "index.html"),
+    ...["cs", "de", "fr", "es", "it", "pl", "pt"].map((loc) => path.join(DIST, loc, "index.html")),
+  ];
+
+  for (const file of builtHomes) {
+    assert.ok(fs.existsSync(file), `missing built homepage: ${path.relative(ROOT, file)}`);
+    const html = read(file);
+
+    assert.equal((html.match(/<main\b/gi) || []).length, 1,
+      `${file} must contain exactly one main landmark`);
+    assert.ok(!/--terra:\s*#C65D3A/i.test(html),
+      `${file} still contains the low-contrast terracotta token`);
+    assert.ok(!/--muted:\s*#8A857C/i.test(html),
+      `${file} still contains the low-contrast muted token`);
+
+    const rowHeaders = html.match(/<th\s+scope="row">/gi) || [];
+    assert.equal(rowHeaders.length, 6,
+      `${file} comparison table must expose six row headers`);
+  }
+});
+
+
+test("built homepages load the final contrast override", () => {
+  const cssFile = path.join(ROOT, "public", "home-a11y.css");
+  assert.ok(fs.existsSync(cssFile), "missing public/home-a11y.css");
+  const css = read(cssFile);
+
+  assert.match(css, /\.kicker\s*\{[\s\S]*?#8F3F25\s*!important/i,
+    "final homepage CSS must force a WCAG-AA kicker colour");
+  assert.match(css, /header\s*\{[\s\S]*?background:\s*#22211F\s*!important/i,
+    "final homepage CSS must give the header a deterministic solid background");
+
+  const homes = [
+    path.join(DIST, "index.html"),
+    ...["cs", "de", "fr", "es", "it", "pl", "pt"].map((loc) => path.join(DIST, loc, "index.html")),
+  ];
+
+  for (const file of homes) {
+    assert.ok(fs.existsSync(file), `missing built homepage: ${path.relative(ROOT, file)}`);
+    const html = read(file);
+    assert.ok(html.includes('href="/home-a11y.css"'),
+      `${file} is missing the final homepage contrast stylesheet`);
+  }
+});
+
+
+test("shared mobile stylesheet cannot override homepage contrast back to legacy coral", () => {
+  const mobileCss = read(path.join(ROOT, "public", "colleagueai-mobile-fix.css"));
+
+  const legacyLogo = mobileCss.lastIndexOf(
+    ".logo b, header .logo b, .cai-hdr-logo b, .cai-uni-logo b"
+  );
+  const safeLogo = mobileCss.lastIndexOf(
+    "header .logo b {\n  color: #E8A07F !important;"
+  );
+  assert.ok(safeLogo > legacyLogo,
+    "the final header logo contrast rule must come after the legacy coral override");
+
+  const legacyKicker = mobileCss.lastIndexOf(
+    ".eyebrow, .kicker, .overline"
+  );
+  const safeKicker = mobileCss.lastIndexOf(
+    "body > main#main .kicker {\n  color: #8F3F25 !important;"
+  );
+  assert.ok(safeKicker > legacyKicker,
+    "the final homepage kicker contrast rule must come after the legacy coral override");
+
+  const built = read(path.join(DIST, "index.html"));
+  assert.ok(built.includes("colleagueai-mobile-fix.css"),
+    "built homepage must load the shared mobile stylesheet");
+  assert.ok(built.includes('id="main"'),
+    "built homepage must preserve the main landmark");
+});

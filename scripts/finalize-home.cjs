@@ -74,14 +74,50 @@ const stripComments = (html) => {
   } while (current !== previous);
   return current;
 };
-const accessibleHomePalette = (html) => html
-  // cai-accessible-home-palette: these two original tokens failed AA contrast
-  // for the homepage's small kicker/metadata/footer text.
-  .split("--terra:#C65D3A;--terra-solid:#A94A2C").join("--terra:#A94A2C;--terra-solid:#A94A2C")
-  .split("--muted:#8A857C;--soft:#4A4641").join("--muted:#6F6A62;--soft:#4A4641");
+const ensureFinalHomeContrast = (html) => {
+  const link = '<link rel="stylesheet" href="/home-a11y.css">';
+  if (html.includes(link)) return html;
+  if (!/<\/head>/i.test(html)) throw new Error("[finalize-home] homepage missing </head>");
+  // cai-final-home-contrast-link
+  return html.replace(/<\/head>/i, link + "\n</head>");
+};
+
+const accessibleHomeMarkup = (html) => {
+  let out = html
+    // Robust token replacement: tolerate whitespace/case/order changes produced upstream.
+    .replace(/--terra:\s*#C65D3A/gi, "--terra:#A94A2C")
+    .replace(/--muted:\s*#8A857C/gi, "--muted:#6F6A62");
+
+  // Every homepage needs one main landmark.
+  if (!/<main\b/i.test(out)) {
+    out = out.replace(/<\/header>/i, "</header>\n\n<main id=\"main\">");
+    out = out.replace(/<footer>/i, "</main>\n\n<footer>");
+  }
+
+  // Comparison table: explicit column and row headers for assistive technology.
+  out = out.replace(/<thead><tr>([\s\S]*?)<\/tr><\/thead>/i, (full, row) => {
+    const fixed = row.replace(/<th(?![^>]*\bscope=)/gi, '<th scope="col"');
+    return "<thead><tr>" + fixed + "</tr></thead>";
+  });
+  out = out.replace(/<tbody>([\s\S]*?)<\/tbody>/i, (full, body) => {
+    const fixed = body.replace(/<tr>\s*<td>([\s\S]*?)<\/td>/gi, '<tr><th scope="row">$1</th>');
+    return "<tbody>" + fixed + "</tbody>";
+  });
+
+  out = out
+    .replace("th{font-size:13px;background:var(--cream)}", "thead th{font-size:13px;background:var(--cream)}")
+    .replace("tr:last-child td{border-bottom:none}", "tbody tr:last-child > *{border-bottom:none}")
+    .replace("td:first-child{color:var(--muted);font-size:13px}", 'tbody th[scope="row"]{color:var(--muted);font-size:13px;font-weight:400}');
+
+  if (/--terra:\s*#C65D3A/i.test(out)) throw new Error("[finalize-home] low-contrast --terra token survived");
+  if (/--muted:\s*#8A857C/i.test(out)) throw new Error("[finalize-home] low-contrast --muted token survived");
+  if ((out.match(/<main\b/gi) || []).length !== 1) throw new Error("[finalize-home] homepage must have exactly one main landmark");
+
+  return ensureFinalHomeContrast(out);
+};
 
 const installHome = (src, dest) => {
-  const clean = accessibleHomePalette(stripComments(fs.readFileSync(src, "utf8")));
+  const clean = accessibleHomeMarkup(stripComments(fs.readFileSync(src, "utf8")));
   fs.writeFileSync(src, clean, "utf8");   // the home.html copy in dist is reachable as a static file too
   fs.writeFileSync(dest, clean, "utf8");
 };
