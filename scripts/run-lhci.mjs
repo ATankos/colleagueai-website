@@ -18,7 +18,11 @@ const thresholds = {
   seo: 0.90,
 }
 
-const urls = [`http://${host}:${port}/`]
+const urls = [
+  `http://${host}:${port}/`,
+  `http://${host}:${port}/agents`,
+  `http://${host}:${port}/pricing`,
+]
 
 const mime = {
   '.html': 'text/html; charset=utf-8',
