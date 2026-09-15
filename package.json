@@ -46,14 +46,14 @@
     "e2e:golive": "playwright test tests/e2e/golive.spec.js"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.122.0",
-    "@sentry/react": "^10.71.0",
+    "@anthropic-ai/sdk": "^0.125.0",
+    "@sentry/react": "^10.74.0",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
     "aws4fetch": "^1.0.20",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
-    "stripe": "^22.6.0"
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "stripe": "^22.6.2"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.13.0",
@@ -62,8 +62,8 @@
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@testing-library/user-event": "^14.6.6",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@vitejs/plugin-react": "^6.1.1",
     "@vitest/ui": "^4.1.11",
     "eslint": "^10.9.1",
