@@ -230,14 +230,16 @@ describe('Demo agent context', () => {
     expect(payload.agentTier).toBe('L4')
   })
 
-  it('shows the indicative one-time package price for the tier, matching /pricing', () => {
+  it('shows the fixed one-time package price for the tier, matching /pricing', () => {
     // Asserted against config/pricing.json rather than a literal, so a price change
     // updates the site and this test together instead of silently diverging.
+    // The label is the P2 fix wording: "Package price", not "Indicative package price".
     const expected = (PRICING.tiers.L3.oneTimeCents / 100).toLocaleString('en-US')
     visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
     render(<Demo />)
 
-    expect(screen.getByText(new RegExp(`Indicative package price: \\$${expected} \\(one-time\\)`))).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(`Package price: \\$${expected} \\(one-time\\)`))).toBeInTheDocument()
+    expect(screen.queryByText(/Indicative package price/)).not.toBeInTheDocument()
   })
 
   it('shows no price for a tier that is not sold', () => {
@@ -245,7 +247,7 @@ describe('Demo agent context', () => {
     render(<Demo />)
 
     expect(screen.getByText(/You are requesting/i)).toBeInTheDocument()
-    expect(screen.queryByText(/Indicative package price/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/Package price/)).not.toBeInTheDocument()
   })
 
   it('ignores a query string that is not catalogue-shaped', () => {

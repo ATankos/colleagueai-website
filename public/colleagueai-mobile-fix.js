@@ -431,13 +431,37 @@
     // Switching language must keep the reader on the same page. Previously the
     // option values were locale roots ("/cs"), so every switch bounced the visitor
     // back to that language's homepage and lost their place.
+    // The page's own <link rel="alternate" hreflang> map is the authoritative
+    // equivalence table — it carries the localized slugs of legal pages
+    // (/cs/vraceni-penez → /de/rueckerstattung) and Insights articles that MENU
+    // never knew — so it is consulted first; MENU stays as the fallback for the
+    // main sections. English-only agent factsheets (/agents/<slug>) have no
+    // alternates and are not in MENU: they land on the target locale's
+    // catalogue (items[0]), never on the bare locale homepage.
+    function altPageIn(target){
+      var want=target==="en"?["en","x-default"]:[target];
+      var links=document.querySelectorAll('link[rel="alternate"][hreflang]');
+      for(var w=0;w<want.length;w++){
+        for(var i=0;i<links.length;i++){
+          var hl=(links[i].getAttribute("hreflang")||"").toLowerCase();
+          if(hl!==want[w]&&hl.indexOf(want[w]+"-")!==0) continue;
+          var href=links[i].getAttribute("href");
+          if(!href) continue;
+          try{ return new URL(href,location.href).pathname; }catch(e){}
+        }
+      }
+      return null;
+    }
     function samePageIn(target){
+      var alt=altPageIn(target);
+      if(alt) return alt;
       var from=MENU[locale()]||MENU.en, to=MENU[target]||MENU.en;
       var here=location.pathname.replace(/\/$/,"").toLowerCase();
       for(var i=0;i<from.items.length;i++){
         if(from.items[i][0].split("#")[0].replace(/\/$/,"").toLowerCase()===here) return to.items[i][0];
       }
       if(/\/demo$/.test(here)) return to.demo[0];
+      if(/^\/agents\/[^/]+$/.test(here)) return to.items[0][0];
       return target==="en"?"/":"/"+target;
     }
     [].forEach.call(h.querySelectorAll(".cai-uni-lang"),function(sel){
