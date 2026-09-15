@@ -319,7 +319,7 @@ test('the pricing page cannot imply discovery-based variable licence pricing', (
 
   const localizedKeys = [
     'What affects customer deployment effort?',
-    "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's implementation approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.",
+    "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.",
     'What the agent package includes',
     'Each agent package is a standardized product sold at its published CAI-tier licence price. Package contents are defined for the selected agent; customer-specific deployment work is outside the licence and remains with the customer or its implementation partner.',
     'Discuss your agent portfolio'
@@ -400,11 +400,35 @@ test('pricing final polish keeps fixed commercial terms, localized SEO and worki
   const metaEn = "Explore fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
   const ogEn = "Fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
   const foundingNew = "Founding customers may qualify for preferential payment or Continuous Certification terms in exchange for structured product and deployment feedback and permission to develop an approved case study. Published agent licence prices remain fixed.";
+  const deploymentNew = "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.";
 
   assert.ok(!/preferential commercial terms/i.test(html),
     'founding-customer copy still makes the fixed licence price sound negotiable');
   assert.ok(html.includes(foundingNew),
     'founding-customer copy must explicitly preserve fixed published agent licence prices');
+
+  assert.ok(!html.includes("customer's implementation approach"),
+    'pricing copy must not describe customer deployment as an implementation approach');
+  assert.ok(html.includes(deploymentNew),
+    'pricing copy must use customer deployment approach wording');
+  assert.ok(!Object.prototype.hasOwnProperty.call(dict, "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's implementation approach. These deployment costs are borne by the customer or agreed separately with its implementation partner."),
+    'pricing translation dictionary still carries the retired implementation-approach source key');
+  assert.ok(Object.prototype.hasOwnProperty.call(dict, deploymentNew),
+    'pricing translation dictionary is missing the deployment-approach source key');
+
+  const expectedDeploymentTranslations = {
+    "cs": "Zveřejněná cena licence agenta je pevná. Náročnost nasazení u zákazníka se může lišit podle integrací, připravenosti dat, požadavků na governance a zvoleného způsobu nasazení. Tyto náklady na nasazení nese zákazník nebo jsou samostatně dohodnuty s jeho implementačním partnerem.",
+    "de": "Der veröffentlichte Lizenzpreis des Agenten ist fest. Der Bereitstellungsaufwand beim Kunden kann je nach Integrationen, Datenreife, Governance-Anforderungen und gewähltem Bereitstellungsansatz variieren. Diese Bereitstellungskosten trägt der Kunde oder vereinbart sie separat mit seinem Implementierungspartner.",
+    "fr": "Le prix de licence publié de l’agent est fixe. L’effort de déploiement côté client peut varier selon les intégrations, la préparation des données, les exigences de gouvernance et l’approche de déploiement choisie par le client. Ces coûts de déploiement sont à la charge du client ou convenus séparément avec son partenaire d’implémentation.",
+    "es": "El precio de licencia publicado del agente es fijo. El esfuerzo de despliegue del cliente puede variar según las integraciones, la preparación de los datos, los requisitos de gobernanza y el enfoque de despliegue elegido por el cliente. Estos costes de despliegue corren a cargo del cliente o se acuerdan por separado con su socio de implementación.",
+    "it": "Il prezzo di licenza pubblicato dell’agente è fisso. L’impegno di deployment del cliente può variare in base alle integrazioni, alla preparazione dei dati, ai requisiti di governance e all’approccio di deployment scelto dal cliente. Questi costi di deployment sono a carico del cliente o concordati separatamente con il suo partner di implementazione.",
+    "pl": "Opublikowana cena licencji agenta jest stała. Nakład wdrożeniowy po stronie klienta może się różnić w zależności od integracji, gotowości danych, wymagań governance oraz wybranego podejścia do wdrożenia. Koszty te ponosi klient lub są one uzgadniane oddzielnie z jego partnerem wdrożeniowym.",
+    "pt": "O preço publicado da licença do agente é fixo. O esforço de deployment do cliente pode variar consoante as integrações, a preparação dos dados, os requisitos de governação e a abordagem de deployment escolhida pelo cliente. Estes custos de deployment são suportados pelo cliente ou acordados separadamente com o seu parceiro de implementação."
+  };
+  for (const [loc, expected] of Object.entries(expectedDeploymentTranslations)) {
+    assert.equal(dict[deploymentNew]?.[loc], expected,
+      `${loc}: deployment-approach translation is stale or missing`);
+  }
 
   for (const tier of ['L2', 'L3', 'L4']) {
     assert.ok(html.includes(`data-tier="${tier}"`),
