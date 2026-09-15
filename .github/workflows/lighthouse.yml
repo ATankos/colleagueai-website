@@ -73,7 +73,6 @@ jobs:
           exit 1
 
       - name: Run Lighthouse
-        continue-on-error: true
         run: npm run lhci
       - name: Upload Lighthouse reports as artifacts
         if: always()
@@ -81,4 +80,5 @@ jobs:
         with:
           name: lighthouse-reports
           path: .lighthouseci/
+          include-hidden-files: true
           if-no-files-found: ignore

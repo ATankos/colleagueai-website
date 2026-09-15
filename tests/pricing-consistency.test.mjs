@@ -392,3 +392,54 @@ test('the pricing page cannot claim five package tiers', () => {
       'dist/' + loc + '/pricing.html is missing the localized three-tier heading');
   }
 });
+
+
+test('pricing final polish keeps fixed commercial terms, localized SEO and working tier analytics', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+  const metaEn = "Explore fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
+  const ogEn = "Fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
+  const foundingNew = "Founding customers may qualify for preferential payment or Continuous Certification terms in exchange for structured product and deployment feedback and permission to develop an approved case study. Published agent licence prices remain fixed.";
+
+  assert.ok(!/preferential commercial terms/i.test(html),
+    'founding-customer copy still makes the fixed licence price sound negotiable');
+  assert.ok(html.includes(foundingNew),
+    'founding-customer copy must explicitly preserve fixed published agent licence prices');
+
+  for (const tier of ['L2', 'L3', 'L4']) {
+    assert.ok(html.includes(`data-tier="${tier}"`),
+      `pricing card ${tier} is missing analytics data-tier`);
+  }
+  assert.equal((html.match(/data-tier="L[234]"/g) || []).length, 3,
+    'pricing page should expose exactly three tier cards to the analytics observer');
+
+  for (const key of [metaEn, ogEn, foundingNew]) {
+    assert.ok(dict[key], `pricing dictionary is missing reviewed copy: ${key}`);
+    for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+      assert.ok(dict[key][loc], `${loc} is missing reviewed copy for: ${key}`);
+    }
+  }
+
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    const built = read(`dist/${loc}/pricing.html`);
+    assert.ok(built.includes(`meta name="description" content="${dict[metaEn][loc]}"`),
+      `dist/${loc}/pricing.html still has an English meta description`);
+    assert.ok(built.includes(`meta property="og:description" content="${dict[ogEn][loc]}"`),
+      `dist/${loc}/pricing.html still has an English og:description`);
+
+    const blocks = [...built.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((m) => JSON.parse(m[1]));
+    const graph = blocks.flatMap((block) => block['@graph'] || []);
+    const crumbs = graph.find((node) => node['@type'] === 'BreadcrumbList');
+    assert.ok(crumbs, `dist/${loc}/pricing.html is missing BreadcrumbList JSON-LD`);
+    const pricingUrl = `https://www.colleagueai.ai/${loc}/` + ({cs:'cenik',de:'preise',fr:'tarifs',es:'precios',it:'prezzi',pl:'cennik',pt:'precos'})[loc];
+    assert.equal(crumbs.itemListElement[1].item, pricingUrl,
+      `${loc} pricing breadcrumb still points at the English /pricing URL`);
+    assert.equal(crumbs.itemListElement[0].item, `https://www.colleagueai.ai/${loc}/`,
+      `${loc} pricing home breadcrumb should point at the locale home`);
+    for (const node of graph.filter((node) => typeof node['@id'] === 'string' && /#(breadcrumb|service|faq)$/.test(node['@id']))) {
+      assert.ok(node['@id'].startsWith(pricingUrl + '#'),
+        `${loc} pricing JSON-LD @id is still anchored to the English pricing URL: ${node['@id']}`);
+    }
+  }
+});

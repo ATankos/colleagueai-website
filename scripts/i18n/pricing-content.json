@@ -566,15 +566,6 @@
     "pl": "Warunki dla klientów założycielskich",
     "pt": "Condições de cliente fundador"
   },
-  "Founding customers may qualify for preferential commercial terms in exchange for structured product and deployment feedback and permission to develop an approved case study.": {
-    "cs": "Zakládající zákazníci mohou získat zvýhodněné obchodní podmínky výměnou za strukturovanou zpětnou vazbu k produktu a nasazení a souhlas s vytvořením schválené případové studie.",
-    "de": "Gründungskunden können bevorzugte kommerzielle Konditionen erhalten, im Gegenzug für strukturiertes Produkt- und Deployment-Feedback und die Erlaubnis, eine freigegebene Fallstudie zu erstellen.",
-    "fr": "Les clients fondateurs peuvent bénéficier de conditions commerciales préférentielles en échange d’un retour structuré sur le produit et le déploiement et de l’autorisation de développer une étude de cas approuvée.",
-    "es": "Los clientes fundadores pueden acceder a condiciones comerciales preferentes a cambio de feedback estructurado sobre el producto y el despliegue y permiso para desarrollar un caso de éxito aprobado.",
-    "it": "I clienti fondatori possono ottenere condizioni commerciali preferenziali in cambio di feedback strutturato sul prodotto e sul deployment e dell’autorizzazione a sviluppare un caso studio approvato.",
-    "pl": "Klienci założycielscy mogą uzyskać preferencyjne warunki handlowe w zamian za ustrukturyzowane informacje zwrotne dotyczące produktu i wdrożenia oraz zgodę na opracowanie zatwierdzonego studium przypadku.",
-    "pt": "Os clientes fundadores podem beneficiar de condições comerciais preferenciais em troca de feedback estruturado sobre o produto e o deployment e autorização para desenvolver um caso de estudo aprovado."
-  },
   "Ask about founding-customer terms": {
     "cs": "Zeptat se na podmínky pro zakládající zákazníky",
     "de": "Nach Gründungskunden-Konditionen fragen",
@@ -1636,5 +1627,32 @@
     "it": "Tre livelli di pacchetti",
     "pl": "Trzy poziomy pakietów",
     "pt": "Três níveis de pacotes"
+  },
+  "Explore fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.": {
+    "cs": "Prozkoumejte pevné jednorázové licenční ceny řízených balíčků podnikových AI agentů: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4, s volitelnou Continuous Certification.",
+    "de": "Entdecken Sie feste einmalige Lizenzpreise für kontrollierte Enterprise-KI-Agentenpakete: $7,900 für L2, $9,900 für L3 und $14,900 für L4, mit optionaler Continuous Certification.",
+    "fr": "Découvrez les prix de licence uniques fixes des packages d’agents IA d’entreprise gouvernés : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4, avec Continuous Certification en option.",
+    "es": "Explore los precios fijos de licencia única para paquetes gobernados de agentes de IA empresariales: $7,900 para L2, $9,900 para L3 y $14,900 para L4, con Continuous Certification opcional.",
+    "it": "Scopri i prezzi fissi di licenza una tantum per i pacchetti di agenti AI aziendali governati: $7,900 per L2, $9,900 per L3 e $14,900 per L4, con Continuous Certification opzionale.",
+    "pl": "Poznaj stałe, jednorazowe ceny licencji na nadzorowane pakiety korporacyjnych agentów AI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4, z opcjonalną Continuous Certification.",
+    "pt": "Explore os preços fixos de licença única para pacotes governados de agentes de IA empresariais: $7,900 para L2, $9,900 para L3 e $14,900 para L4, com Continuous Certification opcional."
+  },
+  "Fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.": {
+    "cs": "Pevné jednorázové licenční ceny řízených balíčků podnikových AI agentů: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4, s volitelnou Continuous Certification.",
+    "de": "Feste einmalige Lizenzpreise für kontrollierte Enterprise-KI-Agentenpakete: $7,900 für L2, $9,900 für L3 und $14,900 für L4, mit optionaler Continuous Certification.",
+    "fr": "Prix de licence uniques fixes pour les packages d’agents IA d’entreprise gouvernés : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4, avec Continuous Certification en option.",
+    "es": "Precios fijos de licencia única para paquetes gobernados de agentes de IA empresariales: $7,900 para L2, $9,900 para L3 y $14,900 para L4, con Continuous Certification opcional.",
+    "it": "Prezzi fissi di licenza una tantum per pacchetti di agenti AI aziendali governati: $7,900 per L2, $9,900 per L3 e $14,900 per L4, con Continuous Certification opzionale.",
+    "pl": "Stałe, jednorazowe ceny licencji na nadzorowane pakiety korporacyjnych agentów AI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4, z opcjonalną Continuous Certification.",
+    "pt": "Preços fixos de licença única para pacotes governados de agentes de IA empresariais: $7,900 para L2, $9,900 para L3 e $14,900 para L4, com Continuous Certification opcional."
+  },
+  "Founding customers may qualify for preferential payment or Continuous Certification terms in exchange for structured product and deployment feedback and permission to develop an approved case study. Published agent licence prices remain fixed.": {
+    "cs": "Zakládající zákazníci mohou získat zvýhodněné platební podmínky nebo podmínky Continuous Certification výměnou za strukturovanou zpětnou vazbu k produktu a nasazení a souhlas s vytvořením schválené případové studie. Zveřejněné licenční ceny agentů zůstávají pevné.",
+    "de": "Gründungskunden können im Austausch für strukturiertes Produkt- und Deployment-Feedback sowie die Zustimmung zu einer freigegebenen Fallstudie bevorzugte Zahlungs- oder Continuous-Certification-Konditionen erhalten. Die veröffentlichten Lizenzpreise der Agenten bleiben fest.",
+    "fr": "Les clients fondateurs peuvent bénéficier de conditions préférentielles de paiement ou de Continuous Certification en échange d’un retour structuré sur le produit et le déploiement ainsi que de l’autorisation de créer une étude de cas approuvée. Les prix de licence publiés des agents restent fixes.",
+    "es": "Los clientes fundadores pueden optar a condiciones preferentes de pago o de Continuous Certification a cambio de comentarios estructurados sobre el producto y el despliegue y del permiso para desarrollar un caso de estudio aprobado. Los precios de licencia publicados de los agentes siguen siendo fijos.",
+    "it": "I clienti fondatori possono beneficiare di condizioni preferenziali di pagamento o di Continuous Certification in cambio di feedback strutturato sul prodotto e sul deployment e dell’autorizzazione a sviluppare un case study approvato. I prezzi di licenza pubblicati degli agenti restano fissi.",
+    "pl": "Klienci założycielscy mogą otrzymać preferencyjne warunki płatności lub Continuous Certification w zamian za ustrukturyzowany feedback dotyczący produktu i wdrożenia oraz zgodę na przygotowanie zatwierdzonego studium przypadku. Opublikowane ceny licencji agentów pozostają stałe.",
+    "pt": "Os clientes fundadores podem beneficiar de condições preferenciais de pagamento ou de Continuous Certification em troca de feedback estruturado sobre o produto e o deployment e de autorização para desenvolver um caso de estudo aprovado. Os preços de licença publicados dos agentes permanecem fixos."
   }
 }

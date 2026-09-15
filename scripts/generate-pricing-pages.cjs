@@ -120,6 +120,13 @@ function render(loc) {
         translated = translated.split(from).join(to);
       }
 
+      // pricing-jsonld-local-url: text was localized but breadcrumb items and
+      // graph @ids still pointed at the English /pricing URL.
+      const englishPricingUrl = SITE + canonicalPath(DEFAULT_LOCALE, "pricing");
+      translated = translated.split(englishPricingUrl).join(url);
+      const localeHomeUrl = loc === DEFAULT_LOCALE ? SITE + "/" : SITE + "/" + loc + "/";
+      translated = translated.split('"item":"' + SITE + '/"').join('"item":"' + localeHomeUrl + '"');
+
       return '<script type="application/ld+json">' + translated + '</script>';
     }
   );
