@@ -121,14 +121,22 @@ function gaShimBody(slice) {
 }
 
 function stripLocaleSeo(html) {
+  // Each replace is idempotent; run the chain until stable so the seed-script
+  // removal cannot leave a partial tag behind, and tolerate "</script >" in the
+  // close (CodeQL: incomplete-multi-character-sanitization).
+  let prev
+  do {
+    prev = html
+    html = html
+      .replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, '')
+      .replace(/<link\s+rel=["']alternate["'][^>]*>\s*/gi, '')
+      .replace(/<meta\s+name=["']cai-static-locale["'][^>]*>\s*/gi, '')
+      .replace(/<meta\s+name=["']cai-static-i18n-prerender["'][^>]*>\s*/gi, '')
+      .replace(/<meta\s+name=["']cai-hreflang-locales["'][^>]*>\s*/gi, '')
+      .replace(/<meta\s+property=["']og:locale["'][^>]*>\s*/gi, '')
+      .replace(/<script\s+id=["']cai-static-locale-seed["'][\s\S]*?<\/script\s*>\s*/gi, '')
+  } while (html !== prev)
   return html
-    .replace(/<link\s+rel=["']canonical["'][^>]*>\s*/gi, '')
-    .replace(/<link\s+rel=["']alternate["'][^>]*>\s*/gi, '')
-    .replace(/<meta\s+name=["']cai-static-locale["'][^>]*>\s*/gi, '')
-    .replace(/<meta\s+name=["']cai-static-i18n-prerender["'][^>]*>\s*/gi, '')
-    .replace(/<meta\s+name=["']cai-hreflang-locales["'][^>]*>\s*/gi, '')
-    .replace(/<meta\s+property=["']og:locale["'][^>]*>\s*/gi, '')
-    .replace(/<script\s+id=["']cai-static-locale-seed["'][\s\S]*?<\/script>\s*/gi, '')
 }
 
 function setHtmlLang(html, code) {

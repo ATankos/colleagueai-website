@@ -5,7 +5,7 @@
  * Usage: node tests/local-server.mjs [port]   (default 4173; requires `npm run build` first)
  */
 import http from 'node:http';
-import { readFileSync, existsSync, statSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { join, extname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -18,7 +18,7 @@ const MIME = { '.html':'text/html; charset=utf-8', '.js':'text/javascript', '.cs
 
 function applyHeaders(res, path) {
   for (const h of cfg.headers ?? []) {
-    const re = new RegExp('^' + h.source.replace(/\(\.\*\)/g, '(.*)') + '$');
+    const re = new RegExp('^' + h.source + '$');
     if (re.test(path)) for (const { key, value } of h.headers) res.setHeader(key, value);
   }
 }
@@ -42,7 +42,7 @@ http.createServer((req, res) => {
   }
   let dest = null;
   for (const rw of cfg.rewrites ?? []) {
-    if (rw.source === '/(.*)') { dest = dest ?? rw.destination; break; }
+    if (rw.source === '/(.*)') { dest = rw.destination; break; }
     if (path === rw.source) { dest = rw.destination; break; }
   }
   const [destPath] = (dest ?? path).split('?');
@@ -58,14 +58,21 @@ http.createServer((req, res) => {
     }
     res.writeHead(404); return res.end('not found');
   }
-  // Clean-URL directories (e.g. dist/cs/score/) resolve to their index.html,
-  // matching how Vercel serves them in production.
-  if (statSync(file).isDirectory()) {
-    const idx = join(file, 'index.html');
-    if (existsSync(idx)) file = idx;
-    else { res.writeHead(404); return res.end('not found'); }
+  // Read the resolved file. A clean-URL directory (e.g. dist/cs/score/) resolves
+  // to its index.html — detected via the read's own EISDIR rather than a separate
+  // statSync check-then-read, which removes the race (CodeQL: file-system-race).
+  let body;
+  try {
+    body = readFileSync(file);
+  } catch (e) {
+    if (e && e.code === 'EISDIR') {
+      file = join(file, 'index.html');
+      try { body = readFileSync(file); }
+      catch { res.writeHead(404); return res.end('not found'); }
+    } else {
+      res.writeHead(404); return res.end('not found');
+    }
   }
-  const body = readFileSync(file);
   res.writeHead(200, { 'Content-Type': MIME[extname(file)] ?? 'application/octet-stream' });
   res.end(body);
 }).listen(PORT, () => console.log(`[local-server] dist/ on http://localhost:${PORT}`));

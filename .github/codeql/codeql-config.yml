@@ -1,0 +1,19 @@
+name: "ColleagueAI CodeQL config"
+
+# Scope the scan to first-party source. Two kinds of path are excluded:
+#
+#  - dist/ is pure build output — never edited, regenerated on every build.
+#  - The agent catalogue pages carry one large hand-minified inline <script>,
+#    and the seven localized copies (public/<loc>/agents.html and their
+#    /agents/index.html twins) are byte-generated from public/agents.html by
+#    scripts/generate-locale-pages.mjs + generate-secondary-pages.mjs. Scanning
+#    the copies re-reports the master's own findings 16×, and the security
+#    suite finds no security issues in that minified blob — only style Notes
+#    (semicolon insertion, unused locals) that are inherent to minified code.
+#
+# Everything else — scripts/, tests/, src/, and every other public/*.html — is
+# fully scanned by security-extended + security-and-quality (see codeql.yml).
+paths-ignore:
+  - dist
+  - "**/agents.html"
+  - "**/agents/index.html"

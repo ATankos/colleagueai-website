@@ -73,21 +73,6 @@ const endTagAfter = (lc, name, from) => {
   return -1;
 };
 
-/** outer HTML of every <name ...>…</name> element, in document order */
-const elements = (html, name) => {
-  const lc = html.toLowerCase();
-  const found = [];
-  for (let lt = lc.indexOf(`<${name}`); lt !== -1; lt = lc.indexOf(`<${name}`, lt + 1)) {
-    if (tagNameAt(lc, lt) !== name) continue; // <navbar> is not <nav>
-    const gt = html.indexOf('>', lt);
-    if (gt === -1) break;
-    const end = endTagAfter(lc, name, gt);
-    if (end === -1) continue;
-    found.push(html.slice(lt, end));
-  }
-  return found;
-};
-
 // visible text only: comments, script/style bodies and tags are not what a reader sees
 const visible = (html) => {
   const lc = html.toLowerCase();

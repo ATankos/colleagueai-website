@@ -3,7 +3,7 @@
  * for secret patterns. Prints file + pattern NAME only — never the matched value.
  * Usage: npm run build && node tests/scan-bundle.mjs
  */
-import { readdirSync, readFileSync, statSync } from 'node:fs';
+import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const ROOT = fileURLToPath(new URL('../dist', import.meta.url));
@@ -17,9 +17,11 @@ const PATTERNS = [
 ];
 let hits = 0, files = 0;
 (function walk(dir) {
-  for (const e of readdirSync(dir)) {
+  for (const entry of readdirSync(dir, { withFileTypes: true })) {
+    const e = entry.name;
     const p = join(dir, e);
-    if (statSync(p).isDirectory()) { walk(p); continue; }
+    // withFileTypes avoids a separate statSync check-then-read (CodeQL: file-system-race)
+    if (entry.isDirectory()) { walk(p); continue; }
     if (!/\.(js|html|css|json|map|txt|xml)$/.test(e)) continue;
     files++;
     const body = readFileSync(p, 'utf8');

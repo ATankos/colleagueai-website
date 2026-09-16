@@ -80,7 +80,11 @@ function ldUrls(html) {
       const crumb = inBreadcrumb || node['@type'] === 'BreadcrumbList';
       for (const [key, value] of Object.entries(node)) {
         if (typeof value === 'string' && ['url', '@id', 'item', 'mainEntityOfPage'].includes(key)) {
-          if (value.startsWith('/') || value.startsWith(ORIGIN)) {
+          // Match our origin only at a real boundary (end, '/', or '#'), not as a
+          // bare prefix — "https://www.colleagueai.ai.evil.com" is not our origin
+          // (CodeQL: incomplete-url-substring-sanitization).
+          const atOrigin = value === ORIGIN || value.startsWith(ORIGIN + '/') || value.startsWith(ORIGIN + '#');
+          if (value.startsWith('/') || atOrigin) {
             const rest = value.startsWith('/') ? value : value.slice(ORIGIN.length) || '/';
             out.push({ key, crumb, path: norm(rest.split('#')[0] || '/') });
           }

@@ -21,8 +21,18 @@ async function get(path, redirect = 'manual') {
   const body = redirect === 'follow' || r.status < 300 || r.status >= 400 ? await r.text() : '';
   return { r, body };
 }
-const text = (html) => html.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<style[\s\S]*?<\/style>/gi, '')
-  .replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const text = (html) => {
+  // Strip script/style blocks to bare visible text. Loop until stable so a
+  // crafted "<scr<script>ipt>" cannot reconstitute a tag after one pass, and
+  // tolerate whitespace in the closing tag ("</script >") so no block is left
+  // behind. (CodeQL: bad-tag-filter / incomplete-multi-character-sanitization.)
+  let prev;
+  do {
+    prev = html;
+    html = html.replace(/<script\b[\s\S]*?<\/script(?:[\s/][^>]*)?>/gi, ' ').replace(/<style\b[\s\S]*?<\/style(?:[\s/][^>]*)?>/gi, ' ');
+  } while (html !== prev);
+  return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+};
 const attr = (html, re) => { const m = html.match(re); return m ? m[1] : null; };
 
 // Two bars, because "did this page render at all" and "does this page have much
