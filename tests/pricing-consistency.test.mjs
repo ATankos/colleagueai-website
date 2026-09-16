@@ -288,3 +288,182 @@ test('every /pricing FAQ question and answer has a reviewed translation', () => 
 });
 
 
+
+
+test('the pricing page cannot imply discovery-based variable licence pricing', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+
+  const forbidden = [
+    /Why the Governance package carries a higher range/i,
+    /indicative range/i,
+    /What determines your final investment\?/i,
+    /move an engagement within, or outside/i,
+    /The exact package varies by engagement/i,
+    /prepare an indicative proposal/i
+  ];
+  for (const pattern of forbidden) {
+    assert.ok(!pattern.test(html), `pricing page still contains legacy variable-pricing copy: ${pattern}`);
+  }
+
+  assert.ok(html.includes('What affects customer deployment effort?'),
+    'pricing page must separate customer deployment effort from the fixed licence price');
+  assert.ok(html.includes('The published agent licence price is fixed.'),
+    'pricing page must explicitly state that the published licence price is fixed');
+  assert.ok(html.includes('Each agent package is a standardized product sold at its published CAI-tier licence price.'),
+    'pricing page must state that the package is standardized');
+
+  const retiredKey = /(indicative (pricing|price|range|proposal)|priced by complexity|pricing.*complexity|higher range|final investment|ranges shown|final price depends|range reflects|move an engagement|exact package varies by engagement|tailored proposal|what affects price)/i;
+  const staleKeys = Object.keys(dict).filter((key) => retiredKey.test(key));
+  assert.deepEqual(staleKeys, [], 'pricing translation dictionary still carries retired variable-pricing keys: ' + staleKeys.join(' | '));
+
+  const localizedKeys = [
+    'What affects customer deployment effort?',
+    "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.",
+    'What the agent package includes',
+    'Each agent package is a standardized product sold at its published CAI-tier licence price. Package contents are defined for the selected agent; customer-specific deployment work is outside the licence and remains with the customer or its implementation partner.',
+    'Discuss your agent portfolio'
+  ];
+  for (const key of localizedKeys) {
+    assert.ok(dict[key], `pricing translation dictionary is missing: ${key}`);
+    for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+      assert.ok(dict[key][loc], `${loc} is missing pricing translation for: ${key}`);
+    }
+  }
+
+  // CI runs this suite after npm run build. Verify the generated locale pages
+  // actually received the new reviewed copy rather than falling back to English.
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    const built = read(`dist/${loc}/pricing.html`);
+    assert.ok(built.includes(dict['What affects customer deployment effort?'][loc]),
+      `dist/${loc}/pricing.html is missing the localized deployment-effort heading`);
+    assert.ok(built.includes(dict['What the agent package includes'][loc]),
+      `dist/${loc}/pricing.html is missing the localized standardized-package heading`);
+  }
+});
+
+
+test('the pricing CTA cannot reintroduce tailored-proposal scoping', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+
+  assert.ok(!/Request a tailored proposal/i.test(html),
+    'pricing page still contains the legacy Request a tailored proposal CTA');
+  assert.ok(!/prepare a tailored proposal/i.test(html),
+    'pricing page still implies a tailored proposal after scoping');
+
+  const band = "Bring a use case and we will help you identify the appropriate fixed-price agent package and clarify customer-managed deployment prerequisites.";
+  assert.ok(html.includes(band),
+    'pricing page is missing the fixed-price package-selection bottom-band copy');
+  assert.ok(dict[band],
+    'pricing translation dictionary is missing the new bottom-band copy');
+
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    assert.ok(dict[band][loc], `${loc} is missing the localized bottom-band copy`);
+    const built = read(`dist/${loc}/pricing.html`);
+    assert.ok(!/Request a tailored proposal/i.test(built),
+      `dist/${loc}/pricing.html still exposes the English legacy CTA`);
+    assert.ok(built.includes(dict['Discuss your agent portfolio'][loc]),
+      `dist/${loc}/pricing.html is missing the localized portfolio CTA`);
+    assert.ok(built.includes(dict[band][loc]),
+      `dist/${loc}/pricing.html is missing the localized bottom-band paragraph`);
+  }
+});
+
+
+test('the pricing page cannot claim five package tiers', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+
+  assert.ok(!/Five packaging tiers/i.test(html),
+    'pricing page still claims five package tiers');
+  assert.ok(html.includes('Three package tiers'),
+    'pricing page must state that the catalogue has three package tiers');
+  assert.ok(!dict['Five packaging tiers'],
+    'pricing translation dictionary still contains the retired five-tier heading');
+  assert.ok(dict['Three package tiers'],
+    'pricing translation dictionary is missing the three-tier heading');
+
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    assert.ok(dict['Three package tiers'][loc],
+      loc + ' is missing the localized three-tier heading');
+    const built = read('dist/' + loc + '/pricing.html');
+    assert.ok(built.includes(dict['Three package tiers'][loc]),
+      'dist/' + loc + '/pricing.html is missing the localized three-tier heading');
+  }
+});
+
+
+test('pricing final polish keeps fixed commercial terms, localized SEO and working tier analytics', () => {
+  const html = read('public/pricing.html');
+  const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
+  const metaEn = "Explore fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
+  const ogEn = "Fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
+  const foundingNew = "Founding customers may qualify for preferential payment or Continuous Certification terms in exchange for structured product and deployment feedback and permission to develop an approved case study. Published agent licence prices remain fixed.";
+  const deploymentNew = "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.";
+
+  assert.ok(!/preferential commercial terms/i.test(html),
+    'founding-customer copy still makes the fixed licence price sound negotiable');
+  assert.ok(html.includes(foundingNew),
+    'founding-customer copy must explicitly preserve fixed published agent licence prices');
+
+  assert.ok(!html.includes("customer's implementation approach"),
+    'pricing copy must not describe customer deployment as an implementation approach');
+  assert.ok(html.includes(deploymentNew),
+    'pricing copy must use customer deployment approach wording');
+  assert.ok(!Object.prototype.hasOwnProperty.call(dict, "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's implementation approach. These deployment costs are borne by the customer or agreed separately with its implementation partner."),
+    'pricing translation dictionary still carries the retired implementation-approach source key');
+  assert.ok(Object.prototype.hasOwnProperty.call(dict, deploymentNew),
+    'pricing translation dictionary is missing the deployment-approach source key');
+
+  const expectedDeploymentTranslations = {
+    "cs": "Zveřejněná cena licence agenta je pevná. Náročnost nasazení u zákazníka se může lišit podle integrací, připravenosti dat, požadavků na governance a zvoleného způsobu nasazení. Tyto náklady na nasazení nese zákazník nebo jsou samostatně dohodnuty s jeho implementačním partnerem.",
+    "de": "Der veröffentlichte Lizenzpreis des Agenten ist fest. Der Bereitstellungsaufwand beim Kunden kann je nach Integrationen, Datenreife, Governance-Anforderungen und gewähltem Bereitstellungsansatz variieren. Diese Bereitstellungskosten trägt der Kunde oder vereinbart sie separat mit seinem Implementierungspartner.",
+    "fr": "Le prix de licence publié de l’agent est fixe. L’effort de déploiement côté client peut varier selon les intégrations, la préparation des données, les exigences de gouvernance et l’approche de déploiement choisie par le client. Ces coûts de déploiement sont à la charge du client ou convenus séparément avec son partenaire d’implémentation.",
+    "es": "El precio de licencia publicado del agente es fijo. El esfuerzo de despliegue del cliente puede variar según las integraciones, la preparación de los datos, los requisitos de gobernanza y el enfoque de despliegue elegido por el cliente. Estos costes de despliegue corren a cargo del cliente o se acuerdan por separado con su socio de implementación.",
+    "it": "Il prezzo di licenza pubblicato dell’agente è fisso. L’impegno di deployment del cliente può variare in base alle integrazioni, alla preparazione dei dati, ai requisiti di governance e all’approccio di deployment scelto dal cliente. Questi costi di deployment sono a carico del cliente o concordati separatamente con il suo partner di implementazione.",
+    "pl": "Opublikowana cena licencji agenta jest stała. Nakład wdrożeniowy po stronie klienta może się różnić w zależności od integracji, gotowości danych, wymagań governance oraz wybranego podejścia do wdrożenia. Koszty te ponosi klient lub są one uzgadniane oddzielnie z jego partnerem wdrożeniowym.",
+    "pt": "O preço publicado da licença do agente é fixo. O esforço de deployment do cliente pode variar consoante as integrações, a preparação dos dados, os requisitos de governação e a abordagem de deployment escolhida pelo cliente. Estes custos de deployment são suportados pelo cliente ou acordados separadamente com o seu parceiro de implementação."
+  };
+  for (const [loc, expected] of Object.entries(expectedDeploymentTranslations)) {
+    assert.equal(dict[deploymentNew]?.[loc], expected,
+      `${loc}: deployment-approach translation is stale or missing`);
+  }
+
+  for (const tier of ['L2', 'L3', 'L4']) {
+    assert.ok(html.includes(`data-tier="${tier}"`),
+      `pricing card ${tier} is missing analytics data-tier`);
+  }
+  assert.equal((html.match(/data-tier="L[234]"/g) || []).length, 3,
+    'pricing page should expose exactly three tier cards to the analytics observer');
+
+  for (const key of [metaEn, ogEn, foundingNew]) {
+    assert.ok(dict[key], `pricing dictionary is missing reviewed copy: ${key}`);
+    for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+      assert.ok(dict[key][loc], `${loc} is missing reviewed copy for: ${key}`);
+    }
+  }
+
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    const built = read(`dist/${loc}/pricing.html`);
+    assert.ok(built.includes(`meta name="description" content="${dict[metaEn][loc]}"`),
+      `dist/${loc}/pricing.html still has an English meta description`);
+    assert.ok(built.includes(`meta property="og:description" content="${dict[ogEn][loc]}"`),
+      `dist/${loc}/pricing.html still has an English og:description`);
+
+    const blocks = [...built.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+      .map((m) => JSON.parse(m[1]));
+    const graph = blocks.flatMap((block) => block['@graph'] || []);
+    const crumbs = graph.find((node) => node['@type'] === 'BreadcrumbList');
+    assert.ok(crumbs, `dist/${loc}/pricing.html is missing BreadcrumbList JSON-LD`);
+    const pricingUrl = `https://www.colleagueai.ai/${loc}/` + ({cs:'cenik',de:'preise',fr:'tarifs',es:'precios',it:'prezzi',pl:'cennik',pt:'precos'})[loc];
+    assert.equal(crumbs.itemListElement[1].item, pricingUrl,
+      `${loc} pricing breadcrumb still points at the English /pricing URL`);
+    assert.equal(crumbs.itemListElement[0].item, `https://www.colleagueai.ai/${loc}/`,
+      `${loc} pricing home breadcrumb should point at the locale home`);
+    for (const node of graph.filter((node) => typeof node['@id'] === 'string' && /#(breadcrumb|service|faq)$/.test(node['@id']))) {
+      assert.ok(node['@id'].startsWith(pricingUrl + '#'),
+        `${loc} pricing JSON-LD @id is still anchored to the English pricing URL: ${node['@id']}`);
+    }
+  }
+});

@@ -769,3 +769,14 @@ footer a{padding-block:5px}
 #cai-view-intro p{margin:0 0 6px;line-height:1.55;color:#4A453E}
 #cai-view-intro .cai-vi-links a{color:#c65d3a;font-weight:700;text-decoration:none}
 @media (max-width:767px){#cai-view-tabs{top:56px;overflow-x:auto}}
+
+/* cai-home-final-contrast
+   This shared stylesheet loads after the page-specific styles, so it is the
+   final cascade authority for the homepage. These two colors meet WCAG AA:
+   #E8A07F on the dark header and #8F3F25 on the cream homepage background. */
+header .logo b {
+  color: #E8A07F !important;
+}
+body > main#main .kicker {
+  color: #8F3F25 !important;
+}

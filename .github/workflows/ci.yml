@@ -60,11 +60,15 @@ jobs:
         run: node --test tests/certification.test.mjs
       - name: One language per page (localized output, dates, menu)
         run: node --test tests/language-unity.test.mjs
+      - name: Localized structured data (JSON-LD vs canonical, breadcrumbs, hreflang)
+        run: node --test tests/i18n-structured-data.test.mjs
 
       - name: Header integrity (menu balance, live language selector, one menu per locale)
         run: node --test tests/header-integrity.test.mjs
       - name: One price list everywhere (config/pricing.json vs every surface)
         run: node --test tests/pricing-consistency.test.mjs
+      - name: Final sales-readiness regression guard
+        run: node --test tests/sales-readiness-final.test.mjs
       - name: End-to-end journeys (buyer path, partner path, navigation, localisation)
         run: node --test tests/journey.test.mjs
 

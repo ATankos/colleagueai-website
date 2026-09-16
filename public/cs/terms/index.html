@@ -42,6 +42,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   var page = rest.length ? pageFromSlug(rest[0]) : null;
   function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
   function urlFor(loc) {
+    var alt = document.querySelector('link[rel="alternate"][hreflang="' + loc + '"]');
+    if (alt && alt.href) { try { var u = new URL(alt.href, location.origin); return u.pathname + location.search + location.hash; } catch (e) {} }
     if (page) return canonical(loc, page) + location.search + location.hash;
     var tail = "/" + rest.join("/");
     var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
@@ -56,7 +58,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   function sync() {
     var list = document.querySelectorAll("#langsel");
     for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
-    var sel = document.getElementById("langsel");
+    var sel = document.getElementById("langsel") || document.getElementById("homelang") || document.getElementById("contactlang") || document.getElementById("pagelang");
     if (!sel) return;
     var want = D.locales.join("|");
     var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
@@ -107,7 +109,7 @@ header .logo, header .cai-hdr-logo { font-size: 22px !important; color: #F5F0E8 
   header .logo, header .cai-hdr-logo { font-size: 19px !important; }
 }
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","logo":"https://www.colleagueai.ai/logo.svg","identifier":[{"@type":"PropertyValue","propertyID":"IČO","value":"29540852"},{"@type":"PropertyValue","propertyID":"DIČ","value":"CZ29540852"}],"vatID":"CZ29540852","address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12, Nové Město","postalCode":"110 00","addressLocality":"Praha","addressCountry":"CZ"}},{"@type":"WebPage","name":"Podmínky služby | Colleague AI","description":"Colleague AI Podmínky služby: smluvní podmínky upravující používání tohoto webu, našich balíčků agentů, licencí a souvisejících služeb.","url":"https://www.colleagueai.ai/terms","@id":"https://www.colleagueai.ai/terms#webpage","publisher":{"@id":"https://www.colleagueai.ai/#org"},"isPartOf":{"@id":"https://www.colleagueai.ai/#website"}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://www.colleagueai.ai/#org","name":"Colleague AI s.r.o.","url":"https://www.colleagueai.ai","email":"hello@colleagueai.ai","logo":"https://www.colleagueai.ai/logo.svg","identifier":[{"@type":"PropertyValue","propertyID":"IČO","value":"29540852"},{"@type":"PropertyValue","propertyID":"DIČ","value":"CZ29540852"}],"vatID":"CZ29540852","address":{"@type":"PostalAddress","streetAddress":"Školská 1736/12, Nové Město","postalCode":"110 00","addressLocality":"Praha","addressCountry":"CZ"}},{"@type":"WebPage","name":"Podmínky služby | Colleague AI","description":"Colleague AI Podmínky služby: smluvní podmínky upravující používání tohoto webu, našich balíčků agentů, licencí a souvisejících služeb.","url":"https://www.colleagueai.ai/cs/podminky","@id":"https://www.colleagueai.ai/cs/podminky#webpage","publisher":{"@id":"https://www.colleagueai.ai/#org"},"isPartOf":{"@id":"https://www.colleagueai.ai/#website"}}]}</script>
 <style id="cai-fixed-backtop-css">
 #cai-fixed-backtop {
 position: fixed !important;
@@ -236,7 +238,7 @@ display: flex !important;
 <h2>1. Přijetí podmínek</h2><p>Používáním webu colleagueai.ai nebo zakoupením jakéhokoli produktu, předplatného, licence či AI agenta vyjadřujete souhlas s těmito Podmínkami.</p>
 <h2>2. Účty</h2><p>Odpovídáte za správnost údajů a za zabezpečení svých přihlašovacích údajů a MFA.</p>
 <h2>3. Produkty a licence</h2><ul><li>Předplatné se obnovuje až do zrušení.</li><li>Jednorázové licence se řídí dokumentem <a href="/cs/license">Licence</a>.</li><li>AI agenti jsou licencováni pro jednotlivé tenanty, nasazeni ve vašem prostředí.</li></ul>
-<h2>4. Platba</h2><p>Platby zpracovává společnost Stripe ve vámi zvolené měně, včetně příslušných daní (např. DPH) podle fakturačního regionu.</p>
+<h2>4. Platba</h2><p>Po aktivaci placeného checkoutu budou platby zpracovávány společností Stripe v USD, včetně příslušných daní (např. DPH) podle fakturačního regionu.</p>
 <h2>5. Přípustné použití</h2><p>Jsou zakázány pokusy o narušení bezpečnosti, zpětná analýza, další prodej/redistribuce a protiprávní použití. Autorizovaní partneři v rámci podepsané Smlouvy o partnerském programu jsou vyňati z omezení dalšího prodeje a redistribuce.</p>
 <h2>6. Duševní vlastnictví</h2><p>Rámec CAI Score, platforma a návrhové plány agentů jsou výhradním vlastnictvím společnosti Colleague AI.</p>
 <h2>7. Vyloučení záruk a omezení odpovědnosti</h2><p>Poskytováno „tak jak je“; předpokládané záruky jsou vyloučeny a odpovědnost je omezena na částky uhrazené za předchozích 12 měsíců, v rozsahu povoleném zákonem. Výstupy ROI/připravenosti jsou orientační, nikoli poradenství.</p>

@@ -8,24 +8,6 @@
     "pl": "Cennik korporacyjnych agentów AI | ColleagueAI",
     "pt": "Preços de agentes de IA empresariais | ColleagueAI"
   },
-  "Explore indicative pricing for enterprise AI agents, from focused workflow assistants to governed multi-agent systems for finance, risk, compliance and operations.": {
-    "cs": "Orientační ceny podnikových AI agentů, od zaměřených asistentů až po řízené multiagentní systémy pro finance, rizika a compliance.",
-    "de": "Indikative Preise für Enterprise-KI-Agenten, von fokussierten Workflow-Assistenten bis zu gesteuerten Multi-Agenten-Systemen.",
-    "fr": "Tarifs indicatifs des agents IA d'entreprise, des assistants de workflow ciblés aux systèmes multi-agents gouvernés.",
-    "es": "Precios indicativos de agentes de IA empresariales, desde asistentes de flujo de trabajo hasta sistemas multiagente gobernados.",
-    "it": "Prezzi indicativi degli agenti AI aziendali, dagli assistenti di workflow mirati ai sistemi multi-agente governati.",
-    "pl": "Orientacyjne ceny korporacyjnych agentów AI, od wyspecjalizowanych asystentów po nadzorowane systemy wieloagentowe.",
-    "pt": "Preços indicativos de agentes de IA empresariais, de assistentes de fluxo de trabalho a sistemas multiagente governados."
-  },
-  "Indicative pricing for enterprise AI agents, from focused workflow assistants to governed multi-agent systems. Priced by complexity, risk and business impact.": {
-    "cs": "Orientační ceny podnikových AI agentů, od zaměřených asistentů až po řízené multiagentní systémy. Cena podle složitosti, rizika a dopadu na byznys.",
-    "de": "Indikative Preise für Enterprise-KI-Agenten, von fokussierten Assistenten bis zu gesteuerten Multi-Agenten-Systemen. Preis nach Komplexität, Risiko und Geschäftswirkung.",
-    "fr": "Tarifs indicatifs des agents IA d'entreprise, des assistants ciblés aux systèmes multi-agents gouvernés. Tarification selon la complexité, le risque et l'impact métier.",
-    "es": "Precios indicativos de agentes de IA empresariales, desde asistentes específicos hasta sistemas multiagente gobernados. Precio según complejidad, riesgo e impacto de negocio.",
-    "it": "Prezzi indicativi per agenti AI aziendali, dagli assistenti mirati ai sistemi multi-agente governati. Prezzo in base a complessità, rischio e impatto sul business.",
-    "pl": "Orientacyjne ceny korporacyjnych agentów AI, od wyspecjalizowanych asystentów po nadzorowane systemy wieloagentowe. Cena zależna od złożoności, ryzyka i wpływu biznesowego.",
-    "pt": "Preços indicativos de agentes de IA empresariais, de assistentes focados a sistemas multiagente governados. Preço conforme complexidade, risco e impacto no negócio."
-  },
   "Pricing": {
     "cs": "Ceník",
     "de": "Preise",
@@ -35,24 +17,6 @@
     "pl": "Cennik",
     "pt": "Preços"
   },
-  "Enterprise AI agents priced by complexity, risk and business impact": {
-    "cs": "Podnikoví AI agenti oceněni podle složitosti, rizika a dopadu na byznys",
-    "de": "Enterprise-KI-Agenten, bepreist nach Komplexität, Risiko und Geschäftswirkung",
-    "fr": "Des agents IA d'entreprise tarifés selon la complexité, le risque et l'impact métier",
-    "es": "Agentes de IA empresariales con precio según complejidad, riesgo e impacto de negocio",
-    "it": "Agenti AI aziendali con prezzo basato su complessità, rischio e impatto sul business",
-    "pl": "Korporacyjni agenci AI wyceniani według złożoności, ryzyka i wpływu biznesowego",
-    "pt": "Agentes de IA empresariais com preço por complexidade, risco e impacto no negócio"
-  },
-  "Request a tailored proposal": {
-    "cs": "Vyžádat nabídku na míru",
-    "de": "Individuelles Angebot anfordern",
-    "fr": "Demander une proposition sur mesure",
-    "es": "Solicitar una propuesta a medida",
-    "it": "Richiedi una proposta su misura",
-    "pl": "Poproś o ofertę dopasowaną",
-    "pt": "Solicitar uma proposta personalizada"
-  },
   "Explore agent solutions": {
     "cs": "Prozkoumat řešení agentů",
     "de": "Agentenlösungen entdecken",
@@ -61,15 +25,6 @@
     "it": "Esplora le soluzioni di agenti",
     "pl": "Poznaj rozwiązania agentowe",
     "pt": "Explorar soluções de agentes"
-  },
-  "Five packaging tiers": {
-    "cs": "Pět úrovní balíčků",
-    "de": "Fünf Paketstufen",
-    "fr": "Cinq niveaux de packages",
-    "es": "Cinco niveles de paquetes",
-    "it": "Cinque livelli di pacchetti",
-    "pl": "Pięć poziomów pakietów",
-    "pt": "Cinco níveis de pacotes"
   },
   "Best for focused workflows": {
     "cs": "Nejlepší pro zaměřené procesy",
@@ -386,15 +341,6 @@
     "pl": "Prezentowane zakresy są orientacyjnymi punktami wyjścia, a nie wiążącymi ofertami. Ostateczna cena zależy od wybranego przypadku użycia, zakresu pakietu, wymagań integracyjnych, gotowości danych, wymagań governance, modelu wdrożenia, wymagań wsparcia i dostosowań.",
     "pt": "Os intervalos apresentados são pontos de partida indicativos, não orçamentos vinculativos. O preço final depende do caso de uso selecionado, do âmbito do pacote, dos requisitos de integração, da maturidade dos dados, dos requisitos de governação, do modelo de deployment, das necessidades de suporte e da personalização."
   },
-  "Risk and governance agents are not more valuable by default; they are more demanding to build and evidence. The range reflects additional work on control design, auditability, testing, human oversight, evidence capture, escalation workflows, policy alignment and regulatory or internal-governance requirements.": {
-    "cs": "Agenti pro rizika a governance nejsou automaticky hodnotnější; jsou náročnější na vytvoření a doložení. Rozpětí odráží práci navíc na návrhu kontrol, auditovatelnosti, testování, lidském dohledu, zachycení důkazů, eskalačních postupech, souladu s politikami a regulatorních či interních požadavcích governance.",
-    "de": "Risiko- und Governance-Agenten sind nicht per se wertvoller; sie sind aufwendiger zu bauen und nachzuweisen. Der Bereich spiegelt zusätzliche Arbeit an Kontrolldesign, Auditierbarkeit, Tests, menschlicher Aufsicht, Nachweiserfassung, Eskalations-Workflows, Richtlinienkonformität sowie regulatorischen oder internen Governance-Anforderungen wider.",
-    "fr": "Les agents risque et gouvernance ne sont pas plus précieux par défaut ; ils sont plus exigeants à construire et à documenter. La fourchette reflète le travail supplémentaire sur la conception des contrôles, l'auditabilité, les tests, la supervision humaine, la collecte de preuves, les circuits d'escalade, l'alignement aux politiques et les exigences réglementaires ou de gouvernance interne.",
-    "es": "Los agentes de riesgo y gobernanza no son más valiosos por defecto; son más exigentes de construir y evidenciar. El rango refleja el trabajo adicional en diseño de controles, auditabilidad, pruebas, supervisión humana, captura de evidencias, flujos de escalado, alineación con políticas y requisitos regulatorios o de gobernanza interna.",
-    "it": "Gli agenti per rischio e governance non sono di per sé più preziosi; sono più impegnativi da costruire e documentare. La fascia riflette il lavoro aggiuntivo su progettazione dei controlli, auditabilità, test, supervisione umana, raccolta delle evidenze, flussi di escalation, allineamento alle policy e requisiti normativi o di governance interna.",
-    "pl": "Agenci ryzyka i governance nie są domyślnie bardziej wartościowi; są trudniejsi w budowie i udokumentowaniu. Zakres odzwierciedla dodatkową pracę nad projektowaniem kontroli, audytowalnością, testami, nadzorem ludzkim, gromadzeniem dowodów, procesami eskalacji, zgodnością z politykami oraz wymaganiami regulacyjnymi lub wewnętrznego governance.",
-    "pt": "Os agentes de risco e governação não são mais valiosos por defeito; são mais exigentes de construir e evidenciar. O intervalo reflete o trabalho adicional em desenho de controlos, auditabilidade, testes, supervisão humana, captura de evidências, fluxos de escalonamento, alinhamento com políticas e requisitos regulatórios ou de governação interna."
-  },
   "Enterprise multi-agent systems": {
     "cs": "Podnikové multiagentní systémy",
     "de": "Enterprise-Multi-Agenten-Systeme",
@@ -412,24 +358,6 @@
     "it": "Definizione dell'ambito",
     "pl": "Określanie zakresu",
     "pt": "Definição de âmbito"
-  },
-  "What determines your final investment?": {
-    "cs": "Co určuje vaši konečnou investici?",
-    "de": "Was bestimmt Ihre endgültige Investition?",
-    "fr": "Qu'est-ce qui détermine votre investissement final ?",
-    "es": "¿Qué determina su inversión final?",
-    "it": "Che cosa determina il vostro investimento finale?",
-    "pl": "Co decyduje o Twojej ostatecznej inwestycji?",
-    "pt": "O que determina o seu investimento final?"
-  },
-  "Six factors move an engagement within, or outside, its indicative range. They are assessed during discovery and confirmed in the proposal.": {
-    "cs": "Šest faktorů posouvá zakázku v rámci orientačního rozpětí, případně mimo něj. Posuzují se během discovery a potvrzují se v nabídce.",
-    "de": "Sechs Faktoren verschieben ein Projekt innerhalb oder außerhalb seines indikativen Bereichs. Sie werden im Discovery bewertet und im Angebot bestätigt.",
-    "fr": "Six facteurs déplacent un projet à l'intérieur, ou en dehors, de sa fourchette indicative. Ils sont évalués lors du cadrage et confirmés dans la proposition.",
-    "es": "Seis factores mueven un proyecto dentro, o fuera, de su rango indicativo. Se evalúan durante el discovery y se confirman en la propuesta.",
-    "it": "Sei fattori spostano un progetto all'interno, o al di fuori, della sua fascia indicativa. Vengono valutati durante il discovery e confermati nella proposta.",
-    "pl": "Sześć czynników przesuwa projekt w obrębie orientacyjnego zakresu lub poza niego. Są oceniane podczas discovery i potwierdzane w ofercie.",
-    "pt": "Seis fatores movem um projeto dentro, ou fora, do seu intervalo indicativo. São avaliados durante o discovery e confirmados na proposta."
   },
   "Workflow complexity": {
     "cs": "Složitost procesu",
@@ -529,15 +457,6 @@
     "it": "Che cosa può essere incluso",
     "pl": "Co może być uwzględnione",
     "pt": "O que pode estar incluído"
-  },
-  "The exact package varies by engagement and is confirmed in the proposal. Depending on scope, it may include:": {
-    "cs": "Přesný balíček se liší podle zakázky a potvrzuje se v nabídce. V závislosti na rozsahu může zahrnovat:",
-    "de": "Das genaue Paket variiert je nach Projekt und wird im Angebot bestätigt. Je nach Umfang kann es enthalten:",
-    "fr": "Le package exact varie selon le projet et est confirmé dans la proposition. Selon le périmètre, il peut inclure :",
-    "es": "El paquete exacto varía según el proyecto y se confirma en la propuesta. Según el alcance, puede incluir:",
-    "it": "Il pacchetto esatto varia in base al progetto e viene confermato nella proposta. A seconda dell'ambito, può includere:",
-    "pl": "Dokładny pakiet zależy od projektu i jest potwierdzany w ofercie. W zależności od zakresu może obejmować:",
-    "pt": "O pacote exato varia consoante o projeto e é confirmado na proposta. Dependendo do âmbito, pode incluir:"
   },
   "Use-case definition": {
     "cs": "Definice use case",
@@ -647,15 +566,6 @@
     "pl": "Warunki dla klientów założycielskich",
     "pt": "Condições de cliente fundador"
   },
-  "Founding customers may qualify for preferential commercial terms in exchange for structured product and deployment feedback and permission to develop an approved case study.": {
-    "cs": "Zakládající zákazníci mohou získat zvýhodněné obchodní podmínky výměnou za strukturovanou zpětnou vazbu k produktu a nasazení a souhlas s vytvořením schválené případové studie.",
-    "de": "Gründungskunden können bevorzugte kommerzielle Konditionen erhalten, im Gegenzug für strukturiertes Produkt- und Deployment-Feedback und die Erlaubnis, eine freigegebene Fallstudie zu erstellen.",
-    "fr": "Les clients fondateurs peuvent bénéficier de conditions commerciales préférentielles en échange d’un retour structuré sur le produit et le déploiement et de l’autorisation de développer une étude de cas approuvée.",
-    "es": "Los clientes fundadores pueden acceder a condiciones comerciales preferentes a cambio de feedback estructurado sobre el producto y el despliegue y permiso para desarrollar un caso de éxito aprobado.",
-    "it": "I clienti fondatori possono ottenere condizioni commerciali preferenziali in cambio di feedback strutturato sul prodotto e sul deployment e dell’autorizzazione a sviluppare un caso studio approvato.",
-    "pl": "Klienci założycielscy mogą uzyskać preferencyjne warunki handlowe w zamian za ustrukturyzowane informacje zwrotne dotyczące produktu i wdrożenia oraz zgodę na opracowanie zatwierdzonego studium przypadku.",
-    "pt": "Os clientes fundadores podem beneficiar de condições comerciais preferenciais em troca de feedback estruturado sobre o produto e o deployment e autorização para desenvolver um caso de estudo aprovado."
-  },
   "Ask about founding-customer terms": {
     "cs": "Zeptat se na podmínky pro zakládající zákazníky",
     "de": "Nach Gründungskunden-Konditionen fragen",
@@ -709,15 +619,6 @@
     "it": "Perché gli agenti hanno prezzi diversi?",
     "pl": "Dlaczego agenci mają różne ceny?",
     "pt": "Porque é que os agentes têm preços diferentes?"
-  },
-  "Pricing reflects differences in workflow complexity, autonomy, integration requirements, business criticality, governance requirements and packaging, testing and governance effort.": {
-    "cs": "Cena odráží rozdíly ve složitosti procesu, autonomii, požadavcích na integrace, kritičnosti pro byznys, požadavcích na governance a náročnosti balení, testování a governance.",
-    "de": "Der Preis spiegelt Unterschiede in Workflow-Komplexität, Autonomie, Integrationsanforderungen, Geschäftskritikalität, Governance-Anforderungen sowie im Aufwand für Paketierung, Tests und Governance wider.",
-    "fr": "Le tarif reflète les différences de complexité du workflow, d’autonomie, d’exigences d’intégration, de criticité métier, d’exigences de gouvernance ainsi que d’effort de packaging, de test et de gouvernance.",
-    "es": "El precio refleja diferencias en la complejidad del flujo de trabajo, la autonomía, los requisitos de integración, la criticidad de negocio, los requisitos de gobernanza y el esfuerzo de empaquetado, pruebas y gobernanza.",
-    "it": "Il prezzo riflette differenze nella complessità del workflow, nell’autonomia, nei requisiti di integrazione, nella criticità per il business, nei requisiti di governance e nell’impegno richiesto per packaging, test e governance.",
-    "pl": "Cena odzwierciedla różnice w złożoności procesu, autonomii, wymaganiach integracyjnych, krytyczności biznesowej, wymaganiach governance oraz nakładzie pracy związanym z pakietowaniem, testowaniem i governance.",
-    "pt": "O preço reflete diferenças na complexidade do fluxo de trabalho, autonomia, requisitos de integração, criticidade para o negócio, requisitos de governação e esforço de empacotamento, testes e governação."
   },
   "Can we start with one agent?": {
     "cs": "Můžeme začít s jedním agentem?",
@@ -836,15 +737,6 @@
     "pl": "Zacznij od jednego nadzorowanego procesu korporacyjnego.",
     "pt": "Comece com um fluxo de trabalho empresarial governado."
   },
-  "Bring a use case and we will assess scope, governance requirements and a realistic deployment path, then prepare a tailored proposal.": {
-    "cs": "Přineste use case a my posoudíme rozsah, požadavky na governance a realistickou cestu k nasazení, poté připravíme nabídku na míru.",
-    "de": "Bringen Sie einen Use Case mit: wir bewerten Umfang, Governance-Anforderungen und einen realistischen Bereitstellungsweg und erstellen dann ein individuelles Angebot.",
-    "fr": "Apportez un cas d'usage : nous évaluerons le périmètre, les exigences de gouvernance et un chemin de déploiement réaliste, puis préparerons une proposition sur mesure.",
-    "es": "Traiga un caso de uso y evaluaremos el alcance, los requisitos de gobernanza y una ruta de despliegue realista, para después preparar una propuesta a medida.",
-    "it": "Portate un caso d'uso: valuteremo ambito, requisiti di governance e un percorso di distribuzione realistico, quindi prepareremo una proposta su misura.",
-    "pl": "Przedstaw przypadek użycia, a my ocenimy zakres, wymagania governance i realistyczną ścieżkę wdrożenia, a następnie przygotujemy ofertę dopasowaną.",
-    "pt": "Traga um caso de uso e avaliaremos o âmbito, os requisitos de governação e um percurso realista de colocação em produção, preparando depois uma proposta personalizada."
-  },
   "Full name": {
     "cs": "Celé jméno",
     "de": "Vollständiger Name",
@@ -952,24 +844,6 @@
     "it": "Paese",
     "pl": "Kraj",
     "pt": "País"
-  },
-  "Tailored proposal": {
-    "cs": "Nabídka na míru",
-    "de": "Individuelles Angebot",
-    "fr": "Proposition sur mesure",
-    "es": "Propuesta a medida",
-    "it": "Proposta su misura",
-    "pl": "Oferta dopasowana",
-    "pt": "Proposta personalizada"
-  },
-  "Tell us about the workflow you want to govern. We use this to assess scope and prepare an indicative proposal. Fields marked with an asterisk are required.": {
-    "cs": "Popište nám proces, který chcete řídit. Použijeme to k posouzení rozsahu a přípravě orientační nabídky. Pole označená hvězdičkou jsou povinná.",
-    "de": "Beschreiben Sie den Workflow, den Sie steuern möchten. Wir nutzen dies, um den Umfang zu bewerten und ein indikatives Angebot vorzubereiten. Mit Sternchen markierte Felder sind Pflichtfelder.",
-    "fr": "Décrivez le workflow que vous souhaitez gouverner. Nous l'utilisons pour évaluer le périmètre et préparer une proposition indicative. Les champs marqués d'un astérisque sont obligatoires.",
-    "es": "Cuéntenos el flujo de trabajo que desea gobernar. Lo usamos para evaluar el alcance y preparar una propuesta indicativa. Los campos marcados con asterisco son obligatorios.",
-    "it": "Descrivete il workflow che volete governare. Lo useremo per valutare l'ambito e preparare una proposta indicativa. I campi contrassegnati con asterisco sono obbligatori.",
-    "pl": "Opisz proces, który chcesz objąć nadzorem. Wykorzystamy to do oceny zakresu i przygotowania orientacyjnej oferty. Pola oznaczone gwiazdką są wymagane.",
-    "pt": "Descreva o fluxo de trabalho que pretende governar. Usamos isto para avaliar o âmbito e preparar uma proposta indicativa. Os campos marcados com asterisco são obrigatórios."
   },
   "Job title": {
     "cs": "Pracovní pozice",
@@ -1106,15 +980,6 @@
     "pl": "Pakiety",
     "pt": "Pacotes"
   },
-  "What affects price": {
-    "cs": "Co ovlivňuje cenu",
-    "de": "Was den Preis beeinflusst",
-    "fr": "Ce qui influe sur le prix",
-    "es": "Qué afecta al precio",
-    "it": "Cosa incide sul prezzo",
-    "pl": "Co wpływa na cenę",
-    "pt": "O que afeta o preço"
-  },
   "What's included": {
     "cs": "Co je součástí",
     "de": "Was enthalten ist",
@@ -1141,15 +1006,6 @@
     "it": "Richiedi una proposta",
     "pl": "Otrzymaj ofertę",
     "pt": "Obter proposta"
-  },
-  "Email us about the workflow you want to govern. Include the details below and we will assess scope and prepare an indicative proposal.": {
-    "cs": "Napište nám o workflow, které chcete řídit. Uveďte níže uvedené údaje a my posoudíme rozsah a připravíme indikativní nabídku.",
-    "de": "Schreiben Sie uns eine E-Mail zu dem Workflow, den Sie steuern möchten. Geben Sie die unten genannten Angaben an; wir bewerten den Umfang und erstellen ein indikatives Angebot.",
-    "fr": "Écrivez-nous au sujet du workflow que vous souhaitez encadrer. Indiquez les éléments ci-dessous : nous évaluerons le périmètre et préparerons une proposition indicative.",
-    "es": "Escríbanos sobre el flujo de trabajo que desea gobernar. Incluya los datos siguientes y evaluaremos el alcance y prepararemos una propuesta indicativa.",
-    "it": "Scriveteci in merito al flusso di lavoro che desiderate governare. Indicate i dettagli qui sotto: valuteremo il perimetro e prepareremo una proposta indicativa.",
-    "pl": "Napisz do nas o procesie, który chcesz objąć nadzorem. Podaj poniższe informacje, a ocenimy zakres i przygotujemy orientacyjną ofertę.",
-    "pt": "Escreva-nos sobre o fluxo de trabalho que pretende governar. Inclua os dados abaixo e avaliaremos o âmbito e prepararemos uma proposta indicativa."
   },
   "Your company and the country you operate in": {
     "cs": "Vaše společnost a země, kde působíte",
@@ -1232,15 +1088,6 @@
     "pl": "Portfolio — Korporacyjne systemy wieloagentowe",
     "pt": "Portfolio — Sistemas multiagente empresariais"
   },
-  "Why the Governance package carries a higher range": {
-    "cs": "Proč má Governance vyšší rozpětí",
-    "de": "Warum Governance einen höheren Bereich hat",
-    "fr": "Pourquoi le Governance a une fourchette plus élevée",
-    "es": "Por qué el Governance tiene un rango más alto",
-    "it": "Perché il Governance ha una fascia più alta",
-    "pl": "Dlaczego Governance ma wyższy zakres",
-    "pt": "Porque o Governance tem um intervalo mais elevado"
-  },
   "The Portfolio package applies where several specialized agents operate together across functions and systems. Scope typically adds centralized reporting, advanced security and access requirements, shared governance controls, multi-stage approvals and wider organizational rollout. These solutions are designed and priced individually.": {
     "cs": "Portfolio platí tam, kde několik specializovaných agentů pracuje společně napříč funkcemi a systémy. Rozsah obvykle přidává centralizovaný reporting, pokročilé požadavky na bezpečnost a přístupy, sdílené kontroly governance, vícestupňová schválení a širší nasazení v organizaci. Tato řešení se navrhují a oceňují individuálně.",
     "de": "Portfolio gilt, wenn mehrere spezialisierte Agenten funktions- und systemübergreifend zusammenarbeiten. Der Umfang ergänzt typischerweise zentrales Reporting, erweiterte Sicherheits- und Zugriffsanforderungen, gemeinsame Governance-Kontrollen, mehrstufige Freigaben und einen breiteren organisatorischen Rollout. Diese Lösungen werden individuell konzipiert und bepreist.",
@@ -1249,15 +1096,6 @@
     "it": "Il livello 5 si applica quando più agenti specializzati operano insieme tra funzioni e sistemi. L'ambito aggiunge tipicamente reporting centralizzato, requisiti avanzati di sicurezza e accesso, controlli di governance condivisi, approvazioni in più fasi e un rollout organizzativo più ampio. Queste soluzioni sono progettate e quotate individualmente.",
     "pl": "Portfolio dotyczy sytuacji, gdy kilku wyspecjalizowanych agentów działa razem w różnych funkcjach i systemach. Zakres zwykle dodaje scentralizowane raportowanie, zaawansowane wymagania bezpieczeństwa i dostępu, wspólne mechanizmy governance, wieloetapowe zatwierdzania oraz szersze wdrożenie w organizacji. Takie rozwiązania są projektowane i wyceniane indywidualnie.",
     "pt": "O nível 5 aplica-se quando vários agentes especializados operam em conjunto entre funções e sistemas. O âmbito acrescenta normalmente reporting centralizado, requisitos avançados de segurança e acesso, controlos de governação partilhados, aprovações em várias etapas e uma implementação organizacional mais alargada. Estas soluções são concebidas e orçamentadas individualmente."
-  },
-  "Start with a focused AI agent or build a governed multi-agent solution. Pricing depends on workflow complexity, autonomy, integration requirements, governance requirements and package scope.": {
-    "cs": "Začněte se zaměřeným AI agentem nebo vybudujte řízené multiagentní řešení. Cena závisí na složitosti procesu, autonomii, požadavcích na integrace, governance a rozsahu balíčku.",
-    "de": "Starten Sie mit einem fokussierten KI-Agenten oder bauen Sie eine gesteuerte Multi-Agenten-Lösung. Der Preis hängt von Workflow-Komplexität, Autonomie, Integrationsanforderungen, Governance-Anforderungen und Paketumfang ab.",
-    "fr": "Commencez par un agent IA ciblé ou construisez une solution multi-agents gouvernée. Le tarif dépend de la complexité du workflow, de l’autonomie, des exigences d’intégration, des exigences de gouvernance et du périmètre du package.",
-    "es": "Empiece con un agente de IA específico o construya una solución multiagente gobernada. El precio depende de la complejidad del flujo de trabajo, la autonomía, los requisitos de integración, los requisitos de gobernanza y el alcance del paquete.",
-    "it": "Iniziate con un agente AI mirato o costruite una soluzione multi-agente governata. Il prezzo dipende dalla complessità del workflow, dall’autonomia, dai requisiti di integrazione, dai requisiti di governance e dall’ambito del pacchetto.",
-    "pl": "Zacznij od wyspecjalizowanego agenta AI lub zbuduj nadzorowane rozwiązanie wieloagentowe. Cena zależy od złożoności procesu, autonomii, wymagań integracyjnych, wymagań governance i zakresu pakietu.",
-    "pt": "Comece com um agente de IA focado ou construa uma solução multiagente governada. O preço depende da complexidade do fluxo de trabalho, autonomia, requisitos de integração, requisitos de governação e âmbito do pacote."
   },
   "Tiers reflect how much complexity, control, packaging, testing and governance effort a workflow requires, not how valuable one customer is compared to another.": {
     "cs": "Úrovně odrážejí složitost, míru kontroly a náročnost balení, testování a governance daného procesu, nikoli hodnotu jednoho zákazníka oproti druhému.",
@@ -1582,5 +1420,239 @@
     "it": "No. I risultati ROI sono stime basate sulle ipotesi fornite dal cliente. I risultati effettivi dipendono da adozione, qualità dei processi, maturità dei dati ed esecuzione da parte del cliente.",
     "pl": "Nie. Wyniki ROI są szacunkami opartymi na założeniach podanych przez klienta. Rzeczywiste rezultaty zależą od adopcji, jakości procesów, gotowości danych i realizacji po stronie klienta.",
     "pt": "Não. Os resultados de ROI são estimativas baseadas nos pressupostos fornecidos pelo cliente. Os resultados reais dependem da adoção, qualidade dos processos, maturidade dos dados e execução pelo cliente."
+  },
+  "Discuss your agent portfolio": {
+    "cs": "Probrat portfolio agentů",
+    "de": "Agentenportfolio besprechen",
+    "fr": "Discuter de votre portefeuille d’agents",
+    "es": "Hablar sobre su cartera de agentes",
+    "it": "Discuti il tuo portafoglio di agenti",
+    "pl": "Omów portfolio agentów",
+    "pt": "Discutir o seu portefólio de agentes"
+  },
+  "Deployment effort": {
+    "cs": "Náročnost nasazení",
+    "de": "Bereitstellungsaufwand",
+    "fr": "Effort de déploiement",
+    "es": "Esfuerzo de despliegue",
+    "it": "Impegno di deployment",
+    "pl": "Nakład wdrożeniowy",
+    "pt": "Esforço de deployment"
+  },
+  "Discuss deployment": {
+    "cs": "Probrat nasazení",
+    "de": "Bereitstellung besprechen",
+    "fr": "Discuter du déploiement",
+    "es": "Hablar sobre el despliegue",
+    "it": "Discuti il deployment",
+    "pl": "Omów wdrożenie",
+    "pt": "Discutir o deployment"
+  },
+  "Deployment planning": {
+    "cs": "Plánování nasazení",
+    "de": "Bereitstellungsplanung",
+    "fr": "Planification du déploiement",
+    "es": "Planificación del despliegue",
+    "it": "Pianificazione del deployment",
+    "pl": "Planowanie wdrożenia",
+    "pt": "Planeamento do deployment"
+  },
+  "What affects customer deployment effort?": {
+    "cs": "Co ovlivňuje náročnost nasazení u zákazníka?",
+    "de": "Was beeinflusst den Bereitstellungsaufwand beim Kunden?",
+    "fr": "Qu’est-ce qui influence l’effort de déploiement côté client ?",
+    "es": "¿Qué influye en el esfuerzo de despliegue del cliente?",
+    "it": "Cosa incide sull’impegno di deployment del cliente?",
+    "pl": "Co wpływa na nakład wdrożeniowy po stronie klienta?",
+    "pt": "O que influencia o esforço de deployment do cliente?"
+  },
+  "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.": {
+    "cs": "Zveřejněná cena licence agenta je pevná. Náročnost nasazení u zákazníka se může lišit podle integrací, připravenosti dat, požadavků na governance a zvoleného způsobu nasazení. Tyto náklady na nasazení nese zákazník nebo jsou samostatně dohodnuty s jeho implementačním partnerem.",
+    "de": "Der veröffentlichte Lizenzpreis des Agenten ist fest. Der Bereitstellungsaufwand beim Kunden kann je nach Integrationen, Datenreife, Governance-Anforderungen und gewähltem Bereitstellungsansatz variieren. Diese Bereitstellungskosten trägt der Kunde oder vereinbart sie separat mit seinem Implementierungspartner.",
+    "fr": "Le prix de licence publié de l’agent est fixe. L’effort de déploiement côté client peut varier selon les intégrations, la préparation des données, les exigences de gouvernance et l’approche de déploiement choisie par le client. Ces coûts de déploiement sont à la charge du client ou convenus séparément avec son partenaire d’implémentation.",
+    "es": "El precio de licencia publicado del agente es fijo. El esfuerzo de despliegue del cliente puede variar según las integraciones, la preparación de los datos, los requisitos de gobernanza y el enfoque de despliegue elegido por el cliente. Estos costes de despliegue corren a cargo del cliente o se acuerdan por separado con su socio de implementación.",
+    "it": "Il prezzo di licenza pubblicato dell’agente è fisso. L’impegno di deployment del cliente può variare in base alle integrazioni, alla preparazione dei dati, ai requisiti di governance e all’approccio di deployment scelto dal cliente. Questi costi di deployment sono a carico del cliente o concordati separatamente con il suo partner di implementazione.",
+    "pl": "Opublikowana cena licencji agenta jest stała. Nakład wdrożeniowy po stronie klienta może się różnić w zależności od integracji, gotowości danych, wymagań governance oraz wybranego podejścia do wdrożenia. Koszty te ponosi klient lub są one uzgadniane oddzielnie z jego partnerem wdrożeniowym.",
+    "pt": "O preço publicado da licença do agente é fixo. O esforço de deployment do cliente pode variar consoante as integrações, a preparação dos dados, os requisitos de governação e a abordagem de deployment escolhida pelo cliente. Estes custos de deployment são suportados pelo cliente ou acordados separadamente com o seu parceiro de implementação."
+  },
+  "Systems, APIs, databases, document repositories and communication platforms the customer or implementation partner must connect during deployment.": {
+    "cs": "Systémy, API, databáze, úložiště dokumentů a komunikační platformy, které musí zákazník nebo implementační partner během nasazení propojit.",
+    "de": "Systeme, APIs, Datenbanken, Dokumentenablagen und Kommunikationsplattformen, die der Kunde oder Implementierungspartner während der Bereitstellung anbinden muss.",
+    "fr": "Systèmes, API, bases de données, référentiels documentaires et plateformes de communication que le client ou son partenaire d’implémentation doit connecter pendant le déploiement.",
+    "es": "Sistemas, API, bases de datos, repositorios documentales y plataformas de comunicación que el cliente o su socio de implementación debe conectar durante el despliegue.",
+    "it": "Sistemi, API, database, repository documentali e piattaforme di comunicazione che il cliente o il partner di implementazione deve collegare durante il deployment.",
+    "pl": "Systemy, API, bazy danych, repozytoria dokumentów i platformy komunikacyjne, które klient lub partner wdrożeniowy musi połączyć podczas wdrożenia.",
+    "pt": "Sistemas, APIs, bases de dados, repositórios documentais e plataformas de comunicação que o cliente ou o parceiro de implementação deve ligar durante o deployment."
+  },
+  "Deployment readiness": {
+    "cs": "Připravenost k nasazení",
+    "de": "Bereitstellungsbereitschaft",
+    "fr": "Préparation au déploiement",
+    "es": "Preparación para el despliegue",
+    "it": "Preparazione al deployment",
+    "pl": "Gotowość do wdrożenia",
+    "pt": "Preparação para o deployment"
+  },
+  "Testing, localization, tenant configuration, user guidance and handover activities performed by the customer or implementation partner using ColleagueAI deployment documentation.": {
+    "cs": "Testování, lokalizaci, konfiguraci tenantu, uživatelské pokyny a předávací činnosti provádí zákazník nebo implementační partner s využitím dokumentace ColleagueAI k nasazení.",
+    "de": "Tests, Lokalisierung, Tenant-Konfiguration, Benutzeranleitungen und Übergabeaktivitäten werden vom Kunden oder Implementierungspartner anhand der ColleagueAI-Bereitstellungsdokumentation durchgeführt.",
+    "fr": "Les tests, la localisation, la configuration du tenant, les guides utilisateurs et les activités de transfert sont réalisés par le client ou son partenaire d’implémentation à l’aide de la documentation de déploiement ColleagueAI.",
+    "es": "Las pruebas, la localización, la configuración del tenant, la orientación a usuarios y las actividades de traspaso las realiza el cliente o su socio de implementación utilizando la documentación de despliegue de ColleagueAI.",
+    "it": "Test, localizzazione, configurazione del tenant, guida agli utenti e attività di handover sono eseguiti dal cliente o dal partner di implementazione utilizzando la documentazione di deployment ColleagueAI.",
+    "pl": "Testy, lokalizacja, konfiguracja tenantu, instrukcje dla użytkowników i działania przekazaniowe są wykonywane przez klienta lub partnera wdrożeniowego z wykorzystaniem dokumentacji wdrożeniowej ColleagueAI.",
+    "pt": "Testes, localização, configuração do tenant, orientação aos utilizadores e atividades de handover são realizados pelo cliente ou parceiro de implementação utilizando a documentação de deployment da ColleagueAI."
+  },
+  "What the agent package includes": {
+    "cs": "Co balíček agenta obsahuje",
+    "de": "Was das Agentenpaket enthält",
+    "fr": "Ce que comprend le package d’agent",
+    "es": "Qué incluye el paquete del agente",
+    "it": "Cosa include il pacchetto dell’agente",
+    "pl": "Co zawiera pakiet agenta",
+    "pt": "O que inclui o pacote do agente"
+  },
+  "Each agent package is a standardized product sold at its published CAI-tier licence price. Package contents are defined for the selected agent; customer-specific deployment work is outside the licence and remains with the customer or its implementation partner.": {
+    "cs": "Každý balíček agenta je standardizovaný produkt prodávaný za zveřejněnou licenční cenu podle úrovně CAI. Obsah balíčku je definován pro vybraného agenta; nasazení specifické pro zákazníka není součástí licence a zůstává odpovědností zákazníka nebo jeho implementačního partnera.",
+    "de": "Jedes Agentenpaket ist ein standardisiertes Produkt zum veröffentlichten Lizenzpreis der jeweiligen CAI-Stufe. Der Paketinhalt ist für den ausgewählten Agenten definiert; kundenspezifische Bereitstellungsarbeiten sind nicht Teil der Lizenz und verbleiben beim Kunden oder seinem Implementierungspartner.",
+    "fr": "Chaque package d’agent est un produit standardisé vendu au prix de licence publié pour son niveau CAI. Le contenu du package est défini pour l’agent sélectionné ; les travaux de déploiement spécifiques au client sont hors licence et restent à la charge du client ou de son partenaire d’implémentation.",
+    "es": "Cada paquete de agente es un producto estandarizado vendido al precio de licencia publicado para su nivel CAI. El contenido del paquete está definido para el agente seleccionado; el trabajo de despliegue específico del cliente queda fuera de la licencia y corresponde al cliente o a su socio de implementación.",
+    "it": "Ogni pacchetto agente è un prodotto standardizzato venduto al prezzo di licenza pubblicato per il relativo livello CAI. Il contenuto del pacchetto è definito per l’agente selezionato; il lavoro di deployment specifico del cliente è fuori licenza e resta a carico del cliente o del suo partner di implementazione.",
+    "pl": "Każdy pakiet agenta jest standaryzowanym produktem sprzedawanym po opublikowanej cenie licencji dla danego poziomu CAI. Zawartość pakietu jest zdefiniowana dla wybranego agenta; prace wdrożeniowe specyficzne dla klienta są poza licencją i pozostają po stronie klienta lub jego partnera wdrożeniowego.",
+    "pt": "Cada pacote de agente é um produto padronizado vendido ao preço de licença publicado para o respetivo nível CAI. O conteúdo do pacote é definido para o agente selecionado; o trabalho de deployment específico do cliente fica fora da licença e permanece a cargo do cliente ou do seu parceiro de implementação."
+  },
+  "Agent blueprint": {
+    "cs": "Návrh agenta",
+    "de": "Agenten-Blueprint",
+    "fr": "Blueprint de l’agent",
+    "es": "Blueprint del agente",
+    "it": "Blueprint dell’agente",
+    "pl": "Blueprint agenta",
+    "pt": "Blueprint do agente"
+  },
+  "Copilot Studio connect package": {
+    "cs": "Balíček pro připojení v Copilot Studio",
+    "de": "Copilot-Studio-Connect-Paket",
+    "fr": "Package de connexion Copilot Studio",
+    "es": "Paquete de conexión de Copilot Studio",
+    "it": "Pacchetto di connessione Copilot Studio",
+    "pl": "Pakiet połączeniowy Copilot Studio",
+    "pt": "Pacote de ligação do Copilot Studio"
+  },
+  "Microsoft 365 Copilot package": {
+    "cs": "Balíček Microsoft 365 Copilot",
+    "de": "Microsoft-365-Copilot-Paket",
+    "fr": "Package Microsoft 365 Copilot",
+    "es": "Paquete Microsoft 365 Copilot",
+    "it": "Pacchetto Microsoft 365 Copilot",
+    "pl": "Pakiet Microsoft 365 Copilot",
+    "pt": "Pacote Microsoft 365 Copilot"
+  },
+  "Agent dossier (PDF)": {
+    "cs": "Dokumentace agenta (PDF)",
+    "de": "Agentendossier (PDF)",
+    "fr": "Dossier de l’agent (PDF)",
+    "es": "Dossier del agente (PDF)",
+    "it": "Dossier dell’agente (PDF)",
+    "pl": "Dokumentacja agenta (PDF)",
+    "pt": "Dossier do agente (PDF)"
+  },
+  "Configuration guidance": {
+    "cs": "Pokyny ke konfiguraci",
+    "de": "Konfigurationsanleitung",
+    "fr": "Guide de configuration",
+    "es": "Guía de configuración",
+    "it": "Guida alla configurazione",
+    "pl": "Wskazówki konfiguracyjne",
+    "pt": "Orientação de configuração"
+  },
+  "Governance controls and human-oversight pattern": {
+    "cs": "Governance kontroly a vzor lidského dohledu",
+    "de": "Governance-Kontrollen und Muster für menschliche Aufsicht",
+    "fr": "Contrôles de gouvernance et modèle de supervision humaine",
+    "es": "Controles de gobernanza y patrón de supervisión humana",
+    "it": "Controlli di governance e modello di supervisione umana",
+    "pl": "Kontrole governance i wzorzec nadzoru człowieka",
+    "pt": "Controlos de governação e padrão de supervisão humana"
+  },
+  "Testing and validation evidence": {
+    "cs": "Důkazy o testování a validaci",
+    "de": "Test- und Validierungsnachweise",
+    "fr": "Éléments de preuve des tests et de la validation",
+    "es": "Evidencias de pruebas y validación",
+    "it": "Evidenze di test e validazione",
+    "pl": "Dowody testów i walidacji",
+    "pt": "Evidências de testes e validação"
+  },
+  "Known limitations and operating assumptions": {
+    "cs": "Známá omezení a provozní předpoklady",
+    "de": "Bekannte Einschränkungen und Betriebsannahmen",
+    "fr": "Limites connues et hypothèses d’exploitation",
+    "es": "Limitaciones conocidas y supuestos operativos",
+    "it": "Limitazioni note e ipotesi operative",
+    "pl": "Znane ograniczenia i założenia operacyjne",
+    "pt": "Limitações conhecidas e pressupostos operacionais"
+  },
+  "Package selection": {
+    "cs": "Výběr balíčku",
+    "de": "Paketauswahl",
+    "fr": "Sélection du package",
+    "es": "Selección del paquete",
+    "it": "Selezione del pacchetto",
+    "pl": "Wybór pakietu",
+    "pt": "Seleção do pacote"
+  },
+  "Email us about the workflow you want to govern. We will help you identify the appropriate fixed-price agent packages and clarify customer-managed deployment prerequisites.": {
+    "cs": "Napište nám o workflow, které chcete řídit. Pomůžeme vám vybrat vhodné balíčky agentů s pevnou cenou a vyjasnit předpoklady pro nasazení řízené zákazníkem.",
+    "de": "Schreiben Sie uns über den Workflow, den Sie steuern möchten. Wir helfen Ihnen, die passenden Agentenpakete zum Festpreis auszuwählen und die Voraussetzungen für eine kundenseitig gesteuerte Bereitstellung zu klären.",
+    "fr": "Écrivez-nous au sujet du workflow que vous souhaitez gouverner. Nous vous aiderons à identifier les packages d’agents à prix fixe appropriés et à clarifier les prérequis d’un déploiement géré par le client.",
+    "es": "Escríbanos sobre el flujo de trabajo que desea gobernar. Le ayudaremos a identificar los paquetes de agentes de precio fijo adecuados y a aclarar los requisitos previos para un despliegue gestionado por el cliente.",
+    "it": "Scriveteci in merito al workflow che desiderate governare. Vi aiuteremo a individuare i pacchetti agente a prezzo fisso appropriati e a chiarire i prerequisiti per un deployment gestito dal cliente.",
+    "pl": "Napisz do nas o procesie, który chcesz objąć governance. Pomożemy dobrać odpowiednie pakiety agentów o stałej cenie i wyjaśnić wymagania wstępne dla wdrożenia zarządzanego przez klienta.",
+    "pt": "Envie-nos informações sobre o workflow que pretende governar. Ajudaremos a identificar os pacotes de agentes de preço fixo adequados e a esclarecer os pré-requisitos para um deployment gerido pelo cliente."
+  },
+  "Bring a use case and we will help you identify the appropriate fixed-price agent package and clarify customer-managed deployment prerequisites.": {
+    "cs": "Přineste konkrétní use case a pomůžeme vám vybrat vhodný balíček agenta s pevnou cenou a vyjasnit předpoklady pro nasazení řízené zákazníkem.",
+    "de": "Bringen Sie einen konkreten Anwendungsfall mit; wir helfen Ihnen, das passende Agentenpaket zum Festpreis auszuwählen und die Voraussetzungen für eine kundenseitig gesteuerte Bereitstellung zu klären.",
+    "fr": "Présentez-nous un cas d’usage concret ; nous vous aiderons à identifier le package d’agent à prix fixe approprié et à clarifier les prérequis d’un déploiement géré par le client.",
+    "es": "Comparta un caso de uso concreto y le ayudaremos a identificar el paquete de agente de precio fijo adecuado y a aclarar los requisitos previos para un despliegue gestionado por el cliente.",
+    "it": "Presentateci un caso d’uso concreto; vi aiuteremo a individuare il pacchetto agente a prezzo fisso appropriato e a chiarire i prerequisiti per un deployment gestito dal cliente.",
+    "pl": "Przedstaw konkretny przypadek użycia, a pomożemy dobrać odpowiedni pakiet agenta o stałej cenie i wyjaśnić wymagania wstępne dla wdrożenia zarządzanego przez klienta.",
+    "pt": "Apresente-nos um caso de utilização concreto; ajudaremos a identificar o pacote de agente de preço fixo adequado e a esclarecer os pré-requisitos para um deployment gerido pelo cliente."
+  },
+  "Three package tiers": {
+    "cs": "Tři úrovně balíčků",
+    "de": "Drei Paketstufen",
+    "fr": "Trois niveaux de packages",
+    "es": "Tres niveles de paquetes",
+    "it": "Tre livelli di pacchetti",
+    "pl": "Trzy poziomy pakietów",
+    "pt": "Três níveis de pacotes"
+  },
+  "Explore fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.": {
+    "cs": "Prozkoumejte pevné jednorázové licenční ceny řízených balíčků podnikových AI agentů: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4, s volitelnou Continuous Certification.",
+    "de": "Entdecken Sie feste einmalige Lizenzpreise für kontrollierte Enterprise-KI-Agentenpakete: $7,900 für L2, $9,900 für L3 und $14,900 für L4, mit optionaler Continuous Certification.",
+    "fr": "Découvrez les prix de licence uniques fixes des packages d’agents IA d’entreprise gouvernés : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4, avec Continuous Certification en option.",
+    "es": "Explore los precios fijos de licencia única para paquetes gobernados de agentes de IA empresariales: $7,900 para L2, $9,900 para L3 y $14,900 para L4, con Continuous Certification opcional.",
+    "it": "Scopri i prezzi fissi di licenza una tantum per i pacchetti di agenti AI aziendali governati: $7,900 per L2, $9,900 per L3 e $14,900 per L4, con Continuous Certification opzionale.",
+    "pl": "Poznaj stałe, jednorazowe ceny licencji na nadzorowane pakiety korporacyjnych agentów AI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4, z opcjonalną Continuous Certification.",
+    "pt": "Explore os preços fixos de licença única para pacotes governados de agentes de IA empresariais: $7,900 para L2, $9,900 para L3 e $14,900 para L4, com Continuous Certification opcional."
+  },
+  "Fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.": {
+    "cs": "Pevné jednorázové licenční ceny řízených balíčků podnikových AI agentů: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4, s volitelnou Continuous Certification.",
+    "de": "Feste einmalige Lizenzpreise für kontrollierte Enterprise-KI-Agentenpakete: $7,900 für L2, $9,900 für L3 und $14,900 für L4, mit optionaler Continuous Certification.",
+    "fr": "Prix de licence uniques fixes pour les packages d’agents IA d’entreprise gouvernés : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4, avec Continuous Certification en option.",
+    "es": "Precios fijos de licencia única para paquetes gobernados de agentes de IA empresariales: $7,900 para L2, $9,900 para L3 y $14,900 para L4, con Continuous Certification opcional.",
+    "it": "Prezzi fissi di licenza una tantum per pacchetti di agenti AI aziendali governati: $7,900 per L2, $9,900 per L3 e $14,900 per L4, con Continuous Certification opzionale.",
+    "pl": "Stałe, jednorazowe ceny licencji na nadzorowane pakiety korporacyjnych agentów AI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4, z opcjonalną Continuous Certification.",
+    "pt": "Preços fixos de licença única para pacotes governados de agentes de IA empresariais: $7,900 para L2, $9,900 para L3 e $14,900 para L4, com Continuous Certification opcional."
+  },
+  "Founding customers may qualify for preferential payment or Continuous Certification terms in exchange for structured product and deployment feedback and permission to develop an approved case study. Published agent licence prices remain fixed.": {
+    "cs": "Zakládající zákazníci mohou získat zvýhodněné platební podmínky nebo podmínky Continuous Certification výměnou za strukturovanou zpětnou vazbu k produktu a nasazení a souhlas s vytvořením schválené případové studie. Zveřejněné licenční ceny agentů zůstávají pevné.",
+    "de": "Gründungskunden können im Austausch für strukturiertes Produkt- und Deployment-Feedback sowie die Zustimmung zu einer freigegebenen Fallstudie bevorzugte Zahlungs- oder Continuous-Certification-Konditionen erhalten. Die veröffentlichten Lizenzpreise der Agenten bleiben fest.",
+    "fr": "Les clients fondateurs peuvent bénéficier de conditions préférentielles de paiement ou de Continuous Certification en échange d’un retour structuré sur le produit et le déploiement ainsi que de l’autorisation de créer une étude de cas approuvée. Les prix de licence publiés des agents restent fixes.",
+    "es": "Los clientes fundadores pueden optar a condiciones preferentes de pago o de Continuous Certification a cambio de comentarios estructurados sobre el producto y el despliegue y del permiso para desarrollar un caso de estudio aprobado. Los precios de licencia publicados de los agentes siguen siendo fijos.",
+    "it": "I clienti fondatori possono beneficiare di condizioni preferenziali di pagamento o di Continuous Certification in cambio di feedback strutturato sul prodotto e sul deployment e dell’autorizzazione a sviluppare un case study approvato. I prezzi di licenza pubblicati degli agenti restano fissi.",
+    "pl": "Klienci założycielscy mogą otrzymać preferencyjne warunki płatności lub Continuous Certification w zamian za ustrukturyzowany feedback dotyczący produktu i wdrożenia oraz zgodę na przygotowanie zatwierdzonego studium przypadku. Opublikowane ceny licencji agentów pozostają stałe.",
+    "pt": "Os clientes fundadores podem beneficiar de condições preferenciais de pagamento ou de Continuous Certification em troca de feedback estruturado sobre o produto e o deployment e de autorização para desenvolver um caso de estudo aprovado. Os preços de licença publicados dos agentes permanecem fixos."
   }
 }

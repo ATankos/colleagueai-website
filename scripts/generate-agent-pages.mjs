@@ -42,8 +42,8 @@ const TIER_DESC = { // verbatim from the CAI Score section of /agents (locked co
   L3: ['Executes routine, low-risk actions inside a bounded workflow: classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.', 'Owns exceptions'],
   L4: ['Supports decisions and controls in higher-stakes processes: compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.', 'Stays accountable'],
 };
-const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, classify it on the CAI Score, and it runs in your own tenant: no rebuild, no data leaving your walls.';
-const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. No customer business data is processed on our side. Your data stays in your tenant.';
+const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, classify it on the CAI Score, and it runs in your own tenant. Customer business content remains in the customer-controlled Microsoft environment; ColleagueAI processes separate governance-layer metadata as described in the Trust Center.';
+const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts only the control plane: scores, policies and audit metadata. Customer business content remains in the customer-controlled Microsoft environment. ColleagueAI processes separate governance-layer metadata as described in the Trust Center.';
 
 
 function page(a) {
@@ -115,13 +115,13 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
   <span>This factsheet is available in English. Catalogue language:</span>
   <select id="factsheet-lang" aria-label="Catalogue language">
     <option value="en" selected>English</option>
-    <option value="cs">?e?tina</option>
+    <option value="cs">Čeština</option>
     <option value="de">Deutsch</option>
-    <option value="fr">Fran?ais</option>
-    <option value="es">Espa?ol</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
     <option value="it">Italiano</option>
     <option value="pl">Polski</option>
-    <option value="pt">Portugu?s</option>
+    <option value="pt">Português</option>
   </select>
 </div>
 <div class="eyebrow">Classified under the CAI Score™ · ${esc(tier)}</div>
@@ -150,7 +150,7 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
   <a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>
-<footer>Runs in your tenant · No customer business data processed by us · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026</footer>
+<footer>Runs in your tenant · Customer-controlled business data plane · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026</footer>
 </main>
 <script>
 (function () {

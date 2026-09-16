@@ -1,0 +1,12 @@
+/* Final homepage accessibility overrides.
+   Keep this external and last so postbuild style externalization cannot undo it. */
+header {
+  background: #22211F !important;
+}
+header .logo b,
+header .cai-hdr-logo b {
+  color: #E8A07F !important;
+}
+.kicker {
+  color: #8F3F25 !important;
+}

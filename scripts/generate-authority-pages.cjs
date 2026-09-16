@@ -497,11 +497,11 @@ const HUB_COPY = {
     read: "Read insight"
   },
   cs: {
-    title: "Anal?zy podnikov? AI | ColleagueAI",
-    h1: "Anal?zy podnikov? AI",
-    eyebrow: "Anal?zy",
-    lead: "Praktick? informace o podnikov?ch AI agentech, governance, lidsk?m dohledu a nasazen? v prost?ed? Microsoft.",
-    read: "P?e??st anal?zu"
+    title: "Analýzy podnikové AI | ColleagueAI",
+    h1: "Analýzy podnikové AI",
+    eyebrow: "Analýzy",
+    lead: "Praktické informace o podnikových AI agentech, governance, lidském dohledu a nasazení v prostředí Microsoft.",
+    read: "Přečíst analýzu"
   },
   de: {
     title: "Enterprise-KI-Einblicke | ColleagueAI",
@@ -511,38 +511,38 @@ const HUB_COPY = {
     read: "Artikel lesen"
   },
   fr: {
-    title: "Analyses sur l?IA d?entreprise | ColleagueAI",
-    h1: "Analyses sur l?IA d?entreprise",
+    title: "Analyses sur l’IA d’entreprise | ColleagueAI",
+    h1: "Analyses sur l’IA d’entreprise",
     eyebrow: "Analyses",
-    lead: "Conseils pratiques sur les agents IA d?entreprise, la gouvernance, la supervision humaine et le d?ploiement dans Microsoft.",
-    read: "Lire l?analyse"
+    lead: "Conseils pratiques sur les agents IA d’entreprise, la gouvernance, la supervision humaine et le déploiement dans Microsoft.",
+    read: "Lire l’analyse"
   },
   es: {
-    title: "An?lisis de IA empresarial | ColleagueAI",
-    h1: "An?lisis de IA empresarial",
-    eyebrow: "An?lisis",
-    lead: "Orientaci?n pr?ctica sobre agentes de IA empresariales, gobernanza, supervisi?n humana y despliegue en Microsoft.",
-    read: "Leer an?lisis"
+    title: "Análisis de IA empresarial | ColleagueAI",
+    h1: "Análisis de IA empresarial",
+    eyebrow: "Análisis",
+    lead: "Orientación práctica sobre agentes de IA empresariales, gobernanza, supervisión humana y despliegue en Microsoft.",
+    read: "Leer análisis"
   },
   it: {
-    title: "Approfondimenti sull?AI enterprise | ColleagueAI",
-    h1: "Approfondimenti sull?AI enterprise",
+    title: "Approfondimenti sull’AI enterprise | ColleagueAI",
+    h1: "Approfondimenti sull’AI enterprise",
     eyebrow: "Approfondimenti",
     lead: "Indicazioni pratiche su agenti AI enterprise, governance, supervisione umana e deployment in ambienti Microsoft.",
-    read: "Leggi l?approfondimento"
+    read: "Leggi l’approfondimento"
   },
   pl: {
-    title: "Analizy AI dla przedsi?biorstw | ColleagueAI",
-    h1: "Analizy AI dla przedsi?biorstw",
+    title: "Analizy AI dla przedsiębiorstw | ColleagueAI",
+    h1: "Analizy AI dla przedsiębiorstw",
     eyebrow: "Analizy",
-    lead: "Praktyczne materia?y o agentach AI, governance, nadzorze cz?owieka i wdro?eniach w ?rodowisku Microsoft.",
-    read: "Czytaj analiz?"
+    lead: "Praktyczne materiały o agentach AI, governance, nadzorze człowieka i wdrożeniach w środowisku Microsoft.",
+    read: "Czytaj analizę"
   },
   pt: {
     title: "Insights de IA empresarial | ColleagueAI",
     h1: "Insights de IA empresarial",
     eyebrow: "Insights",
-    lead: "Orienta??o pr?tica sobre agentes de IA empresariais, governan?a, supervis?o humana e implanta??o em ambientes Microsoft.",
+    lead: "Orientação prática sobre agentes de IA empresariais, governança, supervisão humana e implantação em ambientes Microsoft.",
     read: "Ler insight"
   }
 };
@@ -559,7 +559,7 @@ function hubTemplate(locale) {
           hubPath(code)
         )}); break;`
     )
-    .join("\\n");
+    .join("\n");
 
   const cards = Object.entries(manifest.pages)
     .map(([key, page]) => {
@@ -574,12 +574,12 @@ function hubTemplate(locale) {
           </h2>
           <p>${esc(identity.description)}</p>
           <a class="read" href="${esc(pagePath(locale, key))}">
-            ${esc(copy.read)} ?
+            ${esc(copy.read)} →
           </a>
         </article>
       `;
     })
-    .join("\\n");
+    .join("\n");
 
   const itemList = Object.entries(manifest.pages).map(
     ([key, page], index) => ({

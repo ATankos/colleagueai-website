@@ -296,6 +296,8 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   var page = rest.length ? pageFromSlug(rest[0]) : null;
   function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }
   function urlFor(loc) {
+    var alt = document.querySelector('link[rel="alternate"][hreflang="' + loc + '"]');
+    if (alt && alt.href) { try { var u = new URL(alt.href, location.origin); return u.pathname + location.search + location.hash; } catch (e) {} }
     if (page) return canonical(loc, page) + location.search + location.hash;
     var tail = "/" + rest.join("/");
     var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);
@@ -310,7 +312,7 @@ html[data-cai-page="agents"] #cai-buyer-path { display: none !important; }
   function sync() {
     var list = document.querySelectorAll("#langsel");
     for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }
-    var sel = document.getElementById("langsel");
+    var sel = document.getElementById("langsel") || document.getElementById("homelang") || document.getElementById("contactlang") || document.getElementById("pagelang");
     if (!sel) return;
     var want = D.locales.join("|");
     var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");
@@ -556,7 +558,7 @@ display: flex !important;
 </ul>
 
 <h2>Programma pilota</h2>
-<p>Stiamo integrando clienti pilota in questo momento. Ogni collaborazione inizia come promette il catalogo: l'agente viene validato sui tuoi casi prima del go-live, il suo ROI viene quantificato in anticipo e le evidenze di governance vengono prodotte dal primo giorno, così la tua prima distribuzione è anche la tua prova. Se vuoi essere una delle prove che pubblichiamo qui, l'accordo è questo: tu ottieni le condizioni pilota, noi otteniamo il caso di studio (anonimizzato e approvato da te).</p>
+<p>Stiamo acquisendo i primi clienti. Il percorso di valutazione è guidato dal prodotto: esaminate il factsheet dell’agente e la demo dal vivo, valutate il pacchetto rispetto al vostro caso d’uso, utilizzate gli strumenti ROI con le vostre ipotesi e verificate le evidenze di governance prima dell’acquisto. I clienti che successivamente scelgono di partecipare possono approvare separatamente un caso di studio anonimizzato dopo il deployment; la pubblicazione non è mai una condizione di acquisto.</p>
 <div class="cta">
   <a class="btn btn-p" href="/demo">Prenotare una conversazione pilota</a>
 </div>
@@ -566,7 +568,7 @@ display: flex !important;
     <p class="usage-intel__eyebrow">Metadati dei token, non contenuti aziendali</p>
     <h2 id="usage-intelligence-trust-title">CAI Token Economy Monitor: controlla i costi dell'IA prima che aumentino.</h2>
     <p class="usage-intel__lead">
-      ColleagueAI agent packages can include client-owned token economy monitoring that runs inside the client environment. The purpose is to help customers understand token consumption, estimated model/API cost, retries, oversized context, expensive model choices, and optimisation opportunities, while keeping prompts, outputs, documents, and business content out of ColleagueAI systems.
+      I pacchetti agente ColleagueAI possono includere un monitoraggio dell'economia dei token di proprietà del cliente che viene eseguito nell'ambiente del cliente. Lo scopo è aiutare i clienti a comprendere il consumo di token, il costo stimato di modello/API, i nuovi tentativi, il contesto sovradimensionato, le scelte di modello costose e le opportunità di ottimizzazione, mantenendo prompt, output, documenti e contenuti aziendali fuori dai sistemi ColleagueAI.
     </p>
     <div class="usage-intel__split">
       <div class="usage-intel__list">
@@ -591,18 +593,10 @@ display: flex !important;
       </div>
     </div>
     <p class="usage-intel__note">
-      The result is practical AI cost governance: users understand their own consumption, finance sees cost before it becomes uncontrolled, and leadership can scale the agents that deliver measurable value.
+      Il risultato è una governance pratica dei costi dell'IA: gli utenti comprendono il proprio consumo, la funzione finance vede i costi prima che diventino incontrollati e la leadership può scalare gli agenti che offrono valore misurabile.
     </p>
   </div>
 </section>
-
-
-
-
-
-
-
-
 
 
 <!-- CAI_AUTHORITY_GRAPH_START -->

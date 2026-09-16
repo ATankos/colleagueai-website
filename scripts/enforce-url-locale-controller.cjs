@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const { DEFAULT_LOCALE, SUPPORTED_LOCALE_CODES, PAGE_SLUGS, GLOBAL_PAGES, LOCALES } = require("./i18n/config.cjs");
 
-const PAGES = GLOBAL_PAGES;
+const PAGES = [...GLOBAL_PAGES, "refund", "responsible-ai", "accessibility", "contact"];
 const ROOTS = ["public", "dist"];
 
 const LABELS = {};
@@ -32,6 +32,8 @@ const SCRIPT = [
   '  var page = rest.length ? pageFromSlug(rest[0]) : null;',
   '  function canonical(loc, p) { var m = D.slugs[p] || {}; var slug = m[loc] || m[D.def] || p; return loc === D.def ? "/" + slug : "/" + loc + "/" + slug; }',
   '  function urlFor(loc) {',
+  '    var alt = document.querySelector(\'link[rel="alternate"][hreflang="\' + loc + \'"]\');',
+  '    if (alt && alt.href) { try { var u = new URL(alt.href, location.origin); return u.pathname + location.search + location.hash; } catch (e) {} }',
   '    if (page) return canonical(loc, page) + location.search + location.hash;',
   '    var tail = "/" + rest.join("/");',
   '    var base = loc === D.def ? (tail === "/" ? "/" : tail) : "/" + loc + (tail === "/" ? "" : tail);',
@@ -46,7 +48,7 @@ const SCRIPT = [
   '  function sync() {',
   '    var list = document.querySelectorAll("#langsel");',
   '    for (var i = list.length - 1; i > 0; i--) { if (list[i].parentNode) list[i].parentNode.removeChild(list[i]); }',
-  '    var sel = document.getElementById("langsel");',
+  '    var sel = document.getElementById("langsel") || document.getElementById("homelang") || document.getElementById("contactlang") || document.getElementById("pagelang");',
   '    if (!sel) return;',
   '    var want = D.locales.join("|");',
   '    var have = Array.prototype.map.call(sel.options || [], function (o) { return o.value; }).join("|");',

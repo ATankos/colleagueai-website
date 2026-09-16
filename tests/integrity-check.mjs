@@ -12,8 +12,9 @@
  * Usage:  node tests/integrity-check.mjs
  * Exit 0 = clean, Exit 1 = one or more defects (so it works as a CI / pre-deploy gate).
  */
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
+import { Script } from 'node:vm';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -61,6 +62,34 @@ for (const file of files) {
   const styleClose = count(/<\/style>/gi, html);
   if (styleOpen !== styleClose) {
     failures.push(`${rel}: <style> unbalanced — ${styleOpen} open vs ${styleClose} close`);
+  }
+
+  // 1b. Inline classic scripts must parse. This catches generated-JS defects
+  //     such as a literal "\\n" being emitted between switch cases.
+  const inlineScripts = [...html.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script\b[^>]*>/gi)];
+  for (let scriptIndex = 0; scriptIndex < inlineScripts.length; scriptIndex += 1) {
+    const attrs = inlineScripts[scriptIndex][1] || '';
+    const code = inlineScripts[scriptIndex][2] || '';
+    if (/\bsrc\s*=/i.test(attrs)) continue;
+    const typeMatch = attrs.match(/\btype\s*=\s*["']([^"']+)["']/i);
+    const type = typeMatch ? typeMatch[1].trim().toLowerCase() : '';
+    if (type && type !== 'text/javascript' && type !== 'application/javascript') continue;
+    try {
+      new Script(code, { filename: `${rel}#inline-script-${scriptIndex + 1}` });
+    } catch (err) {
+      failures.push(`${rel}: inline script syntax error — ${err.message}`);
+    }
+  }
+
+  // 1c. Authority insight hubs must not contain generator escape leakage or
+  //     replacement question marks embedded inside localized words.
+  if (html.includes('data-cai-page="authority-insights-hub"')) {
+    if (/<\/article>\s*\\n\s*<article/i.test(html)) {
+      failures.push(`${rel}: literal \\n leaked between insight cards`);
+    }
+    if (/[\p{L}]\?{1,2}[\p{L}]/u.test(html)) {
+      failures.push(`${rel}: suspicious replacement "?" inside localized hub copy`);
+    }
   }
 
   // 2. doubled opening tag, e.g. "<section <section ...>"
@@ -117,7 +146,14 @@ for (const file of files) {
     const hasFileExt = /\.[a-z0-9]+$/i.test(href);                 // /favicon.svg, /manifest.json, /x.html → static files
     const isLocale = /^\/(cs|de|fr|es|it|pl|pt|en)(\/|$)/.test(href);
     const clean = href.replace(/\/$/, '') || '/';
-    if (hasFileExt || isLocale || KNOWN_ROUTES.has(clean)) continue;
+    const routePath = clean === '/' ? '' : clean.replace(/^\/+/, '');
+    const mapsToPublic =
+      routePath &&
+      (
+        existsSync(join(PUBLIC, routePath + '.html')) ||
+        existsSync(join(PUBLIC, routePath, 'index.html'))
+      );
+    if (hasFileExt || isLocale || KNOWN_ROUTES.has(clean) || mapsToPublic) continue;
     warnings.push(`${rel}: internal link ${href} is not a known route (verify the rewrite exists)`);
   }
 }
