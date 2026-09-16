@@ -679,10 +679,6 @@ function walk(dir) {
   return out;
 }
 
-function replaceAll(value, from, to) {
-  return value.split(from).join(to);
-}
-
 // Single pass over the document. Sequential split/join re-scanned text that had
 // already been translated, so a key contained in its own translation was applied
 // twice ("Reset" -> "Resetovat" -> "Resetovatovat"). Replaced spans are never

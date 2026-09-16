@@ -45,10 +45,18 @@ function walk(dir) {
 }
 
 function stripNonVisible(html) {
+  // Loop until stable + tolerate whitespace in closing tags ("</script >"), so
+  // a split/crafted tag cannot reconstitute after one pass and no block is left
+  // behind (CodeQL: bad-tag-filter / incomplete-multi-character-sanitization).
+  let prev;
+  do {
+    prev = html;
+    html = html
+      .replace(/<script\b[\s\S]*?<\/script(?:[\s/][^>]*)?>/gi, " ")
+      .replace(/<style\b[\s\S]*?<\/style(?:[\s/][^>]*)?>/gi, " ")
+      .replace(/<noscript\b[\s\S]*?<\/noscript(?:[\s/][^>]*)?>/gi, " ");
+  } while (html !== prev);
   return html
-    .replace(/<script[\s\S]*?<\/script>/gi, " ")
-    .replace(/<style[\s\S]*?<\/style>/gi, " ")
-    .replace(/<noscript[\s\S]*?<\/noscript>/gi, " ")
     .replace(/<[^>]+>/g, " ")
     .replace(/\s+/g, " ");
 }

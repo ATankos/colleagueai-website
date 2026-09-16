@@ -112,7 +112,7 @@ test('5. store purchase opens a live Stripe Checkout page (no payment completed)
     page.locator('#pay-cta').click(),
   ]);
   await checkout.waitForLoadState('domcontentloaded');
-  expect(checkout.url(), 'must land on Stripe').toMatch(/(checkout\.stripe\.com|buy\.stripe\.com)/);
+  expect(checkout.url(), 'must land on Stripe').toMatch(/^https:\/\/(checkout|buy)\.stripe\.com\//);
   await expect(checkout.locator('body')).toContainText(/[€$£]\s?\d/);
   await checkout.close(); // never proceed to payment
 });

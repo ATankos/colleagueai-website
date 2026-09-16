@@ -32,7 +32,6 @@ test('Book a call links are rewritten off "#" once JS runs (fallback to /demo)',
 test('STORE config has no live price / scheduler / payment links (dead checkout)', () => {
   const { window } = load();
   // STORE is IIFE-scoped; detect via the rendered modal instead
-  const priceEl = [...window.document.querySelectorAll('#paymodal [data-i18n="pay_price"], #paymodal')];
   assert.ok(window.document.getElementById('paymodal'), 'pay modal exists');
   const m = html.match(/price:\s*null/); const s = html.match(/schedulerUrl:\s*'YOUR_SCHEDULER_URL'/);
   const p = html.match(/checkoutBase:'https:\/\/www\.colleagueai\.ai\/checkout'/);
@@ -61,7 +60,6 @@ test('checkout handoff: pay CTA href carries partner + client_reference_id (reve
   const { window } = load('https://www.colleagueai.ai/agents?partner=TESTPARTNER');
   const d = window.document;
   // open the first agent card, then the pay modal, as a user would
-  const card = d.querySelector('[data-slug], .card, .agent-card');
   const payBtn = d.getElementById('pay-cta');
   assert.ok(payBtn, 'pay CTA exists');
   const href = payBtn.getAttribute('href');

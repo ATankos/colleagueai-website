@@ -138,15 +138,18 @@ function removeExistingAuthorityBlocks(xml) {
 }
 
 function updateSitemap(file) {
-  if (!fs.existsSync(file)) {
+  // Read directly and treat a missing file as "skip" — no existsSync check
+  // before the read, so there is no check-then-use race (CodeQL: file-system-race).
+  let xml;
+  try {
+    xml = fs.readFileSync(file, "utf8");
+  } catch {
     console.log(
       "[authority-sitemap] skip missing " +
         path.relative(ROOT, file)
     );
     return;
   }
-
-  let xml = fs.readFileSync(file, "utf8");
 
   if (!xml.includes("<urlset")) {
     throw new Error(

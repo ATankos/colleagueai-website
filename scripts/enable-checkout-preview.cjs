@@ -34,12 +34,15 @@ const REPLACEMENT = "checkoutEnabled:true";
 let patched = 0;
 
 const walk = (dir) => {
-  for (const name of fs.readdirSync(dir)) {
+  // withFileTypes gives isDirectory() from the readdir call itself, so there is
+  // no separate statSync check-then-use race (CodeQL: file-system-race).
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const name = entry.name;
     const p = path.join(dir, name);
-    const st = fs.statSync(p);
-    if (st.isDirectory()) { walk(p); continue; }
+    if (entry.isDirectory()) { walk(p); continue; }
     if (!/\.(html|js)$/.test(name)) continue;
-    const src = fs.readFileSync(p, "utf8");
+    let src;
+    try { src = fs.readFileSync(p, "utf8"); } catch { continue; }
     if (!src.includes(NEEDLE)) continue;
     fs.writeFileSync(p, src.split(NEEDLE).join(REPLACEMENT), "utf8");
     patched += 1;

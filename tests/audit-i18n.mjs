@@ -55,7 +55,11 @@ const SELF = /(Colleague AI|we (are|hold)|wir sind|somos|jsme|nous sommes|siamo|
 let claims = 0;
 for (const loc of LOCALES) for (const [k, v] of Object.entries(I18N[loc]))
   if (typeof v === 'string' && CLAIM.test(v) && SELF.test(v)) { claims++; console.log(`CRITICAL  claim ${loc}.${k}: ${v.slice(0, 140)}`); }
-const pageText = html.replace(/<script[\s\S]*?<\/script>/gi, '').replace(/<[^>]+>/g, ' ');
+let pageSrc = html, pagePrev;
+// Loop until stable + tolerate "</script >" so no script block survives to be
+// read as page text (CodeQL: bad-tag-filter / incomplete-multi-char-sanitization).
+do { pagePrev = pageSrc; pageSrc = pageSrc.replace(/<script\b[\s\S]*?<\/script(?:[\s/][^>]*)?>/gi, ' '); } while (pageSrc !== pagePrev);
+const pageText = pageSrc.replace(/<[^>]+>/g, ' ');
 for (const m of pageText.matchAll(/.{0,80}(SOC\s?2|ISO\s?27001|ISO\/IEC\s?27001)[^.]{0,80}/gi)) { claims++; console.log(`REVIEW  page text claim: …${m[0].trim()}…`); }
 console.log(`${claims === 0 ? 'PASS' : 'FAIL'}  compliance-claims scan: ${claims} hit(s) (ISO/IEC 42001 "aligned" wording is excluded by design)`);
 if (claims) fail++;

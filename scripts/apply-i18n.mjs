@@ -53,7 +53,12 @@ function sectionHtml(html, id) {
   return html.slice(open, end);
 }
 function extract(sec) {
-  const lines = sec.replace(/<script[\s\S]*?<\/script>/gi, ' ')
+  // Strip script blocks first: loop until stable + tolerate "</script >" so no
+  // block survives into the extracted copy (CodeQL: bad-tag-filter /
+  // incomplete-multi-character-sanitization).
+  let prev;
+  do { prev = sec; sec = sec.replace(/<script\b[\s\S]*?<\/script(?:[\s/][^>]*)?>/gi, ' '); } while (sec !== prev);
+  const lines = sec
     .replace(/<(h[1-4]|p|li|div|ul|ol|tr|br|span|strong|a|button|th|td)\b[^>]*>/gi, '\n')
     .replace(/<[^>]+>/g, ' ')
     .split('\n').map(s => s.replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim())

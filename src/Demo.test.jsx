@@ -30,8 +30,12 @@ function visit(path) {
  * The date field is set with fireEvent rather than typed: date inputs take
  * their value wholesale, and keystroke simulation on them is brittle.
  */
+// A near-future date, computed at run time. A hard-coded date silently rots:
+// once it slips into the past the form's "today or later" rule rejects it and
+// every submit test fails on a date, not a defect.
+const FUTURE_DATE = new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10)
 async function fillRequiredFields(user, over = {}) {
-  const values = { email: 'cfo@example.com', company: 'Example Bank', role: 'CFO', date: '2026-09-15', ...over }
+  const values = { email: 'cfo@example.com', company: 'Example Bank', role: 'CFO', date: FUTURE_DATE, ...over }
   await user.type(screen.getByLabelText(/email/i), values.email)
   await user.type(screen.getByLabelText(/company/i), values.company)
   await user.type(screen.getByLabelText(/your role/i), values.role)

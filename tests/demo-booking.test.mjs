@@ -82,7 +82,10 @@ const VALID = {
   company: 'Example Bank',
   role: 'CFO',
   agentsOfInterest: ['risk', 'data'],
-  preferredDate: '2026-09-15',
+  // Computed, not hard-coded: a fixed date eventually slips into the past and
+  // the handler's "today or later" rule then rejects VALID with 400, failing
+  // every booking test on a date rather than a defect.
+  preferredDate: new Date(Date.now() + 30 * 864e5).toISOString().slice(0, 10),
   timeZone: 'CET',
 };
 
