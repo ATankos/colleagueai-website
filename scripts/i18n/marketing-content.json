@@ -1637,15 +1637,6 @@
     "pl": "Okno 30 dni",
     "pt": "Janela de 30 dias"
   },
-  "Paid monthly": {
-    "cs": "Vypláceno měsíčně",
-    "de": "Monatlich ausgezahlt",
-    "fr": "Payé mensuellement",
-    "es": "Pago mensual",
-    "it": "Pagato mensilmente",
-    "pl": "Wypłacane miesięcznie",
-    "pt": "Pago mensalmente"
-  },
   "What you earn": {
     "cs": "Co vyděláte",
     "de": "Was Sie verdienen",
@@ -1952,15 +1943,6 @@
     "pl": "Zatwierdzony dostęp partnera po weryfikacji",
     "pt": "Acesso de parceiro aprovado após revisão"
   },
-  "30-day attribution window per visitor": {
-    "cs": "30denní okno přiřazení na návštěvníka",
-    "de": "30-Tage-Zuordnungsfenster pro Besucher",
-    "fr": "Fenêtre d'attribution de 30 jours par visiteur",
-    "es": "Ventana de atribución de 30 días por visitante",
-    "it": "Finestra di attribuzione di 30 giorni per visitatore",
-    "pl": "30-dniowe okno przypisania na odwiedzającego",
-    "pt": "Janela de atribuição de 30 dias por visitante"
-  },
   "Applies to every agent in the catalogue": {
     "cs": "Platí pro každého agenta v katalogu",
     "de": "Gilt für jeden Agenten im Katalog",
@@ -2150,15 +2132,6 @@
     "pl": "Umowa partnerska",
     "pt": "Acordo de parceria"
   },
-  "When a customer you introduced buys an agent package, you earn 10% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts go monthly.": {
-    "cs": "Když zákazník, kterého jste přivedli, koupí balíček agenta, získáte 10 % z prodeje. Žádné stropy, žádné úrovně snižující vaši sazbu. Každý prodej je evidován. Výplaty probíhají měsíčně.",
-    "de": "Wenn ein von Ihnen vermittelter Kunde ein Agentenpaket kauft, erhalten Sie 10 % des Verkaufs. Keine Obergrenzen, keine Stufen, die Ihren Satz senken. Jeder Verkauf wird dokumentiert. Auszahlungen erfolgen monatlich.",
-    "fr": "Lorsqu'un client que vous avez présenté achète un package d'agent, vous percevez 10 % de la vente. Sans plafond, sans paliers réduisant votre taux. Chaque vente est enregistrée. Les versements sont mensuels.",
-    "es": "Cuando un cliente que usted presentó compra un paquete de agente, gana el 10 % de la venta. Sin límites, sin niveles que reduzcan su tasa. Cada venta queda registrada. Los pagos son mensuales.",
-    "it": "Quando un cliente da voi presentato acquista un pacchetto di agenti, guadagnate il 10% della vendita. Nessun tetto, nessun livello che riduca la vostra percentuale. Ogni vendita è registrata. I pagamenti sono mensili.",
-    "pl": "Gdy klient, którego przedstawiłeś, kupi pakiet agenta, otrzymujesz 10% wartości sprzedaży. Bez limitów i progów obniżających stawkę. Każda sprzedaż jest rejestrowana. Wypłaty są miesięczne.",
-    "pt": "Quando um cliente que apresentou compra um pacote de agente, ganha 10% da venda. Sem limites, sem escalões que reduzam a sua taxa. Cada venda fica registada. Os pagamentos são mensais."
-  },
   "We're onboarding early customers now. The evaluation path is product-led: review the agent factsheet and live demo, assess the package against your own use case, use the ROI tools with your own assumptions, and review the governance evidence before purchase. Customers who later choose to participate may separately approve an anonymised case study after deployment; publication is never a condition of purchase.": {
     "cs": "Nyní přijímáme první zákazníky. Hodnocení produktu je vedeno samotným produktem: projděte si factsheet agenta a živou ukázku, posuďte balíček podle vlastního případu použití, použijte ROI nástroje s vlastními předpoklady a před nákupem si zkontrolujte governance důkazy. Zákazníci, kteří se později rozhodnou zapojit, mohou samostatně schválit anonymizovanou případovou studii po nasazení; její zveřejnění nikdy není podmínkou nákupu.",
     "de": "Wir nehmen derzeit erste Kunden auf. Die Bewertung ist produktgeführt: Prüfen Sie das Agenten-Factsheet und die Live-Demo, bewerten Sie das Paket anhand Ihres eigenen Anwendungsfalls, nutzen Sie die ROI-Werkzeuge mit Ihren eigenen Annahmen und prüfen Sie die Governance-Nachweise vor dem Kauf. Kunden, die sich später beteiligen möchten, können nach der Bereitstellung separat einer anonymisierten Fallstudie zustimmen; eine Veröffentlichung ist niemals Voraussetzung für den Kauf.",
@@ -2167,5 +2140,32 @@
     "it": "Stiamo acquisendo i primi clienti. Il percorso di valutazione è guidato dal prodotto: esaminate il factsheet dell’agente e la demo dal vivo, valutate il pacchetto rispetto al vostro caso d’uso, utilizzate gli strumenti ROI con le vostre ipotesi e verificate le evidenze di governance prima dell’acquisto. I clienti che successivamente scelgono di partecipare possono approvare separatamente un caso di studio anonimizzato dopo il deployment; la pubblicazione non è mai una condizione di acquisto.",
     "pl": "Obecnie wdrażamy pierwszych klientów. Ścieżka oceny jest prowadzona przez sam produkt: przejrzyj kartę agenta i demo na żywo, oceń pakiet pod kątem własnego przypadku użycia, użyj narzędzi ROI z własnymi założeniami i przed zakupem sprawdź dowody governance. Klienci, którzy później zdecydują się uczestniczyć, mogą osobno zatwierdzić zanonimizowane studium przypadku po wdrożeniu; publikacja nigdy nie jest warunkiem zakupu.",
     "pt": "Estamos a integrar os primeiros clientes. O percurso de avaliação é orientado pelo produto: reveja a ficha do agente e a demonstração ao vivo, avalie o pacote face ao seu próprio caso de utilização, use as ferramentas de ROI com os seus próprios pressupostos e reveja as evidências de governança antes da compra. Os clientes que mais tarde optem por participar podem aprovar separadamente um caso de estudo anonimizado após a implantação; a publicação nunca é uma condição de compra."
+  },
+  "Attribution window defined in your signed partner agreement": {
+    "cs": "Okno pro přiřazení je stanoveno ve vaší podepsané partnerské smlouvě",
+    "de": "Attributionsfenster gemäß Ihrer unterzeichneten Partnervereinbarung",
+    "fr": "Fenêtre d’attribution définie dans votre accord de partenariat signé",
+    "es": "Ventana de atribución definida en su acuerdo de colaboración firmado",
+    "it": "Finestra di attribuzione definita nel vostro accordo di partnership firmato",
+    "pl": "Okno atrybucji określone w podpisanej umowie partnerskiej",
+    "pt": "Janela de atribuição definida no seu acordo de parceria assinado"
+  },
+  "Agreement-defined payout schedule": {
+    "cs": "Harmonogram výplat dle partnerské smlouvy",
+    "de": "Auszahlungsplan gemäß Partnervereinbarung",
+    "fr": "Calendrier de versement défini par l’accord",
+    "es": "Calendario de pagos definido en el acuerdo",
+    "it": "Calendario dei pagamenti definito nell’accordo",
+    "pl": "Harmonogram wypłat określony w umowie",
+    "pt": "Calendário de pagamentos definido no acordo"
+  },
+  "When a customer you introduced buys an agent package, you earn 10% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts follow the schedule in your signed partner agreement.": {
+    "cs": "Když zákazník, kterého jste přivedli, koupí balíček agenta, získáte 10 % z prodeje. Žádné stropy, žádné úrovně snižující vaši sazbu. Každý prodej je evidován. Výplaty probíhají podle harmonogramu ve vaší podepsané partnerské smlouvě.",
+    "de": "Wenn ein von Ihnen vermittelter Kunde ein Agentenpaket kauft, erhalten Sie 10 % des Verkaufs. Keine Obergrenzen, keine Stufen, die Ihren Satz senken. Jeder Verkauf wird dokumentiert. Auszahlungen erfolgen gemäß dem Zeitplan in Ihrer unterzeichneten Partnervereinbarung.",
+    "fr": "Lorsqu’un client que vous avez présenté achète un package d’agent, vous percevez 10 % de la vente. Sans plafond, sans paliers réduisant votre taux. Chaque vente est enregistrée. Les versements suivent le calendrier défini dans votre accord de partenariat signé.",
+    "es": "Cuando un cliente que usted presentó compra un paquete de agente, gana el 10 % de la venta. Sin límites, sin niveles que reduzcan su tasa. Cada venta queda registrada. Los pagos siguen el calendario definido en su acuerdo de colaboración firmado.",
+    "it": "Quando un cliente da voi presentato acquista un pacchetto di agenti, guadagnate il 10% della vendita. Nessun tetto, nessun livello che riduca la vostra percentuale. Ogni vendita è registrata. I pagamenti seguono il calendario definito nel vostro accordo di partnership firmato.",
+    "pl": "Gdy klient, którego przedstawiłeś, kupi pakiet agenta, otrzymujesz 10% wartości sprzedaży. Bez limitów i progów obniżających stawkę. Każda sprzedaż jest rejestrowana. Wypłaty odbywają się zgodnie z harmonogramem określonym w podpisanej umowie partnerskiej.",
+    "pt": "Quando um cliente que apresentou compra um pacote de agente, ganha 10% da venda. Sem limites, sem escalões que reduzam a sua taxa. Cada venda fica registada. Os pagamentos seguem o calendário definido no seu acordo de parceria assinado."
   }
 }
