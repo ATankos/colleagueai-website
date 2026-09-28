@@ -279,7 +279,7 @@ export default function Demo() {
         body { margin: 0; }
         .demo-container { max-width: 720px; margin: 0 auto; padding: 0 22px; }
         .demo-hero { text-align: center; padding: 60px 22px 40px; }
-        .demo-kicker { font-family: ui-monospace, Consolas, monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: ${C.muted}; display: block; margin-bottom: 16px; }
+        .demo-kicker { font-family: ui-monospace, Consolas, monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: ${C.soft}; display: block; margin-bottom: 16px; }
         h1 { font-family: ${serif}; font-weight: 500; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 16px; }
         .demo-subtitle { font-size: 17px; color: ${C.soft}; max-width: 520px; margin: 0 auto 40px; }
         .demo-form { background: ${C.paper}; padding: 32px; border-radius: 12px; margin: 0 0 40px; border: 1px solid ${C.line}; }
@@ -295,7 +295,14 @@ export default function Demo() {
         .demo-submit:hover { background: #A94A2C; }
         .demo-submit:disabled { opacity: 0.6; cursor: not-allowed; }
         .demo-requested { background: #fff; border: 1px solid ${C.line}; border-left: 3px solid ${C.terra}; border-radius: 8px; padding: 11px 14px; margin: 0 0 20px; font-size: 14px; }
-        .demo-privacy { font-size: 12.5px; color: ${C.muted}; line-height: 1.5; margin: 14px 0 0; text-align: center; }
+        /* C.muted (#8A857C) reads as ~3.2:1 on this panel's cream/paper backgrounds —
+           short of WCAG AA's 4.5:1 for normal text (axe: color-contrast, serious).
+           C.soft is the same palette's darker secondary tone (8:1+ on both) and was
+           already used elsewhere for readable-but-secondary text; reusing it here
+           keeps the look but clears the ratio. C.terra (the brand accent) on these
+           backgrounds and as this link's color is ALSO short (3.7-4.2:1) — left
+           alone since that's the brand colour itself, not a one-component fix. */
+        .demo-privacy { font-size: 12.5px; color: ${C.soft}; line-height: 1.5; margin: 14px 0 0; text-align: center; }
         .demo-privacy a { color: ${C.terra}; }
         .success-msg { background: #E8F5E9; color: #2E7D32; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
         .error-msg { background: #FFEBEE; color: #C62828; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
