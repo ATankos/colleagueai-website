@@ -1205,14 +1205,14 @@
     "pl": "Linki partnerskie",
     "pt": "Ligações de parceiro"
   },
-  ": a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.": {
-    "cs": ": partnerský kód z doporučovacího odkazu se uchovává ve vašem prohlížeči (30 dní) a připojuje se k nákupu pro přiřazení provize.",
-    "de": ": Ein Partnercode aus einem Empfehlungslink wird in Ihrem Browser gespeichert (30 Tage) und einem Kauf zur Provisionszuordnung zugeordnet.",
-    "fr": ": un code partenaire issu d'un lien de parrainage est conservé dans votre navigateur (30 jours) et rattaché à un achat pour l'attribution de la commission.",
-    "es": ": un código de socio de un enlace de referencia se guarda en su navegador (30 días) y se asocia a una compra para la atribución de la comisión.",
-    "it": ": un codice partner da un link di referral viene conservato nel tuo browser (30 giorni) e collegato a un acquisto per l'attribuzione della commissione.",
-    "pl": ": kod partnerski z linku polecającego jest przechowywany w Twojej przeglądarce (30 dni) i przypisywany do zakupu w celu przyznania prowizji.",
-    "pt": ": um código de parceiro de uma ligação de referência é mantido no seu navegador (30 dias) e associado a uma compra para atribuição de comissão."
+  ": a partner code from a referral link may be kept in your browser and attached to a purchase for commission attribution. Attribution eligibility, method and any applicable attribution window are governed by the approved partner setup and signed partner agreement.": {
+    "cs": ": partnerský kód z doporučovacího odkazu může být uchován ve vašem prohlížeči a připojen k nákupu pro účely přiřazení provize. Nárok na atribuci, její metoda a případné atribuční okno se řídí schváleným partnerským nastavením a podepsanou partnerskou smlouvou.",
+    "de": ": ein Partnercode aus einem Empfehlungslink kann in Ihrem Browser gespeichert und einem Kauf zur Provisionszuordnung zugeordnet werden. Die Berechtigung zur Zuordnung, die Methode und ein gegebenenfalls geltendes Zuordnungsfenster richten sich nach der genehmigten Partnereinrichtung und der unterzeichneten Partnervereinbarung.",
+    "fr": ": un code partenaire provenant d'un lien de parrainage peut être conservé dans votre navigateur et associé à un achat aux fins d'attribution de commission. L'éligibilité à l'attribution, sa méthode et toute fenêtre d'attribution applicable sont régies par la configuration partenaire approuvée et l'accord de partenariat signé.",
+    "es": ": un código de socio procedente de un enlace de referencia puede conservarse en su navegador y asociarse a una compra para la atribución de comisiones. La elegibilidad para la atribución, el método y cualquier ventana de atribución aplicable se rigen por la configuración de socio aprobada y el acuerdo de socio firmado.",
+    "it": ": un codice partner proveniente da un link di referral può essere conservato nel browser e associato a un acquisto ai fini dell'attribuzione della commissione. L'idoneità all'attribuzione, il metodo e l'eventuale finestra di attribuzione applicabile sono disciplinati dalla configurazione partner approvata e dall'accordo di partnership firmato.",
+    "pl": ": kod partnerski z linku polecającego może być przechowywany w przeglądarce i powiązany z zakupem w celu przypisania prowizji. Uprawnienie do atrybucji, jej metoda oraz ewentualne okno atrybucji są określone przez zatwierdzoną konfigurację partnerską i podpisaną umowę partnerską.",
+    "pt": ": um código de parceiro proveniente de uma ligação de referência pode ser mantido no seu navegador e associado a uma compra para atribuição de comissão. A elegibilidade da atribuição, o método e qualquer janela de atribuição aplicável são regidos pela configuração de parceiro aprovada e pelo acordo de parceria assinado."
   },
   "Data involved": {
     "cs": "Zapojená data",
