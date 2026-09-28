@@ -44,6 +44,12 @@ jobs:
       - name: Partner commission ledger (approval gate, rate locking, reversals)
         run: node --test tests/commission-ledger.test.mjs
 
+      # api/success.js (redirect back from Stripe) and api/webhook.js both call
+      # grantEntitlement for the same session by design; guards that the
+      # session-id audit trail stays deduped when both fire for one purchase.
+      - name: Entitlement grant is idempotent across both fulfilment paths
+        run: node --test tests/entitlement.test.mjs
+
       # Verified passing 8/8, including the revenue-critical assertions (STORE
       # config carries no live price while checkout is off, partner attribution
       # survives navigation, the pay CTA hands off client_reference_id). It was
