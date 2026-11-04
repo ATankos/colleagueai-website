@@ -15,9 +15,9 @@
 
 import { isEntitled } from '../lib/db.js';
 import { verifyDownload } from '../lib/downloadToken.js';
+import { allowedFilesFor, packageFile, packageDeliverable } from '../lib/products.js';
 
 const TTL = Number(process.env.SIGNED_URL_TTL_SECONDS ?? 900);
-const ALLOWED_FILES = ['dossier.pdf', 'connect-package.zip'];
 
 function valueOf(input) {
   return Array.isArray(input) ? input[0] : input;
@@ -91,7 +91,7 @@ export default async function handler(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
-  if (!ALLOWED_FILES.includes(file)) {
+  if (!allowedFilesFor(slug).includes(file)) {
     return res.status(400).json({ error: 'Invalid file requested' });
   }
 
@@ -126,6 +126,14 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'Not entitled', message: 'Purchase required - visit /agents to get access.' });
   }
 
+  // A release that is not approved for sale is never handed out, however the entitlement was
+  // created (test-card purchase, Payment Link, webhook), unless this deployment explicitly opts
+  // in to test delivery. The dossier is unaffected.
+  if (file === packageFile(slug) && !packageDeliverable(slug)) {
+    console.warn('[download] release package withheld: not approved for sale and test delivery is off', slug);
+    return res.status(403).json({ error: 'This release is not yet available for download', code: 'release_not_approved' });
+  }
+
   // Production: redirect to a signed R2 URL. Test: stream a placeholder from the function.
   if (r2Configured()) {
     try {
@@ -136,6 +144,14 @@ export default async function handler(req, res) {
       console.error('[download] Signed URL generation failed:', err);
       return res.status(500).json({ error: 'Could not generate download link' });
     }
+  }
+
+  // Without R2 only the dossier has a stand-in. A package request must fail loudly here:
+  // a placeholder PDF served under a .zip name would let a test purchase "pass" without
+  // ever delivering an installable product.
+  if (file !== 'dossier.pdf') {
+    console.error('[download] package requested but R2 is not configured:', slug, file);
+    return res.status(503).json({ error: 'Package storage is not configured', code: 'package_storage_not_configured' });
   }
 
   const pdf = placeholderPdf(slug);

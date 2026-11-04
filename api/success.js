@@ -15,6 +15,7 @@
 import Stripe from 'stripe';
 import { grantEntitlement } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
+import { productFor, packageFile, packageDeliverable } from '../lib/products.js';
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -31,12 +32,38 @@ function page(title, body) {
     `<body><div class="card">${body}<p class="muted"><a class="home" href="/agents">&larr; Back to agents</a></p></div></body></html>`;
 }
 
-function downloadLink(email, slug) {
+function downloadLink(email, slug, file = 'dossier.pdf') {
   if (process.env.DOWNLOAD_TOKEN_SECRET) {
-    return signDownload({ email, slug, file: 'dossier.pdf', ttlSeconds: 900 }).path;
+    return signDownload({ email, slug, file, ttlSeconds: 900 }).path;
   }
-  const qs = new URLSearchParams({ email, slug, file: 'dossier.pdf' });
+  const qs = new URLSearchParams({ email, slug, file });
   return `/api/download?${qs.toString()}`;
+}
+
+/** Download block for a paid order: the released package when the product has one, else the dossier. */
+export function deliveryHtml(email, slug) {
+  const product = productFor(slug);
+  const pkg = packageFile(slug);
+  if (!pkg) {
+    return `<a class="btn" href="${esc(downloadLink(email, slug))}">Download agent package</a>`;
+  }
+  const rel = product.release || {};
+  if (!packageDeliverable(slug)) {
+    return `<p>Release ${esc(rel.version || '')} of ${esc(product.name || 'this product')} is in controlled testing ` +
+      `and is not yet available for download. Your purchase is recorded; contact hello@colleagueai.ai about delivery.</p>` +
+      `<a class="btn" href="${esc(downloadLink(email, slug, 'dossier.pdf'))}">Product dossier (PDF)</a>`;
+  }
+  const facts = [`Version ${esc(rel.version || '')}`, `File ${esc(pkg)}`];
+  if (product.sku) facts.unshift(`SKU ${esc(product.sku)}`);
+  const sha = rel.sha256 && /^[a-f0-9]{64}$/i.test(rel.sha256)
+    ? `<p class="muted">SHA-256: <code style="word-break:break-all">${esc(rel.sha256.toLowerCase())}</code><br>` +
+      `Check it before installing (Windows: <code>certutil -hashfile ${esc(pkg)} SHA256</code>).</p>`
+    : '';
+  return `<a class="btn" href="${esc(downloadLink(email, slug, pkg))}">Download ${esc(product.name || 'package')}</a>` +
+    `<p class="muted">${facts.join(' · ')}. Start with START-HERE inside the package; it explains the ` +
+    `prerequisites, including Microsoft Copilot Studio capacity, before anything is installed.</p>` + sha +
+    `<p class="muted"><a href="${esc(downloadLink(email, slug, 'dossier.pdf'))}">Product dossier (PDF)</a>. ` +
+    `Links expire after 15 minutes; reopen this page for fresh ones.</p>`;
 }
 
 export default async function handler(req, res) {
@@ -64,10 +91,11 @@ export default async function handler(req, res) {
   const email = session.customer_details?.email || session.metadata?.email || '';
   const slug = session.metadata?.agent_slug || '';
   const paid = session.payment_status === 'paid';
+  const label = productFor(slug)?.name || slug;
 
   if (!paid) {
     return res.status(200).send(page('Payment pending', `<h1>Order received - awaiting your bank transfer</h1>` +
-      `<p>Thanks! Your order for <b>${esc(slug)}</b> is recorded. Bank transfers take a few days to arrive. ` +
+      `<p>Thanks! Your order for <b>${esc(label)}</b> is recorded. Bank transfers take a few days to arrive. ` +
       `Once your transfer clears, reopen this same page and your download will be here.</p>` +
       `<p class="muted">Keep this link. Your order email is ${esc(email)}.</p>`));
   }
@@ -83,14 +111,12 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error('[success] grantEntitlement failed:', err && err.message ? err.message : err);
     return res.status(200).send(page('Payment received', `<h1>Thank you!</h1>` +
-      `<p>Your payment for <b>${esc(slug)}</b> succeeded, but we could not enable your download just now. ` +
+      `<p>Your payment for <b>${esc(label)}</b> succeeded, but we could not enable your download just now. ` +
       `Please email hello@colleagueai.ai and we will sort it out.</p>`));
   }
 
-  const link = downloadLink(email, slug);
-
   return res.status(200).send(page('Thank you', `<h1>Thank you - your agent is ready</h1>` +
-    `<p>Payment for <b>${esc(slug)}</b> succeeded. Download your package below.</p>` +
-    `<a class="btn" href="${esc(link)}">Download agent package</a>` +
+    `<p>Payment for <b>${esc(label)}</b> succeeded. Download your package below.</p>` +
+    deliveryHtml(email, slug) +
     `<p class="muted">Order email: ${esc(email)}.</p>`));
 }

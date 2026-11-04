@@ -37,7 +37,20 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's pay panel to checkout mode in the built preview only |
 
 Leave `R2_*` unset for the first pass: `/api/download` then serves a placeholder
-PDF, which is fine — the gate is the *flow*, the real files come with R2 later.
+PDF **for the dossier only**, which is fine — the gate is the *flow*, the real files come with R2 later.
+
+**Products with a release record (`config/products.json`, e.g. Contract Intelligence & Register,
+SKU CAI-L4-CI-001)** behave differently by design:
+
+| Setting | Effect on the release package |
+| --- | --- |
+| `saleApproved: false` and a live key | `/api/checkout` refuses with `not_approved_for_sale` |
+| `saleApproved: false`, `RELEASE_TEST_DELIVERY` unset | success page shows the dossier only; `/api/download` returns 403 `release_not_approved` for the package |
+| `RELEASE_TEST_DELIVERY=1` (**Preview scope only, deployment protection on**), R2 unset | package link shown; `/api/download` returns 503 `package_storage_not_configured` — expected, not a failure |
+| `RELEASE_TEST_DELIVERY=1` and R2 set, bundle uploaded to `agents/<slug>/<release.package>` | package download works; verify its SHA-256 against `release.sha256`, then import that exact ZIP into a clean environment (final acceptance) |
+
+Never set `RELEASE_TEST_DELIVERY` in the Production scope: with it, anyone who completes a test-card
+purchase on that deployment receives the unapproved release.
 
 **Deploy a preview:** push any branch (this one) and open the preview URL Vercel
 gives the PR.
@@ -60,11 +73,14 @@ also set, it proves the 15-minute expiry refuses an expired-but-valid signature.
    panel → the CTA should now go to checkout (preview only).
 2. Pay with **`4242 4242 4242 4242`**, any future expiry, any CVC, any name, and
    an email you can check (use something like `buyer-test-1@yourdomain`).
-3. You land on `/api/success` → **Download agent package** appears.
+3. You land on `/api/success` → **Download agent package** appears (for a product with a release
+   record: **Download ColleagueAI <product>** plus version, SKU and a dossier link — see the table above).
    - The link is `/api/download?...&exp=…&sig=…` — note `exp` is ~15 min ahead.
 4. Download works once, and again on refresh (entitlement, not one-shot).
 5. Stripe Dashboard → Payments: the payment shows
-   `ColleagueAI - <Agent> (L*)`; metadata carries `agent_slug` + `tier`.
+   `ColleagueAI - <Agent> (L*)` (products with a release record: their configured name, e.g.
+   `ColleagueAI Contract Intelligence & Register (L4)`); metadata carries `agent_slug` + `tier`
+   (+ `sku` and `release` for products with a release record).
 6. Dashboard → Webhooks → the endpoint: `checkout.session.completed`
    delivered, response **200**.
 

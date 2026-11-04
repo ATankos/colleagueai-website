@@ -33,7 +33,7 @@ if (!BASE) {
   process.exit(2);
 }
 
-const SLUG = 'contract-summarisation-agent'; // any catalogue slug works
+const SLUG = 'contract-intelligence-and-register'; // any catalogue slug works
 let pass = 0, fail = 0;
 
 const ok = (name, cond, detail = '') => {

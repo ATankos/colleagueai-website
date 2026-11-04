@@ -64,6 +64,21 @@
     ],
     "redirects": [
         {
+            "source": "/agents/contract-summarisation-agent",
+            "destination": "/agents/contract-intelligence-and-register",
+            "permanent": true
+        },
+        {
+            "source": "/docs/agents/contract-summarisation-agent.pdf",
+            "destination": "/docs/agents/contract-intelligence-and-register.pdf",
+            "permanent": true
+        },
+        {
+            "source": "/docs/agents/Contract_Summarisation_Agent_Dossier.pdf",
+            "destination": "/docs/agents/contract-intelligence-and-register.pdf",
+            "permanent": true
+        },
+        {
             "source": "/en/agents",
             "destination": "/agents",
             "permanent": true
