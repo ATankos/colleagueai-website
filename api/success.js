@@ -15,7 +15,7 @@
 import Stripe from 'stripe';
 import { grantEntitlement } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
-import { productFor, packageFile, packageDeliverable } from '../lib/products.js';
+import { productFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -89,7 +89,8 @@ export default async function handler(req, res) {
   }
 
   const email = session.customer_details?.email || session.metadata?.email || '';
-  const slug = session.metadata?.agent_slug || '';
+  // Sessions created before a product rename carry the retired slug; serve them under the current one.
+  const slug = canonicalSlug(session.metadata?.agent_slug || '');
   const paid = session.payment_status === 'paid';
   const label = productFor(slug)?.name || slug;
 

@@ -3430,6 +3430,7 @@ function renderGovernanceFactsheet(a){
   }).join('');
 }
 
+/* per-agent package availability, generated from config/packages.json */function caiPkgFor(s){var m=/*CAI_PKG*/{"contract-intelligence-and-register":["copilot-studio"]}/*/CAI_PKG*/;return m[s]||["copilot-studio","m365-copilot"];}
 function openDrawer(i){window.__caiDi=i;
   const a=AGENTS[i];
   const dbadge=document.getElementById('d-badge');
@@ -3448,7 +3449,7 @@ function openDrawer(i){window.__caiDi=i;
   renderGovernanceFactsheet(a);
   document.getElementById('d-doc').href='https://www.colleagueai.ai/docs/agents/'+slug+'.pdf';
   document.getElementById('d-cs').href='/demo?agent='+slug+'&tier='+a.t;
-  document.getElementById('d-m365').href='/demo?agent='+slug+'&tier='+a.t;
+  document.getElementById('d-m365').href='/demo?agent='+slug+'&tier='+a.t;var pk=caiPkgFor(slug);document.getElementById('d-cs').style.display=pk.indexOf('copilot-studio')<0?'none':'';document.getElementById('d-m365').style.display=pk.indexOf('m365-copilot')<0?'none':'';
   document.getElementById('d-demo').href='https://www.colleagueai.ai/demo?agent='+slug+'&tier='+a.t;
   document.getElementById('d-calc').onclick=function(){closeDrawer();if(window.openCalcFor)window.openCalcFor(a.n);};
   /* Price both columns for THIS agent, from the shared table the cards use. */
@@ -3674,7 +3675,7 @@ applyLang(init);
     }
     cta.href=ctaUrl(cur,ref);
     syncCta();
-    var lis=document.getElementById('pay-list').children;
+    var lis=document.getElementById('pay-list').children;var pkp=(typeof caiPkgFor==='function')?caiPkgFor(cur.slug):['copilot-studio','m365-copilot'];if(lis[0]) lis[0].style.display=pkp.indexOf('copilot-studio')<0?'none':'';if(lis[1]) lis[1].style.display=pkp.indexOf('m365-copilot')<0?'none':'';
     if(lis[2]) lis[2].classList.toggle('free', !STORE.gate.dossier);
     open();
     if(window.caiTrack) caiTrack('checkout_open',{agent:cur.a.n,tier:cur.tier,mode:cta.dataset.mode});

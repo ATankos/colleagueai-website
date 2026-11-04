@@ -1,9 +1,12 @@
 {
-  "_comment": "Purchasable product records, keyed by catalogue slug (slugify of the agent name on /agents). name and sku are what Stripe, the success page and invoices show. saleApproved=false blocks LIVE-mode checkout for the slug (test-mode keys are unaffected), so enabling a test checkout can never start real sales of an unapproved release. release.package is the R2 object name under agents/<slug>/ that a buyer downloads; release.sha256 must equal the hash of that exact uploaded file (null = not yet published, the success page then omits it).",
+  "_comment": "Purchasable product records, keyed by catalogue slug (slugify of the agent name on /agents). name and sku are what Stripe, the success page and invoices show. saleApproved=false blocks LIVE-mode checkout for the slug (test-mode keys are unaffected), so enabling a test checkout can never start real sales of an unapproved release. release.package is the R2 object name under agents/<slug>/ that a buyer downloads; release.sha256 must equal the hash of that exact uploaded file (null = not yet published, the success page then omits it). aliases: retired slugs that must keep resolving to this product (old checkout links, Stripe metadata, KV entitlements and certificates written before a rename).",
   "contract-intelligence-and-register": {
     "name": "ColleagueAI Contract Intelligence & Register",
     "sku": "CAI-L4-CI-001",
     "tier": "L4",
+    "aliases": [
+      "contract-summarisation-agent"
+    ],
     "saleApproved": false,
     "release": {
       "version": "1.0.2.0",

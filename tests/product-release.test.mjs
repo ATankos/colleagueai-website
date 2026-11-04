@@ -199,3 +199,78 @@ test('old URLs redirect permanently and the replacement dossier exists', () => {
   for (const r of ['/agents/contract-summarisation-agent', '/docs/agents/contract-summarisation-agent.pdf']) assert.equal(find(r).permanent, true);
   assert.ok(existsSync(join(ROOT, 'public/docs/agents', SLUG + '.pdf')), 'replacement dossier PDF is missing');
 });
+
+// ── Retired slug keeps working (product rename migration) ────────────────────
+const OLD_SLUG = 'contract-summarisation-agent';
+
+test('alias: the retired slug resolves to the current product', () => {
+  assert.equal(products.canonicalSlug(OLD_SLUG), SLUG);
+  assert.equal(products.canonicalSlug('onboarding-agent'), 'onboarding-agent');
+  assert.deepEqual(products.slugFamily(SLUG), [SLUG, OLD_SLUG]);
+});
+
+test('alias: an entitlement stored under the retired slug still downloads under both slugs', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
+  const email = 'legacy-buyer@example.com';
+  store.set(`entitlement:${email}`, JSON.stringify({ email, slugs: [OLD_SLUG], stripeSessionIds: ['cs_legacy'] }));
+  assert.equal(await db.isEntitled(email, SLUG), true);
+  assert.equal(await db.isEntitled(email, OLD_SLUG), true);
+  for (const slug of [OLD_SLUG, SLUG]) {
+    const tok = signDownload({ email, slug, file: 'dossier.pdf', ttlSeconds: 300 });
+    const res = mockRes();
+    await download({ method: 'GET', query: { email, slug, file: 'dossier.pdf', exp: String(tok.exp), sig: tok.sig } }, res);
+    assert.equal(res.statusCode, 200, `dossier under ${slug}`);
+  }
+}));
+
+test('alias: new grants are stored under the current slug, and a refund revokes either form', async () => {
+  const email = 'mixed-buyer@example.com';
+  const ent = await db.grantEntitlement(email, [OLD_SLUG], 'cs_mixed');
+  assert.deepEqual(ent.slugs, [SLUG]);
+  store.set(`entitlement:${email}`, JSON.stringify({ email, slugs: [OLD_SLUG, 'onboarding-agent'], stripeSessionIds: ['cs_old'] }));
+  const after = await db.revokeEntitlement(email, [SLUG], 'cs_old');
+  assert.deepEqual(after.slugs, ['onboarding-agent']);
+});
+
+test('alias: old checkout links reach the current product (live key still blocked by the sale gate)', () => withEnv({ STRIPE_SECRET_KEY: 'sk_live_x', CHECKOUT_ENABLED: undefined }, async () => {
+  const res = mockRes();
+  await checkout({ method: 'GET', query: { agent: OLD_SLUG, terms: 'accepted' }, headers: { host: 'example.test' } }, res);
+  assert.equal(res.statusCode, 403, 'resolved to the product (not 404 Unknown agent)');
+  assert.equal(res.body.code, 'not_approved_for_sale');
+}));
+
+test('alias: a certificate stored under the retired slug is found by the current slug', async () => {
+  const email = 'cert-holder@example.com';
+  const keys = [...store.keys()];
+  const cert = await db.issueCertification({ email, slug: OLD_SLUG, tier: 'L4', subscriptionId: 'sub_alias_1', currentPeriodEnd: 2000000000 });
+  assert.equal(cert.agentSlug, SLUG, 'new certificates are issued under the current slug');
+  const found = await db.getCertificationForHolder(email, OLD_SLUG);
+  assert.equal(found?.certificateId, cert.certificateId);
+  assert.ok(keys.length < store.size);
+});
+
+// ── Package availability per agent ───────────────────────────────────────────
+const PKGCFG = JSON.parse(readFileSync(join(ROOT, 'config/packages.json'), 'utf8'));
+
+test('packages: this product offers only the Copilot Studio package', () => {
+  assert.deepEqual(PKGCFG.agents[SLUG], ['copilot-studio']);
+});
+
+test('packages: every agents page embeds the same per-agent map as config/packages.json', () => {
+  const files = ['public/agents.html', ...readdirSync(join(ROOT, 'public')).flatMap((d) =>
+    ['agents.html', 'agents/index.html'].map((f) => `public/${d}/${f}`))].filter((f) => existsSync(join(ROOT, f)));
+  assert.ok(files.length >= 9);
+  for (const f of files) {
+    const m = readFileSync(join(ROOT, f), 'utf8').match(/\/\*CAI_PKG\*\/(\{.*?\})\/\*\/CAI_PKG\*\/;return m\[s\]\|\|(\[[^\]]*\])/);
+    assert.ok(m, `${f}: package map missing`);
+    assert.deepEqual(JSON.parse(m[1]), PKGCFG.agents, `${f}: package map drifted from config/packages.json`);
+    assert.deepEqual(JSON.parse(m[2]), PKGCFG.default, `${f}: default packages drifted`);
+  }
+});
+
+test('packages: generated factsheets list only the packages each agent offers', { skip: !existsSync(join(ROOT, 'dist/agents')) && 'run npm run build first' }, () => {
+  const ours = readFileSync(join(ROOT, 'dist/agents', SLUG + '.html'), 'utf8');
+  assert.match(ours, /Copilot Studio connect package/);
+  assert.doesNotMatch(ours, /Microsoft 365 Copilot package/);
+  const other = readFileSync(join(ROOT, 'dist/agents/onboarding-agent.html'), 'utf8');
+  assert.match(other, /Microsoft 365 Copilot package/, 'agents without an entry keep the default list');
+});

@@ -15,7 +15,7 @@
 
 import { isEntitled } from '../lib/db.js';
 import { verifyDownload } from '../lib/downloadToken.js';
-import { allowedFilesFor, packageFile, packageDeliverable } from '../lib/products.js';
+import { allowedFilesFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
 
 const TTL = Number(process.env.SIGNED_URL_TTL_SECONDS ?? 900);
 
@@ -91,7 +91,10 @@ export default async function handler(req, res) {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
-  if (!allowedFilesFor(slug).includes(file)) {
+  // The token is signed over the slug as issued; everything else uses the current slug, so
+  // links issued before a product rename keep working (isEntitled accepts the retired slug too).
+  const canon = canonicalSlug(slug);
+  if (!allowedFilesFor(canon).includes(file)) {
     return res.status(400).json({ error: 'Invalid file requested' });
   }
 
@@ -129,7 +132,7 @@ export default async function handler(req, res) {
   // A release that is not approved for sale is never handed out, however the entitlement was
   // created (test-card purchase, Payment Link, webhook), unless this deployment explicitly opts
   // in to test delivery. The dossier is unaffected.
-  if (file === packageFile(slug) && !packageDeliverable(slug)) {
+  if (file === packageFile(canon) && !packageDeliverable(canon)) {
     console.warn('[download] release package withheld: not approved for sale and test delivery is off', slug);
     return res.status(403).json({ error: 'This release is not yet available for download', code: 'release_not_approved' });
   }
@@ -137,7 +140,7 @@ export default async function handler(req, res) {
   // Production: redirect to a signed R2 URL. Test: stream a placeholder from the function.
   if (r2Configured()) {
     try {
-      const url = await signedR2Url(slug, file);
+      const url = await signedR2Url(canon, file);
       res.setHeader('Cache-Control', 'no-store');
       return res.redirect(302, url);
     } catch (err) {

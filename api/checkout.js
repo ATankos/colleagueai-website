@@ -32,7 +32,7 @@
 
 import Stripe from 'stripe';
 import PRICING from '../config/pricing.json' with { type: 'json' };
-import { productFor, liveSaleBlocked } from '../lib/products.js';
+import { productFor, liveSaleBlocked, canonicalSlug } from '../lib/products.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
 const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
@@ -121,7 +121,9 @@ export default async function handler(req, res) {
 
   const q = req.query || {};
 
-  const slug = String(valueOf(q.agent) || '').trim();
+  // A retired slug (old links, bookmarks, partner URLs) resolves to the product's current slug,
+  // so the Stripe metadata, entitlement and download all use one identifier.
+  const slug = canonicalSlug(String(valueOf(q.agent) || '').trim());
   if (!SLUG_RE.test(slug)) return res.status(400).json({ error: 'Invalid or missing agent' });
 
   const tier = SLUG_TIER[slug];
