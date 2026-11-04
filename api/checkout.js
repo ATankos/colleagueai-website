@@ -32,9 +32,10 @@
 
 import Stripe from 'stripe';
 import PRICING from '../config/pricing.json' with { type: 'json' };
+import { productFor, liveSaleBlocked, canonicalSlug } from '../lib/products.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
-const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-summarisation-agent":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
+const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
 
 const ALLOWED_CURRENCIES = { usd: 1, eur: 1 };
 
@@ -120,11 +121,24 @@ export default async function handler(req, res) {
 
   const q = req.query || {};
 
-  const slug = String(valueOf(q.agent) || '').trim();
+  // A retired slug (old links, bookmarks, partner URLs) resolves to the product's current slug,
+  // so the Stripe metadata, entitlement and download all use one identifier.
+  const slug = canonicalSlug(String(valueOf(q.agent) || '').trim());
   if (!SLUG_RE.test(slug)) return res.status(400).json({ error: 'Invalid or missing agent' });
 
   const tier = SLUG_TIER[slug];
   if (!tier) return res.status(404).json({ error: 'Unknown agent' });
+
+  // A product with a release record (config/products.json) can only be sold with a live key
+  // once its release is approved for sale. Test-mode keys still work, so a Stripe test purchase
+  // can run end to end without any risk of taking real money for an unapproved release.
+  if (liveSaleBlocked(slug, process.env.STRIPE_SECRET_KEY)) {
+    console.warn('[checkout] live sale blocked: release not approved for sale', slug);
+    return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'not_approved_for_sale' });
+  }
+  const product = productFor(slug);
+  const productName = product?.name || `ColleagueAI - ${titleFromSlug(slug)}`;
+  const shortName = product?.name ? product.name.replace(/^ColleagueAI\s+/, '') : titleFromSlug(slug);
 
   if (String(valueOf(q.terms) || '') !== 'accepted') {
     return res.status(400).json({ error: 'Terms not accepted' });
@@ -161,6 +175,8 @@ export default async function handler(req, res) {
   const partner = PARTNER_RE.test(partnerRaw) ? partnerRaw : '';
 
   const metadata = { agent_slug: slug, tier };
+  if (product?.sku) metadata.sku = product.sku;
+  if (product?.release?.version) metadata.release = product.release.version;
   if (partner) metadata.partner = partner;
 
   const origin = originOf(req);
@@ -173,8 +189,8 @@ export default async function handler(req, res) {
         currency,
         unit_amount: cents,
         product_data: {
-          name: `ColleagueAI - ${titleFromSlug(slug)} (${tier})`,
-          metadata: { agent_slug: slug, tier },
+          name: `${productName} (${tier})`,
+          metadata: { agent_slug: slug, tier, ...(product?.sku ? { sku: product.sku } : {}) },
         },
       },
     }];
@@ -190,7 +206,7 @@ export default async function handler(req, res) {
           unit_amount: certUnit,
           recurring: { interval: certInterval },
           product_data: {
-            name: `Continuous Certification - ${titleFromSlug(slug)} (${tier})`,
+            name: `Continuous Certification - ${shortName} (${tier})`,
             metadata: { agent_slug: slug, tier, kind: 'continuous-certification' },
           },
         },

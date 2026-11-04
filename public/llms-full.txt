@@ -310,14 +310,14 @@ Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 - KPI impact: Improved management consistency.
 - Governance: L3, structures and supports; managers own every assessment and decision. Sensitive context stays with the human.
 
-### Contract Summarisation Agent
-- URL: https://www.colleagueai.ai/agents/contract-summarisation-agent
+### Contract Intelligence & Register
+- URL: https://www.colleagueai.ai/agents/contract-intelligence-and-register
 - CAI tier: L4 (Decide (supervised)) · Pillar: Corporate · Domain: Legal
-- What it does: Reads contracts and extracts the key risks and obligations, giving legal and business teams a fast, consistent summary.
-- Where it fits: The opening step of the contract lifecycle, it produces a consistent risk-and-obligation summary and flags items that need a lawyer's eye.
-- Value: Reduced workload on contract review.
-- KPI impact: Reduced review workload.
-- Governance: L4, summaries inform legal risk assessment; lawyers own interpretation and advice. Flagged items are highlighted, not actioned.
+- What it does: Extracts key contract terms with source citations into a reviewed register, applies amendments and tracks renewal and notice deadlines.
+- Where it fits: The register step of the contract lifecycle: every extracted term carries its quote and page, a named reviewer approves or corrects it in Teams, and only approved terms feed effective terms and deadline answers.
+- Value: Less manual contract reading and fewer missed notice deadlines.
+- KPI impact: Fewer missed notice deadlines.
+- Governance: L4, extracts and computes; a named reviewer approves every record and corrections are kept beside the original evidence. Lawyers own interpretation and advice; documents not fully signed are flagged, not treated as in force.
 
 ### Signing Summary Agent
 - URL: https://www.colleagueai.ai/agents/signing-summary-agent

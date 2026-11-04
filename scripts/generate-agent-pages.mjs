@@ -9,6 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import vm from 'node:vm';
 import PRICING from '../config/pricing.json' with { type: 'json' };
+import PACKAGES from '../config/packages.json' with { type: 'json' };
+const PKG_LABEL = { 'copilot-studio': 'Copilot Studio connect package', 'm365-copilot': 'Microsoft 365 Copilot package' };
+const packagesFor = (slug) => PACKAGES.agents[slug] || PACKAGES.default;
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -140,7 +143,7 @@ ${a.pains?.length ? `<section><h2>Pain points it removes</h2><ul>${a.pains.map(p
 ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? TIER[a.t] : '')} tier means</h2><p>${esc(TIER_DESC[a.t][0])} Human role: ${esc(TIER_DESC[a.t][1])}.</p></section>` : ''}
 <section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
-<section><h2>What you get</h2><ul><li>Copilot Studio connect package</li><li>Microsoft 365 Copilot package</li><li>Agent dossier (PDF)</li></ul><p>One-time purchase. Access to your connect packages is arranged after your access request is approved and commercial setup is confirmed.</p></section>
+<section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>One-time purchase. Access to your connect packages is arranged after your access request is approved and commercial setup is confirmed.</p></section>
 <section><h2>Price</h2><p><b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases.</p>
 <p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>

@@ -50,6 +50,9 @@ jobs:
       - name: Entitlement grant is idempotent across both fulfilment paths
         run: node --test tests/entitlement.test.mjs
 
+      - name: Purchased product is the released product (package delivery, sale gate, rename)
+        run: node --test tests/product-release.test.mjs
+
       # Verified passing 8/8, including the revenue-critical assertions (STORE
       # config carries no live price while checkout is off, partner attribution
       # survives navigation, the pay CTA hands off client_reference_id). It was

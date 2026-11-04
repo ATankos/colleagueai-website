@@ -42,21 +42,21 @@ beforeEach(() => { kvStore.clear(); kvFail = false; });
 const HOUR = 3600;
 const nowSec = () => Math.floor(Date.now() / 1000);
 
-async function issue({ email = 'buyer@example.com', slug = 'contract-summarisation-agent',
+async function issue({ email = 'buyer@example.com', slug = 'contract-intelligence-and-register',
   tier = 'L4', subscriptionId = 'sub_1', periodEnd = nowSec() + 30 * 24 * HOUR } = {}) {
   return db.issueCertification({ email, slug, tier, subscriptionId, currentPeriodEnd: periodEnd });
 }
 
 // ── 1. the licence/certification separation ─────────────────────────────────
 test('1. a lapsed certification does NOT touch the perpetual download entitlement', async () => {
-  await db.grantEntitlement('buyer@example.com', ['contract-summarisation-agent'], 'cs_1');
+  await db.grantEntitlement('buyer@example.com', ['contract-intelligence-and-register'], 'cs_1');
   const cert = await issue();
 
   await db.lapseCertification('sub_1', 'cancelled');
 
   const after = await db.getCertification(cert.certificateId);
   assert.equal(after.status, 'lapsed');
-  assert.equal(await db.isEntitled('buyer@example.com', 'contract-summarisation-agent'), true,
+  assert.equal(await db.isEntitled('buyer@example.com', 'contract-intelligence-and-register'), true,
     'DEFECT: cancelling the subscription removed access to a package the customer bought outright');
 });
 
@@ -123,7 +123,7 @@ test('3e. lifecycle writes for an unknown subscription return null rather than i
 
 test('3f. holder lookup finds the certificate without storing the email in the key', async () => {
   const cert = await issue();
-  const found = await db.getCertificationForHolder('BUYER@example.com', 'contract-summarisation-agent');
+  const found = await db.getCertificationForHolder('BUYER@example.com', 'contract-intelligence-and-register');
   assert.equal(found.certificateId, cert.certificateId, 'holder lookup must be case-insensitive');
   for (const k of kvStore.keys()) {
     assert.ok(!k.includes('buyer@example.com'), `DEFECT: KV key exposes the holder email: ${k}`);
