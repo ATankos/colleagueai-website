@@ -28,12 +28,12 @@ global.fetch = async (url) => {
 const db = await import('../lib/db.js');
 
 test('the same Stripe session granted twice (success.js then webhook.js) is not duplicated', async () => {
-  await db.grantEntitlement('buyer@example.com', ['contract-summarisation-agent'], 'cs_test_123');
-  const after = await db.grantEntitlement('buyer@example.com', ['contract-summarisation-agent'], 'cs_test_123');
+  await db.grantEntitlement('buyer@example.com', ['contract-intelligence-and-register'], 'cs_test_123');
+  const after = await db.grantEntitlement('buyer@example.com', ['contract-intelligence-and-register'], 'cs_test_123');
 
   assert.deepEqual(after.stripeSessionIds, ['cs_test_123'],
     'DEFECT: calling grantEntitlement twice for one session duplicates it in the audit trail');
-  assert.deepEqual(after.slugs, ['contract-summarisation-agent']);
+  assert.deepEqual(after.slugs, ['contract-intelligence-and-register']);
 });
 
 test('a second, different purchase adds its own session id and slug without dropping the first', async () => {

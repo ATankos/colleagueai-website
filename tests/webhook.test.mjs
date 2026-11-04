@@ -63,7 +63,7 @@ function makeEvent({ type = 'checkout.session.completed', id, sessionId = 'cs_te
     id: id ?? `evt_test_${++evtSeq}`,
     object: 'event', type,
     data: { object: { id: sessionId, object: 'checkout.session', amount_total: amount,
-      customer_details: { email }, metadata: { agent_slug: 'contract-summarisation-agent', ...(partner ? { partner } : {}), ...metadata } } },
+      customer_details: { email }, metadata: { agent_slug: 'contract-intelligence-and-register', ...(partner ? { partner } : {}), ...metadata } } },
   };
 }
 async function deliver(event, { sign = true, badSig = false, timestamp } = {}) {
@@ -224,7 +224,7 @@ before10(async () => {
       const data = (stripeApiMode === 'ok' && pi === 'pi_refund_1')
         ? [{ id: 'cs_refund_1', object: 'checkout.session', payment_intent: pi,
              customer_details: { email: 'buyer@example.com' },
-             metadata: { agent_slug: 'contract-summarisation-agent', tier: 'L4' } }]
+             metadata: { agent_slug: 'contract-intelligence-and-register', tier: 'L4' } }]
         : [];
       res.setHeader('content-type', 'application/json');
       return res.end(JSON.stringify({ object: 'list', data, has_more: false, url: '/v1/checkout/sessions' }));
@@ -252,7 +252,7 @@ const seedCommission = (sessionId) => kvStore.set('commission:' + sessionId, JSO
 test('10a. full refund with only a payment_intent id → session resolved, commission reversed, entitlement revoked', async () => {
   stripeApiMode = 'ok';
   kvStore.set('entitlement:buyer@example.com', JSON.stringify({
-    email: 'buyer@example.com', slugs: ['contract-summarisation-agent'], stripeSessionIds: ['cs_refund_1'] }));
+    email: 'buyer@example.com', slugs: ['contract-intelligence-and-register'], stripeSessionIds: ['cs_refund_1'] }));
   seedCommission('cs_refund_1');
 
   const r = await deliver(makeChargeEvent({}));
@@ -284,10 +284,10 @@ test('10c. Stripe API outage during lookup → 5xx so Stripe retries instead of 
 test('10d. explicit checkout_session_id in charge metadata still resolves without an API call', async () => {
   stripeApiMode = 'fail'; // API down — metadata path must not need it
   kvStore.set('entitlement:buyer@example.com', JSON.stringify({
-    email: 'buyer@example.com', slugs: ['contract-summarisation-agent'] }));
+    email: 'buyer@example.com', slugs: ['contract-intelligence-and-register'] }));
   seedCommission('cs_direct_1');
   const r = await deliver(makeChargeEvent({
-    metadata: { checkout_session_id: 'cs_direct_1', agent_slug: 'contract-summarisation-agent' } }));
+    metadata: { checkout_session_id: 'cs_direct_1', agent_slug: 'contract-intelligence-and-register' } }));
   assert.equal(r.status, 200);
   assert.equal(JSON.parse(kvStore.get('commission:cs_direct_1')).state, 'reversed');
   stripeApiMode = 'ok';
@@ -308,7 +308,7 @@ function makeSubEvent({ type, id, subId = 'sub_cert_1', status = 'active',
 
 const seedCert = (subId = 'sub_cert_1', overrides = {}) => {
   const cert = { certificateId: 'CAI-L4-AABBCCDD', email: 'buyer@example.com',
-    agentSlug: 'contract-summarisation-agent', tier: 'L4', certifiedVersion: '1.0',
+    agentSlug: 'contract-intelligence-and-register', tier: 'L4', certifiedVersion: '1.0',
     status: 'active', subscriptionId: subId,
     issuedAt: new Date().toISOString(), validUntil: null, ...overrides };
   kvStore.set(`certification:${cert.certificateId}`, JSON.stringify(cert));
@@ -327,9 +327,9 @@ test('11a. checkout of a subscription session issues a certificate alongside the
   assert.ok(certId, 'DEFECT: a subscription checkout produced no certificate');
   const cert = JSON.parse(kvStore.get(`certification:${certId}`));
   assert.equal(cert.status, 'active');
-  assert.equal(cert.agentSlug, 'contract-summarisation-agent');
+  assert.equal(cert.agentSlug, 'contract-intelligence-and-register');
   const ent = JSON.parse(kvStore.get('entitlement:buyer@example.com'));
-  assert.ok(ent.slugs.includes('contract-summarisation-agent'), 'the perpetual licence must still be granted');
+  assert.ok(ent.slugs.includes('contract-intelligence-and-register'), 'the perpetual licence must still be granted');
 });
 
 test('11b. a one-time (non-subscription) checkout issues NO certificate', async () => {
@@ -356,7 +356,7 @@ test('11c. invoice.paid renews the term; invoice.payment_failed only marks past_
 test('11d. subscription deletion lapses the certificate and LEAVES the licence intact', async () => {
   seedCert();
   kvStore.set('entitlement:buyer@example.com', JSON.stringify({
-    email: 'buyer@example.com', slugs: ['contract-summarisation-agent'] }));
+    email: 'buyer@example.com', slugs: ['contract-intelligence-and-register'] }));
 
   const r = await deliver(makeSubEvent({ type: 'customer.subscription.deleted' }));
   assert.equal(r.status, 200);
@@ -364,7 +364,7 @@ test('11d. subscription deletion lapses the certificate and LEAVES the licence i
   assert.equal(JSON.parse(kvStore.get('certification:CAI-L4-AABBCCDD')).status, 'lapsed');
 
   const ent = JSON.parse(kvStore.get('entitlement:buyer@example.com'));
-  assert.deepEqual(ent.slugs, ['contract-summarisation-agent'],
+  assert.deepEqual(ent.slugs, ['contract-intelligence-and-register'],
     'DEFECT: cancelling Continuous Certification revoked the perpetual agent licence');
 });
 

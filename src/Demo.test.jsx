@@ -222,7 +222,7 @@ describe('Demo agent context', () => {
 
   it('submits the agent with the booking, so sales is not left guessing', async () => {
     const user = userEvent.setup()
-    visit('/demo?agent=contract-summarisation-agent&tier=L4')
+    visit('/demo?agent=contract-intelligence-and-register&tier=L4')
     render(<Demo />)
 
     await fillRequiredFields(user)
@@ -230,7 +230,7 @@ describe('Demo agent context', () => {
     await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1))
 
     const payload = JSON.parse(fetchMock.mock.calls[0][1].body)
-    expect(payload.agentSlug).toBe('contract-summarisation-agent')
+    expect(payload.agentSlug).toBe('contract-intelligence-and-register')
     expect(payload.agentTier).toBe('L4')
   })
 
