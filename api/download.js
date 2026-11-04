@@ -7,43 +7,20 @@
  *   1. A valid signed token is REQUIRED. This fails closed if DOWNLOAD_TOKEN_SECRET is unset,
  *      so a missing env var can never downgrade to guessable email-only authorization.
  *   2. The email must have an entitlement for this slug (KV).
- * Then the file is served:
- *   - If R2 is configured (production): redirect to a signed, time-limited R2 URL.
- *   - Otherwise (test setup): stream a small placeholder PDF straight from the function,
- *     so the whole flow works without any object storage.
+ * Then the file is served (lib/storage.js):
+ *   - Release package: redirect to a signed, time-limited URL in private storage
+ *     (Vercel Private Blob, or Cloudflare R2). No storage configured -> 503, never a stand-in.
+ *   - Dossier: with storage configured, redirect to the public dossier under /docs/agents/;
+ *     without it (test setup), stream a small placeholder PDF so the flow works end to end.
  */
 
 import { isEntitled } from '../lib/db.js';
 import { verifyDownload } from '../lib/downloadToken.js';
 import { allowedFilesFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
-
-const TTL = Number(process.env.SIGNED_URL_TTL_SECONDS ?? 900);
+import { storageDriver, signedDownloadUrl } from '../lib/storage.js';
 
 function valueOf(input) {
   return Array.isArray(input) ? input[0] : input;
-}
-
-function r2Configured() {
-  return Boolean(
-    process.env.R2_ACCESS_KEY_ID &&
-    process.env.R2_SECRET_ACCESS_KEY &&
-    process.env.R2_PUBLIC_ENDPOINT &&
-    process.env.R2_BUCKET_NAME
-  );
-}
-
-async function signedR2Url(slug, file) {
-  const { AwsClient } = await import('aws4fetch');
-  const client = new AwsClient({
-    accessKeyId: process.env.R2_ACCESS_KEY_ID,
-    secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
-    region: 'auto',
-    service: 's3',
-  });
-  const url = new URL(`${process.env.R2_PUBLIC_ENDPOINT}/${process.env.R2_BUCKET_NAME}/agents/${slug}/${file}`);
-  url.searchParams.set('X-Amz-Expires', String(TTL));
-  const signed = await client.sign(new Request(url.toString(), { method: 'GET' }), { aws: { signQuery: true } });
-  return signed.url;
 }
 
 // Minimal, valid single-page PDF with correct xref offsets (no dependencies).
@@ -137,10 +114,19 @@ export default async function handler(req, res) {
     return res.status(403).json({ error: 'This release is not yet available for download', code: 'release_not_approved' });
   }
 
-  // Production: redirect to a signed R2 URL. Test: stream a placeholder from the function.
-  if (r2Configured()) {
+  const driver = storageDriver();
+
+  // The dossier is published on the site anyway; with real storage configured, send the buyer
+  // to it rather than to an object that would also have to be uploaded per agent.
+  if (driver && file === 'dossier.pdf') {
+    res.setHeader('Cache-Control', 'no-store');
+    return res.redirect(302, `/docs/agents/${canon}.pdf`);
+  }
+
+  // Files in private storage: redirect to a short-lived signed URL for agents/<slug>/<file>.
+  if (driver) {
     try {
-      const url = await signedR2Url(canon, file);
+      const url = await signedDownloadUrl(canon, file);
       res.setHeader('Cache-Control', 'no-store');
       return res.redirect(302, url);
     } catch (err) {
@@ -149,11 +135,11 @@ export default async function handler(req, res) {
     }
   }
 
-  // Without R2 only the dossier has a stand-in. A package request must fail loudly here:
+  // Without storage only the dossier has a stand-in. A package request must fail loudly here:
   // a placeholder PDF served under a .zip name would let a test purchase "pass" without
   // ever delivering an installable product.
   if (file !== 'dossier.pdf') {
-    console.error('[download] package requested but R2 is not configured:', slug, file);
+    console.error('[download] package requested but no storage is configured:', slug, file);
     return res.status(503).json({ error: 'Package storage is not configured', code: 'package_storage_not_configured' });
   }
 
