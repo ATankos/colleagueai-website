@@ -189,13 +189,22 @@ export default async function handler(req, res) {
   }
 
   // Self-fulfil: grant the entitlement now (idempotent). Works even if no webhook is set.
+  // A refunded or charged-back order is refused here, even though Stripe still reports 'paid'.
+  let granted;
   try {
-    await grantEntitlement(email, [slug], session.id);
+    granted = await grantEntitlement(email, [slug], session.id);
   } catch (err) {
     console.error('[success] grantEntitlement failed:', err && err.message ? err.message : err);
     return res.status(200).send(page({
       lang, title: t('t_received'), status: 'warn', eyebrow: t('recv_eyebrow'), heading: t('grant_h'),
       lede: t('grant_lede', { product: strong(label), email: mailLink() }), chips: emailChip,
+    }));
+  }
+
+  if (granted?.refused) {
+    return res.status(200).send(page({
+      lang, title: t('t_refunded'), status: 'warn', eyebrow: t('refunded_eyebrow'), heading: t('refunded_h'),
+      lede: t('refunded_lede', { product: strong(label), email: mailLink() }), chips: emailChip,
     }));
   }
 
