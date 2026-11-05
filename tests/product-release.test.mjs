@@ -309,3 +309,78 @@ test('packages: generated factsheets list only the packages each agent offers', 
   const other = readFileSync(join(ROOT, 'dist/agents/onboarding-agent.html'), 'utf8');
   assert.match(other, /Microsoft 365 Copilot package/, 'agents without an entry keep the default list');
 });
+
+test('success page: every catalogue agent gets the branded delivery card with its name, CAI tier and a signed download', () => withEnv({ RELEASE_TEST_DELIVERY: '1', DOWNLOAD_TOKEN_SECRET: 'test-only-secret' }, () => {
+  const tierMap = JSON.parse(readFileSync(join(ROOT, 'api/checkout.js'), 'utf8').match(/const SLUG_TIER = (\{[\s\S]*?\});/)[1]);
+  const slugs = Object.keys(tierMap);
+  assert.ok(slugs.length >= 36, 'catalogue map unexpectedly small');
+  for (const slug of slugs) {
+    const html = deliveryHtml('buyer@example.com', slug);
+    assert.match(html, /class="o-card"/, `${slug}: branded card`);
+    assert.match(html, new RegExp(`CAI ${tierMap[slug]}`), `${slug}: CAI tier badge`);
+    assert.match(html, /class="o-btn o-btn-p"/, `${slug}: primary download button`);
+    assert.match(html, new RegExp(`slug=${slug}(&|&amp;)`), `${slug}: download is for this agent`);
+    assert.match(html, /sig=/, `${slug}: download link is signed`);
+    assert.doesNotMatch(html, /your agent<\/h2>|undefined|null/, `${slug}: no placeholder text`);
+  }
+}));
+
+test('success page assets: styles and script are served as files (the CSP blocks inline ones)', () => {
+  const src = readFileSync(join(ROOT, 'api/success.js'), 'utf8');
+  assert.match(src, /href="\/order\.css"/);
+  assert.match(src, /src="\/order\.js"/);
+  assert.doesNotMatch(src, /<style>|<style\s+[a-z]/, 'no inline <style>: the site CSP blocks it');
+  assert.ok(existsSync(join(ROOT, 'public/order.css')) && existsSync(join(ROOT, 'public/order.js')));
+});
+
+const orderI18n = await import('../lib/orderI18n.js');
+
+test('order page i18n: every locale has every string, and paths match i18n.routes.json', () => {
+  const { ORDER_LOCALES, ORDER_STRINGS, AGENTS_PATH, PRIVACY_PATH, TIER_NAMES } = orderI18n;
+  const routes = JSON.parse(readFileSync(join(ROOT, 'i18n.routes.json'), 'utf8'));
+  assert.deepStrictEqual([...ORDER_LOCALES].sort(), [...routes.locales].sort(), 'same locales as the site');
+  const keys = Object.keys(ORDER_STRINGS.en);
+  for (const l of ORDER_LOCALES) {
+    assert.deepStrictEqual(Object.keys(ORDER_STRINGS[l]).sort(), [...keys].sort(), `${l}: same keys as en`);
+    for (const k of keys) {
+      if (l === 'en' && k === 'docs_en') continue;
+      assert.ok(String(ORDER_STRINGS[l][k]).trim(), `${l}.${k} is empty`);
+      assert.deepStrictEqual((ORDER_STRINGS[l][k].match(/\{\w+\}/g) || []).sort(), (ORDER_STRINGS.en[k].match(/\{\w+\}/g) || []).sort(), `${l}.${k}: placeholders`);
+    }
+    for (const t of ['L2', 'L3', 'L4', 'L5']) assert.ok(TIER_NAMES[l][t], `${l}: tier ${t}`);
+    const agentsSlug = routes.slugs.agents[l];
+    assert.strictEqual(AGENTS_PATH[l], l === 'en' ? '/agents' : `/${l}/${agentsSlug}`, `${l}: agents path`);
+    assert.strictEqual(PRIVACY_PATH[l], l === 'en' ? '/privacy' : `/${l}/${routes.slugs.privacy[l]}`, `${l}: privacy path`);
+  }
+});
+
+test('order page i18n: language comes from ?lang, then Accept-Language, then English', () => {
+  const { pickOrderLang } = orderI18n;
+  assert.strictEqual(pickOrderLang('cs', 'de-DE,de;q=0.9'), 'cs');
+  assert.strictEqual(pickOrderLang('xx', 'de-DE,de;q=0.9,en;q=0.5'), 'de');
+  assert.strictEqual(pickOrderLang('<script>', 'zh-CN'), 'en');
+  assert.strictEqual(pickOrderLang(undefined, undefined), 'en');
+});
+
+test('order page i18n: delivery card is translated in every locale (buttons, tier name)', () => withEnv({ RELEASE_TEST_DELIVERY: '1', DOWNLOAD_TOKEN_SECRET: 'test-only-secret' }, () => {
+  const { ORDER_LOCALES, ORDER_STRINGS, TIER_NAMES } = orderI18n;
+  const esc = (s) => String(s).replace(/&/g, '&amp;');
+  for (const l of ORDER_LOCALES) {
+    const html = deliveryHtml('buyer@example.com', SLUG, l);
+    assert.ok(html.includes(esc(ORDER_STRINGS[l].btn_pkg)), `${l}: download button`);
+    assert.ok(html.includes(esc(ORDER_STRINGS[l].steps_h)), `${l}: next steps heading`);
+    assert.ok(html.includes(esc(TIER_NAMES[l].L4)), `${l}: L4 tier name`);
+    assert.ok(html.indexOf(`file=${product.release.package}`) < html.indexOf('file=dossier.pdf'), `${l}: package first`);
+    const other = deliveryHtml('buyer@example.com', 'onboarding-agent', l);
+    assert.ok(other.includes(esc(ORDER_STRINGS[l].btn_doc)), `${l}: dossier button for other agents`);
+  }
+}));
+
+test('checkout carries the storefront language to Stripe and to the thank-you page', () => {
+  const src = readFileSync(join(ROOT, 'api/checkout.js'), 'utf8');
+  assert.match(src, /locale: lang/, 'Stripe Checkout locale');
+  assert.match(src, /api\/success\?session_id=\{CHECKOUT_SESSION_ID\}&lang=\$\{lang\}/, 'success_url carries lang');
+  assert.match(src, /AGENTS_PATH\[lang\]\}\?purchase=cancelled/, 'cancel returns to the localized catalogue');
+  const store = readFileSync(join(ROOT, 'public/agents.html'), 'utf8');
+  assert.match(store, /&terms=accepted'\+'&lang='\+encodeURIComponent\(String\(document\.documentElement\.lang/, 'storefront buy link passes the page language');
+});
