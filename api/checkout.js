@@ -32,6 +32,7 @@
 
 import Stripe from 'stripe';
 import PRICING from '../config/pricing.json' with { type: 'json' };
+import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug } from '../lib/products.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
@@ -174,7 +175,11 @@ export default async function handler(req, res) {
   const partnerRaw = String(valueOf(q.partner) || '').trim();
   const partner = PARTNER_RE.test(partnerRaw) ? partnerRaw : '';
 
-  const metadata = { agent_slug: slug, tier };
+  // Buyer's storefront language: Stripe's checkout page and our thank-you page follow it.
+  const langRaw = String(valueOf(q.lang) || '').toLowerCase().slice(0, 2);
+  const lang = ORDER_LOCALES.includes(langRaw) ? langRaw : 'en';
+
+  const metadata = { agent_slug: slug, tier, lang };
   if (product?.sku) metadata.sku = product.sku;
   if (product?.release?.version) metadata.release = product.release.version;
   if (partner) metadata.partner = partner;
@@ -225,8 +230,9 @@ export default async function handler(req, res) {
       ...(ref ? { client_reference_id: ref } : {}),
       billing_address_collection: 'auto',
       allow_promotion_codes: false,
-      success_url: `${origin}/api/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${origin}/agents?purchase=cancelled&agent=${encodeURIComponent(slug)}`,
+      locale: lang, // Stripe Checkout supports all 8 storefront locales
+      success_url: `${origin}/api/success?session_id={CHECKOUT_SESSION_ID}&lang=${lang}`,
+      cancel_url: `${origin}${AGENTS_PATH[lang]}?purchase=cancelled&agent=${encodeURIComponent(slug)}`,
     };
 
     // (Subscription mode creates the Customer itself, from the email typed on the

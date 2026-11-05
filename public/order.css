@@ -88,7 +88,7 @@ a{color:var(--terra-solid)}
 .o-steps li::before{content:"0" counter(s);display:block;font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--terra);margin-bottom:14px}
 .o-steps h3{font-family:var(--serif);font-weight:500;font-size:20px;margin:0 0 8px;letter-spacing:-.01em}
 .o-steps p{margin:0;font-size:14.5px;color:var(--graphite-soft)}
-.o-steps code{font-family:var(--mono);font-size:13px;background:var(--cream-2);border-radius:5px;padding:1px 5px}
+.o-steps code{white-space:nowrap;font-family:var(--mono);font-size:13px;background:var(--cream-2);border-radius:5px;padding:1px 5px}
 
 /* help band */
 .o-help{margin:56px 0 0;background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:28px 32px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}

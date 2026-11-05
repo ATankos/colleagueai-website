@@ -7,7 +7,7 @@
     var text = btn.getAttribute('data-copy');
     var done = function () {
       var old = btn.textContent;
-      btn.textContent = 'Copied';
+      btn.textContent = btn.getAttribute('data-copied') || 'Copied';
       btn.classList.add('done');
       setTimeout(function () { btn.textContent = old; btn.classList.remove('done'); }, 1600);
     };
