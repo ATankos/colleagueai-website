@@ -1,5 +1,5 @@
 {
-  "_comment": "Purchasable product records, keyed by catalogue slug (slugify of the agent name on /agents). name and sku are what Stripe, the success page and invoices show. saleApproved=false blocks LIVE-mode checkout for the slug (test-mode keys are unaffected), so enabling a test checkout can never start real sales of an unapproved release. release.package is the R2 object name under agents/<slug>/ that a buyer downloads; release.sha256 must equal the hash of that exact uploaded file (null = not yet published, the success page then omits it). aliases: retired slugs that must keep resolving to this product (old checkout links, Stripe metadata, KV entitlements and certificates written before a rename).",
+  "_comment": "Purchasable product records, keyed by catalogue slug (slugify of the agent name on /agents). name and sku are what Stripe, the success page and invoices show. saleApproved=false blocks LIVE-mode checkout for the slug (test-mode keys are unaffected), so enabling a test checkout can never start real sales of an unapproved release. release.package is the object name under agents/<slug>/ in private storage (Vercel Private Blob, or R2) that a buyer downloads; release.sha256 must equal the hash of that exact uploaded file (null = not yet published, the success page then omits it). aliases: retired slugs that must keep resolving to this product (old checkout links, Stripe metadata, KV entitlements and certificates written before a rename).",
   "contract-intelligence-and-register": {
     "name": "ColleagueAI Contract Intelligence & Register",
     "sku": "CAI-L4-CI-001",
@@ -12,7 +12,7 @@
       "version": "1.0.2.0",
       "status": "controlled-test",
       "package": "CAI-L4-CI-001_1.0.2.0.zip",
-      "sha256": null
+      "sha256": "c3b722b9b7bd00fd86b872a7bc96c4eb66bbf2fb14bee24567d179f97035ab2c"
     }
   }
 }

@@ -36,8 +36,12 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | your Upstash REST pair (already set for demo bookings — confirm they exist for Preview) |
 | `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's pay panel to checkout mode in the built preview only |
 
-Leave `R2_*` unset for the first pass: `/api/download` then serves a placeholder
-PDF **for the dossier only**, which is fine — the gate is the *flow*, the real files come with R2 later.
+Leave storage unconfigured for the first pass: `/api/download` then serves a placeholder
+PDF **for the dossier only**, which is fine — the gate is the *flow*, the real files come with storage later.
+
+**Storage (`lib/storage.js`):** a **Vercel Private Blob** store connected to the project (OIDC, `BLOB_STORE_ID`;
+no static key needed) is used first; Cloudflare R2 (`R2_*`) is the fallback driver. Object key:
+`agents/<slug>/<file>`. With storage configured, the dossier link redirects to the public `/docs/agents/<slug>.pdf`.
 
 **Products with a release record (`config/products.json`, e.g. Contract Intelligence & Register,
 SKU CAI-L4-CI-001)** behave differently by design:
@@ -46,8 +50,8 @@ SKU CAI-L4-CI-001)** behave differently by design:
 | --- | --- |
 | `saleApproved: false` and a live key | `/api/checkout` refuses with `not_approved_for_sale` |
 | `saleApproved: false`, `RELEASE_TEST_DELIVERY` unset | success page shows the dossier only; `/api/download` returns 403 `release_not_approved` for the package |
-| `RELEASE_TEST_DELIVERY=1` (**Preview scope only, deployment protection on**), R2 unset | package link shown; `/api/download` returns 503 `package_storage_not_configured` — expected, not a failure |
-| `RELEASE_TEST_DELIVERY=1` and R2 set, bundle uploaded to `agents/<slug>/<release.package>` | package download works; verify its SHA-256 against `release.sha256`, then import that exact ZIP into a clean environment (final acceptance) |
+| `RELEASE_TEST_DELIVERY=1` (**Preview scope only, deployment protection on**), no storage | package link shown; `/api/download` returns 503 `package_storage_not_configured` — expected, not a failure |
+| `RELEASE_TEST_DELIVERY=1`, private Blob store connected (Preview), bundle uploaded to `agents/<slug>/<release.package>` | package download works; verify its SHA-256 against `release.sha256`, then import that exact ZIP into a clean environment (final acceptance) |
 
 Never set `RELEASE_TEST_DELIVERY` in the Production scope: with it, anyone who completes a test-card
 purchase on that deployment receives the unapproved release.

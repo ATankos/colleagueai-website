@@ -18,7 +18,7 @@ import { join } from 'node:path';
 process.env.KV_REST_API_URL = 'http://kv.test';
 process.env.KV_REST_API_TOKEN = 'test-token';
 process.env.DOWNLOAD_TOKEN_SECRET = 'test-download-secret';
-for (const k of ['R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_PUBLIC_ENDPOINT', 'R2_BUCKET_NAME']) delete process.env[k];
+for (const k of ['R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_PUBLIC_ENDPOINT', 'R2_BUCKET_NAME', 'BLOB_STORE_ID', 'BLOB_READ_WRITE_TOKEN']) delete process.env[k];
 
 const store = new Map();
 global.fetch = async (url) => {
@@ -37,6 +37,7 @@ const product = PRODUCTS[SLUG];
 const db = await import('../lib/db.js');
 const { signDownload } = await import('../lib/downloadToken.js');
 const products = await import('../lib/products.js');
+const storage = await import('../lib/storage.js');
 const download = (await import('../api/download.js')).default;
 const checkout = (await import('../api/checkout.js')).default;
 const { deliveryHtml } = await import('../api/success.js');
@@ -124,7 +125,7 @@ test('download: without object storage a package request fails loudly instead of
   assert.notEqual(res.headers['content-type'], 'application/pdf');
 }));
 
-test('download: with R2 configured and test delivery on, the package redirects to its signed R2 object', () => withEnv({
+test('download: with only R2 configured and test delivery on, the package redirects to its signed R2 object', () => withEnv({
   RELEASE_TEST_DELIVERY: '1', R2_ACCESS_KEY_ID: 'AKIATEST', R2_SECRET_ACCESS_KEY: 'secret', R2_PUBLIC_ENDPOINT: 'https://r2.example.test', R2_BUCKET_NAME: 'bk',
 }, async () => {
   const res = await requestPackage();
@@ -132,6 +133,40 @@ test('download: with R2 configured and test delivery on, the package redirects t
   const loc = new URL(res.headers.location);
   assert.equal(loc.pathname, `/bk/agents/${SLUG}/${product.release.package}`);
   assert.ok(loc.searchParams.get('X-Amz-Signature'), 'URL must be signed');
+}));
+
+test('download: with a private Vercel Blob store, the package redirects to a presigned GET for its own object only', () => withEnv({
+  RELEASE_TEST_DELIVERY: '1', BLOB_STORE_ID: 'store_test', R2_ACCESS_KEY_ID: 'AKIATEST', R2_SECRET_ACCESS_KEY: 's', R2_PUBLIC_ENDPOINT: 'https://r2.example.test', R2_BUCKET_NAME: 'bk',
+}, async () => {
+  const calls = [];
+  storage.__setBlobSdkForTests({
+    issueSignedToken: async (o) => { calls.push(['token', o]); return { delegationToken: 'd', clientSigningToken: 'c', validUntil: o.validUntil }; },
+    presignUrl: async (t, o) => { calls.push(['sign', o]); return { presignedUrl: `https://store.private.blob.vercel-storage.com/${o.pathname}?vercel-blob-signature=x` }; },
+  });
+  try {
+    assert.equal(storage.storageDriver(), 'blob', 'Blob takes precedence over R2 when both are configured');
+    const res = await requestPackage();
+    assert.equal(res.statusCode, 302);
+    const key = `agents/${SLUG}/${product.release.package}`;
+    assert.equal(new URL(res.headers.location).pathname, '/' + key);
+    const [tok, sig] = calls;
+    assert.deepEqual(tok[1].operations, ['get'], 'token is GET-only');
+    assert.equal(tok[1].pathname, key, 'token is scoped to this one object');
+    assert.equal(sig[1].access, 'private');
+    assert.ok(tok[1].validUntil - Date.now() <= 900 * 1000 + 5000, 'link lives at most ~15 minutes');
+  } finally {
+    storage.__setBlobSdkForTests(null);
+  }
+}));
+
+test('download: with storage configured, the dossier goes to the public dossier page, not to storage', () => withEnv({ BLOB_STORE_ID: 'store_test' }, async () => {
+  const email = 'buyer@example.com';
+  await db.grantEntitlement(email, [SLUG], 'cs_dossier');
+  const tok = signDownload({ email, slug: SLUG, file: 'dossier.pdf', ttlSeconds: 300 });
+  const res = mockRes();
+  await download({ method: 'GET', query: { email, slug: SLUG, file: 'dossier.pdf', exp: String(tok.exp), sig: tok.sig } }, res);
+  assert.equal(res.statusCode, 302);
+  assert.equal(res.headers.location, `/docs/agents/${SLUG}.pdf`);
 }));
 
 test('download: the release package of one product cannot be requested under another slug', async () => {
