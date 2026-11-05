@@ -16,6 +16,7 @@ import Stripe from 'stripe';
 import { grantEntitlement } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
 import { productFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
+import { SLUG_TIER, titleFromSlug } from './checkout.js';
 
 function esc(s) {
   return String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -34,7 +35,7 @@ const ICON = {
 
 /**
  * Page shell in the site's brand. Styles and scripts are files (/order.css, /order.js)
- * because the site CSP blocks inline <style> and <script>.
+ * because the site CSP blocks inline style and script tags.
  * opts: { title, status: 'ok'|'pending'|'warn', eyebrow, heading (HTML), lede (HTML), chips[], body (HTML) }
  */
 function page(titleOrOpts, legacyBody) {
@@ -81,14 +82,16 @@ function codeBlock(label, value) {
 export function deliveryHtml(email, slug) {
   const product = productFor(slug);
   const pkg = packageFile(slug);
-  const name = product?.name || 'your agent';
-  const short = name.replace(/^ColleagueAI\s+/, '');
-  const tier = product?.tier ? `<span class="o-tier">CAI ${esc(product.tier)}${TIER_NAMES[product.tier] ? ' &middot; ' + esc(TIER_NAMES[product.tier]) : ''}</span>` : '';
+  // Agents without a product record still get their catalogue name and CAI tier.
+  const short = product?.name ? product.name.replace(/^ColleagueAI\s+/, '') : titleFromSlug(slug || 'agent');
+  const name = product?.name || `ColleagueAI ${short}`;
+  const tierCode = product?.tier || SLUG_TIER[slug];
+  const tier = tierCode ? `<span class="o-tier">CAI ${esc(tierCode)}${TIER_NAMES[tierCode] ? ' &middot; ' + esc(TIER_NAMES[tierCode]) : ''}</span>` : '';
   const dossierBtn = (label) => `<a class="o-btn o-btn-s" href="${esc(downloadLink(email, slug, 'dossier.pdf'))}">${ICON.doc}${label}</a>`;
 
   if (!pkg) {
-    return `<section class="o-grid"><article class="o-card">${tier}<h2>${esc(short)}</h2>` +
-      `<div class="o-actions"><a class="o-btn o-btn-p" href="${esc(downloadLink(email, slug))}">${ICON.download}Download agent package</a></div>` +
+    return `<section class="o-grid o-single"><article class="o-card">${tier}<h2>${esc(short)}</h2>` +
+      `<div class="o-actions"><a class="o-btn o-btn-p" href="${esc(downloadLink(email, slug))}">${ICON.download}Download agent dossier</a></div>` +
       `<p class="o-note">${ICON.clock}Links are valid for 15 minutes. Reopen this page any time for fresh ones.</p></article></section>`;
   }
   const rel = product.release || {};
@@ -150,7 +153,7 @@ export default async function handler(req, res) {
   // Sessions created before a product rename carry the retired slug; serve them under the current one.
   const slug = canonicalSlug(session.metadata?.agent_slug || '');
   const paid = session.payment_status === 'paid';
-  const label = productFor(slug)?.name || slug;
+  const label = productFor(slug)?.name || (slug ? `ColleagueAI ${titleFromSlug(slug)}` : 'your agent');
   const emailChip = email ? [`Order email <b>${esc(email)}</b>`] : [];
 
   if (!paid) {
@@ -188,7 +191,8 @@ export default async function handler(req, res) {
   return res.status(200).send(page({
     title: 'Thank you', status: 'ok', eyebrow: 'Payment confirmed',
     heading: 'Your agent is <em>ready.</em>',
-    lede: `Thank you. Payment for <b>${esc(label)}</b> succeeded. Download your package below and verify it before installing.`,
+    lede: `Thank you. Payment for <b>${esc(label)}</b> succeeded. ` +
+      (packageFile(slug) ? 'Download your package below and verify it before installing.' : 'Your download is below.'),
     chips: emailChip,
     body: deliveryHtml(email, slug),
   }));

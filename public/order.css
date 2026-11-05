@@ -47,6 +47,8 @@ a{color:var(--terra-solid)}
 
 /* package + verify */
 .o-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:20px;align-items:start}
+.o-single{grid-template-columns:minmax(0,1fr);max-width:720px}
+.o-facts.o-facts-2{grid-template-columns:repeat(2,minmax(0,1fr))}
 .o-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:32px;min-width:0}
 .o-card h2{font-family:var(--serif);font-weight:400;font-size:30px;line-height:1.1;letter-spacing:-.02em;margin:10px 0 22px}
 .o-tier{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--terra-deep);background:#F6E6DD;border-radius:6px;padding:5px 9px}
@@ -110,7 +112,7 @@ a{color:var(--terra-solid)}
   .o-lede{font-size:16.5px}
   .o-card{padding:22px;border-radius:16px}
   .o-card h2{font-size:25px}
-  .o-facts{grid-template-columns:minmax(0,1fr)}
+  .o-facts,.o-facts.o-facts-2{grid-template-columns:minmax(0,1fr)}
   .o-actions .o-btn{width:100%}
   .o-secure span{display:none}
   .o-help{padding:22px}

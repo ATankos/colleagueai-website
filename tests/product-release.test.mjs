@@ -309,3 +309,26 @@ test('packages: generated factsheets list only the packages each agent offers', 
   const other = readFileSync(join(ROOT, 'dist/agents/onboarding-agent.html'), 'utf8');
   assert.match(other, /Microsoft 365 Copilot package/, 'agents without an entry keep the default list');
 });
+
+test('success page: every catalogue agent gets the branded delivery card with its name, CAI tier and a signed download', () => withEnv({ RELEASE_TEST_DELIVERY: '1', DOWNLOAD_TOKEN_SECRET: 'test-only-secret' }, () => {
+  const tierMap = JSON.parse(readFileSync(join(ROOT, 'api/checkout.js'), 'utf8').match(/const SLUG_TIER = (\{[\s\S]*?\});/)[1]);
+  const slugs = Object.keys(tierMap);
+  assert.ok(slugs.length >= 36, 'catalogue map unexpectedly small');
+  for (const slug of slugs) {
+    const html = deliveryHtml('buyer@example.com', slug);
+    assert.match(html, /class="o-card"/, `${slug}: branded card`);
+    assert.match(html, new RegExp(`CAI ${tierMap[slug]}`), `${slug}: CAI tier badge`);
+    assert.match(html, /class="o-btn o-btn-p"/, `${slug}: primary download button`);
+    assert.match(html, new RegExp(`slug=${slug}(&|&amp;)`), `${slug}: download is for this agent`);
+    assert.match(html, /sig=/, `${slug}: download link is signed`);
+    assert.doesNotMatch(html, /your agent<\/h2>|undefined|null/, `${slug}: no placeholder text`);
+  }
+}));
+
+test('success page assets: styles and script are served as files (the CSP blocks inline ones)', () => {
+  const src = readFileSync(join(ROOT, 'api/success.js'), 'utf8');
+  assert.match(src, /href="\/order\.css"/);
+  assert.match(src, /src="\/order\.js"/);
+  assert.doesNotMatch(src, /<style>|<style\s+[a-z]/, 'no inline <style>: the site CSP blocks it');
+  assert.ok(existsSync(join(ROOT, 'public/order.css')) && existsSync(join(ROOT, 'public/order.js')));
+});
