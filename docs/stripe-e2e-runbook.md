@@ -32,7 +32,7 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | --- | --- |
 | `STRIPE_SECRET_KEY` | `sk_test_…` |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_…` |
-| `DOWNLOAD_TOKEN_SECRET` | any long random string (`openssl rand -hex 32`) |
+| `DOWNLOAD_TOKEN_SECRET` | any long random string (`openssl rand -hex 32`). Downloads are refused without it. Changing it invalidates every outstanding link; buyers recover by reopening their `/api/success` URL |
 | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | your Upstash REST pair (already set for demo bookings — confirm they exist for Preview) |
 | `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's pay panel to checkout mode in the built preview only |
 
@@ -67,9 +67,11 @@ node scripts/verify-stripe-e2e.mjs
 ```
 
 All checks must pass before spending time on manual steps. It verifies input
-hardening, signature enforcement, and that downloads fail closed (forged
-signature, expired token, missing entitlement) — with `$env:DOWNLOAD_TOKEN_SECRET`
-also set, it proves the 15-minute expiry refuses an expired-but-valid signature.
+hardening, and that downloads fail closed: a forged or legacy link, a tampered
+token, an expired token, a token for a file outside the allowlist, and a valid
+token for a buyer with no entitlement are all refused. The last four need
+`$env:DOWNLOAD_TOKEN_SECRET` set to the preview's secret, so the script can seal
+test tokens; with it, the 15-minute expiry is proven as well.
 
 ## 2. Happy path — card
 
@@ -79,7 +81,8 @@ also set, it proves the 15-minute expiry refuses an expired-but-valid signature.
    an email you can check (use something like `buyer-test-1@yourdomain`).
 3. You land on `/api/success` → **Download agent package** appears (for a product with a release
    record: **Download ColleagueAI <product>** plus version, SKU and a dossier link — see the table above).
-   - The link is `/api/download?...&exp=…&sig=…` — note `exp` is ~15 min ahead.
+   - The link is `/api/download?t=…`, a sealed token. The buyer's address is not in the URL,
+     and the link expires 15 minutes after the success page is rendered.
 4. Download works once, and again on refresh (entitlement, not one-shot).
 5. Stripe Dashboard → Payments: the payment shows
    `ColleagueAI - <Agent> (L*)` (products with a release record: their configured name, e.g.
@@ -96,8 +99,9 @@ also set, it proves the 15-minute expiry refuses an expired-but-valid signature.
 | `4000 0027 6000 3184` | 3DS challenge appears; **complete** it → behaves exactly like the happy path |
 | `4000 0027 6000 3184`, then **fail** the challenge | Back at checkout, nothing granted |
 
-After the declined attempts: `/api/download` with the OLD link still works (the
-first purchase's entitlement is untouched), and no new entitlement email exists.
+After the declined attempts: `/api/download` with the first purchase's link still works
+(within its 15 minutes; the first purchase's entitlement is untouched), and no new
+entitlement email exists.
 
 ## 4. Webhook idempotency (the auditor's specific ask)
 
@@ -112,10 +116,10 @@ first purchase's entitlement is untouched), and no new entitlement email exists.
 
 1. Make a second purchase for a **different agent** with a **different email**
    (`buyer-test-2@…`, incognito window).
-2. Take buyer 1's download URL and change `email=` to buyer 2's address → **403**
-   (signature covers the email). Re-sign attempts without the secret are
-   impossible; `scripts/verify-stripe-e2e.mjs` already proved forged signatures
-   are refused.
+2. Take buyer 1's download URL and change any character of the `t=` token → **403**
+   (`bad-token`: the token is sealed with AES-256-GCM, so the buyer's address cannot
+   be swapped inside it). Sealing a token for buyer 2 needs the secret, which only the
+   server holds; `scripts/verify-stripe-e2e.mjs` already proves tampered tokens are refused.
 3. Buyer 2's own link downloads buyer 2's agent only.
 
 ## 6. Expiry, resend, recovery
@@ -123,8 +127,10 @@ first purchase's entitlement is untouched), and no new entitlement email exists.
 1. Wait 15+ minutes (or reuse the preflight's expired-token check) → the old
    download link now answers **403 `expired`**.
 2. Re-open the same `/api/success?session_id=…` URL from the confirmation —
-   a **fresh** signed link is issued and works. That is the recovery path for
-   "buyer lost the link": they reopen the Stripe receipt's success URL.
+   a **fresh** sealed link is issued and works. That is the recovery path for
+   "buyer lost the link": they reopen the Stripe receipt's success URL. Links issued
+   before the sealed-token change (`email=…&sig=…`) answer 403 `missing-token` and are
+   recovered the same way.
 3. `/api/success` with the same session never double-grants (idempotent merge).
 
 ## 7. Refund → revocation (fixed in this branch — test it)

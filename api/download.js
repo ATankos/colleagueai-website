@@ -1,12 +1,13 @@
 /**
  * api/download.js - Gated download endpoint
  *
- * GET /api/download?email=<email>&slug=<agent-slug>&file=<file>[&exp=&sig=]
+ * GET /api/download?t=<token>
  *
- * Order of checks:
- *   1. A valid signed token is REQUIRED. This fails closed if DOWNLOAD_TOKEN_SECRET is unset,
- *      so a missing env var can never downgrade to guessable email-only authorization.
- *   2. The email must have an entitlement for this slug (KV).
+ * The token (lib/downloadToken.js) seals the buyer's email, slug, file and expiry, so the URL
+ * carries no personal data. Order of checks:
+ *   1. DOWNLOAD_TOKEN_SECRET must be set. This fails closed: nothing is served without it.
+ *   2. The token must open, untampered and unexpired.
+ *   3. The email must have an entitlement for this slug (KV).
  * Then the file is served (lib/storage.js):
  *   - Release package: redirect to a signed, time-limited URL in private storage
  *     (Vercel Private Blob, or Cloudflare R2). No storage configured -> 503, never a stand-in.
@@ -15,8 +16,8 @@
  */
 
 import { isEntitled } from '../lib/db.js';
-import { verifyDownload } from '../lib/downloadToken.js';
-import { allowedFilesFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
+import { openDownload } from '../lib/downloadToken.js';
+import { allowedFilesFor, packageFile, packageDeliverable, canonicalSlug, productFor } from '../lib/products.js';
 import { storageDriver, signedDownloadUrl } from '../lib/storage.js';
 
 function valueOf(input) {
@@ -56,43 +57,25 @@ export default async function handler(req, res) {
     return res.status(405).end('Method not allowed');
   }
 
-  const email = valueOf(req.query.email);
-  const slug = valueOf(req.query.slug);
-  const file = valueOf(req.query.file) || 'dossier.pdf';
-  const exp = valueOf(req.query.exp);
-  const sig = valueOf(req.query.sig);
-
-  if (!email || !slug) {
-    return res.status(400).json({ error: 'email and slug are required' });
-  }
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ error: 'Invalid email format' });
-  }
-  // The token is signed over the slug as issued; everything else uses the current slug, so
-  // links issued before a product rename keep working (isEntitled accepts the retired slug too).
-  const canon = canonicalSlug(slug);
-  if (!allowedFilesFor(canon).includes(file)) {
-    return res.status(400).json({ error: 'Invalid file requested' });
-  }
-
-  // Signed token is MANDATORY. Fail closed if the signing secret is not configured, so a
-  // missing env var can never silently downgrade to email-only (guessable) authorization.
+  // Fail closed: without the signing secret nothing can be opened, so nothing is served.
   if (!process.env.DOWNLOAD_TOKEN_SECRET) {
     console.error('[download] DOWNLOAD_TOKEN_SECRET not set - refusing to serve downloads');
     return res.status(503).json({ error: 'Downloads are not configured' });
   }
-  if (!exp || !sig) {
-    return res.status(403).json({ error: 'Invalid download token', reason: 'missing-token' });
+  // Email, slug and file come from inside the sealed token, never from the URL.
+  const claims = openDownload(valueOf(req.query.t));
+  if (!claims.ok) {
+    return res.status(403).json({ error: 'Invalid download token', reason: claims.reason });
   }
-  let token;
-  try {
-    token = verifyDownload({ email, slug, file, exp, sig });
-  } catch (err) {
-    console.error('[download] Token verification failed:', err);
-    return res.status(403).json({ error: 'Invalid download token', reason: 'token-verification-failed' });
+  const { email, slug, file } = claims;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return res.status(403).json({ error: 'Invalid download token', reason: 'bad-token' });
   }
-  if (!token.ok) {
-    return res.status(403).json({ error: 'Invalid download token', reason: token.reason });
+  // The token is issued for the slug as it was sold; everything else uses the current slug, so
+  // links issued before a product rename keep working (isEntitled accepts the retired slug too).
+  const canon = canonicalSlug(slug);
+  if (!allowedFilesFor(canon).includes(file)) {
+    return res.status(400).json({ error: 'Invalid file requested' });
   }
 
   let entitled;
@@ -108,8 +91,11 @@ export default async function handler(req, res) {
 
   // A release that is not approved for sale is never handed out, however the entitlement was
   // created (test-card purchase, Payment Link, webhook), unless this deployment explicitly opts
-  // in to test delivery. The dossier is unaffected.
-  if (file === packageFile(canon) && !packageDeliverable(canon)) {
+  // in to test delivery. That covers the release package and the connect package of a product
+  // that has a release record. The dossier, and products with no release record, are unaffected.
+  const releaseFile = file === packageFile(canon) ||
+    (file === 'connect-package.zip' && Boolean(productFor(canon)?.release));
+  if (releaseFile && !packageDeliverable(canon)) {
     console.warn('[download] release package withheld: not approved for sale and test delivery is off', slug);
     return res.status(403).json({ error: 'This release is not yet available for download', code: 'release_not_approved' });
   }

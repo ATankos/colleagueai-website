@@ -35,7 +35,7 @@ const PRODUCTS = JSON.parse(readFileSync(join(ROOT, 'config/products.json'), 'ut
 const product = PRODUCTS[SLUG];
 
 const db = await import('../lib/db.js');
-const { signDownload } = await import('../lib/downloadToken.js');
+const { signDownload, openDownload } = await import('../lib/downloadToken.js');
 const products = await import('../lib/products.js');
 const storage = await import('../lib/storage.js');
 const download = (await import('../api/download.js')).default;
@@ -74,12 +74,16 @@ function withEnv(vars, fn) {
   return out;
 }
 
+/* The download links a success page renders, each opened with the server's own key: the file
+   and buyer each link would serve, in page order. */
+function linksIn(html) {
+  return [...html.matchAll(/href="\/api\/download\?t=([A-Za-z0-9_-]+)"/g)].map((m) => openDownload(m[1]));
+}
+
 test('success page, test delivery on: links the versioned release package, with the dossier as a secondary link', () => withEnv({ RELEASE_TEST_DELIVERY: '1' }, () => {
   const html = deliveryHtml('buyer@example.com', SLUG);
   const pkg = product.release.package;
-  assert.match(html, new RegExp(`file=${pkg.replace(/\./g, '\\.')}`), 'primary download must be the release package');
-  assert.match(html, /file=dossier\.pdf/, 'dossier stays available as a secondary link');
-  assert.ok(html.indexOf(`file=${pkg}`) < html.indexOf('file=dossier.pdf'), 'package link comes first');
+  assert.deepEqual(linksIn(html).map((c) => c.file), [pkg, 'dossier.pdf'], 'package link first, dossier secondary');
   assert.match(html, new RegExp(product.release.version.replace(/\./g, '\\.')), 'version is shown to the buyer');
   assert.match(html, /START-HERE/, 'buyer is pointed at START-HERE first');
 }));
@@ -87,30 +91,38 @@ test('success page, test delivery on: links the versioned release package, with 
 test('success page, unapproved release without test delivery: no package link, dossier only', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, () => {
   const html = deliveryHtml('buyer@example.com', SLUG);
   assert.doesNotMatch(html, /\.zip/);
-  assert.match(html, /file=dossier\.pdf/);
+  assert.deepEqual(linksIn(html).map((c) => c.file), ['dossier.pdf']);
   assert.match(html, /not yet available for download/);
 }));
 
 test('agents without a release package keep the existing dossier link', () => {
   const html = deliveryHtml('buyer@example.com', 'onboarding-agent');
-  assert.match(html, /file=dossier\.pdf/);
+  assert.deepEqual(linksIn(html).map((c) => c.file), ['dossier.pdf']);
   assert.doesNotMatch(html, /\.zip/);
 });
+
+test('download links carry no buyer email, in clear or encoded form, yet still identify the buyer to the server', () => withEnv({ RELEASE_TEST_DELIVERY: '1' }, () => {
+  const html = deliveryHtml('Buyer.Name@Example.com', SLUG);
+  assert.doesNotMatch(html, /buyer\.name|example\.com|%40/i, 'the email must not appear in the page');
+  const links = linksIn(html);
+  assert.ok(links.length > 0);
+  assert.ok(links.every((c) => c.ok && c.email === 'buyer.name@example.com'), 'the sealed token must carry the buyer');
+}));
 
 test('download: the release package is accepted for its slug only', () => {
   assert.ok(products.allowedFilesFor(SLUG).includes(product.release.package));
   assert.ok(!products.allowedFilesFor('onboarding-agent').includes(product.release.package));
 });
 
-async function requestPackage(slug = SLUG) {
+async function requestFile(slug, file) {
   const email = 'buyer@example.com';
-  await db.grantEntitlement(email, [slug], 'cs_release_' + slug);
-  const file = product.release.package;
+  await db.grantEntitlement(email, [slug], 'cs_release_' + slug + '_' + file);
   const tok = signDownload({ email, slug, file, ttlSeconds: 300 });
   const res = mockRes();
-  await download({ method: 'GET', query: { email, slug, file, exp: String(tok.exp), sig: tok.sig } }, res);
+  await download({ method: 'GET', query: { t: tok.t } }, res);
   return res;
 }
+const requestPackage = (slug = SLUG) => requestFile(slug, product.release.package);
 
 test('download: an unapproved release is withheld from an entitled buyer unless test delivery is on', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
   const res = await requestPackage();
@@ -164,7 +176,7 @@ test('download: with storage configured, the dossier goes to the public dossier 
   await db.grantEntitlement(email, [SLUG], 'cs_dossier');
   const tok = signDownload({ email, slug: SLUG, file: 'dossier.pdf', ttlSeconds: 300 });
   const res = mockRes();
-  await download({ method: 'GET', query: { email, slug: SLUG, file: 'dossier.pdf', exp: String(tok.exp), sig: tok.sig } }, res);
+  await download({ method: 'GET', query: { t: tok.t } }, res);
   assert.equal(res.statusCode, 302);
   assert.equal(res.headers.location, `/docs/agents/${SLUG}.pdf`);
 }));
@@ -175,9 +187,48 @@ test('download: the release package of one product cannot be requested under ano
   const file = product.release.package;
   const tok = signDownload({ email, slug: 'onboarding-agent', file, ttlSeconds: 300 });
   const res = mockRes();
-  await download({ method: 'GET', query: { email, slug: 'onboarding-agent', file, exp: String(tok.exp), sig: tok.sig } }, res);
+  await download({ method: 'GET', query: { t: tok.t } }, res);
   assert.equal(res.statusCode, 400);
 });
+
+test('download: a tampered token is refused as bad, and an expired one as expired', () => withEnv({ RELEASE_TEST_DELIVERY: '1' }, async () => {
+  await db.grantEntitlement('buyer@example.com', [SLUG], 'cs_tamper');
+  const good = signDownload({ email: 'buyer@example.com', slug: SLUG, file: 'dossier.pdf', ttlSeconds: 300 }).t;
+  // Change a character inside the sealed bytes (not the final one, whose low bits can be padding).
+  const i = 40;
+  const flipped = good.slice(0, i) + (good[i] === 'A' ? 'B' : 'A') + good.slice(i + 1);
+  const bad = mockRes();
+  await download({ method: 'GET', query: { t: flipped } }, bad);
+  assert.equal(bad.statusCode, 403);
+  assert.equal(bad.body.reason, 'bad-token');
+
+  const expired = signDownload({ email: 'buyer@example.com', slug: SLUG, file: 'dossier.pdf', ttlSeconds: -5 }).t;
+  const old = mockRes();
+  await download({ method: 'GET', query: { t: expired } }, old);
+  assert.equal(old.statusCode, 403);
+  assert.equal(old.body.reason, 'expired');
+}));
+
+test('download: a request with no token, or the old email-and-signature form, is refused', () => withEnv({ RELEASE_TEST_DELIVERY: '1' }, async () => {
+  const none = mockRes();
+  await download({ method: 'GET', query: {} }, none);
+  assert.equal(none.statusCode, 403);
+  assert.equal(none.body.reason, 'missing-token');
+  const legacy = mockRes();
+  await download({ method: 'GET', query: { email: 'buyer@example.com', slug: SLUG, file: 'dossier.pdf', exp: '9999999999', sig: 'deadbeef' } }, legacy);
+  assert.equal(legacy.statusCode, 403, 'an email-addressed link must not be honoured');
+}));
+
+test('download: the connect package of an unapproved release is withheld too, unless test delivery is on', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
+  const res = await requestFile(SLUG, 'connect-package.zip');
+  assert.equal(res.statusCode, 403);
+  assert.equal(res.body.code, 'release_not_approved');
+}));
+
+test('download: the connect package of an agent with no release record is not held back by the release gate', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
+  const res = await requestFile('onboarding-agent', 'connect-package.zip');
+  assert.notEqual(res.body?.code, 'release_not_approved');
+}));
 
 test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved release; test keys can', async () => {
   assert.equal(product.saleApproved, false, 'release 1.0.3.1 is a controlled test release, not approved for sale');
@@ -252,7 +303,7 @@ test('alias: an entitlement stored under the retired slug still downloads under 
   for (const slug of [OLD_SLUG, SLUG]) {
     const tok = signDownload({ email, slug, file: 'dossier.pdf', ttlSeconds: 300 });
     const res = mockRes();
-    await download({ method: 'GET', query: { email, slug, file: 'dossier.pdf', exp: String(tok.exp), sig: tok.sig } }, res);
+    await download({ method: 'GET', query: { t: tok.t } }, res);
     assert.equal(res.statusCode, 200, `dossier under ${slug}`);
   }
 }));
@@ -319,8 +370,9 @@ test('success page: every catalogue agent gets the branded delivery card with it
     assert.match(html, /class="o-card"/, `${slug}: branded card`);
     assert.match(html, new RegExp(`CAI ${tierMap[slug]}`), `${slug}: CAI tier badge`);
     assert.match(html, /class="o-btn o-btn-p"/, `${slug}: primary download button`);
-    assert.match(html, new RegExp(`slug=${slug}(&|&amp;)`), `${slug}: download is for this agent`);
-    assert.match(html, /sig=/, `${slug}: download link is signed`);
+    const links = linksIn(html);
+    assert.ok(links.length > 0 && links.every((c) => c.ok), `${slug}: download link is a valid sealed token`);
+    assert.ok(links.every((c) => c.slug === slug), `${slug}: download is for this agent`);
     assert.doesNotMatch(html, /your agent<\/h2>|undefined|null/, `${slug}: no placeholder text`);
   }
 }));
@@ -370,7 +422,7 @@ test('order page i18n: delivery card is translated in every locale (buttons, tie
     assert.ok(html.includes(esc(ORDER_STRINGS[l].btn_pkg)), `${l}: download button`);
     assert.ok(html.includes(esc(ORDER_STRINGS[l].steps_h)), `${l}: next steps heading`);
     assert.ok(html.includes(esc(TIER_NAMES[l].L4)), `${l}: L4 tier name`);
-    assert.ok(html.indexOf(`file=${product.release.package}`) < html.indexOf('file=dossier.pdf'), `${l}: package first`);
+    assert.deepEqual(linksIn(html).map((c) => c.file), [product.release.package, 'dossier.pdf'], `${l}: package first`);
     const other = deliveryHtml('buyer@example.com', 'onboarding-agent', l);
     assert.ok(other.includes(esc(ORDER_STRINGS[l].btn_doc)), `${l}: dossier button for other agents`);
   }
