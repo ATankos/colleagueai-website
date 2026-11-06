@@ -53,3 +53,40 @@ test('grantedAt is stable across repeat grants; updatedAt and isEntitled reflect
   assert.equal(await db.isEntitled('buyer3@example.com', 'agent-c'), true);
   assert.equal(await db.isEntitled('buyer3@example.com', 'agent-not-purchased'), false);
 });
+
+test('a refunded purchase stays revoked: reopening the thank-you link or a replayed webhook cannot re-grant it', async () => {
+  await db.grantEntitlement('refund1@example.com', ['contract-intelligence-and-register'], 'cs_paid_then_refunded');
+  await db.revokeEntitlement('refund1@example.com', ['contract-intelligence-and-register'], 'cs_paid_then_refunded');
+  assert.equal(await db.isEntitled('refund1@example.com', 'contract-intelligence-and-register'), false);
+
+  const again = await db.grantEntitlement('refund1@example.com', ['contract-intelligence-and-register'], 'cs_paid_then_refunded');
+  assert.equal(again.refused, 'session-revoked', 'DEFECT: Stripe keeps payment_status "paid" after a refund, so the success page re-granted access');
+  assert.equal(await db.isEntitled('refund1@example.com', 'contract-intelligence-and-register'), false);
+  assert.equal(await db.isSessionRevoked('refund1@example.com', 'cs_paid_then_refunded'), true);
+});
+
+test('bought twice, one refunded: the buyer keeps access paid by the other purchase; refund both and it goes', async () => {
+  const slug = 'contract-intelligence-and-register';
+  await db.grantEntitlement('twice@example.com', [slug], 'cs_first');
+  await db.grantEntitlement('twice@example.com', [slug], 'cs_second');
+
+  await db.revokeEntitlement('twice@example.com', [slug], 'cs_first');
+  assert.equal(await db.isEntitled('twice@example.com', slug), true, 'DEFECT: refunding one of two purchases removed access the other still pays for');
+
+  await db.revokeEntitlement('twice@example.com', [slug], 'cs_second');
+  assert.equal(await db.isEntitled('twice@example.com', slug), false);
+});
+
+test('a refund only removes the agents that purchase paid for', async () => {
+  await db.grantEntitlement('multi@example.com', ['agent-a'], 'cs_a');
+  await db.grantEntitlement('multi@example.com', ['agent-b'], 'cs_b');
+  await db.revokeEntitlement('multi@example.com', ['agent-a'], 'cs_a');
+  assert.equal(await db.isEntitled('multi@example.com', 'agent-a'), false);
+  assert.equal(await db.isEntitled('multi@example.com', 'agent-b'), true);
+});
+
+test('records written before per-purchase tracking still lose the agent on refund (old behaviour kept)', async () => {
+  store.set('entitlement:legacy@example.com', JSON.stringify({ email: 'legacy@example.com', slugs: ['agent-l'], stripeSessionIds: ['cs_old1', 'cs_old2'] }));
+  await db.revokeEntitlement('legacy@example.com', ['agent-l'], 'cs_old1');
+  assert.equal(await db.isEntitled('legacy@example.com', 'agent-l'), false);
+});
