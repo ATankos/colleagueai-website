@@ -80,6 +80,8 @@ jobs:
         run: node --test tests/sales-readiness-final.test.mjs
       - name: End-to-end journeys (buyer path, partner path, navigation, localisation)
         run: node --test tests/journey.test.mjs
+      - name: Legal consistency (public pages and terms give customers one answer)
+        run: node --test tests/legal-consistency.test.mjs
 
       - name: Secret scan of build output
         run: node tests/scan-bundle.mjs
