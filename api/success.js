@@ -13,9 +13,10 @@
  */
 
 import Stripe from 'stripe';
-import { grantEntitlement } from '../lib/db.js';
+import { grantEntitlement, recordWithheldSale } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
-import { productFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
+import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld } from '../lib/products.js';
+import { stripeOptions } from '../lib/stripe.js';
 import { SLUG_TIER, titleFromSlug } from './checkout.js';
 import { ORDER_LOCALES, AGENTS_PATH, PRIVACY_PATH, TIER_NAMES, pickOrderLang, ot } from '../lib/orderI18n.js';
 
@@ -157,7 +158,7 @@ export default async function handler(req, res) {
     return res.status(400).send(noticePage(lang, 't_missing', 'missing_h', 'missing_p'));
   }
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2024-04-10' });
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, stripeOptions());
 
   let session;
   try {
@@ -185,6 +186,24 @@ export default async function handler(req, res) {
     return res.status(200).send(page({
       lang, title: t('t_received'), status: 'warn', eyebrow: t('recv_eyebrow'), heading: t('noemail_h'),
       lede: t('noemail_lede', { email: mailLink() }),
+    }));
+  }
+
+  // Live money for a release not approved for sale is not fulfilled here either, or the redirect
+  // would grant what the webhook withholds. Same rule, same record, same notice to the buyer.
+  const withheld = liveFulfilmentWithheld(session);
+  if (withheld) {
+    try {
+      await recordWithheldSale({
+        sessionId: session.id, slug, reason: withheld,
+        amountTotal: session.amount_total ?? null, currency: session.currency ?? null, source: 'success',
+      });
+    } catch (err) {
+      console.error('[success] withheld-sale record failed:', err && err.message ? err.message : err);
+    }
+    return res.status(200).send(page({
+      lang, title: t('t_received'), status: 'warn', eyebrow: t('recv_eyebrow'), heading: t('grant_h'),
+      lede: t('grant_lede', { product: strong(label), email: mailLink() }), chips: emailChip,
     }));
   }
 
