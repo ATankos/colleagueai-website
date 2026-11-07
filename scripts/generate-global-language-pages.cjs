@@ -17,7 +17,7 @@ const UI = {
     "partnerDesc": "Register partner interest. Approval and commission eligibility remain agreement-based.",
     "faqKicker": "Questions, answered",
     "faqTitle": "What buyers and AI assistants ask about ColleagueAI.",
-    "faqLead": "Direct answers on the CAI Score, deployment, EU AI Act alignment, and how the trust layer differs from an agent management platform."
+    "faqLead": "Direct answers on the CAI Score, deployment, the EU AI Act, and how the trust layer differs from an agent management platform."
   },
   "cs": {
     "language": "Jazyk",
@@ -30,7 +30,7 @@ const UI = {
     "partnerDesc": "Zaregistrujte partnerský zájem. Schválení a nárok na provizi zůstávají závislé na smlouvě.",
     "faqKicker": "Otázky a odpovědi",
     "faqTitle": "Na co se kupující a AI asistenti ptají ohledně ColleagueAI.",
-    "faqLead": "Přímé odpovědi k CAI Score, nasazení, sladění s EU AI Act a rozdílu mezi trust vrstvou a platformou pro správu agentů."
+    "faqLead": "Přímé odpovědi k CAI Score, nasazení, EU AI Act a rozdílu mezi trust vrstvou a platformou pro správu agentů."
   },
   "de": {
     "language": "Sprache",
@@ -56,7 +56,7 @@ const UI = {
     "partnerDesc": "Enregistrez un intérêt partenaire. L’approbation et l’éligibilité aux commissions restent contractuelles.",
     "faqKicker": "Questions et réponses",
     "faqTitle": "Ce que les acheteurs et assistants IA demandent sur ColleagueAI.",
-    "faqLead": "Réponses directes sur le CAI Score, le déploiement, l’alignement EU AI Act et la différence entre la couche de confiance et une plateforme de gestion d’agents."
+    "faqLead": "Réponses directes sur le CAI Score, le déploiement, l’EU AI Act et la différence entre la couche de confiance et une plateforme de gestion d’agents."
   },
   "es": {
     "language": "Idioma",
@@ -69,7 +69,7 @@ const UI = {
     "partnerDesc": "Registra interés como partner. La aprobación y elegibilidad de comisión siguen sujetas a acuerdo.",
     "faqKicker": "Preguntas y respuestas",
     "faqTitle": "Lo que compradores y asistentes IA preguntan sobre ColleagueAI.",
-    "faqLead": "Respuestas directas sobre CAI Score, despliegue, alineación con EU AI Act y cómo la capa de confianza difiere de una plataforma de gestión de agentes."
+    "faqLead": "Respuestas directas sobre CAI Score, despliegue, EU AI Act y cómo la capa de confianza difiere de una plataforma de gestión de agentes."
   },
   "it": {
     "language": "Lingua",
@@ -82,7 +82,7 @@ const UI = {
     "partnerDesc": "Registra interesse partner. Approvazione e idoneità alle commissioni restano basate su accordo.",
     "faqKicker": "Domande e risposte",
     "faqTitle": "Cosa chiedono buyer e assistenti AI su ColleagueAI.",
-    "faqLead": "Risposte dirette su CAI Score, deployment, allineamento EU AI Act e differenza tra trust layer e piattaforma di gestione agenti."
+    "faqLead": "Risposte dirette su CAI Score, deployment, EU AI Act e differenza tra trust layer e piattaforma di gestione agenti."
   },
   "pl": {
     "language": "Język",
@@ -95,7 +95,7 @@ const UI = {
     "partnerDesc": "Zarejestruj zainteresowanie partnerskie. Akceptacja i prowizje pozostają zależne od umowy.",
     "faqKicker": "Pytania i odpowiedzi",
     "faqTitle": "O co kupujący i asystenci AI pytają w kontekście ColleagueAI.",
-    "faqLead": "Bezpośrednie odpowiedzi o CAI Score, wdrożeniu, zgodności kierunkowej z EU AI Act oraz różnicy między warstwą zaufania a platformą zarządzania agentami."
+    "faqLead": "Bezpośrednie odpowiedzi o CAI Score, wdrożeniu, EU AI Act oraz różnicy między warstwą zaufania a platformą zarządzania agentami."
   },
   "pt": {
     "language": "Idioma",
@@ -108,7 +108,7 @@ const UI = {
     "partnerDesc": "Registre interesse como parceiro. Aprovação e elegibilidade de comissão continuam baseadas em contrato.",
     "faqKicker": "Perguntas e respostas",
     "faqTitle": "O que compradores e assistentes de IA perguntam sobre a ColleagueAI.",
-    "faqLead": "Respostas diretas sobre CAI Score, implantação, alinhamento ao EU AI Act e como a camada de confiança difere de uma plataforma de gestão de agentes."
+    "faqLead": "Respostas diretas sobre CAI Score, implantação, EU AI Act e como a camada de confiança difere de uma plataforma de gestão de agentes."
   }
 };
 
@@ -181,7 +181,7 @@ function patchAgentLocalizedText(html, locale) {
     ["QUESTIONS, ANSWERED", t.faqKicker.toUpperCase()],
     ["What buyers and AI assistants ask about Colleague AI.", t.faqTitle],
     ["What buyers and AI assistants ask about ColleagueAI.", t.faqTitle],
-    ["Direct answers on the CAI Score, deployment, EU AI Act alignment, and how the trust layer differs from an agent management platform.", t.faqLead]
+    ["Direct answers on the CAI Score, deployment, the EU AI Act, and how the trust layer differs from an agent management platform.", t.faqLead]
   ];
   for (const [from, to] of replacements) html = replaceAll(html, from, to);
   if (locale === "de") {

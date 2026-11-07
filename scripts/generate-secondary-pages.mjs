@@ -203,7 +203,7 @@ const PAGES = [
     ga: true,
     title: (code) => (code === 'en' ? 'CAI Score & Governance | ColleagueAI' : (I18N[code]?.tabs_score || 'CAI Score') + ' | ColleagueAI'),
     desc: (code) => (code === 'en'
-      ? 'The CAI Score explained: five autonomy tiers, mapped controls and audit evidence, EU AI Act and DORA alignment - plus a free AI governance readiness check.'
+      ? 'The CAI Score explained: five autonomy tiers, mapped controls and audit evidence - plus a free AI governance readiness check.'
       : I18N[code]?.score_hero_p || '')
   },
   {

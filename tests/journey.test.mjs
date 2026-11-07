@@ -193,9 +193,15 @@ test('no page still carries a retired compliance claim', () => {
     'certification framework', 'No customer data is ever processed', 'auditors will actually sign off',
     // Round-5 retirements: readiness claims the Trust Center cannot evidence, in
     // English and the German translations that outlived the English fix.
-    'production-grade', 'production-ready', 'produktionsreif', 'pass your audit', 'bestehen Ihr Audit'];
+    'production-grade', 'production-ready', 'produktionsreif', 'pass your audit', 'bestehen Ihr Audit',
+    // Round-6 retirements (release audit F7): regulatory mapping and alignment claims with
+    // no written mapping behind them, and the affirmative answer to "does it help with
+    // EU AI Act compliance". The factsheet disclaimer is the only approved wording.
+    'EU AI Act mapped', 'mapping in progress', 'EU AI Act alignment', 'Built for the EU AI Act',
+    'they map to the EU AI Act', 'Yes. The CAI Score', 'How CAI tiers support EU AI Act assessment',
+    'produces the evidence your auditors and regulators expect'];
   const pages = ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html', 'usage.html',
-    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'usage.html'].map((p) => `${l}/${p}`))];
+    ...LOCALES.flatMap((l) => ['terms.html', 'privacy.html', 'license.html', 'partner-agreement.html', 'agents.html', 'score.html', 'home.html', 'usage.html'].map((p) => `${l}/${p}`))];
   for (const p of pages) {
     const html = read(p);
     for (const claim of retired) assert.ok(!html.includes(claim), `${p} still says "${claim}"`);
