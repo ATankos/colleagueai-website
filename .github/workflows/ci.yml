@@ -21,6 +21,10 @@ jobs:
 
       - run: npm ci
 
+      # eslint must report zero errors. Fix findings rather than disabling rules.
+      - name: Lint (eslint, zero errors)
+        run: npm run lint
+
       - run: npm run build
 
       - name: HTML integrity gate (tag balance, leaked code, orphaned tags, anchors)

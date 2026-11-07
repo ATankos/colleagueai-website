@@ -85,7 +85,7 @@ async function main() {
     }
   );
 
-  let exitCode = 1;
+  let exitCode;
 
   try {
     await waitForServer(30000);
