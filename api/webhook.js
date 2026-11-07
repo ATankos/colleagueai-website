@@ -36,6 +36,7 @@ import {
 } from '../lib/db.js';
 import { liveFulfilmentWithheld, liveSaleRefused } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
+import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriodEnd } from '../lib/stripeCompat.js';
 
 const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
 
@@ -150,7 +151,7 @@ async function fulfillSession(session, eventId) {
       const cert = await issueCertification({
         email, slug, tier: session.metadata?.tier,
         subscriptionId,
-        currentPeriodEnd: session.subscription?.current_period_end ?? null,
+        currentPeriodEnd: subscriptionPeriodEnd(session.subscription),
       });
       console.log('[webhook] Certification issued:', cert?.certificateId);
     } catch (err) {
@@ -266,13 +267,12 @@ export default async function handler(req, res) {
    * this flow (or an invoice for something else) is not an error we can retry away. */
   if (event.type === 'invoice.paid' || event.type === 'invoice.payment_failed') {
     const inv = event.data.object || {};
-    const subId = typeof inv.subscription === 'string' ? inv.subscription : inv.subscription?.id;
+    const subId = invoiceSubscriptionId(inv);
     if (!subId) return res.status(200).json({ received: true, certification: 'no-subscription' });
 
     try {
       if (event.type === 'invoice.paid') {
-        const periodEnd = inv.lines?.data?.[0]?.period?.end ?? inv.period_end ?? null;
-        const cert = await renewCertification(subId, periodEnd);
+        const cert = await renewCertification(subId, invoiceSubscriptionPeriodEnd(inv));
         return res.status(200).json({ received: true, certification: cert ? 'renewed' : 'no-certificate' });
       }
       // A failed payment is not yet a lapse - Stripe keeps retrying, and the
@@ -297,7 +297,7 @@ export default async function handler(req, res) {
         return res.status(200).json({ received: true, certification: cert ? 'lapsed' : 'no-certificate' });
       }
       if (sub.status === 'active') {
-        const cert = await renewCertification(sub.id, sub.current_period_end ?? null);
+        const cert = await renewCertification(sub.id, subscriptionPeriodEnd(sub));
         return res.status(200).json({ received: true, certification: cert ? 'active' : 'no-certificate' });
       }
       const existing = await getCertificationBySubscription(sub.id);
