@@ -25,7 +25,7 @@ Checked on 2026-11-07 on branch `fix/dependency-advisories`:
 - The built output in `dist/` contains neither the string `eslint` nor the string `minimatch`.
 - `eslint` and `@eslint/js` are listed under `devDependencies` only.
 
-The lint glob patterns come from this repository (`eslint .`), not from user input, so the practical exposure is low. At the time of writing, `npm run lint` is not part of CI; a separate draft change adds it.
+The lint glob patterns come from this repository (`eslint .`), not from user input, so the practical exposure is low. `npm run lint` runs in CI (the `test` job) since PR #473.
 
 ## Planned fix (separate change, tested before merge)
 
