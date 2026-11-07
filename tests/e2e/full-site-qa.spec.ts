@@ -43,7 +43,21 @@ async function visibleText(page) {
   });
 }
 
+// Optional third-party analytics. The page-health checks fail on any console error,
+// and a browser logs "Failed to load resource" when one of these hosts cannot be
+// reached. The dev server loads Vercel Analytics and Speed Insights from
+// va.vercel-scripts.com; the production HTML also references plausible.io. These
+// checks test the page, not analytics, so those requests are answered with an empty
+// script. The outcome then no longer depends on network access to those hosts.
+const OPTIONAL_ANALYTICS = /^https:\/\/(?:va\.vercel-scripts\.com|plausible\.io)\//;
+
 test.describe("QA: page health", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route(OPTIONAL_ANALYTICS, (route) =>
+      route.fulfill({ status: 200, contentType: "application/javascript", body: "" })
+    );
+  });
+
   for (const locale of locales) {
     for (const pageName of pages) {
       test(`${locale}/${pageName} loads with title, h1 and body`, async ({ page }) => {
