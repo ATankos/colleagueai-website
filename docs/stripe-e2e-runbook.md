@@ -177,6 +177,17 @@ billed on the first invoice, so **one** payment covers both.
    one-time only (Stripe has no `customer_balance` in subscription mode); the
    log line says the certification was not attached.
 
+## 8a. Stripe API version and the webhook endpoint
+
+The code pins `2026-10-28.endive`, the version the installed `stripe` SDK is built against (`lib/stripe.js`).
+A webhook endpoint keeps the API version it was created with, which is set separately in the Dashboard, so
+its payloads can stay in the legacy shape while our own calls use the pinned version. `lib/stripeCompat.js`
+reads both shapes, so this release can deploy before the endpoint is upgraded.
+
+Before upgrading the endpoint's API version (Developers → Webhooks → the endpoint), run section 8 in Preview
+with the new version selected. Confirm that `invoice.paid` still renews the certificate
+(`certification: "renewed"`) and that a cancellation still lapses it.
+
 ## 9. Optional second pass — delayed bank transfer
 
 With "Bank transfers" enabled in the test Dashboard: choose the bank lane,
@@ -198,6 +209,7 @@ entitlement granted then, not before. `/api/success` meanwhile shows the
 - [ ] Certification issued on a subscription purchase, verifiable by ID, no PII in the response
 - [ ] Cancellation lapses the certificate and leaves the perpetual licence intact
 - [ ] Failed renewal reads past_due, not lapsed
+- [ ] Renewal, past-due and lapse still work on the endpoint's current API version, before and after an endpoint upgrade (section 8a)
 - [ ] (optional) bank-transfer lane grants only on clearance
 
 When every box is ticked, the commercial verdict moves to PASS pending R2 real

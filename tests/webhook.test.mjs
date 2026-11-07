@@ -542,3 +542,88 @@ test('12k. a won dispute on a LIVE unapproved release does not restore access', 
   assert.equal(closed.body.access, 'not-approved-for-sale');
   assert.equal(entitled(UNAPPROVED), false);
 });
+
+// ── 13. API version compatibility: basil+ payload shapes through the webhook ──
+/* A webhook endpoint keeps the API version it was created with, so the same event can arrive in the legacy
+   shape (top-level subscription fields) or the basil+ shape (the period moved onto the subscription item, and
+   the invoice's subscription moved under parent). Both must renew, past-due and lapse the certificate. A
+   one-off invoice must still be ignored. */
+const basilInvoice = (type, { subId = 'sub_cert_1', periodEnd } = {}) => ({
+  id: `evt_basil_inv_${++evtSeq}`, object: 'event', type,
+  data: { object: { id: 'in_basil_1', object: 'invoice', subscription: null,
+    parent: { type: 'subscription_details', subscription_details: { subscription: subId } },
+    lines: { data: [{ parent: { type: 'subscription_item_details',
+      subscription_item_details: { subscription: subId, subscription_item: 'si_1' } }, period: { end: periodEnd } }] },
+    period_end: periodEnd } },
+});
+const basilSub = (type, { subId = 'sub_cert_1', status = 'active', periodEnd } = {}) => ({
+  id: `evt_basil_sub_${++evtSeq}`, object: 'event', type,
+  data: { object: { id: subId, object: 'subscription', status,
+    items: { object: 'list', data: [{ id: 'si_1', object: 'subscription_item', current_period_end: periodEnd }] } } },
+});
+const CERT = 'certification:CAI-L4-AABBCCDD';
+const inDays = (d) => Math.floor(Date.now() / 1000) + d * 86400;
+
+test('13a. basil+ invoice.paid renews the certificate to the subscription period end', async () => {
+  seedCert();
+  const periodEnd = inDays(45);
+  const r = await deliver(basilInvoice('invoice.paid', { periodEnd }));
+  assert.equal(r.status, 200);
+  assert.equal(r.body.certification, 'renewed', `DEFECT: basil+ invoice not matched to its subscription (${JSON.stringify(r.body)})`);
+  assert.equal(JSON.parse(kvStore.get(CERT)).validUntil, new Date(periodEnd * 1000).toISOString());
+});
+
+test('13b. basil+ invoice.payment_failed marks past_due, not lapsed', async () => {
+  seedCert();
+  const r = await deliver(basilInvoice('invoice.payment_failed', { periodEnd: inDays(1) }));
+  assert.equal(r.body.certification, 'past_due', `DEFECT: basil+ payment failure not matched (${JSON.stringify(r.body)})`);
+  assert.equal(JSON.parse(kvStore.get(CERT)).status, 'past_due');
+});
+
+test('13c. basil+ subscription.updated (active) takes the term from the subscription item', async () => {
+  seedCert();
+  const periodEnd = inDays(60);
+  const r = await deliver(basilSub('customer.subscription.updated', { status: 'active', periodEnd }));
+  assert.equal(r.body.certification, 'active');
+  assert.equal(JSON.parse(kvStore.get(CERT)).validUntil, new Date(periodEnd * 1000).toISOString());
+});
+
+test('13d. basil+ subscription.deleted lapses the certificate and leaves the licence intact', async () => {
+  seedCert();
+  kvStore.set('entitlement:buyer@example.com', JSON.stringify({
+    email: 'buyer@example.com', slugs: ['contract-intelligence-and-register'] }));
+  const r = await deliver(basilSub('customer.subscription.deleted', { periodEnd: inDays(30) }));
+  assert.equal(r.body.certification, 'lapsed');
+  assert.deepEqual(JSON.parse(kvStore.get('entitlement:buyer@example.com')).slugs, ['contract-intelligence-and-register'],
+    'DEFECT: lapsing the certificate revoked the perpetual licence');
+});
+
+test('13e. a renewal whose period end cannot be read keeps the term already on the certificate', async () => {
+  const kept = '2030-01-01T00:00:00.000Z';
+  seedCert('sub_cert_1', { validUntil: kept });
+  const r = await deliver(basilInvoice('invoice.paid', { periodEnd: undefined }));
+  assert.equal(r.body.certification, 'renewed');
+  assert.equal(JSON.parse(kvStore.get(CERT)).validUntil, kept, 'the known term must not be cleared');
+});
+
+test('13f. a one-off invoice in the basil+ shape is still ignored', async () => {
+  seedCert();
+  const evt = { id: `evt_oneoff_${++evtSeq}`, object: 'event', type: 'invoice.paid',
+    data: { object: { id: 'in_oneoff', object: 'invoice', subscription: null,
+      parent: { type: 'quote_details', quote_details: { quote: 'qt_1' } } } } };
+  const r = await deliver(evt);
+  assert.equal(r.body.certification, 'no-subscription');
+  assert.equal(JSON.parse(kvStore.get(CERT)).status, 'active');
+});
+
+test('13g. a basil+ subscription checkout records the subscription item period end', async () => {
+  const periodEnd = inDays(30);
+  const evt = makeEvent({ sessionId: 'cs_basil_cert_1' });
+  evt.data.object.subscription = { id: 'sub_basil_checkout', object: 'subscription',
+    items: { object: 'list', data: [{ id: 'si_2', object: 'subscription_item', current_period_end: periodEnd }] } };
+  const r = await deliver(evt);
+  assert.equal(r.status, 200);
+  const certId = kvStore.get('cert:sub:sub_basil_checkout');
+  assert.ok(certId, 'a basil+ subscription checkout produced no certificate');
+  assert.equal(JSON.parse(kvStore.get(`certification:${certId}`)).validUntil, new Date(periodEnd * 1000).toISOString());
+});

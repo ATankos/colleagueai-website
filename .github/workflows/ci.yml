@@ -32,6 +32,9 @@ jobs:
       - name: Webhook security and idempotency
         run: node --test tests/webhook.test.mjs
 
+      - name: Stripe API version compatibility (pinned SDK version, legacy and basil+ shapes)
+        run: node --test tests/stripe-api-compat.test.mjs
+
       - name: Rate limiter
         run: node --test tests/ratelimit.test.mjs
 
