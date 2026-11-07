@@ -99,6 +99,10 @@ function bankTransferFor(currency) {
   return { type: 'us_bank_transfer' };
 }
 
+// The payment methods a buyer may use, sent to Stripe as allowed_payment_method_types. Stripe removed
+// payment_method_types from Checkout Session create at API version 2026-09-30.endive (a request that still
+// sends it gets a 400) and lib/stripe.js pins a newer version. Stripe narrows this list to the methods that
+// suit the session (mode, currency, amount, customer) and are enabled in the Dashboard, instead of erroring.
 function methodTypes(method) {
   if (method === 'bank') return ['customer_balance'];
   if (method === 'card') return ['card', 'link'];
@@ -223,7 +227,7 @@ export default async function handler(req, res) {
     const params = {
       mode: withCert ? 'subscription' : 'payment',
       adaptive_pricing: { enabled: false }, // never auto-convert to the buyer's local currency
-      payment_method_types: paymentMethodTypes,
+      allowed_payment_method_types: paymentMethodTypes,
       line_items: lineItems,
       metadata,
       // payment_intent_data is payment-mode only; subscriptions carry metadata on the
