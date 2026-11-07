@@ -131,9 +131,10 @@ export default async function handler(req, res) {
   const tier = SLUG_TIER[slug];
   if (!tier) return res.status(404).json({ error: 'Unknown agent' });
 
-  // A product with a release record (config/products.json) can only be sold with a live key
-  // once its release is approved for sale. Test-mode keys still work, so a Stripe test purchase
-  // can run end to end without any risk of taking real money for an unapproved release.
+  // A product can only be sold with a live key once its record in config/products.json says
+  // saleApproved: true. A catalogue agent with no record there is refused too (default-deny).
+  // Test-mode keys still work, so a Stripe test purchase can run end to end without any risk
+  // of taking real money for an unapproved release.
   if (liveSaleBlocked(slug, process.env.STRIPE_SECRET_KEY)) {
     console.warn('[checkout] live sale blocked: release not approved for sale', slug);
     return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'not_approved_for_sale' });

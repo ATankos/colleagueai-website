@@ -12,6 +12,7 @@ import { test, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import http from 'node:http';
 import Stripe from 'stripe';
+import * as products from '../lib/products.js';
 
 // dummy local-only signing secret (never a real credential)
 const SECRET = 'whsec_LOCAL_TEST_HARNESS_DUMMY';
@@ -457,11 +458,17 @@ test('12a. a paid LIVE checkout for an unapproved release grants nothing and lea
 });
 
 test('12b. a LIVE session where no money was taken is withheld too', async () => {
-  /* An agent with no release record, so the approval rule cannot be the reason: only the money check is. */
-  const r = await deliver(sessionEvent({ sessionId: 'cs_live_b', livemode: true, slug: 'onboarding-agent',
-    paymentStatus: 'no_payment_required', amount: 0 }));
-  assert.equal(r.body.withheld, 'no-payment-taken');
-  assert.equal(entitled('onboarding-agent'), false, 'a session with no payment must not unlock an agent');
+  /* Approve the release for this test only, so the approval rule passes and the money check is what withholds it. */
+  const rec = products.productFor(UNAPPROVED);
+  rec.saleApproved = true;
+  try {
+    const r = await deliver(sessionEvent({ sessionId: 'cs_live_b', livemode: true,
+      paymentStatus: 'no_payment_required', amount: 0 }));
+    assert.equal(r.body.withheld, 'no-payment-taken');
+    assert.equal(entitled(UNAPPROVED), false, 'a session with no payment must not unlock an agent');
+  } finally {
+    rec.saleApproved = false;
+  }
 });
 
 test('12c. a test-mode purchase of the same release still grants: test checkout keeps working', async () => {
@@ -477,9 +484,29 @@ test('12d. a LIVE retired slug of the unapproved release is withheld as the curr
   assert.equal(entitled(UNAPPROVED), false);
 });
 
-test('12e. a LIVE agent with no release record is fulfilled as before (only unapproved releases are gated)', async () => {
+test('12e. a LIVE agent with no approved record is withheld too (default-deny)', async () => {
   const r = await deliver(sessionEvent({ sessionId: 'cs_live_e', livemode: true, slug: 'onboarding-agent' }));
+  assert.equal(r.body.withheld, 'not-approved-for-sale');
+  assert.equal(entitled('onboarding-agent'), false, 'live money must not unlock a catalogue agent without an approved record');
+  assert.ok(kvStore.has('sale-withheld:cs_live_e'), 'the withheld sale is recorded for the owner');
+});
+
+test('12l. a LIVE re-delivery of a session that already fulfilled is not withheld or recorded as a new sale', async () => {
+  kvStore.set('stripe:session:cs_live_l', '1');
+  const r = await deliver(sessionEvent({ sessionId: 'cs_live_l', livemode: true, slug: 'onboarding-agent' }));
+  assert.equal(r.status, 200);
+  assert.equal(r.body.withheld, undefined, 'a session that already fulfilled is not re-judged');
+  assert.equal(kvStore.has('sale-withheld:cs_live_l'), false, 'no withheld record for a purchase that was already fulfilled');
+});
+
+test('12m. a LIVE purchase completed before the rule, already entitled, is fulfilled as before', async () => {
+  kvStore.set('entitlement:' + BUYER, JSON.stringify({ email: BUYER, slugs: ['onboarding-agent'],
+    sessionSlugs: { cs_live_m: ['onboarding-agent'] } }));
+  const r = await deliver(sessionEvent({ sessionId: 'cs_live_m', livemode: true, slug: 'onboarding-agent' }));
+  assert.equal(r.status, 200);
   assert.equal(r.body.withheld, undefined);
+  assert.equal(kvStore.has('sale-withheld:cs_live_m'), false, 'a completed purchase must not be recorded as withheld');
+  assert.equal(kvStore.has('stripe:session:cs_live_m'), true, 'the webhook still fulfils it, as before');
   assert.equal(entitled('onboarding-agent'), true);
 });
 
@@ -503,6 +530,19 @@ test('12g. the success page still grants a test-mode purchase of the same releas
   const page = await getSuccess('cs_test_g');
   assert.equal(page.status, 200);
   assert.equal(entitled(UNAPPROVED), true);
+});
+
+test('12n. reopening the thank-you link for a LIVE purchase completed before the rule keeps it and records nothing', async () => {
+  stripeApiMode = 'ok';
+  kvStore.set('entitlement:' + BUYER, JSON.stringify({ email: BUYER, slugs: ['onboarding-agent'],
+    sessionSlugs: { cs_live_n: ['onboarding-agent'] } }));
+  stripeSessionsById.set('cs_live_n', { id: 'cs_live_n', object: 'checkout.session', livemode: true,
+    payment_status: 'paid', amount_total: 120000, currency: 'usd', status: 'complete',
+    customer_details: { email: BUYER }, metadata: { agent_slug: 'onboarding-agent' } });
+  const page = await getSuccess('cs_live_n');
+  assert.equal(page.status, 200);
+  assert.equal(kvStore.has('sale-withheld:cs_live_n'), false, 'a completed purchase must not be recorded as withheld');
+  assert.equal(entitled('onboarding-agent'), true);
 });
 
 test('12h. a dispute the merchant WINS puts the purchase back', async () => {
@@ -541,6 +581,14 @@ test('12k. a won dispute on a LIVE unapproved release does not restore access', 
   const closed = await deliver(disputeEvent({ type: 'charge.dispute.closed', sessionId: 'cs_disp_k', status: 'won', livemode: true }));
   assert.equal(closed.body.access, 'not-approved-for-sale');
   assert.equal(entitled(UNAPPROVED), false);
+});
+
+test('12o. a won dispute on a LIVE purchase of a catalogue agent with no record restores it (a dispute is not a sale)', async () => {
+  kvStore.set('entitlement:' + BUYER, JSON.stringify({ email: BUYER, slugs: [],
+    revokedSessionIds: ['cs_disp_o'], sessionSlugs: { cs_disp_o: ['onboarding-agent'] } }));
+  const closed = await deliver(disputeEvent({ type: 'charge.dispute.closed', sessionId: 'cs_disp_o', status: 'won', livemode: true, slug: 'onboarding-agent' }));
+  assert.equal(closed.body.access, 'restored');
+  assert.equal(entitled('onboarding-agent'), true);
 });
 
 // ── 13. API version compatibility: basil+ payload shapes through the webhook ──
