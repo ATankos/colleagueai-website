@@ -1,10 +1,13 @@
 /**
  * tests/stripe-api-compat.test.mjs - the pinned Stripe API version, and the readers that accept both the
- * legacy and the basil+ payload shapes. Pure functions: no network, no KV.
+ * legacy and the basil+ payload shapes, and the Checkout Session request that api/checkout.js sends on that
+ * version. The readers are pure functions; the checkout tests talk to an in-process fake of the Stripe API on
+ * loopback (STRIPE_API_HOST), so nothing leaves the machine and no KV is touched.
  * Usage: node --test tests/stripe-api-compat.test.mjs
  */
 import { test } from 'node:test';
 import assert from 'node:assert';
+import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { STRIPE_API_VERSION } from '../lib/stripe.js';
 import { subscriptionPeriodEnd, invoiceSubscriptionId, invoiceSubscriptionPeriodEnd } from '../lib/stripeCompat.js';
@@ -68,3 +71,127 @@ test('invoiceSubscriptionPeriodEnd reads the legacy subscription line and falls 
   assert.equal(invoiceSubscriptionPeriodEnd({ lines: { data: [] }, period_end: 77 }), 77);
   assert.equal(invoiceSubscriptionPeriodEnd({}), null);
 });
+
+// ── The Checkout Session request, as the pinned API version accepts it ────────────────────────────────
+/* Stripe removed `payment_method_types` from Checkout Session create at API version 2026-09-30.endive: a
+   request that still sends it gets a 400 (docs.stripe.com/changelog/endive/2026-09-30/
+   remove-payment-method-types-checkout-sessions). The pin is newer than that, so api/checkout.js must send
+   `allowed_payment_method_types` instead, or every purchase ends in "Could not start checkout". CI never
+   reaches Stripe, so these tests run the real handler against a fake that enforces that one documented rule
+   and records what it was sent. */
+const PAYMENT_METHOD_TYPES_REMOVED_IN = '2026-09-30';
+
+async function withFakeStripe(run) {
+  const seen = [];
+  const server = http.createServer((req, res) => {
+    let raw = '';
+    req.on('data', (c) => { raw += c; });
+    req.on('end', () => {
+      const params = new URLSearchParams(raw);
+      const version = String(req.headers['stripe-version'] || '');
+      seen.push({ method: req.method, path: req.url, version, params });
+      res.setHeader('content-type', 'application/json');
+      if (req.method === 'POST' && req.url === '/v1/customers') {
+        return res.end(JSON.stringify({ id: 'cus_fake_1', object: 'customer' }));
+      }
+      if (req.method === 'POST' && req.url === '/v1/checkout/sessions') {
+        const sendsRemovedParam = [...params.keys()].some((k) => k === 'payment_method_types' || k.startsWith('payment_method_types['));
+        if (sendsRemovedParam && version.slice(0, 10) >= PAYMENT_METHOD_TYPES_REMOVED_IN) {
+          res.writeHead(400);
+          return res.end(JSON.stringify({ error: { type: 'invalid_request_error', param: 'payment_method_types',
+            message: 'Received unknown parameter: payment_method_types' } }));
+        }
+        return res.end(JSON.stringify({ id: 'cs_fake_1', object: 'checkout.session', url: 'https://checkout.example.test/c/pay/cs_fake_1' }));
+      }
+      res.writeHead(404);
+      res.end('{"error":{"message":"not found"}}');
+    });
+  });
+  await new Promise((r) => server.listen(0, '127.0.0.1', r));
+  const keys = ['STRIPE_API_HOST', 'STRIPE_SECRET_KEY', 'CHECKOUT_ENABLED'];
+  const saved = Object.fromEntries(keys.map((k) => [k, process.env[k]]));
+  process.env.STRIPE_API_HOST = `http://127.0.0.1:${server.address().port}`;
+  process.env.STRIPE_SECRET_KEY = 'sk_test_fake_never_sent_to_stripe';
+  delete process.env.CHECKOUT_ENABLED;
+  try {
+    return await run(seen);
+  } finally {
+    for (const k of keys) { if (saved[k] === undefined) delete process.env[k]; else process.env[k] = saved[k]; }
+    server.closeAllConnections?.();
+    await new Promise((r) => server.close(r));
+  }
+}
+
+function mockRes() {
+  const r = { statusCode: 200, headers: {}, body: undefined };
+  r.status = (c) => { r.statusCode = c; return r; };
+  r.json = (b) => { r.body = b; return r; };
+  r.setHeader = (k, v) => { r.headers[k.toLowerCase()] = v; };
+  r.writeHead = (c, h = {}) => { r.statusCode = c; for (const [k, v] of Object.entries(h)) r.headers[k.toLowerCase()] = v; return r; };
+  r.end = (b) => { if (b !== undefined) r.body = b; return r; };
+  return r;
+}
+
+async function buy(query) {
+  const { default: checkout } = await import('../api/checkout.js');
+  const res = mockRes();
+  await checkout({
+    method: 'GET',
+    query: { agent: 'contract-intelligence-and-register', terms: 'accepted', ...query },
+    headers: { host: 'shop.example.test' },
+  }, res);
+  return res;
+}
+
+const sessionCall = (seen) => seen.find((c) => c.path === '/v1/checkout/sessions');
+const allowedTypes = (call) => [0, 1, 2, 3].map((i) => call.params.get(`allowed_payment_method_types[${i}]`)).filter(Boolean);
+const sendsRemovedParam = (call) => [...call.params.keys()].some((k) => k.startsWith('payment_method_types'));
+
+test('the fake Stripe enforces the documented rule, so the checkout tests below would catch the old request', () => withFakeStripe(async () => {
+  const post = (version, body) => fetch(`${process.env.STRIPE_API_HOST}/v1/checkout/sessions`, {
+    method: 'POST', headers: { 'stripe-version': version, 'content-type': 'application/x-www-form-urlencoded' }, body });
+  assert.equal((await post(STRIPE_API_VERSION, 'payment_method_types[0]=card')).status, 400);
+  assert.equal((await post('2026-08-26.dahlia', 'payment_method_types[0]=card')).status, 200, 'older API versions still accept it');
+  assert.equal((await post(STRIPE_API_VERSION, 'allowed_payment_method_types[0]=card')).status, 200);
+}));
+
+test('checkout, card lane: licence only goes out as allowed_payment_method_types on the pinned version', () => withFakeStripe(async (seen) => {
+  const res = await buy({ method: 'card', cert: '0' });
+  assert.equal(res.statusCode, 303, `expected a redirect to Stripe Checkout, got ${res.statusCode} ${JSON.stringify(res.body)}`);
+  assert.equal(res.headers.location, 'https://checkout.example.test/c/pay/cs_fake_1');
+  const call = sessionCall(seen);
+  assert.equal(call.version, STRIPE_API_VERSION, 'the request must go out on the pinned API version');
+  assert.equal(call.params.get('mode'), 'payment');
+  assert.deepEqual(allowedTypes(call), ['card', 'link']);
+  assert.equal(sendsRemovedParam(call), false, 'payment_method_types is removed from this API version');
+}));
+
+test('checkout, card lane: with Continuous Certification attached the session is a subscription and the same rule holds', () => withFakeStripe(async (seen) => {
+  const res = await buy({ method: 'card' });
+  assert.equal(res.statusCode, 303, `got ${res.statusCode} ${JSON.stringify(res.body)}`);
+  const call = sessionCall(seen);
+  assert.equal(call.params.get('mode'), 'subscription');
+  assert.deepEqual(allowedTypes(call), ['card', 'link']);
+  assert.equal(sendsRemovedParam(call), false);
+}));
+
+test('checkout, bank lane: a customer is created first and only bank transfer is allowed', () => withFakeStripe(async (seen) => {
+  const res = await buy({ method: 'bank' });
+  assert.equal(res.statusCode, 303, `got ${res.statusCode} ${JSON.stringify(res.body)}`);
+  assert.deepEqual(seen.map((c) => c.path), ['/v1/customers', '/v1/checkout/sessions']);
+  const call = sessionCall(seen);
+  assert.equal(call.params.get('customer'), 'cus_fake_1');
+  assert.deepEqual(allowedTypes(call), ['customer_balance']);
+  assert.equal(call.params.get('payment_method_options[customer_balance][funding_type]'), 'bank_transfer');
+  assert.equal(call.params.get('payment_method_options[customer_balance][bank_transfer][type]'), 'us_bank_transfer');
+  assert.equal(sendsRemovedParam(call), false);
+}));
+
+test('checkout, no method chosen: bank transfer, card and Link are all allowed', () => withFakeStripe(async (seen) => {
+  const res = await buy({});
+  assert.equal(res.statusCode, 303, `got ${res.statusCode} ${JSON.stringify(res.body)}`);
+  const call = sessionCall(seen);
+  assert.deepEqual(allowedTypes(call), ['customer_balance', 'card', 'link']);
+  assert.equal(call.params.get('mode'), 'payment', 'bank transfer cannot ride on a subscription, so no certification is attached');
+  assert.equal(sendsRemovedParam(call), false);
+}));
