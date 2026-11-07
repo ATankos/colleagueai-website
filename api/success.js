@@ -72,12 +72,13 @@ function noticePage(lang, titleKey, hKey, pKey, vars) {
   return page({ lang, title: t(titleKey), status: 'warn', eyebrow: t(titleKey), heading: esc(t(hKey)), lede: t(pKey, vars) });
 }
 
+/* The link carries a sealed token, never the buyer's email. Without the signing secret
+ * download.js refuses every request, so this fallback carries nothing about the buyer. */
 function downloadLink(email, slug, file = 'dossier.pdf') {
   if (process.env.DOWNLOAD_TOKEN_SECRET) {
     return signDownload({ email, slug, file, ttlSeconds: 900 }).path;
   }
-  const qs = new URLSearchParams({ email, slug, file });
-  return `/api/download?${qs.toString()}`;
+  return `/api/download?${new URLSearchParams({ slug, file }).toString()}`;
 }
 
 function codeBlock(label, value, lang) {

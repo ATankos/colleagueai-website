@@ -5,7 +5,7 @@
  *
  *     BASE_URL=https://<preview>.vercel.app node scripts/verify-stripe-e2e.mjs
  *
- * Optionally, to also exercise the signed-download token locally:
+ * Optionally, to also exercise the sealed download-token checks (same secret as the preview):
  *
  *     DOWNLOAD_TOKEN_SECRET=<the preview's secret> BASE_URL=... node scripts/verify-stripe-e2e.mjs
  *
@@ -16,16 +16,18 @@
  *      Stripe is configured, or a clean 503 when it is not.
  *   3. /api/webhook: unsigned POST 400 (signature enforced), GET 405.
  *   4. /api/download: fails closed — no token 403 (or 503 when the signing
- *      secret is unset), tampered signature 403, expired token 403.
+ *      secret is unset); a legacy email/sig link 403. With the secret set: a
+ *      tampered token 403, an expired token 403, a token for a file outside the
+ *      allowlist 400, and a valid token for a buyer with no entitlement 403.
  *   5. /api/success without a session: 400; with a fake session id: 404.
  *
  * The manual part (real test cards, webhook idempotency replays, refund) is
  * docs/stripe-e2e-runbook.md — this script is its gate 0.
  *
  * Secrets: this script never embeds any. It reads DOWNLOAD_TOKEN_SECRET from the
- * environment only if YOU export it, to craft a valid-then-expired token pair.
+ * environment only if YOU export it, to seal test tokens with lib/downloadToken.js.
  */
-import { createHmac } from 'node:crypto';
+import { signDownload } from '../lib/downloadToken.js';
 
 const BASE = (process.env.BASE_URL || '').replace(/\/+$/, '');
 if (!BASE) {
@@ -90,28 +92,37 @@ console.log(`Preflight against ${BASE}\n`);
 // ── 4. download fails closed ─────────────────────────────────────────────────
 {
   const email = 'preflight@example.com';
-  let r = await get(`/api/download?email=${encodeURIComponent(email)}&slug=${SLUG}&file=dossier.pdf`);
+  // A link is /api/download?t=<sealed token> (lib/downloadToken.js): the token carries the email,
+  // slug, file and expiry, so the URL never shows the buyer's address.
+  let r = await get('/api/download');
   ok('download without token refused (403) or downloads unconfigured (503)', r.status === 403 || r.status === 503, `got ${r.status}`);
 
+  // The old query-string form (email, slug, file, exp, sig) is no longer honoured at all.
   r = await get(`/api/download?email=${encodeURIComponent(email)}&slug=${SLUG}&file=dossier.pdf&exp=9999999999&sig=deadbeef`);
-  ok('download with forged signature refused (403/503)', r.status === 403 || r.status === 503, `got ${r.status}`);
+  ok('legacy email/sig link refused (403/503)', r.status === 403 || r.status === 503, `got ${r.status}`);
 
-  r = await get(`/api/download?email=${encodeURIComponent(email)}&slug=${SLUG}&file=..%2F..%2Fsecret`);
-  ok('download rejects non-allowlisted file (400)', r.status === 400, `got ${r.status}`);
+  r = await get(`/api/download?t=${'A'.repeat(120)}`);
+  ok('forged token refused (403/503)', r.status === 403 || r.status === 503, `got ${r.status}`);
 
   const secret = process.env.DOWNLOAD_TOKEN_SECRET || '';
   if (secret) {
-    const sign = (exp) => createHmac('sha256', secret)
-      .update(`${email.toLowerCase()}:${SLUG}:dossier.pdf:${exp}`).digest('hex');
-    const past = Math.floor(Date.now() / 1000) - 60;
-    r = await get(`/api/download?email=${encodeURIComponent(email)}&slug=${SLUG}&file=dossier.pdf&exp=${past}&sig=${sign(past)}`);
-    ok('download with EXPIRED but correctly signed token refused (403)', r.status === 403, `got ${r.status}`);
+    // Each refusal is checked for its status AND its reason, so a check cannot pass for the wrong reason.
+    const expectRefusal = async (name, token, status, reason) => {
+      const res = await get(`/api/download?t=${encodeURIComponent(token)}`);
+      const txt = await res.text();
+      ok(name, res.status === status && txt.includes(reason), `got ${res.status} ${txt.slice(0, 120)}`);
+    };
+    const seal = (opts) => signDownload({ email, slug: SLUG, file: 'dossier.pdf', ttlSeconds: 300, ...opts }).t;
 
-    const future = Math.floor(Date.now() / 1000) + 300;
-    r = await get(`/api/download?email=${encodeURIComponent(email)}&slug=${SLUG}&file=dossier.pdf&exp=${future}&sig=${sign(future)}`);
-    ok('valid token WITHOUT entitlement still refused (403 Not entitled)', r.status === 403, `got ${r.status}`);
+    const good = seal({});
+    // Flip one character inside the sealed bytes (past the 12-byte IV and 16-byte tag): GCM must reject it.
+    const tampered = good.slice(0, 40) + (good[40] === 'A' ? 'B' : 'A') + good.slice(41);
+    await expectRefusal('tampered token refused (403, bad-token)', tampered, 403, 'bad-token');
+    await expectRefusal('EXPIRED but correctly sealed token refused (403, expired)', seal({ ttlSeconds: -60 }), 403, 'expired');
+    await expectRefusal('sealed token for a non-allowlisted file refused (400)', seal({ file: '../../secret' }), 400, 'Invalid file requested');
+    await expectRefusal('valid token WITHOUT entitlement refused (403, Not entitled)', good, 403, 'Not entitled');
   } else {
-    console.log('  SKIP  expired-token + no-entitlement checks (export DOWNLOAD_TOKEN_SECRET to run them)');
+    console.log('  SKIP  tampered / expired / non-allowlisted / no-entitlement checks (export DOWNLOAD_TOKEN_SECRET to run them)');
   }
 }
 
