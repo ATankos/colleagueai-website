@@ -68,7 +68,7 @@ function findFile(urlPath) {
 
   try {
     clean = decodeURIComponent(clean);
-  } catch (error) {
+  } catch {
     clean = "/";
   }
 
@@ -89,7 +89,9 @@ function findFile(urlPath) {
     try {
       const stat = fs.statSync(full);
       if (stat.isFile()) return full;
-    } catch (error) {}
+    } catch {
+      // Missing or unreadable: try the next candidate.
+    }
   }
 
   return null;

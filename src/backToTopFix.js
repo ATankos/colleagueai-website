@@ -26,11 +26,15 @@
 
     try {
       window.scrollTo(0, 0);
-    } catch (error) {}
+    } catch {
+      // Some browsers reject this call; the other scroll attempts still run.
+    }
 
     try {
       window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    } catch (error) {}
+    } catch {
+      // Same here: the remaining scroll attempts still run.
+    }
 
     var nodes = [document.scrollingElement, html, body];
 
@@ -40,7 +44,9 @@
       try {
         nodes[i].scrollTop = 0;
         nodes[i].scrollLeft = 0;
-      } catch (error) {}
+      } catch {
+        // Some elements refuse a scroll position; skip them.
+      }
     }
 
     if (html) html.style.scrollBehavior = oldHtmlBehavior || "";

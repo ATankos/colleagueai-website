@@ -67,7 +67,9 @@ function localizeCatalogue(s, loc) {
         }
       }
     }
-  } catch (e) {}
+  } catch {
+    // Catalogue data that cannot be parsed is left as it is.
+  }
   return s;
 }
 
@@ -93,7 +95,7 @@ for (const root of ROOTS) {
     }
     // 3b) ensure the catalogue/factsheet use the already-present per-locale agent data
     if (/AGENTS_/.test(s) && s.indexOf("cai-langnow-fix") < 0) {
-      const js = '<script id="cai-langnow-fix">(function(){function go(){try{var L="' + loc + '";window.LANGNOW=L;var D=window["AGENTS_"+L.toUpperCase()];if(D&&window.AGENTS){window.AGENTS.forEach(function(a){var g=(a.n||a.name||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");if(D[g]){for(var k in D[g])a[k]=D[g][k];}});}if(typeof render==="function"){render();}}catch(e){}}if(document.readyState!=="loading"){go();}else{document.addEventListener("DOMContentLoaded",go);}})();<\/script>';
+      const js = '<script id="cai-langnow-fix">(function(){function go(){try{var L="' + loc + '";window.LANGNOW=L;var D=window["AGENTS_"+L.toUpperCase()];if(D&&window.AGENTS){window.AGENTS.forEach(function(a){var g=(a.n||a.name||"").toLowerCase().replace(/&/g,"and").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");if(D[g]){for(var k in D[g])a[k]=D[g][k];}});}if(typeof render==="function"){render();}}catch(e){}}if(document.readyState!=="loading"){go();}else{document.addEventListener("DOMContentLoaded",go);}})();</script>';
       if (s.indexOf("</body>") >= 0) s = s.replace("</body>", js + "</body>"); else s += js;
     }
     // localize agent catalogue data (factsheet reads a.desc directly from AGENTS)

@@ -304,7 +304,7 @@ function renderRelevantAgents(locale, key) {
   `;
 }
 
-function languageOptions(locale, key) {
+function languageOptions(locale) {
   const names = {
     en: "English",
     cs: "Čeština",
@@ -1082,7 +1082,7 @@ footer{
         class="lang"
         aria-label="${esc(l.language)}"
       >
-        ${languageOptions(locale, key)}
+        ${languageOptions(locale)}
       </select>
     </label>
   </div>
@@ -1199,7 +1199,8 @@ function loadContent(locale) {
           locale +
           " (" +
           file +
-          ")"
+          ")",
+        { cause: error }
       );
     }
 

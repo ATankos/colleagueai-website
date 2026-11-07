@@ -14,7 +14,7 @@ function assetVersion() {
     const css = fs.readFileSync(path.join(process.cwd(), "public/colleagueai-mobile-fix.css"));
     const js = fs.readFileSync(path.join(process.cwd(), "public/colleagueai-mobile-fix.js"));
     return crypto.createHash("sha1").update(css).update(js).digest("hex").slice(0, 8);
-  } catch (e) {
+  } catch {
     return String(Date.now());
   }
 }
