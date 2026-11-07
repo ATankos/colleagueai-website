@@ -215,8 +215,16 @@ import { before as before10 } from 'node:test';
 
 let stripeApiServer;
 let stripeApiMode = 'ok'; // 'ok' | 'empty' | 'fail'
+const stripeSessionsById = new Map(); // sessions the success page retrieves by id (section 12)
 before10(async () => {
   stripeApiServer = http.createServer((req, res) => {
+    if (req.url.startsWith('/v1/checkout/sessions/') && req.method === 'GET') {
+      const id = decodeURIComponent(req.url.split('/')[4].split('?')[0]);
+      const s = stripeSessionsById.get(id);
+      res.setHeader('content-type', 'application/json');
+      if (!s) { res.writeHead(404); return res.end('{"error":{"message":"No such checkout.session"}}'); }
+      return res.end(JSON.stringify(s));
+    }
     if (req.url.startsWith('/v1/checkout/sessions') && req.method === 'GET') {
       if (stripeApiMode === 'fail') { res.writeHead(500); return res.end('{"error":{"message":"forced"}}'); }
       const u = new URL(req.url, 'http://x');
@@ -389,4 +397,148 @@ test('11g. a KV outage during a certification write returns 5xx so Stripe retrie
   kvFail = true;
   const r = await deliver(makeSubEvent({ type: 'invoice.paid' }));
   assert.ok(r.status >= 500, `expected retryable 5xx, got ${r.status}`);
+});
+
+// ── 12. live money: only a release approved for sale may be unlocked ────────
+/* config/products.json holds one release, contract-intelligence-and-register, with
+   saleApproved: false. Test-mode money keeps working; live money is withheld and
+   recorded for a manual refund. Nothing in this section moves money. */
+const UNAPPROVED = 'contract-intelligence-and-register';
+const BUYER = 'live-buyer@example.com';
+const entitled = (slug, email = BUYER) => {
+  const raw = kvStore.get('entitlement:' + email);
+  return Boolean(raw) && JSON.parse(raw).slugs.includes(slug);
+};
+function sessionEvent({ sessionId, slug = UNAPPROVED, livemode, paymentStatus = 'paid', amount = 120000,
+  type = 'checkout.session.completed', email = BUYER }) {
+  return { id: `evt_${sessionId}_${++evtSeq}`, object: 'event', type, livemode,
+    data: { object: { id: sessionId, object: 'checkout.session', livemode, payment_status: paymentStatus,
+      amount_total: amount, currency: 'usd', status: 'complete', customer_details: { email },
+      subscription: null, metadata: { agent_slug: slug } } } };
+}
+function disputeEvent({ type, sessionId, status = 'won', livemode, slug = UNAPPROVED, email = BUYER }) {
+  return { id: `evt_${type}_${sessionId}_${++evtSeq}`, object: 'event', type, livemode,
+    data: { object: { id: `dp_${sessionId}`, object: 'dispute', status, livemode, amount: 120000, currency: 'usd',
+      payment_intent: 'pi_' + sessionId,
+      metadata: { checkout_session_id: sessionId, agent_slug: slug, email } } } };
+}
+const refundEvent = (sessionId) => makeChargeEvent({ email: BUYER,
+  metadata: { checkout_session_id: sessionId, agent_slug: UNAPPROVED } });
+
+/* The success page is the other place a paid session becomes access. Called in-process
+   with the same shim as the webhook; its Stripe lookup goes to the fake above. */
+async function getSuccess(sessionId) {
+  const { default: successHandler } = await import('../api/success.js');
+  const server = http.createServer((req, res) => {
+    req.query = Object.fromEntries(new URL(req.url, 'http://x').searchParams);
+    res.status = (c) => { res.statusCode = c; return res; };
+    res.send = (body) => { res.end(body); return res; };
+    successHandler(req, res);
+  });
+  await new Promise((r) => server.listen(0, r));
+  try {
+    const r = await fetch(`http://127.0.0.1:${server.address().port}/api/success?session_id=${encodeURIComponent(sessionId)}`);
+    return { status: r.status, html: await r.text() };
+  } finally {
+    server.close(); server.closeAllConnections?.();
+  }
+}
+
+test('12a. a paid LIVE checkout for an unapproved release grants nothing and leaves a withheld record', async () => {
+  const r = await deliver(sessionEvent({ sessionId: 'cs_live_a', livemode: true }));
+  assert.equal(r.status, 200, 'answer 200 so Stripe does not keep retrying a sale that is held on purpose');
+  assert.equal(r.body.withheld, 'not-approved-for-sale');
+  assert.equal(entitled(UNAPPROVED), false, 'DEFECT: a live payment for an unapproved release unlocked the agent');
+  assert.equal(kvStore.has('stripe:session:cs_live_a'), false, 'a withheld session must not leave a fulfilment claim');
+  const rec = JSON.parse(kvStore.get('sale-withheld:cs_live_a') ?? 'null');
+  assert.ok(rec, 'no withheld-sale record for the owner to refund from');
+  assert.equal(rec.reason, 'not-approved-for-sale');
+  assert.equal(rec.email, undefined, 'the buyer email must not be copied into the record');
+});
+
+test('12b. a LIVE session where no money was taken is withheld too', async () => {
+  /* An agent with no release record, so the approval rule cannot be the reason: only the money check is. */
+  const r = await deliver(sessionEvent({ sessionId: 'cs_live_b', livemode: true, slug: 'onboarding-agent',
+    paymentStatus: 'no_payment_required', amount: 0 }));
+  assert.equal(r.body.withheld, 'no-payment-taken');
+  assert.equal(entitled('onboarding-agent'), false, 'a session with no payment must not unlock an agent');
+});
+
+test('12c. a test-mode purchase of the same release still grants: test checkout keeps working', async () => {
+  const r = await deliver(sessionEvent({ sessionId: 'cs_test_c', livemode: false }));
+  assert.equal(r.status, 200);
+  assert.equal(r.body.withheld, undefined);
+  assert.equal(entitled(UNAPPROVED), true);
+});
+
+test('12d. a LIVE retired slug of the unapproved release is withheld as the current product', async () => {
+  const r = await deliver(sessionEvent({ sessionId: 'cs_live_d', livemode: true, slug: 'contract-summarisation-agent' }));
+  assert.equal(r.body.withheld, 'not-approved-for-sale');
+  assert.equal(entitled(UNAPPROVED), false);
+});
+
+test('12e. a LIVE agent with no release record is fulfilled as before (only unapproved releases are gated)', async () => {
+  const r = await deliver(sessionEvent({ sessionId: 'cs_live_e', livemode: true, slug: 'onboarding-agent' }));
+  assert.equal(r.body.withheld, undefined);
+  assert.equal(entitled('onboarding-agent'), true);
+});
+
+test('12f. the success page does not grant a LIVE payment for an unapproved release either', async () => {
+  stripeApiMode = 'ok';
+  stripeSessionsById.set('cs_live_f', { id: 'cs_live_f', object: 'checkout.session', livemode: true,
+    payment_status: 'paid', amount_total: 120000, currency: 'usd', status: 'complete',
+    customer_details: { email: BUYER }, metadata: { agent_slug: UNAPPROVED } });
+  const page = await getSuccess('cs_live_f');
+  assert.equal(page.status, 200);
+  assert.equal(entitled(UNAPPROVED), false, 'DEFECT: the success page granted a withheld live payment');
+  assert.ok(!page.html.includes('/api/download'), 'the success page must not offer a download for it');
+  assert.ok(kvStore.has('sale-withheld:cs_live_f'), 'the redirect path records the withheld sale too');
+});
+
+test('12g. the success page still grants a test-mode purchase of the same release', async () => {
+  stripeApiMode = 'ok';
+  stripeSessionsById.set('cs_test_g', { id: 'cs_test_g', object: 'checkout.session', livemode: false,
+    payment_status: 'paid', amount_total: 120000, currency: 'usd', status: 'complete',
+    customer_details: { email: BUYER }, metadata: { agent_slug: UNAPPROVED } });
+  const page = await getSuccess('cs_test_g');
+  assert.equal(page.status, 200);
+  assert.equal(entitled(UNAPPROVED), true);
+});
+
+test('12h. a dispute the merchant WINS puts the purchase back', async () => {
+  assert.equal((await deliver(sessionEvent({ sessionId: 'cs_disp_h', livemode: false }))).status, 200);
+  assert.equal(entitled(UNAPPROVED), true, 'precondition: granted');
+  const created = await deliver(disputeEvent({ type: 'charge.dispute.created', sessionId: 'cs_disp_h', status: 'needs_response', livemode: false }));
+  assert.equal(created.status, 200);
+  assert.equal(entitled(UNAPPROVED), false, 'precondition: revoked while the dispute is open');
+  const closed = await deliver(disputeEvent({ type: 'charge.dispute.closed', sessionId: 'cs_disp_h', status: 'won', livemode: false }));
+  assert.equal(closed.status, 200);
+  assert.equal(closed.body.access, 'restored');
+  assert.equal(entitled(UNAPPROVED), true, 'DEFECT: dispute won but the buyer lost the agent for good');
+});
+
+test('12i. a dispute LOST keeps the purchase revoked', async () => {
+  await deliver(sessionEvent({ sessionId: 'cs_disp_i', livemode: false }));
+  await deliver(disputeEvent({ type: 'charge.dispute.created', sessionId: 'cs_disp_i', status: 'needs_response', livemode: false }));
+  const closed = await deliver(disputeEvent({ type: 'charge.dispute.closed', sessionId: 'cs_disp_i', status: 'lost', livemode: false }));
+  assert.equal(closed.body.commission, 'dispute-lost-already-reversed');
+  assert.equal(entitled(UNAPPROVED), false);
+});
+
+test('12j. a purchase refunded, then disputed and WON, stays revoked (the money already went back)', async () => {
+  await deliver(sessionEvent({ sessionId: 'cs_disp_j', livemode: false }));
+  assert.equal((await deliver(refundEvent('cs_disp_j'))).status, 200);
+  assert.equal(entitled(UNAPPROVED), false, 'precondition: the refund revoked it');
+  await deliver(disputeEvent({ type: 'charge.dispute.created', sessionId: 'cs_disp_j', status: 'needs_response', livemode: false }));
+  const closed = await deliver(disputeEvent({ type: 'charge.dispute.closed', sessionId: 'cs_disp_j', status: 'won', livemode: false }));
+  assert.equal(closed.body.access, 'refunded');
+  assert.equal(entitled(UNAPPROVED), false, 'DEFECT: a refunded purchase came back after a dispute win');
+});
+
+test('12k. a won dispute on a LIVE unapproved release does not restore access', async () => {
+  kvStore.set('entitlement:' + BUYER, JSON.stringify({ email: BUYER, slugs: [],
+    revokedSessionIds: ['cs_disp_k'], sessionSlugs: { cs_disp_k: [UNAPPROVED] } }));
+  const closed = await deliver(disputeEvent({ type: 'charge.dispute.closed', sessionId: 'cs_disp_k', status: 'won', livemode: true }));
+  assert.equal(closed.body.access, 'not-approved-for-sale');
+  assert.equal(entitled(UNAPPROVED), false);
 });

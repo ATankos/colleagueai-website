@@ -7,6 +7,9 @@
  *   - Bank transfer (delayed): checkout.session.completed arrives 'unpaid' (buyer got wire
  *     instructions) -> wait. Access is granted on checkout.session.async_payment_succeeded.
  *   - Refund / dispute -> reverse commission and revoke entitlement.
+ *   - Dispute won -> restore commission and entitlement, unless the same purchase was refunded.
+ *   - Live money for a release not approved for sale -> withheld and recorded (sale-withheld:<session>)
+ *     for a manual refund. Nothing is granted, and nothing is refunded automatically.
  *
  * Access = an entitlement record in KV keyed by the buyer's email; the file itself is
  * released by api/download.js (R2) once the buyer opens the /api/success page.
@@ -15,6 +18,8 @@
 import Stripe from 'stripe';
 import {
   grantEntitlement,
+  restoreEntitlement,
+  recordWithheldSale,
   recordCommission,
   reverseCommission,
   restoreCommission,
@@ -29,26 +34,12 @@ import {
   lapseCertification,
   getCertificationBySubscription,
 } from '../lib/db.js';
+import { liveFulfilmentWithheld, liveSaleRefused } from '../lib/products.js';
+import { stripeOptions } from '../lib/stripe.js';
 
 const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
 
 export const config = { api: { bodyParser: false } };
-
-/**
- * Build Stripe client options. STRIPE_API_HOST is a test-only hook: the local
- * webhook test suite points it at an in-process fake so no call leaves the
- * machine. It is never set in production.
- */
-function stripeOptions() {
-  const opts = { apiVersion: '2024-04-10' };
-  if (process.env.STRIPE_API_HOST) {
-    const u = new URL(process.env.STRIPE_API_HOST);
-    opts.host = u.hostname;
-    if (u.port) opts.port = Number(u.port);
-    opts.protocol = u.protocol.replace(':', '');
-  }
-  return opts;
-}
 
 /**
  * Resolve the Checkout Session behind a charge event.
@@ -106,6 +97,24 @@ function missingStripeConfig() {
  * Throws on a KV write failure so the caller can return 500 and let Stripe retry.
  */
 async function fulfillSession(session, eventId) {
+  // Live money unlocks only a release approved for sale (liveFulfilmentWithheld). The check runs
+  // before claimSession, so a withheld session leaves no fulfilment claim behind. The owner refunds
+  // it by hand, from the record written here.
+  const withheld = liveFulfilmentWithheld(session);
+  if (withheld) {
+    try {
+      await recordWithheldSale({
+        sessionId: session.id, slug: session.metadata?.agent_slug ?? null, reason: withheld,
+        amountTotal: session.amount_total ?? null, currency: session.currency ?? null,
+        source: 'webhook', eventId,
+      });
+    } catch (err) {
+      await releaseClaims(eventId, session.id);
+      throw new Error('Withheld-sale record write failed');
+    }
+    return { withheld };
+  }
+
   if (!(await claimSession(session.id))) return { duplicate: 'session' };
 
   const email = session.customer_details?.email ?? session.metadata?.email;
@@ -327,11 +336,27 @@ export default async function handler(req, res) {
       return res.status(200).json({ received: true, commission: 'no-session-reference' });
     }
 
+    // Who bought what: the charge's own copy first, then the resolved session. Charge metadata
+    // inherits from the PaymentIntent (agent_slug, tier); the session fallback means access is never
+    // skipped just because a processor omitted the copy.
+    const email = obj.billing_details?.email || obj.metadata?.email ||
+      session?.customer_details?.email || session?.metadata?.email || null;
+    const slug = obj.metadata?.agent_slug || session?.metadata?.agent_slug || null;
+
     try {
       if (event.type === 'charge.dispute.closed') {
         if (obj.status === 'won') {
           const restored = await restoreCommission(sessionId, 'dispute-won');
-          return res.status(200).json({ received: true, commission: restored.state ?? 'restored' });
+          // The buyer gets the agent back too, unless the same purchase was refunded or the release
+          // is one a live sale may not unlock. restoreEntitlement applies the refund rule itself.
+          let access = 'no-purchase-identifiers';
+          if (email && slug && liveSaleRefused(slug, obj.livemode === true)) {
+            access = 'not-approved-for-sale';
+          } else if (email && slug) {
+            const r = await restoreEntitlement(email, [slug], sessionId);
+            access = r.restored ? 'restored' : r.reason;
+          }
+          return res.status(200).json({ received: true, commission: restored.state ?? 'restored', access });
         }
         return res.status(200).json({ received: true, commission: 'dispute-lost-already-reversed' });
       }
@@ -341,14 +366,8 @@ export default async function handler(req, res) {
 
       const fullyRefunded = event.type !== 'charge.refunded' || obj.refunded === true ||
         (obj.amount_refunded != null && obj.amount != null && obj.amount_refunded >= obj.amount);
-      // Charge metadata inherits from the PaymentIntent (agent_slug, tier), but fall
-      // back to the resolved session for both identifiers so revocation cannot be
-      // skipped just because a processor omitted the copy.
-      const email = obj.billing_details?.email || obj.metadata?.email ||
-        session?.customer_details?.email || session?.metadata?.email || null;
-      const slug = obj.metadata?.agent_slug || session?.metadata?.agent_slug || null;
       if (fullyRefunded && email && slug) {
-        await revokeEntitlement(email, [slug], sessionId);
+        await revokeEntitlement(email, [slug], sessionId, { refunded: event.type === 'charge.refunded' });
         console.log('[webhook] Entitlement revoked after %s for %s', event.type, sessionId);
       }
 
