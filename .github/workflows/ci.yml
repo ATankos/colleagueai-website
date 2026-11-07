@@ -42,6 +42,10 @@ jobs:
       - name: Rate limiter
         run: node --test tests/ratelimit.test.mjs
 
+      # Production and Preview share one Redis: a test deployment must stay inside its own key prefix.
+      - name: KV key namespace (a Preview deployment never reads or changes a production record)
+        run: node --test tests/kv-namespace.test.mjs
+
       # Guards the rule this endpoint used to break: never report success for a
       # booking that was not actually stored. It previously logged the visitor's
       # details, returned {success:true}, and delivered the lead nowhere.
