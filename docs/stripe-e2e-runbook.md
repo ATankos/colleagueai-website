@@ -36,6 +36,13 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | your Upstash REST pair (already set for demo bookings — confirm they exist for Preview) |
 | `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's pay panel to checkout mode in the built preview only |
 
+**Preview and Production share one Redis, but not one set of keys.** `lib/db.js` writes every Preview key
+under `preview:` (`preview:entitlement:<email>`, `preview:partner:reg:<code>`, `preview:certification:…`,
+`preview:lead:…`), so a sandbox purchase, refund, partner code or demo request can never read or change a
+production record (`tests/kv-namespace.test.mjs`). Wherever this runbook says "in Upstash", look under the
+`preview:` prefix; the unprefixed keys are Production's and must not change during a Preview test. Records
+written before this change sit under the unprefixed names and are invisible to Preview.
+
 Leave storage unconfigured for the first pass: `/api/download` then serves a placeholder
 PDF **for the dossier only**, which is fine — the gate is the *flow*, the real files come with storage later.
 
