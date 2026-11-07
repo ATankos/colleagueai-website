@@ -153,7 +153,7 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
   <a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>
-<footer>Runs in your tenant · Customer-controlled business data plane · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026</footer>
+<footer>Runs in your tenant · Customer-controlled business data plane · © Colleague AI 2026</footer>
 </main>
 <script>
 (function () {
@@ -227,7 +227,7 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
 <p>One dossier per governed agent package: what it does, its CAI Score tier and human-oversight model, the controls it ships with, and the deployment boundary inside your own tenant.</p>
 <p class="note">Dossiers are in English. They describe the package as delivered after approval; indicative prices and commercial terms are on the <a href="/pricing">pricing page</a>. Access to the deployable packages themselves is released after commercial setup — <a href="/demo">request access</a>.</p>
 ${sections}
-<footer>Runs in your tenant · EU AI Act mapped · DORA &amp; ISO/IEC 42001 mapping in progress · © Colleague AI 2026 · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/imprint">Legal notice</a></footer>
+<footer>Runs in your tenant · © Colleague AI 2026 · <a href="/terms">Terms</a> · <a href="/privacy">Privacy</a> · <a href="/imprint">Legal notice</a></footer>
 </main></body></html>`;
   mkdirSync(join(DIST, 'docs', 'agents'), { recursive: true });
   writeFileSync(join(DIST, 'docs', 'agents', 'index.html'), index);

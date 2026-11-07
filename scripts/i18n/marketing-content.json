@@ -638,14 +638,14 @@
     "pl": "// na podstawie Twoich danych powyżej",
     "pt": "// com base nos seus dados acima"
   },
-  "Yes. The CAI Score is structured around risk classification, human oversight, logging, and transparency. It supports compliance work but does not replace legal, risk, or regulatory assessment.": {
-    "cs": "Ano. CAI Score je strukturován kolem klasifikace rizik, lidského dohledu, protokolování a transparentnosti. Podporuje práci na shodě, ale nenahrazuje právní, rizikové ani regulatorní posouzení.",
-    "de": "Ja. Der CAI Score ist auf Risikoklassifizierung, menschliche Aufsicht, Protokollierung und Transparenz ausgerichtet. Er unterstützt die Compliance-Arbeit, ersetzt jedoch keine rechtliche, Risiko- oder regulatorische Bewertung.",
-    "fr": "Oui. Le CAI Score est structuré autour de la classification des risques, de la supervision humaine, de la journalisation et de la transparence. Il soutient le travail de conformité mais ne remplace pas une évaluation juridique, de risque ou réglementaire.",
-    "es": "Sí. El CAI Score se estructura en torno a la clasificación de riesgos, la supervisión humana, el registro y la transparencia. Apoya el trabajo de cumplimiento, pero no sustituye la evaluación legal, de riesgos ni regulatoria.",
-    "it": "Sì. Il CAI Score è strutturato attorno a classificazione dei rischi, supervisione umana, registrazione e trasparenza. Supporta il lavoro di conformità ma non sostituisce la valutazione legale, di rischio o normativa.",
-    "pl": "Tak. CAI Score jest zbudowany wokół klasyfikacji ryzyka, nadzoru ludzkiego, rejestrowania i przejrzystości. Wspiera prace nad zgodnością, ale nie zastępuje oceny prawnej, ryzyka ani regulacyjnej.",
-    "pt": "Sim. O CAI Score está estruturado em torno da classificação de risco, supervisão humana, registo e transparência. Apoia o trabalho de conformidade, mas não substitui a avaliação jurídica, de risco ou regulatória."
+  "The CAI Score is structured around risk classification, human oversight, logging, and transparency. It supports compliance work but does not replace legal, risk, or regulatory assessment.": {
+    "cs": "CAI Score je strukturován kolem klasifikace rizik, lidského dohledu, protokolování a transparentnosti. Podporuje práci na shodě, ale nenahrazuje právní, rizikové ani regulatorní posouzení.",
+    "de": "Der CAI Score ist auf Risikoklassifizierung, menschliche Aufsicht, Protokollierung und Transparenz ausgerichtet. Er unterstützt die Compliance-Arbeit, ersetzt jedoch keine rechtliche, Risiko- oder regulatorische Bewertung.",
+    "fr": "Le CAI Score est structuré autour de la classification des risques, de la supervision humaine, de la journalisation et de la transparence. Il soutient le travail de conformité mais ne remplace pas une évaluation juridique, de risque ou réglementaire.",
+    "es": "El CAI Score se estructura en torno a la clasificación de riesgos, la supervisión humana, el registro y la transparencia. Apoya el trabajo de cumplimiento, pero no sustituye la evaluación legal, de riesgos ni regulatoria.",
+    "it": "Il CAI Score è strutturato attorno a classificazione dei rischi, supervisione umana, registrazione e trasparenza. Supporta il lavoro di conformità ma non sostituisce la valutazione legale, di rischio o normativa.",
+    "pl": "CAI Score jest zbudowany wokół klasyfikacji ryzyka, nadzoru ludzkiego, rejestrowania i przejrzystości. Wspiera prace nad zgodnością, ale nie zastępuje oceny prawnej, ryzyka ani regulacyjnej.",
+    "pt": "O CAI Score está estruturado em torno da classificação de risco, supervisão humana, registo e transparência. Apoia o trabalho de conformidade, mas não substitui a avaliação jurídica, de risco ou regulatória."
   },
   "Demo and partner interest are open. Paid checkout remains gated.": {
     "cs": "Demo a zájem partnerů jsou otevřené. Placená pokladna zůstává uzamčena.",
@@ -962,14 +962,14 @@
     "pl": "Otwarte",
     "pt": "Aberto"
   },
-  "Risk classification, human oversight, logging, and transparency are core to the CAI Score. The framework is designed to support EU AI Act, DORA, and ISO/IEC 42001 evidence work, subject to client implementation and legal review.": {
-    "cs": "Klasifikace rizik, lidský dohled, protokolování a transparentnost jsou jádrem CAI Score. Rámec je navržen tak, aby podporoval práci s důkazy podle EU AI Act, DORA a ISO/IEC 42001, s výhradou implementace u zákazníka a právní revize.",
-    "de": "Risikoklassifizierung, menschliche Aufsicht, Protokollierung und Transparenz bilden den Kern des CAI Score. Das Rahmenwerk ist darauf ausgelegt, die Nachweisarbeit für EU AI Act, DORA und ISO/IEC 42001 zu unterstützen, vorbehaltlich der Implementierung beim Kunden und einer rechtlichen Prüfung.",
-    "fr": "La classification des risques, la supervision humaine, la journalisation et la transparence sont au cœur du CAI Score. Le cadre est conçu pour soutenir le travail de preuve EU AI Act, DORA et ISO/IEC 42001, sous réserve de l'implémentation chez le client et d'une revue juridique.",
-    "es": "La clasificación de riesgos, la supervisión humana, el registro y la transparencia son el núcleo del CAI Score. El marco está diseñado para respaldar el trabajo de evidencia de EU AI Act, DORA e ISO/IEC 42001, sujeto a la implementación del cliente y a una revisión legal.",
-    "it": "La classificazione dei rischi, la supervisione umana, la registrazione e la trasparenza sono al centro del CAI Score. Il framework è progettato per supportare il lavoro di evidenza per EU AI Act, DORA e ISO/IEC 42001, soggetto all'implementazione del cliente e a una revisione legale.",
-    "pl": "Klasyfikacja ryzyka, nadzór ludzki, rejestrowanie i przejrzystość stanowią rdzeń CAI Score. Ramy zaprojektowano tak, aby wspierały prace dowodowe dla EU AI Act, DORA i ISO/IEC 42001, z zastrzeżeniem wdrożenia u klienta i przeglądu prawnego.",
-    "pt": "A classificação de risco, a supervisão humana, o registo e a transparência são o núcleo do CAI Score. O framework foi concebido para apoiar o trabalho de evidência do EU AI Act, DORA e ISO/IEC 42001, sujeito à implementação no cliente e a revisão jurídica."
+  "Risk classification, human oversight, logging, and transparency are core to the CAI Score.": {
+    "cs": "Klasifikace rizik, lidský dohled, protokolování a transparentnost jsou jádrem CAI Score.",
+    "de": "Risikoklassifizierung, menschliche Aufsicht, Protokollierung und Transparenz bilden den Kern des CAI Score.",
+    "fr": "La classification des risques, la supervision humaine, la journalisation et la transparence sont au cœur du CAI Score.",
+    "es": "La clasificación de riesgos, la supervisión humana, el registro y la transparencia son el núcleo del CAI Score.",
+    "it": "La classificazione dei rischi, la supervisione umana, la registrazione e la trasparenza sono al centro del CAI Score.",
+    "pl": "Klasyfikacja ryzyka, nadzór ludzki, rejestrowanie i przejrzystość stanowią rdzeń CAI Score.",
+    "pt": "A classificação de risco, a supervisão humana, o registo e a transparência são o núcleo do CAI Score."
   },
   "The CAI Score is a governance and risk-classification framework for AI agents: a five-tier risk classification that defines exactly how much an agent does on its own and where a named human stays accountable, then evidences it for audit. Read it from the bottom up: the higher the tier, the more an agent can do, and the more human oversight, logging and accountability the framework builds in around it.": {
     "cs": "CAI Score je klasifikační rámec pro AI agenty: pětistupňová klasifikace rizik, která přesně definuje, kolik agent dělá sám a kde zůstává odpovědný jmenovaný člověk, a poté to doloží pro audit. Čtěte zdola nahoru: čím vyšší stupeň, tím více agent smí dělat a tím více lidského dohledu, protokolování a odpovědnosti rámec kolem něj zabuduje.",
