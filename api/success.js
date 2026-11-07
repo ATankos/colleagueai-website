@@ -17,6 +17,7 @@ import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '.
 import { signDownload } from '../lib/downloadToken.js';
 import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
+import { recoverHint } from '../lib/recovery.js';
 import { SLUG_TIER, titleFromSlug } from './checkout.js';
 import { ORDER_LOCALES, AGENTS_PATH, PRIVACY_PATH, TIER_NAMES, pickOrderLang, ot } from '../lib/orderI18n.js';
 
@@ -53,7 +54,7 @@ const ICON = {
  * because the site CSP blocks inline style and script tags.
  * o: { lang, title, status: 'ok'|'pending'|'warn', eyebrow, heading (HTML), lede (HTML), chips[], body (HTML) }
  */
-function page(o) {
+export function page(o) {
   const lang = ORDER_LOCALES.includes(o.lang) ? o.lang : 'en';
   const t = (k, v) => ot(lang, k, v);
   const statusIcon = o.status === 'ok' ? ICON.tick : o.status === 'pending' ? ICON.clock : ICON.alert;
@@ -153,6 +154,9 @@ export function deliveryHtml(email, slug, lang = 'en') {
 
 export default async function handler(req, res) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
+  // The paid page carries the buyer's address and fresh signed download links. vercel.json gives every other path
+  // "public, max-age=0, must-revalidate"; a function's own header overrides that, so say no-store here.
+  res.setHeader('Cache-Control', 'no-store');
 
   const q = req.query || {};
   const one = (v) => (Array.isArray(v) ? v[0] : v);
@@ -243,6 +247,7 @@ export default async function handler(req, res) {
   return res.status(200).send(page({
     lang, title: t('t_thanks'), status: 'ok', eyebrow: t('paid_eyebrow'), heading: t('paid_h'),
     lede: t(packageFile(slug) ? 'paid_lede_pkg' : 'paid_lede_doc', { product: strong(label) }),
-    chips: emailChip, body: deliveryHtml(email, slug, lang),
+    // recoverHint is empty unless the owner has switched recovery on and it can work, so the page is unchanged until then.
+    chips: emailChip, body: deliveryHtml(email, slug, lang) + recoverHint(lang),
   }));
 }
