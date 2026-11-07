@@ -103,6 +103,14 @@ a{color:var(--terra-solid)}
 .o-card.o-solo{max-width:680px}
 .o-card.o-solo p{color:var(--graphite-soft);margin:0 0 14px}
 
+/* recovery form (/recover): one field, one button; 16px input text so phones do not zoom on focus */
+.o-form{display:grid;gap:14px;max-width:520px}
+.o-form label{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.o-form input[type=email]{width:100%;font:inherit;font-size:16px;color:var(--graphite);background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.o-form input[type=email]:focus-visible{outline:2px solid var(--terra);outline-offset:2px;border-color:var(--terra)}
+.o-form .o-btn{border:0;cursor:pointer;justify-self:start;font-family:inherit}
+.o-err{color:var(--terra-deep);font-size:14.5px;margin:0}
+
 @media (max-width:860px){
   .o-grid,.o-steps{grid-template-columns:minmax(0,1fr)}
 }
@@ -113,7 +121,7 @@ a{color:var(--terra-solid)}
   .o-card{padding:22px;border-radius:16px}
   .o-card h2{font-size:25px}
   .o-facts,.o-facts.o-facts-2{grid-template-columns:minmax(0,1fr)}
-  .o-actions .o-btn{width:100%}
+  .o-actions .o-btn,.o-form .o-btn{width:100%}
   .o-secure span{display:none}
   .o-help{padding:22px}
 }

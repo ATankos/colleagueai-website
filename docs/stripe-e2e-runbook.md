@@ -32,9 +32,19 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | --- | --- |
 | `STRIPE_SECRET_KEY` | `sk_test_…` |
 | `STRIPE_WEBHOOK_SECRET` | `whsec_…` |
-| `DOWNLOAD_TOKEN_SECRET` | any long random string (`openssl rand -hex 32`). Downloads are refused without it. Changing it invalidates every outstanding link; buyers recover by reopening their `/api/success` URL |
+| `DOWNLOAD_TOKEN_SECRET` | any long random string (`openssl rand -hex 32`). Downloads are refused without it. Changing it invalidates every outstanding link; buyers recover by reopening their `/api/success` URL (or, when emailed recovery is switched on, section 6a) |
 | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | your Upstash REST pair (already set for demo bookings — confirm they exist for Preview) |
 | `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's pay panel to checkout mode in the built preview only |
+
+**Optional, for the emailed-recovery test only (section 6a). Leave all of these unset for the first pass:**
+
+| Variable | Value |
+| --- | --- |
+| `RECOVERY_ENABLED` | `1` or `true` — the owner's switch. Absent, empty or anything else means off, whatever else is configured. It is separate from the mail key on purpose: `RESEND_API_KEY` also turns on demo-request alerts, and setting it up for that must not open a public form that sends mail |
+| `RESEND_API_KEY` | the Resend API key (the transport `api/demo-booking.js` already uses). Resend sends only from a domain verified in the Resend account, which is a DNS step for the owner |
+| `MAIL_FROM` | sender, e.g. `ColleagueAI <hello@colleagueai.ai>`. Falls back to `DEMO_NOTIFY_FROM`, then to that same default |
+| `PUBLIC_BASE_URL` | the origin that emailed links point at. Unset: Production links point at `https://www.colleagueai.ai`, and a Preview deployment's links point at that deployment itself, so a mail sent from a test never opens the live site |
+| `RECOVER_MIN_RESPONSE_MS` | default `700`. Every answer to a recovery request takes at least this long, so response time does not tell an address with an order from one without |
 
 **Preview and Production share one Redis, but not one set of keys.** `lib/db.js` writes every Preview key
 under `preview:` (`preview:entitlement:<email>`, `preview:partner:reg:<code>`, `preview:certification:…`,
@@ -142,6 +152,42 @@ entitlement email exists.
    recovered the same way.
 3. `/api/success` with the same session never double-grants (idempotent merge).
 
+## 6a. Emailed recovery (release gate A8) — off until the owner chooses a mail path
+
+A buyer who closed the thank-you page, and no longer has the Stripe receipt, can ask for a fresh link at
+`/recover`. It is **off by default**: it needs `RECOVERY_ENABLED=1`, `DOWNLOAD_TOKEN_SECRET` and
+`RESEND_API_KEY`, all in the **Preview** scope for this test. While it is off, `/recover` answers 503, a link
+mailed earlier opens nothing, and the thank-you page does not mention it. Production stays off until the owner
+decides; this section is the proof the owner needs before deciding.
+
+Do section 2 first with a mailbox you can read (the sandbox buyer's address). Then:
+
+| # | Do | Expected |
+| --- | --- | --- |
+| 1 | With `RECOVERY_ENABLED` **unset**, open `/recover` | 503 "not available" page; no form; the thank-you page shows no recovery line |
+| 2 | Set `RECOVERY_ENABLED=1`, redeploy the Preview, open the thank-you page | one line under the download block, "send me a new link" |
+| 3 | Open `/recover`, enter the buyer's address | "If that address has an order, a link is on its way" (HTTP 202) |
+| 4 | Read the mail (arrives within a minute; check spam) | one mail to that address only; the link starts `https://<this preview>/recover?t=…`, so it opens the Preview and not the live site; the address appears nowhere in the URL |
+| 5 | Open the link | the downloads for that address, each with a fresh 15-minute link. Reopen it: it works again (it is deliberately not single-use, because mail scanners open links before the buyer does). After 30 minutes: "link expired", with a way to ask again |
+| 6 | Enter an address that never bought | **the same** message, same status, and **no mail** |
+| 7 | Dashboard → full refund of the payment, then request again, then open the earlier link | no new mail; the earlier link now says no order was found (the entitlement is read again on every open) |
+| 8 | Request four times in an hour for one address | the fourth answers 429 "too many requests"; the same holds for an address with no order. Six requests from one client address in an hour: the sixth is refused |
+| 9 | Remove `RESEND_API_KEY` (or set `RECOVERY_ENABLED=0`) and redeploy | `/recover` answers 503 again and the thank-you page loses the line |
+| 10 | Make the provider refuse (wrong key), request for the buyer's address | the caller still sees the same 202 message; Vercel logs show `[recover] ALERT recovery email not sent:` with a status code and no address. That log line is the alert: the buyer is waiting for a mail that did not go |
+
+Proved by `node --test tests/recover.test.mjs` (22 tests, against an in-memory store and a fake mail API) and
+**not** proved by it: real delivery and spam placement, the real Redis counters, and what a buyer's mail gateway
+does to the link. Rows 3–5 and 10 are therefore the ones that matter on a real Preview.
+
+Before the owner enables it anywhere real:
+
+- **Mail path.** Resend (already in the code; needs the sending domain verified in DNS, an owner step) or the
+  existing licensed Microsoft mailbox through Microsoft Graph (no new vendor, but an Entra app registration and a
+  small code change in `lib/mail.js`). Nothing else in the recovery code depends on the choice.
+- **Translations.** The 24 recovery strings in `lib/orderI18n.js` were drafted by Claude in all eight languages and
+  have not been read by a native speaker. They need that review before a buyer sees them.
+- **Production.** `RECOVERY_ENABLED` is set in Production only after this section and section 10 have passed.
+
 ## 7. Refund → revocation (fixed in this branch — test it)
 
 1. Dashboard → Payments → the happy-path payment → **Refund** (full).
@@ -220,6 +266,7 @@ entitlement granted then, not before. `/api/success` meanwhile shows the
 - [ ] Failed renewal reads past_due, not lapsed
 - [ ] Renewal, past-due and lapse still work on the endpoint's current API version, before and after an endpoint upgrade (section 8a)
 - [ ] (optional) bank-transfer lane grants only on clearance
+- [ ] (only if the owner enables emailed recovery) section 6a rows 1–10: off by default; mail reaches only the buyer; unknown address gets the same answer and no mail; refund leaves nothing to recover; fourth request in an hour refused; provider failure leaves an alert line
 
 When every box is ticked, the commercial verdict moves to PASS pending R2 real
 files. Going live then = set the same env vars in **Production** scope (live

@@ -453,6 +453,10 @@
             "destination": "/api/certificate"
         },
         {
+            "source": "/recover",
+            "destination": "/api/recover"
+        },
+        {
             "source": "/partners",
             "destination": "/partners.html"
         },
