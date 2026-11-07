@@ -26,6 +26,7 @@ import {
   revokeEntitlement,
   claimEvent,
   claimSession,
+  sessionAlreadyFulfilled,
   releaseClaims,
   getPartnerStats,
   issueCertification,
@@ -34,7 +35,7 @@ import {
   lapseCertification,
   getCertificationBySubscription,
 } from '../lib/db.js';
-import { liveFulfilmentWithheld, liveSaleRefused } from '../lib/products.js';
+import { liveFulfilmentWithheld, liveRestoreRefused } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriodEnd } from '../lib/stripeCompat.js';
 
@@ -100,9 +101,11 @@ function missingStripeConfig() {
 async function fulfillSession(session, eventId) {
   // Live money unlocks only a release approved for sale (liveFulfilmentWithheld). The check runs
   // before claimSession, so a withheld session leaves no fulfilment claim behind. The owner refunds
-  // it by hand, from the record written here.
+  // it by hand, from the record written here. A session that already fulfilled (a re-delivery, or a
+  // purchase completed before the rule) is not a new sale, so it is not withheld.
   const withheld = liveFulfilmentWithheld(session);
-  if (withheld) {
+  const buyer = session.customer_details?.email ?? session.metadata?.email;
+  if (withheld && !(await sessionAlreadyFulfilled(buyer, session.id, session.metadata?.agent_slug))) {
     try {
       await recordWithheldSale({
         sessionId: session.id, slug: session.metadata?.agent_slug ?? null, reason: withheld,
@@ -347,10 +350,11 @@ export default async function handler(req, res) {
       if (event.type === 'charge.dispute.closed') {
         if (obj.status === 'won') {
           const restored = await restoreCommission(sessionId, 'dispute-won');
-          // The buyer gets the agent back too, unless the same purchase was refunded or the release
-          // is one a live sale may not unlock. restoreEntitlement applies the refund rule itself.
+          // The buyer gets the agent back too, unless the same purchase was refunded or it was a live
+          // sale of a release with a record that is not approved (liveRestoreRefused). restoreEntitlement
+          // applies the refund rule itself.
           let access = 'no-purchase-identifiers';
-          if (email && slug && liveSaleRefused(slug, obj.livemode === true)) {
+          if (email && slug && liveRestoreRefused(slug, obj.livemode === true)) {
             access = 'not-approved-for-sale';
           } else if (email && slug) {
             const r = await restoreEntitlement(email, [slug], sessionId);

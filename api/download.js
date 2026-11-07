@@ -92,7 +92,9 @@ export default async function handler(req, res) {
   // A release that is not approved for sale is never handed out, however the entitlement was
   // created (test-card purchase, Payment Link, webhook), unless this deployment explicitly opts
   // in to test delivery. That covers the release package and the connect package of a product
-  // that has a release record. The dossier, and products with no release record, are unaffected.
+  // that has a release record. The dossier, and the connect package of a product with no record,
+  // are not held back here: live sales of such a product are refused at checkout and at fulfilment
+  // (liveSaleRefused) instead, so no new live entitlement is created for one.
   const releaseFile = file === packageFile(canon) ||
     (file === 'connect-package.zip' && Boolean(productFor(canon)?.release));
   if (releaseFile && !packageDeliverable(canon)) {

@@ -53,6 +53,8 @@ SKU CAI-L4-CI-001)** behave differently by design:
 | `RELEASE_TEST_DELIVERY=1` (**Preview scope only, deployment protection on**), no storage | package link shown; `/api/download` returns 503 `package_storage_not_configured` — expected, not a failure |
 | `RELEASE_TEST_DELIVERY=1`, private Blob store connected (Preview), bundle uploaded to `agents/<slug>/<release.package>` | package download works; verify its SHA-256 against `release.sha256`, then import that exact ZIP into a clean environment (final acceptance) |
 
+Catalogue agents with no record in `config/products.json` are refused for live sales as well (default-deny): `/api/checkout` returns `not_approved_for_sale` with a live key, and a live session for one is withheld and recorded, as for an unapproved release. Test-mode checkout is unchanged. A purchase that already fulfilled is not judged again, so a re-delivered webhook or a reopened success link keeps its access.
+
 Never set `RELEASE_TEST_DELIVERY` in the Production scope: with it, anyone who completes a test-card
 purchase on that deployment receives the unapproved release.
 

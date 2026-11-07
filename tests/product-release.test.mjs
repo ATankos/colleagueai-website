@@ -241,7 +241,11 @@ test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved rele
     });
   }
   assert.equal(products.liveSaleBlocked(SLUG, 'sk_test_x'), false, 'test-mode purchase must remain possible');
-  assert.equal(products.liveSaleBlocked('onboarding-agent', 'sk_live_x'), false, 'catalogue agents without a release record are unaffected');
+  assert.equal(products.liveSaleBlocked('onboarding-agent', 'sk_live_x'), true, 'a catalogue agent with no approved record is refused for live sales (default-deny)');
+  assert.equal(products.liveSaleBlocked(undefined, 'sk_live_x'), true, 'a missing slug is refused for live sales');
+  assert.equal(products.liveSaleBlocked('onboarding-agent', 'sk_test_x'), false, 'test-mode checkout of a catalogue agent keeps working');
+  assert.equal(products.liveRestoreRefused('onboarding-agent', true), false, 'a won dispute on a purchase made before the rule still restores access (not a sale)');
+  assert.equal(products.liveRestoreRefused(SLUG, true), true, 'a won dispute on an unapproved release with a record is not restored');
 });
 
 test('approval opens both gates: live sale allowed and package deliverable without the test flag', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, () => {

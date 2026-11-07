@@ -13,7 +13,7 @@
  */
 
 import Stripe from 'stripe';
-import { grantEntitlement, recordWithheldSale } from '../lib/db.js';
+import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
 import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
@@ -28,6 +28,16 @@ const SUPPORT = 'hello@colleagueai.ai';
 const mailLink = () => `<a href="mailto:${SUPPORT}">${SUPPORT}</a>`;
 const fileCode = (f) => `<code>${esc(f)}</code>`;
 const strong = (s) => `<b>${esc(s)}</b>`;
+
+/* A failed read is treated as "not fulfilled before", so the withheld path runs as it did before this check. */
+async function alreadyFulfilled(email, sessionId, slug) {
+  try {
+    return await sessionAlreadyFulfilled(email, sessionId, slug);
+  } catch (err) {
+    console.error('[success] fulfilment check failed:', err && err.message ? err.message : err);
+    return false;
+  }
+}
 
 const ICON = {
   tick: '<svg viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
@@ -191,9 +201,11 @@ export default async function handler(req, res) {
   }
 
   // Live money for a release not approved for sale is not fulfilled here either, or the redirect
-  // would grant what the webhook withholds. Same rule, same record, same notice to the buyer.
+  // would grant what the webhook withholds. Same rule, same record, same notice to the buyer. A purchase
+  // that already fulfilled (completed before the rule, or granted by the webhook) is not a new sale: it is
+  // granted as before, so reopening the thank-you link keeps the download.
   const withheld = liveFulfilmentWithheld(session);
-  if (withheld) {
+  if (withheld && !(await alreadyFulfilled(email, session.id, slug))) {
     try {
       await recordWithheldSale({
         sessionId: session.id, slug, reason: withheld,
