@@ -1,7 +1,7 @@
 /**
  * tests/audit-i18n.mjs — Phase 3: i18n integrity.
  * The repo has NO separate locale files: all 8 locales live inline in public/agents.html as
- * `var I18N = {en:{...},cs:{...},...}` plus AGENTS_CS..AGENTS_IT arrays (see tests/DISCOVERY.md).
+ * `var I18N = {en:{...},cs:{...},...}` plus AGENTS_CS..AGENTS_IT arrays.
  * Checks: key parity, empty values, EN-leakage per locale, compliance-claim scan (claims about
  * Colleague AI itself, any language), legal-translation check, mojibake count per locale.
  * Usage: node tests/audit-i18n.mjs
