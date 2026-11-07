@@ -23,14 +23,17 @@ let writesDown = false;  // only the writes saveLead needs fail
 const kvServer = http.createServer((req, res) => {
   if (kvDown) { res.statusCode = 500; return res.end('kv down'); }
   const [, cmd, ...rest] = req.url.split('/').map(decodeURIComponent);
-  // Failing SET/LPUSH but leaving INCR working isolates a store failure from a
-  // rate-limiter failure. Without that split, "KV is down" trips the rate limiter
-  // first and the 503 assertion below passes without ever reaching saveLead —
-  // which is how the first version of this test missed the very regression it
-  // was written for.
-  if (writesDown && (cmd === 'SET' || cmd === 'LPUSH')) { res.statusCode = 500; return res.end('write failed'); }
+  // Failing SET/LPUSH but leaving the rate limiter's own commands working isolates a store
+  // failure from a rate-limiter failure. Without that split, "KV is down" trips the rate
+  // limiter first and the 503 assertion below passes without ever reaching saveLead —
+  // which is how the first version of this test missed the very regression it was written
+  // for. The limiter's counter is created by `SET rl:… 1 NX EX …`, so that SET is exempt.
+  const isLimiterKey = /(^|:)rl:/.test(rest[0] ?? '');
+  if (writesDown && (cmd === 'SET' || cmd === 'LPUSH') && !isLimiterKey) { res.statusCode = 500; return res.end('write failed'); }
   switch (cmd) {
-    case 'SET': store.set(rest[0], rest[1]); return res.end(JSON.stringify({ result: 'OK' }));
+    case 'SET':
+      if (rest.includes('NX') && store.has(rest[0])) return res.end(JSON.stringify({ result: null })); // SET … NX on an existing key
+      store.set(rest[0], rest[1]); return res.end(JSON.stringify({ result: 'OK' }));
     case 'GET': return res.end(JSON.stringify({ result: store.get(rest[0]) ?? null }));
     case 'EXPIRE': return res.end(JSON.stringify({ result: 1 }));
     case 'LPUSH': {

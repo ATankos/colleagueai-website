@@ -27,11 +27,13 @@ process.env.RECOVER_MIN_RESPONSE_MS = '0';
 delete process.env.VERCEL_ENV;
 
 const store = new Map();
+const ttls = new Map();   // key -> seconds, for the keys that have an expiry
 const mails = [];
 let kvDown = false;       // every command fails
-let counterDown = false;  // only the rate limiter's INCR fails: the lookup would still work
+let counterDown = false;  // only the rate limiter's commands fail (SET rl:… NX EX, INCR): the lookup would still work
 let lookupDown = false;   // only GET fails: the rate limiter would still work
 let mailStatus = 200;
+const isLimiterKey = (key) => /(^|:)rl:/.test(key ?? '');
 
 global.fetch = async (url, init = {}) => {
   const u = String(url);
@@ -43,12 +45,21 @@ global.fetch = async (url, init = {}) => {
   if (!u.startsWith('http://kv.test/')) throw new Error(`unexpected network call: ${u}`);
   if (kvDown) return { ok: false, status: 500, text: async () => 'kv down' };
   const [cmd, ...args] = u.replace('http://kv.test/', '').split('/').map(decodeURIComponent);
-  if ((counterDown && cmd === 'INCR') || (lookupDown && cmd === 'GET')) return { ok: false, status: 500, text: async () => 'partial outage' };
+  const limiterCmd = cmd === 'INCR' || (cmd === 'SET' && isLimiterKey(args[0]));
+  if ((counterDown && limiterCmd) || (lookupDown && cmd === 'GET')) return { ok: false, status: 500, text: async () => 'partial outage' };
   let result = null;
   if (cmd === 'GET') result = store.has(args[0]) ? store.get(args[0]) : null;
-  else if (cmd === 'SET') { store.set(args[0], args.slice(1).join('/')); result = 'OK'; }
+  else if (cmd === 'SET') {
+    const opts = args.slice(2);
+    if (opts.includes('NX') && store.has(args[0])) result = null;               // SET … NX on an existing key: not set
+    else {
+      store.set(args[0], args[1]); result = 'OK';
+      const i = opts.indexOf('EX');
+      if (i >= 0) ttls.set(args[0], Number(opts[i + 1])); else ttls.delete(args[0]); // a plain SET clears any expiry, as Redis does
+    }
+  }
   else if (cmd === 'INCR') { const n = (Number(store.get(args[0])) || 0) + 1; store.set(args[0], n); result = n; }
-  else if (cmd === 'EXPIRE') result = 1;
+  else if (cmd === 'EXPIRE') { if (store.has(args[0])) { ttls.set(args[0], Number(args[1])); result = 1; } else result = 0; }
   return { ok: true, json: async () => ({ result }) };
 };
 
@@ -57,6 +68,7 @@ const { default: recover } = await import('../api/recover.js');
 const { signRecovery, openRecovery } = await import('../lib/recoveryToken.js');
 const { signDownload, openDownload } = await import('../lib/downloadToken.js');
 const { recoveryAvailable, recoverHint, publicBaseUrl } = await import('../lib/recovery.js');
+const { sendMail } = await import('../lib/mail.js');
 
 const SLUG = 'contract-intelligence-and-register';
 let ipCounter = 0;
@@ -185,6 +197,43 @@ test('the link goes to the address that holds the order and only to it, sealed, 
   assert.equal(opened.ok, true);
   assert.equal(opened.email, email.toLowerCase());
   assert.ok(opened.exp - Math.floor(Date.now() / 1000) <= 30 * 60, 'valid for 30 minutes at most');
+});
+
+test('mail goes out from the configured sender, and replies go to support, not to a sending subdomain nobody reads', async () => {
+  const sender = 'ColleagueAI <no-reply@notify.example.test>';
+  const cases = [
+    { env: { MAIL_FROM: sender, MAIL_REPLY_TO: undefined }, replyTo: 'hello@colleagueai.ai', why: 'default: the support address' },
+    { env: { MAIL_FROM: sender, MAIL_REPLY_TO: '   ' }, replyTo: 'hello@colleagueai.ai', why: 'a blank value is the same as unset' },
+    { env: { MAIL_FROM: sender, MAIL_REPLY_TO: '  desk@example.test ' }, replyTo: 'desk@example.test', why: 'an explicit value wins, trimmed' },
+  ];
+  for (const { env, replyTo, why } of cases) {
+    const email = freshEmail('replyto');
+    await buy(email);
+    mails.length = 0;
+    await withEnv(env, () => ask(email));
+    assert.equal(mails.length, 1, why);
+    assert.equal(mails[0].from, sender, `${why}: sent from the sending subdomain`);
+    assert.equal(mails[0].reply_to, replyTo, why);
+    assert.deepEqual(mails[0].to, [email], `${why}: still exactly one recipient`);
+  }
+});
+
+test('sendMail names a reply address only when the caller asks for one', async () => {
+  await sendMail({ to: 'a@example.test', subject: 's', text: 't' });
+  await sendMail({ to: 'b@example.test', subject: 's', text: 't', replyTo: 'desk@example.test' });
+  assert.equal(mails.length, 2);
+  assert.ok(!('reply_to' in mails[0]), 'no reply_to key at all, not a null or an empty one');
+  assert.equal(mails[1].reply_to, 'desk@example.test');
+});
+
+test('every counter the endpoint creates carries its one-hour expiry from the first request', async () => {
+  const email = freshEmail('ttl');
+  const existing = new Set(store.keys());   // the store is shared with the other tests: look only at what this request made
+  await ask(email);
+  const counters = [...store.keys()].filter((k) => !existing.has(k) && isLimiterKey(k));
+  assert.equal(counters.length, 2, 'one counter for the client address, one for the buyer address');
+  for (const key of counters) assert.equal(ttls.get(key), 3600, `${key.slice(0, 24)}… is born with its expiry`);
+  assert.ok(!counters.some((k) => k.includes(email)), 'and no counter is keyed by the address itself, only by its hash');
 });
 
 test('a refunded purchase gets no email', async () => {

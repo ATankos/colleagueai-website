@@ -42,7 +42,8 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | --- | --- |
 | `RECOVERY_ENABLED` | `1` or `true` — the owner's switch. Absent, empty or anything else means off, whatever else is configured. It is separate from the mail key on purpose: `RESEND_API_KEY` also turns on demo-request alerts, and setting it up for that must not open a public form that sends mail |
 | `RESEND_API_KEY` | the Resend API key (the transport `api/demo-booking.js` already uses). Resend sends only from a domain verified in the Resend account, which is a DNS step for the owner |
-| `MAIL_FROM` | sender, e.g. `ColleagueAI <hello@colleagueai.ai>`. Falls back to `DEMO_NOTIFY_FROM`, then to that same default |
+| `MAIL_FROM` | sender, e.g. `ColleagueAI <hello@colleagueai.ai>`, or `ColleagueAI <no-reply@notify.colleagueai.ai>` when mail goes out from a dedicated sending subdomain. Falls back to `DEMO_NOTIFY_FROM`, then to the first example |
+| `MAIL_REPLY_TO` | where a buyer's reply to the recovery mail lands. Default `hello@colleagueai.ai`, so a sending subdomain with no inbox never swallows an answer |
 | `PUBLIC_BASE_URL` | the origin that emailed links point at. Unset: Production links point at `https://www.colleagueai.ai`, and a Preview deployment's links point at that deployment itself, so a mail sent from a test never opens the live site |
 | `RECOVER_MIN_RESPONSE_MS` | default `700`. Every answer to a recovery request takes at least this long, so response time does not tell an address with an order from one without |
 
@@ -167,23 +168,46 @@ Do section 2 first with a mailbox you can read (the sandbox buyer's address). Th
 | 1 | With `RECOVERY_ENABLED` **unset**, open `/recover` | 503 "not available" page; no form; the thank-you page shows no recovery line |
 | 2 | Set `RECOVERY_ENABLED=1`, redeploy the Preview, open the thank-you page | one line under the download block, "send me a new link" |
 | 3 | Open `/recover`, enter the buyer's address | "If that address has an order, a link is on its way" (HTTP 202) |
-| 4 | Read the mail (arrives within a minute; check spam) | one mail to that address only; the link starts `https://<this preview>/recover?t=…`, so it opens the Preview and not the live site; the address appears nowhere in the URL |
-| 5 | Open the link | the downloads for that address, each with a fresh 15-minute link. Reopen it: it works again (it is deliberately not single-use, because mail scanners open links before the buyer does). After 30 minutes: "link expired", with a way to ask again |
+| 4 | Read the mail (arrives within a minute; check spam) | one mail to that address only; the link starts `https://<this preview>/recover?t=…`, so it opens the Preview and not the live site; the address appears nowhere in the URL. Hit "Reply": the To line is the support address, not the sending address |
+| 5 | Open the link **in a browser that is signed in to Vercel for this team** (see the note below) | the downloads for that address, each with a fresh 15-minute link. Reopen it: it works again (it is deliberately not single-use, because mail scanners open links before the buyer does). After 30 minutes: "link expired", with a way to ask again |
 | 6 | Enter an address that never bought | **the same** message, same status, and **no mail** |
 | 7 | Dashboard → full refund of the payment, then request again, then open the earlier link | no new mail; the earlier link now says no order was found (the entitlement is read again on every open) |
 | 8 | Request four times in an hour for one address | the fourth answers 429 "too many requests"; the same holds for an address with no order. Six requests from one client address in an hour: the sixth is refused |
 | 9 | Remove `RESEND_API_KEY` (or set `RECOVERY_ENABLED=0`) and redeploy | `/recover` answers 503 again and the thank-you page loses the line |
 | 10 | Make the provider refuse (wrong key), request for the buyer's address | the caller still sees the same 202 message; Vercel logs show `[recover] ALERT recovery email not sent:` with a status code and no address. That log line is the alert: the buyer is waiting for a mail that did not go |
 
-Proved by `node --test tests/recover.test.mjs` (22 tests, against an in-memory store and a fake mail API) and
-**not** proved by it: real delivery and spam placement, the real Redis counters, and what a buyer's mail gateway
-does to the link. Rows 3–5 and 10 are therefore the ones that matter on a real Preview.
+**A protected Preview and an emailed link.** The Preview is behind Vercel's deployment protection, so a link in a
+mail opens only for someone signed in to Vercel for this team (or holding the protection cookie); anyone else
+lands on a Vercel sign-in page, which is the protection working, not recovery failing. Open the link in that
+browser. **Do not** append the protection-bypass token to the link, paste it into `PUBLIC_BASE_URL`, or put it in a
+mail or a Stripe webhook URL: it would sit in a mailbox and in logs. What this row cannot prove is the buyer's
+experience on the live site, where there is no protection page; that is only visible after Production is switched on.
+
+Proved by `node --test tests/recover.test.mjs` (25 tests, against an in-memory store and a fake mail API) and
+`tests/ratelimit.test.mjs` (the counters), and **not** proved by them: real delivery and spam placement, the real
+Redis counters (their expiry in particular, see "Rate-limit counters" below), and what a buyer's mail gateway does
+to the link. Rows 3–5 and 10 are therefore the ones that matter on a real Preview.
+
+**Rate-limit counters.** A counter is created together with its expiry (`SET … NX EX`), so a counter without an
+expiry can no longer be made by a failing second command. Counters written by the earlier code (INCR, then EXPIRE)
+may still exist without an expiry if that second command ever failed. A read-only look at the `rl:` and
+`preview:rl:` keys in Upstash (key names and their TTL only, never values) shows whether any do; an address stuck
+behind one is released by deleting that single key, which is an owner action.
 
 Before the owner enables it anywhere real:
 
 - **Mail path.** Resend (already in the code; needs the sending domain verified in DNS, an owner step) or the
   existing licensed Microsoft mailbox through Microsoft Graph (no new vendor, but an Entra app registration and a
   small code change in `lib/mail.js`). Nothing else in the recovery code depends on the choice.
+  - *Resend on a dedicated sending subdomain* (for example `notify.colleagueai.ai`) keeps the root domain's mail
+    untouched: Resend's own guidance is to verify a subdomain rather than the root, and the records it asks for
+    (a return-path MX and an SPF TXT on a `send` name, a DKIM TXT on `resend._domainkey`, per Resend's DNS guide)
+    sit under the subdomain's own names, beside the root domain's records and not on them. Read the exact names and
+    values off the Resend dashboard; do not copy them from here. **Owner steps, none done by Claude:** create the Resend account; add
+    the subdomain there; add the DNS records exactly as the dashboard shows them (this is the one DNS change, and it
+    is the owner's to authorise); create an API key; set `RECOVERY_ENABLED`, `RESEND_API_KEY` and `MAIL_FROM` in
+    the Preview scope only. `MAIL_REPLY_TO` can stay unset, since replies already go to the support address.
+  - Check that the address in `MAIL_FROM` is on the verified subdomain; Resend refuses other domains.
 - **Translations.** The 24 recovery strings in `lib/orderI18n.js` were drafted by Claude in all eight languages and
   have not been read by a native speaker. They need that review before a buyer sees them.
 - **Production.** `RECOVERY_ENABLED` is set in Production only after this section and section 10 have passed.
