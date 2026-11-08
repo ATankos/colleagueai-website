@@ -231,9 +231,11 @@ Before the owner enables it anywhere real:
    (`tests/entitlement-concurrency.test.mjs` 3b, 3c, 4b).
 7. Every change to a buyer's record is one `EVAL` compare-and-set, so the thank-you page, the checkout webhook and
    the refund and dispute webhooks cannot overwrite one another (`tests/entitlement-concurrency.test.mjs`). The
-   Upstash token must be allowed to run `EVAL` (the default read-write token is). If eight attempts in a row lose
-   the race the call fails with `Entitlement update did not settle`: nothing was written, the webhook answers 5xx
-   and Stripe retries it; the thank-you page shows the "payment received" notice without a download link.
+   Upstash token must be allowed to run `EVAL`. Upstash documents `EVAL` over its REST API (the form used here), but
+   it has not been run against our database yet: check it once on a Preview (sandbox purchase, then refund; a Preview
+   writes only `preview:` keys). If eight attempts in a row lose the race the call fails with
+   `Entitlement update did not settle`: nothing was written, the webhook answers 5xx and Stripe retries it; the
+   thank-you page shows the "payment received" notice without a download link.
 
 ## 8. Continuous Certification (the subscription half)
 
