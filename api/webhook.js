@@ -135,7 +135,15 @@ async function fulfillSession(session, eventId) {
 
   try {
     const entitlement = await grantEntitlement(email, [slug], session.id);
-    console.log('[webhook] Entitlement granted:', entitlement);
+    /* Ids only: the stored record holds the buyer's email, and runtime logs are not the place for it. The
+     * session id finds the order in the Stripe dashboard (as in recordWithheldSale). grantEntitlement
+     * refuses a session that was already refunded or disputed and returns the old record with `refused`
+     * set, so say so instead of claiming a grant that did not happen. */
+    if (entitlement?.refused) {
+      console.warn('[webhook] Entitlement not granted (%s): session %s, %s, event %s', entitlement.refused, session.id, slug, eventId);
+    } else {
+      console.log('[webhook] Entitlement granted: session %s, %s, event %s', session.id, slug, eventId);
+    }
   } catch (err) {
     console.error('[webhook] Failed to write entitlement:', err);
     await releaseClaims(eventId, session.id);
