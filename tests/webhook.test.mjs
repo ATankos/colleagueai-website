@@ -14,6 +14,7 @@ import util from 'node:util';
 import http from 'node:http';
 import Stripe from 'stripe';
 import * as products from '../lib/products.js';
+import { casServe } from './kv-cas-fake.mjs';
 
 // dummy local-only signing secret (never a real credential)
 const SECRET = 'whsec_LOCAL_TEST_HARNESS_DUMMY';
@@ -28,6 +29,8 @@ let kvFail = false;
 const kvServer = http.createServer((req, res) => {
   const [, cmd, ...rest] = req.url.split('/').map(decodeURIComponent);
   if (kvFail) { res.writeHead(500); return res.end('forced failure'); }
+  // an entitlement change: EVAL compare-and-set posted as a JSON command; logged like the SET it stands for
+  if (req.method === 'POST') return casServe(kvStore, req, res, { onStored: (key) => kvLog.push({ op: 'SET', key }) });
   if (cmd === 'GET') { res.end(JSON.stringify({ result: kvStore.get(rest[0]) ?? null })); return; }
   if (cmd === 'SET') {
     const [key, value, ...flags] = rest;

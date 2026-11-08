@@ -16,6 +16,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
+import { casReply } from './kv-cas-fake.mjs';
 
 process.env.KV_REST_API_URL = 'http://kv.test';
 process.env.KV_REST_API_TOKEN = 'test-token';
@@ -42,8 +43,10 @@ global.fetch = async (url, init = {}) => {
     mails.push(JSON.parse(init.body));
     return { ok: true, status: 200, json: async () => ({ id: 'mail_1' }) };
   }
-  if (!u.startsWith('http://kv.test/')) throw new Error(`unexpected network call: ${u}`);
+  const kvCommand = u === 'http://kv.test' && init.method === 'POST'; // an entitlement change: EVAL compare-and-set (tests/kv-cas-fake.mjs)
+  if (!kvCommand && !u.startsWith('http://kv.test/')) throw new Error(`unexpected network call: ${u}`);
   if (kvDown) return { ok: false, status: 500, text: async () => 'kv down' };
+  if (kvCommand) return { ok: true, json: async () => ({ result: casReply(store, JSON.parse(init.body)) }) };
   const [cmd, ...args] = u.replace('http://kv.test/', '').split('/').map(decodeURIComponent);
   const limiterCmd = cmd === 'INCR' || (cmd === 'SET' && isLimiterKey(args[0]));
   if ((counterDown && limiterCmd) || (lookupDown && cmd === 'GET')) return { ok: false, status: 500, text: async () => 'partial outage' };

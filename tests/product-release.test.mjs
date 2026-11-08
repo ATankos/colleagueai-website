@@ -13,6 +13,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
+import { casReply } from './kv-cas-fake.mjs';
 import { join } from 'node:path';
 
 process.env.KV_REST_API_URL = 'http://kv.test';
@@ -21,7 +22,9 @@ process.env.DOWNLOAD_TOKEN_SECRET = 'test-download-secret';
 for (const k of ['R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_PUBLIC_ENDPOINT', 'R2_BUCKET_NAME', 'BLOB_STORE_ID', 'BLOB_READ_WRITE_TOKEN']) delete process.env[k];
 
 const store = new Map();
-global.fetch = async (url) => {
+global.fetch = async (url, init) => {
+  // entitlement changes are an EVAL compare-and-set, posted as a JSON command (see tests/kv-cas-fake.mjs)
+  if (init?.method === 'POST') return { ok: true, json: async () => ({ result: casReply(store, JSON.parse(init.body)) }) };
   const [cmd, ...args] = String(url).replace('http://kv.test/', '').split('/').map(decodeURIComponent);
   let result = null;
   if (cmd === 'GET') result = store.has(args[0]) ? store.get(args[0]) : null;
