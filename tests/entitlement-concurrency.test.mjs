@@ -91,7 +91,7 @@ const redisServer = http.createServer(async (req, res) => {
     return res.end(JSON.stringify({ result: execute(command) }));
   } catch (err) {
     res.writeHead(400);
-    return res.end(JSON.stringify({ error: String(err.message) }));
+    return res.end(JSON.stringify({ error: 'invalid command' }));
   }
 });
 
