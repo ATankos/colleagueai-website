@@ -34,7 +34,7 @@ export function casServe(store, req, res, { onCommand, onStored } = {}) {
       res.end(JSON.stringify({ result: casReply(store, command, onStored) }));
     } catch (err) {
       res.writeHead(400);
-      res.end(JSON.stringify({ error: String(err.message) }));
+      res.end(JSON.stringify({ error: 'invalid command' }));
     }
   });
 }
