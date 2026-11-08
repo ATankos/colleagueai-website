@@ -11,13 +11,16 @@
  */
 import test from 'node:test';
 import assert from 'node:assert';
+import { casReply } from './kv-cas-fake.mjs';
 
 process.env.KV_REST_API_URL = 'http://kv.test';
 process.env.KV_REST_API_TOKEN = 'test-token';
 
 const store = new Map();
 
-global.fetch = async (url) => {
+global.fetch = async (url, init) => {
+  // entitlement changes are an EVAL compare-and-set, posted as a JSON command (see tests/kv-cas-fake.mjs)
+  if (init?.method === 'POST') return { ok: true, json: async () => ({ result: casReply(store, JSON.parse(init.body)) }) };
   const [cmd, ...args] = String(url).replace('http://kv.test/', '').split('/').map(decodeURIComponent);
   let result = null;
   if (cmd === 'GET') result = store.has(args[0]) ? store.get(args[0]) : null;

@@ -11,12 +11,14 @@
 import { test, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import http from 'node:http';
+import { casServe } from './kv-cas-fake.mjs';
 
 const kvStore = new Map();
 let kvFail = false;
 const kvServer = http.createServer((req, res) => {
   const [, cmd, ...rest] = req.url.split('/').map(decodeURIComponent);
   if (kvFail) { res.writeHead(500); return res.end('forced failure'); }
+  if (req.method === 'POST') return casServe(kvStore, req, res); // an entitlement change: EVAL compare-and-set (tests/kv-cas-fake.mjs)
   if (cmd === 'GET') return res.end(JSON.stringify({ result: kvStore.get(rest[0]) ?? null }));
   if (cmd === 'SET') {
     const [key, value, ...flags] = rest;

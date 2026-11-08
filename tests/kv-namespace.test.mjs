@@ -12,6 +12,7 @@ import { test, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import http from 'node:http';
 import { readFileSync, readdirSync } from 'node:fs';
+import { casServe } from './kv-cas-fake.mjs';
 
 const strings = new Map();
 const sets = new Map();
@@ -19,6 +20,9 @@ const lists = new Map();
 let log = []; // every request the fake received, in order: { cmd, key }
 
 const kvServer = http.createServer((req, res) => {
+  // An entitlement change is an EVAL compare-and-set posted as a JSON command: its key is the fourth item
+  // (EVAL, script, key count, key, ...), and it is logged like every other command so the prefix check covers it.
+  if (req.method === 'POST') return casServe(strings, req, res, { onCommand: (c) => log.push({ cmd: String(c[0]).toUpperCase(), key: c[3] }) });
   const [, cmd, key, ...rest] = req.url.split('/').map(decodeURIComponent);
   log.push({ cmd, key });
   const reply = (result) => res.end(JSON.stringify({ result }));
@@ -188,7 +192,7 @@ test('every Redis command a Preview deployment sends is scoped to preview:', asy
   assert.deepEqual(log.filter((c) => !c.key.startsWith('preview:')), [],
     'DEFECT: a Preview deployment sent a command on an unprefixed (production) key');
   const used = new Set(log.map((c) => c.cmd));
-  for (const cmd of ['GET', 'SET', 'DEL', 'INCR', 'EXPIRE', 'SADD', 'SMEMBERS', 'LPUSH', 'LRANGE']) {
+  for (const cmd of ['GET', 'SET', 'EVAL', 'DEL', 'INCR', 'EXPIRE', 'SADD', 'SMEMBERS', 'LPUSH', 'LRANGE']) {
     assert.ok(used.has(cmd), `the sweep no longer exercises ${cmd}, so it cannot vouch for it`);
   }
   assert.deepEqual([...strings.keys()].filter((k) => !k.startsWith('preview:')), [],
