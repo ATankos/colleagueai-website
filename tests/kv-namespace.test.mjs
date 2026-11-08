@@ -154,8 +154,9 @@ test('every Redis command a Preview deployment sends is scoped to preview:', asy
     await db.grantEntitlement(EMAIL, [SLUG], 'cs_test_9');
     await db.revokeEntitlement(EMAIL, [SLUG], 'cs_test_9');
     await db.restoreEntitlement(EMAIL, [SLUG], 'cs_test_9');
-    // rate limiter and webhook claims
-    await db.rateLimit('demo:203.0.113.9', 5, 60);
+    // rate limiter (the first hit creates the counter with SET NX EX, the second counts it with INCR) and webhook claims
+    assert.equal(await db.rateLimit('demo:203.0.113.9', 1, 60), true);
+    assert.equal(await db.rateLimit('demo:203.0.113.9', 1, 60), false);
     await db.claimEvent('evt_1');
     await db.claimSession('cs_test_1');
     await db.releaseClaims('evt_1', 'cs_test_1');
