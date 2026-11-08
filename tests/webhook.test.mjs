@@ -8,8 +8,9 @@
  * IMPORTANT: assertions encode the INTENDED behaviour from the go-live spec. Tests that FAIL
  * document real defects (see GO-LIVE-TEST-REPORT.md) and become regression tests once fixed.
  */
-import { test, before, after, beforeEach } from 'node:test';
+import { test, before, after, beforeEach, mock } from 'node:test';
 import assert from 'node:assert';
+import util from 'node:util';
 import http from 'node:http';
 import Stripe from 'stripe';
 import * as products from '../lib/products.js';
@@ -674,4 +675,72 @@ test('13g. a basil+ subscription checkout records the subscription item period e
   const certId = kvStore.get('cert:sub:sub_basil_checkout');
   assert.ok(certId, 'a basil+ subscription checkout produced no certificate');
   assert.equal(JSON.parse(kvStore.get(`certification:${certId}`)).validUntil, new Date(periodEnd * 1000).toISOString());
+});
+
+// ── 14. log hygiene: the buyer's personal data stays out of the runtime log ─────────────────────────────
+/* Runtime logs are kept by Vercel and read by whoever has project access, so they are not the place for a
+   buyer's email address. The log line for a grant used to print the whole entitlement record, which holds the
+   email in clear. The session id finds the order in the Stripe dashboard (the same rule recordWithheldSale
+   follows), so that, the agent slug and the event id are all a log line needs. */
+const CANARY = 'pii.canary+log@example.com';
+const CANARY_LOCAL = 'pii.canary';
+
+/* Everything the handler prints while fn runs, formatted the way the runtime prints it (util.format). */
+async function captureConsole(fn) {
+  const lines = [];
+  const patched = ['log', 'info', 'warn', 'error'].map((level) =>
+    mock.method(console, level, (...args) => { lines.push(util.format(...args)); }));
+  try {
+    const result = await fn();
+    return { result, lines };
+  } finally {
+    patched.forEach((m) => m.mock.restore());
+  }
+}
+const leaks = (lines) => lines.filter((l) => {
+  const low = l.toLowerCase();
+  return low.includes(CANARY) || low.includes(CANARY_LOCAL);
+});
+
+test('14a. a grant is logged with the session, agent and event ids, and without the buyer email or the stored record', async () => {
+  const evt = makeEvent({ id: 'evt_log_a', sessionId: 'cs_log_a', email: CANARY });
+  const { result, lines } = await captureConsole(() => deliver(evt));
+  assert.equal(result.status, 200);
+  assert.ok(JSON.parse(kvStore.get('entitlement:' + CANARY)).slugs.includes(UNAPPROVED), 'precondition: the purchase was granted');
+  assert.deepEqual(leaks(lines), [], 'DEFECT: the buyer email reached the runtime log');
+  const grant = lines.find((l) => l.includes('Entitlement granted'));
+  assert.ok(grant, 'the grant is no longer logged at all');
+  for (const id of ['cs_log_a', UNAPPROVED, 'evt_log_a']) {
+    assert.ok(grant.includes(id), `the grant log line lost ${id}: ${grant}`);
+  }
+  assert.ok(!/stripeSessionIds|sessionSlugs|grantedAt|updatedAt/.test(grant), 'the stored entitlement record is still being dumped into the log');
+});
+
+test('14b. replaying a revoked session is logged as not granted, with no buyer email', async () => {
+  kvStore.set('entitlement:' + CANARY, JSON.stringify({ email: CANARY, slugs: [], revokedSessionIds: ['cs_log_b'], refundedSessionIds: ['cs_log_b'] }));
+  const { result, lines } = await captureConsole(() => deliver(makeEvent({ id: 'evt_log_b', sessionId: 'cs_log_b', email: CANARY })));
+  assert.equal(result.status, 200);
+  assert.deepEqual(JSON.parse(kvStore.get('entitlement:' + CANARY)).slugs, [], 'precondition: a revoked purchase stays revoked');
+  assert.deepEqual(leaks(lines), [], 'DEFECT: the buyer email reached the runtime log');
+  assert.ok(!lines.some((l) => l.includes('Entitlement granted')), 'DEFECT: the log says "granted" for a session that grantEntitlement refused');
+  const refused = lines.find((l) => l.includes('not granted'));
+  assert.ok(refused, 'the refused grant is not logged');
+  for (const id of ['session-revoked', 'cs_log_b', 'evt_log_b']) {
+    assert.ok(refused.includes(id), `the refused-grant log line lost ${id}: ${refused}`);
+  }
+});
+
+test('14c. grant, then full refund: no log line anywhere in the lifecycle carries the buyer email, and the revocation is logged', async () => {
+  stripeApiMode = 'ok';
+  const { result, lines } = await captureConsole(async () => {
+    const granted = await deliver(makeEvent({ id: 'evt_log_c1', sessionId: 'cs_log_c', email: CANARY }));
+    const refunded = await deliver(makeChargeEvent({ id: 'evt_log_c2', email: CANARY,
+      metadata: { checkout_session_id: 'cs_log_c', agent_slug: UNAPPROVED } }));
+    return { granted, refunded };
+  });
+  assert.equal(result.granted.status, 200);
+  assert.equal(result.refunded.status, 200);
+  assert.deepEqual(JSON.parse(kvStore.get('entitlement:' + CANARY)).slugs, [], 'precondition: the refund revoked the purchase');
+  assert.deepEqual(leaks(lines), [], 'DEFECT: the buyer email reached the runtime log');
+  assert.ok(lines.some((l) => l.includes('Entitlement revoked after charge.refunded') && l.includes('cs_log_c')), 'the revocation is not logged with its session id');
 });
