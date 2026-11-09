@@ -1,0 +1,62 @@
+{
+  "EnvironmentVariables": [
+    {
+      "SchemaName": "cai_SharePointSiteUrl",
+      "Value": "<https://<tenant>.sharepoint.com/sites/<site>>"
+    },
+    {
+      "SchemaName": "cai_ContractLibraryId",
+      "Value": "<GUID of the document library that receives contracts>"
+    },
+    {
+      "SchemaName": "cai_ReviewerUpn",
+      "Value": "<reviewer@yourtenant.com>"
+    },
+    {
+      "SchemaName": "cai_AdminAlertUpn",
+      "Value": "<admin@yourtenant.com>"
+    },
+    {
+      "SchemaName": "cai_ContractOwnerTeam",
+      "Value": "<exact name of the Dataverse owner team, e.g. Contracts - Legal>"
+    },
+    {
+      "SchemaName": "cai_BusinessTimeZone",
+      "Value": "Central Europe Standard Time"
+    },
+    {
+      "SchemaName": "cai_BusinessTimeZoneIana",
+      "Value": "Europe/Prague"
+    },
+    {
+      "SchemaName": "cai_RecomputeWindowDays",
+      "Value": "90"
+    },
+    {
+      "SchemaName": "cai_RecomputeFullPassDay",
+      "Value": "Monday"
+    }
+  ],
+  "ConnectionReferences": [
+    {
+      "LogicalName": "new_sharedcommondataserviceforapps_9d223",
+      "ConnectionId": "<Dataverse connection id>",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "cai_CAIContractIntelligenceAssistant.shared_commondataserviceforapps.shared-commondataser-2d707f83-c482-4aa4-a1d0-627309227a9f",
+      "ConnectionId": "<Dataverse connection id: a connection created in Power Automate or the import wizard keeps the agent unpublished (INSTALL section 7)>",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps"
+    },
+    {
+      "LogicalName": "new_sharedsharepointonline_5330e",
+      "ConnectionId": "<SharePoint connection id>",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline"
+    },
+    {
+      "LogicalName": "new_sharedteams_8e81b",
+      "ConnectionId": "<Microsoft Teams connection id>",
+      "ConnectorId": "/providers/Microsoft.PowerApps/apis/shared_teams"
+    }
+  ]
+}

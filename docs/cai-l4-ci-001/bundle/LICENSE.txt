@@ -1,0 +1,8 @@
+ColleagueAI Contract Intelligence & Register (SKU CAI-L4-CI-001), release 1.0.3.2
+Copyright (c) 2026 Colleague AI s.r.o. All rights reserved.
+
+Use of this software is governed by the ColleagueAI licence
+terms published at https://www.colleagueai.ai/license and the terms of sale at
+https://www.colleagueai.ai/terms, as in force on the date of purchase.
+
+Release status: controlled test release. Not for production use.
