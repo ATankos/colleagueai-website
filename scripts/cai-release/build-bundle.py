@@ -30,8 +30,19 @@ with zipfile.ZipFile(managed) as z:
     names = z.namelist()
     assert 'solution.xml' in names and 'customizations.xml' in names
 
-for f in ['START-HERE.md', 'INSTALL.md', 'DOSSIER.pdf', 'LICENSE.txt', 'deploymentSettings.template.json', 'check-cai-install-readiness.mjs']:
-    shutil.copy(src / f, folder / f)
+# Sources: bundle texts in <bundle-src>; INSTALL.md, the readiness script and the dossier PDF from their
+# repository locations when <bundle-src> is docs/cai-l4-ci-001/bundle, else from <bundle-src> itself.
+repo = src.parent.parent.parent if src.name == 'bundle' else None
+sources = {
+    'START-HERE.md': src / 'START-HERE.md',
+    'LICENSE.txt': src / 'LICENSE.txt',
+    'deploymentSettings.template.json': src / 'deploymentSettings.template.json',
+    'INSTALL.md': (repo / 'docs/cai-l4-ci-001/INSTALL.md') if repo else src / 'INSTALL.md',
+    'check-cai-install-readiness.mjs': (repo / 'scripts/check-cai-install-readiness.mjs') if repo else src / 'check-cai-install-readiness.mjs',
+    'DOSSIER.pdf': (repo / 'public/docs/agents/contract-intelligence-and-register.pdf') if repo else src / 'DOSSIER.pdf',
+}
+for name, path in sources.items():
+    shutil.copy(path, folder / name)
 shutil.copy(managed, folder / managed.name)
 
 CSS = ("body{font-family:Segoe UI,Arial,sans-serif;font-size:11pt;line-height:1.4;margin:0 6mm}"
@@ -50,6 +61,34 @@ def pdf(md_name, pdf_name):
                     str(html), str(folder / pdf_name)], check=True)
     html.unlink()
     css.unlink()
+    normalise_pdf(folder / pdf_name)
+
+
+def normalise_pdf(path):
+    """Strip the build-time fields wkhtmltopdf writes (dates, producer, document id) so that the same
+    Markdown always gives the same bytes; content streams are untouched."""
+    import re
+    from pypdf import PdfReader, PdfWriter
+    from pypdf.generic import ArrayObject, ByteStringObject
+    # font subset tags are random six capitals (QABAAA+Inter-Bold); give them deterministic names of equal length
+    raw = path.read_bytes()
+    import hashlib
+    pairs = {}
+    for m in re.finditer(rb'/([A-Z]{6})\+([A-Za-z0-9-]+)', raw):
+        pairs.setdefault(m.group(1), m.group(2))
+    for tag, base in pairs.items():  # new tag derived from the base font name, so it is the same in every build
+        h = hashlib.sha256(base).digest()
+        new_tag = bytes(65 + (x % 26) for x in h[:6])
+        raw = raw.replace(b'/' + tag + b'+', b'/' + new_tag + b'+')
+    path.write_bytes(raw)
+    reader = PdfReader(str(path))
+    writer = PdfWriter()
+    writer.append(reader)
+    writer.add_metadata({'/Title': path.stem, '/Producer': 'ColleagueAI bundle build', '/Creator': 'pandoc + wkhtmltopdf',
+                         '/CreationDate': 'D:20260101000000Z', '/ModDate': 'D:20260101000000Z'})
+    writer._ID = ArrayObject([ByteStringObject(b'\x00' * 16), ByteStringObject(b'\x00' * 16)])
+    with open(path, 'wb') as fh:
+        writer.write(fh)
 
 
 pdf('START-HERE.md', 'START-HERE.pdf')
@@ -78,8 +117,11 @@ bundle = out / f'{NAME}.zip'
 if bundle.exists():
     bundle.unlink()
 with zipfile.ZipFile(bundle, 'w', zipfile.ZIP_DEFLATED) as z:
-    for p in sorted(folder.iterdir()):
-        z.write(p, f'{NAME}/{p.name}')
+    for p in sorted(folder.iterdir()):  # fixed entry timestamps, so the same content gives the same zip bytes
+        info = zipfile.ZipInfo(f'{NAME}/{p.name}', date_time=(2026, 11, 9, 12, 0, 0))
+        info.compress_type = zipfile.ZIP_DEFLATED
+        info.external_attr = 0o644 << 16
+        z.writestr(info, p.read_bytes())
 with zipfile.ZipFile(bundle) as z:
     assert z.testzip() is None
     listed = sorted(n.split('/', 1)[1] for n in z.namelist())
