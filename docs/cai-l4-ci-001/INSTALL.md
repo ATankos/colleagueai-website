@@ -1,18 +1,12 @@
 <!--
-PROPOSED TEXT. Not part of any shipped bundle.
-
-This is the proposed replacement for INSTALL.md in the next bundle build (1.0.3.2). The shipped
-1.0.3.1 bundle is unchanged. Sections 3 and 5 assume the rebuilt package makes all five values
-required at import. Every statement about what the import, the flows, the role or the agent do
-was read from a real install of 1.0.3.1. The text must be walked through on the rebuilt package
-before it ships. The statements about Review gate (Teams) in sections 4, 5 and the appendix
-describe 1.0.3.1 and stay only if that walk-through shows the same. The rebuild plan and its test
-evidence are kept in private documentation, not in this repository.
+INSTALL.md of bundle CAI-L4-CI-001 1.0.3.2. Every statement about what the import, the flows, the role or the
+agent do was read from real installs of 1.0.3.1 and from the connection and publishing test of 9 Nov 2026. The
+statements marked "to be confirmed" are re-read on the first fresh install of 1.0.3.2 before the bundle ships.
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 (proposed) · **Bundle revision** 1
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 1
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -44,7 +38,7 @@ Tick off each item before you import.
 One managed solution, `CAIContractIntelligence` version 1.0.3.2, which contains:
 
 - **Four Dataverse tables:** Contracts, Reviews, Field evidence and Job runs.
-- **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account.
+- **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account. The daily recompute recalculates only contracts whose dates can move within the next 90 days (setting), with a full pass once a week (setting), so its Copilot Studio usage stays roughly flat as the register grows.
 - **Two compute flows** used by the agent: they have no connection of their own and only work on data the asking user is allowed to read.
 - **One Copilot Studio agent:** *CAI Contract Intelligence Assistant*. You do not publish it (section 7). When it is used, it reads the register **with the signed-in user's own identity**.
 - **One security role:** *CAI Contract Reader*. For contract data it is **read-only**: Read on Contracts and Field evidence, limited to records owned by the user's team, and nothing else on any ColleagueAI table. It also carries the read-only platform basics every Dataverse role carries. On a fresh import Dataverse may add two more standard platform privileges to the role, Create and Write on its private *SharePoint Data* system table. Every standard role in the environment, including Basic User, already holds both; they apply to that private table, not to the contract tables, and need no action. In our tests both fresh imports showed 11 privileges and an upgrade showed 9.
@@ -63,7 +57,15 @@ You will be asked for these during the import. Write them down first. **All five
 | **Admin for alerts** | The admin's sign-in email | For example `it.admin@contoso.com` |
 | **Contract owner team** | The exact team name from section 1 | For example `Contracts - Legal`. Every new contract is assigned to this team. |
 
-Two more settings have defaults and can stay as they are: business time zone `Central Europe Standard Time` (Windows ID) and `Europe/Prague` (IANA ID).
+Four more settings have defaults and can stay as they are:
+
+| Setting | Default | What it does |
+|---|---|---|
+| **Business time zone** | `Central Europe Standard Time` (Windows ID) and `Europe/Prague` (IANA ID) | Dates in answers and the daily job are calculated in this zone. |
+| **Recompute window (days)** | `90` | The daily job recalculates a contract only when its notice deadline or term end falls within this many days, or when it has never been calculated. |
+| **Full recompute day** | `Monday` | On this weekday the daily job recalculates every approved contract. Enter `Never` to switch the full pass off. |
+
+Contracts outside the window are still recalculated the moment one of their documents changes or is approved.
 
 **What each value switches on.** A flow turns on only when everything it needs is filled in (section 5).
 
@@ -78,11 +80,11 @@ Two more settings have defaults and can stay as they are: business time zone `Ce
 1. Go to **make.powerapps.com** and pick your environment (top right).
 2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.2.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_2_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
 3. Open **Solutions → Import solution → Browse**, choose that inner file, and click **Next**.
-4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Pick the same Dataverse connection for both Dataverse references, and use one System Administrator account for all connections. (The second Dataverse reference belongs to the agent; when people chat, it reads the register with each user's own sign-in, not with this connection.) Each reference must show a connection before you continue.
+4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **With a connection created in the wizard or in Power Automate, the import cannot publish the agent, and the agent stays a draft, which is what this guide wants** (section 7 explains, and describes the publishing procedure for later). Each reference must show a connection before you continue.
 5. **Environment variables.** Enter the five values from section 3, then click **Import**.
 6. Wait for the green "Solution imported successfully" message. This usually takes 2–5 minutes.
 
-**What the import leaves behind:** the solution is installed and the flows whose values and connections are complete are On, except **Review gate (Teams)**, which the import has left Off every time we tried (section 5). The agent exists, but you must look at its state (section 7), because the import also tries to publish it. Go to section 5.
+**What the import leaves behind:** the solution is installed and the flows whose values and connections are complete are On, except **Review gate (Teams)**, which the import left Off in every install of 1.0.3.1 we made (section 5; to be confirmed on 1.0.3.2). The agent exists as a draft; look at its state anyway (section 7), because the import also tries to publish it. Go to section 5.
 
 **Upgrading?** Import the same way; Power Platform upgrades the solution.
 - **From 1.0.2.0:** the upgrade also removes the two old agent tools. Then do section 6, and assign your **existing** contracts and their field evidence to the team (Contracts table → select all → **Assign** → the team; then the same for Field evidence). Until you do, existing contracts are visible to nobody except administrators.
@@ -122,6 +124,17 @@ The import tries to turn on all seven flows. A flow that is still **Off** is eit
 
 The **Flow checker** only says *This flow is off* for a switched-off flow; it does not tell you why. Use the table above.
 
+**Automatic readiness check (optional, recommended).** The bundle contains `check-cai-install-readiness.mjs`. It reads your environment and reports the solution version, the five values, the four connection references, the seven flows, the security role and the agent's state; it fails when a required flow is Off and changes nothing. You need Node.js 20 or later and the Azure CLI signed in as the installing administrator:
+
+```
+set DATAVERSE_TOKEN=<token>      (PowerShell: $env:DATAVERSE_TOKEN = az account get-access-token --resource https://ORG.crm4.dynamics.com --query accessToken -o tsv)
+node check-cai-install-readiness.mjs --url https://ORG.crm4.dynamics.com --expect-version 1.0.3.2 --daily-recompute off
+```
+
+Replace `ORG.crm4.dynamics.com` with your environment URL (Power Platform admin center → Environments → your environment → *Environment URL*). The last line says `READY` or `NOT READY`.
+
+**While you test: keep Daily recompute Off.** The daily job runs every morning at 05:30 Central European Time and uses Copilot Studio capacity for every contract it recalculates. In a test environment, select **Daily recompute → Turn off** after the import and turn it on when you go live; the readiness check accepts this with `--daily-recompute off`. Answers from the agent do not depend on the daily job: terms are recalculated the moment a document is approved or changed, and "days left" is always counted from today.
+
 **Without Review gate on, uploads are extracted but no review card ever reaches the reviewer.**
 
 If you linked the pay-as-you-go plan **after** the flows were on, turn **Extract contract on upload** and **Review gate (Teams)** off and on once. Otherwise the first upload may be skipped.
@@ -143,12 +156,12 @@ How it works:
 
 ## 7. The agent: you do not publish it (mandatory checks after every import)
 
-**What the import does.** The import creates the agent *CAI Contract Intelligence Assistant* as a draft, and Power Platform then **tries to publish it by itself**. In our tests this succeeded for release 1.0.2.0. For release 1.0.3.1, which has the same agent content as this release, it failed in one fresh install and succeeded in another, so look at what you actually have.
+**What the import does.** The import creates the agent *CAI Contract Intelligence Assistant* as a draft, and Power Platform then **tries to publish it by itself**. Whether that succeeds depends on one thing we found in testing: the **Dataverse connection bound to the agent's connection reference**. A connection created in the import wizard or in Power Automate → Connections is refused by the publish (*ConnectionNotShared*) and the agent stays a draft. A connection created from inside Copilot Studio is accepted and the agent is published. Section 4 therefore tells you to use a wizard or Power Automate connection, so that the agent stays a draft until you decide otherwise. Look at what you actually have.
 
 | After the import, in Microsoft 365 admin center → Agents → All agents | What it means | What to do |
 |---|---|---|
-| The agent is **Draft** | The automatic publish did not succeed (in one of our two tests of 1.0.3.1 it failed with *ConnectionNotShared*). A draft has no published version, so it cannot be reached through any channel; only people who can open it in Copilot Studio can try it, in the test pane. | Nothing. Leave it as it is. **Do not click Publish to clear the message.** |
-| The agent is **Available** | The automatic publish succeeded and the agent is offered to your organisation. In our second test of 1.0.3.1 the entry showed **Available**, shared with nobody, within minutes of the import. | Select the agent → **Block**. Then do checks 2 to 5 below. |
+| The agent is **Draft** | The automatic publish did not succeed (expected with a wizard or Power Automate connection; the message in Copilot Studio reads *ConnectionNotShared*). A draft has no published version, so it cannot be reached through any channel; only people who can open it in Copilot Studio can try it, in the test pane. | Nothing. Leave it as it is. **Do not click Publish to clear the message.** |
+| The agent is **Available** | The automatic publish succeeded (the agent's reference got a Copilot Studio-created connection) and the agent is listed for your organisation. In one of our installs the entry showed **Available**, shared with nobody, within minutes of the import. | Select the agent → **Block**. Then do checks 2 to 5 below. |
 
 **Checks after every import, including upgrades:**
 
@@ -162,13 +175,23 @@ Team membership (section 6) decides **what** each user sees; sharing, channels a
 
 ### If you decide to publish later
 
-This release has no tested publishing procedure, so this guide does not describe one. Do not publish until **all** of these are true, and record who decided:
+Do not publish until **all** of these are true, and record who decided:
 
 - The first test (section 9) passed.
 - A second person who is a member of the owner team has used the agent in your environment and saw the right contracts, and a person outside the team saw none. ColleagueAI has not tested this end to end (section 10).
 - The agent will be shared only with a named security group, never with everyone.
 - *Authenticate with Microsoft* is on, and the Teams channel stays off until you have reviewed it separately.
 - A cost alert is in place (section 1).
+
+**Publishing procedure (tested once by ColleagueAI on 9 November 2026 on release 1.0.3.1, whose agent is identical).** Signed in as the installing System Administrator:
+
+1. **Copilot Studio → the agent → Tools → + Add a tool → Microsoft Dataverse.** In the *Connection* box choose **Create new connection**, sign in with the same administrator account, wait until it shows **Connected**, then **Cancel** the dialog: do **not** add the tool. You now have a Dataverse connection created by Copilot Studio.
+2. **make.powerapps.com → Solutions → CAIContractIntelligence → Connection references.** Open the reference whose name starts with `cai_CAIContractIntelligenceAssistant`, choose the connection you just created in the *Connection* box, and **Save**. Leave the other three references as they are.
+3. **Copilot Studio → the agent → Publish.** Leave *Force newest version* unticked and confirm **Publish**. The header shows *Published* with today's date after about a minute. The two topics keep running with each user's own sign-in; nothing in the agent changes.
+4. **Microsoft 365 admin center → Agents → All agents:** the entry now shows **Available**, shared with nobody. Select it → **Block** until step 5 is done.
+5. **Copilot Studio → the agent → Share:** share with the **named security group** only. Then **Unblock** the entry in the admin center and run checks 1 to 5 again. ColleagueAI has tested steps 1 to 4 once (publish succeeded, entry blocked); step 5 and a chat session by a second user are not yet tested (section 10).
+
+If step 3 fails with *ConnectionNotShared*, the reference in step 2 still points at a wizard or Power Automate connection: repeat steps 1 and 2.
 
 After any publication, run checks 1 to 5 again.
 
@@ -178,7 +201,7 @@ After any publication, run checks 1 to 5 again.
 |---|---|---|
 | The agent is **Available** after an import | The automatic publish succeeded. | Select it → **Block**; run checks 2 to 5; tell support which release and which environment region. |
 | The agent is **Available** after an **upgrade** | The previously published version stays reachable after an upgrade. | Select it → **Block**. The published version is the previous one until your organisation publishes again. |
-| The agent is **Draft** although the import finished | The automatic publish failed, as in one of our tests (*ConnectionNotShared*). The agent has no published version and cannot be reached through any channel. | Nothing. Test in the Copilot Studio test pane (section 9). |
+| The agent is **Draft** although the import finished | The automatic publish failed (*ConnectionNotShared*): expected with a wizard or Power Automate connection. The agent has no published version and cannot be reached through any channel. | Nothing. Test in the Copilot Studio test pane (section 9). |
 | Someone outside the owner team can talk to the agent | It was published, shared or given a channel. | Block it in the admin center; in Copilot Studio remove sharing and disconnect every channel; run checks 1 to 5; contact support. |
 | You blocked the agent and now need it | Blocking is reversible. | Only after the conditions under *If you decide to publish later* are met: select the agent → **Unblock**, then run checks 1 to 5. |
 
@@ -198,7 +221,9 @@ Use an account that is a **member of the contract owner team**.
    - The first time, a **Connect to continue** card appears: click **Allow**. This lets the agent read the register as you.
    - The answer states the as-of date and time zone, and lists approved contracts of your team only.
 4. **Correct** a value on a second card. It is recorded as *Needs correction*, and a follow-up card arrives.
-5. **Next morning:** the **Job runs** table shows the daily recompute with status *SUCCEEDED*.
+5. **Next morning** (only if Daily recompute is On): the **Job runs** table shows the daily recompute with status *SUCCEEDED*, and its details show how many contracts the run covered.
+
+**If you upload the same contract twice** (same contract reference, both approved), the newer approved document holds the effective terms and the older one is marked *SUPERSEDED* in its notice status. The agent answers from the newer one and the older one is not recalculated again.
 
 If step 1 shows nothing after 5 minutes, check that:
 - the environment has Copilot Studio capacity (section 1);
@@ -209,11 +234,12 @@ If step 1 shows nothing after 5 minutes, check that:
 
 | Limitation | What it means for you |
 |---|---|
-| **The agent is not published by you** | The import tries to publish it. In our tests it failed once and succeeded once; if it succeeded, block the entry (section 7). You do not publish it yourself and you test it in the Copilot Studio test pane. |
+| **The agent is not published by the import** | With the connections of section 4 the import's own publish attempt fails and the agent stays a draft. If it shows **Available** anyway, block the entry (section 7). You test it in the Copilot Studio test pane; publishing is a separate procedure (section 7), tested once. |
 | **Access is per team, not per contract** | Every member of the owner team sees all of that team's contracts. All new uploads go to the one team you set in section 3; assigning by folder is planned. |
 | **Second-user chat not yet tested end to end** | Per-user access was verified in Dataverse with a test user joining and leaving a team. A full chat session by a second, separately licensed user has not yet been run. |
 | **Role shows 9 or 11 privileges** | Both fresh imports showed 11 and an upgrade 9. The two extra are standard platform privileges on a private system table (section 2). |
-| **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. |
+| **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The new window logic has been checked statically and not yet observed over a full week in a test register. |
+| **Duplicate approved masters** | When the same contract reference is uploaded and approved twice, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Amendments are matched to their master by contract reference. |
 | **Text-based English PDFs only** | Scanned (image-only) PDFs are not read. |
 | **Processing region** | Generative-AI processing follows your environment's region settings. If *Move data across regions* is allowed, processing may happen outside your region. Check this setting if data location matters to you. |
 | **Running costs** | Each contract uses Copilot Studio capacity: extraction, review, recalculation and questions. ColleagueAI will publish a measured cost per contract. Until then, start with a few contracts and watch your Azure costs. |
@@ -232,8 +258,9 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 | ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.2, Managed |
 | ☐ | Connections | Power Automate → Connections | Dataverse, SharePoint and Teams, all **Connected**, owned by a System Administrator account |
 | ☐ | Connection references | Solutions → CAIContractIntelligence → Connection references | Four, each with a connection |
-| ☐ | Environment variables | Solutions → CAIContractIntelligence → Environment variables | Five with a current value; the two time zones with their defaults |
-| ☐ | Flows | Solutions → CAIContractIntelligence → Cloud flows | Seven, all **On** |
+| ☐ | Environment variables | Solutions → CAIContractIntelligence → Environment variables | Five with a current value; the two time zones, the recompute window and the full recompute day with their defaults |
+| ☐ | Flows | Solutions → CAIContractIntelligence → Cloud flows | Seven, all **On** (Daily recompute may stay Off while testing) |
+| ☐ | Readiness check (optional) | `node check-cai-install-readiness.mjs …` | Last line `READY` |
 | ☐ | Owner team | Power Platform admin center → Teams | Name equals the *Contract owner team* value; type Owner; role CAI Contract Reader; members added |
 | ☐ | Security role | Security roles → CAI Contract Reader | Read only on Contract and Field evidence; 9 or 11 privileges in total |
 | ☐ | Agent status | Microsoft 365 admin center → Agents | **Draft** or **Blocked**; never **Available** |
