@@ -2,8 +2,8 @@
 // Post-installation readiness check for ColleagueAI Contract Intelligence & Register (CAI-L4-CI-001).
 // Read-only: it only sends GET requests to the Dataverse Web API of the environment you name.
 //
-//   DATAVERSE_TOKEN="$(az account get-access-token --resource https://ORG.crm4.dynamics.com --query accessToken -o tsv)" \
-//   node scripts/check-cai-install-readiness.mjs --url https://ORG.crm4.dynamics.com [--expect-version 1.0.3.2] [--daily-recompute off]
+//   DATAVERSE_TOKEN="$(az account get-access-token --resource https://ORG.crmN.dynamics.com --query accessToken -o tsv)" \
+//   node scripts/check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com [--expect-version 1.0.3.2] [--daily-recompute off]
 //
 // Exit code 0 = ready; 1 = at least one required check failed (for example a flow is still Off); 2 = usage error.
 // --daily-recompute off : accept the Daily recompute flow being Off (recommended while you test; see INSTALL section 5).

@@ -3,7 +3,7 @@
   "sku": "CAI-L4-CI-001",
   "release": "1.0.3.2",
   "tier": "CAI L4 — Decide (supervised)",
-  "bundleRevision": 1,
+  "bundleRevision": 2,
   "status": "controlled test release; not for production use",
   "publisher": "Colleague AI s.r.o.",
   "solution": {
@@ -21,8 +21,8 @@
   "knownLimitations": [
     "Access is per owner team: all members of the team see all of its contracts; all new uploads go to one team set at install",
     "Per-user access verified at Dataverse level; a full chat session by a second licensed user is not yet tested",
-    "The import tries to publish the agent and, with the connections INSTALL section 4 prescribes, fails: the agent stays a draft. The agent check (INSTALL section 7) is mandatory after every import; the publishing procedure in section 7 has been tested once",
-    "Review gate (Teams) may be left Off by the import and is turned on by hand (INSTALL section 5)",
+    "The import tries to publish the agent on its own; this failed in two installs and succeeded in one (clean install of 1.0.3.2). The agent check in Microsoft 365 admin center (INSTALL section 7) is mandatory right after every import; block an Available entry. The deliberate publishing procedure in section 7 has been tested once",
+    "Review gate (Teams) is left Off by the import (seen in all three installs) and is turned on by hand (INSTALL section 5)",
     "Daily recompute runs at 05:30 Central European Time; it recalculates only contracts with a deadline or term end inside the recompute window (default 90 days) and all contracts on the full recompute day (default Monday); keep it Off while testing",
     "Text-based English PDFs only"
   ],
