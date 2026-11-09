@@ -1,6 +1,6 @@
 # START HERE — ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 2 · **Tier** CAI L4 — Decide (supervised)
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 3 · **Tier** CAI L4 — Decide (supervised)
 
 > **Release status: controlled test release. Not for production use.**
 > Each user sees only the contracts owned by their Dataverse owner team (INSTALL section 6).

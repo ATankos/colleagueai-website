@@ -1,12 +1,12 @@
 <!--
 INSTALL.md of bundle CAI-L4-CI-001 1.0.3.2. Every statement about what the import, the flows, the role or the
 agent do was read from real installs of 1.0.3.1, from the connection and publishing test of 9 Nov 2026 and from
-the clean install of 1.0.3.2 on 9 Nov 2026 (bundle revision 2 records what that install showed).
+the clean install of 1.0.3.2 on 9 Nov 2026 (bundle revision 2 records what that install showed; revision 3 only corrects the description text inside the managed solution).
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 2
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 3
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
