@@ -3,11 +3,11 @@ PROPOSED TEXT. Not part of any shipped bundle.
 
 This is the proposed replacement for INSTALL.md in the next bundle build (1.0.3.2). The shipped
 1.0.3.1 bundle is unchanged. Sections 3 and 5 assume the rebuilt package makes all five values
-required at import (rebuild-checklist.md, change 3). Every statement about what the import, the
-flows, the role or the agent do was read from a real install (two fresh installs of 1.0.3.1);
-rebuild-checklist.md lists what still has to be re-tested on the rebuilt package before this text
-can ship. The statements about Review gate (Teams) in sections 4, 5 and the appendix describe
-1.0.3.1 and stay only if retest 1 on the rebuilt package shows the same.
+required at import. Every statement about what the import, the flows, the role or the agent do
+was read from a real install of 1.0.3.1. The text must be walked through on the rebuilt package
+before it ships. The statements about Review gate (Teams) in sections 4, 5 and the appendix
+describe 1.0.3.1 and stay only if that walk-through shows the same. The rebuild plan and its test
+evidence are kept in private documentation, not in this repository.
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register

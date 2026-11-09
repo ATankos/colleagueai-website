@@ -6,7 +6,7 @@
 //
 // Unpack the managed zip first, for example with `pac solution unpack --zipfile <file> --folder <dir>`.
 // This script is not part of CI: the solution is built outside this repository, so there is nothing
-// here for CI to check. It encodes the checks in docs/cai-l4-ci-001/rebuild-checklist.md (section 3).
+// here for CI to check. Checks C1 to C8 below are the acceptance checks for a rebuilt package.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
