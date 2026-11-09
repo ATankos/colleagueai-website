@@ -3,7 +3,7 @@
   "sku": "CAI-L4-CI-001",
   "release": "1.0.3.2",
   "tier": "CAI L4 — Decide (supervised)",
-  "bundleRevision": 2,
+  "bundleRevision": 3,
   "status": "controlled test release; not for production use",
   "publisher": "Colleague AI s.r.o.",
   "solution": {
