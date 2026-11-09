@@ -6,7 +6,7 @@
 //
 // Unpack the managed zip first, for example with `pac solution unpack --zipfile <file> --folder <dir>`.
 // This script is not part of CI: the solution is built outside this repository, so there is nothing
-// here for CI to check. Checks C1 to C8 below are the acceptance checks for a rebuilt package.
+// here for CI to check. Checks C1 to C9 below are the acceptance checks for a rebuilt package.
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
@@ -133,6 +133,26 @@ const flows = [...customizations.matchAll(/<Workflow [^>]*Name="([^"]+)"[\s\S]*?
 const notActive = flows.filter((m) => !(/<StateCode>1<\/StateCode>/.test(m[0]) && /<StatusCode>2<\/StatusCode>/.test(m[0]))).map((m) => m[1]);
 check('C8', 'Every cloud flow is exported Activated', flows.length > 0 && notActive.length === 0,
   `${flows.length} flows; not activated: ${notActive.join(', ') || 'none'}`);
+
+// C9 shape of the package is unchanged: 4 tables, 7 cloud flows, 4 connection references, 1 role, 2 topics
+const tables = (solutionXml.match(/<RootComponent type="1" /g) || []).length;
+const topicsDir = join(dir, 'botcomponents');
+let topics = 0;
+const makerMode = [];
+if (existsSync(topicsDir)) {
+  for (const f of walk(topicsDir)) {
+    if (!f.endsWith('/data') && !f.endsWith('\\data')) continue;
+    const text = readFileSync(f, 'utf8');
+    if (!/connectionReference:/.test(text)) continue; // only the topics that call a connector count
+    topics += 1;
+    if (!/mode:\s*Invoker/.test(text) || /mode:\s*Maker/.test(text)) makerMode.push(relative(dir, f));
+  }
+}
+const shape = { tables, flows: flows.length, connectionReferences: refs.length, roles: roleBlocks.length, topics };
+const expectedShape = { tables: 4, flows: 7, connectionReferences: 4, roles: 1, topics: 2 };
+const shapeOk = Object.keys(expectedShape).every((k) => shape[k] === expectedShape[k]);
+check('C9', 'Package shape unchanged (4 tables, 7 flows, 4 connection references, 1 role, 2 connector topics in Invoker mode)',
+  shapeOk && makerMode.length === 0, `${JSON.stringify(shape)}; topics not in Invoker mode: ${makerMode.join(', ') || 'none'}`);
 
 let failed = 0;
 for (const r of results) {
