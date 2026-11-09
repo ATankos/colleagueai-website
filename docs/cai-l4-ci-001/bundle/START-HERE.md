@@ -1,6 +1,6 @@
 # START HERE — ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 1 · **Tier** CAI L4 — Decide (supervised)
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 2 · **Tier** CAI L4 — Decide (supervised)
 
 > **Release status: controlled test release. Not for production use.**
 > Each user sees only the contracts owned by their Dataverse owner team (INSTALL section 6).
@@ -14,7 +14,7 @@
 | `INSTALL.pdf` / `.md` | Step-by-step installation, access setup, safety check and first test (about 60 minutes) | IT administrator |
 | `CAIContractIntelligence_1_0_3_2_managed.zip` | The Microsoft Power Platform solution. Import this file as it is; **don't extract it** (you only extract the outer bundle) | IT administrator |
 | `deploymentSettings.template.json` | Only needed when installing from the command line | IT administrator |
-| `check-cai-install-readiness.mjs` | Optional read-only check after the install: flows on, values set, agent not published (INSTALL section 5) | IT administrator |
+| `check-cai-install-readiness.mjs` | Optional read-only check after the install: flows on, values set, whether the agent got published (INSTALL section 5) | IT administrator |
 | `LICENSE.txt` | Licence terms and where they are published | Buyer, legal |
 | `MANIFEST.json`, `SHA256SUMS.txt` | Contents, versions and checksums of this bundle | IT administrator |
 
