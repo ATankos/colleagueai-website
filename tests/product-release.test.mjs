@@ -234,7 +234,7 @@ test('download: the connect package of an agent with no release record is not he
 }));
 
 test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved release; test keys can', async () => {
-  assert.equal(product.saleApproved, false, 'release 1.0.3.2 is a controlled test release, not approved for sale');
+  assert.equal(product.saleApproved, false, 'release 1.0.3.4 is a controlled test release, not approved for sale');
   for (const key of ['sk_live_not_a_real_key', 'rk_live_not_a_real_key']) {
     await withEnv({ STRIPE_SECRET_KEY: key, CHECKOUT_ENABLED: undefined }, async () => {
       const res = mockRes();
