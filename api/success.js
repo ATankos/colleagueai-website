@@ -15,8 +15,8 @@
 import Stripe from 'stripe';
 import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
-import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld, releaseOfVersion } from '../lib/products.js';
-import { releaseVersionForSession } from '../lib/releaseAccess.js';
+import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld } from '../lib/products.js';
+import { releaseVersionForSession, releaseForBoughtVersion } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recoverHint } from '../lib/recovery.js';
 import { SLUG_TIER, titleFromSlug } from './checkout.js';
@@ -157,12 +157,13 @@ export function deliveryHtml(email, slug, lang = 'en', release = undefined) {
     `</ol>${docsNote}</section>`;
 }
 
-/** The release record a fulfilled purchase bought, or undefined (current release) for a product with no release history. */
-function boughtRelease(entitlement, session, slug) {
+/** The release record to offer for a fulfilled purchase: the release it bought, or the newest corrective release of
+ *  it (1.0.3.4 for a 1.0.3.2 purchase); undefined (current release) for a product with no release history. */
+export function boughtRelease(entitlement, session, slug) {
   const product = productFor(slug);
   if (!product?.release) return undefined;
   const version = entitlement?.sessionReleases?.[session.id]?.[slug] ?? releaseVersionForSession(session, product);
-  return releaseOfVersion(slug, version) ?? null;
+  return releaseForBoughtVersion(product, version);
 }
 
 export default async function handler(req, res) {

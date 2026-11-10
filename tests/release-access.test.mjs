@@ -33,7 +33,7 @@ const products = await import('../lib/products.js');
 const db = await import('../lib/db.js');
 const { signDownload, openDownload } = await import('../lib/downloadToken.js');
 const download = (await import('../api/download.js')).default;
-const { deliveryHtml } = await import('../api/success.js');
+const { deliveryHtml, boughtRelease } = await import('../api/success.js');
 
 const SLUG = 'contract-intelligence-and-register';
 const OLD_SLUG = 'contract-summarisation-agent';
@@ -216,4 +216,29 @@ test('thank-you page: shows the release given to it, and no package link when th
   const none = deliveryHtml('b@example.com', SLUG, 'en', null);
   assert.doesNotMatch(none, /\.zip/);
   assert.deepEqual(links(none), ['dossier.pdf']);
+}));
+
+// A release withdrawn for a defect (1.0.3.2 counted month-based notice periods as days) is never offered again: its
+// package was never stored, and the corrective release that names it (1.0.3.4, correctiveFor 1.0.3.2) is part of the
+// same licence. The version bought stays covered at the download endpoint; only the link a page offers changes.
+test('a version replaced by a corrective release is offered as that corrective release; the right to the bought version stays', () => withEnv({ RELEASE_TEST_DELIVERY: '1' }, async () => {
+  const fixed = { ...PRODUCT, previousReleases: [...PRODUCT.previousReleases, { version: '1.0.3.4', package: 'CAI-L4-CI-001_1.0.3.4.zip', releasedAt: '2026-11-10', correctiveFor: ['1.0.3.2', '1.0.3.3'] }] };
+  assert.equal(access.releaseForBoughtVersion(fixed, '1.0.3.2').version, '1.0.3.4');
+  assert.equal(access.releaseForBoughtVersion(fixed, '1.0.3.3').version, '1.0.3.4', 'a corrected version that was never listed');
+  assert.equal(access.releaseForBoughtVersion(fixed, '1.1.0').version, '1.1.0', 'a release with no fix is offered as itself');
+  assert.equal(access.releaseForBoughtVersion(fixed, '9.9.9'), null);
+
+  // Against the real product record: a 1.0.3.2 purchase gets the 1.0.3.4 package link, never the 1.0.3.2 one.
+  const real = products.productFor(SLUG);
+  const current = real.release;
+  const legacy = { slugs: [SLUG], sessionSlugs: { cs_old: [SLUG] }, sessionReleases: { cs_old: { [SLUG]: '1.0.3.2' } } };
+  const rel = boughtRelease(legacy, { id: 'cs_old', metadata: { release: '1.0.3.2' } }, SLUG);
+  assert.equal(rel.version, current.version);
+  const links = [...deliveryHtml('old@example.com', SLUG, 'en', rel).matchAll(/href="\/api\/download\?t=([A-Za-z0-9_-]+)"/g)].map((m) => openDownload(m[1]).file);
+  assert.deepEqual(links, [current.package, 'dossier.pdf']);
+  assert.ok(!links.includes('CAI-L4-CI-001_1.0.3.2.zip'));
+  // Perpetual right and corrective eligibility unchanged.
+  const versions = access.releasesAvailable({ product: real, entitlement: legacy, slug: SLUG }).map((r) => r.version);
+  assert.ok(versions.includes('1.0.3.2') && versions.includes(current.version), versions.join(','));
+  assert.equal(access.releaseToDeliver({ product: real, entitlement: legacy, slug: SLUG }).version, current.version);
 }));
