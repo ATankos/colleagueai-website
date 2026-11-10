@@ -9,10 +9,10 @@
     ],
     "saleApproved": false,
     "release": {
-      "version": "1.0.3.1",
+      "version": "1.0.3.2",
       "status": "controlled-test",
-      "package": "CAI-L4-CI-001_1.0.3.1.zip",
-      "sha256": "6b2864880d9de1d486674d29524074eeb5caefc64a97829319ba5471a9face1f"
+      "package": "CAI-L4-CI-001_1.0.3.2.zip",
+      "sha256": "48981310f518f3b2c866cefedad63f10c576eda8d6128c2527ce941888c0b23c"
     }
   }
 }
