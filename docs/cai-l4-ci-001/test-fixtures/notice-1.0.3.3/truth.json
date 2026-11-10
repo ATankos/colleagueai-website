@@ -161,7 +161,7 @@
   "deadline": "2027-06-30",
   "independent_latest": "2027-09-30",
   "flags": [
-   "different notice periods; longest used",
+   "different notice periods; longest plausible used",
    "conflicting provisions"
   ],
   "role": "master"

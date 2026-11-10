@@ -92,9 +92,13 @@ def register_deadline(term_end, notice, status='found', candidates=(), wording=N
     amount = int(amount)
     if not notice.get('legacy') and status not in ('conflict_resolved', 'reviewer_corrected'):
         periods = {(amount, unit)} | {(int(a), normalise_unit(u)) for a, u in candidates}
+        plausible = [p for p in periods if approx_days(*p) <= 731]  # > ~24 months: implausible, reported but not used
+        if len(plausible) < len(periods):
+            flags.append('implausible period over 24 months ignored')
         if len(periods) > 1:
-            amount, unit = max(periods, key=lambda p: approx_days(*p))
-            flags.append('different notice periods; longest used')
+            if plausible:
+                amount, unit = max(plausible, key=lambda p: approx_days(*p))
+            flags.append('different notice periods; longest plausible used')
     if ref == 'term_end' and 'renewal date' in lw:
         flags.append('clause refers to the renewal date')
     if notice.get('legacy') and unit != 'day':

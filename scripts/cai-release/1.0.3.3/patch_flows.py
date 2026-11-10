@@ -116,15 +116,18 @@ notice_actions = [
                    "'k', concat(string(outputs('N_amount0')), ' ', outputs('N_unit0'))), 'loc', 'main clause')), createArray())"),
     ('N_all', "@union(outputs('N_main_obj'), body('N_clause_objs'))"),
     ('N_keys', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@item()?['k']"}}),
-    ('N_days', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@item()?['d']"}}),
+    # a period longer than about 24 months is implausible (usually a misread of small print): reported, never used for the date
+    ('N_plausible', {'type': 'Query', 'inputs': {'from': "@outputs('N_all')", 'where': "@lessOrEquals(item()?['d'], 731)"}}),
+    ('N_days', {'type': 'Select', 'inputs': {'from': "@body('N_plausible')", 'select': "@item()?['d']"}}),
     ('N_conflict_text', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@concat(replace(item()?['k'], '_', ' '), '(s) - ', item()?['loc'])"}}),
     ('N_status', f"@toLower(string(coalesce({R}?['status'], '')))"),
     ('N_conflict', f"@and({ISNEW}, not(contains(createArray('conflict_resolved', 'reviewer_corrected'), outputs('N_status'))), "
                    f"not(equals({NP}?['source'], 'reviewer')), greater(length(union(body('N_keys'), body('N_keys'))), 1))"),
-    ('N_longest', {'type': 'Query', 'inputs': {'from': "@outputs('N_all')", 'where': "@equals(item()?['d'], max(body('N_days')))"}}),
-    # conflicting periods: use the longest one (the earliest deadline) and flag it; a reviewer decides which applies
-    ('N_unit', "@if(outputs('N_conflict'), first(body('N_longest'))?['u'], outputs('N_unit0'))"),
-    ('N_amount', "@if(outputs('N_conflict'), first(body('N_longest'))?['a'], outputs('N_amount0'))"),
+    ('N_longest', {'type': 'Query', 'inputs': {'from': "@body('N_plausible')", 'where': "@equals(item()?['d'], max(body('N_days')))"}}),
+    # conflicting periods: use the longest plausible one (the earliest deadline) and flag it; a reviewer decides which applies
+    ('N_use_longest', "@and(outputs('N_conflict'), greater(length(body('N_longest')), 0))"),
+    ('N_unit', "@if(outputs('N_use_longest'), first(body('N_longest'))?['u'], outputs('N_unit0'))"),
+    ('N_amount', "@if(outputs('N_use_longest'), first(body('N_longest'))?['a'], outputs('N_amount0'))"),
     ('Has_notice', f"@and(equals(coalesce({R}?['value']?['type'], ''), 'automatic'), not(equals({AMT}, null)), not(empty({UNIT})))"),
 ]
 prev = 'Apply_amendments'
@@ -171,7 +174,8 @@ flag_list = ("@createArray("
     f"if(and(outputs('Has_notice'), not(contains(createArray('term_end', 'renewal_date', 'term_end_assumed'), {REF}))), 'the clause does not say clearly whether the period runs back from the term end or from the renewal date; the earlier date is shown', ''), "
     f"if(and(outputs('Has_notice'), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), {TIM}))), 'the timing wording of the notice clause is unclear; the date shown is one day earlier than the plain calculation', ''), "
     f"if(equals(toLower(coalesce({R}?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce({R}?['quote'], '')), ''), "
-    "if(outputs('N_conflict'), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the date shown uses the longest period, which gives the earliest date - a reviewer must decide which applies'), ''), "
+    "if(outputs('N_conflict'), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the date shown uses the longest period up to 24 months, which gives the earliest date - a reviewer must decide which applies'), ''), "
+    "if(greater(length(outputs('N_all')), length(body('N_plausible'))), 'a notice period longer than 24 months was read from the document (possibly misread small print); it is not used for the date - check the document', ''), "
     f"if(and(outputs('Has_notice'), equals({REF}, 'term_end'), contains({LW}, 'renewal date')), 'the clause refers to the renewal date; the date shown counts back from the end of the term, which can be up to three days earlier - check the reference date', ''), "
     f"if(and(equals(coalesce({R}?['value']?['type'], ''), 'automatic'), not(equals({AMT}, null)), empty({UNIT})), 'the unit of the notice period is not recognised', '')"
     ")")
