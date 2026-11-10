@@ -187,8 +187,10 @@ test('checkout, card lane: licence only goes out as allowed_payment_method_types
   assert.equal(sendsRemovedParam(call), false, 'payment_method_types is removed from this API version');
 }));
 
-test('checkout, card lane: with Continuous Certification attached the session is a subscription and the same rule holds', () => withFakeStripe(async (seen) => {
-  const res = await buy({ method: 'card' });
+test('checkout, card lane: with Continuous Certification opted into (sales gate on) the session is a subscription and the same rule holds', () => withFakeStripe(async (seen) => {
+  process.env.CERTIFICATION_SALES_ENABLED = '1';
+  let res;
+  try { res = await buy({ method: 'card', certification: 'on', cert_interval: 'month' }); } finally { delete process.env.CERTIFICATION_SALES_ENABLED; }
   assert.equal(res.statusCode, 303, `got ${res.statusCode} ${JSON.stringify(res.body)}`);
   const call = sessionCall(seen);
   assert.equal(call.params.get('mode'), 'subscription');

@@ -24,12 +24,17 @@
  * It is a DELAYED (async) method - fulfilment happens on checkout.session.async_payment_succeeded
  * (Milestone B). Adaptive Pricing is disabled so the USD/EUR selector is authoritative.
  *
- * cert=0        -> agent licence only, no Continuous Certification subscription
- * interval=year -> annual certification (10 months' price) instead of monthly
- *
- * With certification attached the session is mode:'subscription' and the one-time
- * agent price rides on the first invoice. Bank transfer cannot do that (Stripe has
- * no customer_balance in subscription mode), so method=bank sells the licence alone.
+ * Continuous Certification is OPT-IN and GATED (finding LR-23):
+ *   - The gate is CERTIFICATION_SALES_ENABLED=1 (lib/acceptance.js). It is off by default: checkout then sells
+ *     the perpetual licence only, and any request that asks for certification - certification=on in the
+ *     form, or cert=month|year|1 in a link or a direct API call - is refused with 409 certification_not_available.
+ *   - With the gate on, the confirmation page offers certification as an UNTICKED box with the recurring price,
+ *     frequency (monthly or annual = 10 months' price), automatic renewal and cancellation terms. Only a ticked
+ *     box (certification=on, cert_interval=month|year) creates a subscription; no tick = licence only.
+ *   - With certification the session is mode:'subscription' and the one-time licence rides on the first invoice.
+ *     Bank transfer cannot do that (no customer_balance in subscription mode): certification + method=bank is
+ *     refused (409 certification_needs_card), never silently dropped.
+ *   - cert=0 / cert=false / cert=no remain accepted as "licence only" for old links.
  *
  * Prices (minor units) come from config/pricing.json, overridable per env:
  *   USD: AGENT_PRICE_L2_CENTS / L3 / L4 / L5
@@ -44,7 +49,7 @@ import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recordAcceptance, bindAcceptance } from '../lib/db.js';
-import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, LEGAL_SET } from '../lib/acceptance.js';
+import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
 export const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
@@ -178,18 +183,27 @@ export default async function handler(req, res) {
   const paymentMethodTypes = methodTypes(method);
   const includesBank = paymentMethodTypes.indexOf('customer_balance') !== -1;
 
-  /* Continuous Certification rides along on the same session unless the buyer opts
-   * out with cert=0. Stripe does not support customer_balance (bank transfer) in
-   * subscription mode, so the bank lane sells the perpetual agent licence alone and
-   * the certification is arranged separately. */
+  /* Continuous Certification: opt-in only, and only while the sales gate is on (header comment). */
+  const certSales = certificationSalesEnabled();
   const certParam = String(valueOf(q.cert) ?? '').toLowerCase();
-  const certInterval = String(valueOf(q.interval) || 'month').toLowerCase() === 'year' ? 'year' : 'month';
-  const wantsCert = certParam !== '0' && certParam !== 'false' && certParam !== 'no';
-  const certUnit = wantsCert ? certCents(tier, currency, certInterval) : null;
-  const withCert = Boolean(certUnit) && !includesBank;
-  if (wantsCert && includesBank) {
-    console.log('[checkout] bank-transfer lane: selling the agent licence only, certification not attached');
+  const optIn = ['on', '1', 'true', 'yes'].includes(String(valueOf(q.certification) ?? '').toLowerCase());
+  const asksForCert = optIn || ['1', 'true', 'yes', 'on', 'month', 'year'].includes(certParam);
+  if (asksForCert && !certSales) {
+    return res.status(409).json({ error: 'Continuous Certification is not yet open for subscription. Only the perpetual licence can be bought.', code: 'certification_not_available' });
   }
+  if (optIn && includesBank) {
+    return res.status(409).json({ error: 'Continuous Certification is billed as a subscription and needs a card. Buy the licence by bank transfer, or choose card payment to add certification.', code: 'certification_needs_card' });
+  }
+  const certInterval = String(valueOf(q.cert_interval) || valueOf(q.interval) || 'month').toLowerCase() === 'year' ? 'year' : 'month';
+  // Offered on the confirmation page only when the gate is on, the lane can subscribe and both prices exist.
+  const certOffer = certSales && !includesBank && certCents(tier, currency, 'month') && certCents(tier, currency, 'year')
+    ? { monthlyCents: certCents(tier, currency, 'month'), annualCents: certCents(tier, currency, 'year') } : null;
+  if (optIn && !certOffer) {
+    return res.status(409).json({ error: 'Continuous Certification is not available for this product or currency.', code: 'certification_not_available' });
+  }
+  // A subscription is created ONLY from a ticked box on the POSTed confirmation form.
+  const certUnit = req.method === 'POST' && optIn && certOffer ? certCents(tier, currency, certInterval) : null;
+  const withCert = Boolean(certUnit);
 
   const ref = (String(valueOf(q.ref) || '').slice(0, 200)) || undefined;
   const partnerRaw = String(valueOf(q.partner) || '').trim();
@@ -208,10 +222,11 @@ export default async function handler(req, res) {
   const cancelUrl = `${origin}${AGENTS_PATH[lang]}?purchase=cancelled&agent=${encodeURIComponent(slug)}`;
 
   // The storefront parameters that must survive the confirmation step unchanged.
-  const carried = { agent: slug, currency, method: method || '', cert: certParam || '', interval: certInterval, ref: ref || '', partner, lang };
+  // (Certification is never carried from a link: it can only be chosen on the page itself.)
+  const carried = { agent: slug, currency, method: method || '', ref: ref || '', partner, lang };
   const pageModel = (extra) => renderAcceptancePage({
     productName, tier, slug, version: product?.release?.version, currency, priceCents: cents,
-    certCents: withCert ? certUnit : null, certInterval, method: includesBank ? 'bank' : method, hidden: carried, cancelUrl, lang, ...extra,
+    certOffer, certClosed: !certSales, method: includesBank ? 'bank' : method, hidden: carried, cancelUrl, lang, ...extra,
   });
 
   if (req.method === 'GET') {
@@ -224,7 +239,7 @@ export default async function handler(req, res) {
   if (!accepted.ok) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(400).end(pageModel({ errors: accepted.errors, values: { company: form.company, name: form.name } }));
+    return res.status(400).end(pageModel({ errors: accepted.errors, values: { company: form.company, name: form.name, certification: optIn, cert_interval: certInterval } }));
   }
 
   // The acceptance record is written BEFORE the session exists: if Stripe fails we still know who accepted
@@ -234,7 +249,9 @@ export default async function handler(req, res) {
     acceptance = await recordAcceptance({
       legalSet: LEGAL_SET, legalVersions: legalVersionString(),
       agentSlug: slug, sku: product?.sku ?? null, release: product?.release?.version ?? null, tier,
-      currency, priceCents: cents, certification: withCert ? certInterval : null,
+      currency, priceCents: cents,
+      // The recurring commitment the buyer opted into, with the terms version shown next to the box.
+      certification: withCert ? { interval: certInterval, unitCents: certUnit, optIn: true, termsVersion: CERT_TERMS?.version ?? null } : null,
       buyerCompany: accepted.value.company, declaredBy: accepted.value.name, consents: accepted.value.consents,
       clientHash: clientFingerprint(req), userAgent: String(req.headers['user-agent'] || '').slice(0, 200),
       lang, partner: partner || null, ref: ref || null, stripeSessionId: null,

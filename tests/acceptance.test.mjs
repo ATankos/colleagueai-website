@@ -175,14 +175,17 @@ test('Stripe consent_collection is requested only when the Dashboard Terms URL i
 });
 
 test('subscription lane carries the acceptance on subscription_data too', async () => {
-  const res = await post({ ...GOOD_FORM, cert: '' });
+  process.env.CERTIFICATION_SALES_ENABLED = '1';
+  let res;
+  try { res = await post({ ...GOOD_FORM, cert: '', certification: 'on', cert_interval: 'month' }); } finally { delete process.env.CERTIFICATION_SALES_ENABLED; }
   assert.equal(res.statusCode, 303);
   const call = sessionCall();
   assert.equal(call.params.get('mode'), 'subscription');
   const id = call.params.get('subscription_data[metadata][acceptance_id]');
   assert.match(id, /^acc_[0-9a-f]{24}$/);
   assert.equal(call.params.get('metadata[acceptance_id]'), id);
-  assert.ok(acceptances().some((r) => r.id === id && r.certification === 'month'), 'the record names the certification it covers');
+  assert.ok(acceptances().some((r) => r.id === id && r.certification?.interval === 'month' && r.certification?.optIn === true),
+    'the record names the certification the buyer opted into');
 });
 
 test('if the acceptance cannot be stored, no money is taken: 503 and no Stripe call', async () => {
