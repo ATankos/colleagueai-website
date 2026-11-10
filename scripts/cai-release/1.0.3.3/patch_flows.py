@@ -436,7 +436,10 @@ for k, col in (('notice_period_amount', 'cai_noticeamount'), ('notice_period_uni
                ('notice_wording', 'cai_noticewording'), ('deadline_basis', 'cai_deadlinebasis'), ('deadline_review', 'cai_deadlinereview')):
     entry[k] = f"@first(body('Master_rows'))?['{col}']"
 sel = NA['In_window_list']['inputs']['select']
-sel['deadline_status'] = "@if(empty(coalesce(item()?['deadline_review'], '')), 'CALCULATED', 'PROVISIONAL - human check required')"
+LEGACY_STATUS = "'PROVISIONAL - calculated by release 1.0.3.2, which counted notice periods stated in months as days; not yet recalculated by release 1.0.3.3'"
+# a deadline stored by 1.0.3.2 (no calculation basis yet) is never presented as final, until 1.0.3.3 recalculates it
+sel['deadline_status'] = ("@if(and(empty(coalesce(item()?['deadline_basis'], '')), not(empty(coalesce(item()?['notice_deadline'], '')))), " + LEGACY_STATUS + ", "
+                          "if(empty(coalesce(item()?['deadline_review'], '')), 'CALCULATED', 'PROVISIONAL - human check required'))")
 for k in ('notice_period_amount', 'notice_period_unit', 'notice_wording', 'deadline_basis', 'deadline_review'):
     sel[k] = f"@item()?['{k}']"
 res = NA['Result']['inputs']
@@ -451,7 +454,8 @@ ren = ok['renewal']
 for k, col in (('notice_period_amount', 'cai_noticeamount'), ('notice_period_unit', 'cai_noticeunit'),
                ('notice_wording', 'cai_noticewording'), ('deadline_basis', 'cai_deadlinebasis'), ('deadline_review', 'cai_deadlinereview')):
     ren[k] = f"@outputs('Master')?['{col}']"
-ren['deadline_status'] = "@if(empty(coalesce(outputs('Master')?['cai_deadlinereview'], '')), 'CALCULATED', 'PROVISIONAL - human check required')"
+ren['deadline_status'] = ("@if(and(empty(coalesce(outputs('Master')?['cai_deadlinebasis'], '')), not(empty(coalesce(outputs('Master')?['cai_noticedeadline'], '')))), " + LEGACY_STATUS + ", "
+                         "if(empty(coalesce(outputs('Master')?['cai_deadlinereview'], '')), 'CALCULATED', 'PROVISIONAL - human check required'))")
 ok['rule'] = (ok['rule'] + ' Notice deadlines are calendar calculations from the notice period as stated (amount and unit), shown with the '
               'contract wording and the calculation basis; a PROVISIONAL deadline must be checked by a person. This is not legal advice.')
 (OUT / FILES['get']).write_text(json.dumps(gt, ensure_ascii=False), encoding='utf-8')
