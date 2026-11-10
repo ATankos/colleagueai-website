@@ -1,17 +1,17 @@
 {
   "product": "ColleagueAI Contract Intelligence & Register",
   "sku": "CAI-L4-CI-001",
-  "release": "1.0.3.3",
-  "correctiveFor": "1.0.3.2",
+  "release": "1.0.3.4",
+  "correctiveFor": "1.0.3.2, 1.0.3.3",
   "tier": "CAI L4 — Decide (supervised)",
   "bundleRevision": 1,
   "status": "controlled test release; not for production use",
   "publisher": "Colleague AI s.r.o.",
   "solution": {
     "uniqueName": "CAIContractIntelligence",
-    "version": "1.0.3.3",
+    "version": "1.0.3.4",
     "managed": true,
-    "file": "CAIContractIntelligence_1_0_3_3_managed.zip",
+    "file": "CAIContractIntelligence_1_0_3_4_managed.zip",
     "sha256": "<filled at build>"
   },
   "prerequisites": [
@@ -21,15 +21,15 @@
   ],
   "knownLimitations": [
     "Access is per owner team: all members of the team see all of its contracts; all new uploads go to one team set at install",
-    "Per-user access tested on 9 Nov 2026 with a second licensed user in Teams (own team's contracts only, also after a team change). A user with no contracts team gets no data; 1.0.3.3 shows a plain no-access message instead of the raw ConnectorAuthorizationError, not yet re-tested with such a user",
+    "Per-user access tested in Teams with a second licensed user (own team's contracts only, also after a team change; 9-10 Nov 2026). A user with no contracts team gets no data and a plain no-access message (re-tested 10 Nov 2026)",
     "The import tries to publish the agent on its own; this failed in two installs and succeeded in one (clean install of 1.0.3.2). The agent check in Microsoft 365 admin center (INSTALL section 7) is mandatory right after every import; block an Available entry. The deliberate publishing procedure in section 7 has been tested once",
     "Review gate (Teams) is left Off by the import (seen in all three installs) and is turned on by hand (INSTALL section 5)",
     "Daily recompute runs at 05:30 Central European Time; it recalculates only contracts with a deadline or term end inside the recompute window (default 90 days) and all contracts on the full recompute day (default Monday); keep it Off while testing; its Copilot Studio usage grows with the size of the register, and ended non-renewing contracts are recalculated daily (INSTALL section 1a)",
-    "Notice deadlines are calendar calculations from the notice period as stated (months on the calendar, days and weeks exact), shown with the contract wording and the calculation basis; business days are estimated; unclear, conflicting or converted periods give a PROVISIONAL deadline that a person must check. Not a legal interpretation of the clause (INSTALL sections 9a and 10)",
-    "After an upgrade from 1.0.3.2, stored deadlines are shown as PROVISIONAL until 1.0.3.3 recalculates them; month-based periods converted from 1.0.3.2 records stay PROVISIONAL until the contract is uploaded and reviewed again (INSTALL section 4)",
+    "Notice deadlines are calendar calculations from the notice period as stated (months on the calendar, days and weeks exact), shown with the contract wording and the calculation basis, and only when CONFIRMED: from a reviewer-approved period with nothing left to check. Conflicting, implausible, business-day, unclear, unconfirmed or converted periods, and missing renewal or notice clauses, give 'Deadline not verified - human review required' with no date until a reviewer confirms the period on the deadline card. Not a legal interpretation of the clause (INSTALL sections 9a and 10)",
+    "After an upgrade, deadlines stored by 1.0.3.2 and PROVISIONAL deadlines of 1.0.3.3 are answered as not verified until recalculated; converted month-based periods then need a reviewer's confirmation (INSTALL section 4)",
     "Approved amendments apply from approval also when they take effect later; the register names such amendments and their effective date. Amendments are linked to their master by contract reference; an approved amendment without a matching master is marked NOT APPLIED - NO MASTER FOUND (INSTALL section 10)",
-    "Contradicting notice clauses anywhere in the document are listed on the review card and make the deadline PROVISIONAL; very small or light-coloured print may be misread; tested on 15 synthetic notice documents and two manipulated documents (INSTALL section 9a)",
-    "Running costs are Microsoft consumption billed to the customer; ColleagueAI's figures are estimates not yet reconciled with Microsoft's meter; 1.0.3.3 adds about 32 flow steps to each recalculation, raising recalculation cost by about two thirds (INSTALL section 1a)",
+    "Contradicting notice clauses anywhere in the document are listed on the review card and withhold the deadline until a reviewer confirms the period; very small or light-coloured print may be misread; a clause the extraction does not find at all, or misreads consistently in number and wording, cannot be detected automatically; tested on 15 synthetic notice documents, two manipulated documents and targeted safeguard tests (INSTALL section 9a)",
+    "Running costs are Microsoft consumption billed to the customer; per-run figures come from Microsoft's run records (a recalculation used 72-74 flow actions, 9.4-9.6 Copilot Credits in release 1.0.3.3; 1.0.3.4 adds about 7) and are not yet reconciled with Microsoft's billing (INSTALL section 1a)",
     "Notice-deadline questions read every contract the user can see (5 flow steps per contract, sequential, within Microsoft's 100-second flow limit); tested on registers of up to 11 contracts only; cost and response time on large registers not measured (INSTALL sections 1a and 10)",
     "Text-based English PDFs only"
   ],
@@ -83,7 +83,7 @@
       "role": "Licence notice"
     },
     {
-      "name": "CAIContractIntelligence_1_0_3_3_managed.zip",
+      "name": "CAIContractIntelligence_1_0_3_4_managed.zip",
       "bytes": 0,
       "sha256": "<filled at build>",
       "role": "Microsoft Power Platform managed solution (import, do not unzip)"
