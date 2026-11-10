@@ -1,16 +1,17 @@
 {
   "product": "ColleagueAI Contract Intelligence & Register",
   "sku": "CAI-L4-CI-001",
-  "release": "1.0.3.2",
+  "release": "1.0.3.3",
+  "correctiveFor": "1.0.3.2",
   "tier": "CAI L4 — Decide (supervised)",
-  "bundleRevision": 4,
+  "bundleRevision": 1,
   "status": "controlled test release; not for production use",
   "publisher": "Colleague AI s.r.o.",
   "solution": {
     "uniqueName": "CAIContractIntelligence",
-    "version": "1.0.3.2",
+    "version": "1.0.3.3",
     "managed": true,
-    "file": "CAIContractIntelligence_1_0_3_2_managed.zip",
+    "file": "CAIContractIntelligence_1_0_3_3_managed.zip",
     "sha256": "<filled at build>"
   },
   "prerequisites": [
@@ -20,52 +21,53 @@
   ],
   "knownLimitations": [
     "Access is per owner team: all members of the team see all of its contracts; all new uploads go to one team set at install",
-    "Per-user access tested on 9 Nov 2026 with a second licensed user in Teams (own team's contracts only, also after a team change); a user with no contracts team gets no data but sees a raw ConnectorAuthorizationError message",
+    "Per-user access tested on 9 Nov 2026 with a second licensed user in Teams (own team's contracts only, also after a team change). A user with no contracts team gets no data; 1.0.3.3 shows a plain no-access message instead of the raw ConnectorAuthorizationError, not yet re-tested with such a user",
     "The import tries to publish the agent on its own; this failed in two installs and succeeded in one (clean install of 1.0.3.2). The agent check in Microsoft 365 admin center (INSTALL section 7) is mandatory right after every import; block an Available entry. The deliberate publishing procedure in section 7 has been tested once",
     "Review gate (Teams) is left Off by the import (seen in all three installs) and is turned on by hand (INSTALL section 5)",
     "Daily recompute runs at 05:30 Central European Time; it recalculates only contracts with a deadline or term end inside the recompute window (default 90 days) and all contracts on the full recompute day (default Monday); keep it Off while testing; its Copilot Studio usage grows with the size of the register, and ended non-renewing contracts are recalculated daily (INSTALL section 1a)",
-    "Notice periods stated in months are stored and counted as days; the deadline can be several days later than the calendar date (INSTALL section 9a)",
-    "Approved amendments apply from approval, not from their effective date; the extraction may read an amendment's signing date as its effective date (INSTALL section 9a)",
-    "A small-print clause contradicting a main value is recorded internally but not shown on the review card; only two deliberately manipulated documents were tested (INSTALL section 9a)",
-    "Running costs are Microsoft consumption billed to the customer; ColleagueAI's figures are estimates not yet reconciled with Microsoft's meter (INSTALL section 1a)",
+    "Notice deadlines are calendar calculations from the notice period as stated (months on the calendar, days and weeks exact), shown with the contract wording and the calculation basis; business days are estimated; unclear, conflicting or converted periods give a PROVISIONAL deadline that a person must check. Not a legal interpretation of the clause (INSTALL sections 9a and 10)",
+    "After an upgrade from 1.0.3.2, stored deadlines are shown as PROVISIONAL until 1.0.3.3 recalculates them; month-based periods converted from 1.0.3.2 records stay PROVISIONAL until the contract is uploaded and reviewed again (INSTALL section 4)",
+    "Approved amendments apply from approval also when they take effect later; the register names such amendments and their effective date. Amendments are linked to their master by contract reference; an approved amendment without a matching master is marked NOT APPLIED - NO MASTER FOUND (INSTALL section 10)",
+    "Contradicting notice clauses anywhere in the document are listed on the review card and make the deadline PROVISIONAL; very small or light-coloured print may be misread; tested on 15 synthetic notice documents and two manipulated documents (INSTALL section 9a)",
+    "Running costs are Microsoft consumption billed to the customer; ColleagueAI's figures are estimates not yet reconciled with Microsoft's meter; 1.0.3.3 adds about 32 flow steps to each recalculation, raising recalculation cost by about two thirds (INSTALL section 1a)",
     "Notice-deadline questions read every contract the user can see (5 flow steps per contract, sequential, within Microsoft's 100-second flow limit); tested on registers of up to 11 contracts only; cost and response time on large registers not measured (INSTALL sections 1a and 10)",
     "Text-based English PDFs only"
   ],
   "files": [
     {
       "name": "START-HERE.pdf",
-      "bytes": 66005,
-      "sha256": "b28012dd14380b00887eafa781c0658888325e550fcfc552ea94d33a4ba85de7",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Read first: what is in the bundle, prerequisites, who does what"
     },
     {
       "name": "START-HERE.md",
-      "bytes": 2799,
-      "sha256": "89860351f1f69cd1ba8082a771e387c6eda33be40892a54768f243a67e7e9316",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Same content as START-HERE.pdf, plain text"
     },
     {
       "name": "DOSSIER.pdf",
-      "bytes": 49793,
-      "sha256": "93833fafd451560237f6bba577dc9864875a67b43a8d4ff0783f4149e7349e97",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Product dossier: capabilities, prerequisites, limitations, roadmap"
     },
     {
       "name": "INSTALL.pdf",
-      "bytes": 76261,
-      "sha256": "ea8489854cb1f6df92922a6bd6c59657ed4dc771cfc8e6c274ad096ec2e2d9a4",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Installation guide: prerequisites, import, agent safety check, first test"
     },
     {
       "name": "INSTALL.md",
-      "bytes": 12590,
-      "sha256": "13db9177973095fd46473cd9b908cb8c3e034a129f1794fea168f9c080773284",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Same content as INSTALL.pdf, plain text"
     },
     {
       "name": "deploymentSettings.template.json",
-      "bytes": 1782,
-      "sha256": "d819e1d3b9048fb2b522cbdf0f7093db9a728cfccb21fe45b26c26075a21e3e1",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Environment variables and connection references"
     },
     {
@@ -76,12 +78,12 @@
     },
     {
       "name": "LICENSE.txt",
-      "bytes": 419,
-      "sha256": "4c621c7e4f9f6fb5929b796dbb396f36b15867b56179419d4055a38d52fb4322",
+      "bytes": 0,
+      "sha256": "<filled at build>",
       "role": "Licence notice"
     },
     {
-      "name": "CAIContractIntelligence_1_0_3_2_managed.zip",
+      "name": "CAIContractIntelligence_1_0_3_3_managed.zip",
       "bytes": 0,
       "sha256": "<filled at build>",
       "role": "Microsoft Power Platform managed solution (import, do not unzip)"

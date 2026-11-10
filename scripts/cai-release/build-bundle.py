@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Build the customer bundle CAI-L4-CI-001_1.0.3.2.zip from bundle-src/ and the managed solution zip.
+"""Build the customer bundle CAI-L4-CI-001_<release>.zip from bundle-src/ and the managed solution zip.
+
+The release is read from the managed solution file name (CAIContractIntelligence_1_0_3_3_managed.zip -> 1.0.3.3)
+and must match solution.xml inside it and the release in MANIFEST.template.json.
 
   python3 -I build-bundle.py <managed-solution-zip> <out-dir> [<bundle-src-dir>]
 
@@ -18,17 +21,23 @@ here = Path(__file__).resolve().parent
 src = Path(sys.argv[3]) if len(sys.argv) > 3 else here / 'bundle-src'
 managed = Path(sys.argv[1]).resolve()
 out = Path(sys.argv[2]).resolve()
-NAME = 'CAI-L4-CI-001_1.0.3.2'
-folder = out / NAME
-if folder.exists():
-    shutil.rmtree(folder)
-folder.mkdir(parents=True)
-
-assert managed.name == 'CAIContractIntelligence_1_0_3_2_managed.zip', managed.name
+import re
+m = re.fullmatch(r'CAIContractIntelligence_(\d+)_(\d+)_(\d+)_(\d+)_managed\.zip', managed.name)
+assert m, managed.name
+RELEASE = '.'.join(m.groups())
+NAME = f'CAI-L4-CI-001_{RELEASE}'
 with zipfile.ZipFile(managed) as z:
     assert z.testzip() is None, 'managed zip is corrupt'
     names = z.namelist()
     assert 'solution.xml' in names and 'customizations.xml' in names
+    sx = z.read('solution.xml').decode('utf-8')
+    assert f'<Version>{RELEASE}</Version>' in sx and '<Managed>1</Managed>' in sx, 'solution.xml version or managed flag differs'
+template = json.loads((src / 'MANIFEST.template.json').read_text(encoding='utf-8'))
+assert template['release'] == RELEASE and template['solution']['file'] == managed.name, 'MANIFEST.template.json is for another release'
+folder = out / NAME
+if folder.exists():
+    shutil.rmtree(folder)
+folder.mkdir(parents=True)
 
 # Sources: bundle texts in <bundle-src>; INSTALL.md, the readiness script and the dossier PDF from their
 # repository locations when <bundle-src> is docs/cai-l4-ci-001/bundle, else from <bundle-src> itself.
@@ -99,7 +108,7 @@ def sha(p):
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
-manifest = json.loads((src / 'MANIFEST.template.json').read_text(encoding='utf-8'))
+manifest = template
 manifest['solution']['sha256'] = sha(folder / managed.name)
 for entry in manifest['files']:
     p = folder / entry['name']
