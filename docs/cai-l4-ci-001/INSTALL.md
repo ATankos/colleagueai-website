@@ -1,14 +1,13 @@
 <!--
-INSTALL.md of bundle CAI-L4-CI-001 1.0.3.2. Every statement about what the import, the flows, the role or the
-agent do was read from real installs of 1.0.3.1, from the connection and publishing test of 9 Nov 2026 and from
-the clean install of 1.0.3.2 on 9 Nov 2026 (bundle revision 2 records what that install showed; revision 3 only corrects the description text inside the managed solution).
-Revision 4 changes documentation only: running costs (section 1a), the daily recompute description (section 2), reviewer checks
-(section 9a) and known limitations (section 10), from the tests of 9-10 Nov 2026. The managed solution is byte-identical to revision 3.
+INSTALL.md of bundle CAI-L4-CI-001 1.0.3.3 (corrective release for the month-based notice deadline defect of 1.0.3.2).
+Statements about the import, flows, role and agent come from real installs of 1.0.3.1 and 1.0.3.2 (8-9 Nov 2026) and from
+the 1.0.3.3 tests of 10 Nov 2026: build and tests in CAI-LAB, upgrade of a 1.0.3.2 test environment with existing data.
+A clean install of 1.0.3.3 into an empty environment had not been run when this guide was written (section 10).
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 4
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.3 · **Bundle revision** 1
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -44,8 +43,8 @@ The product runs on your own Microsoft licences and capacity. **Every extraction
 | Activity | When | Estimate | What it is based on |
 |---|---|---|---|
 | Extraction of one document | Once per upload | 8-28 credits for 1-8 pages; about USD 0.22-0.40 for a 15-page contract (extrapolated) | Measured: 33 flow actions per document. Estimated: AI tokens, from document length |
-| Review in Teams of one document | Once per document, and again after a correction | about 2-3 credits (about 18 flow actions) | Estimated from the flow design; not measured |
-| Recalculation of one contract | When a document is approved or changes, and each time the daily job selects it | about 6 credits (about 48 flow actions) per run | Measured: about 47 actions per recalculation run, plus one step in the daily job. More for a contract with many amendments (about 5 actions each) or many past renewal periods (2 actions each, up to 60 periods) |
+| Review in Teams of one document | Once per document, and again after a correction | about 3-4 credits (about 26 flow actions) | Estimated from the flow design; not measured |
+| Recalculation of one contract | When a document is approved or changes, and each time the daily job selects it | about 10 credits (about 80 flow actions) per run | Measured for release 1.0.3.2: about 47 actions per run; release 1.0.3.3 adds about 32 steps for the notice-period handling (counted from the flow design, not yet measured). Plus one step in the daily job. More for a contract with many amendments (about 5 actions each) or many past renewal periods (2 actions each, up to 60 periods) |
 | Daily recompute | Every day at 05:30 CET while the flow is on | one recalculation for each contract whose notice deadline or term end falls within the next **90 days** (*Recompute window*), and for each contract never calculated; plus about 13 actions (under 2 credits) a day for the job itself | Flow design; the job's own steps measured once at 13 actions. The share of contracts inside the window depends on your register |
 | Weekly full pass | Every **Monday** (*Full recompute day*) | one recalculation for **every** approved contract | Flow design |
 | A question about one contract's terms | Each question | about USD 0.10 | Microsoft's published rates and the flow design; not measured |
@@ -56,17 +55,17 @@ The product runs on your own Microsoft licences and capacity. **Every extraction
 
 | Share of the register inside the window on an ordinary day | 10 % | 25 % | 40 % | 100 % (upper bound) |
 |---|---|---|---|---|
-| Daily recompute and weekly full pass, per contract per month | USD 0.43 | USD 0.68 | USD 0.92 | USD 1.90 |
+| Daily recompute and weekly full pass, per contract per month | USD 0.73 | USD 1.14 | USD 1.55 | USD 3.19 |
 
-From upload to approval (extraction, review and the first recalculation), a 15-page document costs about **USD 0.30-0.48**.
+From upload to approval (extraction, review and the first recalculation), a 15-page document costs about **USD 0.36-0.54**.
 
 **For a whole register** (estimate; 15-page documents, 1.5 documents per contract, 5 new or changed documents per 100 contracts per month, 25 % inside the window; agent questions come on top):
 
 | Approved contracts | Loading the register: extraction, review and approval (one-off) | New or changed documents, per month | Daily recompute and weekly full pass, per month |
 |---|---|---|---|
-| 100 | USD 46-73 | USD 2-3 | about USD 68 (USD 44-93) |
-| 1,000 | USD 460-730 | USD 15-24 | about USD 680 (USD 430-920) |
-| 10,000 | USD 4,600-7,300 | USD 150-240 | about USD 6,800 (USD 4,300-9,200) |
+| 100 | USD 54-81 | USD 2-3 | about USD 114 (USD 73-155) |
+| 1,000 | USD 540-810 | USD 18-27 | about USD 1,140 (USD 730-1,550) |
+| 10,000 | USD 5,400-8,100 | USD 180-270 | about USD 11,400 (USD 7,300-15,500) |
 
 On a large register, deadline questions can cost more than the daily recompute: with 1,000 contracts visible to each user, 100 deadline questions a month cost about USD 660.
 
@@ -91,7 +90,7 @@ On a large register, deadline questions can cost more than the daily recompute: 
 
 ## 2. What gets installed
 
-One managed solution, `CAIContractIntelligence` version 1.0.3.2, which contains:
+One managed solution, `CAIContractIntelligence` version 1.0.3.3, which contains:
 
 - **Four Dataverse tables:** Contracts, Reviews, Field evidence and Job runs.
 - **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account. Every day, the daily recompute recalculates the contracts whose notice deadline or term end falls within the next 90 days (*Recompute window*), and once a week it recalculates every approved contract (*Full recompute day*, default Monday). Its Copilot Studio usage therefore **grows with the size of the register** (section 1a).
@@ -134,7 +133,7 @@ Contracts outside the window are still recalculated the moment one of their docu
 ## 4. Import (recommended: in the browser)
 
 1. Go to **make.powerapps.com** and pick your environment (top right).
-2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.2.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_2_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
+2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.3.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_3_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
 3. Open **Solutions → Import solution → Browse**, choose that inner file, and click **Next**.
 4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **Whatever connection you pick here, the import may publish the agent on its own** (it did in one of our three installs with a connection created in the wizard, and did not in the other two; section 7 explains and tells you what to check and do right after the import). Each reference must show a connection before you continue.
 5. **Environment variables.** Enter the five values from section 3, then click **Import**.
@@ -146,8 +145,10 @@ Contracts outside the window are still recalculated the moment one of their docu
 - The wizard's **Import** button stays grey until every required value has been typed in this wizard session. A value the wizard pre-fills from your environment (shown as *Target environment value*) does not count. If Import stays grey although every field is filled, click into each pre-filled required field, select its text and type the same value again; Import then becomes available (seen twice, 9 November 2026).
 - The connections step says "0 updates needed, 4 updates optional" and keeps your existing connections; leave it.
 - **From 1.0.2.0:** the upgrade also removes the two old agent tools. Then do section 6, and assign your **existing** contracts and their field evidence to the team (Contracts table → select all → **Assign** → the team; then the same for Field evidence). Until you do, existing contracts are visible to nobody except administrators.
-- **From 1.0.3.0 or 1.0.3.1:** nothing else to do; your team setup stays as it is.
-- **In every case** an upgrade does **not** republish the agent: the version your users could reach stays the previous one until your organisation publishes again. Run the checks in section 7 anyway.
+- **From 1.0.3.0 or 1.0.3.1:** nothing else to do for your team setup; read the next point too.
+- **From 1.0.3.2 or earlier: existing contracts and deadlines.** Your contracts, field evidence, reviews and job history stay as they are (in our upgrade test of 10 November 2026 all 21 contract records, 194 evidence records and 7 job runs were unchanged), and the import keeps each flow On or Off as it was. The upgrade itself recalculates nothing. Until a contract has been recalculated by 1.0.3.3, the agent shows its notice deadline as **PROVISIONAL – calculated by release 1.0.3.2**. A contract is recalculated when one of its documents is approved or changes, and by Daily recompute (every day for contracts inside the window, all contracts on the full recompute day). To recalculate all contracts at once: set *Full recompute day* to today's weekday, open **Power Automate → CAI CI - Daily recompute → Run**, wait for the *Job runs* entry, then set the value back.
+  On its first recalculation, 1.0.3.3 re-reads each notice period that 1.0.3.2 stored in days from the stored notice wording. Only when the wording states the period in months, years or weeks (for example *"six (6) months"*) are the days converted to that unit and counted on the calendar; otherwise the days are kept. A converted deadline, and a deadline whose stored wording does not show the period at all, is marked **PROVISIONAL** ("a reviewer must confirm the notice period"). When the deadline changes, a review record *notice deadline recalculated by release 1.0.3.3* with the old and the new date is written. The stored extraction and evidence are never changed. To replace a PROVISIONAL deadline with a reviewed one, upload the contract again: the new version is extracted with the 1.0.3.3 extraction and reviewed as usual.
+- **In every case** an upgrade does **not** republish the agent: the version your users could reach stays the previous one until your organisation publishes again. If your agent is published, publish it again after the upgrade (section 7, publishing procedure step 3): until you do, the published topics do not read the 1.0.3.3 notice details, and the agent shows every deadline as PROVISIONAL. Run the checks in section 7 anyway.
 
 **Alternative: command line (pac CLI).**
 1. Copy `deploymentSettings.template.json` to `deploymentSettings.json` and fill it in.
@@ -155,7 +156,7 @@ Contracts outside the window are still recalculated the moment one of their docu
 3. Run:
 
 ```
-pac solution import --path CAIContractIntelligence_1_0_3_2_managed.zip --settings-file deploymentSettings.json --activate-plugins
+pac solution import --path CAIContractIntelligence_1_0_3_3_managed.zip --settings-file deploymentSettings.json --activate-plugins
 ```
 
 ## 5. Check that all seven flows are on (mandatory)
@@ -186,7 +187,7 @@ The **Flow checker** only says *This flow is off* for a switched-off flow; it do
 
 ```
 set DATAVERSE_TOKEN=<token>      (PowerShell: $env:DATAVERSE_TOKEN = az account get-access-token --resource https://ORG.crmN.dynamics.com --query accessToken -o tsv)
-node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expect-version 1.0.3.2 --daily-recompute off
+node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expect-version 1.0.3.3 --daily-recompute off
 ```
 
 Replace `ORG.crmN.dynamics.com` with your environment URL exactly as the Power Platform admin center shows it (Environments → your environment → *Environment URL*; the number after `crm` differs by region, for example `crm4` or `crm17`). The last line says `READY` or `NOT READY`.
@@ -278,7 +279,7 @@ Use an account that is a **member of the contract owner team**.
 3. **Ask the agent** in the **Copilot Studio test pane** (not in Teams): *"Which notice deadlines fall in the next 400 days?"*
    - The first time, a **Connect to continue** card appears: click **Allow**. This lets the agent read the register as you.
    - The answer states the as-of date and time zone, and lists approved contracts of your team only.
-4. **Correct** a value on a second card. It is recorded as *Needs correction*, and a follow-up card arrives.
+4. **Correct** a value on a second card. A *Notice period* or *Effective date* correction is applied at once and the document is approved (*Approved with reviewer correction*); any other correction is recorded as *Needs correction*, and a follow-up card arrives.
 5. **Next morning** (only if Daily recompute is On): the **Job runs** table shows the daily recompute with status *SUCCEEDED*, and its details show how many contracts the run covered.
 
 **If you upload the same contract twice** (same contract reference, both approved), the newer approved document holds the effective terms and the older one is marked *SUPERSEDED* in its notice status. The agent answers from the newer one and the older one is not recalculated again.
@@ -290,13 +291,22 @@ If step 1 shows nothing after 5 minutes, check that:
 
 ## 9a. What the reviewer must check before approving
 
-Approval is what makes a contract count: until a document is approved, the agent gives no values from it. The review card shows each value with its quoted evidence. Compare every value with its quote and, for the liability cap and termination rights, with the whole document including schedules and small print. In our tests the extraction got these wrong, and the review card does not flag them:
+Approval is what makes a contract count: until a document is approved, the agent gives no values from it. The review card shows each value with its quoted evidence. Since release 1.0.3.3 it also shows:
 
-1. **Notice periods stated in months.** The card shows the notice period in days (for example *notice 180 days* with the quote *"six (6) months"*). The deadline is counted back in days from the term end, so it can fall up to about one day per month of notice **later** than the calendar date (in our test: 2 October instead of 30 September). In this release a correction never changes the stored number: it only blocks the document until the correction is resolved. So approve the document if everything else is right, and tell the users of the register that **notice must be sent at least one week before the deadline shown** whenever the contract states the notice period in months (two weeks when the notice period is longer than twelve months).
-2. **Effective date of an amendment.** Check that the *Effective* value is the date from which the amendment applies (*"with effect from …"*), not the date it was signed. In our test the extraction took the signing date (25 August instead of 1 September); the evidence quote showed the signing sentence. The date is what users see for the change, and it decides the order in which amendments are applied when several amendments change the same term. If only one amendment changes those terms, a wrong date does not change the calculated terms: approve it and tell users the correct date. If several do, submit a correction (the amendment stays out of the effective terms until it is resolved) and contact support.
-3. **Contradictions in small print.** In our test with two deliberately manipulated documents, hidden instructions changed no value and no review status. A small-print clause that contradicted the liability cap was recorded in the stored extraction data but not shown on the card, which showed the cap from the main clause. Read schedules and annexes yourself before approving a cap.
+- **Notice period** exactly as the contract states it (amount and unit, for example *6 month(s), on or before the term end*), with the verbatim **notice wording**;
+- **Notice clauses found in the whole document**: every sentence about notice of non-renewal that the extraction found, including schedules, order forms and small print. More than one period means you decide which one applies;
+- **Signed on**, next to the effective date, so that a signing date taken as the effective date is easy to spot.
 
-These two documents are a limited test, not proof that every manipulated document is handled correctly. The review is the control.
+Check in particular:
+
+1. **Notice period.** Amount, unit and timing must match the wording. If they do not, or the clause list shows different periods, choose **Notice period - applied at once** in the correction box and type the period, for example `6 months`, `90 days` or `8 weeks`. The correction is applied at once and recorded with your name; the extracted value and its evidence are kept; *Approve* still approves.
+2. **Effective date.** It must be the date from which the document applies (*"with effect from …"*), not the date it was signed. Correct it with **Effective date - applied at once** (`YYYY-MM-DD`).
+3. **Schedules, annexes and small print.** Read them yourself before approving a liability cap or a notice period. In our test, the extraction listed a contradicting small-print notice clause but misread its 4.5-point light-grey "six (6) months" as "90 (90) months"; the register showed the deadline as PROVISIONAL and the reviewer's correction to 6 months gave the right date.
+4. **Any other correction** (for example the liability cap) still records the review as *Needs correction* and blocks approval until it is resolved.
+
+**How deadlines are calculated.** Each notice deadline is a calendar calculation from the notice period as stated: months and years are counted back on the calendar from the end of the term (or from the renewal date when the clause says so), days and weeks are counted exactly, and "more than N days before" gives a date one day earlier. When the end of the term is the last day of a month, some readings allow the last day of the earlier month; the earlier date is shown. The register shows the calculation and the contract wording next to the date (*Deadline calculation basis*). A deadline is marked **PROVISIONAL – human check required** when the notice period is in business days (no holiday calendar), the document states different notice periods (the longest plausible one is used, which gives the earliest date), the timing or the reference date is unclear, a period of more than 24 months was read, or the period was converted from a 1.0.3.2 record. A PROVISIONAL deadline is never final: check the clause. **The calculation is not a legal interpretation of the clause.**
+
+These tests are limited (15 synthetic notice documents and two deliberately manipulated documents), not proof that every document is handled correctly. The review is the control.
 
 ## 10. Known limitations of this release
 
@@ -304,10 +314,12 @@ These two documents are a limited test, not proof that every manipulated documen
 |---|---|
 | **The import may or may not publish the agent** | The import's own publish attempt failed in two of our installs and succeeded in one (release 1.0.3.2, clean install); we do not know what decides it. Check the Microsoft 365 admin center right after every import and block an **Available** entry (section 7). Publishing on purpose is a separate procedure (section 7), tested once. |
 | **Access is per team, not per contract** | Every member of the owner team sees all of that team's contracts. All new uploads go to the one team you set in section 3; assigning by folder is planned. |
-| **A user without a contracts team sees an error code** | On 9 November 2026 a second, separately licensed test user chatted with the agent in Teams and saw only their own team's contracts, also after being moved to another team and with no caching between the two. A user who belongs to no contracts team gets no data, but sees a raw message such as *Error code: ConnectorAuthorizationError* instead of a plain "you have no access" answer. A clearer message is planned for release 1.1. |
-| **Notice periods in months are counted in days** | A notice period stated in months is stored as days, so its deadline can be up to about one day per month of notice later than the calendar date. Send notice at least one week before the deadline shown, two weeks for notice periods longer than twelve months (section 9a). |
-| **Amendments apply from approval** | An approved amendment changes the effective terms as soon as it is approved, also when it takes effect at a later date. In the calculation, its *Effective* value is used only to order amendments, and the extraction may read the signing date as the effective date (section 9a). |
-| **Small-print contradictions are not on the review card** | A clause that contradicts a main value is recorded in the stored extraction data but not shown on the review card. The reviewer reads schedules and small print (section 9a). Only two deliberately manipulated documents have been tested. |
+| **Users without a contracts team** | On 9 November 2026 a second, separately licensed test user chatted with the agent in Teams and saw only their own team's contracts, also after being moved to another team and with no caching between the two. A user who belongs to no contracts team gets no data. Release 1.0.3.3 answers such a user with a plain message ("You don't currently have access to any contracts in the register …") instead of the raw *ConnectorAuthorizationError*; this message has not yet been re-tested with a user who belongs to no team. |
+| **Deadlines are calendar calculations, not legal advice** | Notice periods are stored as stated and counted on the calendar (section 9a). Business days are estimated without a holiday calendar; month-end dates use the earlier reading; unclear or conflicting clauses give a PROVISIONAL deadline that a person must check. The deadline does not interpret the clause, notice formalities or the law that applies. |
+| **Deadlines from 1.0.3.2 until recalculated** | After an upgrade, deadlines stored by 1.0.3.2 are shown as PROVISIONAL until 1.0.3.3 recalculates them; converted month-based periods stay PROVISIONAL until the contract is uploaded and reviewed again (section 4). |
+| **Future-dated amendments apply from approval** | An approved amendment changes the effective terms as soon as it is approved, also when it takes effect at a later date. The register then says so: *includes approved amendment(s) that take effect later: <reference> (from <date>)*. The extraction now reads the effective date (*"with effect from"*) and the signing date separately (section 9a). |
+| **Amendments are linked by reference** | An amendment, annex or order form is linked to its master by its contract reference, which must start with the master's reference (for example *SYN-COST-003 / Amendment 1*). An approved document that matches no master is marked *NOT APPLIED - NO MASTER FOUND* in the register instead of being ignored. Contact support to correct the reference. |
+| **Small or light print can be misread** | Contradicting notice clauses anywhere in the document are listed on the review card and make the deadline PROVISIONAL; other contradicting clauses are listed under *Unusual clauses*. Very small or light-coloured text may be misread by the document reader (section 9a). Tested on 15 synthetic notice documents and two deliberately manipulated documents. |
 | **Role shows 9 or 11 privileges** | All three fresh imports showed 11 and an upgrade 9. The two extra are standard platform privileges on a private system table (section 2). |
 | **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); a full scheduled week has not yet been observed. Contracts that have ended and do not renew are recalculated every day, because their term end lies before the end of the window (section 1a). |
 | **Duplicate approved masters** | When the same contract reference is uploaded and approved twice, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Amendments are matched to their master by contract reference. |
@@ -319,7 +331,7 @@ These two documents are a limited test, not proof that every manipulated documen
 
 ## 11. Support
 
-Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) and the release number (1.0.3.2).
+Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) and the release number (1.0.3.3).
 
 ---
 
@@ -327,7 +339,7 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 
 | ✓ | Check | Where | Expected |
 |---|---|---|---|
-| ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.2, Managed |
+| ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.3, Managed |
 | ☐ | Connections | Power Automate → Connections | Dataverse, SharePoint and Teams, all **Connected**, owned by a System Administrator account |
 | ☐ | Connection references | Solutions → CAIContractIntelligence → Connection references | Four, each with a connection |
 | ☐ | Environment variables | Solutions → CAIContractIntelligence → Environment variables | Five with a current value; the two time zones, the recompute window and the full recompute day with their defaults |
@@ -338,5 +350,5 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 | ☐ | Agent status | Microsoft 365 admin center → Agents | **Draft** or **Blocked**; never **Available** |
 | ☐ | Agent channels, sharing, authentication | Copilot Studio | No channel; only the owner listed; *Authenticate with Microsoft* |
 | ☐ | Cost alert and limits | Azure; section 1a | A budget with email alerts; initial limits agreed (first month at most 25 contracts, at most 10 documents a day) |
-| ☐ | Reviewer briefed | Section 9a | Reviewer knows the three checks; users know to send month-based notices a week early |
+| ☐ | Reviewer briefed | Section 9a | Reviewer knows the four checks and the two corrections applied at once; users know that a PROVISIONAL deadline must be checked against the contract |
 | ☐ | First test | Section 9 | Passed with an owner-team member |
