@@ -28,6 +28,7 @@
  * environment only if YOU export it, to seal test tokens with lib/downloadToken.js.
  */
 import { signDownload } from '../lib/downloadToken.js';
+import { readFileSync } from 'node:fs';
 
 const BASE = (process.env.BASE_URL || '').replace(/\/+$/, '');
 if (!BASE) {
@@ -49,22 +50,24 @@ console.log(`Preflight against ${BASE}\n`);
 
 // ── 1. checkout input hardening ───────────────────────────────────────────────
 {
-  let r = await get(`/api/checkout?agent=NOT_A_SLUG!!&terms=accepted`);
+  let r = await get(`/api/checkout?agent=NOT_A_SLUG!!`);
   ok('checkout rejects malformed slug (400)', r.status === 400, `got ${r.status}`);
 
-  r = await get(`/api/checkout?agent=totally-unknown-agent&terms=accepted`);
+  r = await get(`/api/checkout?agent=totally-unknown-agent`);
   ok('checkout rejects unknown agent (404) or is disabled (503)', r.status === 404 || r.status === 503, `got ${r.status}`);
 
-  r = await get(`/api/checkout?agent=${SLUG}`);
-  ok('checkout without accepted terms is refused (400) or disabled (503)', r.status === 400 || r.status === 503, `got ${r.status}`);
+  r = await get(`/api/checkout?agent=${SLUG}&method=card`);
+  ok('checkout GET shows the confirmation page, never a Stripe redirect (200) or is disabled (503)', r.status === 200 || r.status === 503, `got ${r.status}`);
 
-  r = await fetch(BASE + `/api/checkout?agent=${SLUG}&terms=accepted`, { method: 'POST', redirect: 'manual' });
-  ok('checkout rejects POST (405)', r.status === 405, `got ${r.status}`);
+  r = await fetch(BASE + `/api/checkout`, { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: `agent=${SLUG}&method=card` });
+  ok('checkout POST without the confirmations is refused (400) or disabled (503)', r.status === 400 || r.status === 503, `got ${r.status}`);
 }
 
 // ── 2. checkout happy path (no purchase: we stop at the redirect) ────────────
 {
-  const r = await get(`/api/checkout?agent=${SLUG}&terms=accepted&method=card`);
+  const legalSet = JSON.parse(readFileSync(new URL('../config/legal.json', import.meta.url), 'utf8')).set;
+  const r = await fetch(BASE + '/api/checkout', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    body: new URLSearchParams({ agent: SLUG, method: 'card', cert: '0', company: 'Preflight Test Company', name: 'Preflight Tester', authority: 'on', terms: 'on', delivery: 'on', legal_set: legalSet }).toString() });
   if (r.status === 303 || r.status === 302) {
     const loc = r.headers.get('location') || '';
     ok('checkout redirects into Stripe hosted checkout', /^https:\/\/checkout\.stripe\.com\//.test(loc), loc.slice(0, 80));

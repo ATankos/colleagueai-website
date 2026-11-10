@@ -1,7 +1,15 @@
 /**
  * api/checkout.js - Creates a Stripe Checkout Session and redirects the buyer to it.
  *
- * GET /api/checkout?agent=<slug>&ref=<ref>&partner=<code>&currency=usd|eur&method=bank|card&terms=accepted
+ * GET  /api/checkout?agent=<slug>&ref=<ref>&partner=<code>&currency=usd|eur&method=bank|card
+ *      -> the order-confirmation page (lib/acceptance.js): agreements with their versions, order summary,
+ *         buyer company, declaring name and three UNTICKED confirmations.
+ * POST /api/checkout  (the confirmation form)
+ *      -> validates the confirmations, stores an acceptance record (lib/db.js recordAcceptance), then
+ *         creates the Stripe Checkout Session with the acceptance id and document versions in its metadata.
+ *
+ * `terms=accepted` in a GET is no longer evidence of anything and is ignored: acceptance is what the buyer
+ * submits on the confirmation page, and the stored record is what proves it.
  *
  * USD is the default/primary lane; EUR is the optional European lane.
  *
@@ -35,6 +43,8 @@ import PRICING from '../config/pricing.json' with { type: 'json' };
 import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
+import { recordAcceptance, bindAcceptance } from '../lib/db.js';
+import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, LEGAL_SET } from '../lib/acceptance.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
 export const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
@@ -110,8 +120,8 @@ function methodTypes(method) {
 }
 
 export default async function handler(req, res) {
-  if (req.method !== 'GET') {
-    res.setHeader('Allow', 'GET');
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    res.setHeader('Allow', 'GET, POST');
     return res.status(405).end('Method not allowed');
   }
   if (!process.env.STRIPE_SECRET_KEY) {
@@ -125,7 +135,10 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'Checkout is temporarily unavailable', code: 'checkout_disabled' });
   }
 
-  const q = req.query || {};
+  // GET carries the storefront parameters in the query; the POSTed confirmation form carries the same
+  // names as hidden fields, plus the buyer's entries. One parameter map serves both.
+  const form = req.method === 'POST' ? await readForm(req) : null;
+  const q = req.method === 'POST' ? { ...form } : (req.query || {});
 
   // A retired slug (old links, bookmarks, partner URLs) resolves to the product's current slug,
   // so the Stripe metadata, entitlement and download all use one identifier.
@@ -146,10 +159,6 @@ export default async function handler(req, res) {
   const product = productFor(slug);
   const productName = product?.name || `ColleagueAI - ${titleFromSlug(slug)}`;
   const shortName = product?.name ? product.name.replace(/^ColleagueAI\s+/, '') : titleFromSlug(slug);
-
-  if (String(valueOf(q.terms) || '') !== 'accepted') {
-    return res.status(400).json({ error: 'Terms not accepted' });
-  }
 
   const currencyRaw = String(valueOf(q.currency) || 'usd').toLowerCase();
   const currency = ALLOWED_CURRENCIES[currencyRaw] ? currencyRaw : 'usd';
@@ -191,6 +200,49 @@ export default async function handler(req, res) {
   if (partner) metadata.partner = partner;
 
   const origin = originOf(req);
+  const cancelUrl = `${origin}${AGENTS_PATH[lang]}?purchase=cancelled&agent=${encodeURIComponent(slug)}`;
+
+  // The storefront parameters that must survive the confirmation step unchanged.
+  const carried = { agent: slug, currency, method: method || '', cert: certParam || '', interval: certInterval, ref: ref || '', partner, lang };
+  const pageModel = (extra) => renderAcceptancePage({
+    productName, tier, slug, version: product?.release?.version, currency, priceCents: cents,
+    certCents: withCert ? certUnit : null, certInterval, method: includesBank ? 'bank' : method, hidden: carried, cancelUrl, lang, ...extra,
+  });
+
+  if (req.method === 'GET') {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(200).end(pageModel({}));
+  }
+
+  const accepted = validateAcceptance(form);
+  if (!accepted.ok) {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(400).end(pageModel({ errors: accepted.errors, values: { company: form.company, name: form.name } }));
+  }
+
+  // The acceptance record is written BEFORE the session exists: if Stripe fails we still know who accepted
+  // what; if KV fails we do not take money without evidence.
+  let acceptance;
+  try {
+    acceptance = await recordAcceptance({
+      legalSet: LEGAL_SET, legalVersions: legalVersionString(),
+      agentSlug: slug, sku: product?.sku ?? null, release: product?.release?.version ?? null, tier,
+      currency, priceCents: cents, certification: withCert ? certInterval : null,
+      buyerCompany: accepted.value.company, declaredBy: accepted.value.name, consents: accepted.value.consents,
+      clientHash: clientFingerprint(req), userAgent: String(req.headers['user-agent'] || '').slice(0, 200),
+      lang, partner: partner || null, ref: ref || null, stripeSessionId: null,
+    });
+  } catch (err) {
+    console.error('[checkout] acceptance record failed:', err?.message ?? err);
+    return res.status(503).json({ error: 'Could not record your acceptance; nothing was charged. Please try again.' });
+  }
+  metadata.acceptance_id = acceptance.id;
+  metadata.legal_set = LEGAL_SET;
+  metadata.legal_versions = legalVersionString();
+  metadata.buyer_company = accepted.value.company.slice(0, 120);
+
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, stripeOptions());
 
   try {
@@ -234,11 +286,15 @@ export default async function handler(req, res) {
       // subscription instead, which is what the webhook reads on invoice events.
       ...(withCert ? { subscription_data: { metadata } } : { payment_intent_data: { metadata } }),
       ...(ref ? { client_reference_id: ref } : {}),
-      billing_address_collection: 'auto',
+      billing_address_collection: 'required',
+      // The hosted page repeats the acceptance in Stripe's own record (needs the Terms URL set in the
+      // Stripe Dashboard; STRIPE_TOS_CONSENT=1 says it is, otherwise Stripe would refuse the session).
+      ...(process.env.STRIPE_TOS_CONSENT === '1' ? { consent_collection: { terms_of_service: 'required' } } : {}),
+      custom_text: { submit: { message: `Order confirmed for ${accepted.value.company} under ColleagueAI agreement set ${LEGAL_SET} (acceptance ${acceptance.id}).`.slice(0, 1200) } },
       allow_promotion_codes: false,
       locale: lang, // Stripe Checkout supports all 8 storefront locales
       success_url: `${origin}/api/success?session_id={CHECKOUT_SESSION_ID}&lang=${lang}`,
-      cancel_url: `${origin}${AGENTS_PATH[lang]}?purchase=cancelled&agent=${encodeURIComponent(slug)}`,
+      cancel_url: cancelUrl,
     };
 
     // (Subscription mode creates the Customer itself, from the email typed on the
@@ -254,6 +310,8 @@ export default async function handler(req, res) {
     }
 
     const session = await stripe.checkout.sessions.create(params);
+    // Best effort: the session carries the acceptance id either way; the back-link just saves a lookup.
+    bindAcceptance(acceptance.id, { stripeSessionId: session.id }).catch((e) => console.warn('[checkout] acceptance bind skipped:', e?.message ?? e));
 
     res.writeHead(303, { Location: session.url });
     return res.end();

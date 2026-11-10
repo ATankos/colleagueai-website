@@ -2,7 +2,8 @@
  * tests/stripe-api-compat.test.mjs - the pinned Stripe API version, and the readers that accept both the
  * legacy and the basil+ payload shapes, and the Checkout Session request that api/checkout.js sends on that
  * version. The readers are pure functions; the checkout tests talk to an in-process fake of the Stripe API on
- * loopback (STRIPE_API_HOST), so nothing leaves the machine and no KV is touched.
+ * loopback (STRIPE_API_HOST) and to an in-memory fake Upstash (the acceptance record, tests/acceptance.test.mjs),
+ * so nothing leaves the machine.
  * Usage: node --test tests/stripe-api-compat.test.mjs
  */
 import { test } from 'node:test';
@@ -11,6 +12,23 @@ import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { STRIPE_API_VERSION } from '../lib/stripe.js';
 import { subscriptionPeriodEnd, invoiceSubscriptionId, invoiceSubscriptionPeriodEnd } from '../lib/stripeCompat.js';
+
+// The checkout writes an acceptance record before it calls Stripe, so the handler needs a KV. A plain in-memory
+// fake on loopback, started before api/checkout.js (and with it lib/db.js) is first imported.
+const kvStore = new Map();
+const kvFake = http.createServer((req, res) => {
+  const [, cmd, ...args] = req.url.split('/').map(decodeURIComponent);
+  let result = null;
+  if (cmd === 'GET') result = kvStore.get(args[0]) ?? null;
+  else if (cmd === 'SET') { kvStore.set(args[0], args[1]); result = 'OK'; }
+  res.setHeader('content-type', 'application/json');
+  res.end(JSON.stringify({ result }));
+});
+await new Promise((r) => kvFake.listen(0, '127.0.0.1', r));
+kvFake.unref();
+process.env.KV_REST_API_URL = `http://127.0.0.1:${kvFake.address().port}`;
+process.env.KV_REST_API_TOKEN = 'local-dummy-token';
+const LEGAL_SET = JSON.parse(readFileSync(new URL('../config/legal.json', import.meta.url), 'utf8')).set;
 
 test('the pinned API version is the one the installed stripe SDK is built against', () => {
   const src = readFileSync(new URL('../node_modules/stripe/cjs/apiVersion.js', import.meta.url), 'utf8');
@@ -135,9 +153,12 @@ function mockRes() {
 async function buy(query) {
   const { default: checkout } = await import('../api/checkout.js');
   const res = mockRes();
+  // The buyer's submission of the confirmation page (lib/acceptance.js), which is what creates the session.
   await checkout({
-    method: 'GET',
-    query: { agent: 'contract-intelligence-and-register', terms: 'accepted', ...query },
+    method: 'POST',
+    body: { agent: 'contract-intelligence-and-register', company: 'Compat Test Co', name: 'Compat Tester',
+      authority: 'on', terms: 'on', delivery: 'on', legal_set: LEGAL_SET, ...query },
+    query: {},
     headers: { host: 'shop.example.test' },
   }, res);
   return res;

@@ -1,0 +1,10 @@
+{
+  "_comment": "Versions of the customer-facing agreements that a buyer accepts at checkout. api/checkout.js shows these documents on the order-confirmation step and writes their versions into the acceptance record and the Stripe session metadata, so every order can later prove which text was accepted. Bump a version here in the same change that edits the page; tests/acceptance.test.mjs fails if a page's own 'Last updated' / 'Effective' line no longer matches.",
+  "set": "2026-07-09",
+  "documents": {
+    "terms": { "title": "Terms of Service", "path": "/terms", "version": "2026-06-13", "pageMarker": "Last updated: 13 June 2026" },
+    "licence": { "title": "Software & Agent Licence", "path": "/license", "version": "2026-06-13", "pageMarker": "Last updated: 13 June 2026" },
+    "refund": { "title": "Refund Policy", "path": "/refund", "version": "1.0 (2026-07-09)", "pageMarker": "Version 1.0 · Effective 9 July 2026" },
+    "privacy": { "title": "Privacy Policy", "path": "/privacy", "version": "2026-06-13", "pageMarker": "Last updated: 13 June 2026" }
+  }
+}

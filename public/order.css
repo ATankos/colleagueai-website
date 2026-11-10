@@ -126,3 +126,15 @@ a{color:var(--terra-solid)}
   .o-help{padding:22px}
 }
 @media (prefers-reduced-motion:reduce){.o-btn{transition:none}.o-btn:hover{transform:none}}
+
+/* Order-confirmation step (lib/acceptance.js): a full-width order table and readable consent labels. */
+.o-accept .o-order{width:100%;border-collapse:collapse}
+.o-accept .o-order td{padding:10px 12px;vertical-align:top;border-bottom:1px solid rgba(0,0,0,.06)}
+.o-accept .o-order td:first-child{width:58%}
+.o-accept .o-order td:last-child{font-weight:600}
+.o-accept .o-field{display:block;margin:0 0 14px}
+.o-accept .o-field input{display:block;width:100%;max-width:420px;margin-top:6px;padding:10px 12px;font-family:var(--sans);font-size:16px;letter-spacing:normal;text-transform:none;color:var(--graphite);border:1px solid var(--line);border-radius:8px;background:#fff}
+.o-accept .o-consent{display:flex;gap:10px;align-items:flex-start;margin:0 0 14px;font-family:var(--sans);color:var(--graphite);font-size:15px;letter-spacing:normal;text-transform:none;line-height:1.5}
+.o-accept .o-consent input{margin-top:4px;width:18px;height:18px;flex:0 0 18px}
+.o-accept [aria-invalid="true"]{outline:2px solid #b3361b;outline-offset:2px}
+.o-accept form.o-form{max-width:none}
