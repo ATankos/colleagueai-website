@@ -67,13 +67,45 @@ async function sessionForCharge(stripe, obj) {
 
   try {
     const list = await stripe.checkout.sessions.list({ payment_intent: pi, limit: 1 });
-    const session = list?.data?.[0] ?? null;
+    let session = list?.data?.[0] ?? null;
+    /* A subscription-mode Checkout Session (licence + Continuous Certification) has no payment_intent of its
+     * own: its first charge is paid through the subscription's first invoice. Resolve it the way the pinned
+     * API version models that link: payment intent -> invoice payment -> invoice -> subscription -> session.
+     * Without this, refunding such a purchase reversed nothing and left the subscription billing. */
+    if (!session) session = await sessionForInvoiceCharge(stripe, pi);
     if (!session) console.warn('[webhook] No checkout session found for payment_intent:', pi);
     return { sessionId: session?.id ?? null, session };
   } catch (err) {
     console.error('[webhook] Session lookup by payment_intent failed:', err?.message ?? err);
     return { sessionId: null, session: null, lookupFailed: true };
   }
+}
+
+async function sessionForInvoiceCharge(stripe, pi) {
+  const payments = await stripe.invoicePayments.list({ payment: { type: 'payment_intent', payment_intent: pi }, limit: 1 });
+  const invoiceRef = payments?.data?.[0]?.invoice;
+  const invoiceId = typeof invoiceRef === 'string' ? invoiceRef : invoiceRef?.id;
+  if (!invoiceId) return null;
+  const invoice = typeof invoiceRef === 'object' && invoiceRef?.parent ? invoiceRef : await stripe.invoices.retrieve(invoiceId);
+  // Only the subscription's FIRST invoice is the purchase; a refunded renewal is a certification matter only.
+  if (invoice?.billing_reason && invoice.billing_reason !== 'subscription_create') return null;
+  const subId = invoiceSubscriptionId(invoice);
+  if (!subId) return null;
+  const sessions = await stripe.checkout.sessions.list({ subscription: subId, limit: 1 });
+  return sessions?.data?.[0] ?? null;
+}
+
+/** Cancel the subscription now (no proration, no further invoices) and lapse its certificate. Idempotent. */
+async function endCertificationForRefund(stripe, subId, sessionId) {
+  try {
+    await stripe.subscriptions.cancel(subId, { invoice_now: false, prorate: false });
+  } catch (err) {
+    // Already cancelled is fine; anything else must surface so Stripe retries the event.
+    if (!/canceled|No such subscription|resource_missing/i.test(String(err?.message ?? err) + String(err?.code ?? ''))) throw err;
+  }
+  const cert = await lapseCertification(subId, 'refunded');
+  console.log('[webhook] Certification ended after refund of %s (subscription %s)', sessionId, subId);
+  return cert ? 'lapsed' : 'subscription-cancelled';
 }
 
 async function getRawBody(req) {
@@ -383,7 +415,17 @@ export default async function handler(req, res) {
         console.log('[webhook] Entitlement revoked after %s for %s', event.type, sessionId);
       }
 
-      return res.status(200).json({ received: true, commission: result.state ?? result.reason });
+      /* LR-19: a fully refunded purchase that came with Continuous Certification ends the certification too.
+       * Otherwise the buyer is refunded the licence and keeps being billed for certifying a package they no
+       * longer hold. Disputes are not final, so only a refund cancels. */
+      let certification;
+      if (event.type === 'charge.refunded' && fullyRefunded) {
+        const subRef = session?.subscription;
+        const subId = typeof subRef === 'string' ? subRef : subRef?.id;
+        if (subId) certification = await endCertificationForRefund(stripe, subId, sessionId);
+      }
+
+      return res.status(200).json({ received: true, commission: result.state ?? result.reason, ...(certification ? { certification } : {}) });
     } catch (err) {
       console.error('[webhook] Reversal handling failed:', err);
       return res.status(500).json({ error: 'Reversal write failed' });
