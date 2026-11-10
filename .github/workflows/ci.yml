@@ -67,6 +67,10 @@ jobs:
       - name: Entitlement changes are concurrency-safe (refund, dispute, replay and reload cannot undo each other)
         run: node --test tests/entitlement-concurrency.test.mjs
 
+      # No Stripe session without a stored acceptance record naming the document versions; a URL flag is not consent.
+      - name: Legal acceptance is evidence (confirmation step, versioned agreements, record before payment)
+        run: node --test tests/acceptance.test.mjs
+
       - name: Purchased product is the released product (package delivery, sale gate, rename)
         run: node --test tests/product-release.test.mjs
 

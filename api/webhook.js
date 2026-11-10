@@ -34,6 +34,7 @@ import {
   markCertificationPastDue,
   lapseCertification,
   getCertificationBySubscription,
+  bindAcceptance,
 } from '../lib/db.js';
 import { liveFulfilmentWithheld, liveRestoreRefused } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
@@ -180,6 +181,21 @@ async function fulfillSession(session, eventId) {
     console.error('[webhook] Failed to write entitlement:', err);
     await releaseClaims(eventId, session.id);
     throw new Error('Entitlement write failed');
+  }
+
+  /* Close the evidence loop: the acceptance record written at the confirmation step now learns which
+   * buyer email the paid session belongs to and when it was fulfilled. Best effort: the session metadata
+   * already names the acceptance id, so a missed bind loses a convenience, not the evidence. */
+  const acceptanceId = session.metadata?.acceptance_id;
+  if (acceptanceId) {
+    try {
+      const bound = await bindAcceptance(acceptanceId, { stripeSessionId: session.id, buyerEmail: email, fulfilledAt: new Date().toISOString() });
+      if (!bound) console.warn('[webhook] acceptance %s referenced by session %s not found', acceptanceId, session.id);
+    } catch (err) {
+      console.warn('[webhook] acceptance bind skipped:', err?.message ?? err);
+    }
+  } else {
+    console.warn('[webhook] session %s carries no acceptance_id (pre-confirmation-step link?)', session.id);
   }
 
   /* Continuous Certification, when the session was a subscription. The licence

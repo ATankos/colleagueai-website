@@ -238,7 +238,7 @@ test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved rele
   for (const key of ['sk_live_not_a_real_key', 'rk_live_not_a_real_key']) {
     await withEnv({ STRIPE_SECRET_KEY: key, CHECKOUT_ENABLED: undefined }, async () => {
       const res = mockRes();
-      await checkout({ method: 'GET', query: { agent: SLUG, terms: 'accepted' }, headers: { host: 'example.test' } }, res);
+      await checkout({ method: 'GET', query: { agent: SLUG }, headers: { host: 'example.test' } }, res);
       assert.equal(res.statusCode, 403, key);
       assert.equal(res.body.code, 'not_approved_for_sale');
     });
@@ -326,7 +326,7 @@ test('alias: new grants are stored under the current slug, and a refund revokes 
 
 test('alias: old checkout links reach the current product (live key still blocked by the sale gate)', () => withEnv({ STRIPE_SECRET_KEY: 'sk_live_x', CHECKOUT_ENABLED: undefined }, async () => {
   const res = mockRes();
-  await checkout({ method: 'GET', query: { agent: OLD_SLUG, terms: 'accepted' }, headers: { host: 'example.test' } }, res);
+  await checkout({ method: 'GET', query: { agent: OLD_SLUG }, headers: { host: 'example.test' } }, res);
   assert.equal(res.statusCode, 403, 'resolved to the product (not 404 Unknown agent)');
   assert.equal(res.body.code, 'not_approved_for_sale');
 }));
@@ -444,5 +444,5 @@ test('checkout carries the storefront language to Stripe and to the thank-you pa
   assert.match(src, /api\/success\?session_id=\{CHECKOUT_SESSION_ID\}&lang=\$\{lang\}/, 'success_url carries lang');
   assert.match(src, /AGENTS_PATH\[lang\]\}\?purchase=cancelled/, 'cancel returns to the localized catalogue');
   const store = readFileSync(join(ROOT, 'public/agents.html'), 'utf8');
-  assert.match(store, /&terms=accepted'\+'&lang='\+encodeURIComponent\(String\(document\.documentElement\.lang/, 'storefront buy link passes the page language');
+  assert.match(store, /&ref='\+ref\+'&lang='\+encodeURIComponent\(String\(document\.documentElement\.lang/, 'storefront buy link passes the page language');
 });
