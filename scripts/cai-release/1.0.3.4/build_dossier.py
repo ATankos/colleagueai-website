@@ -85,7 +85,8 @@ story = [
          'date, no days left and no reminder, until the reviewer confirms the period on a deadline card in Teams. The calculation is not '
          'a legal interpretation of the clause.'),
         ('Human review in Teams', 'A review card goes to the named reviewer, showing the notice period, its wording, all notice clauses '
-         'found and the signing date. Approve, reject or correct. A notice period is applied only when the reviewer ticks an explicit '
+         'found and the signing date. Approve, reject or correct. Before confirming a notice period the reviewer must read the source '
+         'contract itself, including its schedules, attachments, amendments and small print. A notice period is applied only when the reviewer ticks an explicit '
          'confirmation; it and an effective date correction are applied at once and recorded with the reviewer’s name, the original value '
          'and evidence kept; any other correction records the review as “Needs correction” and blocks approval until resolved. A deadline '
          'that is not verified sends the reviewer a deadline card with the reasons and candidate calculations. Stale or superseded review '

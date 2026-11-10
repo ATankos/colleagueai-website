@@ -218,3 +218,19 @@ test('the storefront no longer builds checkout links that claim acceptance', () 
     assert.ok(!src.includes("'&terms=accepted'"), `${f} still appends terms=accepted`);
   }
 });
+
+// The order-confirmation page POSTs to /api/checkout, which answers 303 to Stripe Checkout. Browsers apply the
+// page's CSP form-action to every hop of that redirect, so with form-action 'self' alone Chrome blocks the hand-over
+// and the buyer never reaches Stripe (seen on the 1.0.3.4 Preview, 10 Nov 2026). Keep Stripe Checkout allowed,
+// and nothing broader.
+test('CSP lets the order confirmation hand over to Stripe Checkout, and to nothing else', () => {
+  const vercel = JSON.parse(readFileSync(new URL('vercel.json', ROOT), 'utf8'));
+  const csp = vercel.headers.flatMap((h) => h.headers).filter((x) => x.key.toLowerCase() === 'content-security-policy');
+  assert.ok(csp.length > 0, 'a Content-Security-Policy header is configured');
+  for (const header of csp) {
+    const formAction = header.value.split(';').map((d) => d.trim()).find((d) => d.startsWith('form-action'));
+    assert.ok(formAction, 'form-action is set');
+    const sources = formAction.split(/\s+/).slice(1);
+    assert.deepEqual(sources.sort(), ["'self'", 'https://checkout.stripe.com'].sort(), `form-action is exactly self + Stripe Checkout: ${formAction}`);
+  }
+});

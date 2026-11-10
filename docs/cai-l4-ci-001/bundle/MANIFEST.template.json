@@ -4,7 +4,7 @@
   "release": "1.0.3.4",
   "correctiveFor": "1.0.3.2, 1.0.3.3",
   "tier": "CAI L4 — Decide (supervised)",
-  "bundleRevision": 1,
+  "bundleRevision": 2,
   "status": "controlled test release; not for production use",
   "publisher": "Colleague AI s.r.o.",
   "solution": {

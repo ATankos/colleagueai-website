@@ -10,10 +10,23 @@
     "saleApproved": false,
     "legacyEntitlementVersion": "1.0.3.2",
     "release": {
-      "version": "1.0.3.2",
+      "version": "1.0.3.4",
       "status": "controlled-test",
-      "package": "CAI-L4-CI-001_1.0.3.2.zip",
-      "sha256": "48981310f518f3b2c866cefedad63f10c576eda8d6128c2527ce941888c0b23c"
-    }
+      "package": "CAI-L4-CI-001_1.0.3.4.zip",
+      "sha256": "9de421b3b270315b061ac3be4d1a8dd2665059d358d7c451e1558bf97b792efa",
+      "releasedAt": "2026-11-10T00:00:00Z",
+      "correctiveFor": [
+        "1.0.3.2",
+        "1.0.3.3"
+      ]
+    },
+    "previousReleases": [
+      {
+        "version": "1.0.3.2",
+        "status": "controlled-test",
+        "package": "CAI-L4-CI-001_1.0.3.2.zip",
+        "sha256": "48981310f518f3b2c866cefedad63f10c576eda8d6128c2527ce941888c0b23c"
+      }
+    ]
   }
 }

@@ -1,10 +1,10 @@
 # START HERE — ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.4 · **Bundle revision** 1 · **Tier** CAI L4 — Decide (supervised)
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.4 · **Bundle revision** 2 · **Tier** CAI L4 — Decide (supervised)
 
 > **Release status: controlled test release. Not for production use.**
 > Each user sees only the contracts owned by their Dataverse owner team (INSTALL section 6).
-> Release 1.0.3.4 shows a notice deadline only when it is confirmed. Notice periods are kept as stated (for example 6 months) and counted on the calendar; a deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date. **Upgrading?** Read INSTALL section 4, *existing contracts and deadlines*.
+> Release 1.0.3.4 shows a notice deadline only when it is confirmed. Notice periods are kept as stated (for example 6 months) and counted on the calendar; a deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date. **Before confirming a notice period, the reviewer must read the source contract itself, including its schedules, attachments, amendments and small print** (INSTALL section 9a). **Upgrading?** Read INSTALL section 4, *existing contracts and deadlines*.
 
 ## What you have
 

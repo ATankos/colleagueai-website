@@ -3,12 +3,13 @@ INSTALL.md of bundle CAI-L4-CI-001 1.0.3.4 (corrective release: 1.0.3.2 counted 
 1.0.3.3 fixed the calculation; 1.0.3.4 withholds every notice deadline that a reviewer has not confirmed).
 Statements about the import, flows, role and agent come from real installs of 1.0.3.1 and 1.0.3.2 (8-9 Nov 2026), from
 the 1.0.3.3 tests and from the 1.0.3.4 tests of 10 Nov 2026 (build and targeted tests in CAI-LAB, upgrade of a test
-environment with existing data, clean install).
+environment with existing data, clean install). Bundle revision 2 (documentation only, same managed solution): the
+reviewer's duty to inspect the source contract and its attachments before confirming a notice period (section 9a).
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.4 · **Bundle revision** 1
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.4 · **Bundle revision** 2
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -299,6 +300,8 @@ Approval is what makes a contract count: until a document is approved, the agent
 - **Notice clauses found in the whole document**: every sentence about notice of non-renewal that the extraction found, including schedules, order forms and small print. More than one period means you decide which one applies;
 - **Signed on**, next to the effective date, so that a signing date taken as the effective date is easy to spot.
 
+**Before you confirm a notice period or approve a contract, open the source contract itself** (the file in the contract library), not only the review card, and read its renewal and notice provisions in full: the main terms, every schedule, annex, order form and amendment that applies to it, including those kept as separate documents, and the small print. The card shows only what the extraction found, and the extraction can miss or misread a clause. Ticking the confirmation records that you have done this check.
+
 Check in particular:
 
 1. **Notice period.** Amount, unit and timing must match the wording and every clause listed. To set or confirm the period, choose **Notice period - applied at once**, type the period (for example `6 months`, `90 days`, `8 weeks`, or `none` if the contract does not renew automatically) and **tick the confirmation** *I have checked this notice period against the original wording in the document and the calculation*. Only a confirmed period is applied; it is recorded with your name, and the extracted value and its evidence are kept. A period typed without the tick is not applied and records the review as *Needs correction*.
@@ -362,5 +365,5 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 | ☐ | Agent status | Microsoft 365 admin center → Agents | **Draft** or **Blocked**; never **Available** |
 | ☐ | Agent channels, sharing, authentication | Copilot Studio | No channel; only the owner listed; *Authenticate with Microsoft* |
 | ☐ | Cost alert and limits | Azure; section 1a | A budget with email alerts; initial limits agreed (first month at most 25 contracts, at most 10 documents a day) |
-| ☐ | Reviewer briefed | Section 9a | Reviewer knows the four checks, the confirmation tick and the deadline card; users know that *Deadline not verified* means no date may be relied on |
+| ☐ | Reviewer briefed | Section 9a | Reviewer opens the source contract and its schedules, attachments and small print before confirming a notice period; knows the four checks, the confirmation tick and the deadline card; users know that *Deadline not verified* means no date may be relied on |
 | ☐ | First test | Section 9 | Passed with an owner-team member |
