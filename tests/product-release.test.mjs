@@ -364,7 +364,9 @@ test('packages: generated factsheets list only the packages each agent offers', 
   const ours = readFileSync(join(ROOT, 'dist/agents', SLUG + '.html'), 'utf8');
   assert.match(ours, /Copilot Studio managed solution/);
   assert.doesNotMatch(ours, /Microsoft 365 Copilot package/);
-  assert.match(ours, /Released package/);
+  // A controlled-test release (installable, not yet on general sale) is labelled as such, not as a released package.
+  const status = JSON.parse(readFileSync(join(ROOT, 'config/products.json'), 'utf8'))[SLUG].release.status;
+  assert.match(ours, status === 'controlled-test' ? /<span class="chip">Controlled release<\/span>/ : /<span class="chip">Released package<\/span>/);
   const other = readFileSync(join(ROOT, 'dist/agents/onboarding-agent.html'), 'utf8');
   assert.doesNotMatch(other, /Microsoft 365 Copilot package|Copilot Studio managed solution|connect package/, 'a concept agent lists no installable package');
   assert.match(other, /Concept · dossier only/);

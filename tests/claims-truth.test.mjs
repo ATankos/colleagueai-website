@@ -6,6 +6,12 @@
  * - Only agents with a product record in config/products.json have a released package. Every other catalogue agent
  *   is a concept: it offers no installable package, its status is shown as such, and checkout refuses it in any mode.
  *
+ * - Continuous Certification is not yet sold (CERTIFICATION_SALES_ENABLED is off, LR-23). Wherever its price is shown -
+ *   factsheets, the catalogue drawer in all 8 languages, the pricing page in all 8 languages - the page says it is not
+ *   yet open and that current orders are licence-only.
+ * - A released package runs on the customer's own Microsoft licences and capacity, billed by Microsoft (LR-11). Its
+ *   factsheet and the pricing page say so; nothing hides that the customer pays Microsoft for usage.
+ *
  * Usage: node --test tests/claims-truth.test.mjs   (the factsheet checks additionally need `npm run build`)
  */
 import { test } from 'node:test';
@@ -100,4 +106,71 @@ test('checkout refuses a concept agent even with a test key', async () => {
     if (saved.k === undefined) delete process.env.STRIPE_SECRET_KEY; else process.env.STRIPE_SECRET_KEY = saved.k;
     if (saved.c !== undefined) process.env.CHECKOUT_ENABLED = saved.c;
   }
+});
+
+/* ── Continuous Certification not yet open; Microsoft running costs disclosed (LR-23, LR-11) ───────────────────── */
+const NOT_OPEN = {
+  en: 'Not yet open for subscription: current orders are for the perpetual licence only.',
+  cs: 'Zatím nelze předplatit: současné objednávky jsou pouze na trvalou licenci.',
+  de: 'Noch nicht abonnierbar: aktuelle Bestellungen umfassen nur die unbefristete Lizenz.',
+  fr: 'Pas encore ouvert à l’abonnement : les commandes actuelles portent uniquement sur la licence perpétuelle.',
+  es: 'Todavía no está abierto a suscripción: los pedidos actuales son solo de la licencia perpetua.',
+  it: 'Non ancora aperto all’abbonamento: gli ordini attuali riguardano solo la licenza perpetua.',
+  pl: 'Subskrypcja nie jest jeszcze dostępna: obecne zamówienia obejmują wyłącznie licencję bezterminową.',
+  pt: 'Ainda não está aberta a subscrição: as encomendas atuais são apenas da licença perpétua.',
+};
+
+test('the catalogue drawer says Continuous Certification is not yet open, in every language of every dictionary', () => {
+  const pages = PUBLIC.filter((f) => readFileSync(f, 'utf8').includes('"pay_cert_note":"'));
+  assert.ok(pages.length >= 9, `found ${pages.length} pages with the pay-panel dictionary`);
+  for (const f of pages) {
+    const notes = [...readFileSync(f, 'utf8').matchAll(/"pay_cert_note":"((?:[^"\\]|\\.)*)"/g)].map((m) => m[1]);
+    for (const n of notes) {
+      assert.ok(Object.values(NOT_OPEN).some((t) => n.endsWith(t)), `${f.slice(ROOT.length)}: a certification note does not say it is not yet open: "${n.slice(0, 60)}…"`);
+    }
+  }
+});
+
+test('the pricing page, in all 8 languages, says certification is not yet open and Microsoft bills usage to the customer', () => {
+  const DICT = JSON.parse(readFileSync(join(ROOT, 'scripts/i18n/pricing-content.json'), 'utf8'));
+  const en = Object.keys(DICT).find((k) => k.startsWith('Continuous Certification is not yet open for subscription'));
+  assert.ok(en, 'pricing dictionary entry missing');
+  assert.match(en, /Microsoft bills that usage to the customer, not ColleagueAI/);
+  assert.ok(readFileSync(join(ROOT, 'public/pricing.html'), 'utf8').includes(`<p class="note">${en}</p>`), 'English pricing page lacks the note');
+  for (const loc of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    const t = DICT[en][loc];
+    assert.ok(t && t !== en, `${loc}: no translation`);
+    for (const f of [`public/${loc}/pricing.html`, `public/${loc}/pricing/index.html`]) {
+      if (!existsSync(join(ROOT, f))) continue;
+      const s = readFileSync(join(ROOT, f), 'utf8');
+      assert.ok(s.includes(t), `${f}: localized note missing (run the pricing generator)`);
+      assert.ok(!s.includes(en), `${f}: English note left untranslated`);
+    }
+  }
+});
+
+test('factsheets: certification marked not yet open; every released package states its Microsoft prerequisites and who bills usage', () => {
+  const gen = readFileSync(join(ROOT, 'scripts/generate-agent-pages.mjs'), 'utf8');
+  assert.match(gen, /const CERT_NOT_OPEN = 'Continuous Certification is not yet open for subscription: current orders are for the perpetual licence only\.'/);
+  assert.match(gen, /\$\{esc\(CERT_NOT_OPEN\)\}<\/p>/, 'price section must carry the not-yet-open sentence');
+  for (const slug of RELEASED) {
+    const m = gen.match(new RegExp(`'${slug}': '([^']+)'`));
+    assert.ok(m, `${slug}: no Microsoft prerequisites / running-cost statement`);
+    assert.match(m[1], /Microsoft bills to you, not ColleagueAI/);
+    assert.match(m[1], /Copilot Credits/);
+  }
+});
+
+test('built factsheets: certification not yet open everywhere; the released package shows its Microsoft running costs', { skip: !DIST.length && 'run npm run build first' }, () => {
+  const facts = DIST.filter((f) => /[\\/]agents[\\/][a-z0-9-]+\.html$/.test(f) && !/index\.html$/.test(f) && !/[\\/](cs|de|fr|es|it|pl|pt|en)[\\/]/.test(f));
+  assert.ok(facts.length >= 30, `found ${facts.length} factsheets`);
+  for (const f of facts) {
+    const s = readFileSync(f, 'utf8');
+    if (!/Continuous Certification/.test(s)) continue;
+    assert.ok(s.includes('Continuous Certification is not yet open for subscription'), `${f.slice(ROOT.length)}: certification price without "not yet open"`);
+    const slug = f.split(/[\\/]/).pop().replace('.html', '');
+    assert.equal(s.includes('Microsoft prerequisites and running costs'), RELEASED.includes(slug), `${slug}: running-cost section only and always on released packages`);
+  }
+  const ci = readFileSync(DIST.find((f) => f.endsWith(`agents${join('/', RELEASED[0])}.html`) || f.endsWith(`/agents/${RELEASED[0]}.html`)), 'utf8');
+  assert.match(ci, /<span class="chip">Controlled release<\/span>/);
 });
