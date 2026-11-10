@@ -189,7 +189,7 @@ flag_list = ("@createArray("
     f"if(and(outputs('Has_notice'), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), {TIM}))), 'the timing wording of the notice clause is unclear; the date shown is one day earlier than the plain calculation', ''), "
     f"if(equals(toLower(coalesce({R}?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce({R}?['quote'], '')), ''), "
     "if(outputs('N_conflict'), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the date shown uses the longest period up to 24 months, which gives the earliest date - a reviewer must decide which applies'), ''), "
-    "if(greater(length(outputs('N_all')), length(body('N_plausible'))), 'a notice period longer than 24 months was read from the document (possibly misread small print); it is not used for the date - check the document', ''), "
+    "if(and(greater(length(outputs('N_all')), length(body('N_plausible'))), not(equals(outputs('N_status'), 'reviewer_corrected'))), 'a notice period longer than 24 months was read from the document (possibly misread small print); it is not used for the date - check the document', ''), "
     f"if(and(outputs('Has_notice'), equals({REF}, 'term_end'), contains({LW}, 'renewal date')), 'the clause refers to the renewal date; the date shown counts back from the end of the term, which can be up to three days earlier - check the reference date', ''), "
     f"if(and(equals(coalesce({R}?['value']?['type'], ''), 'automatic'), not(equals({AMT}, null)), empty({UNIT})), 'the unit of the notice period is not recognised', '')"
     ")")
@@ -202,6 +202,9 @@ basis = ("@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), c
          "' = notice deadline ', outputs('Next_notice_deadline'), '. Contract wording: \"', string(outputs('N_wording')), '\"', "
          f"if(empty(coalesce({R}?['location'], '')), '', concat(' (', {R}?['location'], ')')), "
          "if(equals(outputs('N_reference'), 'term_end_assumed'), '. Reference date as read by release 1.0.3.2: counted back from the end of the term', ''), "
+         f"if(equals({NP}?['source'], 'reviewer'), concat('. Notice period set by reviewer ', string(coalesce({R}?['corrected_by'], '')), ' on ', "
+         f"substring(string(coalesce({R}?['corrected_on'], '')), 0, min(10, length(string(coalesce({R}?['corrected_on'], ''))))), ' (extracted: ', "
+         f"string(coalesce({NP}?['extracted']?['amount'], 'none')), ' ', string(coalesce({NP}?['extracted']?['unit'], '')), ')'), ''), "
          f"if(contains(createArray('month', 'year'), {UNIT}), '. Calendar months: counted back to the same day number, or to the last day of a shorter month; where the reference date is the last day of a month, some readings allow the last day of the earlier month, and the earlier date is shown', ''), "
          "'. This is a calendar calculation, not a legal interpretation of the clause.'), '')")
 status_final = ("@concat(outputs('Status_text'), "
@@ -406,6 +409,12 @@ IC['Overlay'] = compose(
     f"@if(outputs('Applied_correction')?['notice_ok'], setProperty({OV}, 'renewal', {NEW_RENEWAL}), "
     f"if(outputs('Applied_correction')?['date_ok'], setProperty({OV}, 'effective_date', {NEW_EFF}), {OV}))", 'Decision_rule')
 IC['Correction']['runAfter'] = {'Overlay': ['Succeeded']}
+# record the extracted value that an applied correction replaces (the new choices map to existing extraction fields)
+_old_key = "if(empty(outputs('Submitted')?['field']), '__none__', outputs('Submitted')?['field'])"
+_new_key = ("if(equals(outputs('Submitted')?['field'], 'notice_period'), 'renewal', if(equals(outputs('Submitted')?['field'], 'effective_date_apply'), "
+            "'effective_date', " + _old_key + "))")
+for _k in ('original_value', 'original_quote', 'original_location', 'original_status'):
+    IC['Correction']['inputs'][_k] = must_replace(IC['Correction']['inputs'][_k], _old_key, _new_key)
 rr = IC['Review_record']['inputs']
 rr['applied_to_effective_terms'] = "@outputs('Applied')"
 rr['applied_correction'] = "@if(outputs('Applied'), outputs('Correction'), null)"
