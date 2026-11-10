@@ -70,10 +70,10 @@ test('Stripe route: the post-payment invoice on the session is recorded with its
   assert.equal(stripe.calls.length, 1);
 });
 
-test('Stripe route: a session without its invoice, or a failed lookup, is reported as failed, never as issued', async () => {
+test('Stripe route: a session that does not name its invoice yet is pending; a failed lookup is failed; neither is issued', async () => {
   const missing = await inv.ensureInvoice({ route: 'stripe', order: ORDER, session: { invoice: null }, stripe: fakeStripe(), now: NOW });
-  assert.equal(missing.status, 'failed');
-  assert.equal(missing.reason, 'no_invoice_on_session');
+  assert.equal(missing.status, 'pending');
+  assert.equal(missing.reason, 'awaiting_invoice');
   const lookup = await inv.ensureInvoice({ route: 'stripe', order: ORDER, session: { invoice: 'in_9' }, stripe: fakeStripe({ failRetrieve: true }), now: NOW });
   assert.equal(lookup.status, 'failed');
   assert.equal(lookup.reason, 'invoice_lookup_failed');

@@ -21,7 +21,7 @@ import { getEntitlement, getCertificationForHolder } from '../lib/db.js';
 import { openDownload } from '../lib/downloadToken.js';
 import { allowedFilesFor, packageDeliverable, canonicalSlug, productFor, releaseOfPackage } from '../lib/products.js';
 import { holdsLicence, releasesAvailable } from '../lib/releaseAccess.js';
-import { storageDriver, signedDownloadUrl } from '../lib/storage.js';
+import { storageDriver, signedDownloadUrl, packageState } from '../lib/storage.js';
 
 function valueOf(input) {
   return Array.isArray(input) ? input[0] : input;
@@ -139,6 +139,20 @@ export default async function handler(req, res) {
   if (driver && file === 'dossier.pdf') {
     res.setHeader('Cache-Control', 'no-store');
     return res.redirect(302, `/docs/agents/${canon}.pdf`);
+  }
+
+  // A release package that is missing from storage, or is not the recorded size, is never handed out: the buyer gets a
+  // clear answer and we get an alert, instead of a link that ends in a storage error or a different file.
+  if (driver && release) {
+    const state = await packageState(canon, file, Number.isInteger(release.bytes) ? release.bytes : null);
+    if (state === 'missing' || state === 'size-mismatch') {
+      console.error('[ALERT] release package %s for %s is %s in storage; download refused', file, canon, state);
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(503).json({
+        error: 'This package is temporarily unavailable. We have been alerted; please try again later or write to hello@colleagueai.ai.',
+        code: state === 'missing' ? 'package_missing' : 'package_mismatch',
+      });
+    }
   }
 
   // Files in private storage: redirect to a short-lived signed URL for agents/<slug>/<file>.
