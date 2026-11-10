@@ -1,19 +1,19 @@
 # START HERE — ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.3 · **Bundle revision** 1 · **Tier** CAI L4 — Decide (supervised)
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.4 · **Bundle revision** 1 · **Tier** CAI L4 — Decide (supervised)
 
 > **Release status: controlled test release. Not for production use.**
 > Each user sees only the contracts owned by their Dataverse owner team (INSTALL section 6).
-> Release 1.0.3.3 corrects notice deadlines: notice periods are kept as stated (for example 6 months) and counted on the calendar. **Upgrading from 1.0.3.2?** Read INSTALL section 4, *existing contracts and deadlines*.
+> Release 1.0.3.4 shows a notice deadline only when it is confirmed. Notice periods are kept as stated (for example 6 months) and counted on the calendar; a deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date. **Upgrading?** Read INSTALL section 4, *existing contracts and deadlines*.
 
 ## What you have
 
 | File | What it is | Who needs it |
 | --- | --- | --- |
 | `START-HERE.pdf` / `.md` | This page | Everyone |
-| `DOSSIER.pdf` | What the product does and doesn't do, prerequisites and known limitations. Running costs and known limitations of release 1.0.3.3 are in INSTALL sections 1a and 10, which take precedence | Buyer, legal, IT |
+| `DOSSIER.pdf` | What the product does and doesn't do, prerequisites and known limitations. Running costs and known limitations of release 1.0.3.4 are in INSTALL sections 1a and 10, which take precedence | Buyer, legal, IT |
 | `INSTALL.pdf` / `.md` | Step-by-step installation, access setup, safety check and first test (about 60 minutes) | IT administrator |
-| `CAIContractIntelligence_1_0_3_3_managed.zip` | The Microsoft Power Platform solution. Import this file as it is; **don't extract it** (you only extract the outer bundle) | IT administrator |
+| `CAIContractIntelligence_1_0_3_4_managed.zip` | The Microsoft Power Platform solution. Import this file as it is; **don't extract it** (you only extract the outer bundle) | IT administrator |
 | `deploymentSettings.template.json` | Only needed when installing from the command line | IT administrator |
 | `check-cai-install-readiness.mjs` | Optional read-only check after the install: flows on, values set, whether the agent got published (INSTALL section 5) | IT administrator |
 | `LICENSE.txt` | Licence terms and where they are published | Buyer, legal |
@@ -32,14 +32,14 @@
 | --- | --- |
 | Buyer or procurement | Read the dossier; confirm the four points above with IT |
 | IT administrator | Verify the download, then follow `INSTALL.pdf` from start to finish, including **who can see contracts** (section 6) and the **mandatory agent safety check** (section 7); keep **Daily recompute** off while testing (section 5) |
-| Contract reviewer | Receives a review card in Teams for every contract, and approves or corrects the extraction before anyone relies on it; makes the checks in INSTALL section 9a and corrects a wrong notice period or effective date directly on the card |
+| Contract reviewer | Receives a review card in Teams for every contract, and approves or corrects the extraction before anyone relies on it; makes the checks in INSTALL section 9a and corrects a wrong notice period or effective date directly on the card, and confirms the notice period on each deadline card (red banner) before that deadline is shown to anyone |
 
 ## Verify the download
 
 On Windows, in PowerShell or Command Prompt, in the folder that holds the file:
 
 ```
-certutil -hashfile CAI-L4-CI-001_1.0.3.3.zip SHA256
+certutil -hashfile CAI-L4-CI-001_1.0.3.4.zip SHA256
 ```
 
 The result must match the SHA-256 shown on your order page. Inside the bundle, `SHA256SUMS.txt` lists the checksum of every file.

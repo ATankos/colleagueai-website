@@ -1,0 +1,455 @@
+{
+ "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+ "contentVersion": "1.0.0.0",
+ "parameters": {
+  "$connections": {
+   "defaultValue": {},
+   "type": "Object"
+  },
+  "$authentication": {
+   "defaultValue": {},
+   "type": "SecureObject"
+  },
+  "cai_BusinessTimeZone (cai_BusinessTimeZone)": {
+   "defaultValue": "Central Europe Standard Time",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_BusinessTimeZone"
+   }
+  },
+  "cai_BusinessTimeZoneIana (cai_BusinessTimeZoneIana)": {
+   "defaultValue": "Europe/Prague",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_BusinessTimeZoneIana"
+   }
+  },
+  "cai_AdminAlertUpn (cai_AdminAlertUpn)": {
+   "defaultValue": "",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_AdminAlertUpn"
+   }
+  },
+  "cai_RecomputeWindowDays (cai_RecomputeWindowDays)": {
+   "defaultValue": 90,
+   "type": "Float",
+   "metadata": {
+    "schemaName": "cai_RecomputeWindowDays"
+   }
+  },
+  "cai_RecomputeFullPassDay (cai_RecomputeFullPassDay)": {
+   "defaultValue": "Monday",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_RecomputeFullPassDay"
+   }
+  },
+  "cai_ReviewerUpn (cai_ReviewerUpn)": {
+   "defaultValue": "",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_ReviewerUpn"
+   }
+  }
+ },
+ "triggers": {
+  "Recurrence": {
+   "type": "Recurrence",
+   "recurrence": {
+    "frequency": "Day",
+    "interval": 1,
+    "timeZone": "Central Europe Standard Time",
+    "startTime": "2026-11-05T00:00:00",
+    "schedule": {
+     "hours": [
+      "5"
+     ],
+     "minutes": [
+      30
+     ]
+    }
+   }
+  }
+ },
+ "actions": {
+  "Run_started": {
+   "type": "Compose",
+   "inputs": "@utcNow()",
+   "runAfter": {}
+  },
+  "Main": {
+   "type": "Scope",
+   "actions": {
+    "Run_context": {
+     "type": "Compose",
+     "inputs": {
+      "today": "@convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd')",
+      "window_days": "@int(coalesce(parameters('cai_RecomputeWindowDays (cai_RecomputeWindowDays)'), 90))",
+      "window_end": "@formatDateTime(addDays(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)')), int(coalesce(parameters('cai_RecomputeWindowDays (cai_RecomputeWindowDays)'), 90))), 'yyyy-MM-dd')",
+      "weekday": "@createArray('sunday','monday','tuesday','wednesday','thursday','friday','saturday')[dayOfWeek(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)')))]",
+      "full_pass_day": "@toLower(trim(coalesce(parameters('cai_RecomputeFullPassDay (cai_RecomputeFullPassDay)'), 'Monday')))",
+      "is_full_pass": "@equals(createArray('sunday','monday','tuesday','wednesday','thursday','friday','saturday')[dayOfWeek(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)')))], toLower(trim(coalesce(parameters('cai_RecomputeFullPassDay (cai_RecomputeFullPassDay)'), 'Monday'))))"
+     },
+     "runAfter": {}
+    },
+    "List_masters": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_contracts",
+       "$select": "cai_contractid,cai_contractreference,cai_documentname",
+       "$filter": "@concat('cai_documentrole eq ''master'' and cai_reviewstatus eq ''Approved'' and (cai_approvalblocked eq null or cai_approvalblocked eq false) and not startswith(cai_noticestatus,''SUPERSEDED'')', if(equals(outputs('Run_context')?['is_full_pass'], true), '', concat(' and (cai_noticedeadline le ', outputs('Run_context')?['window_end'], ' or cai_currenttermend le ', outputs('Run_context')?['window_end'], ' or cai_termscomputedon eq null or (cai_noticedeadline ne null and (cai_deadlinereview ne null or cai_deadlinebasis eq null)))')))"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "ListRecords"
+      }
+     },
+     "runAfter": {
+      "Run_context": [
+       "Succeeded"
+      ]
+     },
+     "runtimeConfiguration": {
+      "paginationPolicy": {
+       "minimumItemCount": 100000
+      }
+     }
+    },
+    "Request_recompute": {
+     "type": "Foreach",
+     "foreach": "@body('List_masters')?['value']",
+     "actions": {
+      "Set_recompute_requested": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_contracts",
+         "recordId": "@items('Request_recompute')?['cai_contractid']",
+         "item/cai_recomputerequestedon": "@outputs('Run_started')"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "connectionName": "shared_commondataserviceforapps",
+         "operationId": "UpdateOnlyRecord"
+        }
+       },
+       "runAfter": {}
+      }
+     },
+     "runAfter": {
+      "List_masters_meta": [
+       "Succeeded"
+      ]
+     },
+     "runtimeConfiguration": {
+      "concurrency": {
+       "repetitions": 5
+      }
+     }
+    },
+    "Wait_for_recompute": {
+     "type": "Wait",
+     "inputs": {
+      "interval": {
+       "count": "@if(lessOrEquals(length(body('List_masters')?['value']), 50), 3, min(30, div(add(length(body('List_masters')?['value']), 49), 50)))",
+       "unit": "Minute"
+      }
+     },
+     "runAfter": {
+      "Request_recompute": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Recheck": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_contracts",
+       "$select": "cai_contractid,cai_contractreference,cai_documentname,cai_termscomputedon,cai_noticestatus",
+       "$filter": "@concat('cai_documentrole eq ''master'' and cai_recomputerequestedon ge ', formatDateTime(outputs('Run_started'), 'yyyy-MM-ddTHH:mm:00Z'))"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "ListRecords"
+      }
+     },
+     "runAfter": {
+      "Wait_for_recompute": [
+       "Succeeded"
+      ]
+     },
+     "runtimeConfiguration": {
+      "paginationPolicy": {
+       "minimumItemCount": 100000
+      }
+     }
+    },
+    "Recheck_meta": {
+     "type": "Compose",
+     "inputs": {
+      "source_table": "cai_contract",
+      "returned_count": "@length(body('Recheck')?['value'])",
+      "is_complete": "@empty(coalesce(body('Recheck')?['@odata.nextLink'], ''))",
+      "total_matches": "@if(empty(coalesce(body('Recheck')?['@odata.nextLink'], '')), length(body('Recheck')?['value']), null)",
+      "page_policy": "server pagination on, up to 100000 rows; is_complete=false means more rows exist and the result must not be treated as complete"
+     },
+     "runAfter": {
+      "Recheck": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Not_refreshed": {
+     "type": "Query",
+     "inputs": {
+      "from": "@body('Recheck')?['value']",
+      "where": "@or(empty(coalesce(item()?['cai_termscomputedon'], '')), less(ticks(item()?['cai_termscomputedon']), ticks(outputs('Run_started'))))"
+     },
+     "runAfter": {
+      "Recheck_meta": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Not_refreshed_refs": {
+     "type": "Select",
+     "inputs": {
+      "from": "@body('Not_refreshed')",
+      "select": "@concat(item()?['cai_contractreference'], ' (', item()?['cai_documentname'], ')')"
+     },
+     "runAfter": {
+      "Not_refreshed": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Job_status": {
+     "type": "Compose",
+     "inputs": "@if(not(and(equals(outputs('Recheck_meta')?['is_complete'], true), equals(outputs('List_masters_meta')?['is_complete'], true))), 'FAILED', if(equals(length(body('Not_refreshed')), 0), 'SUCCEEDED', if(equals(length(body('Not_refreshed_blocking')), 0), 'WARNING', 'FAILED')))",
+     "runAfter": {
+      "Not_refreshed_blocking": [
+       "Succeeded"
+      ]
+     }
+    },
+    "List_masters_meta": {
+     "type": "Compose",
+     "inputs": {
+      "source_table": "cai_contract",
+      "returned_count": "@length(body('List_masters')?['value'])",
+      "is_complete": "@empty(coalesce(body('List_masters')?['@odata.nextLink'], ''))",
+      "total_matches": "@if(empty(coalesce(body('List_masters')?['@odata.nextLink'], '')), length(body('List_masters')?['value']), null)",
+      "page_policy": "server pagination on, up to 100000 rows; is_complete=false means more rows exist and the result must not be treated as complete"
+     },
+     "runAfter": {
+      "List_masters": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Log_run": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_jobruns",
+       "item/cai_name": "@concat('Daily recompute ', convertFromUtc(outputs('Run_started'), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), ' ', parameters('cai_BusinessTimeZoneIana (cai_BusinessTimeZoneIana)'), '')",
+       "item/cai_jobtype": "DAILY_RECOMPUTE",
+       "item/cai_status": "@outputs('Job_status')",
+       "item/cai_startedon": "@outputs('Run_started')",
+       "item/cai_finishedon": "@utcNow()",
+       "item/cai_processedcount": "@length(body('List_masters')?['value'])",
+       "item/cai_failedcount": "@length(body('Not_refreshed'))",
+       "item/cai_details": "@{string(addProperty(addProperty(addProperty(addProperty(json('{\"business_timezone_source\":\"environment variable cai_BusinessTimeZoneIana\",\"rule\":\"every master stamped by this run must show cai_termscomputedon at or after the run start; WARNING when the only laggards have nothing to compute (NO TERM END or SUPERSEDED)\"}'), 'run', addProperty(addProperty(outputs('Run_context'), 'requested_count', length(body('List_masters')?['value'])), 'wait_minutes', if(lessOrEquals(length(body('List_masters')?['value']), 50), 3, min(30, div(add(length(body('List_masters')?['value']), 49), 50))))), 'not_refreshed', body('Not_refreshed_refs')), 'list_query', outputs('List_masters_meta')), 'recheck_query', outputs('Recheck_meta')))}"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "CreateRecord"
+      }
+     },
+     "runAfter": {
+      "Job_status": [
+       "Succeeded"
+      ]
+     }
+    },
+    "If_failed_alert": {
+     "type": "If",
+     "expression": {
+      "equals": [
+       "@outputs('Job_status')",
+       "FAILED"
+      ]
+     },
+     "actions": {
+      "Alert_admin": {
+       "type": "OpenApiConnection",
+       "runAfter": {},
+       "inputs": {
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+         "connectionName": "shared_teams",
+         "operationId": "PostMessageToConversation"
+        },
+        "parameters": {
+         "poster": "Flow bot",
+         "location": "Chat with Flow bot",
+         "body/recipient": "@parameters('cai_AdminAlertUpn (cai_AdminAlertUpn)')",
+         "body/messageBody": "@concat('<p><b>CAI Contract Intelligence - daily recompute FAILED</b> (', convertFromUtc(outputs('Run_started'), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), ' ', parameters('cai_BusinessTimeZoneIana (cai_BusinessTimeZoneIana)'), ').</p><p>', string(length(body('Not_refreshed'))), ' of ', string(length(body('List_masters')?['value'])), ' contract(s) requested by this run were not refreshed: ', join(body('Not_refreshed_refs'), '; '), '.</p><p>Until fixed, the assistant withholds or flags these terms (EFFECTIVE_TERMS_STALE or PASSED_SINCE_COMPUTATION_RECOMPUTE_REQUIRED). Details: Job runs table of this environment.</p>')"
+        }
+       }
+      }
+     },
+     "else": {
+      "actions": {}
+     },
+     "runAfter": {
+      "Log_run": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Not_refreshed_blocking": {
+     "type": "Query",
+     "inputs": {
+      "from": "@body('Not_refreshed')",
+      "where": "@not(or(startswith(coalesce(item()?['cai_noticestatus'], ''), 'NO TERM END'), startswith(coalesce(item()?['cai_noticestatus'], ''), 'SUPERSEDED')))"
+     },
+     "runAfter": {
+      "Not_refreshed_refs": [
+       "Succeeded"
+      ]
+     }
+    },
+    "List_unverified": {
+     "type": "OpenApiConnection",
+     "runAfter": {
+      "If_failed_alert": [
+       "Succeeded"
+      ]
+     },
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_contracts",
+       "$select": "cai_contractreference,cai_documentname,cai_currenttermend",
+       "$filter": "cai_documentrole eq 'master' and cai_reviewstatus eq 'Approved' and startswith(cai_noticestatus,'DEADLINE NOT VERIFIED')",
+       "$orderby": "cai_currenttermend asc",
+       "$top": 50
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "ListRecords"
+      }
+     }
+    },
+    "Unverified_lines": {
+     "type": "Select",
+     "runAfter": {
+      "List_unverified": [
+       "Succeeded"
+      ]
+     },
+     "inputs": {
+      "from": "@body('List_unverified')?['value']",
+      "select": "@concat('<li>', coalesce(item()?['cai_contractreference'], ''), ' - current term ends ', coalesce(item()?['cai_currenttermend'], 'unknown'), '</li>')"
+     }
+    },
+    "If_unverified": {
+     "type": "If",
+     "runAfter": {
+      "Unverified_lines": [
+       "Succeeded"
+      ]
+     },
+     "expression": {
+      "greater": [
+       "@length(body('Unverified_lines'))",
+       0
+      ]
+     },
+     "actions": {
+      "Remind_reviewer": {
+       "type": "OpenApiConnection",
+       "runAfter": {},
+       "inputs": {
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+         "connectionName": "shared_teams",
+         "operationId": "PostMessageToConversation"
+        },
+        "parameters": {
+         "poster": "Flow bot",
+         "location": "Chat with Flow bot",
+         "body/recipient": "@parameters('cai_ReviewerUpn (cai_ReviewerUpn)')",
+         "body/messageBody": "@concat('<p><b>CAI Contract Intelligence - ', string(length(body('Unverified_lines'))), ' notice deadline(s) not verified - human review required</b></p><p>These approved contracts have no confirmed notice deadline. Users see \"Deadline not verified - human review required\" and no date until you confirm the notice period on the review card in Teams.</p><ul>', join(body('Unverified_lines'), ''), '</ul>')"
+        }
+       }
+      }
+     },
+     "else": {
+      "actions": {}
+     }
+    }
+   },
+   "runAfter": {
+    "Run_started": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Log_job_error": {
+   "type": "OpenApiConnection",
+   "inputs": {
+    "parameters": {
+     "entityName": "cai_jobruns",
+     "item/cai_name": "@concat('Daily recompute ', convertFromUtc(outputs('Run_started'), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), ' ', parameters('cai_BusinessTimeZoneIana (cai_BusinessTimeZoneIana)'), ' - JOB ERROR')",
+     "item/cai_jobtype": "DAILY_RECOMPUTE",
+     "item/cai_status": "FAILED",
+     "item/cai_startedon": "@outputs('Run_started')",
+     "item/cai_finishedon": "@utcNow()",
+     "item/cai_details": "@{string(result('Main'))}"
+    },
+    "host": {
+     "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+     "connectionName": "shared_commondataserviceforapps",
+     "operationId": "CreateRecord"
+    }
+   },
+   "runAfter": {
+    "Main": [
+     "Failed",
+     "TimedOut"
+    ]
+   }
+  },
+  "Alert_job_error": {
+   "type": "OpenApiConnection",
+   "runAfter": {
+    "Log_job_error": [
+     "Succeeded",
+     "Failed"
+    ]
+   },
+   "inputs": {
+    "host": {
+     "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+     "connectionName": "shared_teams",
+     "operationId": "PostMessageToConversation"
+    },
+    "parameters": {
+     "poster": "Flow bot",
+     "location": "Chat with Flow bot",
+     "body/recipient": "@parameters('cai_AdminAlertUpn (cai_AdminAlertUpn)')",
+     "body/messageBody": "@concat('<p><b>CAI Contract Intelligence - daily recompute ERROR</b> (', convertFromUtc(outputs('Run_started'), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), ' ', parameters('cai_BusinessTimeZoneIana (cai_BusinessTimeZoneIana)'), '). The job itself failed before completing its checks. Effective terms may be out of date; the assistant still flags stale or passed deadlines. See the flow run history and the Job Runs table.</p>')"
+    }
+   }
+  }
+ },
+ "outputs": {}
+}

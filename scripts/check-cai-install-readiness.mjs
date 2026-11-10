@@ -3,7 +3,7 @@
 // Read-only: it only sends GET requests to the Dataverse Web API of the environment you name.
 //
 //   DATAVERSE_TOKEN="$(az account get-access-token --resource https://ORG.crmN.dynamics.com --query accessToken -o tsv)" \
-//   node scripts/check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com [--expect-version 1.0.3.2] [--daily-recompute off]
+//   node scripts/check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com [--expect-version 1.0.3.4] [--daily-recompute off]
 //
 // Exit code 0 = ready; 1 = at least one required check failed (for example a flow is still Off); 2 = usage error.
 // --daily-recompute off : accept the Daily recompute flow being Off (recommended while you test; see INSTALL section 5).
@@ -64,8 +64,11 @@ try {
   const missingDefaults = DEFAULTED_VARS.filter((n) => !byName.has(n) || !String(byName.get(n).defaultvalue || '').trim());
   check('R2b', 'Defaulted variables carry a default', missingDefaults.length === 0, missingDefaults.length ? `no default: ${missingDefaults.join(', ')}` : DEFAULTED_VARS.join(', '));
 
-  // R3 connection references of this solution
-  const comps = (await get(`solutioncomponents?$select=objectid,componenttype&$filter=_solutionid_value eq ${sol.solutionid} and componenttype eq 10129`)).value;
+  // R3 connection references of this solution. The component type number of a connection reference differs between
+  // environments (10129 in one, 10169 in another), so it is read from the environment's own component definitions.
+  const refDef = (await get("solutioncomponentdefinitions?$select=solutioncomponenttype&$filter=primaryentityname eq 'connectionreference'")).value[0];
+  const refType = refDef ? refDef.solutioncomponenttype : 10129;
+  const comps = (await get(`solutioncomponents?$select=objectid,componenttype&$filter=_solutionid_value eq ${sol.solutionid} and componenttype eq ${refType}`)).value;
   const refs = [];
   for (const c of comps) {
     const r = (await get(`connectionreferences?$select=connectionreferencelogicalname,connectionid,connectorid&$filter=connectionreferenceid eq ${c.objectid}`)).value[0];
