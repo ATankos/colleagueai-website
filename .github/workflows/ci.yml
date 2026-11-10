@@ -88,6 +88,9 @@ jobs:
 
       - name: Locale smoke (scripts execute in every language)
         run: node --test tests/locale-smoke.test.mjs
+      # The site may only promise what exists: no Token Economy Monitor in any package, concept agents offer no package.
+      - name: Claims match deliverables (Token Monitor planned, concept agents not for sale)
+        run: node --test tests/claims-truth.test.mjs
       - name: Continuous Certification lifecycle
         run: node --test tests/certification.test.mjs
       - name: One language per page (localized output, dates, menu)

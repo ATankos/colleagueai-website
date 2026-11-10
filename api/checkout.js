@@ -139,6 +139,11 @@ export default async function handler(req, res) {
   // saleApproved: true. A catalogue agent with no record there is refused too (default-deny).
   // Test-mode keys still work, so a Stripe test purchase can run end to end without any risk
   // of taking real money for an unapproved release.
+  // Only an agent with a released package (a record in config/products.json) can be bought, in ANY mode: the
+  // other catalogue agents are concepts with a dossier only, and a test purchase of one would deliver nothing.
+  if (!productFor(slug)) {
+    return res.status(409).json({ error: 'This agent is a concept and is not available for purchase', code: 'not_available' });
+  }
   if (liveSaleBlocked(slug, process.env.STRIPE_SECRET_KEY)) {
     console.warn('[checkout] live sale blocked: release not approved for sale', slug);
     return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'not_approved_for_sale' });

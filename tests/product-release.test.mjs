@@ -362,10 +362,13 @@ test('packages: every agents page embeds the same per-agent map as config/packag
 
 test('packages: generated factsheets list only the packages each agent offers', { skip: !existsSync(join(ROOT, 'dist/agents')) && 'run npm run build first' }, () => {
   const ours = readFileSync(join(ROOT, 'dist/agents', SLUG + '.html'), 'utf8');
-  assert.match(ours, /Copilot Studio connect package/);
+  assert.match(ours, /Copilot Studio managed solution/);
   assert.doesNotMatch(ours, /Microsoft 365 Copilot package/);
+  assert.match(ours, /Released package/);
   const other = readFileSync(join(ROOT, 'dist/agents/onboarding-agent.html'), 'utf8');
-  assert.match(other, /Microsoft 365 Copilot package/, 'agents without an entry keep the default list');
+  assert.doesNotMatch(other, /Microsoft 365 Copilot package|Copilot Studio managed solution|connect package/, 'a concept agent lists no installable package');
+  assert.match(other, /Concept · dossier only/);
+  assert.match(other, /no installable package exists yet/);
 });
 
 test('success page: every catalogue agent gets the branded delivery card with its name, CAI tier and a signed download', () => withEnv({ RELEASE_TEST_DELIVERY: '1', DOWNLOAD_TOKEN_SECRET: 'test-only-secret' }, () => {

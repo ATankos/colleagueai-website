@@ -1,7 +1,9 @@
 {
-  "_comment": "Which deployable packages each catalogue agent offers. An agent not listed under 'agents' offers 'default'. Ids: copilot-studio = Copilot Studio connect package / managed solution; m365-copilot = Microsoft 365 Copilot package. Only list a package for an agent once that package exists and has been installation-tested. The agents page drawer, pay panel and generated factsheets read this; tests/product-release.test.mjs fails if the copy embedded in the pages drifts from this file.",
-  "default": ["copilot-studio", "m365-copilot"],
-  "agents": {
-    "contract-intelligence-and-register": ["copilot-studio"]
-  }
+ "_comment": "Which deployable packages each catalogue agent offers. Ids: copilot-studio = Copilot Studio managed solution; m365-copilot = Microsoft 365 Copilot package. List a package for an agent ONLY once that package exists and has been installation-tested. 'default' is what every other catalogue agent offers: nothing, because those agents are concepts with a dossier and no installable package (launch-readiness finding LR-04). The agents page drawer, pay panel and generated factsheets read this; tests/product-release.test.mjs fails if the copy embedded in the pages drifts from this file.",
+ "default": [],
+ "agents": {
+  "contract-intelligence-and-register": [
+   "copilot-studio"
+  ]
+ }
 }

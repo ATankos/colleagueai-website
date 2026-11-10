@@ -52,14 +52,14 @@ const agentsI18n = [
   ['"dr_demo":"Vedilo in una demo dal vivo →"', '"dr_demo":"Richiedi una demo →"'],
   ['"dr_demo":"Ver numa demonstração ao vivo →"', '"dr_demo":"Solicitar uma demo →"'],
   ['"dr_demo":"Zobacz na żywym demie →"', '"dr_demo":"Poproś o demo →"'],
-  ['"usage_cta":"See the Token Monitor in a live demo →"', '"usage_cta":"Request access to the Token Monitor →"'],
-  ['"usage_cta":"Podívejte se na Token Monitor v živém demu →"', '"usage_cta":"Požádejte o přístup k Token Monitoru →"'],
-  ['"usage_cta":"Erleben Sie den Token-Monitor in einer Live-Demo →"', '"usage_cta":"Zugang zum Token-Monitor anfragen →"'],
-  ['"usage_cta":"Découvrez le Token Monitor en démo live →"', '"usage_cta":"Demander l’accès au Token Monitor →"'],
-  ['"usage_cta":"Vea el Token Monitor en una demo en vivo →"', '"usage_cta":"Solicitar acceso al Token Monitor →"'],
-  ['"usage_cta":"Scopri il Token Monitor in una demo live →"', '"usage_cta":"Richiedi accesso al Token Monitor →"'],
-  ['"usage_cta":"Veja o Token Monitor numa demo ao vivo →"', '"usage_cta":"Solicitar acesso ao Token Monitor →"'],
-  ['"usage_cta":"Zobacz Token Monitor na żywo w demo →"', '"usage_cta":"Poproś o dostęp do Token Monitor →"'],
+  ['"usage_cta":"See the Token Monitor in a live demo →"', '"usage_cta":"Register interest in the planned Token Monitor →"'],
+  ['"usage_cta":"Podívejte se na Token Monitor v živém demu →"', '"usage_cta":"Projevte zájem o plánovaný Token Monitor →"'],
+  ['"usage_cta":"Erleben Sie den Token-Monitor in einer Live-Demo →"', '"usage_cta":"Interesse am geplanten Token-Monitor anmelden →"'],
+  ['"usage_cta":"Découvrez le Token Monitor en démo live →"', '"usage_cta":"Signaler votre intérêt pour le Token Monitor prévu →"'],
+  ['"usage_cta":"Vea el Token Monitor en una demo en vivo →"', '"usage_cta":"Registrar interés en el Token Monitor previsto →"'],
+  ['"usage_cta":"Scopri il Token Monitor in una demo live →"', '"usage_cta":"Segnala interesse per il Token Monitor pianificato →"'],
+  ['"usage_cta":"Veja o Token Monitor numa demo ao vivo →"', '"usage_cta":"Registar interesse no Token Monitor planeado →"'],
+  ['"usage_cta":"Zobacz Token Monitor na żywo w demo →"', '"usage_cta":"Zgłoś zainteresowanie planowanym Token Monitor →"'],
 ];
 for (const [old, neu] of agentsI18n) fix('public/agents.html', old, neu);
 

@@ -12,7 +12,7 @@ const fixes = [
   ],
   [
     '<a href="https://www.colleagueai.ai/demo" id="hero-call-link" target="_blank" rel="noopener" class="btn-p" data-i18n="usage_cta">See the Token Monitor in a live demo &rarr;</a>',
-    '<a href="https://www.colleagueai.ai/demo" id="hero-call-link" target="_blank" rel="noopener" class="btn-p" data-i18n="usage_cta">Request access to the Token Monitor &rarr;</a>'
+    '<a href="https://www.colleagueai.ai/demo" id="hero-call-link" target="_blank" rel="noopener" class="btn-p" data-i18n="usage_cta">Register interest in the planned Token Monitor &rarr;</a>'
   ],
 ];
 
