@@ -24,6 +24,8 @@ g.__file__ = _gen_path
 exec(compile(_src[:_cut], _gen_path, 'exec'), g.__dict__)
 g.OUT = os.path.join(HERE, 'pdf')
 os.makedirs(g.OUT, exist_ok=True)
+if os.environ.get('TRUTH_ONLY'):  # recompute truth.json without rebuilding the PDFs (keeps their bytes and hashes)
+    g.build = lambda *a, **k: None
 CUST = 'Brightwater Labs s.r.o.'
 truth = {}
 
@@ -43,14 +45,14 @@ def contract(ref, title, supplier, start, end_text, term_clause, renewal_clause,
     truth[ref] = dict(expect, role=role)
 
 
-def exp(term_end, amount, unit, reference='term_end', timing='on_or_before', status='found', period=12, renewal='automatic'):
+def exp(term_end, amount, unit, reference='term_end', timing='on_or_before', status='found', period=12, renewal='automatic', candidates=(), wording=''):
     te = date.fromisoformat(term_end)
-    d, flags = register_deadline(te, {'amount': amount, 'unit': unit, 'reference': reference, 'timing': timing}, status)
+    d, flags = register_deadline(te, {'amount': amount, 'unit': unit, 'reference': reference, 'timing': timing}, status, candidates, wording)
     ind = None
     if unit in ('day', 'week', 'month', 'year'):
         ind = independent_latest(te, amount, unit, reference, strictly_before=(timing == 'before')).isoformat()
     return dict(term_end=term_end, renewal=renewal, period_months=period, notice=dict(amount=amount, unit=unit, reference=reference, timing=timing),
-                status=status, deadline=d.isoformat() if d else None, independent_latest=ind, flags=flags)
+                candidates=[list(c) for c in candidates], status=status, deadline=d.isoformat() if d else None, independent_latest=ind, flags=flags)
 
 
 S = 'Helix Facility Services a.s.'
@@ -77,7 +79,7 @@ contract('SYN-N05', 'Data Hosting Agreement', 'Kestrel Data GmbH', '2026-01-01',
 contract('SYN-N06', 'Translation Services Agreement', 'Lingua Partners s.r.o.', '2026-07-01', '',
          '3.1 This Agreement runs from 1 July 2026 until 30 June 2027.',
          '3.2 It renews automatically for successive periods of twelve (12) months unless either party gives notice of non-renewal more than sixty (60) days before the end of the current term.',
-         expect=exp('2027-06-30', 60, 'day', timing='before'))
+         expect=exp('2027-06-30', 60, 'day', timing='before', wording='more than sixty (60) days before the end of the current term'))
 contract('SYN-N07', 'Courier Services Agreement', 'Swift Parcel a.s.', '2026-10-01', '',
          '3.1 This Agreement runs from 1 October 2026 until 30 September 2027.',
          '3.2 It renews automatically for periods of twelve (12) months unless terminated by at least eight (8) weeks\' written notice before expiry of the current term.',
@@ -91,13 +93,13 @@ contract('SYN-N09', 'Facility Maintenance Agreement', S, '2026-01-01', '',
          '3.2 It renews automatically for further periods of twelve (12) months unless either party gives notice of non-renewal at least three (3) months before the end of the then-current term.',
          extra_sections=[('Schedule 2 - Service levels', ['S2.1 Availability target: 99.5% per month.',
                           ('small', 'S2.9 Any notice of non-renewal requires at least six (6) months before the end of the then-current term.')])],
-         expect=exp('2027-12-31', 3, 'month', status='ambiguous'))
+         expect=exp('2027-12-31', 3, 'month', status='ambiguous', candidates=[(3, 'month'), (6, 'month')]))
 contract('SYN-N10', 'Catering Services Agreement', 'Gastro Plus s.r.o.', '2026-05-01', '',
          '3.1 This Agreement runs from 1 May 2026 until 30 April 2028. The Order Form prevails over these terms in case of conflict.',
          '3.2 It renews automatically for further periods of twelve (12) months unless either party gives notice of non-renewal at least three (3) months before the end of the then-current term.',
          extra_sections=[('Order Form', [('table', [['Item', 'Agreed'], ['Monthly fee', 'EUR 4,500'],
                                                    ['Notice of non-renewal', 'at least two (2) months before the end of the then-current term']])])],
-         expect=exp('2028-04-30', 2, 'month', status='conflict_resolved'))
+         expect=exp('2028-04-30', 2, 'month', status='conflict_resolved', candidates=[(3, 'month'), (2, 'month')]))
 contract('SYN-N11', 'Network Services Agreement', 'Kestrel Data GmbH', '2026-07-01', '',
          '3.1 This Agreement runs from 1 July 2026 until 30 June 2028.',
          '3.2 It renews automatically for further periods of twelve (12) months unless either party gives notice of non-renewal at least six (6) months before the end of the then-current term.',

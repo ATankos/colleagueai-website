@@ -62,16 +62,41 @@ def normalise_unit(u):
     return ''
 
 
-def register_deadline(term_end, notice, status='found'):
-    """Return (deadline, flags) as the 1.0.3.3 flow computes them."""
+APPROX = {'month': 31, 'year': 366, 'week': 7, 'day': 1}
+
+
+def approx_days(amount, unit):
+    if unit == 'business_day':
+        return amount * 7 // 5 + 4
+    return amount * APPROX.get(unit, 0)
+
+
+def register_deadline(term_end, notice, status='found', candidates=(), wording=None):
+    """Return (deadline, flags) as the 1.0.3.3 flow computes them.
+
+    candidates: (amount, unit) of every notice-of-non-renewal sentence found in the document (prompt rule 13).
+    Different periods (unless the document says which prevails, or a reviewer corrected the value) -> the longest
+    period is used (earliest deadline) and the result is flagged for a reviewer.
+    wording: the notice sentence; "more than ... before" makes the timing strictly before (one day earlier).
+    """
     flags = []
     unit = normalise_unit(notice.get('unit'))
     amount = notice.get('amount')
     ref = notice.get('reference') or ''
     timing = notice.get('timing') or ''
+    lw = (wording if wording is not None else notice.get('wording') or '').lower()
+    if any(k in lw for k in ('more than', 'strictly before', 'in excess of')):
+        timing = 'before'
     if amount is None or not unit:
         return None, ['notice period amount or unit missing']
     amount = int(amount)
+    if not notice.get('legacy') and status not in ('conflict_resolved', 'reviewer_corrected'):
+        periods = {(amount, unit)} | {(int(a), normalise_unit(u)) for a, u in candidates}
+        if len(periods) > 1:
+            amount, unit = max(periods, key=lambda p: approx_days(*p))
+            flags.append('different notice periods; longest used')
+    if ref == 'term_end' and 'renewal date' in lw:
+        flags.append('clause refers to the renewal date')
     if notice.get('legacy') and unit != 'day':
         flags.append('legacy days converted')
     anchor = term_end + timedelta(days=1) if ref == 'renewal_date' else term_end

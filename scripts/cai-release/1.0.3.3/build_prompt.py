@@ -1,10 +1,13 @@
-"""Build the 1.0.3.3 extraction prompt configuration from the 1.0.3.2 one.
+"""Build the 1.0.3.3 extraction prompt configuration from the 1.0.3.2 one (revision 2).
 
 Changes (all additive or narrowing; the output stays a superset of 1.0.3.2):
   - renewal.value.notice_period {amount, unit, reference, timing, wording}: the notice period exactly as stated.
     notice_days is filled only when the stated unit is days (never a conversion of months or years).
   - signing_date: a field of its own, so it is never put into effective_date.
   - effective_date rule: the date the document takes effect ("with effect from", "effective as of").
+  - renewal.value.notice_clauses: every notice-of-non-renewal sentence anywhere in the document (body, schedules, order
+    forms, small print), so the flow can detect conflicting periods itself instead of relying on the model's judgement.
+  - rule 10 (rev 2): notice_period only for non-renewal; explicit Renewal Date and "more than" examples.
   - contradiction rule: any clause anywhere (schedules, annexes, small print) that contradicts a reported value
     makes that field "ambiguous" (or "conflict_resolved" when the document says which prevails), both quotes kept.
 """
@@ -31,24 +34,32 @@ t = t.replace(old5, new5)
 old9_end = 'and add an item to "open_questions" saying which party has not signed.'
 assert t.count(old9_end) == 1
 t = t.replace(old9_end, old9_end + (
-    '\n10. Notice period for renewal or non-renewal ("renewal.value.notice_period"): "amount" is the number as stated; "unit" is '
-    'exactly one of "day", "business_day", "week", "month", "year" as stated (calendar months stay "month"; "working days" are '
-    '"business_day"); "reference" is "term_end" when the period is counted back from the end or expiry of the (current) term, '
-    '"renewal_date" when it is counted back from the renewal date or the start of a renewal term, otherwise "other"; "timing" is '
-    '"on_or_before" for wording such as "at least", "not less than", "no later than", "prior to" or "before ... upon N months\' notice", '
-    '"before" only for "more than" or "strictly before", otherwise "other"; "wording" is the verbatim notice sentence. Fill '
-    '"notice_days" only when the stated unit is days, otherwise null. If two clauses state different notice periods, follow rule 3.'
+    '\n10. Notice period for non-renewal ("renewal.value.notice_period"): the notice a party must give so that the agreement does not '
+    'renew, or ends at the end of a term. If the agreement does not renew, set "notice_period" to null; notice for early termination '
+    'belongs in "termination_for_convenience", never here. "amount" is the number as stated; "unit" is exactly one of "day", '
+    '"business_day", "week", "month", "year" as stated (calendar months stay "month"; "working days" and "Business Days" are '
+    '"business_day"). "reference" is "renewal_date" when the period is counted back from the Renewal Date, the renewal date or the start '
+    'of a renewal term (for example "prior to the Renewal Date"); "term_end" when it is counted back from the end or expiry of the '
+    '(current) term or renewal period; otherwise "other". "timing" is "before" when the wording says "more than" (for example "more than '
+    'sixty (60) days before the end of the term") or "strictly before"; "on_or_before" for "at least", "not less than", "no later than", '
+    '"not later than" or "prior to" without "more than"; otherwise "other". "wording" is the verbatim notice sentence. Fill "notice_days" '
+    'only when the stated unit is days, otherwise null. If two clauses state different notice periods, follow rule 3 and rule 13.'
     '\n11. "effective_date" is the date from which the document takes effect ("with effect from", "effective as of", "commencing on"). '
     'Put the date of signature in "signing_date", never in "effective_date". Use the signing date as the effective date only when '
     'the document says it takes effect on signature, and quote that sentence. If the document gives no effective date, set '
     '"effective_date" to "not_found". The same applies to "amends[].effective_date".'
     '\n12. If any clause anywhere in the document (including schedules, annexes, footnotes and small print) contradicts a value you '
     'report, set that field\'s status to "ambiguous" (or "conflict_resolved" when the document says which text prevails), put both '
-    'quotes in "quote" as in rule 3, and also list the clause in "unusual_clauses".'))
+    'quotes in "quote" as in rule 3, and also list the clause in "unusual_clauses".'
+    '\n13. "renewal.value.notice_clauses": read the whole document again, including schedules, order forms, annexes, tables, '
+    'footnotes and small or light-coloured print, and list every sentence that sets a notice period for non-renewal or for ending the '
+    'agreement at the end of a term, each as {quote, location, amount, unit} (unit as in rule 10). List each sentence once. If the list '
+    'contains different periods and the document does not say which text prevails, set "renewal.status" to "ambiguous". Use an '
+    'empty list when there is no such sentence.'))
 
 old_ren = '"renewal": {value: {type: "automatic" | "none" | "manual", period_months, notice_days, notice_rule_text}, quote, location, status},'
 new_ren = ('"renewal": {value: {type: "automatic" | "none" | "manual", period_months, notice_period: {amount, unit, reference, timing, wording}, '
-           'notice_days, notice_rule_text}, quote, location, status},')
+           'notice_clauses: [{quote, location, amount, unit}], notice_days, notice_rule_text}, quote, location, status},')
 assert t.count(old_ren) == 1
 t = t.replace(old_ren, new_ren)
 old_eff = '"effective_date": {value, quote, location, status},'
@@ -58,6 +69,8 @@ lit['text'] = t
 
 schema = j['definitions']['output']['jsonSchema']['properties']
 ren_val = schema['renewal']['properties']['value']['properties']
+ren_val['notice_clauses'] = {'type': 'array', 'items': {'type': 'object', 'properties': {
+    'quote': {'type': 'string'}, 'location': {'type': 'string'}, 'amount': {'type': 'number'}, 'unit': {'type': 'string'}}}}
 ren_val['notice_period'] = {'type': 'object', 'properties': {
     'amount': {'type': 'number'}, 'unit': {'type': 'string'}, 'reference': {'type': 'string'},
     'timing': {'type': 'string'}, 'wording': {'type': 'string'}}}
@@ -69,7 +82,8 @@ for ex in j['definitions']['output'].get('jsonExamples', []):
         v = r['value']
         v['notice_period'] = {'amount': 90, 'unit': 'day', 'reference': 'term_end', 'timing': 'on_or_before',
                               'wording': v.get('notice_rule_text') or 'verbatim notice sentence'}
-        r['value'] = {k: v[k] for k in ('type', 'period_months', 'notice_period', 'notice_days', 'notice_rule_text') if k in v}
+        v['notice_clauses'] = [{'quote': v['notice_period']['wording'], 'location': r.get('location') or 'clause', 'amount': 90, 'unit': 'day'}]
+        r['value'] = {k: v[k] for k in ('type', 'period_months', 'notice_period', 'notice_clauses', 'notice_days', 'notice_rule_text') if k in v}
     if 'effective_date' in ex and 'signing_date' not in ex:
         items = list(ex.items()); out = {}
         for k, val in items:

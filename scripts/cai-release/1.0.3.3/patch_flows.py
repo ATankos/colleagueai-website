@@ -69,6 +69,24 @@ AMT = "outputs('N_amount')"
 REF = "outputs('N_reference')"
 TIM = "outputs('N_timing')"
 U = f"toLower(coalesce({NP}?['unit'], ''))"
+NC = R + "?['value']?['notice_clauses']"
+DIGITS = lambda s: "replace(" * 10 + s + "".join(f", '{d}', '')" for d in range(10))
+
+
+def nunit(x):
+    return (f"if(or(contains({x}, 'business'), contains({x}, 'working')), 'business_day', if(contains({x}, 'month'), 'month', "
+            f"if(contains({x}, 'year'), 'year', if(contains({x}, 'week'), 'week', if(contains({x}, 'day'), 'day', '')))))")
+
+
+def approx_days(a, u):
+    """Rough length in days, used only to pick the longest of several conflicting periods (the conservative one)."""
+    return (f"if(equals({u}, 'month'), mul({a}, 31), if(equals({u}, 'year'), mul({a}, 366), if(equals({u}, 'week'), mul({a}, 7), "
+            f"if(equals({u}, 'business_day'), add(div(mul({a}, 7), 5), 4), if(equals({u}, 'day'), {a}, 0)))))")
+
+
+MORE_THAN = "or(contains({lw}, 'more than'), contains({lw}, 'strictly before'), contains({lw}, 'in excess of'))".format(lw="outputs('N_lw')")
+IU = "toLower(string(coalesce(item()?['unit'], '')))"
+IA = "string(item()?['amount'])"
 
 notice_actions = [
     ('N_wording', f"@coalesce({NP}?['wording'], {R}?['value']?['notice_rule_text'], {R}?['quote'], '')"),
@@ -78,17 +96,43 @@ notice_actions = [
                       f"equals(mod(int({ND}), 30), 0)), 'month', if(and(contains({LW}, 'year'), not(contains({LW}, 'month')), "
                       f"not(contains({LW}, ' day')), contains(createArray(360, 365, 366), int({ND}))), 'year', "
                       f"if(and(contains({LW}, 'week'), not(contains({LW}, ' day')), equals(mod(int({ND}), 7), 0)), 'week', 'day'))))"),
-    ('N_unit', f"@if({ISNEW}, if(or(contains({U}, 'business'), contains({U}, 'working')), 'business_day', if(contains({U}, 'month'), 'month', "
-               f"if(contains({U}, 'year'), 'year', if(contains({U}, 'week'), 'week', if(contains({U}, 'day'), 'day', ''))))), outputs('N_legacy_unit'))"),
-    ('N_amount', f"@if({ISNEW}, int({NP}?['amount']), if(equals({ND}, null), null, if(equals(outputs('N_legacy_unit'), 'month'), div(int({ND}), 30), "
-                 f"if(equals(outputs('N_legacy_unit'), 'year'), 1, if(equals(outputs('N_legacy_unit'), 'week'), div(int({ND}), 7), int({ND}))))))"),
+    ('N_unit0', f"@if({ISNEW}, if(or(contains({U}, 'business'), contains({U}, 'working')), 'business_day', if(contains({U}, 'month'), 'month', "
+                f"if(contains({U}, 'year'), 'year', if(contains({U}, 'week'), 'week', if(contains({U}, 'day'), 'day', ''))))), outputs('N_legacy_unit'))"),
+    ('N_amount0', f"@if({ISNEW}, int({NP}?['amount']), if(equals({ND}, null), null, if(equals(outputs('N_legacy_unit'), 'month'), div(int({ND}), 30), "
+                  f"if(equals(outputs('N_legacy_unit'), 'year'), 1, if(equals(outputs('N_legacy_unit'), 'week'), div(int({ND}), 7), int({ND}))))))"),
     ('N_reference', f"@if({ISNEW}, toLower(coalesce({NP}?['reference'], '')), 'term_end_assumed')"),
-    ('N_timing', f"@if({ISNEW}, toLower(coalesce({NP}?['timing'], '')), 'on_or_before_assumed')"),
+    # "more than N days before" means strictly before: one day earlier. Applied from the wording itself, also to 1.0.3.2 rows.
+    ('N_timing', f"@if({MORE_THAN}, 'before', if({ISNEW}, toLower(coalesce({NP}?['timing'], '')), 'on_or_before_assumed'))"),
+    # every notice-of-non-renewal sentence the extraction found anywhere in the document (prompt rule 13), plus the main clause
+    ('N_clauses', {'type': 'Query', 'inputs': {
+        'from': f"@if(startsWith(string(coalesce({NC}, '')), '['), {NC}, createArray())",
+        'where': (f"@and(not(equals(item()?['amount'], null)), lessOrEquals(length({IA}), 4), not(empty({IA})), empty({DIGITS(IA)}), "
+                  f"not(empty({nunit(IU)})))")}}),
+    ('N_clause_objs', {'type': 'Select', 'inputs': {'from': "@body('N_clauses')", 'select': {
+        'a': f"@int({IA})", 'u': f"@{nunit(IU)}", 'd': f"@{approx_days(f'int({IA})', nunit(IU))}",
+        'k': f"@concat({IA}, ' ', {nunit(IU)})", 'loc': "@string(coalesce(item()?['location'], 'location not stated'))"}}}),
+    ('N_main_obj', "@if(and(" + ISNEW + ", not(equals(outputs('N_amount0'), null)), not(empty(outputs('N_unit0')))), createArray(setProperty(setProperty(setProperty(setProperty(setProperty("
+                   "json('{}'), 'a', outputs('N_amount0')), 'u', outputs('N_unit0')), 'd', " + approx_days("outputs('N_amount0')", "outputs('N_unit0')") + "), "
+                   "'k', concat(string(outputs('N_amount0')), ' ', outputs('N_unit0'))), 'loc', 'main clause')), createArray())"),
+    ('N_all', "@union(outputs('N_main_obj'), body('N_clause_objs'))"),
+    ('N_keys', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@item()?['k']"}}),
+    ('N_days', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@item()?['d']"}}),
+    ('N_conflict_text', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@concat(replace(item()?['k'], '_', ' '), '(s) - ', item()?['loc'])"}}),
+    ('N_status', f"@toLower(string(coalesce({R}?['status'], '')))"),
+    ('N_conflict', f"@and({ISNEW}, not(contains(createArray('conflict_resolved', 'reviewer_corrected'), outputs('N_status'))), "
+                   f"not(equals({NP}?['source'], 'reviewer')), greater(length(union(body('N_keys'), body('N_keys'))), 1))"),
+    ('N_longest', {'type': 'Query', 'inputs': {'from': "@outputs('N_all')", 'where': "@equals(item()?['d'], max(body('N_days')))"}}),
+    # conflicting periods: use the longest one (the earliest deadline) and flag it; a reviewer decides which applies
+    ('N_unit', "@if(outputs('N_conflict'), first(body('N_longest'))?['u'], outputs('N_unit0'))"),
+    ('N_amount', "@if(outputs('N_conflict'), first(body('N_longest'))?['a'], outputs('N_amount0'))"),
     ('Has_notice', f"@and(equals(coalesce({R}?['value']?['type'], ''), 'automatic'), not(equals({AMT}, null)), not(empty({UNIT})))"),
 ]
 prev = 'Apply_amendments'
 for name, expr in notice_actions:
-    MA[name] = compose(expr, prev)
+    if isinstance(expr, dict):
+        MA[name] = dict(expr, runAfter={prev: ['Succeeded']})
+    else:
+        MA[name] = compose(expr, prev)
     prev = name
 MA['Duration_months']['runAfter'] = {prev: ['Succeeded']}
 
@@ -127,6 +171,8 @@ flag_list = ("@createArray("
     f"if(and(outputs('Has_notice'), not(contains(createArray('term_end', 'renewal_date', 'term_end_assumed'), {REF}))), 'the clause does not say clearly whether the period runs back from the term end or from the renewal date; the earlier date is shown', ''), "
     f"if(and(outputs('Has_notice'), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), {TIM}))), 'the timing wording of the notice clause is unclear; the date shown is one day earlier than the plain calculation', ''), "
     f"if(equals(toLower(coalesce({R}?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce({R}?['quote'], '')), ''), "
+    "if(outputs('N_conflict'), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the date shown uses the longest period, which gives the earliest date - a reviewer must decide which applies'), ''), "
+    f"if(and(outputs('Has_notice'), equals({REF}, 'term_end'), contains({LW}, 'renewal date')), 'the clause refers to the renewal date; the date shown counts back from the end of the term, which can be up to three days earlier - check the reference date', ''), "
     f"if(and(equals(coalesce({R}?['value']?['type'], ''), 'automatic'), not(equals({AMT}, null)), empty({UNIT})), 'the unit of the notice period is not recognised', '')"
     ")")
 anchor_used = (f"if(equals({REF}, 'renewal_date'), addDays(outputs('Notice_term_end'), 1, 'yyyy-MM-dd'), outputs('Notice_term_end'))")
@@ -137,7 +183,7 @@ basis = ("@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), c
          f"if(equals({REF}, 'renewal_date'), 'the renewal date ', 'the end of the term '), {anchor_used}, "
          "' = notice deadline ', outputs('Next_notice_deadline'), '. Contract wording: \"', string(outputs('N_wording')), '\"', "
          f"if(empty(coalesce({R}?['location'], '')), '', concat(' (', {R}?['location'], ')')), "
-         "if(equals(outputs('N_reference'), 'term_end_assumed'), '. Reference date and timing as read by release 1.0.3.2: counted back from the end of the term, notice on or before the date', ''), "
+         "if(equals(outputs('N_reference'), 'term_end_assumed'), '. Reference date as read by release 1.0.3.2: counted back from the end of the term', ''), "
          f"if(contains(createArray('month', 'year'), {UNIT}), '. Calendar months: counted back to the same day number, or to the last day of a shorter month; where the reference date is the last day of a month, some readings allow the last day of the earlier month, and the earlier date is shown', ''), "
          "'. This is a calendar calculation, not a legal interpretation of the clause.'), '')")
 status_final = ("@concat(outputs('Status_text'), "
@@ -216,6 +262,11 @@ RA['Unusual_lines'] = {'type': 'Select', 'runAfter': {'Notice_summary': ['Succee
     'from': f"@take(coalesce({EXT}?['unusual_clauses'], json('[]')), 3)",
     'select': "@concat(coalesce(item()?['summary'], ''), ': ', coalesce(item()?['quote'], ''), if(empty(coalesce(item()?['location'], '')), '', concat(' (', item()?['location'], ')')))"}}
 RA['Unusual_text'] = {'type': 'Compose', 'runAfter': {'Unusual_lines': ['Succeeded']}, 'inputs': "@join(body('Unusual_lines'), ' || ')"}
+ncx = f"{EXT}?['renewal']?['value']?['notice_clauses']"
+RA['Notice_clause_lines'] = {'type': 'Select', 'runAfter': {'Unusual_text': ['Succeeded']}, 'inputs': {
+    'from': f"@take(if(startsWith(string(coalesce({ncx}, '')), '['), {ncx}, createArray()), 4)",
+    'select': "@concat(string(coalesce(item()?['amount'], '?')), ' ', string(coalesce(item()?['unit'], '?')), ': ', string(coalesce(item()?['quote'], '')), if(empty(string(coalesce(item()?['location'], ''))), '', concat(' (', string(item()?['location']), ')')))"}}
+RA['Notice_clause_text'] = {'type': 'Compose', 'runAfter': {'Notice_clause_lines': ['Succeeded']}, 'inputs': "@join(body('Notice_clause_lines'), ' || ')"}
 RA['Compose']['runAfter'] = {'Card_evidence_extra': ['Succeeded']}
 card = RA['Compose']['inputs']
 old_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(triggerOutputs()?['body/cai_renewaltype'], '')") +
@@ -223,7 +274,7 @@ old_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(trigge
 new_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(triggerOutputs()?['body/cai_renewaltype'], '')") + ", '\"},', "
                 "'{\"title\":\"Notice period\",\"value\":\"', " + ESC("outputs('Notice_summary')") + ", '\"},', "
                 "'{\"title\":\"Signed on\",\"value\":\"', " + ESC(f"coalesce({EXT}?['signing_date']?['value'], 'not stated')") + ", '\"},', ")
-RA['Card_facts_extra'] = {'type': 'Compose', 'runAfter': {'Unusual_text': ['Succeeded']}, 'inputs': (
+RA['Card_facts_extra'] = {'type': 'Compose', 'runAfter': {'Notice_clause_text': ['Succeeded']}, 'inputs': (
     "@concat('{\"title\":\"Notice period\",\"value\":\"', " + ESC("outputs('Notice_summary')") + ", '\"},', "
     "'{\"title\":\"Signed on\",\"value\":\"', " + ESC(f"coalesce({EXT}?['signing_date']?['value'], 'not stated')") + ", '\"},')")}
 new_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(triggerOutputs()?['body/cai_renewaltype'], '')") + ", '\"},', "
@@ -232,6 +283,8 @@ card = must_replace(card, old_ren_fact, new_ren_fact)
 anchor = "'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Liability cap** (', "
 add_ev = ("'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Notice wording**: _', "
           + ESC(f"coalesce({npx}?['wording'], {EXT}?['renewal']?['value']?['notice_rule_text'], '')") + ", '_\"},', "
+          "'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Notice clauses found in the whole document** (more than one period = check which applies): ', "
+          + ESC("if(empty(outputs('Notice_clause_text')), 'none listed', outputs('Notice_clause_text'))") + ", '\"},', "
           "'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Unusual clauses** (check against the values above): ', "
           + ESC("if(empty(outputs('Unusual_text')), 'none reported', outputs('Unusual_text'))") + ", '\"},', ")
 RA['Card_evidence_extra'] = {'type': 'Compose', 'runAfter': {'Card_facts_extra': ['Succeeded']}, 'inputs': "@concat(" + add_ev.rstrip().rstrip(',') + ")"}
@@ -257,7 +310,7 @@ RA['Card_correction'] = {'type': 'Compose', 'runAfter': {'Card_evidence_extra': 
 RA['Compose']['runAfter'] = {'Card_correction': ['Succeeded']}
 card = card[:start] + "outputs('Card_correction'), " + card[end:]
 RA['Compose']['inputs'] = card
-for nm in ('Compose', 'Card_facts_extra', 'Card_evidence_extra', 'Card_correction', 'Notice_summary'):
+for nm in ('Compose', 'Card_facts_extra', 'Card_evidence_extra', 'Card_correction', 'Notice_summary', 'Notice_clause_text'):
     v = RA[nm]['inputs']
     assert len(v) < 8000, (nm, len(v))
     print(nm, len(v))

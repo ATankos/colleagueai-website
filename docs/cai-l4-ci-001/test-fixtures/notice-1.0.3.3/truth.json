@@ -9,6 +9,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-10-31",
   "independent_latest": "2027-10-31",
@@ -25,6 +26,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-08-29",
   "independent_latest": "2027-08-31",
@@ -41,6 +43,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2026-12-31",
   "independent_latest": "2026-12-31",
@@ -57,6 +60,7 @@
    "reference": "renewal_date",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2026-12-01",
   "independent_latest": "2026-12-01",
@@ -73,6 +77,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-10-02",
   "independent_latest": "2027-10-02",
@@ -89,6 +94,7 @@
    "reference": "term_end",
    "timing": "before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-04-30",
   "independent_latest": "2027-04-30",
@@ -105,6 +111,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-08-05",
   "independent_latest": "2027-08-05",
@@ -121,6 +128,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-09-15",
   "independent_latest": null,
@@ -139,10 +147,21 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [
+   [
+    3,
+    "month"
+   ],
+   [
+    6,
+    "month"
+   ]
+  ],
   "status": "ambiguous",
-  "deadline": "2027-09-30",
+  "deadline": "2027-06-30",
   "independent_latest": "2027-09-30",
   "flags": [
+   "different notice periods; longest used",
    "conflicting provisions"
   ],
   "role": "master"
@@ -157,6 +176,16 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [
+   [
+    3,
+    "month"
+   ],
+   [
+    2,
+    "month"
+   ]
+  ],
   "status": "conflict_resolved",
   "deadline": "2028-02-29",
   "independent_latest": "2028-02-29",
@@ -173,6 +202,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2027-12-30",
   "independent_latest": "2027-12-31",
@@ -199,6 +229,7 @@
     "reference": "term_end",
     "timing": "on_or_before"
    },
+   "candidates": [],
    "status": "found",
    "deadline": "2028-03-30",
    "independent_latest": "2028-03-31",
@@ -215,6 +246,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2028-02-29",
   "independent_latest": "2028-02-29",
@@ -231,6 +263,7 @@
    "reference": "term_end",
    "timing": "on_or_before"
   },
+  "candidates": [],
   "status": "found",
   "deadline": "2026-09-30",
   "independent_latest": "2026-09-30",
