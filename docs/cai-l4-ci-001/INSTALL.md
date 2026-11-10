@@ -44,8 +44,9 @@ The product runs on your own Microsoft licences and capacity. **Every extraction
 | Activity | When | Estimate | What it is based on |
 |---|---|---|---|
 | Extraction of one document | Once per upload | 8-28 credits for 1-8 pages; about USD 0.22-0.40 for a 15-page contract (extrapolated) | Measured: 33 flow actions per document. Estimated: AI tokens, from document length |
-| Recalculation of one contract | On approval or change of a document, and each time the daily job selects it | about 6 credits (about 48 flow actions) per run | Measured: about 47 actions per recalculation run, plus one step in the daily job |
-| Daily recompute | Every day at 05:30 CET while the flow is on | one recalculation for each contract whose notice deadline or term end falls within the next **90 days** (*Recompute window*), and for each contract never calculated | Flow design; the share of contracts inside the window depends on your register |
+| Review in Teams of one document | Once per document, and again after a correction | about 2-3 credits (about 18 flow actions) | Estimated from the flow design; not measured |
+| Recalculation of one contract | When a document is approved or changes, and each time the daily job selects it | about 6 credits (about 48 flow actions) per run | Measured: about 47 actions per recalculation run, plus one step in the daily job |
+| Daily recompute | Every day at 05:30 CET while the flow is on | one recalculation for each contract whose notice deadline or term end falls within the next **90 days** (*Recompute window*), and for each contract never calculated; plus about 13 actions (under 2 credits) a day for the job itself | Flow design; the job's own steps measured once at 13 actions. The share of contracts inside the window depends on your register |
 | Weekly full pass | Every **Monday** (*Full recompute day*) | one recalculation for **every** approved contract | Flow design |
 | A question to the agent | Each question | about USD 0.07-0.10 | Microsoft's published rates; not measured |
 | Failures and retries | A failed run, or a document uploaded again | a document uploaded again is extracted again at full cost; Microsoft's automatic retries of a failed step can add actions | Not measured |
@@ -56,22 +57,24 @@ The product runs on your own Microsoft licences and capacity. **Every extraction
 |---|---|---|---|---|
 | Daily recompute and weekly full pass, per contract per month | USD 0.43 | USD 0.68 | USD 0.92 | USD 1.90 |
 
-**For a whole register** (estimate; 1.5 documents per contract, 5 new or changed documents per 100 contracts per month, 25 % inside the window; agent questions come on top):
+From upload to approval (extraction, review and the first recalculation), a 15-page document costs about **USD 0.30-0.48**.
 
-| Approved contracts | First extraction of the register (one-off) | New or changed documents, per month | Daily recompute and weekly full pass, per month |
+**For a whole register** (estimate; 15-page documents, 1.5 documents per contract, 5 new or changed documents per 100 contracts per month, 25 % inside the window; agent questions come on top):
+
+| Approved contracts | Loading the register: extraction, review and approval (one-off) | New or changed documents, per month | Daily recompute and weekly full pass, per month |
 |---|---|---|---|
-| 100 | USD 33-60 | USD 1-2 | about USD 68 (USD 44-93) |
-| 1,000 | USD 330-600 | USD 11-20 | about USD 680 (USD 430-920) |
-| 10,000 | USD 3,300-6,000 | USD 110-200 | about USD 6,800 (USD 4,300-9,200) |
+| 100 | USD 46-73 | USD 2-3 | about USD 68 (USD 44-93) |
+| 1,000 | USD 460-730 | USD 15-24 | about USD 680 (USD 430-920) |
+| 10,000 | USD 4,600-7,300 | USD 150-240 | about USD 6,800 (USD 4,300-9,200) |
 
-**How reliable these figures are.** They are estimates, not your bill. The action counts were measured in our test environment. The AI token use was estimated from document length and could be higher if Microsoft also processes page images (the upper end of each range allows for this). Microsoft's own meter had not yet reported our test runs when this guide was written, so the figures are not yet reconciled with an invoice. Your cost also depends on document length, how many contracts sit near a deadline, how many questions users ask, and Microsoft's prices and rates, which Microsoft can change. Read your own meter after the first week and the first month before you scale up. For a large register, ask us for a sizing estimate before you load it.
+**How reliable these figures are.** They are estimates, not your bill. The extraction and recalculation action counts were measured in our test environment; the review count is taken from the flow design. The AI token use was estimated from document length and could be higher if Microsoft also processes page images (the upper end of each range allows for this). Microsoft's own meter had not yet reported our test runs when this guide was written, so the figures are not yet reconciled with an invoice. Your cost also depends on document length, how many contracts sit near a deadline, how many questions users ask, and Microsoft's prices and rates, which Microsoft can change. Read your own meter after the first week and the first month before you scale up. For a large register, ask us for a sizing estimate before you load it.
 
 **What a cost alert can and cannot do.**
 - An Azure budget sends alerts; it does not stop spending.
 - Azure evaluates budgets once a day, and alert emails can arrive up to 24 hours after a threshold is crossed.
 - Copilot Studio usage reaches the Power Platform admin center and Azure with a further delay: in our test environment, runs still showed *0 consumed* more than nine hours later.
 - A large batch of uploads can therefore cost more than your threshold before any alert arrives.
-- With a **pay-as-you-go** plan Microsoft applies no overall spending ceiling: usage beyond your prepaid credits is billed to your Azure subscription.
+- With a **pay-as-you-go** plan, Microsoft does not stop the flows when your prepaid credits run out: the further usage is billed to your Azure subscription.
 - With **prepaid credits only** (no pay-as-you-go plan), Microsoft blocks new flow runs once the tenant's prepaid capacity is used up. This is a firm ceiling, but extraction and recalculation then stop until capacity is added or renewed.
 
 **Recommended initial limits.**
@@ -287,7 +290,7 @@ Approval is what makes a contract count: until a document is approved, the agent
 
 1. **Notice periods stated in months.** The card shows the notice period in days (for example *notice 180 days* with the quote *"six (6) months"*). The deadline is counted back in days from the term end, so it can fall up to about one day per month of notice **later** than the calendar date (in our test: 2 October instead of 30 September). In this release a correction never changes the stored number: it only blocks the document until the correction is resolved. So approve the document if everything else is right, and tell the users of the register that **notice must be sent at least one week before the deadline shown** whenever the contract states the notice period in months (two weeks when the notice period is longer than twelve months).
 2. **Effective date of an amendment.** Check that the *Effective* value is the date from which the amendment applies (*"with effect from …"*), not the date it was signed. In our test the extraction took the signing date (25 August instead of 1 September); the evidence quote showed the signing sentence. The date is what users see for the change, and it decides the order in which amendments are applied when several amendments change the same term. If only one amendment changes those terms, a wrong date does not change the calculated terms: approve it and tell users the correct date. If several do, submit a correction (the amendment stays out of the effective terms until it is resolved) and contact support.
-3. **Contradictions in small print.** In our test with two deliberately manipulated documents, hidden instructions changed no value and no review status. A small-print clause that contradicted the liability cap was recorded internally but not shown on the card, which showed the cap from the main clause. Read schedules and annexes yourself before approving a cap.
+3. **Contradictions in small print.** In our test with two deliberately manipulated documents, hidden instructions changed no value and no review status. A small-print clause that contradicted the liability cap was recorded in the stored extraction data but not shown on the card, which showed the cap from the main clause. Read schedules and annexes yourself before approving a cap.
 
 These two documents are a limited test, not proof that every manipulated document is handled correctly. The review is the control.
 
@@ -299,8 +302,8 @@ These two documents are a limited test, not proof that every manipulated documen
 | **Access is per team, not per contract** | Every member of the owner team sees all of that team's contracts. All new uploads go to the one team you set in section 3; assigning by folder is planned. |
 | **A user without a contracts team sees an error code** | On 9 November 2026 a second, separately licensed test user chatted with the agent in Teams and saw only their own team's contracts, also after being moved to another team and with no caching between the two. A user who belongs to no contracts team gets no data, but sees a raw message such as *Error code: ConnectorAuthorizationError* instead of a plain "you have no access" answer. A clearer message is planned for release 1.1. |
 | **Notice periods in months are counted in days** | A notice period stated in months is stored as days, so its deadline can be up to about one day per month of notice later than the calendar date. Send notice at least one week before the deadline shown, two weeks for notice periods longer than twelve months (section 9a). |
-| **Amendments apply from approval** | An approved amendment changes the effective terms as soon as it is approved, also when it takes effect at a later date. Its *Effective* value is only used to order amendments, and the extraction may read the signing date as the effective date (section 9a). |
-| **Small-print contradictions are not on the review card** | A clause that contradicts a main value is recorded internally but not shown on the review card. The reviewer reads schedules and small print (section 9a). Only two deliberately manipulated documents have been tested. |
+| **Amendments apply from approval** | An approved amendment changes the effective terms as soon as it is approved, also when it takes effect at a later date. In the calculation, its *Effective* value is used only to order amendments, and the extraction may read the signing date as the effective date (section 9a). |
+| **Small-print contradictions are not on the review card** | A clause that contradicts a main value is recorded in the stored extraction data but not shown on the review card. The reviewer reads schedules and small print (section 9a). Only two deliberately manipulated documents have been tested. |
 | **Role shows 9 or 11 privileges** | All three fresh imports showed 11 and an upgrade 9. The two extra are standard platform privileges on a private system table (section 2). |
 | **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); a full scheduled week has not yet been observed. Contracts that have ended and do not renew are recalculated every day, because their term end lies before the end of the window (section 1a). |
 | **Duplicate approved masters** | When the same contract reference is uploaded and approved twice, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Amendments are matched to their master by contract reference. |
