@@ -6,12 +6,22 @@ independent_latest).
 """
 import json, os, sys
 from datetime import date
+import types
 sys.path.insert(0, os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'd7d11'))
-import gen as g  # reuses the D7/D11 layout helpers (build, signature, boiler)
 from deadline_ref import register_deadline, independent_latest
 
 HERE = os.path.dirname(__file__)
+# Reuse only the layout helpers (build, signature, boiler) of the D7/D11 generator. Importing gen.py would rebuild
+# the D7/D11 PDFs (new CreationDate/ID), so execute just the part before its first document.
+_gen_path = next(p for p in (os.environ.get('D7D11_GEN', ''),
+                              os.path.join(HERE, '..', 'd7d11', 'gen.py'),
+                              os.path.join(HERE, '..', '..', '..', 'docs', 'cai-l4-ci-001', 'test-fixtures', 'd7-d11', 'gen.py'))
+                 if p and os.path.exists(p))
+_src = open(_gen_path, encoding='utf-8').read()
+_cut = _src.index('\ntruth = {}\n')
+g = types.ModuleType('d7d11_layout')
+g.__file__ = _gen_path
+exec(compile(_src[:_cut], _gen_path, 'exec'), g.__dict__)
 g.OUT = os.path.join(HERE, 'pdf')
 os.makedirs(g.OUT, exist_ok=True)
 CUST = 'Brightwater Labs s.r.o.'
