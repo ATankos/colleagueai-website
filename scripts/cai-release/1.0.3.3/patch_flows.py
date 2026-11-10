@@ -210,7 +210,10 @@ MA['Status_text_final'] = compose(status_final, 'Deadline_basis')
 MA['Amendment_ids']['runAfter'] = {'Status_text_final': ['Succeeded']}
 
 up = MA['Update_master_terms']['inputs']['parameters']
-up['item/cai_noticestatus'] = "@outputs('Status_text_final')"
+# cai_noticestatus holds at most 400 characters (an UpdateRecord with a longer value fails the whole run);
+# the full review reasons are in cai_deadlinereview and the calculation in cai_deadlinebasis.
+up['item/cai_noticestatus'] = ("@if(greater(length(outputs('Status_text_final')), 400), concat(substring(outputs('Status_text_final'), 0, 370), "
+                               "' ... (see deadline review)'), outputs('Status_text_final'))")
 up['item/cai_effnoticedays'] = (f"@if(not(outputs('Has_notice')), null, if(equals({UNIT}, 'day'), int({AMT}), if(equals({UNIT}, 'week'), mul(7, int({AMT})), null)))")
 up['item/cai_noticeamount'] = f"@if(outputs('Has_notice'), int({AMT}), null)"
 up['item/cai_noticeunit'] = f"@if(outputs('Has_notice'), {UNIT}, null)"
@@ -235,7 +238,8 @@ MA['If_recalculated_by_1033'] = {
             'item/cai_reviewer': 'CAI Contract Intelligence (system)',
             'item/cai_decidedon': '@utcNow()',
             'item/cai_source': 'Release 1.0.3.3 recalculation',
-            'item/cai_comment': "@concat('Previous notice deadline ', substring(string(" + old_dl + "), 0, 10), '; recalculated deadline ', coalesce(outputs('Next_notice_deadline'), 'none'), '. ', outputs('Deadline_basis'))",
+            'item/cai_comment': ("@substring(concat('Previous notice deadline ', substring(string(" + old_dl + "), 0, 10), '; recalculated deadline ', coalesce(outputs('Next_notice_deadline'), 'none'), '. ', outputs('Deadline_basis')), 0, "
+                                 "min(3990, length(concat('Previous notice deadline ', substring(string(" + old_dl + "), 0, 10), '; recalculated deadline ', coalesce(outputs('Next_notice_deadline'), 'none'), '. ', outputs('Deadline_basis')))))"),
             'item/cai_correctionsjson': ("@{string(setProperty(setProperty(setProperty(setProperty(json('{\"schema\":\"cai.recalculation.v1\"}'), 'previous_deadline', "
                                          "substring(string(" + old_dl + "), 0, 10)), 'new_deadline', coalesce(outputs('Next_notice_deadline'), '')), "
                                          "'basis', outputs('Deadline_basis')), 'review_flags', outputs('N_flags')))}"),
@@ -262,9 +266,9 @@ A['Master_exists']['else'] = {'actions': {'If_orphan_document': {
         'parameters': {
             'entityName': 'cai_contracts',
             'recordId': "@triggerOutputs()?['body/cai_contractid']",
-            'item/cai_noticestatus': ("@concat('NOT APPLIED - NO MASTER FOUND: this approved ', " + ROLE_T + ", ' has the contract reference \"', "
-                                      "outputs('Master_reference'), '\", but no master agreement with exactly that reference is in the register, so its "
-                                      "changes are not applied to any contract. Check the contract reference (it must start with the master agreement reference).')"),
+            'item/cai_noticestatus': ("@concat('NOT APPLIED - NO MASTER FOUND for reference \"', substring(outputs('Master_reference'), 0, min(length(outputs('Master_reference')), 80)), "
+                                      "'\": this approved ', " + ROLE_T + ", ' is not linked to any master agreement, so its changes are not applied. "
+                                      "Check that its contract reference starts with the master agreement reference.')"),
             'item/cai_deadlinereview': ("@concat('approved ', " + ROLE_T + ", ' not linked to a master agreement (reference \"', "
                                         "outputs('Master_reference'), '\")')"),
         },
