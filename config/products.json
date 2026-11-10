@@ -1,5 +1,5 @@
 {
-  "_comment": "Purchasable product records, keyed by catalogue slug (slugify of the agent name on /agents). name and sku are what Stripe, the success page and invoices show. A slug with no record here, or with saleApproved=false, blocks LIVE-mode checkout (default-deny); only saleApproved=true opens live sales. Test-mode keys are unaffected, so enabling a test checkout can never start real sales of an unapproved release. release.package is the object name under agents/<slug>/ in private storage (Vercel Private Blob, or R2) that a buyer downloads; release.sha256 must equal the hash of that exact uploaded file (null = not yet published, the success page then omits it). aliases: retired slugs that must keep resolving to this product (old checkout links, Stripe metadata, KV entitlements and certificates written before a rename).",
+  "_comment": "Purchasable product records, keyed by catalogue slug (slugify of the agent name on /agents). name and sku are what Stripe, the success page and invoices show. A slug with no record here, or with saleApproved=false, blocks LIVE-mode checkout (default-deny); only saleApproved=true opens live sales. Test-mode keys are unaffected, so enabling a test checkout can never start real sales of an unapproved release. release.package is the object name under agents/<slug>/ in private storage (Vercel Private Blob, or R2) that a buyer downloads; release.sha256 must equal the hash of that exact uploaded file (null = not yet published, the success page then omits it). aliases: retired slugs that must keep resolving to this product (old checkout links, Stripe metadata, KV entitlements and certificates written before a rename). Version-specific entitlements (lib/releaseAccess.js): each purchase records the release version it bought, and a buyer may download that release, and a later release only as far as Continuous Certification covers it. When a new release replaces \"release\", move the old record (with its package and sha256) into \"previousReleases\" so its buyers keep it, and give every new release a \"releasedAt\" ISO date (certification coverage after a lapse is judged by it). legacyEntitlementVersion: the release a purchase recorded before version pinning counts as.",
   "contract-intelligence-and-register": {
     "name": "ColleagueAI Contract Intelligence & Register",
     "sku": "CAI-L4-CI-001",
@@ -8,6 +8,7 @@
       "contract-summarisation-agent"
     ],
     "saleApproved": false,
+    "legacyEntitlementVersion": "1.0.3.2",
     "release": {
       "version": "1.0.3.2",
       "status": "controlled-test",

@@ -36,7 +36,8 @@ import {
   getCertificationBySubscription,
   bindAcceptance,
 } from '../lib/db.js';
-import { liveFulfilmentWithheld, liveRestoreRefused } from '../lib/products.js';
+import { liveFulfilmentWithheld, liveRestoreRefused, productFor, canonicalSlug } from '../lib/products.js';
+import { releaseVersionForSession } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriodEnd } from '../lib/stripeCompat.js';
 
@@ -167,7 +168,7 @@ async function fulfillSession(session, eventId) {
   }
 
   try {
-    const entitlement = await grantEntitlement(email, [slug], session.id);
+    const entitlement = await grantEntitlement(email, [slug], session.id, { release: releaseVersionForSession(session, productFor(canonicalSlug(slug))) });
     /* Ids only: the stored record holds the buyer's email, and runtime logs are not the place for it. The
      * session id finds the order in the Stripe dashboard (as in recordWithheldSale). grantEntitlement
      * refuses a session that was already refunded or disputed and returns the old record with `refused`
@@ -211,6 +212,8 @@ async function fulfillSession(session, eventId) {
         email, slug, tier: session.metadata?.tier,
         subscriptionId,
         currentPeriodEnd: subscriptionPeriodEnd(session.subscription),
+        // The release this purchase bought is the one the certificate names (it used to default to "1.0").
+        certifiedVersion: releaseVersionForSession(session, productFor(canonicalSlug(slug))),
       });
       console.log('[webhook] Certification issued:', cert?.certificateId);
     } catch (err) {

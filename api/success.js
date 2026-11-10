@@ -15,7 +15,8 @@
 import Stripe from 'stripe';
 import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
-import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld } from '../lib/products.js';
+import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld, releaseOfVersion } from '../lib/products.js';
+import { releaseVersionForSession } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recoverHint } from '../lib/recovery.js';
 import { SLUG_TIER, titleFromSlug } from './checkout.js';
@@ -104,12 +105,17 @@ export function productNames(slug) {
   return { product, short, name: product?.name || (short ? `ColleagueAI ${short}` : '') };
 }
 
-/** Download block for a paid order: the released package when the product has one, else the dossier. */
-export function deliveryHtml(email, slug, lang = 'en') {
+/**
+ * Download block for a paid order: the released package when the product has one, else the dossier.
+ * `release` is the release record this buyer may have (the one bought, or a later one their certification covers;
+ * lib/releaseAccess.js). Left out, it is the product's current release; null means no release package for this buyer.
+ */
+export function deliveryHtml(email, slug, lang = 'en', release = undefined) {
   if (!ORDER_LOCALES.includes(lang)) lang = 'en';
   const t = (k, v) => ot(lang, k, v);
   const { product, short, name } = productNames(slug);
-  const pkg = packageFile(slug);
+  const rel = release === undefined ? (product?.release || {}) : (release || {});
+  const pkg = release === undefined ? packageFile(slug) : (release?.package ?? null);
   const tierCode = product?.tier || SLUG_TIER[slug];
   const tierName = tierCode && TIER_NAMES[lang][tierCode];
   const tier = tierCode ? `<span class="o-tier">CAI ${esc(tierCode)}${tierName ? ' &middot; ' + esc(tierName) : ''}</span>` : '';
@@ -122,7 +128,6 @@ export function deliveryHtml(email, slug, lang = 'en') {
       `<div class="o-actions"><a class="o-btn o-btn-p" href="${esc(downloadLink(email, slug))}">${ICON.download}${esc(t('btn_doc'))}</a></div>` +
       `${note}</article></section>`;
   }
-  const rel = product.release || {};
   if (!packageDeliverable(slug)) {
     return `<section class="o-grid o-single"><article class="o-card">${tier}<h2>${title}</h2>` +
       `<p class="o-text">${t('nd', { version: esc(rel.version || ''), product: esc(name), email: mailLink() })}</p>` +
@@ -150,6 +155,14 @@ export function deliveryHtml(email, slug, lang = 'en') {
     `<li><h3>${esc(t('s2_h'))}</h3><p>${t('s2_p', { f: fileCode('INSTALL.md') })}</p></li>` +
     `<li><h3>${esc(t('s3_h'))}</h3><p>${t('s3_p', { f: fileCode('INSTALL.md') })}</p></li>` +
     `</ol>${docsNote}</section>`;
+}
+
+/** The release record a fulfilled purchase bought, or undefined (current release) for a product with no release history. */
+function boughtRelease(entitlement, session, slug) {
+  const product = productFor(slug);
+  if (!product?.release) return undefined;
+  const version = entitlement?.sessionReleases?.[session.id]?.[slug] ?? releaseVersionForSession(session, product);
+  return releaseOfVersion(slug, version) ?? null;
 }
 
 export default async function handler(req, res) {
@@ -228,7 +241,7 @@ export default async function handler(req, res) {
   // A refunded or charged-back order is refused here, even though Stripe still reports 'paid'.
   let granted;
   try {
-    granted = await grantEntitlement(email, [slug], session.id);
+    granted = await grantEntitlement(email, [slug], session.id, { release: releaseVersionForSession(session, productFor(slug)) });
   } catch (err) {
     console.error('[success] grantEntitlement failed:', err && err.message ? err.message : err);
     return res.status(200).send(page({
@@ -248,6 +261,7 @@ export default async function handler(req, res) {
     lang, title: t('t_thanks'), status: 'ok', eyebrow: t('paid_eyebrow'), heading: t('paid_h'),
     lede: t(packageFile(slug) ? 'paid_lede_pkg' : 'paid_lede_doc', { product: strong(label) }),
     // recoverHint is empty unless the owner has switched recovery on and it can work, so the page is unchanged until then.
-    chips: emailChip, body: deliveryHtml(email, slug, lang) + recoverHint(lang),
+    // The release this purchase bought, as first recorded for it: a newer release published since does not replace it.
+    chips: emailChip, body: deliveryHtml(email, slug, lang, boughtRelease(granted, session, slug)) + recoverHint(lang),
   }));
 }
