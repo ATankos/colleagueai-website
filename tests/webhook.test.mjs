@@ -221,6 +221,7 @@ import { before as before10 } from 'node:test';
 let stripeApiServer;
 let stripeApiMode = 'ok'; // 'ok' | 'empty' | 'fail'
 const stripeSessionsById = new Map(); // sessions the success page retrieves by id (section 12)
+const stripeCancelled = []; // subscriptions the webhook cancelled (LR-19)
 before10(async () => {
   stripeApiServer = http.createServer((req, res) => {
     if (req.url.startsWith('/v1/checkout/sessions/') && req.method === 'GET') {
@@ -230,15 +231,41 @@ before10(async () => {
       if (!s) { res.writeHead(404); return res.end('{"error":{"message":"No such checkout.session"}}'); }
       return res.end(JSON.stringify(s));
     }
+    // LR-19: subscription-mode purchases resolve through invoice payments and the subscription.
+    if (req.url.startsWith('/v1/invoice_payments') && req.method === 'GET') {
+      const u = new URL(req.url, 'http://x');
+      const pi = u.searchParams.get('payment[payment_intent]');
+      const inv = { pi_sub_first: 'in_sub_first', pi_sub_renewal: 'in_sub_renewal' }[pi];
+      res.setHeader('content-type', 'application/json');
+      return res.end(JSON.stringify({ object: 'list', has_more: false, url: '/v1/invoice_payments',
+        data: inv ? [{ id: 'inpay_' + inv, object: 'invoice_payment', invoice: inv }] : [] }));
+    }
+    if (req.url.startsWith('/v1/invoices/') && req.method === 'GET') {
+      const id = decodeURIComponent(req.url.split('/')[3].split('?')[0]);
+      res.setHeader('content-type', 'application/json');
+      return res.end(JSON.stringify({ id, object: 'invoice',
+        billing_reason: id === 'in_sub_first' ? 'subscription_create' : 'subscription_cycle',
+        parent: { type: 'subscription_details', subscription_details: { subscription: 'sub_lr19' } } }));
+    }
+    if (req.url.startsWith('/v1/subscriptions/') && req.method === 'DELETE') {
+      stripeCancelled.push(decodeURIComponent(req.url.split('/')[3].split('?')[0]));
+      res.setHeader('content-type', 'application/json');
+      return res.end(JSON.stringify({ id: 'sub_lr19', object: 'subscription', status: 'canceled' }));
+    }
     if (req.url.startsWith('/v1/checkout/sessions') && req.method === 'GET') {
       if (stripeApiMode === 'fail') { res.writeHead(500); return res.end('{"error":{"message":"forced"}}'); }
       const u = new URL(req.url, 'http://x');
       const pi = u.searchParams.get('payment_intent');
+      const sub = u.searchParams.get('subscription');
       const data = (stripeApiMode === 'ok' && pi === 'pi_refund_1')
         ? [{ id: 'cs_refund_1', object: 'checkout.session', payment_intent: pi,
              customer_details: { email: 'buyer@example.com' },
              metadata: { agent_slug: 'contract-intelligence-and-register', tier: 'L4' } }]
-        : [];
+        : (stripeApiMode === 'ok' && sub === 'sub_lr19')
+          ? [{ id: 'cs_sub_lr19', object: 'checkout.session', mode: 'subscription', payment_intent: null, subscription: 'sub_lr19',
+               customer_details: { email: 'subbuyer@example.com' },
+               metadata: { agent_slug: 'contract-intelligence-and-register', tier: 'L4', certification: 'month' } }]
+          : [];
       res.setHeader('content-type', 'application/json');
       return res.end(JSON.stringify({ object: 'list', data, has_more: false, url: '/v1/checkout/sessions' }));
     }
@@ -276,6 +303,40 @@ test('10a. full refund with only a payment_intent id → session resolved, commi
   const ent = JSON.parse(kvStore.get('entitlement:buyer@example.com'));
   assert.deepEqual(ent.slugs, [],
     'DEFECT: full refund must revoke the entitlement for the refunded agent');
+});
+
+test('10x. LR-19: refund of a licence bought WITH certification revokes access, cancels the subscription and lapses the certificate', async () => {
+  stripeApiMode = 'ok'; stripeCancelled.length = 0;
+  kvStore.set('entitlement:subbuyer@example.com', JSON.stringify({
+    email: 'subbuyer@example.com', slugs: ['contract-intelligence-and-register'], stripeSessionIds: ['cs_sub_lr19'] }));
+  kvStore.set('certification:CAI-L4-AAAABBBB', JSON.stringify({ certificateId: 'CAI-L4-AAAABBBB', agentSlug: 'contract-intelligence-and-register',
+    tier: 'L4', status: 'active', subscriptionId: 'sub_lr19', currentPeriodEnd: 2000000000, certifiedVersion: '1.0.3.2' }));
+  kvStore.set('cert:sub:sub_lr19', 'CAI-L4-AAAABBBB');
+  const r = await deliver(makeChargeEvent({ pi: 'pi_sub_first', email: 'subbuyer@example.com', amount: 1514900, amountRefunded: 1514900 }));
+  assert.equal(r.status, 200, JSON.stringify(r.body));
+  assert.deepEqual(JSON.parse(kvStore.get('entitlement:subbuyer@example.com')).slugs, [],
+    'DEFECT: a subscription-mode purchase could not be found from its refund, so the licence stayed');
+  assert.deepEqual(stripeCancelled, ['sub_lr19'], 'DEFECT: the refunded buyer would keep being billed for certification');
+  assert.equal(JSON.parse(kvStore.get('certification:CAI-L4-AAAABBBB')).status, 'lapsed');
+  assert.equal(r.body.certification, 'lapsed');
+});
+
+test('10y. LR-19: refunding a RENEWAL invoice touches neither the licence nor the subscription', async () => {
+  stripeApiMode = 'ok'; stripeCancelled.length = 0;
+  kvStore.set('entitlement:subbuyer@example.com', JSON.stringify({
+    email: 'subbuyer@example.com', slugs: ['contract-intelligence-and-register'], stripeSessionIds: ['cs_sub_lr19'] }));
+  const r = await deliver(makeChargeEvent({ pi: 'pi_sub_renewal', email: 'subbuyer@example.com', amount: 24900, amountRefunded: 24900 }));
+  assert.equal(r.status, 200);
+  assert.equal(r.body.commission, 'no-session-reference');
+  assert.deepEqual(JSON.parse(kvStore.get('entitlement:subbuyer@example.com')).slugs, ['contract-intelligence-and-register']);
+  assert.deepEqual(stripeCancelled, []);
+});
+
+test('10z. LR-19: a partial refund of a certification purchase does not cancel the subscription', async () => {
+  stripeApiMode = 'ok'; stripeCancelled.length = 0;
+  const r = await deliver(makeChargeEvent({ pi: 'pi_sub_first', email: 'subbuyer@example.com', refunded: false, amount: 1514900, amountRefunded: 24900 }));
+  assert.equal(r.status, 200);
+  assert.deepEqual(stripeCancelled, []);
 });
 
 test('10b. charge with no payment_intent and no metadata → acknowledged, ledger untouched', async () => {
