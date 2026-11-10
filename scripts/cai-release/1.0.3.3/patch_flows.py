@@ -249,6 +249,29 @@ MA['Mark_other_masters_superseded']['runAfter'] = {'If_recalculated_by_1033': ['
 aw = A['Master_exists']['actions']['Master_approved']['else']['actions']['Update_master_awaiting']['inputs']['parameters']
 for c in ('cai_noticeamount', 'cai_noticeunit', 'cai_noticewording', 'cai_deadlinebasis', 'cai_deadlinereview'):
     aw['item/' + c] = '@null'
+# An approved amendment / annex / order form whose reference matches no master agreement used to be ignored silently
+# (Master_exists: else branch empty). Mark it, so the register shows that its changes are not applied anywhere.
+ROLE_T = "coalesce(triggerOutputs()?['body/cai_documentrole'], 'document')"
+A['Master_exists']['else'] = {'actions': {'If_orphan_document': {
+    'type': 'If',
+    'expression': {'and': [
+        {'not': {'equals': ["@coalesce(triggerOutputs()?['body/cai_documentrole'], '')", 'master']}},
+        {'equals': ["@triggerOutputs()?['body/cai_reviewstatus']", 'Approved']},
+    ]},
+    'actions': {'Mark_orphan_document': {'type': 'OpenApiConnection', 'inputs': {
+        'parameters': {
+            'entityName': 'cai_contracts',
+            'recordId': "@triggerOutputs()?['body/cai_contractid']",
+            'item/cai_noticestatus': ("@concat('NOT APPLIED - NO MASTER FOUND: this approved ', " + ROLE_T + ", ' has the contract reference \"', "
+                                      "outputs('Master_reference'), '\", but no master agreement with exactly that reference is in the register, so its "
+                                      "changes are not applied to any contract. Check the contract reference (it must start with the master agreement reference).')"),
+            'item/cai_deadlinereview': ("@concat('approved ', " + ROLE_T + ", ' not linked to a master agreement (reference \"', "
+                                        "outputs('Master_reference'), '\")')"),
+        },
+        'host': {'apiId': '/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps',
+                 'connectionName': 'shared_commondataserviceforapps', 'operationId': 'UpdateOnlyRecord'}}}},
+    'else': {'actions': {}},
+}}}
 (OUT / FILES['eff']).write_text(json.dumps(eff, ensure_ascii=False), encoding='utf-8')
 
 # ───────────────────────────────── Review gate ─────────────────────────────────

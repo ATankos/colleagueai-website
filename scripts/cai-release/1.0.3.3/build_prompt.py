@@ -7,6 +7,8 @@ Changes (all additive or narrowing; the output stays a superset of 1.0.3.2):
   - effective_date rule: the date the document takes effect ("with effect from", "effective as of").
   - renewal.value.notice_clauses: every notice-of-non-renewal sentence anywhere in the document (body, schedules, order
     forms, small print), so the flow can detect conflicting periods itself instead of relying on the model's judgement.
+  - rule 14 (rev 4): contract_reference is the identifier only; amendments start with the master agreement identifier
+    (the register links an amendment to its master by that prefix).
   - rule 10 (rev 2): notice_period only for non-renewal; explicit Renewal Date and "more than" examples.
   - contradiction rule: any clause anywhere (schedules, annexes, small print) that contradicts a reported value
     makes that field "ambiguous" (or "conflict_resolved" when the document says which prevails), both quotes kept.
@@ -55,7 +57,12 @@ t = t.replace(old9_end, old9_end + (
     'footnotes and small or light-coloured print, and list every sentence that sets a notice period for non-renewal or for ending the '
     'agreement at the end of a term, each as {quote, location, amount, unit} (unit as in rule 10). List each sentence once. If the list '
     'contains different periods and the document does not say which text prevails, set "renewal.status" to "ambiguous". Use an '
-    'empty list when there is no such sentence.'))
+    'empty list when there is no such sentence.'
+    '\n14. "contract_reference" is the agreement identifier only, as printed but without leading words such as "Agreement No.", '
+    '"Contract No." or a document title (for example "SYN-COST-003", not "Agreement No. SYN-COST-003" or "Master Services Agreement '
+    'SYN-COST-003"). For an amendment, annex, order form or SOW, "contract_reference" starts with the identifier of the master agreement '
+    'it belongs to, followed by " / " and the document\'s own number if it has one (for example "SYN-COST-003 / Amendment 1"), and '
+    '"amends[].master_reference" is the master agreement identifier only.'))
 
 old_ren = '"renewal": {value: {type: "automatic" | "none" | "manual", period_months, notice_days, notice_rule_text}, quote, location, status},'
 new_ren = ('"renewal": {value: {type: "automatic" | "none" | "manual", period_months, notice_period: {amount, unit, reference, timing, wording}, '
