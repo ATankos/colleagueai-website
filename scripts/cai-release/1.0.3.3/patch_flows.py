@@ -84,6 +84,18 @@ def approx_days(a, u):
             f"if(equals({u}, 'business_day'), add(div(mul({a}, 7), 5), 4), if(equals({u}, 'day'), {a}, 0)))))")
 
 
+WORDS = "createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')"
+
+
+def says(n, unit):
+    """True when the stored wording states n <unit>(s): "(n) unit", " n unit", "n unit" at the start, or the number word."""
+    lw = "outputs('N_lw')"
+    return (f"or(contains({lw}, concat('(', string({n}), ') {unit}')), contains({lw}, concat(' ', string({n}), ' {unit}')), "
+            f"startsWith({lw}, concat(string({n}), ' {unit}')), if(lessOrEquals({n}, 12), contains({lw}, concat({WORDS}[{n}], ' {unit}')), false))")
+
+
+YEAR_SAYS = ("or(contains(outputs('N_lw'), 'one year'), contains(outputs('N_lw'), '(1) year'), contains(outputs('N_lw'), ' 1 year'), "
+             "startsWith(outputs('N_lw'), '1 year'))")
 MORE_THAN = "or(contains({lw}, 'more than'), contains({lw}, 'strictly before'), contains({lw}, 'in excess of'))".format(lw="outputs('N_lw')")
 IU = "toLower(string(coalesce(item()?['unit'], '')))"
 IA = "string(item()?['amount'])"
@@ -92,10 +104,11 @@ notice_actions = [
     ('N_wording', f"@coalesce({NP}?['wording'], {R}?['value']?['notice_rule_text'], {R}?['quote'], '')"),
     ('N_lw', "@toLower(string(outputs('N_wording')))"),
     ('N_is_new', f"@and(not(equals({NP}, null)), not(equals({NP}?['amount'], null)))"),
-    ('N_legacy_unit', f"@if(or({ISNEW}, equals({ND}, null)), '', if(and(contains({LW}, 'month'), not(contains({LW}, ' day')), "
-                      f"equals(mod(int({ND}), 30), 0)), 'month', if(and(contains({LW}, 'year'), not(contains({LW}, 'month')), "
-                      f"not(contains({LW}, ' day')), contains(createArray(360, 365, 366), int({ND}))), 'year', "
-                      f"if(and(contains({LW}, 'week'), not(contains({LW}, ' day')), equals(mod(int({ND}), 7), 0)), 'week', 'day'))))"),
+    # 1.0.3.2 stored only days. Re-derive months / years / weeks only when the stored wording states that period
+    # ("six (6) months", "6 months", "six months"); "twelve (12) months" describing the renewal period does not match 60 days.
+    ('N_legacy_unit', f"@if(or({ISNEW}, equals({ND}, null)), '', if(and(equals(mod(int({ND}), 30), 0), {says(f'div(int({ND}), 30)', 'month')}), 'month', "
+                      f"if(and(contains(createArray(360, 365, 366), int({ND})), {YEAR_SAYS}), 'year', "
+                      f"if(and(equals(mod(int({ND}), 7), 0), {says(f'div(int({ND}), 7)', 'week')}), 'week', 'day'))))"),
     ('N_unit0', f"@if({ISNEW}, if(or(contains({U}, 'business'), contains({U}, 'working')), 'business_day', if(contains({U}, 'month'), 'month', "
                 f"if(contains({U}, 'year'), 'year', if(contains({U}, 'week'), 'week', if(contains({U}, 'day'), 'day', ''))))), outputs('N_legacy_unit'))"),
     ('N_amount0', f"@if({ISNEW}, int({NP}?['amount']), if(equals({ND}, null), null, if(equals(outputs('N_legacy_unit'), 'month'), div(int({ND}), 30), "
@@ -171,6 +184,7 @@ flag_list = ("@createArray("
     f"if(and(not({ISNEW}), not(equals({ND}, null)), not(equals(outputs('N_legacy_unit'), 'day'))), concat('the notice wording is in ', outputs('N_legacy_unit'), "
     f"'s but release 1.0.3.2 stored it as ', string({ND}), ' days; recalculated in calendar ', outputs('N_legacy_unit'), 's from that wording - a reviewer must confirm the notice period'), ''), "
     f"if(and(outputs('Has_notice'), equals({UNIT}, 'business_day')), 'the notice period is in business days; the date is an estimate without a holiday calendar', ''), "
+    f"if(and(outputs('Has_notice'), not({ISNEW}), equals(outputs('N_legacy_unit'), 'day'), not(contains({LW}, string({ND})))), concat('the stored notice wording does not show the notice period; release 1.0.3.2 stored ', string({ND}), ' days and they are used as days - a reviewer must confirm the notice period'), ''), "
     f"if(and(outputs('Has_notice'), not(contains(createArray('term_end', 'renewal_date', 'term_end_assumed'), {REF}))), 'the clause does not say clearly whether the period runs back from the term end or from the renewal date; the earlier date is shown', ''), "
     f"if(and(outputs('Has_notice'), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), {TIM}))), 'the timing wording of the notice clause is unclear; the date shown is one day earlier than the plain calculation', ''), "
     f"if(equals(toLower(coalesce({R}?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce({R}?['quote'], '')), ''), "

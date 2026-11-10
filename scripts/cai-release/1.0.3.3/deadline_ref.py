@@ -37,19 +37,28 @@ def months_after_by_day_number(d, n):
     return date(y, m, min(d.day, last))
 
 
+WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve']
+
+
+def _says(lw, n, unit):
+    return (f'({n}) {unit}' in lw or f' {n} {unit}' in lw or lw.startswith(f'{n} {unit}')
+            or (n <= 12 and f'{WORDS[n]} {unit}' in lw))
+
+
 def legacy_notice(notice_days, wording):
-    """1.0.3.2 records stored only notice_days. Re-derive the unit from the stored wording, as the flow does."""
+    """1.0.3.2 records stored only notice_days. Re-derive the unit only when the stored wording states that period."""
     if notice_days is None:
         return None
     lw = (wording or '').lower()
     nd = int(notice_days)
-    if 'month' in lw and ' day' not in lw and nd % 30 == 0:
-        return {'amount': nd // 30, 'unit': 'month', 'reference': 'term_end_assumed', 'timing': 'on_or_before_assumed', 'legacy': True}
-    if 'year' in lw and 'month' not in lw and ' day' not in lw and nd in (360, 365, 366):
-        return {'amount': 1, 'unit': 'year', 'reference': 'term_end_assumed', 'timing': 'on_or_before_assumed', 'legacy': True}
-    if 'week' in lw and ' day' not in lw and nd % 7 == 0:
-        return {'amount': nd // 7, 'unit': 'week', 'reference': 'term_end_assumed', 'timing': 'on_or_before_assumed', 'legacy': True}
-    return {'amount': nd, 'unit': 'day', 'reference': 'term_end_assumed', 'timing': 'on_or_before_assumed', 'legacy': True}
+    base = {'reference': 'term_end_assumed', 'timing': 'on_or_before_assumed', 'legacy': True}
+    if nd % 30 == 0 and _says(lw, nd // 30, 'month'):
+        return dict(base, amount=nd // 30, unit='month')
+    if nd in (360, 365, 366) and any(k in lw for k in ('one year', '(1) year', ' 1 year')) or lw.startswith('1 year') and nd in (360, 365, 366):
+        return dict(base, amount=1, unit='year')
+    if nd % 7 == 0 and _says(lw, nd // 7, 'week'):
+        return dict(base, amount=nd // 7, unit='week')
+    return dict(base, amount=nd, unit='day', wording_states_period=str(nd) in lw)
 
 
 def normalise_unit(u):
