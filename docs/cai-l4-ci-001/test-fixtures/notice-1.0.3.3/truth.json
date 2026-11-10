@@ -1,0 +1,250 @@
+{
+ "SYN-N01": {
+  "term_end": "2028-01-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 3,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2027-10-31",
+  "independent_latest": "2027-10-31",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N02": {
+  "term_end": "2028-02-29",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 6,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2027-08-29",
+  "independent_latest": "2027-08-31",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N03": {
+  "term_end": "2027-12-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 12,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2026-12-31",
+  "independent_latest": "2026-12-31",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N04": {
+  "term_end": "2027-02-28",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 3,
+   "unit": "month",
+   "reference": "renewal_date",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2026-12-01",
+  "independent_latest": "2026-12-01",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N05": {
+  "term_end": "2027-12-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 90,
+   "unit": "day",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2027-10-02",
+  "independent_latest": "2027-10-02",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N06": {
+  "term_end": "2027-06-30",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 60,
+   "unit": "day",
+   "reference": "term_end",
+   "timing": "before"
+  },
+  "status": "found",
+  "deadline": "2027-04-30",
+  "independent_latest": "2027-04-30",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N07": {
+  "term_end": "2027-09-30",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 8,
+   "unit": "week",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2027-08-05",
+  "independent_latest": "2027-08-05",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N08": {
+  "term_end": "2027-10-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 30,
+   "unit": "business_day",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2027-09-15",
+  "independent_latest": null,
+  "flags": [
+   "business days estimated"
+  ],
+  "role": "master"
+ },
+ "SYN-N09": {
+  "term_end": "2027-12-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 3,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "ambiguous",
+  "deadline": "2027-09-30",
+  "independent_latest": "2027-09-30",
+  "flags": [
+   "conflicting provisions"
+  ],
+  "role": "master"
+ },
+ "SYN-N10": {
+  "term_end": "2028-04-30",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 2,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "conflict_resolved",
+  "deadline": "2028-02-29",
+  "independent_latest": "2028-02-29",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N11": {
+  "term_end": "2028-06-30",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 6,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2027-12-30",
+  "independent_latest": "2027-12-31",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N11-A1": {
+  "role": "amendment",
+  "effective_date": "2027-01-01",
+  "signing_date": "2026-12-10",
+  "notice": {
+   "amount": 3,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "combined": {
+   "term_end": "2028-06-30",
+   "renewal": "automatic",
+   "period_months": 12,
+   "notice": {
+    "amount": 3,
+    "unit": "month",
+    "reference": "term_end",
+    "timing": "on_or_before"
+   },
+   "status": "found",
+   "deadline": "2028-03-30",
+   "independent_latest": "2028-03-31",
+   "flags": []
+  }
+ },
+ "SYN-N12": {
+  "term_end": "2028-08-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 6,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2028-02-29",
+  "independent_latest": "2028-02-29",
+  "flags": [],
+  "role": "master"
+ },
+ "SYN-N13": {
+  "term_end": "2026-12-31",
+  "renewal": "automatic",
+  "period_months": 12,
+  "notice": {
+   "amount": 3,
+   "unit": "month",
+   "reference": "term_end",
+   "timing": "on_or_before"
+  },
+  "status": "found",
+  "deadline": "2026-09-30",
+  "independent_latest": "2026-09-30",
+  "flags": [],
+  "note": "rolls forward: 2025-12-31 -> 2026-12-31; deadline 2026-09-30 missed -> next term 2027-12-31, next deadline 2027-09-30",
+  "next_deadline": "2027-09-30",
+  "role": "master"
+ },
+ "SYN-N14": {
+  "term_end": "2027-12-31",
+  "renewal": "none",
+  "notice": null,
+  "deadline": null,
+  "flags": [],
+  "role": "master"
+ }
+}

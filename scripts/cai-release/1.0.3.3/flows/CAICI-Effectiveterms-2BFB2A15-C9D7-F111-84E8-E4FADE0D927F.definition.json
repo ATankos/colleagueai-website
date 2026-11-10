@@ -1,0 +1,918 @@
+{
+ "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+ "contentVersion": "1.0.0.0",
+ "parameters": {
+  "$connections": {
+   "defaultValue": {},
+   "type": "Object"
+  },
+  "$authentication": {
+   "defaultValue": {},
+   "type": "SecureObject"
+  },
+  "cai_BusinessTimeZone (cai_BusinessTimeZone)": {
+   "defaultValue": "Central Europe Standard Time",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_BusinessTimeZone"
+   }
+  }
+ },
+ "triggers": {
+  "When_a_contract_review_status_changes": {
+   "type": "OpenApiConnectionWebhook",
+   "inputs": {
+    "parameters": {
+     "subscriptionRequest/message": 3,
+     "subscriptionRequest/entityname": "cai_contract",
+     "subscriptionRequest/scope": 4,
+     "subscriptionRequest/filteringattributes": "cai_reviewstatus,cai_contentversion,cai_recomputerequestedon,cai_approvalblocked,cai_reviewedvaluesjson"
+    },
+    "host": {
+     "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+     "connectionName": "shared_commondataserviceforapps",
+     "operationId": "SubscribeWebhookTrigger"
+    }
+   }
+  }
+ },
+ "actions": {
+  "Master_reference": {
+   "type": "Compose",
+   "inputs": "@trim(first(split(coalesce(triggerOutputs()?['body/cai_contractreference'], ''), ' / ')))",
+   "runAfter": {}
+  },
+  "Init_Eff": {
+   "type": "InitializeVariable",
+   "inputs": {
+    "variables": [
+     {
+      "name": "Eff",
+      "type": "object",
+      "value": {}
+     }
+    ]
+   },
+   "runAfter": {
+    "Master_reference": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Init_CurrentEnd": {
+   "type": "InitializeVariable",
+   "inputs": {
+    "variables": [
+     {
+      "name": "CurrentEnd",
+      "type": "string",
+      "value": ""
+     }
+    ]
+   },
+   "runAfter": {
+    "Init_Eff": [
+     "Succeeded"
+    ]
+   }
+  },
+  "List_family": {
+   "type": "OpenApiConnection",
+   "inputs": {
+    "parameters": {
+     "entityName": "cai_contracts",
+     "$select": "cai_contractid,cai_contractreference,cai_documentname,cai_documentrole,cai_reviewstatus,cai_extractionjson,cai_effectivedate,cai_contentversion,cai_approvalblocked,createdon,cai_reviewedvaluesjson,cai_noticedeadline,cai_deadlinebasis",
+     "$filter": "@concat('startswith(cai_contractreference,''', replace(outputs('Master_reference'), '''', ''''''), ''')')"
+    },
+    "host": {
+     "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+     "connectionName": "shared_commondataserviceforapps",
+     "operationId": "ListRecords"
+    }
+   },
+   "runAfter": {
+    "Init_CurrentEnd": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Filter_master": {
+   "type": "Query",
+   "inputs": {
+    "from": "@body('List_family')?['value']",
+    "where": "@and(equals(item()?['cai_documentrole'], 'master'), equals(trim(coalesce(item()?['cai_contractreference'], '')), outputs('Master_reference')))"
+   },
+   "runAfter": {
+    "List_family": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Filter_approved_amendments": {
+   "type": "Query",
+   "inputs": {
+    "from": "@body('List_family')?['value']",
+    "where": "@and(not(equals(item()?['cai_documentrole'], 'master')), and(equals(item()?['cai_reviewstatus'], 'Approved'), not(equals(item()?['cai_approvalblocked'], true))), equals(trim(first(split(coalesce(item()?['cai_contractreference'], ''), ' / '))), outputs('Master_reference')))"
+   },
+   "runAfter": {
+    "Filter_master": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Filter_pending_amendments": {
+   "type": "Query",
+   "inputs": {
+    "from": "@body('List_family')?['value']",
+    "where": "@and(not(equals(item()?['cai_documentrole'], 'master')), not(and(equals(item()?['cai_reviewstatus'], 'Approved'), not(equals(item()?['cai_approvalblocked'], true)))), not(equals(item()?['cai_reviewstatus'], 'Rejected')), equals(trim(first(split(coalesce(item()?['cai_contractreference'], ''), ' / '))), outputs('Master_reference')))"
+   },
+   "runAfter": {
+    "Filter_approved_amendments": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Filter_approved_masters": {
+   "type": "Query",
+   "inputs": {
+    "from": "@body('Filter_master')",
+    "where": "@and(equals(item()?['cai_reviewstatus'], 'Approved'), not(equals(item()?['cai_approvalblocked'], true)))"
+   },
+   "runAfter": {
+    "Filter_pending_amendments": [
+     "Succeeded"
+    ]
+   }
+  },
+  "Master_exists": {
+   "type": "If",
+   "expression": {
+    "greater": [
+     "@length(body('Filter_master'))",
+     0
+    ]
+   },
+   "actions": {
+    "Master_row": {
+     "type": "Compose",
+     "inputs": "@if(greater(length(body('Filter_approved_masters')), 0), last(sort(body('Filter_approved_masters'), 'createdon')), last(sort(body('Filter_master'), 'createdon')))",
+     "runAfter": {}
+    },
+    "Master_approved": {
+     "type": "If",
+     "expression": {
+      "and": [
+       {
+        "equals": [
+         "@outputs('Master_row')?['cai_reviewstatus']",
+         "Approved"
+        ]
+       },
+       {
+        "not": {
+         "equals": [
+          "@outputs('Master_row')?['cai_approvalblocked']",
+          true
+         ]
+        }
+       }
+      ]
+     },
+     "actions": {
+      "Master_JSON": {
+       "type": "Compose",
+       "inputs": "@union(json(coalesce(outputs('Master_row')?['cai_extractionjson'], '{}')), json(coalesce(outputs('Master_row')?['cai_reviewedvaluesjson'], '{}')))",
+       "runAfter": {}
+      },
+      "Base_pairs": {
+       "type": "Select",
+       "inputs": {
+        "from": "@createArray('contract_reference', 'contract_type', 'parties', 'signature_status', 'effective_date', 'initial_term', 'renewal', 'termination_for_convenience', 'termination_for_cause', 'change_of_control', 'fees', 'payment_terms', 'late_payment_interest', 'price_indexation', 'liability_cap', 'liability_exclusions', 'indemnities', 'ip_ownership', 'confidentiality_survival', 'data_protection', 'governing_law', 'jurisdiction', 'assignment', 'precedence_rule')",
+        "select": "@concat('\"', item(), '\":', string(addProperty(addProperty(coalesce(outputs('Master_JSON')?[item()], json('{}')), 'source_document', outputs('Master_row')?['cai_contractreference']), 'source_role', 'master')))"
+       },
+       "runAfter": {
+        "Master_JSON": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Set_Eff_base": {
+       "type": "SetVariable",
+       "inputs": {
+        "name": "Eff",
+        "value": "@json(concat('{', join(body('Base_pairs'), ','), '}'))"
+       },
+       "runAfter": {
+        "Base_pairs": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Apply_amendments": {
+       "type": "Foreach",
+       "foreach": "@sort(body('Filter_approved_amendments'), 'cai_effectivedate')",
+       "actions": {
+        "Amend_JSON": {
+         "type": "Compose",
+         "inputs": "@union(json(coalesce(items('Apply_amendments')?['cai_extractionjson'], '{}')), json(coalesce(items('Apply_amendments')?['cai_reviewedvaluesjson'], '{}')))",
+         "runAfter": {}
+        },
+        "Changed_fields": {
+         "type": "Query",
+         "inputs": {
+          "from": "@createArray('initial_term', 'renewal', 'termination_for_convenience', 'termination_for_cause', 'change_of_control', 'fees', 'payment_terms', 'late_payment_interest', 'price_indexation', 'liability_cap', 'liability_exclusions', 'indemnities', 'ip_ownership', 'confidentiality_survival', 'data_protection', 'assignment')",
+          "where": "@contains(createArray('found', 'conflict_resolved'), coalesce(outputs('Amend_JSON')?[item()]?['status'], ''))"
+         },
+         "runAfter": {
+          "Amend_JSON": [
+           "Succeeded"
+          ]
+         }
+        },
+        "Amend_pairs": {
+         "type": "Select",
+         "inputs": {
+          "from": "@body('Changed_fields')",
+          "select": "@concat('\"', item(), '\":', string(addProperty(addProperty(outputs('Amend_JSON')?[item()], 'source_document', items('Apply_amendments')?['cai_contractreference']), 'source_role', 'amendment')))"
+         },
+         "runAfter": {
+          "Changed_fields": [
+           "Succeeded"
+          ]
+         }
+        },
+        "Merged": {
+         "type": "Compose",
+         "inputs": "@union(variables('Eff'), json(concat('{', join(body('Amend_pairs'), ','), '}')))",
+         "runAfter": {
+          "Amend_pairs": [
+           "Succeeded"
+          ]
+         }
+        },
+        "Set_Eff_merged": {
+         "type": "SetVariable",
+         "inputs": {
+          "name": "Eff",
+          "value": "@outputs('Merged')"
+         },
+         "runAfter": {
+          "Merged": [
+           "Succeeded"
+          ]
+         }
+        }
+       },
+       "runAfter": {
+        "Set_Eff_base": [
+         "Succeeded"
+        ]
+       },
+       "runtimeConfiguration": {
+        "concurrency": {
+         "repetitions": 1
+        }
+       }
+      },
+      "Duration_months": {
+       "type": "Compose",
+       "inputs": "@if(empty(toLower(coalesce(variables('Eff')?['initial_term']?['value']?['duration'], ''))), 0, mul(if(contains(toLower(coalesce(variables('Eff')?['initial_term']?['value']?['duration'], '')), '('), int(trim(first(split(last(split(toLower(coalesce(variables('Eff')?['initial_term']?['value']?['duration'], '')), '(')), ')')))), int(trim(first(split(toLower(coalesce(variables('Eff')?['initial_term']?['value']?['duration'], '')), ' '))))), if(contains(toLower(coalesce(variables('Eff')?['initial_term']?['value']?['duration'], '')), 'year'), 12, 1)))",
+       "runAfter": {
+        "Has_notice": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Term_end": {
+       "type": "Compose",
+       "inputs": "@if(not(empty(coalesce(variables('Eff')?['initial_term']?['value']?['end'], ''))), formatDateTime(variables('Eff')?['initial_term']?['value']?['end'], 'yyyy-MM-dd'), if(and(not(empty(coalesce(variables('Eff')?['initial_term']?['value']?['start'], ''))), greater(outputs('Duration_months'), 0)), addDays(addToTime(variables('Eff')?['initial_term']?['value']?['start'], outputs('Duration_months'), 'Month'), -1, 'yyyy-MM-dd'), ''))",
+       "runAfter": {
+        "Duration_months": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Set_CurrentEnd": {
+       "type": "SetVariable",
+       "inputs": {
+        "name": "CurrentEnd",
+        "value": "@outputs('Term_end')"
+       },
+       "runAfter": {
+        "Term_end": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Roll_forward": {
+       "type": "Until",
+       "expression": "@or(empty(variables('CurrentEnd')), not(outputs('Has_notice')), greaterOrEquals(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))))",
+       "limit": {
+        "count": 60,
+        "timeout": "PT1H"
+       },
+       "actions": {
+        "Next_end": {
+         "type": "Compose",
+         "inputs": "@if(or(empty(variables('CurrentEnd')), not(outputs('Has_notice'))), variables('CurrentEnd'), if(less(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), addToTime(variables('CurrentEnd'), coalesce(variables('Eff')?['renewal']?['value']?['period_months'], 12), 'Month', 'yyyy-MM-dd'), variables('CurrentEnd')))",
+         "runAfter": {}
+        },
+        "Set_CurrentEnd_loop": {
+         "type": "SetVariable",
+         "inputs": {
+          "name": "CurrentEnd",
+          "value": "@outputs('Next_end')"
+         },
+         "runAfter": {
+          "Next_end": [
+           "Succeeded"
+          ]
+         }
+        }
+       },
+       "runAfter": {
+        "Set_CurrentEnd": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Deadline": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), if(contains(createArray('on_or_before', 'on_or_before_assumed'), outputs('N_timing')), if(equals(outputs('N_unit'), 'month'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), int(outputs('N_amount')), 'Month', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'year'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), int(outputs('N_amount')), 'Year', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'week'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), mul(-7, int(outputs('N_amount'))), 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'business_day'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), mul(-1, add(div(add(mul(int(outputs('N_amount')), 7), 4), 5), 4)), 'yyyy-MM-dd'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), mul(-1, int(outputs('N_amount'))), 'yyyy-MM-dd'))))), addDays(if(equals(outputs('N_unit'), 'month'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), int(outputs('N_amount')), 'Month', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'year'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), int(outputs('N_amount')), 'Year', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'week'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), mul(-7, int(outputs('N_amount'))), 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'business_day'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), mul(-1, add(div(add(mul(int(outputs('N_amount')), 7), 4), 5), 4)), 'yyyy-MM-dd'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(variables('CurrentEnd'), 1, 'yyyy-MM-dd'), variables('CurrentEnd')), mul(-1, int(outputs('N_amount'))), 'yyyy-MM-dd'))))), -1, 'yyyy-MM-dd')), '')",
+       "runAfter": {
+        "Roll_forward": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Missed": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), less(ticks(outputs('Deadline')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), false)",
+       "runAfter": {
+        "Deadline": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Next_term_end": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), addToTime(variables('CurrentEnd'), coalesce(variables('Eff')?['renewal']?['value']?['period_months'], 12), 'Month', 'yyyy-MM-dd'), '')",
+       "runAfter": {
+        "Missed": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Next_deadline": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), if(contains(createArray('on_or_before', 'on_or_before_assumed'), outputs('N_timing')), if(equals(outputs('N_unit'), 'month'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), int(outputs('N_amount')), 'Month', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'year'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), int(outputs('N_amount')), 'Year', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'week'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), mul(-7, int(outputs('N_amount'))), 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'business_day'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), mul(-1, add(div(add(mul(int(outputs('N_amount')), 7), 4), 5), 4)), 'yyyy-MM-dd'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), mul(-1, int(outputs('N_amount'))), 'yyyy-MM-dd'))))), addDays(if(equals(outputs('N_unit'), 'month'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), int(outputs('N_amount')), 'Month', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'year'), subtractFromTime(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), int(outputs('N_amount')), 'Year', 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'week'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), mul(-7, int(outputs('N_amount'))), 'yyyy-MM-dd'), if(equals(outputs('N_unit'), 'business_day'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), mul(-1, add(div(add(mul(int(outputs('N_amount')), 7), 4), 5), 4)), 'yyyy-MM-dd'), addDays(if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Next_term_end'), 1, 'yyyy-MM-dd'), outputs('Next_term_end')), mul(-1, int(outputs('N_amount'))), 'yyyy-MM-dd'))))), -1, 'yyyy-MM-dd')), '')",
+       "runAfter": {
+        "Next_term_end": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Renewal_basis": {
+       "type": "Compose",
+       "inputs": "@if(outputs('Has_notice'), 'AUTOMATIC', if(and(contains(createArray('found', 'conflict_resolved'), coalesce(variables('Eff')?['renewal']?['status'], 'not_found')), equals(toLower(coalesce(variables('Eff')?['renewal']?['value']?['type'], '')), 'automatic')), 'AUTOMATIC_NOTICE_PERIOD_NOT_FOUND', if(and(contains(createArray('found', 'conflict_resolved'), coalesce(variables('Eff')?['renewal']?['status'], 'not_found')), contains(createArray('none', 'no', 'not_renewing', ''), toLower(coalesce(variables('Eff')?['renewal']?['value']?['type'], '')))), 'CONFIRMED_NO_AUTOMATIC_RENEWAL', if(contains(createArray('found', 'conflict_resolved'), coalesce(variables('Eff')?['renewal']?['status'], 'not_found')), concat('OTHER_', toUpper(toLower(coalesce(variables('Eff')?['renewal']?['value']?['type'], '')))), 'NO_RENEWAL_CLAUSE_FOUND'))))",
+       "runAfter": {
+        "Next_deadline": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Next_notice_deadline": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), if(outputs('Missed'), outputs('Next_deadline'), outputs('Deadline')), '')",
+       "runAfter": {
+        "Renewal_basis": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Notice_term_end": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), if(outputs('Missed'), outputs('Next_term_end'), variables('CurrentEnd')), '')",
+       "runAfter": {
+        "Next_notice_deadline": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Previous_cycle_status": {
+       "type": "Compose",
+       "inputs": "@if(and(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), outputs('Missed')), 'MISSED', 'NOT_APPLICABLE')",
+       "runAfter": {
+        "Notice_term_end": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Execution_status": {
+       "type": "Compose",
+       "inputs": "@if(equals(toLower(coalesce(outputs('Master_JSON')?['signature_status']?['value'], 'unknown')), 'fully_signed'), 'FULLY_SIGNED', if(equals(toLower(coalesce(outputs('Master_JSON')?['signature_status']?['value'], 'unknown')), 'partially_signed'), 'PARTIALLY_SIGNED', if(contains(createArray('unsigned', 'not_signed'), toLower(coalesce(outputs('Master_JSON')?['signature_status']?['value'], 'unknown'))), 'UNSIGNED', 'UNKNOWN')))",
+       "runAfter": {
+        "Previous_cycle_status": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Amendments_not_fully_signed": {
+       "type": "Query",
+       "inputs": {
+        "from": "@body('Filter_approved_amendments')",
+        "where": "@not(equals(toLower(coalesce(json(coalesce(item()?['cai_extractionjson'], '{}'))?['signature_status']?['value'], 'unknown')), 'fully_signed'))"
+       },
+       "runAfter": {
+        "Execution_status": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Unsigned_amendment_refs": {
+       "type": "Select",
+       "inputs": {
+        "from": "@body('Amendments_not_fully_signed')",
+        "select": "@item()?['cai_contractreference']"
+       },
+       "runAfter": {
+        "Amendments_not_fully_signed": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Execution_warning": {
+       "type": "Compose",
+       "inputs": "@if(and(equals(outputs('Execution_status'), 'FULLY_SIGNED'), equals(length(body('Amendments_not_fully_signed')), 0)), '', concat('NOT FULLY SIGNED — contractual commencement and enforceability require verification (master: ', outputs('Execution_status'), if(greater(length(body('Amendments_not_fully_signed')), 0), concat('; approved amendments not fully signed: ', join(body('Unsigned_amendment_refs'), ', ')), ''), ')'))",
+       "runAfter": {
+        "Unsigned_amendment_refs": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Status_text": {
+       "type": "Compose",
+       "inputs": "@concat(if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), if(outputs('Missed'), concat('PREVIOUS CYCLE MISSED: notice deadline ', outputs('Deadline'), ' for the term ending ', variables('CurrentEnd'), ' has passed - the contract renews to ', outputs('Next_term_end'), '. NEXT NOTICE DEADLINE ', outputs('Next_deadline'), ' (stops renewal on ', outputs('Next_term_end'), ')'), concat('NEXT NOTICE DEADLINE ', outputs('Deadline'), ' (stops renewal on ', variables('CurrentEnd'), ')')), if(empty(variables('CurrentEnd')), concat(if(and(empty(coalesce(variables('Eff')?['initial_term']?['value']?['start'], '')), empty(coalesce(variables('Eff')?['initial_term']?['value']?['end'], '')), not(empty(coalesce(variables('Eff')?['initial_term']?['value']?['duration'], '')))), concat('NO TERM END FOUND - COMMENCEMENT DATE REQUIRED (term: ', coalesce(variables('Eff')?['initial_term']?['value']?['duration'], ''), '; a verified commencement date, e.g. the date both parties signed, is needed)'), 'NO TERM END FOUND - check initial term'), ' | renewal: ', outputs('Renewal_basis')), if(equals(outputs('Renewal_basis'), 'CONFIRMED_NO_AUTOMATIC_RENEWAL'), concat('NO AUTOMATIC RENEWAL (confirmed by clause) - ', if(less(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), concat('TERM ENDED ', variables('CurrentEnd')), concat('term ends ', variables('CurrentEnd')))), if(equals(outputs('Renewal_basis'), 'NO_RENEWAL_CLAUSE_FOUND'), concat('NO RENEWAL CLAUSE FOUND - renewal position not confirmed - ', if(less(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), concat('TERM ENDED ', variables('CurrentEnd')), concat('term ends ', variables('CurrentEnd')))), concat(outputs('Renewal_basis'), ' - ', if(less(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), concat('TERM ENDED ', variables('CurrentEnd')), concat('term ends ', variables('CurrentEnd')))))))), if(greater(length(body('Filter_pending_amendments')), 0), concat(' | ', string(length(body('Filter_pending_amendments'))), ' amendment(s) awaiting review, not included'), ''), if(empty(outputs('Execution_warning')), '', concat(' | ', outputs('Execution_warning'))))",
+       "runAfter": {
+        "Execution_warning": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Amendment_ids": {
+       "type": "Select",
+       "inputs": {
+        "from": "@body('Filter_approved_amendments')",
+        "select": "@concat(item()?['cai_contractid'], '@', string(coalesce(item()?['cai_contentversion'], 0)))"
+       },
+       "runAfter": {
+        "Status_text_final": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Terms_basis": {
+       "type": "Compose",
+       "inputs": "@concat(outputs('Master_row')?['cai_contractid'], '@', string(coalesce(outputs('Master_row')?['cai_contentversion'], 0)), '|', join(sort(body('Amendment_ids')), ','))",
+       "runAfter": {
+        "Amendment_ids": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Update_master_terms": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_contracts",
+         "recordId": "@outputs('Master_row')?['cai_contractid']",
+         "item/cai_masterreference": "@outputs('Master_reference')",
+         "item/cai_effnoticedays": "@if(not(outputs('Has_notice')), null, if(equals(outputs('N_unit'), 'day'), int(outputs('N_amount')), if(equals(outputs('N_unit'), 'week'), mul(7, int(outputs('N_amount'))), null)))",
+         "item/cai_renewalperiodmonths": "@if(equals(variables('Eff')?['renewal']?['value']?['period_months'], null), null, int(variables('Eff')?['renewal']?['value']?['period_months']))",
+         "item/cai_efffees": "@if(equals(variables('Eff')?['fees']?['value'], null), '', concat(string(variables('Eff')?['fees']?['value']?['amount']), ' ', coalesce(variables('Eff')?['fees']?['value']?['currency'], ''), ' ', coalesce(variables('Eff')?['fees']?['value']?['period'], ''), ' (source: ', variables('Eff')?['fees']?['source_document'], ')'))",
+         "item/cai_effliabilitycap": "@if(equals(variables('Eff')?['liability_cap']?['value'], null), '', concat(coalesce(variables('Eff')?['liability_cap']?['value']?['formula'], ''), ' (source: ', variables('Eff')?['liability_cap']?['source_document'], ')'))",
+         "item/cai_currenttermend": "@if(empty(variables('CurrentEnd')), null, variables('CurrentEnd'))",
+         "item/cai_noticedeadline": "@if(empty(outputs('Next_notice_deadline')), null, outputs('Next_notice_deadline'))",
+         "item/cai_noticetermend": "@if(empty(outputs('Notice_term_end')), null, outputs('Notice_term_end'))",
+         "item/cai_previousnoticedeadline": "@if(equals(outputs('Previous_cycle_status'), 'MISSED'), outputs('Deadline'), null)",
+         "item/cai_previouscyclestatus": "@outputs('Previous_cycle_status')",
+         "item/cai_renewalbasis": "@outputs('Renewal_basis')",
+         "item/cai_termsbasis": "@outputs('Terms_basis')",
+         "item/cai_executionstatus": "@outputs('Execution_status')",
+         "item/cai_executionwarning": "@if(empty(outputs('Execution_warning')), null, outputs('Execution_warning'))",
+         "item/cai_noticestatus": "@outputs('Status_text_final')",
+         "item/cai_effectivetermsjson": "@string(variables('Eff'))",
+         "item/cai_termscomputedon": "@utcNow()",
+         "item/cai_noticeamount": "@if(outputs('Has_notice'), int(outputs('N_amount')), null)",
+         "item/cai_noticeunit": "@if(outputs('Has_notice'), outputs('N_unit'), null)",
+         "item/cai_noticewording": "@if(empty(string(outputs('N_wording'))), null, substring(string(outputs('N_wording')), 0, min(length(string(outputs('N_wording'))), 1900)))",
+         "item/cai_deadlinebasis": "@if(empty(outputs('Deadline_basis')), null, substring(outputs('Deadline_basis'), 0, min(length(outputs('Deadline_basis')), 3900)))",
+         "item/cai_deadlinereview": "@if(empty(outputs('N_flags')), null, substring(outputs('N_flags'), 0, min(length(outputs('N_flags')), 1900)))"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "connectionName": "shared_commondataserviceforapps",
+         "operationId": "UpdateOnlyRecord"
+        }
+       },
+       "runAfter": {
+        "Terms_basis": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Mark_other_masters_superseded": {
+       "type": "Foreach",
+       "foreach": "@body('Filter_approved_masters')",
+       "actions": {
+        "If_not_effective_master": {
+         "type": "If",
+         "expression": {
+          "not": {
+           "equals": [
+            "@items('Mark_other_masters_superseded')?['cai_contractid']",
+            "@outputs('Master_row')?['cai_contractid']"
+           ]
+          }
+         },
+         "actions": {
+          "Mark_superseded": {
+           "type": "OpenApiConnection",
+           "inputs": {
+            "parameters": {
+             "entityName": "cai_contracts",
+             "recordId": "@items('Mark_other_masters_superseded')?['cai_contractid']",
+             "item/cai_masterreference": "@outputs('Master_reference')",
+             "item/cai_noticestatus": "@concat('SUPERSEDED: effective terms are held by the newer approved master ''', coalesce(outputs('Master_row')?['cai_documentname'], ''), ''' (uploaded ', formatDateTime(outputs('Master_row')?['createdon'], 'yyyy-MM-dd'), '). This duplicate is not used for answers.')",
+             "item/cai_termscomputedon": "@utcNow()"
+            },
+            "host": {
+             "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+             "connectionName": "shared_commondataserviceforapps",
+             "operationId": "UpdateOnlyRecord"
+            }
+           },
+           "runAfter": {}
+          }
+         },
+         "else": {
+          "actions": {}
+         },
+         "runAfter": {}
+        }
+       },
+       "runAfter": {
+        "If_recalculated_by_1033": [
+         "Succeeded"
+        ]
+       },
+       "runtimeConfiguration": {
+        "concurrency": {
+         "repetitions": 5
+        }
+       }
+      },
+      "N_wording": {
+       "type": "Compose",
+       "inputs": "@coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['wording'], variables('Eff')?['renewal']?['value']?['notice_rule_text'], variables('Eff')?['renewal']?['quote'], '')",
+       "runAfter": {
+        "Apply_amendments": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_lw": {
+       "type": "Compose",
+       "inputs": "@toLower(string(outputs('N_wording')))",
+       "runAfter": {
+        "N_wording": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_is_new": {
+       "type": "Compose",
+       "inputs": "@and(not(equals(variables('Eff')?['renewal']?['value']?['notice_period'], null)), not(equals(variables('Eff')?['renewal']?['value']?['notice_period']?['amount'], null)))",
+       "runAfter": {
+        "N_lw": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_legacy_unit": {
+       "type": "Compose",
+       "inputs": "@if(or(outputs('N_is_new'), equals(variables('Eff')?['renewal']?['value']?['notice_days'], null)), '', if(and(contains(outputs('N_lw'), 'month'), not(contains(outputs('N_lw'), ' day')), equals(mod(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30), 0)), 'month', if(and(contains(outputs('N_lw'), 'year'), not(contains(outputs('N_lw'), 'month')), not(contains(outputs('N_lw'), ' day')), contains(createArray(360, 365, 366), int(variables('Eff')?['renewal']?['value']?['notice_days']))), 'year', if(and(contains(outputs('N_lw'), 'week'), not(contains(outputs('N_lw'), ' day')), equals(mod(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7), 0)), 'week', 'day'))))",
+       "runAfter": {
+        "N_is_new": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_unit": {
+       "type": "Compose",
+       "inputs": "@if(outputs('N_is_new'), if(or(contains(toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['unit'], '')), 'business'), contains(toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['unit'], '')), 'working')), 'business_day', if(contains(toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['unit'], '')), 'month'), 'month', if(contains(toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['unit'], '')), 'year'), 'year', if(contains(toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['unit'], '')), 'week'), 'week', if(contains(toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['unit'], '')), 'day'), 'day', ''))))), outputs('N_legacy_unit'))",
+       "runAfter": {
+        "N_legacy_unit": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_amount": {
+       "type": "Compose",
+       "inputs": "@if(outputs('N_is_new'), int(variables('Eff')?['renewal']?['value']?['notice_period']?['amount']), if(equals(variables('Eff')?['renewal']?['value']?['notice_days'], null), null, if(equals(outputs('N_legacy_unit'), 'month'), div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30), if(equals(outputs('N_legacy_unit'), 'year'), 1, if(equals(outputs('N_legacy_unit'), 'week'), div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7), int(variables('Eff')?['renewal']?['value']?['notice_days']))))))",
+       "runAfter": {
+        "N_unit": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_reference": {
+       "type": "Compose",
+       "inputs": "@if(outputs('N_is_new'), toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['reference'], '')), 'term_end_assumed')",
+       "runAfter": {
+        "N_amount": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_timing": {
+       "type": "Compose",
+       "inputs": "@if(outputs('N_is_new'), toLower(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['timing'], '')), 'on_or_before_assumed')",
+       "runAfter": {
+        "N_reference": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Has_notice": {
+       "type": "Compose",
+       "inputs": "@and(equals(coalesce(variables('Eff')?['renewal']?['value']?['type'], ''), 'automatic'), not(equals(outputs('N_amount'), null)), not(empty(outputs('N_unit'))))",
+       "runAfter": {
+        "N_timing": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Amendments_not_yet_effective": {
+       "type": "Query",
+       "inputs": {
+        "from": "@body('Filter_approved_amendments')",
+        "where": "@greater(ticks(coalesce(item()?['cai_effectivedate'], '1900-01-01')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd')))"
+       },
+       "runAfter": {
+        "Status_text": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Later_amendment_refs": {
+       "type": "Select",
+       "inputs": {
+        "from": "@body('Amendments_not_yet_effective')",
+        "select": "@concat(coalesce(item()?['cai_contractreference'], ''), ' (from ', substring(string(item()?['cai_effectivedate']), 0, 10), ')')"
+       },
+       "runAfter": {
+        "Amendments_not_yet_effective": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_flag_list": {
+       "type": "Compose",
+       "inputs": "@createArray(if(and(not(outputs('N_is_new')), not(equals(variables('Eff')?['renewal']?['value']?['notice_days'], null)), not(equals(outputs('N_legacy_unit'), 'day'))), concat('the notice wording is in ', outputs('N_legacy_unit'), 's but release 1.0.3.2 stored it as ', string(variables('Eff')?['renewal']?['value']?['notice_days']), ' days; recalculated in calendar ', outputs('N_legacy_unit'), 's from that wording - a reviewer must confirm the notice period'), ''), if(and(outputs('Has_notice'), equals(outputs('N_unit'), 'business_day')), 'the notice period is in business days; the date is an estimate without a holiday calendar', ''), if(and(outputs('Has_notice'), not(contains(createArray('term_end', 'renewal_date', 'term_end_assumed'), outputs('N_reference')))), 'the clause does not say clearly whether the period runs back from the term end or from the renewal date; the earlier date is shown', ''), if(and(outputs('Has_notice'), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), outputs('N_timing')))), 'the timing wording of the notice clause is unclear; the date shown is one day earlier than the plain calculation', ''), if(equals(toLower(coalesce(variables('Eff')?['renewal']?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce(variables('Eff')?['renewal']?['quote'], '')), ''), if(and(equals(coalesce(variables('Eff')?['renewal']?['value']?['type'], ''), 'automatic'), not(equals(outputs('N_amount'), null)), empty(outputs('N_unit'))), 'the unit of the notice period is not recognised', ''))",
+       "runAfter": {
+        "Later_amendment_refs": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_flags_filtered": {
+       "type": "Query",
+       "inputs": {
+        "from": "@outputs('N_flag_list')",
+        "where": "@greater(length(item()), 0)"
+       },
+       "runAfter": {
+        "N_flag_list": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_flags": {
+       "type": "Compose",
+       "inputs": "@join(body('N_flags_filtered'), '; ')",
+       "runAfter": {
+        "N_flags_filtered": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Deadline_basis": {
+       "type": "Compose",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), concat(string(outputs('N_amount')), ' ', replace(outputs('N_unit'), '_', ' '), if(equals(outputs('N_amount'), 1), '', 's'), if(equals(outputs('N_timing'), 'before'), ' before ', ' on or before '), if(equals(outputs('N_reference'), 'renewal_date'), 'the renewal date ', 'the end of the term '), if(equals(outputs('N_reference'), 'renewal_date'), addDays(outputs('Notice_term_end'), 1, 'yyyy-MM-dd'), outputs('Notice_term_end')), ' = notice deadline ', outputs('Next_notice_deadline'), '. Contract wording: \"', string(outputs('N_wording')), '\"', if(empty(coalesce(variables('Eff')?['renewal']?['location'], '')), '', concat(' (', variables('Eff')?['renewal']?['location'], ')')), if(equals(outputs('N_reference'), 'term_end_assumed'), '. Reference date and timing as read by release 1.0.3.2: counted back from the end of the term, notice on or before the date', ''), if(contains(createArray('month', 'year'), outputs('N_unit')), '. Calendar months: counted back to the same day number, or to the last day of a shorter month; where the reference date is the last day of a month, some readings allow the last day of the earlier month, and the earlier date is shown', ''), '. This is a calendar calculation, not a legal interpretation of the clause.'), '')",
+       "runAfter": {
+        "N_flags": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Status_text_final": {
+       "type": "Compose",
+       "inputs": "@concat(outputs('Status_text'), if(empty(outputs('N_flags')), '', concat(if(outputs('Has_notice'), ' | PROVISIONAL DEADLINE - human check required: ', ' | CHECK: '), outputs('N_flags'))), if(greater(length(body('Amendments_not_yet_effective')), 0), concat(' | includes approved amendment(s) that take effect later: ', join(body('Later_amendment_refs'), ', ')), ''))",
+       "runAfter": {
+        "Deadline_basis": [
+         "Succeeded"
+        ]
+       }
+      },
+      "If_recalculated_by_1033": {
+       "type": "If",
+       "expression": {
+        "and": [
+         {
+          "equals": [
+           "@empty(coalesce(outputs('Master_row')?['cai_deadlinebasis'], ''))",
+           true
+          ]
+         },
+         {
+          "equals": [
+           "@empty(coalesce(outputs('Master_row')?['cai_noticedeadline'], ''))",
+           false
+          ]
+         },
+         {
+          "not": {
+           "equals": [
+            "@substring(string(outputs('Master_row')?['cai_noticedeadline']), 0, 10)",
+            "@coalesce(outputs('Next_notice_deadline'), '')"
+           ]
+          }
+         }
+        ]
+       },
+       "actions": {
+        "Log_recalculation": {
+         "type": "OpenApiConnection",
+         "inputs": {
+          "parameters": {
+           "entityName": "cai_reviews",
+           "item/cai_Contract@odata.bind": "@concat('cai_contracts(', outputs('Master_row')?['cai_contractid'], ')')",
+           "item/cai_title": "@concat(outputs('Master_reference'), ' - notice deadline recalculated by release 1.0.3.3')",
+           "item/cai_decision": "Deadline recalculated (release 1.0.3.3)",
+           "item/cai_reviewer": "CAI Contract Intelligence (system)",
+           "item/cai_decidedon": "@utcNow()",
+           "item/cai_source": "Release 1.0.3.3 recalculation",
+           "item/cai_comment": "@concat('Previous notice deadline ', substring(string(outputs('Master_row')?['cai_noticedeadline']), 0, 10), '; recalculated deadline ', coalesce(outputs('Next_notice_deadline'), 'none'), '. ', outputs('Deadline_basis'))",
+           "item/cai_correctionsjson": "@{string(setProperty(setProperty(setProperty(setProperty(json('{\"schema\":\"cai.recalculation.v1\"}'), 'previous_deadline', substring(string(outputs('Master_row')?['cai_noticedeadline']), 0, 10)), 'new_deadline', coalesce(outputs('Next_notice_deadline'), '')), 'basis', outputs('Deadline_basis')), 'review_flags', outputs('N_flags')))}"
+          },
+          "host": {
+           "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+           "connectionName": "shared_commondataserviceforapps",
+           "operationId": "CreateRecord"
+          }
+         }
+        }
+       },
+       "else": {
+        "actions": {}
+       },
+       "runAfter": {
+        "Update_master_terms": [
+         "Succeeded"
+        ]
+       }
+      }
+     },
+     "else": {
+      "actions": {
+       "Update_master_awaiting": {
+        "type": "OpenApiConnection",
+        "inputs": {
+         "parameters": {
+          "entityName": "cai_contracts",
+          "recordId": "@outputs('Master_row')?['cai_contractid']",
+          "item/cai_masterreference": "@outputs('Master_reference')",
+          "item/cai_noticestatus": "@concat('AWAITING APPROVAL: master agreement is ''', coalesce(outputs('Master_row')?['cai_reviewstatus'], ''), ''' - effective terms are computed only from approved documents')",
+          "item/cai_effnoticedays": "@null",
+          "item/cai_renewalperiodmonths": "@null",
+          "item/cai_efffees": "@null",
+          "item/cai_effliabilitycap": "@null",
+          "item/cai_currenttermend": "@null",
+          "item/cai_noticedeadline": "@null",
+          "item/cai_noticetermend": "@null",
+          "item/cai_previousnoticedeadline": "@null",
+          "item/cai_previouscyclestatus": "@null",
+          "item/cai_renewalbasis": "@null",
+          "item/cai_termsbasis": "@null",
+          "item/cai_effectivetermsjson": "@null",
+          "item/cai_executionstatus": "@null",
+          "item/cai_executionwarning": "@null",
+          "item/cai_termscomputedon": "@utcNow()",
+          "item/cai_noticeamount": "@null",
+          "item/cai_noticeunit": "@null",
+          "item/cai_noticewording": "@null",
+          "item/cai_deadlinebasis": "@null",
+          "item/cai_deadlinereview": "@null"
+         },
+         "host": {
+          "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+          "connectionName": "shared_commondataserviceforapps",
+          "operationId": "UpdateOnlyRecord"
+         }
+        },
+        "runAfter": {}
+       }
+      }
+     },
+     "runAfter": {
+      "Trigger_is_superseded_master": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Trigger_is_superseded_master": {
+     "type": "If",
+     "expression": {
+      "and": [
+       {
+        "equals": [
+         "@triggerOutputs()?['body/cai_documentrole']",
+         "master"
+        ]
+       },
+       {
+        "equals": [
+         "@triggerOutputs()?['body/cai_reviewstatus']",
+         "Approved"
+        ]
+       },
+       {
+        "not": {
+         "equals": [
+          "@triggerOutputs()?['body/cai_contractid']",
+          "@outputs('Master_row')?['cai_contractid']"
+         ]
+        }
+       },
+       {
+        "greater": [
+         "@length(body('Filter_approved_masters'))",
+         1
+        ]
+       }
+      ]
+     },
+     "actions": {
+      "Mark_trigger_superseded": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_contracts",
+         "recordId": "@triggerOutputs()?['body/cai_contractid']",
+         "item/cai_masterreference": "@outputs('Master_reference')",
+         "item/cai_noticestatus": "@concat('SUPERSEDED: effective terms are held by the newer approved master ''', coalesce(outputs('Master_row')?['cai_documentname'], ''), ''' (uploaded ', formatDateTime(outputs('Master_row')?['createdon'], 'yyyy-MM-dd'), '). This duplicate is not used for answers.')",
+         "item/cai_termscomputedon": "@utcNow()"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "connectionName": "shared_commondataserviceforapps",
+         "operationId": "UpdateOnlyRecord"
+        }
+       },
+       "runAfter": {}
+      },
+      "Stop_superseded": {
+       "type": "Terminate",
+       "inputs": {
+        "runStatus": "Succeeded"
+       },
+       "runAfter": {
+        "Mark_trigger_superseded": [
+         "Succeeded"
+        ]
+       }
+      }
+     },
+     "else": {
+      "actions": {}
+     },
+     "runAfter": {
+      "Master_row": [
+       "Succeeded"
+      ]
+     }
+    }
+   },
+   "else": {
+    "actions": {}
+   },
+   "runAfter": {
+    "Filter_approved_masters": [
+     "Succeeded"
+    ]
+   }
+  }
+ },
+ "outputs": {}
+}
