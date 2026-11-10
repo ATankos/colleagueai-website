@@ -41,6 +41,14 @@ period ("6 months", "90 days", "none", with the confirmation tick) makes the dea
 | 23 | After upgrade: recalculation | SYN-N09, SYN-IN-001, SYN-N02, SYN-N12 | N09 and IN-001 not verified with a card; N02 2027-08-29 and reviewer-corrected N12 2028-01-31 CONFIRMED | Pass |
 | 24 | Clean install of the final package (empty environment, previous release uninstalled) | test environment | Import succeeds; 4 connection references bound; 5 values set; role read-only (11 privileges); agent per-user authentication; each installed flow definition identical to the package; agent instructions contain the not-verified rule; readiness check READY | Pass (readiness check 10 of 10; *Review gate* turned on by hand at the first attempt) |
 | 25 | Agent publication after the clean install | test environment | Any automatic publish is found and blocked | The Copilot Studio service published the agent about 3 minutes after the import (Microsoft 365 entry *Available*, shared with nobody); blocked in the admin center; readiness check warns R6b. Documented in INSTALL section 7 |
+| 26 | Stale deadlines after the 1.0.3.3 → 1.0.3.4 upgrade (10 Nov, 19:10 CET) | test environment, 9 contracts that still stored a 1.0.3.3 date with an open review reason | One run of *Daily recompute* (the documented correction) withholds them; evidence and confirmed records untouched | Pass. Job run SUCCEEDED, 10 selected and refreshed, 0 failed. The 9 dates were cleared, each kept in a review record *Deadline withdrawn - not verified (release 1.0.3.4)*, and 9 review requests were logged. Extraction JSON hashes unchanged for all 24 records; field evidence 194 before and after. Confirmed SYN-N02 2027-08-29 and SYN-N12 2028-01-31 were not selected and are unchanged. `check-deadline-integrity.mjs` logic: 0 stale |
+
+**Stale data after an upgrade (test 26).** A record calculated by 1.0.3.3 or 1.0.3.2 keeps its stored date until it is
+recalculated. The agent does not answer it, but the value can be read through the Dataverse API (for example with Excel,
+Power BI or a user's own flow) by members of the owner team. The solution has no model-driven app, and none of its seven
+system views on the Contracts table shows the deadline or status columns. `scripts/cai-release/1.0.3.4/check-deadline-integrity.mjs`
+(read-only) lists such records; one run of *Daily recompute* clears them, because it selects every record that stores a
+date with an open review reason or no calculation basis, whatever the window. Running the check or the job again changes nothing.
 
 The deadline tests 1-23 were not repeated on the clean install: its seven flow definitions are identical to those tested
 (SHA-256 of the canonical definition JSON compared one by one). The readiness check `check-cai-install-readiness.mjs`
