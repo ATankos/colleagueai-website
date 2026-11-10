@@ -10,8 +10,16 @@ import { join } from 'node:path';
 import vm from 'node:vm';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 import PACKAGES from '../config/packages.json' with { type: 'json' };
-const PKG_LABEL = { 'copilot-studio': 'Copilot Studio connect package', 'm365-copilot': 'Microsoft 365 Copilot package' };
+import PRODUCTS from '../config/products.json' with { type: 'json' };
+const PKG_LABEL = { 'copilot-studio': 'Copilot Studio managed solution', 'm365-copilot': 'Microsoft 365 Copilot package' };
 const packagesFor = (slug) => PACKAGES.agents[slug] || PACKAGES.default;
+/* Release status (finding LR-04): an agent with a product record in config/products.json has a released package;
+   every other catalogue agent is a concept with a dossier only, and its factsheet says so. */
+const releaseOf = (slug) => (slug !== '_comment' && PRODUCTS[slug]?.release) || null;
+const STATUS_TEXT = {
+  'controlled-test': 'Controlled release: installable and tested; not yet on general sale.',
+  released: 'Commercially available.',
+};
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const DIST = join(ROOT, 'dist');
@@ -132,6 +140,7 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
 <p>${esc(a.desc)}</p>
 <div class="meta">
   <span class="chip">CAI tier <strong>${esc(a.t)}</strong></span>
+  <span class="chip">${releaseOf(slug) ? 'Released package' : 'Concept · dossier only'}</span>
   <span class="chip">${esc(PILLAR[a.p] ?? a.p)}</span>
   <span class="chip">${esc(a.dom)}</span>
 </div>
@@ -143,13 +152,18 @@ ${a.pains?.length ? `<section><h2>Pain points it removes</h2><ul>${a.pains.map(p
 ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? TIER[a.t] : '')} tier means</h2><p>${esc(TIER_DESC[a.t][0])} Human role: ${esc(TIER_DESC[a.t][1])}.</p></section>` : ''}
 <section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
-<section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>One-time purchase. Access to your connect packages is arranged after your access request is approved and commercial setup is confirmed.</p></section>
-<section><h2>Price</h2><p><b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases.</p>
+<section><h2>Release status</h2><p>${releaseOf(slug)
+  ? esc((STATUS_TEXT[releaseOf(slug).status] || 'Released.') + ' Current release ' + releaseOf(slug).version + '.')
+  : 'Concept. This factsheet and the dossier describe the intended design; no installable package exists yet and this agent is not for sale. Ask us if you would like to pilot it.'}</p></section>
+<section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>${releaseOf(slug)
+  ? 'One-time purchase. Access to your package is arranged after your access request is approved and commercial setup is confirmed.'
+  : 'Today this agent is available as a dossier only.'}</p></section>
+<section><h2>Price</h2><p>${releaseOf(slug) ? '' : 'Published tier price once a package is released: '}<b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases.</p>
 <p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>
 <section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It classifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
 <div class="cta">
-  <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request access →</a>
+  <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">${releaseOf(slug) ? 'Request access →' : 'Discuss a pilot →'}</a>
   <a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>

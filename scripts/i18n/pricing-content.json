@@ -1654,5 +1654,23 @@
     "it": "I clienti fondatori possono beneficiare di condizioni preferenziali di pagamento o di Continuous Certification in cambio di feedback strutturato sul prodotto e sul deployment e dell’autorizzazione a sviluppare un case study approvato. I prezzi di licenza pubblicati degli agenti restano fissi.",
     "pl": "Klienci założycielscy mogą otrzymać preferencyjne warunki płatności lub Continuous Certification w zamian za ustrukturyzowany feedback dotyczący produktu i wdrożenia oraz zgodę na przygotowanie zatwierdzonego studium przypadku. Opublikowane ceny licencji agentów pozostają stałe.",
     "pt": "Os clientes fundadores podem beneficiar de condições preferenciais de pagamento ou de Continuous Certification em troca de feedback estruturado sobre o produto e o deployment e de autorização para desenvolver um caso de estudo aprovado. Os preços de licença publicados dos agentes permanecem fixos."
+  },
+  "Today one agent has a released package: Contract Intelligence & Register, as a Copilot Studio managed solution. The other catalogue agents are concepts with a dossier only; a package is listed for an agent once it has been installation-tested.": {
+    "cs": "Dnes má vydaný balíček jeden agent: Contract Intelligence & Register, jako spravované řešení Copilot Studio. Ostatní agenti v katalogu jsou koncepty pouze s dokumentací; balíček je u agenta uveden, až projde instalačním testem.",
+    "de": "Heute hat ein Agent ein freigegebenes Paket: Contract Intelligence & Register, als verwaltete Copilot-Studio-Lösung. Die übrigen Katalog-Agenten sind Konzepte mit Dossier; ein Paket wird für einen Agenten erst gelistet, wenn es installationsgetestet ist.",
+    "fr": "Aujourd’hui, un seul agent dispose d’un package publié : Contract Intelligence & Register, sous forme de solution gérée Copilot Studio. Les autres agents du catalogue sont des concepts avec un dossier uniquement ; un package n’est listé pour un agent qu’après un test d’installation.",
+    "es": "Hoy un agente tiene un paquete publicado: Contract Intelligence & Register, como solución administrada de Copilot Studio. Los demás agentes del catálogo son conceptos con solo un dossier; un paquete se lista para un agente cuando ha superado la prueba de instalación.",
+    "it": "Oggi un solo agente ha un pacchetto rilasciato: Contract Intelligence & Register, come soluzione gestita Copilot Studio. Gli altri agenti del catalogo sono concept con il solo dossier; un pacchetto viene elencato per un agente solo dopo il test di installazione.",
+    "pl": "Obecnie jeden agent ma wydany pakiet: Contract Intelligence & Register, jako zarządzane rozwiązanie Copilot Studio. Pozostali agenci w katalogu to koncepcje z samym dossier; pakiet jest wymieniany dla agenta dopiero po teście instalacji.",
+    "pt": "Hoje um agente tem um pacote lançado: Contract Intelligence & Register, como solução gerida do Copilot Studio. Os restantes agentes do catálogo são conceitos apenas com dossier; um pacote só é listado para um agente depois de testado na instalação."
+  },
+  "Copilot Studio managed solution (released agents)": {
+    "cs": "Spravované řešení Copilot Studio (vydaní agenti)",
+    "de": "Verwaltete Copilot-Studio-Lösung (freigegebene Agenten)",
+    "fr": "Solution gérée Copilot Studio (agents publiés)",
+    "es": "Solución administrada de Copilot Studio (agentes publicados)",
+    "it": "Soluzione gestita Copilot Studio (agenti rilasciati)",
+    "pl": "Zarządzane rozwiązanie Copilot Studio (wydani agenci)",
+    "pt": "Solução gerida do Copilot Studio (agentes lançados)"
   }
 }

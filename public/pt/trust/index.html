@@ -542,8 +542,8 @@ display: flex !important;
 <tr><td>Stripe</td><td>Processamento de pagamentos</td><td>Dados de pagamento (detidos pela Stripe), e-mail do comprador</td></tr>
 <tr><td>Upstash</td><td>Armazenamento chave-valor para direitos e registos de parceiros</td><td>E-mail do comprador, slugs dos agentes licenciados, códigos de parceiro</td></tr>
 
-<tr><td>Cloudflare R2</td><td>Armazenamento e entrega de pacotes de agentes comprados</td><td>Ficheiros do pacote (sem dados pessoais)</td></tr>
-<tr><td>Sentry</td><td>Monitorização de erros</td><td>Contexto técnico do erro; o texto é mascarado nos diagnósticos de sessão</td></tr>
+<tr><td>Vercel Blob</td><td>Armazenamento e entrega de pacotes de agentes comprados</td><td>Ficheiros do pacote (sem dados pessoais)</td></tr>
+<tr><td>Resend</td><td>E-mail transacional: marcações de demonstração, encomendas e recuperação de downloads</td><td>Endereço de e-mail do destinatário e conteúdo da mensagem</td></tr><tr><td>Sentry</td><td>Monitorização de erros</td><td>Contexto técnico do erro; o texto é mascarado nos diagnósticos de sessão</td></tr>
 <tr><td>Plausible</td><td>Analítica focada na privacidade</td><td>Estatísticas de uso anónimas e sem cookies</td></tr>
 <tr><td>Google Fonts</td><td>Fontes web</td><td>Pedidos de fontes padrão</td></tr>
 </table>
@@ -566,9 +566,9 @@ display: flex !important;
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">
   <div class="usage-intel__wrap">
     <p class="usage-intel__eyebrow">Metadados de tokens, não conteúdo de negócio</p>
-    <h2 id="usage-intelligence-trust-title">CAI Token Economy Monitor: controle o custo da IA antes que ele aumente.</h2>
+    <h2 id="usage-intelligence-trust-title">CAI Token Economy Monitor (planeado): controle o custo da IA antes que ele aumente.</h2>
     <p class="usage-intel__lead">
-      Os pacotes de agentes ColleagueAI podem incluir uma monitorização da economia de tokens propriedade do cliente que é executada dentro do ambiente do cliente. O objetivo é ajudar os clientes a compreender o consumo de tokens, o custo estimado de modelo/API, as repetições, o contexto sobredimensionado, as escolhas de modelo dispendiosas e as oportunidades de otimização, mantendo prompts, saídas, documentos e conteúdo de negócio fora dos sistemas da ColleagueAI.
+      Planeado, ainda não disponível: uma monitorização da economia de tokens propriedade do cliente que seria executada dentro do ambiente do cliente. Hoje não faz parte de nenhum pacote de agente. O objetivo previsto é ajudar os clientes a compreender o consumo de tokens, o custo estimado de modelo/API, as repetições, o contexto sobredimensionado, as escolhas de modelo dispendiosas e as oportunidades de otimização, mantendo prompts, saídas, documentos e conteúdo de negócio fora dos sistemas da ColleagueAI.
     </p>
     <div class="usage-intel__split">
       <div class="usage-intel__list">

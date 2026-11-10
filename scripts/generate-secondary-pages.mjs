@@ -211,9 +211,9 @@ const PAGES = [
     master: 'usage.html',
     readerIds: [],
     ga: false,
-    title: (code) => (code === 'en' ? 'Usage Intelligence - CAI Token Economy Monitor | ColleagueAI' : (I18N[code]?.tabs_usage || 'Usage monitor') + ' | ColleagueAI'),
+    title: (code) => (code === 'en' ? 'Usage Intelligence - CAI Token Economy Monitor (planned) | ColleagueAI' : (I18N[code]?.tabs_usage || 'Usage monitor') + ' | ColleagueAI'),
     desc: (code) => (code === 'en'
-      ? 'Client-owned token usage intelligence for AI agents: see consumption, estimated cost, waste and optimisation opportunities - without your data leaving your tenant.'
+      ? 'Planned, not yet available: client-owned token usage intelligence for AI agents: see consumption, estimated cost, waste and optimisation opportunities - without your data leaving your tenant.'
       : I18N[code]?.usage_lead || '')
   }
 ]
