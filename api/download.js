@@ -8,6 +8,8 @@
  *   1. DOWNLOAD_TOKEN_SECRET must be set. This fails closed: nothing is served without it.
  *   2. The token must open, untampered and unexpired.
  *   3. The email must have an entitlement for this slug (KV).
+ *   4. A release package must be one this buyer may have (lib/releaseAccess.js): the release they bought, or a later
+ *      one covered by Continuous Certification. A perpetual licence never unlocks later releases by itself.
  * Then the file is served (lib/storage.js):
  *   - Release package: redirect to a signed, time-limited URL in private storage
  *     (Vercel Private Blob, or Cloudflare R2). No storage configured -> 503, never a stand-in.
@@ -15,9 +17,10 @@
  *     without it (test setup), stream a small placeholder PDF so the flow works end to end.
  */
 
-import { isEntitled } from '../lib/db.js';
+import { getEntitlement, getCertificationForHolder } from '../lib/db.js';
 import { openDownload } from '../lib/downloadToken.js';
-import { allowedFilesFor, packageFile, packageDeliverable, canonicalSlug, productFor } from '../lib/products.js';
+import { allowedFilesFor, packageDeliverable, canonicalSlug, productFor, releaseOfPackage } from '../lib/products.js';
+import { holdsLicence, releasesAvailable } from '../lib/releaseAccess.js';
 import { storageDriver, signedDownloadUrl } from '../lib/storage.js';
 
 function valueOf(input) {
@@ -78,15 +81,42 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid file requested' });
   }
 
-  let entitled;
+  let entitlement;
   try {
-    entitled = await isEntitled(email, slug);
+    entitlement = await getEntitlement(email);
   } catch (err) {
     console.error('[download] Entitlement check failed:', err);
     return res.status(500).json({ error: 'Could not verify entitlement' });
   }
-  if (!entitled) {
+  if (!holdsLicence(entitlement, slug)) {
     return res.status(403).json({ error: 'Not entitled', message: 'Purchase required - visit /agents to get access.' });
+  }
+
+  // Version-specific entitlement: a release package is served only when it is the release this buyer bought, or a
+  // later release that their Continuous Certification covers. The certificate is read only when the purchase alone
+  // does not cover the file; a failed read fails closed for that later release and never affects the one bought.
+  const release = releaseOfPackage(canon, file);
+  if (release) {
+    const product = productFor(canon);
+    const now = Date.now();
+    let covered = releasesAvailable({ product, entitlement, slug, now }).some((r) => r.version === release.version);
+    if (!covered) {
+      let certification = null;
+      try {
+        certification = await getCertificationForHolder(email, slug);
+      } catch (err) {
+        console.error('[download] Certification check failed:', err);
+        return res.status(500).json({ error: 'Could not verify entitlement' });
+      }
+      covered = releasesAvailable({ product, entitlement, slug, certification, now }).some((r) => r.version === release.version);
+    }
+    if (!covered) {
+      return res.status(403).json({
+        error: 'This release is not included in your licence',
+        code: 'release_not_covered',
+        message: 'Your perpetual licence covers the release you bought. Later releases are available with an active Continuous Certification subscription.',
+      });
+    }
   }
 
   // A release that is not approved for sale is never handed out, however the entitlement was
@@ -95,7 +125,7 @@ export default async function handler(req, res) {
   // that has a release record. The dossier, and the connect package of a product with no record,
   // are not held back here: live sales of such a product are refused at checkout and at fulfilment
   // (liveSaleRefused) instead, so no new live entitlement is created for one.
-  const releaseFile = file === packageFile(canon) ||
+  const releaseFile = Boolean(release) ||
     (file === 'connect-package.zip' && Boolean(productFor(canon)?.release));
   if (releaseFile && !packageDeliverable(canon)) {
     console.warn('[download] release package withheld: not approved for sale and test delivery is off', slug);

@@ -78,6 +78,11 @@ jobs:
       - name: Purchased product is the released product (package delivery, sale gate, rename)
         run: node --test tests/product-release.test.mjs
 
+      # Certification gate G9: a perpetual licence covers the release bought; later releases only through Continuous
+      # Certification. The release bought is never taken back by this rule.
+      - name: Version-specific entitlements (release bought kept, later releases only with certification)
+        run: node --test tests/release-access.test.mjs
+
       # Release gate A8: a buyer who closed the thank-you page gets a fresh link by email. Off until the owner sets
       # RECOVERY_ENABLED and mail is configured; these tests hold the rules that keep it from leaking who has bought,
       # flooding a mailbox or outliving a refund.

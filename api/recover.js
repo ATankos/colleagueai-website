@@ -18,7 +18,9 @@
  *   - No address in the logs, and none in a URL: the link carries a sealed token (lib/recoveryToken.js).
  */
 
-import { getEntitlement, rateLimit } from '../lib/db.js';
+import { getEntitlement, getCertificationForHolder, rateLimit } from '../lib/db.js';
+import { productFor } from '../lib/products.js';
+import { releaseToDeliver } from '../lib/releaseAccess.js';
 import { openRecovery, RECOVERY_TTL_SECONDS } from '../lib/recoveryToken.js';
 import { emailKey, normaliseEmail, recoverableSlugs, recoveryAvailable, recoveryEnabled, sendRecoveryEmail, SUPPORT_EMAIL } from '../lib/recovery.js';
 import { ot, pickOrderLang } from '../lib/orderI18n.js';
@@ -139,11 +141,25 @@ async function handleGet(req, res, lang) {
   const slugs = recoverableSlugs(entitlement);
   if (!slugs.length) return html(res, 404, nonePage(lang));
 
+  // Each product links the newest release this buyer may have: the one bought, or a later one their certification
+  // covers (lib/releaseAccess.js). A certificate that cannot be read only narrows the answer to the release bought.
+  const now = Date.now();
+  const blocks = [];
+  for (const slug of slugs) {
+    const product = productFor(slug);
+    if (!product?.release) { blocks.push(deliveryHtml(opened.email, slug, lang)); continue; }
+    let certification = null;
+    try { certification = await getCertificationForHolder(opened.email, slug); } catch (err) {
+      console.error('[recover] certification lookup failed:', err?.message ?? err);
+    }
+    blocks.push(deliveryHtml(opened.email, slug, lang, releaseToDeliver({ product, entitlement, slug, certification, now })));
+  }
+
   const t = (k) => ot(lang, k);
   return html(res, 200, page({
     lang, title: t('rec_ok_t'), status: 'ok', eyebrow: t('rec_ok_t'), heading: t('rec_ok_h'), lede: esc(t('rec_ok_lede')),
     chips: [`${esc(t('chip_email'))} <b>${esc(opened.email)}</b>`],
-    body: slugs.map((slug) => deliveryHtml(opened.email, slug, lang)).join(''),
+    body: blocks.join(''),
   }));
 }
 
