@@ -147,6 +147,12 @@ test('a valid order: one order id in the order record, the acceptance record, th
   assert.equal(acc.orderId, order.id);
   assert.equal(order.acceptance.id, acc.id);
   assert.equal(order.acceptance.legalSet, LEGAL.set);
+  // Per document: the version, the fingerprint of its text and its archived copy (lib/legalArchive.js).
+  for (const [k, d] of Object.entries(LEGAL.documents)) {
+    assert.deepEqual(acc.legalDocuments[k], { version: d.version, sha256: d.sha256, archive: d.archive }, k);
+    assert.match(d.sha256, /^[0-9a-f]{64}$/);
+  }
+  assert.deepEqual(order.acceptance.documents, acc.legalDocuments, 'the order names the same texts as the acceptance');
   assert.deepEqual(order.buyer, {
     company: 'Vzorová Průmyslová a.s.', registrationNumber: '12345678', country: 'CZ',
     taxId: { value: 'CZ12345678', type: 'eu_vat' },
