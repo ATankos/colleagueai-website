@@ -45,10 +45,11 @@ The product runs on your own Microsoft licences and capacity. **Every extraction
 |---|---|---|---|
 | Extraction of one document | Once per upload | 8-28 credits for 1-8 pages; about USD 0.22-0.40 for a 15-page contract (extrapolated) | Measured: 33 flow actions per document. Estimated: AI tokens, from document length |
 | Review in Teams of one document | Once per document, and again after a correction | about 2-3 credits (about 18 flow actions) | Estimated from the flow design; not measured |
-| Recalculation of one contract | When a document is approved or changes, and each time the daily job selects it | about 6 credits (about 48 flow actions) per run | Measured: about 47 actions per recalculation run, plus one step in the daily job |
+| Recalculation of one contract | When a document is approved or changes, and each time the daily job selects it | about 6 credits (about 48 flow actions) per run | Measured: about 47 actions per recalculation run, plus one step in the daily job. More for a contract with many amendments (about 5 actions each) or many past renewal periods (2 actions each, up to 60 periods) |
 | Daily recompute | Every day at 05:30 CET while the flow is on | one recalculation for each contract whose notice deadline or term end falls within the next **90 days** (*Recompute window*), and for each contract never calculated; plus about 13 actions (under 2 credits) a day for the job itself | Flow design; the job's own steps measured once at 13 actions. The share of contracts inside the window depends on your register |
 | Weekly full pass | Every **Monday** (*Full recompute day*) | one recalculation for **every** approved contract | Flow design |
-| A question to the agent | Each question | about USD 0.07-0.10 | Microsoft's published rates; not measured |
+| A question about one contract's terms | Each question | about USD 0.10 | Microsoft's published rates and the flow design; not measured |
+| A notice-deadline question | Each question | about USD 0.10 **plus USD 0.0065 for every contract the user can see**: about USD 0.75 with 100 contracts, USD 6.60 with 1,000 | The deadline calculation runs 5 flow steps per contract (flow design); not measured |
 | Failures and retries | A failed run, or a document uploaded again | a document uploaded again is extracted again at full cost; Microsoft's automatic retries of a failed step can add actions | Not measured |
 
 **Daily recompute grows with the register; it is not flat.** On the full recompute day every approved contract is recalculated; on other days, those inside the 90-day window. Contracts that have ended and do not renew stay in the daily selection, because their term end lies before the end of the window, so the share selected each day rises as the register ages. With Daily recompute on, we estimate per approved contract per month:
@@ -67,6 +68,8 @@ From upload to approval (extraction, review and the first recalculation), a 15-p
 | 1,000 | USD 460-730 | USD 15-24 | about USD 680 (USD 430-920) |
 | 10,000 | USD 4,600-7,300 | USD 150-240 | about USD 6,800 (USD 4,300-9,200) |
 
+On a large register, deadline questions can cost more than the daily recompute: with 1,000 contracts visible to each user, 100 deadline questions a month cost about USD 660.
+
 **How reliable these figures are.** They are estimates, not your bill. The extraction and recalculation action counts were measured in our test environment; the review count is taken from the flow design. The AI token use was estimated from document length and could be higher if Microsoft also processes page images (the upper end of each range allows for this). Microsoft's own meter had not yet reported our test runs when this guide was written, so the figures are not yet reconciled with an invoice. Your cost also depends on document length, how many contracts sit near a deadline, how many questions users ask, and Microsoft's prices and rates, which Microsoft can change. Read your own meter after the first week and the first month before you scale up. For a large register, ask us for a sizing estimate before you load it.
 
 **What a cost alert can and cannot do.**
@@ -84,6 +87,7 @@ From upload to approval (extraction, review and the first recalculation), a 15-p
 4. When you turn it on, check consumption in **Power Platform admin center → Licensing → Copilot Studio** after the first full recompute day and after an ordinary day, and compare it with the estimates above.
 5. To reduce recalculation cost, you can set *Full recompute day* to `Never` (section 3). Contracts outside the window are then recalculated only when one of their documents is approved or changes.
 6. If you need a firm ceiling, use prepaid credits without a pay-as-you-go plan, and accept that processing stops when they run out.
+7. On a large register, prefer questions about a named contract. Each notice-deadline question reads every contract the user can see (section 10).
 
 ## 2. What gets installed
 
@@ -309,6 +313,7 @@ These two documents are a limited test, not proof that every manipulated documen
 | **Duplicate approved masters** | When the same contract reference is uploaded and approved twice, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Amendments are matched to their master by contract reference. |
 | **Text-based English PDFs only** | Scanned (image-only) PDFs are not read. |
 | **Processing region** | Generative-AI processing follows your environment's region settings. If *Move data across regions* is allowed, processing may happen outside your region. Check this setting if data location matters to you. |
+| **Deadline questions on large registers** | Deadline questions were tested on registers of up to 11 contracts. Each one reads every contract the user can see, 5 flow steps per contract one after another, and Microsoft gives the flow 100 seconds to answer the agent. On a large register a deadline question costs more (section 1a) and may be slow or fail; this has not been measured. |
 | **Running costs are estimates** | Each contract uses Copilot Studio capacity for extraction, recalculation and questions, billed to you by Microsoft. Our estimates, how they were obtained and their uncertainty are in section 1a; they are not yet reconciled with Microsoft's meter. Start with the limits in section 1a. |
 | **Short delay on content changes** | When a stored contract changes, its version number updates a few seconds later. |
 

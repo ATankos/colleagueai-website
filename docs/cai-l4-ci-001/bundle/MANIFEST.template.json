@@ -28,6 +28,7 @@
     "Approved amendments apply from approval, not from their effective date; the extraction may read an amendment's signing date as its effective date (INSTALL section 9a)",
     "A small-print clause contradicting a main value is recorded internally but not shown on the review card; only two deliberately manipulated documents were tested (INSTALL section 9a)",
     "Running costs are Microsoft consumption billed to the customer; ColleagueAI's figures are estimates not yet reconciled with Microsoft's meter (INSTALL section 1a)",
+    "Notice-deadline questions read every contract the user can see (5 flow steps per contract, sequential, within Microsoft's 100-second flow limit); tested on registers of up to 11 contracts only; cost and response time on large registers not measured (INSTALL sections 1a and 10)",
     "Text-based English PDFs only"
   ],
   "files": [
