@@ -16,6 +16,15 @@ const packagesFor = (slug) => PACKAGES.agents[slug] || PACKAGES.default;
 /* Release status (finding LR-04): an agent with a product record in config/products.json has a released package;
    every other catalogue agent is a concept with a dossier only, and its factsheet says so. */
 const releaseOf = (slug) => (slug !== '_comment' && PRODUCTS[slug]?.release) || null;
+/* Continuous Certification is sold only once its gate opens (CERTIFICATION_SALES_ENABLED, LR-23). Until then the
+ * factsheets say so next to the published subscription price, the same way /api/checkout tells the buyer. */
+const CERT_NOT_OPEN = 'Continuous Certification is not yet open for subscription: current orders are for the perpetual licence only.';
+/* What a released package needs and costs on the customer's side. Microsoft bills this usage to the customer, not
+ * ColleagueAI; the claims test requires every released package to carry a statement here (LR-11). No figures:
+ * they depend on the customer's volumes and are given in the sizing estimate. */
+const RUNTIME = {
+  'contract-intelligence-and-register': 'This package runs on your own Microsoft licences and capacity: a Power Platform environment with Dataverse, a Copilot Studio billing plan (pay-as-you-go Copilot Credits or a credit pack), SharePoint and Microsoft Teams. Document extraction, the scheduled recalculation of deadlines and agent answers consume Copilot Credits that Microsoft bills to you, not ColleagueAI; the amount grows with the number of contracts, amendments and questions. The installation guide lists the prerequisites; ask us for a sizing estimate before you buy.',
+};
 const STATUS_TEXT = {
   'controlled-test': 'Controlled release: installable and tested; not yet on general sale.',
   released: 'Commercially available.',
@@ -140,7 +149,7 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
 <p>${esc(a.desc)}</p>
 <div class="meta">
   <span class="chip">CAI tier <strong>${esc(a.t)}</strong></span>
-  <span class="chip">${releaseOf(slug) ? 'Released package' : 'Concept · dossier only'}</span>
+  <span class="chip">${releaseOf(slug) ? (releaseOf(slug).status === 'controlled-test' ? 'Controlled release' : 'Released package') : 'Concept · dossier only'}</span>
   <span class="chip">${esc(PILLAR[a.p] ?? a.p)}</span>
   <span class="chip">${esc(a.dom)}</span>
 </div>
@@ -155,10 +164,11 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
 <section><h2>Release status</h2><p>${releaseOf(slug)
   ? esc((STATUS_TEXT[releaseOf(slug).status] || 'Released.') + ' Current release ' + releaseOf(slug).version + '.')
   : 'Concept. This factsheet and the dossier describe the intended design; no installable package exists yet and this agent is not for sale. Ask us if you would like to pilot it.'}</p></section>
+${RUNTIME[slug] ? `<section><h2>Microsoft prerequisites and running costs</h2><p>${esc(RUNTIME[slug])}</p></section>` : ''}
 <section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>${releaseOf(slug)
   ? 'One-time purchase. Access to your package is arranged after your access request is approved and commercial setup is confirmed.'
   : 'Today this agent is available as a dossier only.'}</p></section>
-<section><h2>Price</h2><p>${releaseOf(slug) ? '' : 'Published tier price once a package is released: '}<b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases.</p>
+<section><h2>Price</h2><p>${releaseOf(slug) ? '' : 'Published tier price once a package is released: '}<b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases. ${esc(CERT_NOT_OPEN)}</p>
 <p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>
 <section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It classifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; we host only the governance control plane. So you deploy AI you can defend.</p></section>
