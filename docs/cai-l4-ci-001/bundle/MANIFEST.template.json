@@ -3,7 +3,7 @@
   "sku": "CAI-L4-CI-001",
   "release": "1.0.3.2",
   "tier": "CAI L4 — Decide (supervised)",
-  "bundleRevision": 3,
+  "bundleRevision": 4,
   "status": "controlled test release; not for production use",
   "publisher": "Colleague AI s.r.o.",
   "solution": {
@@ -20,10 +20,14 @@
   ],
   "knownLimitations": [
     "Access is per owner team: all members of the team see all of its contracts; all new uploads go to one team set at install",
-    "Per-user access verified at Dataverse level; a full chat session by a second licensed user is not yet tested",
+    "Per-user access tested on 9 Nov 2026 with a second licensed user in Teams (own team's contracts only, also after a team change); a user with no contracts team gets no data but sees a raw ConnectorAuthorizationError message",
     "The import tries to publish the agent on its own; this failed in two installs and succeeded in one (clean install of 1.0.3.2). The agent check in Microsoft 365 admin center (INSTALL section 7) is mandatory right after every import; block an Available entry. The deliberate publishing procedure in section 7 has been tested once",
     "Review gate (Teams) is left Off by the import (seen in all three installs) and is turned on by hand (INSTALL section 5)",
-    "Daily recompute runs at 05:30 Central European Time; it recalculates only contracts with a deadline or term end inside the recompute window (default 90 days) and all contracts on the full recompute day (default Monday); keep it Off while testing",
+    "Daily recompute runs at 05:30 Central European Time; it recalculates only contracts with a deadline or term end inside the recompute window (default 90 days) and all contracts on the full recompute day (default Monday); keep it Off while testing; its Copilot Studio usage grows with the size of the register, and ended non-renewing contracts are recalculated daily (INSTALL section 1a)",
+    "Notice periods stated in months are stored and counted as days; the deadline can be several days later than the calendar date (INSTALL section 9a)",
+    "Approved amendments apply from approval, not from their effective date; the extraction may read an amendment's signing date as its effective date (INSTALL section 9a)",
+    "A small-print clause contradicting a main value is recorded internally but not shown on the review card; only two deliberately manipulated documents were tested (INSTALL section 9a)",
+    "Running costs are Microsoft consumption billed to the customer; ColleagueAI's figures are estimates not yet reconciled with Microsoft's meter (INSTALL section 1a)",
     "Text-based English PDFs only"
   ],
   "files": [

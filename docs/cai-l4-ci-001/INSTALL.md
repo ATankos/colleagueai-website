@@ -2,11 +2,13 @@
 INSTALL.md of bundle CAI-L4-CI-001 1.0.3.2. Every statement about what the import, the flows, the role or the
 agent do was read from real installs of 1.0.3.1, from the connection and publishing test of 9 Nov 2026 and from
 the clean install of 1.0.3.2 on 9 Nov 2026 (bundle revision 2 records what that install showed; revision 3 only corrects the description text inside the managed solution).
+Revision 4 changes documentation only: running costs (section 1a), the daily recompute description (section 2), reviewer checks
+(section 9a) and known limitations (section 10), from the tests of 9-10 Nov 2026. The managed solution is byte-identical to revision 3.
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 3
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.2 · **Bundle revision** 4
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -26,19 +28,66 @@ Tick off each item before you import.
 | ☐ | **A Power Platform environment with Dataverse** | At least 1 GB of free database capacity. A Sandbox works well for a first install. |
 | ☐ | **System Administrator** role in that environment | For the person who installs. Also use an account with this role for the connections: the flows run as this account and must be able to assign contracts to a team. |
 | ☐ | **Copilot Studio capacity (mandatory)** | Either prepaid Copilot Credits, or a Copilot Studio **pay-as-you-go billing plan** linked to the environment (Power Platform admin center → Licensing → Copilot Studio → Manage billing plans). **Without capacity, none of the flows run.** |
-| ☐ | **A cost alert** | Microsoft bills Copilot Studio usage separately from your ColleagueAI licence. Set an Azure budget with email alerts before the first upload. A budget alerts you; it does not stop spending. |
+| ☐ | **A cost alert and a usage plan** | Microsoft bills Copilot Studio usage to you, separately from your ColleagueAI licence. Read section 1a, set an Azure budget with email alerts before the first upload, and agree the initial limits in section 1a. A budget alerts you late and does not stop spending. |
 | ☐ | **A SharePoint document library** for incoming contracts | One library, used only for contracts that this product should read. |
 | ☐ | **A team name and its members** | The people who may see the contracts in this library, for example a team called `Contracts - Legal`. You create the team in section 6. |
 | ☐ | **Two named people** | A **reviewer**, who approves each extraction in Teams, and an **admin**, who is alerted if the daily job fails. Both need Microsoft 365 with Teams. |
 | ☐ | **Access to the Microsoft 365 admin center → Agents** | You check there that the agent has not been made available to your organisation (section 7). |
 | ☐ | **One test contract** | Any text-based (not scanned) PDF contract in English, for the first test. |
 
+## 1a. Running costs: what Microsoft bills you
+
+The product runs on your own Microsoft licences and capacity. **Every extraction, recalculation and agent answer uses Copilot Credits, and Microsoft bills them to you**: from prepaid credits or through your pay-as-you-go Azure subscription. You are responsible for this consumption. It is not part of the ColleagueAI licence fee, and ColleagueAI cannot see, limit or refund it.
+
+**What uses credits.** The figures are our estimates at the pay-as-you-go price of USD 0.01 per credit, from tests on 8-10 November 2026 with synthetic contracts.
+
+| Activity | When | Estimate | What it is based on |
+|---|---|---|---|
+| Extraction of one document | Once per upload | 8-28 credits for 1-8 pages; about USD 0.22-0.40 for a 15-page contract (extrapolated) | Measured: 33 flow actions per document. Estimated: AI tokens, from document length |
+| Recalculation of one contract | On approval or change of a document, and each time the daily job selects it | about 6 credits (about 48 flow actions) per run | Measured: about 47 actions per recalculation run, plus one step in the daily job |
+| Daily recompute | Every day at 05:30 CET while the flow is on | one recalculation for each contract whose notice deadline or term end falls within the next **90 days** (*Recompute window*), and for each contract never calculated | Flow design; the share of contracts inside the window depends on your register |
+| Weekly full pass | Every **Monday** (*Full recompute day*) | one recalculation for **every** approved contract | Flow design |
+| A question to the agent | Each question | about USD 0.07-0.10 | Microsoft's published rates; not measured |
+| Failures and retries | A failed run, or a document uploaded again | a document uploaded again is extracted again at full cost; Microsoft's automatic retries of a failed step can add actions | Not measured |
+
+**Daily recompute grows with the register; it is not flat.** On the full recompute day every approved contract is recalculated; on other days, those inside the 90-day window. Contracts that have ended and do not renew stay in the daily selection, because their term end lies before the end of the window, so the share selected each day rises as the register ages. With Daily recompute on, we estimate per approved contract per month:
+
+| Share of the register inside the window on an ordinary day | 10 % | 25 % | 40 % | 100 % (upper bound) |
+|---|---|---|---|---|
+| Daily recompute and weekly full pass, per contract per month | USD 0.43 | USD 0.68 | USD 0.92 | USD 1.90 |
+
+**For a whole register** (estimate; 1.5 documents per contract, 5 new or changed documents per 100 contracts per month, 25 % inside the window; agent questions come on top):
+
+| Approved contracts | First extraction of the register (one-off) | New or changed documents, per month | Daily recompute and weekly full pass, per month |
+|---|---|---|---|
+| 100 | USD 33-60 | USD 1-2 | about USD 68 (USD 44-93) |
+| 1,000 | USD 330-600 | USD 11-20 | about USD 680 (USD 430-920) |
+| 10,000 | USD 3,300-6,000 | USD 110-200 | about USD 6,800 (USD 4,300-9,200) |
+
+**How reliable these figures are.** They are estimates, not your bill. The action counts were measured in our test environment. The AI token use was estimated from document length and could be higher if Microsoft also processes page images (the upper end of each range allows for this). Microsoft's own meter had not yet reported our test runs when this guide was written, so the figures are not yet reconciled with an invoice. Your cost also depends on document length, how many contracts sit near a deadline, how many questions users ask, and Microsoft's prices and rates, which Microsoft can change. Read your own meter after the first week and the first month before you scale up. For a large register, ask us for a sizing estimate before you load it.
+
+**What a cost alert can and cannot do.**
+- An Azure budget sends alerts; it does not stop spending.
+- Azure evaluates budgets once a day, and alert emails can arrive up to 24 hours after a threshold is crossed.
+- Copilot Studio usage reaches the Power Platform admin center and Azure with a further delay: in our test environment, runs still showed *0 consumed* more than nine hours later.
+- A large batch of uploads can therefore cost more than your threshold before any alert arrives.
+- With a **pay-as-you-go** plan Microsoft applies no overall spending ceiling: usage beyond your prepaid credits is billed to your Azure subscription.
+- With **prepaid credits only** (no pay-as-you-go plan), Microsoft blocks new flow runs once the tenant's prepaid capacity is used up. This is a firm ceiling, but extraction and recalculation then stop until capacity is added or renewed.
+
+**Recommended initial limits.**
+1. Before the first upload, set an Azure budget with email alerts at 50 %, 80 % and 100 % of a monthly amount you accept.
+2. In the first month, load no more than **25 contracts**, in batches of no more than **10 documents a day**.
+3. Keep **Daily recompute Off** until your first contracts are approved and checked (section 5). Answers do not depend on it; it only refreshes dates as time passes.
+4. When you turn it on, check consumption in **Power Platform admin center → Licensing → Copilot Studio** after the first full recompute day and after an ordinary day, and compare it with the estimates above.
+5. To reduce recalculation cost, you can set *Full recompute day* to `Never` (section 3). Contracts outside the window are then recalculated only when one of their documents is approved or changes.
+6. If you need a firm ceiling, use prepaid credits without a pay-as-you-go plan, and accept that processing stops when they run out.
+
 ## 2. What gets installed
 
 One managed solution, `CAIContractIntelligence` version 1.0.3.2, which contains:
 
 - **Four Dataverse tables:** Contracts, Reviews, Field evidence and Job runs.
-- **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account. The daily recompute recalculates only contracts whose dates can move within the next 90 days (setting), with a full pass once a week (setting), so its Copilot Studio usage stays roughly flat as the register grows.
+- **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account. Every day, the daily recompute recalculates the contracts whose notice deadline or term end falls within the next 90 days (*Recompute window*), and once a week it recalculates every approved contract (*Full recompute day*, default Monday). Its Copilot Studio usage therefore **grows with the size of the register** (section 1a).
 - **Two compute flows** used by the agent: they have no connection of their own and only work on data the asking user is allowed to read.
 - **One Copilot Studio agent:** *CAI Contract Intelligence Assistant*. You do not publish it (section 7). When it is used, it reads the register **with the signed-in user's own identity**.
 - **One security role:** *CAI Contract Reader*. For contract data it is **read-only**: Read on Contracts and Field evidence, limited to records owned by the user's team, and nothing else on any ColleagueAI table. It also carries the read-only platform basics every Dataverse role carries. On a fresh import Dataverse may add two more standard platform privileges to the role, Create and Write on its private *SharePoint Data* system table. Every standard role in the environment, including Basic User, already holds both; they apply to that private table, not to the contract tables, and need no action. In our tests both fresh imports showed 11 privileges and an upgrade showed 9.
@@ -135,7 +184,7 @@ node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expec
 
 Replace `ORG.crmN.dynamics.com` with your environment URL exactly as the Power Platform admin center shows it (Environments → your environment → *Environment URL*; the number after `crm` differs by region, for example `crm4` or `crm17`). The last line says `READY` or `NOT READY`.
 
-**While you test: keep Daily recompute Off.** The daily job runs every morning at 05:30 Central European Time and uses Copilot Studio capacity for every contract it recalculates. In a test environment, select **Daily recompute → Turn off** after the import and turn it on when you go live; the readiness check accepts this with `--daily-recompute off`. Answers from the agent do not depend on the daily job: terms are recalculated the moment a document is approved or changed, and "days left" is always counted from today.
+**While you test: keep Daily recompute Off.** The daily job runs every morning at 05:30 Central European Time and uses Copilot Studio capacity for every contract it recalculates (section 1a). In a test environment, select **Daily recompute → Turn off** after the import and turn it on when you go live; the readiness check accepts this with `--daily-recompute off`. Answers from the agent do not depend on the daily job: terms are recalculated the moment a document is approved or changed, and "days left" is always counted from today.
 
 **Without Review gate on, uploads are extracted but no review card ever reaches the reviewer.**
 
@@ -232,19 +281,32 @@ If step 1 shows nothing after 5 minutes, check that:
 - all five values in section 3 are filled in, and the team exists with exactly that name (section 6);
 - the flows are on (section 5).
 
+## 9a. What the reviewer must check before approving
+
+Approval is what makes a contract count: until a document is approved, the agent gives no values from it. The review card shows each value with its quoted evidence. Compare every value with its quote and, for the liability cap and termination rights, with the whole document including schedules and small print. In our tests the extraction got these wrong, and the review card does not flag them:
+
+1. **Notice periods stated in months.** The card shows the notice period in days (for example *notice 180 days* with the quote *"six (6) months"*). The deadline is counted back in days from the term end, so it can fall up to about one day per month of notice **later** than the calendar date (in our test: 2 October instead of 30 September). In this release a correction never changes the stored number: it only blocks the document until the correction is resolved. So approve the document if everything else is right, and tell the users of the register that **notice must be sent at least one week before the deadline shown** whenever the contract states the notice period in months (two weeks when the notice period is longer than twelve months).
+2. **Effective date of an amendment.** Check that the *Effective* value is the date from which the amendment applies (*"with effect from …"*), not the date it was signed. In our test the extraction took the signing date (25 August instead of 1 September); the evidence quote showed the signing sentence. The date is what users see for the change, and it decides the order in which amendments are applied when several amendments change the same term. If only one amendment changes those terms, a wrong date does not change the calculated terms: approve it and tell users the correct date. If several do, submit a correction (the amendment stays out of the effective terms until it is resolved) and contact support.
+3. **Contradictions in small print.** In our test with two deliberately manipulated documents, hidden instructions changed no value and no review status. A small-print clause that contradicted the liability cap was recorded internally but not shown on the card, which showed the cap from the main clause. Read schedules and annexes yourself before approving a cap.
+
+These two documents are a limited test, not proof that every manipulated document is handled correctly. The review is the control.
+
 ## 10. Known limitations of this release
 
 | Limitation | What it means for you |
 |---|---|
 | **The import may or may not publish the agent** | The import's own publish attempt failed in two of our installs and succeeded in one (release 1.0.3.2, clean install); we do not know what decides it. Check the Microsoft 365 admin center right after every import and block an **Available** entry (section 7). Publishing on purpose is a separate procedure (section 7), tested once. |
 | **Access is per team, not per contract** | Every member of the owner team sees all of that team's contracts. All new uploads go to the one team you set in section 3; assigning by folder is planned. |
-| **Second-user chat not yet tested end to end** | Per-user access was verified in Dataverse with a test user joining and leaving a team. A full chat session by a second, separately licensed user has not yet been run. |
+| **A user without a contracts team sees an error code** | On 9 November 2026 a second, separately licensed test user chatted with the agent in Teams and saw only their own team's contracts, also after being moved to another team and with no caching between the two. A user who belongs to no contracts team gets no data, but sees a raw message such as *Error code: ConnectorAuthorizationError* instead of a plain "you have no access" answer. A clearer message is planned for release 1.1. |
+| **Notice periods in months are counted in days** | A notice period stated in months is stored as days, so its deadline can be up to about one day per month of notice later than the calendar date. Send notice at least one week before the deadline shown, two weeks for notice periods longer than twelve months (section 9a). |
+| **Amendments apply from approval** | An approved amendment changes the effective terms as soon as it is approved, also when it takes effect at a later date. Its *Effective* value is only used to order amendments, and the extraction may read the signing date as the effective date (section 9a). |
+| **Small-print contradictions are not on the review card** | A clause that contradicts a main value is recorded internally but not shown on the review card. The reviewer reads schedules and small print (section 9a). Only two deliberately manipulated documents have been tested. |
 | **Role shows 9 or 11 privileges** | All three fresh imports showed 11 and an upgrade 9. The two extra are standard platform privileges on a private system table (section 2). |
-| **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); a full scheduled week has not yet been observed. |
+| **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); a full scheduled week has not yet been observed. Contracts that have ended and do not renew are recalculated every day, because their term end lies before the end of the window (section 1a). |
 | **Duplicate approved masters** | When the same contract reference is uploaded and approved twice, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Amendments are matched to their master by contract reference. |
 | **Text-based English PDFs only** | Scanned (image-only) PDFs are not read. |
 | **Processing region** | Generative-AI processing follows your environment's region settings. If *Move data across regions* is allowed, processing may happen outside your region. Check this setting if data location matters to you. |
-| **Running costs** | Each contract uses Copilot Studio capacity: extraction, review, recalculation and questions. ColleagueAI will publish a measured cost per contract. Until then, start with a few contracts and watch your Azure costs. |
+| **Running costs are estimates** | Each contract uses Copilot Studio capacity for extraction, recalculation and questions, billed to you by Microsoft. Our estimates, how they were obtained and their uncertainty are in section 1a; they are not yet reconciled with Microsoft's meter. Start with the limits in section 1a. |
 | **Short delay on content changes** | When a stored contract changes, its version number updates a few seconds later. |
 
 ## 11. Support
@@ -267,5 +329,6 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 | ☐ | Security role | Security roles → CAI Contract Reader | Read only on Contract and Field evidence; 9 or 11 privileges in total |
 | ☐ | Agent status | Microsoft 365 admin center → Agents | **Draft** or **Blocked**; never **Available** |
 | ☐ | Agent channels, sharing, authentication | Copilot Studio | No channel; only the owner listed; *Authenticate with Microsoft* |
-| ☐ | Cost alert | Azure | A budget with email alerts |
+| ☐ | Cost alert and limits | Azure; section 1a | A budget with email alerts; initial limits agreed (first month at most 25 contracts, at most 10 documents a day) |
+| ☐ | Reviewer briefed | Section 9a | Reviewer knows the three checks; users know to send month-based notices a week early |
 | ☐ | First test | Section 9 | Passed with an owner-team member |
