@@ -216,20 +216,26 @@ RA['Unusual_lines'] = {'type': 'Select', 'runAfter': {'Notice_summary': ['Succee
     'from': f"@take(coalesce({EXT}?['unusual_clauses'], json('[]')), 3)",
     'select': "@concat(coalesce(item()?['summary'], ''), ': ', coalesce(item()?['quote'], ''), if(empty(coalesce(item()?['location'], '')), '', concat(' (', item()?['location'], ')')))"}}
 RA['Unusual_text'] = {'type': 'Compose', 'runAfter': {'Unusual_lines': ['Succeeded']}, 'inputs': "@join(body('Unusual_lines'), ' || ')"}
-RA['Compose']['runAfter'] = {'Unusual_text': ['Succeeded']}
+RA['Compose']['runAfter'] = {'Card_evidence_extra': ['Succeeded']}
 card = RA['Compose']['inputs']
 old_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(triggerOutputs()?['body/cai_renewaltype'], '')") +
                 ", ', notice ', " + ESC("coalesce(triggerOutputs()?['body/cai_noticedays'], '')") + ", ' days\"},', ")
 new_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(triggerOutputs()?['body/cai_renewaltype'], '')") + ", '\"},', "
                 "'{\"title\":\"Notice period\",\"value\":\"', " + ESC("outputs('Notice_summary')") + ", '\"},', "
                 "'{\"title\":\"Signed on\",\"value\":\"', " + ESC(f"coalesce({EXT}?['signing_date']?['value'], 'not stated')") + ", '\"},', ")
+RA['Card_facts_extra'] = {'type': 'Compose', 'runAfter': {'Unusual_text': ['Succeeded']}, 'inputs': (
+    "@concat('{\"title\":\"Notice period\",\"value\":\"', " + ESC("outputs('Notice_summary')") + ", '\"},', "
+    "'{\"title\":\"Signed on\",\"value\":\"', " + ESC(f"coalesce({EXT}?['signing_date']?['value'], 'not stated')") + ", '\"},')")}
+new_ren_fact = ("'{\"title\":\"Renewal\",\"value\":\"', " + ESC("coalesce(triggerOutputs()?['body/cai_renewaltype'], '')") + ", '\"},', "
+                "outputs('Card_facts_extra'), ")
 card = must_replace(card, old_ren_fact, new_ren_fact)
 anchor = "'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Liability cap** (', "
 add_ev = ("'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Notice wording**: _', "
           + ESC(f"coalesce({npx}?['wording'], {EXT}?['renewal']?['value']?['notice_rule_text'], '')") + ", '_\"},', "
           "'{\"type\":\"TextBlock\",\"wrap\":true,\"size\":\"Small\",\"text\":\"**Unusual clauses** (check against the values above): ', "
           + ESC("if(empty(outputs('Unusual_text')), 'none reported', outputs('Unusual_text'))") + ", '\"},', ")
-card = must_replace(card, anchor, add_ev + anchor)
+RA['Card_evidence_extra'] = {'type': 'Compose', 'runAfter': {'Card_facts_extra': ['Succeeded']}, 'inputs': "@concat(" + add_ev.rstrip().rstrip(',') + ")"}
+card = must_replace(card, anchor, "outputs('Card_evidence_extra'), " + anchor)
 old_txt = ('Submitting a correction always records this review as Needs correction, even if Approve is selected, and the document '
            'cannot be approved until the correction is resolved. The extracted value and its evidence are kept unchanged.')
 new_txt = ('A Notice period correction (for example 6 months or 90 days) or an Effective date correction (YYYY-MM-DD) is applied at once: '
@@ -240,7 +246,21 @@ old_choice = '{"title":"(no correction)","value":""},'
 new_choice = ('{"title":"(no correction)","value":""},{"title":"Notice period - applied at once (e.g. 6 months)","value":"notice_period"},'
               '{"title":"Effective date - applied at once (YYYY-MM-DD)","value":"effective_date_apply"},')
 card = must_replace(card, old_choice, new_choice)
+start = card.index("'{\"type\":\"Input.ChoiceSet\",\"id\":\"decision\"")
+end = card.index("'],\"actions\":[")
+import re as _re
+segment = card[start:end].rstrip().rstrip(',')
+lits = _re.findall(r"'((?:[^']|'')*)'", segment)
+assert ", ".join("'" + x + "'" for x in lits) == segment, segment[:120]
+static_value = ''.join(lits).replace("''", "'")
+RA['Card_correction'] = {'type': 'Compose', 'runAfter': {'Card_evidence_extra': ['Succeeded']}, 'inputs': static_value}
+RA['Compose']['runAfter'] = {'Card_correction': ['Succeeded']}
+card = card[:start] + "outputs('Card_correction'), " + card[end:]
 RA['Compose']['inputs'] = card
+for nm in ('Compose', 'Card_facts_extra', 'Card_evidence_extra', 'Card_correction', 'Notice_summary'):
+    v = RA[nm]['inputs']
+    assert len(v) < 8000, (nm, len(v))
+    print(nm, len(v))
 
 DIG = lambda s: "replace(" * 10 + s + "".join(f", '{d}', '')" for d in range(10))
 V = "outputs('Submitted')?['value']"
