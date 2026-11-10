@@ -182,7 +182,7 @@ test('download: the buyer of the current release gets its package', () => withEn
   await db.grantEntitlement(email, [SLUG], 'cs_cur', { release: CURRENT.version });
   const res = await requestPackage(email);
   assert.equal(res.statusCode, 302);
-  assert.match(res.headers.location, new RegExp(`/agents/${SLUG}/${CURRENT.package.replace(/\./g, '\\.')}`));
+  assert.match(res.headers.location, new RegExp(`/agents/${SLUG}/${CURRENT.package.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
 }));
 
 test('download: a buyer of an earlier release is refused the later package without certification, and gets it with one', () => withEnv(STORAGE, async () => {
