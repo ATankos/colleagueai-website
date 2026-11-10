@@ -141,3 +141,13 @@ a{color:var(--terra-solid)}
 .o-accept .o-cert{border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:6px 0 16px}
 .o-accept .o-cert legend{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:0 6px}
 .o-accept .o-radio{margin-left:28px}
+/* Buyer identification on the order confirmation (company, contact, signatory) */
+.o-accept .o-field select{display:block;width:100%;max-width:420px;margin-top:6px;padding:10px 12px;font-family:var(--sans);font-size:16px;letter-spacing:normal;text-transform:none;color:var(--graphite);border:1px solid var(--line);border-radius:8px;background:#fff}
+.o-accept .o-field .o-small{display:block;margin-top:6px;font-family:var(--sans);letter-spacing:normal;text-transform:none}
+.o-accept .o-field input[aria-invalid=true],.o-accept .o-field select[aria-invalid=true]{border-color:var(--terra-deep)}
+.o-accept .o-group{border:1px solid var(--line);border-radius:12px;padding:14px 16px 2px;margin:0 0 16px}
+.o-accept .o-group legend{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);padding:0 6px}
+.o-accept .o-err ul{margin:6px 0 0;padding-left:18px}
+.o-invoice{display:grid;gap:6px}
+.o-invoice dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}
+.o-invoice dt{color:var(--muted)}

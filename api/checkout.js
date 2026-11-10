@@ -8,6 +8,14 @@
  *      -> validates the confirmations, stores an acceptance record (lib/db.js recordAcceptance), then
  *         creates the Stripe Checkout Session with the acceptance id and document versions in its metadata.
  *
+ * Buyer identification and the order id (lib/orders.js): the POST validates the business details (legal name,
+ * registration number, country, VAT / tax ID, purchasing contact and email, the person accepting and their role),
+ * creates the order id, stores the acceptance record and the order record, creates a Stripe Customer for the buyer
+ * company (name, email, and the VAT ID as a tax ID so Stripe verifies it against VIES / HMRC), and then the
+ * Checkout Session for that Customer. The order id travels in the metadata of the Customer, the session, the
+ * PaymentIntent (so every charge, refund and dispute) and client_reference_id; the storefront's own `ref` moves to
+ * metadata.ref. A VAT ID Stripe refuses as malformed returns the form with that field marked, and no session.
+ *
  * `terms=accepted` in a GET is no longer evidence of anything and is ignored: acceptance is what the buyer
  * submits on the confirmation page, and the stored record is what proves it.
  *
@@ -46,10 +54,11 @@
 import Stripe from 'stripe';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
-import { productFor, liveSaleBlocked, canonicalSlug } from '../lib/products.js';
+import { productFor, liveSaleBlocked, canonicalSlug, isLiveKey } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recordAcceptance, bindAcceptance } from '../lib/db.js';
 import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
+import { newOrderId, createOrder, recordOrderEvent } from '../lib/orders.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
 export const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
@@ -225,7 +234,7 @@ export default async function handler(req, res) {
   // (Certification is never carried from a link: it can only be chosen on the page itself.)
   const carried = { agent: slug, currency, method: method || '', ref: ref || '', partner, lang };
   const pageModel = (extra) => renderAcceptancePage({
-    productName, tier, slug, version: product?.release?.version, currency, priceCents: cents,
+    productName, tier, slug, version: product?.release?.version, sku: product?.sku, currency, priceCents: cents,
     certOffer, certClosed: !certSales, method: includesBank ? 'bank' : method, hidden: carried, cancelUrl, lang, ...extra,
   });
 
@@ -239,8 +248,12 @@ export default async function handler(req, res) {
   if (!accepted.ok) {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(400).end(pageModel({ errors: accepted.errors, values: { company: form.company, name: form.name, certification: optIn, cert_interval: certInterval } }));
+    return res.status(400).end(pageModel({ errors: accepted.errors, values: formValues(form, optIn, certInterval) }));
   }
+  const buyer = accepted.value.buyer;
+  const live = isLiveKey(process.env.STRIPE_SECRET_KEY);
+  // One id for this purchase attempt, written into every record and Stripe object that follows (lib/orders.js).
+  const orderId = newOrderId();
 
   // The acceptance record is written BEFORE the session exists: if Stripe fails we still know who accepted
   // what; if KV fails we do not take money without evidence.
@@ -252,7 +265,9 @@ export default async function handler(req, res) {
       currency, priceCents: cents,
       // The recurring commitment the buyer opted into, with the terms version shown next to the box.
       certification: withCert ? { interval: certInterval, unitCents: certUnit, optIn: true, termsVersion: CERT_TERMS?.version ?? null } : null,
-      buyerCompany: accepted.value.company, declaredBy: accepted.value.name, consents: accepted.value.consents,
+      orderId, buyer,
+      buyerCompany: accepted.value.company, declaredBy: accepted.value.name, declaredRole: buyer.signatory.role,
+      consents: accepted.value.consents,
       clientHash: clientFingerprint(req), userAgent: String(req.headers['user-agent'] || '').slice(0, 200),
       lang, partner: partner || null, ref: ref || null, stripeSessionId: null,
     });
@@ -260,6 +275,25 @@ export default async function handler(req, res) {
     console.error('[checkout] acceptance record failed:', err?.message ?? err);
     return res.status(503).json({ error: 'Could not record your acceptance; nothing was charged. Please try again.' });
   }
+  try {
+    const created = await createOrder({
+      id: orderId,
+      mode: live ? 'live' : 'test',
+      product: { slug, sku: product?.sku ?? null, release: product?.release?.version ?? null, tier, name: productName },
+      price: { currency, unitAmount: cents, quantity: 1 },
+      certification: withCert ? { interval: certInterval, unitAmount: certUnit } : null,
+      buyer,
+      acceptance: { id: acceptance.id, legalSet: LEGAL_SET, legalVersions: legalVersionString(), acceptedAt: acceptance.acceptedAt },
+      payment: { lane: includesBank ? (paymentMethodTypes.length === 1 ? 'bank' : 'any') : 'card' },
+      lang, partner: partner || null, ref: ref || null,
+    });
+    if (!created) throw new Error('order id collision');
+  } catch (err) {
+    console.error('[checkout] order record failed:', err?.message ?? err);
+    return res.status(503).json({ error: 'Could not record your order; nothing was charged. Please try again.' });
+  }
+  metadata.order_id = orderId;
+  if (ref) metadata.ref = ref.slice(0, 200);
   metadata.acceptance_id = acceptance.id;
   metadata.legal_set = LEGAL_SET;
   metadata.legal_versions = legalVersionString();
@@ -307,38 +341,94 @@ export default async function handler(req, res) {
       // payment_intent_data is payment-mode only; subscriptions carry metadata on the
       // subscription instead, which is what the webhook reads on invoice events.
       ...(withCert ? { subscription_data: { metadata } } : { payment_intent_data: { metadata } }),
-      ...(ref ? { client_reference_id: ref } : {}),
+      // The order id is the reference Stripe shows on the session; the storefront's ref is kept in metadata.ref.
+      client_reference_id: orderId,
       billing_address_collection: 'required',
+      // The buyer company is the Customer created below: Checkout may complete its name and billing address, and a
+      // VAT ID typed on Stripe's page (when none was given on ours) is saved to it, so Stripe verifies it too.
+      customer_update: { name: 'auto', address: 'auto' },
+      tax_id_collection: { enabled: true },
       // The hosted page repeats the acceptance in Stripe's own record (needs the Terms URL set in the
       // Stripe Dashboard; STRIPE_TOS_CONSENT=1 says it is, otherwise Stripe would refuse the session).
       ...(process.env.STRIPE_TOS_CONSENT === '1' ? { consent_collection: { terms_of_service: 'required' } } : {}),
-      custom_text: { submit: { message: `Order confirmed for ${accepted.value.company} under ColleagueAI agreement set ${LEGAL_SET} (acceptance ${acceptance.id}).`.slice(0, 1200) } },
+      custom_text: { submit: { message: `Order ${orderId} for ${accepted.value.company} under ColleagueAI agreement set ${LEGAL_SET} (acceptance ${acceptance.id}).`.slice(0, 1200) } },
       allow_promotion_codes: false,
       locale: lang, // Stripe Checkout supports all 8 storefront locales
       success_url: `${origin}/api/success?session_id={CHECKOUT_SESSION_ID}&lang=${lang}`,
       cancel_url: cancelUrl,
     };
 
-    // (Subscription mode creates the Customer itself, from the email typed on the
-    // Checkout page — no extra parameter needed.)
-
-    // Bank transfer requires a Customer on the session + the bank_transfer options.
+    // Every order gets its own Customer: the buyer company as Stripe and the invoice will show it. Bank transfer
+    // needs one anyway, and a VAT ID is only verified by Stripe once it is saved to a Customer.
+    let customer;
+    try {
+      customer = await stripe.customers.create(customerParams(buyer, orderId, lang, metadata));
+    } catch (err) {
+      if (isTaxIdRejection(err)) {
+        await recordOrderEvent(orderId, { sourceId: `checkout:${orderId}:tax_id`, type: 'checkout.tax_id_rejected', facts: { checkoutFailedAt: new Date().toISOString(), checkoutFailure: 'tax_id_invalid' } }).catch(() => {});
+        res.setHeader('Content-Type', 'text/html; charset=utf-8');
+        res.setHeader('Cache-Control', 'no-store');
+        return res.status(400).end(pageModel({ errors: ['tax_id'], values: formValues(form, optIn, certInterval),
+          notice: 'Stripe did not accept this VAT / tax ID. Check it, or leave the field empty if the company has none.' }));
+      }
+      throw err;
+    }
+    params.customer = customer.id;
     if (includesBank) {
-      const customer = await stripe.customers.create({ metadata });
-      params.customer = customer.id;
       params.payment_method_options = {
         customer_balance: { funding_type: 'bank_transfer', bank_transfer: bankTransferFor(currency) },
       };
     }
 
     const session = await stripe.checkout.sessions.create(params);
-    // Best effort: the session carries the acceptance id either way; the back-link just saves a lookup.
+    // Best effort: the session carries the acceptance and order ids either way; the back-links save a lookup.
     bindAcceptance(acceptance.id, { stripeSessionId: session.id }).catch((e) => console.warn('[checkout] acceptance bind skipped:', e?.message ?? e));
+    await recordOrderEvent(orderId, {
+      sourceId: `checkout:${session.id}`, type: 'checkout.session.created',
+      facts: { checkoutOpenedAt: new Date().toISOString() },
+      set: { stripe: { customerId: customer.id, sessionId: session.id } },
+    }).catch((e) => console.warn('[checkout] order bind skipped:', e?.message ?? e));
 
     res.writeHead(303, { Location: session.url });
     return res.end();
   } catch (err) {
     console.error('[checkout] Stripe error:', err && err.message ? err.message : err);
+    await recordOrderEvent(orderId, { sourceId: `checkout:${orderId}:failed`, type: 'checkout.failed', facts: { checkoutFailedAt: new Date().toISOString(), checkoutFailure: String(err?.code || err?.type || 'stripe_error').slice(0, 60) } }).catch(() => {});
     return res.status(502).json({ error: 'Could not start checkout' });
   }
+}
+
+/** What the buyer typed, to fill the form again after a refusal. */
+function formValues(form, optIn, certInterval) {
+  const f = (k) => String(form?.[k] ?? '').slice(0, 254);
+  return {
+    company: f('company'), reg_number: f('reg_number'), country: f('country').toUpperCase(), tax_id: f('tax_id'),
+    contact_name: f('contact_name'), email: f('email'), name: f('name'), role: f('role'),
+    certification: optIn, cert_interval: certInterval,
+  };
+}
+
+/** The Stripe Customer for an order: the buyer company, its order email, and its VAT ID when Stripe can verify it. */
+export function customerParams(buyer, orderId, lang, metadata = {}) {
+  return {
+    name: buyer.company,
+    email: buyer.contact.email,
+    preferred_locales: [lang],
+    metadata: {
+      ...metadata,
+      order_id: orderId,
+      declared_country: buyer.country,
+      ...(buyer.registrationNumber ? { registration_number: buyer.registrationNumber } : {}),
+      ...(buyer.taxId && !buyer.taxId.type ? { declared_tax_id: buyer.taxId.value } : {}),
+      contact_name: buyer.contact.name.slice(0, 120),
+      signatory: `${buyer.signatory.name} (${buyer.signatory.role})`.slice(0, 200),
+    },
+    ...(buyer.taxId?.type ? { tax_id_data: [{ type: buyer.taxId.type, value: buyer.taxId.value }] } : {}),
+  };
+}
+
+function isTaxIdRejection(err) {
+  const code = String(err?.code || err?.raw?.code || '');
+  const param = String(err?.param || err?.raw?.param || '');
+  return code === 'tax_id_invalid' || param.startsWith('tax_id_data');
 }

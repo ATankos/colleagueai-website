@@ -156,7 +156,7 @@ async function buy(query) {
   // The buyer's submission of the confirmation page (lib/acceptance.js), which is what creates the session.
   await checkout({
     method: 'POST',
-    body: { agent: 'contract-intelligence-and-register', company: 'Compat Test Co', name: 'Compat Tester',
+    body: { agent: 'contract-intelligence-and-register', company: 'Compat Test Co', name: 'Compat Tester', role: 'Buyer', country: 'US', email: 'compat@example.test',
       authority: 'on', terms: 'on', delivery: 'on', legal_set: LEGAL_SET, ...query },
     query: {},
     headers: { host: 'shop.example.test' },

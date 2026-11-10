@@ -78,7 +78,7 @@ function mockRes() {
   r.end = (b) => { if (b !== undefined) r.body = b; return r; };
   return r;
 }
-const FORM = { agent: SLUG, method: 'card', lang: 'en', company: 'Gate Test Company s.r.o.', name: 'Petra Testova',
+const FORM = { agent: SLUG, method: 'card', lang: 'en', company: 'Gate Test Company s.r.o.', name: 'Petra Testova', role: 'Director', country: 'CZ', email: 'petra@example.test',
   authority: 'on', terms: 'on', delivery: 'on', legal_set: LEGAL.set };
 async function get(query) {
   const res = mockRes();

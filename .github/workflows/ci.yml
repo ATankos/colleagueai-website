@@ -71,6 +71,9 @@ jobs:
       - name: Legal acceptance is evidence (confirmation step, versioned agreements, record before payment)
         run: node --test tests/acceptance.test.mjs
 
+      - name: Buyer identification and one order id across checkout, Stripe and the acceptance record
+        run: node --test tests/order-record.test.mjs
+
       # Licence-only launch: certification is opt-in and its sales gate is off by default.
       - name: Continuous Certification is opt-in and gated (no subscription without a ticked box and an open gate)
         run: node --test tests/certification-gate.test.mjs
