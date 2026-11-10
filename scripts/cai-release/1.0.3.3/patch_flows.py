@@ -105,7 +105,7 @@ notice_actions = [
     ('N_timing', f"@if({MORE_THAN}, 'before', if({ISNEW}, toLower(coalesce({NP}?['timing'], '')), 'on_or_before_assumed'))"),
     # every notice-of-non-renewal sentence the extraction found anywhere in the document (prompt rule 13), plus the main clause
     ('N_clauses', {'type': 'Query', 'inputs': {
-        'from': f"@if(startsWith(string(coalesce({NC}, '')), '['), {NC}, createArray())",
+        'from': f"@if(startsWith(string(coalesce({NC}, '')), '['), {NC}, json('[]'))",
         'where': (f"@and(not(equals(item()?['amount'], null)), lessOrEquals(length({IA}), 4), not(empty({IA})), empty({DIGITS(IA)}), "
                   f"not(empty({nunit(IU)})))")}}),
     ('N_clause_objs', {'type': 'Select', 'inputs': {'from': "@body('N_clauses')", 'select': {
@@ -113,7 +113,7 @@ notice_actions = [
         'k': f"@concat({IA}, ' ', {nunit(IU)})", 'loc': "@string(coalesce(item()?['location'], 'location not stated'))"}}}),
     ('N_main_obj', "@if(and(" + ISNEW + ", not(equals(outputs('N_amount0'), null)), not(empty(outputs('N_unit0')))), createArray(setProperty(setProperty(setProperty(setProperty(setProperty("
                    "json('{}'), 'a', outputs('N_amount0')), 'u', outputs('N_unit0')), 'd', " + approx_days("outputs('N_amount0')", "outputs('N_unit0')") + "), "
-                   "'k', concat(string(outputs('N_amount0')), ' ', outputs('N_unit0'))), 'loc', 'main clause')), createArray())"),
+                   "'k', concat(string(outputs('N_amount0')), ' ', outputs('N_unit0'))), 'loc', 'main clause')), json('[]'))"),
     ('N_all', "@union(outputs('N_main_obj'), body('N_clause_objs'))"),
     ('N_keys', {'type': 'Select', 'inputs': {'from': "@outputs('N_all')", 'select': "@item()?['k']"}}),
     # a period longer than about 24 months is implausible (usually a misread of small print): reported, never used for the date
@@ -291,7 +291,7 @@ RA['Unusual_lines'] = {'type': 'Select', 'runAfter': {'Notice_summary': ['Succee
 RA['Unusual_text'] = {'type': 'Compose', 'runAfter': {'Unusual_lines': ['Succeeded']}, 'inputs': "@join(body('Unusual_lines'), ' || ')"}
 ncx = f"{EXT}?['renewal']?['value']?['notice_clauses']"
 RA['Notice_clause_lines'] = {'type': 'Select', 'runAfter': {'Unusual_text': ['Succeeded']}, 'inputs': {
-    'from': f"@take(if(startsWith(string(coalesce({ncx}, '')), '['), {ncx}, createArray()), 4)",
+    'from': f"@take(if(startsWith(string(coalesce({ncx}, '')), '['), {ncx}, json('[]')), 4)",
     'select': "@concat(string(coalesce(item()?['amount'], '?')), ' ', string(coalesce(item()?['unit'], '?')), ': ', string(coalesce(item()?['quote'], '')), if(empty(string(coalesce(item()?['location'], ''))), '', concat(' (', string(item()?['location']), ')')))"}}
 RA['Notice_clause_text'] = {'type': 'Compose', 'runAfter': {'Notice_clause_lines': ['Succeeded']}, 'inputs': "@join(body('Notice_clause_lines'), ' || ')"}
 RA['Compose']['runAfter'] = {'Card_evidence_extra': ['Succeeded']}
