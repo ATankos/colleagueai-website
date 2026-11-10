@@ -107,6 +107,18 @@ test('two purchases of two releases give both; refunding the later one keeps the
   assert.deepEqual(versionsOf({ entitlement: { ...ent, revokedSessionIds: ['cs_2'] } }), ['1.0.3.2']);
 });
 
+test('a corrective release for the version bought goes to its buyers without certification; a feature release does not', () => {
+  const withFix = {
+    ...PRODUCT,
+    previousReleases: [...PRODUCT.previousReleases, { version: '1.0.3.3', package: 'CAI-L4-CI-001_1.0.3.3.zip', releasedAt: '2026-12-01', correctiveFor: ['1.0.3.2'] }],
+  };
+  const ent = bought({ cs_1: '1.0.3.2' });
+  const list = access.releasesAvailable({ product: withFix, entitlement: ent, slug: SLUG, now: NOW }).map((r) => r.version);
+  assert.deepEqual(list, ['1.0.3.2', '1.0.3.3'], 'the defect fix is part of the licence; 1.1.0 is not');
+  const refunded = { ...ent, slugs: [], revokedSessionIds: ['cs_1'] };
+  assert.deepEqual(access.releasesAvailable({ product: withFix, entitlement: refunded, slug: SLUG, now: NOW }), [], 'no licence, no fix');
+});
+
 test('records written before version pinning count as the legacy release, and the operator grant as the current one', () => {
   assert.deepEqual(versionsOf({ entitlement: { email: 'x@example.com', slugs: [OLD_SLUG], stripeSessionIds: ['cs_old'] } }), ['1.0.3.2'], 'no sessionSlugs');
   assert.deepEqual(versionsOf({ entitlement: { slugs: [SLUG], sessionSlugs: { cs_old: [SLUG] } } }), ['1.0.3.2'], 'no sessionReleases');
