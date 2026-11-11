@@ -1,0 +1,45 @@
+{
+  "_comment": "Append-only list of every agreement version buyers could accept, with the SHA-256 of its text and its archived copy. Written by scripts/legal/archive-legal.mjs; checked by tests/legal-archive.test.mjs. Never edit or remove an entry: an amendment is a new version.",
+  "entries": [
+    {
+      "document": "terms",
+      "title": "Terms of Service",
+      "version": "2026-06-13",
+      "sha256": "f0c9f34c055ebb3a24ba5d76671fd735c1b5a2ab005e85b3ecaacf85789a653b",
+      "path": "legal/archive/terms/2026-06-13.html",
+      "source": "public/terms.html",
+      "archivedAt": "2026-11-10T22:25:03.633Z",
+      "note": "Baseline: the text as published on the archive date. The page was edited after its version date without a new version (changes in git history on 2026-09-03, 2026-09-14, 2026-11-07). No live sale has taken place, so no buyer accepted an earlier wording; test-mode acceptance records made before the archive date may refer to earlier text under the same label. Counsel-approved texts are to be published as new versions."
+    },
+    {
+      "document": "licence",
+      "title": "Software & Agent Licence",
+      "version": "2026-06-13",
+      "sha256": "30198a7a97e4226a9ae593bb6a2fe59bb1f8e99816011053438f453ef58cfc1b",
+      "path": "legal/archive/licence/2026-06-13.html",
+      "source": "public/license.html",
+      "archivedAt": "2026-11-10T22:25:03.633Z",
+      "note": "Baseline: the text as published on the archive date. The page was edited after its version date without a new version (changes in git history on 2026-09-03, 2026-11-07). No live sale has taken place, so no buyer accepted an earlier wording; test-mode acceptance records made before the archive date may refer to earlier text under the same label. Counsel-approved texts are to be published as new versions."
+    },
+    {
+      "document": "refund",
+      "title": "Refund Policy",
+      "version": "1.0 (2026-07-09)",
+      "sha256": "00b7c0eaaec38c9e136b46b697329f4af67b6acc8d7f7d0ece3798723aef7c2e",
+      "path": "legal/archive/refund/1.0-2026-07-09.html",
+      "source": "public/refund.html",
+      "archivedAt": "2026-11-10T22:25:03.633Z",
+      "note": "Baseline: the text as published on the archive date. The page was edited after its version date without a new version (changes in git history on 2026-09-06, 2026-09-07, 2026-09-13, 2026-09-14). No live sale has taken place, so no buyer accepted an earlier wording; test-mode acceptance records made before the archive date may refer to earlier text under the same label. Counsel-approved texts are to be published as new versions."
+    },
+    {
+      "document": "privacy",
+      "title": "Privacy Policy",
+      "version": "2026-06-13",
+      "sha256": "31382ce8b3ee722dbb7f1ad82d6b8cf75443c7ee237a7d9047e4844884808242",
+      "path": "legal/archive/privacy/2026-06-13.html",
+      "source": "public/privacy.html",
+      "archivedAt": "2026-11-10T22:25:03.633Z",
+      "note": "Baseline: the text as published on the archive date. The page was edited after its version date without a new version (changes in git history on 2026-09-03, 2026-11-07). No live sale has taken place, so no buyer accepted an earlier wording; test-mode acceptance records made before the archive date may refer to earlier text under the same label. Counsel-approved texts are to be published as new versions."
+    }
+  ]
+}

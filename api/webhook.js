@@ -13,6 +13,13 @@
  *
  * Access = an entitlement record in KV keyed by the buyer's email; the file itself is
  * released by api/download.js (R2) once the buyer opens the /api/success page.
+ *
+ * Orders (lib/orders.js): every session names its order (metadata.order_id). Before anything is granted the session
+ * is checked against the order - product, SKU, release, currency and amount before tax (lib/fulfilment.js) - and a
+ * session that fails is withheld for a manual decision. Each event's facts (paid, refunded, disputed, expired, failed,
+ * VAT ID verified ...) are recorded on the order once, whatever order the events arrive in. The invoice follows the
+ * tax policy recorded on the order at checkout (lib/invoicing.js): a failure to create it is retried by Stripe (the
+ * event claim is released; the session stays fulfilled once), and a refund of an invoiced order gets a credit note.
  */
 
 import Stripe from 'stripe';
@@ -35,8 +42,13 @@ import {
   lapseCertification,
   getCertificationBySubscription,
   bindAcceptance,
+  releaseEventClaim,
 } from '../lib/db.js';
-import { liveFulfilmentWithheld, liveRestoreRefused, productFor, canonicalSlug } from '../lib/products.js';
+import { getOrder, updateOrder, recordOrderEvent, orderIdOf } from '../lib/orders.js';
+import { withheldReason, paidFacts, stripeIds, billingCountryDiffers } from '../lib/fulfilment.js';
+import { ensureInvoice, ensureCreditNote, stripeInvoiceSection } from '../lib/invoicing.js';
+import { classifyBuyer } from '../lib/taxPolicy.js';
+import { liveRestoreRefused, productFor, canonicalSlug } from '../lib/products.js';
 import { releaseVersionForSession } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriodEnd } from '../lib/stripeCompat.js';
@@ -126,26 +138,50 @@ function missingStripeConfig() {
   return missing;
 }
 
+class InvoiceFailure extends Error {}
+
+/** Create or record the order's invoice, once, by the route the order was sold under. */
+async function ensureOrderInvoice(orderId, session, stripe) {
+  const order = await getOrder(orderId);
+  if (!order) return null;
+  const route = order.tax?.invoiceRoute ?? null;
+  if (order.invoice?.status === 'issued') return order.invoice;
+  const section = await ensureInvoice({ route, order, session, stripe });
+  await updateOrder(orderId, (o) => (o.invoice?.status === 'issued' ? null : { ...o, invoice: section }));
+  if (section.status === 'failed') {
+    console.error('[ALERT] invoice not created for order %s (%s, %s); Stripe will retry the event', orderId, section.provider, section.reason);
+  }
+  return section;
+}
+
 /**
  * Grant entitlement (+ partner commission) for a PAID session.
  * Idempotent: claimSession ensures a given session is only fulfilled once, even if both
- * checkout.session.completed and async_payment_succeeded arrive.
+ * checkout.session.completed and async_payment_succeeded arrive. The order facts and the invoice are brought up to
+ * date on every delivery, so a retry after a failed invoice completes it without granting twice.
  * Throws on a KV write failure so the caller can return 500 and let Stripe retry.
  */
-async function fulfillSession(session, eventId) {
-  // Live money unlocks only a release approved for sale (liveFulfilmentWithheld). The check runs
-  // before claimSession, so a withheld session leaves no fulfilment claim behind. The owner refunds
-  // it by hand, from the record written here. A session that already fulfilled (a re-delivery, or a
-  // purchase completed before the rule) is not a new sale, so it is not withheld.
-  const withheld = liveFulfilmentWithheld(session);
+async function fulfillSession(session, eventId, stripe) {
+  const orderId = orderIdOf(session);
+  const order = orderId ? await getOrder(orderId) : null;
+
+  // Live money unlocks only a release approved for sale, and any session must match the order it names (product,
+  // SKU, release, currency, amount before tax). The check runs before claimSession, so a withheld session leaves no
+  // fulfilment claim behind. The owner decides it by hand, from the record written here. A session that already
+  // fulfilled (a re-delivery, or a purchase completed before the rule) is not a new sale, so it is not withheld.
+  const withheld = withheldReason(session, order);
   const buyer = session.customer_details?.email ?? session.metadata?.email;
   if (withheld && !(await sessionAlreadyFulfilled(buyer, session.id, session.metadata?.agent_slug))) {
     try {
       await recordWithheldSale({
-        sessionId: session.id, slug: session.metadata?.agent_slug ?? null, reason: withheld,
+        sessionId: session.id, orderId, slug: session.metadata?.agent_slug ?? null, reason: withheld,
         amountTotal: session.amount_total ?? null, currency: session.currency ?? null,
-        source: 'webhook', eventId,
+        source: 'webhook', eventId, livemode: session.livemode === true,
       });
+      if (order) {
+        await recordOrderEvent(orderId, { sourceId: `withheld:${session.id}`, type: 'fulfilment.withheld',
+          facts: { ...paidFacts(session), withheld: { reason: withheld, at: new Date().toISOString() } }, set: { stripe: stripeIds(session) } });
+      }
     } catch (err) {
       await releaseClaims(eventId, session.id);
       throw new Error('Withheld-sale record write failed');
@@ -153,20 +189,55 @@ async function fulfillSession(session, eventId) {
     return { withheld };
   }
 
-  if (!(await claimSession(session.id))) return { duplicate: 'session' };
+  const result = await grantForSession(session, eventId);
+
+  if (order) {
+    try {
+      await recordOrderEvent(orderId, { sourceId: `paid:${session.id}`, type: 'payment.confirmed',
+        facts: { ...paidFacts(session), countryMismatch: billingCountryDiffers(order, session) }, set: { stripe: stripeIds(session) } });
+      if (result.granted) {
+        await recordOrderEvent(orderId, { sourceId: `fulfilled:${session.id}`, type: 'licence.granted', facts: { fulfilledAt: new Date().toISOString() } });
+      } else if (result.refused) {
+        await recordOrderEvent(orderId, { sourceId: `refused:${session.id}`, type: 'licence.refused', facts: { grantRefused: result.refused } });
+      }
+    } catch (err) {
+      console.error('[webhook] order record update failed:', err?.message ?? err);
+      await releaseEventClaim(eventId);
+      throw new Error('Order record write failed');
+    }
+    let invoice;
+    try {
+      invoice = await ensureOrderInvoice(orderId, session, stripe);
+    } catch (err) {
+      console.error('[webhook] invoice step failed:', err?.message ?? err);
+      invoice = { status: 'failed' };
+    }
+    if (invoice?.status === 'failed') {
+      await releaseEventClaim(eventId);
+      throw new InvoiceFailure('Invoice creation failed');
+    }
+    return { ...result.response, order: orderId, invoice: invoice?.status ?? null };
+  }
+  return result.response;
+}
+
+/** The entitlement, acceptance, certification and commission steps, once per session. */
+async function grantForSession(session, eventId) {
+  if (!(await claimSession(session.id))) return { response: { duplicate: 'session' } };
 
   const email = session.customer_details?.email ?? session.metadata?.email;
   if (!email) {
     console.warn('[webhook] No email on session:', session.id);
-    return { warning: 'no-email' };
+    return { response: { warning: 'no-email' } };
   }
 
   const slug = session.metadata?.agent_slug;
   if (!slug) {
     console.warn('[webhook] No agent_slug on session - entitlement withheld:', session.id);
-    return { warning: 'agent_slug-missing' };
+    return { response: { warning: 'agent_slug-missing' } };
   }
 
+  let refused = null;
   try {
     const entitlement = await grantEntitlement(email, [slug], session.id, { release: releaseVersionForSession(session, productFor(canonicalSlug(slug))) });
     /* Ids only: the stored record holds the buyer's email, and runtime logs are not the place for it. The
@@ -174,6 +245,7 @@ async function fulfillSession(session, eventId) {
      * refuses a session that was already refunded or disputed and returns the old record with `refused`
      * set, so say so instead of claiming a grant that did not happen. */
     if (entitlement?.refused) {
+      refused = entitlement.refused;
       console.warn('[webhook] Entitlement not granted (%s): session %s, %s, event %s', entitlement.refused, session.id, slug, eventId);
     } else {
       console.log('[webhook] Entitlement granted: session %s, %s, event %s', session.id, slug, eventId);
@@ -221,6 +293,7 @@ async function fulfillSession(session, eventId) {
     }
   }
 
+  const granted = !refused;
   const rawCode = session.metadata?.partner ?? '';
   const partnerCode = /^[A-Za-z0-9_-]{1,64}$/.test(rawCode) ? rawCode : null;
   if (rawCode && !partnerCode) {
@@ -231,7 +304,7 @@ async function fulfillSession(session, eventId) {
     const partner = await getPartnerStats(partnerCode).catch(() => null);
     if (!partner) {
       console.warn('[webhook] Unregistered partner code, commission withheld:', partnerCode, session.id);
-      return { commission: 'withheld-unregistered' };
+      return { granted, refused, response: { commission: 'withheld-unregistered' } };
     }
 
     const amountGross = session.amount_total ?? 0;
@@ -245,7 +318,7 @@ async function fulfillSession(session, eventId) {
       });
       if (commission && commission.withheld) {
         console.warn('[webhook] Commission withheld:', commission.withheld, partnerCode, session.id);
-        return { commission: commission.withheld };
+        return { granted, refused, response: { commission: commission.withheld } };
       }
       console.log('[webhook] Partner commission recorded:', commission);
     } catch (err) {
@@ -255,7 +328,55 @@ async function fulfillSession(session, eventId) {
     }
   }
 
-  return { ok: true };
+  return { granted, refused, response: { ok: true } };
+}
+
+/** The order a Checkout Session names, when an event only gave us the session id. */
+async function orderIdForSessionId(stripe, sessionId) {
+  if (!sessionId) return null;
+  try {
+    return orderIdOf(await stripe.checkout.sessions.retrieve(sessionId));
+  } catch {
+    return null;
+  }
+}
+
+/** One credit note per succeeded refund of this charge, for an order whose invoice was issued. */
+async function creditNotesForCharge(stripe, orderId, charge) {
+  const order = await getOrder(orderId);
+  const route = order?.tax?.invoiceRoute ?? null;
+  if (!order || order.invoice?.status !== 'issued' || !route) return { issued: 0, skipped: true };
+  const refunds = [];
+  for await (const r of stripe.refunds.list({ charge: charge.id, limit: 100 })) {
+    if (r.status === 'succeeded') refunds.push({ id: r.id, amount: r.amount });
+  }
+  let issued = 0;
+  let failed = false;
+  for (const refund of refunds) {
+    const current = await getOrder(orderId);
+    const entry = await ensureCreditNote({ route, order: current, refund, stripe });
+    if (entry.skipped) continue;
+    if (entry.status === 'failed') {
+      failed = true;
+      console.error('[ALERT] credit note not created for order %s, refund %s: %s', orderId, refund.id, entry.reason);
+      continue;
+    }
+    await updateOrder(orderId, (o) => ((o.creditNotes ?? []).some((c) => c.refundId === refund.id && c.status === 'issued')
+      ? null : { ...o, creditNotes: [...(o.creditNotes ?? []).filter((c) => c.refundId !== refund.id), entry] }));
+    issued += 1;
+  }
+  return { issued, failed };
+}
+
+/** Record a fact from an event on its order (no order id: nothing to do). A KV failure throws, so the caller answers 500 and Stripe retries. */
+async function noteOnOrder(orderId, update) {
+  if (!orderId) return null;
+  try {
+    return await recordOrderEvent(orderId, update);
+  } catch (err) {
+    console.error('[webhook] order fact not recorded (%s): %s', update.type, err?.message ?? err);
+    throw err;
+  }
 }
 
 export default async function handler(req, res) {
@@ -311,15 +432,59 @@ export default async function handler(req, res) {
     // On completed, only a PAID session fulfils now. Unpaid = pending bank transfer -> wait.
     if (event.type === 'checkout.session.completed' && session.payment_status === 'unpaid') {
       console.log('[webhook] Pending payment (delayed method), awaiting clearance:', session.id, session.payment_status);
+      try {
+        await noteOnOrder(orderIdOf(session), { sourceId: event.id, type: event.type, facts: { paymentPendingAt: new Date().toISOString() }, set: { stripe: stripeIds(session) } });
+      } catch {
+        await releaseEventClaim(event.id);
+        return res.status(500).json({ error: 'Order record write failed' });
+      }
       return res.status(200).json({ received: true, status: 'pending' });
     }
 
     try {
-      const result = await fulfillSession(session, event.id);
+      const result = await fulfillSession(session, event.id, stripe);
       return res.status(200).json({ received: true, ...result });
     } catch (err) {
-      return res.status(500).json({ error: err.message || 'Fulfilment failed' });
+      return res.status(500).json({ error: err.message || 'Fulfilment failed', ...(err instanceof InvoiceFailure ? { retry: 'invoice' } : {}) });
     }
+  }
+
+  // ---- Orders that end without payment ----
+  if (event.type === 'checkout.session.expired') {
+    const session = event.data.object || {};
+    try {
+      await noteOnOrder(orderIdOf(session), { sourceId: event.id, type: event.type, facts: { expiredAt: new Date().toISOString() } });
+    } catch { return res.status(500).json({ error: 'Order record write failed' }); }
+    return res.status(200).json({ received: true, status: 'expired' });
+  }
+
+  // ---- The buyer's VAT ID verification finished (Stripe checks EU VAT against VIES, UK VAT against HMRC) ----
+  if (event.type === 'customer.tax_id.updated' || event.type === 'customer.tax_id.created') {
+    const taxId = event.data.object || {};
+    const customerId = typeof taxId.customer === 'string' ? taxId.customer : taxId.owner?.customer ?? null;
+    if (!customerId) return res.status(200).json({ received: true, tax_id: 'no-customer' });
+    let customer;
+    try {
+      customer = await stripe.customers.retrieve(customerId);
+    } catch (err) {
+      console.error('[webhook] customer lookup for tax ID failed:', err?.message ?? err);
+      return res.status(500).json({ error: 'Customer lookup failed' });
+    }
+    const orderId = orderIdOf(customer);
+    if (!orderId) return res.status(200).json({ received: true, tax_id: 'no-order' });
+    const status = taxId.verification?.status ?? null;
+    try {
+      const order = await noteOnOrder(orderId, {
+        sourceId: event.id, type: event.type,
+        facts: { taxIdVerification: { type: taxId.type ?? null, value: taxId.value ?? null, status, at: new Date().toISOString() } },
+      });
+      if (order) {
+        const verifiedCategory = classifyBuyer({ country: order.buyer?.country, taxId: order.buyer?.taxId, verification: status });
+        const review = order.facts?.paidAt && ['unverified', 'unavailable'].includes(status) ? 'vat_id_not_confirmed_after_payment' : null;
+        await recordOrderEvent(orderId, { sourceId: `${event.id}:category`, type: 'tax.category', set: { tax: { verifiedCategory } }, facts: review ? { taxReview: review } : {} });
+      }
+    } catch { return res.status(500).json({ error: 'Order record write failed' }); }
+    return res.status(200).json({ received: true, tax_id: status ?? 'recorded' });
   }
 
   /* ---- Continuous Certification lifecycle ----
@@ -327,10 +492,21 @@ export default async function handler(req, res) {
    * move the certificate between active / past_due / lapsed. Every branch answers
    * 200 even when no certificate exists, because a subscription created outside
    * this flow (or an invoice for something else) is not an error we can retry away. */
-  if (event.type === 'invoice.paid' || event.type === 'invoice.payment_failed') {
+  if (event.type === 'invoice.paid' || event.type === 'invoice.payment_failed' || event.type === 'invoice.finalized') {
     const inv = event.data.object || {};
     const subId = invoiceSubscriptionId(inv);
-    if (!subId) return res.status(200).json({ received: true, certification: 'no-subscription' });
+    if (!subId) {
+      // A one-off invoice: the post-payment invoice of a Checkout payment names its order in metadata.
+      const orderId = orderIdOf(inv);
+      if (orderId && event.type !== 'invoice.payment_failed') {
+        try {
+          await noteOnOrder(orderId, { sourceId: event.id, type: event.type, set: { invoice: stripeInvoiceSection(inv) } });
+        } catch { return res.status(500).json({ error: 'Order record write failed' }); }
+        return res.status(200).json({ received: true, invoice: 'recorded', order: orderId });
+      }
+      return res.status(200).json({ received: true, certification: 'no-subscription' });
+    }
+    if (event.type === 'invoice.finalized') return res.status(200).json({ received: true });
 
     try {
       if (event.type === 'invoice.paid') {
@@ -373,6 +549,9 @@ export default async function handler(req, res) {
   if (event.type === 'checkout.session.async_payment_failed') {
     const session = event.data.object;
     console.warn('[webhook] Bank transfer failed for session:', session.id);
+    try {
+      await noteOnOrder(orderIdOf(session), { sourceId: event.id, type: event.type, facts: { paymentFailedAt: new Date().toISOString() } });
+    } catch { return res.status(500).json({ error: 'Order record write failed' }); }
     return res.status(200).json({ received: true, status: 'payment_failed' });
   }
 
@@ -405,7 +584,12 @@ export default async function handler(req, res) {
       session?.customer_details?.email || session?.metadata?.email || null;
     const slug = obj.metadata?.agent_slug || session?.metadata?.agent_slug || null;
 
+    const orderId = orderIdOf(obj) || orderIdOf(session) || await orderIdForSessionId(stripe, sessionId);
     try {
+      if (event.type === 'charge.dispute.created' || event.type === 'charge.dispute.closed') {
+        await noteOnOrder(orderId, { sourceId: event.id, type: event.type,
+          facts: { dispute: { id: obj.id ?? null, status: obj.status ?? (event.type === 'charge.dispute.created' ? 'needs_response' : null), reason: obj.reason ?? null, amount: obj.amount ?? null, at: new Date().toISOString() } } });
+      }
       if (event.type === 'charge.dispute.closed') {
         if (obj.status === 'won') {
           const restored = await restoreCommission(sessionId, 'dispute-won');
@@ -444,7 +628,16 @@ export default async function handler(req, res) {
         if (subId) certification = await endCertificationForRefund(stripe, subId, sessionId);
       }
 
-      return res.status(200).json({ received: true, commission: result.state ?? result.reason, ...(certification ? { certification } : {}) });
+      // The order learns the refund, and an invoiced order gets one credit note per Stripe refund.
+      let creditNotes;
+      if (event.type === 'charge.refunded' && orderId) {
+        await noteOnOrder(orderId, { sourceId: event.id, type: event.type,
+          facts: { refunded: { amount: obj.amount_refunded ?? null, full: fullyRefunded, at: new Date().toISOString() } } });
+        creditNotes = await creditNotesForCharge(stripe, orderId, obj);
+        if (creditNotes.failed) return res.status(500).json({ error: 'Credit note creation failed', retry: 'credit_note' });
+      }
+
+      return res.status(200).json({ received: true, commission: result.state ?? result.reason, ...(certification ? { certification } : {}), ...(creditNotes ? { creditNotes: creditNotes.issued } : {}), ...(orderId ? { order: orderId } : {}) });
     } catch (err) {
       console.error('[webhook] Reversal handling failed:', err);
       return res.status(500).json({ error: 'Reversal write failed' });

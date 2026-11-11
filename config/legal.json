@@ -1,30 +1,38 @@
 {
-  "_comment": "Versions of the customer-facing agreements that a buyer accepts at checkout. api/checkout.js shows these documents on the order-confirmation step and writes their versions into the acceptance record and the Stripe session metadata, so every order can later prove which text was accepted. Bump a version here in the same change that edits the page; tests/acceptance.test.mjs fails if a page's own 'Last updated' / 'Effective' line no longer matches. 'certification' is shown only when Continuous Certification sales are switched on (CERTIFICATION_SALES_ENABLED=1, off by default) and the buyer ticks the separate opt-in; its version is recorded with that opt-in.",
+  "_comment": "Versions of the customer-facing agreements that a buyer accepts at checkout. api/checkout.js shows these documents on the order-confirmation step and writes their versions into the acceptance record and the Stripe session metadata, so every order can later prove which text was accepted. Each document also carries sha256 (the fingerprint of its text) and archive (its archived copy under legal/archive/, listed in legal/archive/manifest.json); the acceptance record stores both (lib/legalArchive.js). An amendment is a new version: change the page only with counsel's approval, bump version and pageMarker here in the same change, then run node scripts/legal/archive-legal.mjs; earlier versions stay archived. tests/acceptance.test.mjs fails if a page's 'Last updated' / 'Effective' line no longer matches, and tests/legal-archive.test.mjs fails if a page's text changes without a new version or an archived copy is edited. 'certification' is shown only when Continuous Certification sales are switched on (CERTIFICATION_SALES_ENABLED=1, off by default) and the buyer ticks the separate opt-in; its version is recorded with that opt-in. 'translations' records the state of the localized legal pages, which are not part of the accepted set.",
   "set": "2026-07-09",
   "documents": {
     "terms": {
       "title": "Terms of Service",
       "path": "/terms",
       "version": "2026-06-13",
-      "pageMarker": "Last updated: 13 June 2026"
+      "pageMarker": "Last updated: 13 June 2026",
+      "sha256": "f0c9f34c055ebb3a24ba5d76671fd735c1b5a2ab005e85b3ecaacf85789a653b",
+      "archive": "legal/archive/terms/2026-06-13.html"
     },
     "licence": {
       "title": "Software & Agent Licence",
       "path": "/license",
       "version": "2026-06-13",
-      "pageMarker": "Last updated: 13 June 2026"
+      "pageMarker": "Last updated: 13 June 2026",
+      "sha256": "30198a7a97e4226a9ae593bb6a2fe59bb1f8e99816011053438f453ef58cfc1b",
+      "archive": "legal/archive/licence/2026-06-13.html"
     },
     "refund": {
       "title": "Refund Policy",
       "path": "/refund",
       "version": "1.0 (2026-07-09)",
-      "pageMarker": "Version 1.0 · Effective 9 July 2026"
+      "pageMarker": "Version 1.0 · Effective 9 July 2026",
+      "sha256": "00b7c0eaaec38c9e136b46b697329f4af67b6acc8d7f7d0ece3798723aef7c2e",
+      "archive": "legal/archive/refund/1.0-2026-07-09.html"
     },
     "privacy": {
       "title": "Privacy Policy",
       "path": "/privacy",
       "version": "2026-06-13",
-      "pageMarker": "Last updated: 13 June 2026"
+      "pageMarker": "Last updated: 13 June 2026",
+      "sha256": "31382ce8b3ee722dbb7f1ad82d6b8cf75443c7ee237a7d9047e4844884808242",
+      "archive": "legal/archive/privacy/2026-06-13.html"
     }
   },
   "certification": {
@@ -32,5 +40,19 @@
     "path": "/certified",
     "version": "draft-2026-11-10",
     "status": "awaiting counsel review; certification sales stay off until approved"
+  },
+  "translations": {
+    "acceptedLanguage": "en",
+    "locales": [
+      "cs",
+      "de",
+      "fr",
+      "es",
+      "it",
+      "pl",
+      "pt"
+    ],
+    "status": "out_of_sync",
+    "note": "The order confirmation links only the English pages, and only they are recorded as accepted. The localized Terms still carry the termination clause from before 2026-09-03 (licence rights end on termination) under the same 'Last updated' date, while the English Terms say a paid perpetual licence survives. Which language governs, and the corrected translations, are counsel decisions; the translations are redone from the counsel-approved English texts before live sales."
   }
 }
