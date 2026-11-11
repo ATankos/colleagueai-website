@@ -219,7 +219,8 @@ test('Czech company: confirmation, payment, licence, thank-you page with release
   const page = await thankYou(o.id);
   assert.match(page.body, new RegExp(PRODUCT.release.package.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   assert.match(page.body, new RegExp(PRODUCT.release.sha256));
-  assert.match(page.body, new RegExp(o.orderId));
+  const escapedOrderId = String(o.orderId).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  assert.match(page.body, new RegExp(escapedOrderId));
   assert.match(page.body, /no invoice is issued while invoicing is switched off/);
 });
 
