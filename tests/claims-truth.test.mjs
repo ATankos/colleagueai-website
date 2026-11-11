@@ -60,6 +60,42 @@ for (const [label, files] of [['committed pages', PUBLIC], ['built site', DIST]]
   });
 }
 
+/* F-DOC-1 / LR-09: the released package sends ColleagueAI nothing, so no page may say ColleagueAI processes
+ * "governance-layer metadata" or hosts the customer's audit metadata or audit trail, in any language. */
+const DATA_CLAIMS = [
+  'governance-layer metadata', 'and audit metadata', 'audit trail, entitlements',
+  'metadata governance vrstvy', 'auditní metadata', 'související metadata',
+  'Metadaten der Governance-Schicht', 'Audit-Metadaten', 'zugehörige Metadaten',
+  'métadonnées de la couche de gouvernance', 'métadonnées d\'audit', 'métadonnées associées',
+  'metadatos de la capa de gobernanza', 'metadatos de auditoría', 'metadatos asociados',
+  'metadati del livello di governance', 'metadati di audit', 'relativi metadati',
+  'metadados da camada de governança', 'metadados de auditoria', 'metadados associados',
+  'metadane warstwy governance', 'metadane audytu', 'powiązane metadane',
+];
+const GENERATORS = ['scripts/generate-agent-pages.mjs', 'scripts/i18n-translate-visible-copy.cjs', 'scripts/localize-global-page-copy.cjs']
+  .map((f) => join(ROOT, f));
+const LEGAL_PAGE = /[\\/](terms|license|refund|privacy|ochrana-soukromi|datenschutz|confidentialite|privacidad|prywatnosc|privacidade)(\.html|[\\/]index\.html)$/;
+
+for (const [label, files] of [['committed pages', PUBLIC], ['built site', DIST], ['page generators', GENERATORS]]) {
+  test(`${label}: no page says ColleagueAI processes or hosts customer metadata`, { skip: !files.length && 'run npm run build first' }, () => {
+    const bad = [];
+    for (const f of files.filter((x) => !LEGAL_PAGE.test(x))) {
+      const s = readFileSync(f, 'utf8');
+      for (const phrase of DATA_CLAIMS) if (s.includes(phrase)) bad.push(`${f.slice(ROOT.length)}: "${phrase}"`);
+    }
+    assert.deepEqual(bad, []);
+  });
+}
+
+test('the agents page states what ColleagueAI keeps, in every language', () => {
+  const page = readFileSync(join(ROOT, 'public/agents.html'), 'utf8');
+  for (const phrase of ['ColleagueAI receives none of it and keeps only the records of your order, licence and downloads',
+    'ColleagueAI z něj nic nedostává', 'ColleagueAI erhält davon nichts', 'ColleagueAI n’en reçoit rien', 'ColleagueAI no recibe nada de ello',
+    'ColleagueAI non ne riceve nulla', 'ColleagueAI não recebe nada disso', 'ColleagueAI nie otrzymuje z nich niczego']) {
+    assert.ok(page.includes(phrase), phrase);
+  }
+});
+
 test('the usage page and the Trust Center call the monitor planned', () => {
   const usage = readFileSync(join(ROOT, 'public/usage.html'), 'utf8');
   assert.match(usage, /Planned, not yet available: token-level usage intelligence/);
