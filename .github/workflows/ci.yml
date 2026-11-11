@@ -90,6 +90,9 @@ jobs:
       - name: Shipped open-source packages stay under permissive licences
         run: node --test tests/licence-inventory.test.mjs
 
+      - name: Test-only code stays off main (no do-not-merge markers, no branch-name switches in api/ and lib/)
+        run: node --test tests/no-temporary-code.test.mjs
+
       # Licence-only launch: certification is opt-in and its sales gate is off by default.
       - name: Continuous Certification is opt-in and gated (no subscription without a ticked box and an open gate)
         run: node --test tests/certification-gate.test.mjs
