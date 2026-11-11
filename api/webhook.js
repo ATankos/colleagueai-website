@@ -358,7 +358,7 @@ async function creditNotesForCharge(stripe, orderId, charge) {
     if (entry.skipped) continue;
     if (entry.status === 'failed') {
       failed = true;
-      console.error('[ALERT] credit note not created for order %s, refund %s: %s', orderId, refund.id, entry.reason);
+      console.error('[ALERT] credit note not created for order %s, refund %s: %s %s', orderId, refund.id, entry.reason, entry.detail ?? '');
       continue;
     }
     await updateOrder(orderId, (o) => ((o.creditNotes ?? []).some((c) => c.refundId === refund.id && c.status === 'issued')
