@@ -87,6 +87,11 @@ jobs:
       - name: Every paid session has the order state and licence its payment calls for (missed-webhook check)
         run: node --test tests/fulfilment-check.test.mjs
 
+      # Corrective release candidate 1.0.3.5 (D-ET-1): the Effective terms flow must not fail on an extracted duration
+      # without a leading number, and a failed run must leave the contract NOT VERIFIED and reported, never silent.
+      - name: Effective terms 1.0.3.5 candidate (duration parsing cannot fail the run; failures are marked and reported)
+        run: node --test tests/cai-release-1035.test.mjs
+
       - name: Accepted agreements are provable word for word (fingerprints, append-only archive, no silent edits)
         run: node --test tests/legal-archive.test.mjs
 
