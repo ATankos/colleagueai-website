@@ -471,7 +471,7 @@ test('missing or wrong release package: the download refuses with a clear answer
   storage.__setBlobSdkForTests(sdk(async () => ({ size: PRODUCT.release.bytes })));
   const good = await run();
   assert.equal(good.statusCode, 302);
-  assert.match(good.headers.location, new RegExp(`agents/${SLUG}/${PRODUCT.release.package.replace(/\./g, '\\.')}`));
+  assert.match(good.headers.location, new RegExp(`agents/${SLUG}/${PRODUCT.release.package.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
 });
 
 test('corrective release: a purchase of withdrawn 1.0.3.2 (made before order ids) is offered 1.0.3.4, never the missing package', async () => {
