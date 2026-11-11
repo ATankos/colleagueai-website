@@ -89,6 +89,10 @@ function stripeReply(req, raw) {
   if (req.method === 'GET' && p.startsWith('/v1/invoices/')) return [200, invoices.get(p.split('/').pop()) ?? {}];
   if (req.method === 'GET' && p === '/v1/invoice_payments') return [200, { object: 'list', data: [], has_more: false }];
   if (req.method === 'GET' && p === '/v1/refunds') return [200, { object: 'list', data: refunds.get(url.searchParams.get('charge')) ?? [], has_more: false }];
+  if (req.method === 'POST' && p === '/v1/credit_notes' && !['amount', 'lines[0][type]', 'shipping_cost[shipping_rate]'].some((k) => params.has(k))) {
+    // As Stripe answers (seen in the sandbox on 11 Nov 2026): a credit note needs amount, lines or shipping_cost.
+    return [400, { error: { type: 'invalid_request_error', code: 'parameter_missing', param: 'amount or lines or shipping_cost', message: 'Missing required param: amount or lines or shipping_cost.' } }];
+  }
   if (req.method === 'POST' && p === '/v1/credit_notes') return [200, { id: `cn_j${++seq}`, object: 'credit_note', number: `CN-${seq}`, pdf: 'https://pay.stripe.test/cn.pdf' }];
   return [404, { error: { message: `unhandled ${req.method} ${p}` } }];
 }
@@ -393,6 +397,7 @@ test('refund with a credit note (Stripe invoice route): access revoked, order re
   assert.equal(cn.length, 1);
   assert.equal(cn[0].params.get('refunds[0][refund]'), 're_j1');
   assert.equal(cn[0].params.get('invoice'), 'in_j1');
+  assert.equal(cn[0].params.get('amount'), String(PRICE), 'the credit note total equals the refund');
   assert.ok(!(await entitlement(b.email)).slugs.includes(SLUG), 'the refunded licence is revoked');
   assert.match((await thankYou(o.id)).body, /refunded/);
 });

@@ -49,6 +49,9 @@ function fakeStripe({ invoice, failRetrieve = false, failCredit = false } = {}) 
       create: async (params, opts) => {
         calls.push(['creditNotes.create', params, opts]);
         if (failCredit) throw new Error('credit note refused');
+        if (params.amount == null && params.lines == null && params.shipping_cost == null) {
+          throw new Error('Missing required param: amount or lines or shipping_cost.');
+        }
         return { id: 'cn_1', number: 'INV-0001-CN-01', pdf: 'https://pay.stripe.test/cn_1.pdf' };
       },
     },
@@ -112,9 +115,10 @@ test('credit notes: one per refund, linked to the Stripe refund, only for an iss
   assert.equal(cn.number, 'INV-0001-CN-01');
   const [, params, opts] = stripe.calls[0];
   assert.deepEqual(params.refunds, [{ refund: 're_1', amount_refunded: 1490000 }]);
+  assert.equal(params.amount, 1490000, 'Stripe requires amount, lines or shipping_cost; the total equals the linked refund');
   assert.equal(params.invoice, 'in_1');
   assert.equal(params.metadata.order_id, ORDER.id);
-  assert.equal(opts.idempotencyKey, 'credit-note-re_1', 'a retried event cannot create a second credit note');
+  assert.equal(opts.idempotencyKey, 'credit-note-v2-re_1-1490000', 'a retried event cannot create a second credit note; v2 never reuses a key whose v1 request Stripe rejected');
   assert.deepEqual(await inv.ensureCreditNote({ route: 'stripe', order: { ...ORDER, invoice: issued, creditNotes: [cn] }, refund: { id: 're_1', amount: 1490000 }, stripe }), { skipped: 'already_issued' });
   assert.deepEqual(await inv.ensureCreditNote({ route: 'stripe', order: ORDER, refund: { id: 're_2', amount: 100 }, stripe }), { skipped: 'no_invoice' });
   const failed = await inv.ensureCreditNote({ route: 'stripe', order: { ...ORDER, invoice: issued }, refund: { id: 're_3', amount: 100 }, stripe: fakeStripe({ failCredit: true }) });
