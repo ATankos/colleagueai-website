@@ -78,7 +78,8 @@ function mockRes() {
 
 const GOOD_FORM = {
   agent: SLUG, method: 'card', cert: '0', lang: 'en',
-  company: 'Example Industries s.r.o.', name: 'Jana Nováková',
+  company: 'Example Industries s.r.o.', name: 'Jana Nováková', role: 'Managing Director',
+  country: 'CZ', email: 'jana.novakova@example.test',
   authority: 'on', terms: 'on', delivery: 'on', legal_set: LEGAL.set,
 };
 
