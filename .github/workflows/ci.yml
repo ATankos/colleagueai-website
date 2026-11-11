@@ -84,6 +84,12 @@ jobs:
       - name: Whole purchase in the sandbox scenarios (verified payment, one licence, invoice retry, refund and credit note, disputes, missing package)
         run: node --test tests/purchase-journey.test.mjs
 
+      - name: Accepted agreements are provable word for word (fingerprints, append-only archive, no silent edits)
+        run: node --test tests/legal-archive.test.mjs
+
+      - name: Shipped open-source packages stay under permissive licences
+        run: node --test tests/licence-inventory.test.mjs
+
       # Licence-only launch: certification is opt-in and its sales gate is off by default.
       - name: Continuous Certification is opt-in and gated (no subscription without a ticked box and an open gate)
         run: node --test tests/certification-gate.test.mjs

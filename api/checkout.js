@@ -61,7 +61,7 @@ import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug, isLiveKey } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recordAcceptance, bindAcceptance } from '../lib/db.js';
-import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
+import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, legalDocuments, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
 import { newOrderId, createOrder, recordOrderEvent } from '../lib/orders.js';
 import { policyFor, liveTaxBlocked, treatmentFor, checkoutTaxParams, invoiceRoute } from '../lib/taxPolicy.js';
 
@@ -281,7 +281,7 @@ export default async function handler(req, res) {
   let acceptance;
   try {
     acceptance = await recordAcceptance({
-      legalSet: LEGAL_SET, legalVersions: legalVersionString(),
+      legalSet: LEGAL_SET, legalVersions: legalVersionString(), legalDocuments: legalDocuments(),
       agentSlug: slug, sku: product?.sku ?? null, release: product?.release?.version ?? null, tier,
       currency, priceCents: cents,
       // The recurring commitment the buyer opted into, with the terms version shown next to the box.
@@ -304,7 +304,7 @@ export default async function handler(req, res) {
       price: { currency, unitAmount: cents, quantity: 1 },
       certification: withCert ? { interval: certInterval, unitAmount: certUnit } : null,
       buyer,
-      acceptance: { id: acceptance.id, legalSet: LEGAL_SET, legalVersions: legalVersionString(), acceptedAt: acceptance.acceptedAt },
+      acceptance: { id: acceptance.id, legalSet: LEGAL_SET, legalVersions: legalVersionString(), documents: legalDocuments(), acceptedAt: acceptance.acceptedAt },
       payment: { lane: includesBank ? (paymentMethodTypes.length === 1 ? 'bank' : 'any') : 'card' },
       tax: {
         policyVersion: treatment.policyVersion, policyStatus: treatment.policyStatus, category: treatment.category,
