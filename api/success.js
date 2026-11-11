@@ -21,7 +21,7 @@ import Stripe from 'stripe';
 import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
 import { productFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
-import { getOrder, recordOrderEvent, orderIdOf } from '../lib/orders.js';
+import { getOrder, recordOrderEvent, orderIdOf, orderStatus } from '../lib/orders.js';
 import { withheldReason, paidFacts, stripeIds, billingCountryDiffers } from '../lib/fulfilment.js';
 import { releaseVersionForSession, releaseForBoughtVersion } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
@@ -310,9 +310,12 @@ export default async function handler(req, res) {
   }
 
   if (granted?.refused) {
+    // A charge-back is not a refund: the buyer is told which one happened (F-UX-1). Only the wording differs; either
+    // way nothing is granted. Without an order record (purchases from before order ids) the refund wording stays.
+    const k = order && ['disputed', 'dispute_lost'].includes(orderStatus(order)) ? 'disputed' : 'refunded';
     return res.status(200).send(page({
-      lang, title: t('t_refunded'), status: 'warn', eyebrow: t('refunded_eyebrow'), heading: t('refunded_h'),
-      lede: t('refunded_lede', { product: strong(label), email: mailLink() }), chips: emailChip,
+      lang, title: t(`t_${k}`), status: 'warn', eyebrow: t(`${k}_eyebrow`), heading: t(`${k}_h`),
+      lede: t(`${k}_lede`, { product: strong(label), email: mailLink() }), chips: emailChip,
     }));
   }
 

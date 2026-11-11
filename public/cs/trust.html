@@ -516,7 +516,7 @@ display: flex !important;
 <p class="note">Aktuální katalog je dodáván na stupních L2-L4. Agenti L4 vyžadují před spuštěním souhlas vedení. Klasifikace přiděluje Colleague AI v rámci tohoto rámce; zatím není zapojen žádný externí posuzovatel a netvrdíme, že máme atestace třetích stran, které nemáme.</p>
 
 <h2 id="data">Architektura: kde agenti běží a kde zůstávají data</h2>
-<p>Agenti běží ve vašem vlastním prostředí Microsoft Copilot Studio, Power Automate a Azure: váš tenant, váš model identity, vaše datová hranice. Colleague AI hostuje pouze řídicí rovinu governance: skóre, zásady a auditní metadata. Na naší straně se nezpracovávají žádná obchodní data zákazníka. Každá akce agenta ve vašem tenantu je protokolována, opatřena časovým razítkem a přiřaditelná.</p>
+<p>Agenti běží ve vašem vlastním prostředí Microsoft Copilot Studio, Power Automate a Azure: váš tenant, váš model identity, vaše datová hranice. Colleague AI nehostuje žádná data vašich agentů: jejich skóre, zásady a auditní důkazy zůstávají ve vašem prostředí. Na naší straně se nezpracovávají žádná obchodní data zákazníka. Každá akce agenta ve vašem tenantu je protokolována, opatřena časovým razítkem a přiřaditelná.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
   <h3>Doklady připravenosti pro podnikové nasazení</h3>
   <p>ColleagueAI je pozicováno jako vrstva řízených balíčků agentů, nikoli jako sdílený SaaS pracovní prostor pro obchodní obsah zákazníka. Při standardním podnikovém nasazení zákazník kontroluje tenant, hranici identity, zdroje dat, koncový bod modelu, konfiguraci runtime a auditní důkazy.</p>

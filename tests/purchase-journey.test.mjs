@@ -416,6 +416,12 @@ test('chargeback before the payment confirmation: the late confirmation grants n
   assert.equal(ord.facts.grantRefused, 'session-revoked');
   assert.equal(ord.facts.fulfilledAt, undefined);
   assert.ok(!((await entitlement(b.email))?.slugs ?? []).includes(SLUG));
+  // F-UX-1: the thank-you page names a charge-back as a dispute, not as a refund, and still offers no download.
+  const page = (await thankYou(o.id)).body;
+  assert.match(page, /Payment disputed/);
+  assert.match(page, /disputed with the card issuer/);
+  assert.doesNotMatch(page, /refunded/i);
+  assert.doesNotMatch(page, /Download package/);
 });
 
 test('dispute resolution: won restores access and the order; lost leaves it revoked', async () => {
@@ -427,6 +433,7 @@ test('dispute resolution: won restores access and the order; lost leaves it revo
   await deliver('charge.dispute.created', { ...dp, status: 'needs_response' });
   assert.equal((await order(o.orderId)).status, 'disputed');
   assert.ok(!(await entitlement(b.email)).slugs.includes(SLUG));
+  assert.match((await thankYou(o.id)).body, /This payment is <em>disputed\.<\/em>/, 'an open dispute is not called a refund');
   const won = await deliver('charge.dispute.closed', { ...dp, status: 'won' });
   assert.equal(won.body.access, 'restored');
   assert.equal((await order(o.orderId)).status, 'fulfilled');
@@ -534,4 +541,42 @@ test('Continuous Certification stays unavailable: a link or a form asking for it
   assert.ok(!stripeCalls.some((c) => c.path === '/v1/checkout/sessions'));
   const plain = await placeOrder(BUYERS.cz);
   assert.equal(plain.params.get('mode'), 'payment', 'the licence alone is a one-time payment');
+});
+
+test('missed webhook and no return visit: the fulfilment check reports the paid order; delivering the event clears it', async () => {
+  const { checkFulfilment } = await import('../lib/fulfilmentCheck.js');
+  const run = async (list) => {
+    const ords = new Map(); const ents = new Map(); const held = new Map();
+    for (const x of list) {
+      ords.set(x.metadata.order_id, await order(x.metadata.order_id));
+      ents.set(x.customer_details.email, await entitlement(x.customer_details.email));
+      held.set(x.id, await db.getJson(`sale-withheld:${x.id}`));
+    }
+    return checkFulfilment({ sessions: list, orders: ords, entitlements: ents, withheld: held });
+  };
+  // Paid on Stripe's page, but the webhook never arrives and the buyer never reopens the thank-you link.
+  const b = { ...BUYERS.de, email: 'missed-webhook@beispiel.example' };
+  const o = await placeOrder(b);
+  const s = finished(o, b);
+  let r = await run([s]);
+  assert.equal(r.problems, 1);
+  assert.equal(r.rows[0].problem, 'paid_not_licensed');
+  assert.equal(r.rows[0].orderId, o.orderId);
+  // A bank transfer still on its way is listed for information but is not a problem.
+  const b2 = { ...BUYERS.cz, email: 'transfer-pending@vzorova.example' };
+  const o2 = await placeOrder(b2, { method: 'bank' });
+  const s2 = finished(o2, b2, { payment_status: 'unpaid' });
+  r = await run([s, s2]);
+  assert.deepEqual(r.rows.map((x) => x.problem), ['paid_not_licensed', 'awaiting_payment']);
+  assert.equal(r.problems, 1);
+  // The event arrives (a Stripe retry, or a manual resend): the licence is granted and the check is clean.
+  assert.equal((await deliver('checkout.session.completed', s)).status, 200);
+  r = await run([s]);
+  assert.deepEqual(r.rows, []);
+  // After a full refund the licence is gone and the order says refunded: still clean, nothing to do.
+  refunds.set(`ch_${o.id}`, [{ id: 're_mw1', object: 'refund', amount: PRICE, status: 'succeeded' }]);
+  assert.equal((await deliver('charge.refunded', charge(s, { amount_refunded: PRICE, refunded: true }))).status, 200);
+  r = await run([s]);
+  assert.deepEqual(r.rows, []);
+  assert.equal((await order(o.orderId)).status, 'refunded');
 });

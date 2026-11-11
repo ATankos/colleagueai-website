@@ -516,7 +516,7 @@ display: flex !important;
 <p class="note">Bieżący katalog jest dostarczany na poziomach L2-L4. Agenci L4 wymagają zgody kierownictwa przed uruchomieniem. Klasyfikacje przydziela Colleague AI w ramach tych ram; nie zaangażowano jeszcze żadnego zewnętrznego oceniającego i nie twierdzimy, że posiadamy atestacje stron trzecich, których nie mamy.</p>
 
 <h2 id="data">Architektura: gdzie działają agenci i gdzie pozostają dane</h2>
-<p>Agenci działają w Twoim własnym środowisku Microsoft Copilot Studio, Power Automate i Azure: Twój tenant, Twój model tożsamości, Twoja granica danych. Colleague AI hostuje wyłącznie warstwę sterowania governance: oceny, zasady i metadane audytu. Po naszej stronie nie są przetwarzane żadne dane biznesowe klienta. Każde działanie agenta w Twoim tenancie jest rejestrowane, opatrzone znacznikiem czasu i przypisywalne.</p>
+<p>Agenci działają w Twoim własnym środowisku Microsoft Copilot Studio, Power Automate i Azure: Twój tenant, Twój model tożsamości, Twoja granica danych. Colleague AI nie hostuje żadnych danych Twoich agentów: ich oceny, zasady i dowody audytowe pozostają w Twoim środowisku. Po naszej stronie nie są przetwarzane żadne dane biznesowe klienta. Każde działanie agenta w Twoim tenancie jest rejestrowane, opatrzone znacznikiem czasu i przypisywalne.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
   <h3>Dowody gotowości wdrożenia korporacyjnego</h3>
   <p>ColleagueAI jest pozycjonowane jako warstwa nadzorowanych pakietów agentów, a nie współdzielony obszar roboczy SaaS dla treści biznesowych klienta. W standardowym wdrożeniu korporacyjnym klient kontroluje tenant, granicę tożsamości, źródła danych, punkt końcowy modelu, konfigurację środowiska uruchomieniowego i dowody audytu.</p>
