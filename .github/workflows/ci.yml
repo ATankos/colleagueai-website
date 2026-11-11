@@ -74,6 +74,13 @@ jobs:
       - name: Buyer identification and one order id across checkout, Stripe and the acceptance record
         run: node --test tests/order-record.test.mjs
 
+      # Live checkout stays closed while config/tax-policy.json is unapproved; no tax rule lives in code.
+      - name: Tax policy cannot be acted on before the accountant approves it
+        run: node --test tests/tax-policy.test.mjs
+
+      - name: Invoice and credit-note adapters are idempotent and fail closed; payouts reconcile to orders
+        run: node --test tests/invoicing.test.mjs
+
       # Licence-only launch: certification is opt-in and its sales gate is off by default.
       - name: Continuous Certification is opt-in and gated (no subscription without a ticked box and an open gate)
         run: node --test tests/certification-gate.test.mjs
