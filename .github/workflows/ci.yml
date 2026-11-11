@@ -84,6 +84,9 @@ jobs:
       - name: Whole purchase in the sandbox scenarios (verified payment, one licence, invoice retry, refund and credit note, disputes, missing package)
         run: node --test tests/purchase-journey.test.mjs
 
+      - name: Every paid session has the order state and licence its payment calls for (missed-webhook check)
+        run: node --test tests/fulfilment-check.test.mjs
+
       - name: Accepted agreements are provable word for word (fingerprints, append-only archive, no silent edits)
         run: node --test tests/legal-archive.test.mjs
 
