@@ -201,7 +201,7 @@ jobs:
       # switched on" does not: golive.spec.js asserts a configured Stripe price,
       # which is false by design while COMMERCIAL_LAUNCH_ENABLED is off. Mixing
       # the two would mean a permanent red X that everyone learns to ignore.
-      - name: Playwright e2e — site health, nav, locales, back-to-top
+      - name: Playwright e2e — site health, nav, locales, back-to-top, business order on desktop and phone
         run: npm run e2e:site
 
       - name: Go-live readiness (informational until commerce is enabled)
