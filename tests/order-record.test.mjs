@@ -244,3 +244,17 @@ test('order facts are applied once per source and the status follows the facts, 
   const refunded = orders.applyOnce(won, { sourceId: 'evt_r', facts: { refunded: { amount: 1490000, full: true } } });
   assert.equal(orders.orderStatus(refunded), 'refunded');
 });
+
+test('roles and company names written the way buyers write them are accepted; markup is not', async () => {
+  const { validateAcceptance } = await import('../lib/acceptance.js');
+  const LEGAL_SET = JSON.parse(readFileSync(new URL('config/legal.json', ROOT), 'utf8')).set;
+  const base = { company: 'Vzorová Průmyslová a.s.', country: 'CZ', email: 'nakup@vzorova.example', name: 'Jana Nováková', authority: 'on', terms: 'on', delivery: 'on', legal_set: LEGAL_SET };
+  for (const role of ['Jednatel (CEO)', 'Director (Finance)', 'Head of Procurement', 'CFO', 'Director, Finance & Ops', 'Prokurist/in']) {
+    const r = validateAcceptance({ ...base, role });
+    assert.ok(r.ok, `${role}: ${JSON.stringify(r.errors)}`);
+    assert.equal(r.value.buyer.signatory.role, role);
+  }
+  for (const role of ['', '(CEO)', '<b>CEO</b>', 'CEO"; DROP', 'x'.repeat(61)]) {
+    assert.ok(!validateAcceptance({ ...base, role }).ok, `${role} refused`);
+  }
+});
