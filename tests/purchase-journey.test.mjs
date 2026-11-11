@@ -42,6 +42,14 @@ function kvReply(cmd, args) {
   }
 }
 
+/**
+ * metadata[...] form fields as an object. Built with Object.fromEntries, which defines own properties, so a key such
+ * as "__proto__" in a request can never write to a prototype.
+ */
+const metadataOf = (params) => Object.fromEntries(
+  [...params].map(([k, v]) => [k.match(/^metadata\[([^\]]+)\]$/)?.[1], v]).filter(([k]) => k),
+);
+
 // ── fake Stripe ─────────────────────────────────────────────────────────────────────────────────────────────────
 const stripeCalls = [];
 const sessions = new Map();       // id -> session object served by GET
@@ -60,8 +68,7 @@ function stripeReply(req, raw) {
   if (req.method === 'POST' && p === '/v1/customers') {
     if (customerMode === 'tax_id_invalid') return [400, { error: { type: 'invalid_request_error', code: 'tax_id_invalid', param: 'tax_id_data[0][value]', message: 'Invalid value.' } }];
     const id = `cus_j${++seq}`;
-    const metadata = {};
-    for (const [k, v] of params) { const m = k.match(/^metadata\[(.+)\]$/); if (m) metadata[m[1]] = v; }
+    const metadata = metadataOf(params);
     customers.set(id, { id, object: 'customer', metadata, name: params.get('name'), email: params.get('email') });
     return [200, customers.get(id)];
   }
@@ -163,8 +170,7 @@ async function placeOrder(buyer, extra = {}) {
   const call = [...stripeCalls].reverse().find((c) => c.path === '/v1/checkout/sessions' && c.method === 'POST');
   if (res.statusCode !== 303) return { res };
   const id = res.headers.location.split('/').pop();
-  const metadata = {};
-  for (const [k, v] of call.params) { const m = k.match(/^metadata\[(.+)\]$/); if (m) metadata[m[1]] = v; }
+  const metadata = metadataOf(call.params);
   return { res, id, metadata, params: call.params, orderId: metadata.order_id, customer: call.params.get('customer') };
 }
 /** The session object Stripe would hold once the buyer finished the hosted page. */
