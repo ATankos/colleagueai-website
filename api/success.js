@@ -10,12 +10,19 @@
  *
  * Needs STRIPE_SECRET_KEY (+ KV for entitlements). DOWNLOAD_TOKEN_SECRET is optional:
  * if set, the download link is signed; if not, it is a plain entitlement-gated link.
+ *
+ * The session is checked against its order exactly as the webhook checks it (lib/fulfilment.js withheldReason): a
+ * session that does not match its order's product, SKU, release, currency or amount is shown as under review and
+ * grants nothing. The page shows the order number and the invoice as the order records it; it never creates an
+ * invoice itself (the webhook does, once), so two tabs cannot number two invoices.
  */
 
 import Stripe from 'stripe';
 import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '../lib/db.js';
 import { signDownload } from '../lib/downloadToken.js';
-import { productFor, packageFile, packageDeliverable, canonicalSlug, liveFulfilmentWithheld } from '../lib/products.js';
+import { productFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
+import { getOrder, recordOrderEvent, orderIdOf } from '../lib/orders.js';
+import { withheldReason, paidFacts, stripeIds, billingCountryDiffers } from '../lib/fulfilment.js';
 import { releaseVersionForSession, releaseForBoughtVersion } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recoverHint } from '../lib/recovery.js';
@@ -157,6 +164,27 @@ export function deliveryHtml(email, slug, lang = 'en', release = undefined) {
     `</ol>${docsNote}</section>`;
 }
 
+/** The invoice block for a paid order, as the order record has it now. */
+export function invoiceHtml(order, email, lang = 'en') {
+  if (!order) return '';
+  const t = (k, v) => ot(lang, k, v);
+  const inv = order.invoice || {};
+  let body;
+  if (inv.status === 'issued' && inv.provider === 'sandbox_ledger') {
+    body = `<p class="o-text">${esc(t('inv_test', { number: inv.number }))}</p>`;
+  } else if (inv.status === 'issued') {
+    const links = [inv.hostedUrl ? `<a class="o-btn o-btn-s" href="${esc(inv.hostedUrl)}" rel="noopener">${esc(t('inv_view'))}</a>` : '',
+      inv.pdfUrl ? `<a class="o-btn o-btn-s" href="${esc(inv.pdfUrl)}" rel="noopener">${esc(t('inv_pdf'))}</a>` : ''].join('');
+    body = `<p class="o-text">${esc(t('inv_issued', { number: inv.number || inv.id || '' }))}</p>${links ? `<div class="o-actions">${links}</div>` : ''}`;
+  } else if (!order.tax?.invoiceRoute) {
+    body = `<p class="o-text">${esc(t('inv_off'))}</p>`;
+  } else {
+    body = `<p class="o-text">${t('inv_pending', { email: strong(email) })}</p>`;
+  }
+  return `<section class="o-grid o-single"><article class="o-card o-invoice"><h2>${esc(t('inv_h'))}</h2>` +
+    `<dl><dt>${esc(t('chip_order'))}</dt><dd><code>${esc(order.id)}</code></dd></dl>${body}</article></section>`;
+}
+
 /** The release record to offer for a fulfilled purchase: the release it bought, or the newest corrective release of
  *  it (1.0.3.4 for a 1.0.3.2 purchase); undefined (current release) for a product with no release history. */
 export function boughtRelease(entitlement, session, slug) {
@@ -197,12 +225,24 @@ export default async function handler(req, res) {
     return res.status(404).send(noticePage(lang, 't_notfound', 'nf_h', 'nf_p', { email: mailLink() }));
   }
 
+  const orderId = orderIdOf(session);
+  let order = null;
+  if (orderId) {
+    try { order = await getOrder(orderId); } catch (err) { console.error('[success] order read failed:', err && err.message ? err.message : err); }
+  }
   const email = session.customer_details?.email || session.metadata?.email || '';
   // Sessions created before a product rename carry the retired slug; serve them under the current one.
   const slug = canonicalSlug(session.metadata?.agent_slug || '');
   const paid = session.payment_status === 'paid';
   const label = productNames(slug).name || t('your_agent');
-  const emailChip = email ? [`${esc(t('chip_email'))} <b>${esc(email)}</b>`] : [];
+  const emailChip = [...(email ? [`${esc(t('chip_email'))} <b>${esc(email)}</b>`] : []), ...(orderId ? [`${esc(t('chip_order'))} <b>${esc(orderId)}</b>`] : [])];
+
+  if (!paid && (order?.facts?.paymentFailedAt || session.status === 'expired')) {
+    return res.status(200).send(page({
+      lang, title: t('t_failed'), status: 'warn', eyebrow: t('failed_eyebrow'), heading: t('failed_h'),
+      lede: t('failed_lede', { product: strong(label), agents: `<a href="${AGENTS_PATH[lang]}">${esc(t('off_link'))}</a>` }), chips: emailChip,
+    }));
+  }
 
   if (!paid) {
     return res.status(200).send(page({
@@ -222,19 +262,26 @@ export default async function handler(req, res) {
   // would grant what the webhook withholds. Same rule, same record, same notice to the buyer. A purchase
   // that already fulfilled (completed before the rule, or granted by the webhook) is not a new sale: it is
   // granted as before, so reopening the thank-you link keeps the download.
-  const withheld = liveFulfilmentWithheld(session);
+  const withheld = withheldReason(session, order);
   if (withheld && !(await alreadyFulfilled(email, session.id, slug))) {
     try {
       await recordWithheldSale({
-        sessionId: session.id, slug, reason: withheld,
+        sessionId: session.id, orderId, slug, reason: withheld, livemode: session.livemode === true,
         amountTotal: session.amount_total ?? null, currency: session.currency ?? null, source: 'success',
       });
     } catch (err) {
       console.error('[success] withheld-sale record failed:', err && err.message ? err.message : err);
     }
+    // The two live-sale gates keep their notice; a session that does not match its order is shown as under review.
+    if (withheld === 'not-approved-for-sale' || withheld === 'no-payment-taken') {
+      return res.status(200).send(page({
+        lang, title: t('t_received'), status: 'warn', eyebrow: t('recv_eyebrow'), heading: t('grant_h'),
+        lede: t('grant_lede', { product: strong(label), email: mailLink() }), chips: emailChip,
+      }));
+    }
     return res.status(200).send(page({
-      lang, title: t('t_received'), status: 'warn', eyebrow: t('recv_eyebrow'), heading: t('grant_h'),
-      lede: t('grant_lede', { product: strong(label), email: mailLink() }), chips: emailChip,
+      lang, title: t('t_review'), status: 'pending', eyebrow: t('review_eyebrow'), heading: t('review_h'),
+      lede: t('review_lede', { product: strong(label), email: mailLink(), order: `<code>${esc(orderId || session.id)}</code>` }), chips: emailChip,
     }));
   }
 
@@ -251,6 +298,17 @@ export default async function handler(req, res) {
     }));
   }
 
+  // The order learns the payment and the grant, once each (the webhook records the same facts under the same ids).
+  if (order && !granted?.refused) {
+    try {
+      await recordOrderEvent(order.id, { sourceId: `paid:${session.id}`, type: 'payment.confirmed',
+        facts: { ...paidFacts(session), countryMismatch: billingCountryDiffers(order, session) }, set: { stripe: stripeIds(session) } });
+      order = await recordOrderEvent(order.id, { sourceId: `fulfilled:${session.id}`, type: 'licence.granted', facts: { fulfilledAt: new Date().toISOString() } }) || order;
+    } catch (err) {
+      console.error('[success] order record update failed:', err && err.message ? err.message : err);
+    }
+  }
+
   if (granted?.refused) {
     return res.status(200).send(page({
       lang, title: t('t_refunded'), status: 'warn', eyebrow: t('refunded_eyebrow'), heading: t('refunded_h'),
@@ -263,6 +321,6 @@ export default async function handler(req, res) {
     lede: t(packageFile(slug) ? 'paid_lede_pkg' : 'paid_lede_doc', { product: strong(label) }),
     // recoverHint is empty unless the owner has switched recovery on and it can work, so the page is unchanged until then.
     // The release this purchase bought, as first recorded for it: a newer release published since does not replace it.
-    chips: emailChip, body: deliveryHtml(email, slug, lang, boughtRelease(granted, session, slug)) + recoverHint(lang),
+    chips: emailChip, body: deliveryHtml(email, slug, lang, boughtRelease(granted, session, slug)) + invoiceHtml(order, email, lang) + recoverHint(lang),
   }));
 }

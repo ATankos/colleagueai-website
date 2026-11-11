@@ -147,6 +147,12 @@ test('a valid order: one order id in the order record, the acceptance record, th
   assert.equal(acc.orderId, order.id);
   assert.equal(order.acceptance.id, acc.id);
   assert.equal(order.acceptance.legalSet, LEGAL.set);
+  // Per document: the version, the fingerprint of its text and its archived copy (lib/legalArchive.js).
+  for (const [k, d] of Object.entries(LEGAL.documents)) {
+    assert.deepEqual(acc.legalDocuments[k], { version: d.version, sha256: d.sha256, archive: d.archive }, k);
+    assert.match(d.sha256, /^[0-9a-f]{64}$/);
+  }
+  assert.deepEqual(order.acceptance.documents, acc.legalDocuments, 'the order names the same texts as the acceptance');
   assert.deepEqual(order.buyer, {
     company: 'Vzorová Průmyslová a.s.', registrationNumber: '12345678', country: 'CZ',
     taxId: { value: 'CZ12345678', type: 'eu_vat' },
@@ -237,4 +243,18 @@ test('order facts are applied once per source and the status follows the facts, 
   assert.equal(orders.orderStatus(won), 'fulfilled');
   const refunded = orders.applyOnce(won, { sourceId: 'evt_r', facts: { refunded: { amount: 1490000, full: true } } });
   assert.equal(orders.orderStatus(refunded), 'refunded');
+});
+
+test('roles and company names written the way buyers write them are accepted; markup is not', async () => {
+  const { validateAcceptance } = await import('../lib/acceptance.js');
+  const LEGAL_SET = JSON.parse(readFileSync(new URL('config/legal.json', ROOT), 'utf8')).set;
+  const base = { company: 'Vzorová Průmyslová a.s.', country: 'CZ', email: 'nakup@vzorova.example', name: 'Jana Nováková', authority: 'on', terms: 'on', delivery: 'on', legal_set: LEGAL_SET };
+  for (const role of ['Jednatel (CEO)', 'Director (Finance)', 'Head of Procurement', 'CFO', 'Director, Finance & Ops', 'Prokurist/in']) {
+    const r = validateAcceptance({ ...base, role });
+    assert.ok(r.ok, `${role}: ${JSON.stringify(r.errors)}`);
+    assert.equal(r.value.buyer.signatory.role, role);
+  }
+  for (const role of ['', '(CEO)', '<b>CEO</b>', 'CEO"; DROP', 'x'.repeat(61)]) {
+    assert.ok(!validateAcceptance({ ...base, role }).ok, `${role} refused`);
+  }
 });

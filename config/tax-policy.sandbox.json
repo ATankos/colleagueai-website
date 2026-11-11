@@ -1,0 +1,31 @@
+{
+  "_comment": "SANDBOX FIXTURE - NOT ACCOUNTANT ADVICE AND NOT A TAX DECISION. Used only with Stripe TEST keys and only when TAX_POLICY_SANDBOX=1, so the invoice, credit-note and reconciliation code can be exercised end to end in the Stripe sandbox before the accountant answers. Every wording below is a placeholder marked TEST. lib/taxPolicy.js refuses this file with a live key, whatever the environment says.",
+  "version": "sandbox-2026-11-10",
+  "status": "sandbox",
+  "sandboxOnly": true,
+  "approval": { "approvedBy": "nobody - sandbox fixture", "role": null, "approvedAt": null, "reference": null },
+  "seller": {
+    "legalName": "Colleague AI s.r.o.",
+    "registrationNumber": "29540852",
+    "register": "Městský soud v Praze, C 448176",
+    "address": "Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic",
+    "vatStatus": "sandbox",
+    "vatId": null,
+    "vatEffectiveFrom": null
+  },
+  "decisions": {},
+  "treatments": {
+    "cz_business": { "action": "sell", "invoiceNote": "TEST - domestic treatment not decided" },
+    "eu_business_vat_verified": { "action": "sell", "invoiceNote": "TEST - EU treatment not decided" },
+    "eu_business_vat_pending": { "action": "sell", "invoiceNote": "TEST - EU treatment not decided; VAT ID verification pending" },
+    "eu_business_vat_unverified": { "action": "hold", "invoiceNote": "TEST - VAT ID not verified" },
+    "eu_business_no_vat_id": { "action": "hold", "invoiceNote": "TEST - no VAT ID; handled manually" },
+    "non_eu_business": { "action": "sell", "invoiceNote": "TEST - non-EU treatment not decided" }
+  },
+  "checkout": {
+    "requireTaxIdIfSupported": false,
+    "stripeTax": false,
+    "invoiceRoute": "sandbox_ledger",
+    "onCountryMismatch": "hold"
+  }
+}

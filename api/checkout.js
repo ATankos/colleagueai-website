@@ -16,6 +16,10 @@
  * PaymentIntent (so every charge, refund and dispute) and client_reference_id; the storefront's own `ref` moves to
  * metadata.ref. A VAT ID Stripe refuses as malformed returns the form with that field marked, and no session.
  *
+ * Tax (lib/taxPolicy.js): live checkout is refused while config/tax-policy.json is not approved. With an approved
+ * policy the buyer's category decides whether the order can be paid online (sell) or needs manual handling (hold,
+ * block), and the policy decides Stripe Tax, a required tax ID and the invoice; none of that is assumed in code.
+ *
  * `terms=accepted` in a GET is no longer evidence of anything and is ignored: acceptance is what the buyer
  * submits on the confirmation page, and the stored record is what proves it.
  *
@@ -57,8 +61,9 @@ import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug, isLiveKey } from '../lib/products.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recordAcceptance, bindAcceptance } from '../lib/db.js';
-import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
+import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, legalDocuments, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
 import { newOrderId, createOrder, recordOrderEvent } from '../lib/orders.js';
+import { policyFor, liveTaxBlocked, treatmentFor, checkoutTaxParams, invoiceRoute } from '../lib/taxPolicy.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
 export const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
@@ -175,6 +180,11 @@ export default async function handler(req, res) {
     console.warn('[checkout] live sale blocked: release not approved for sale', slug);
     return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'not_approved_for_sale' });
   }
+  // Live sales also wait for the accountant: an unapproved tax policy refuses any live checkout.
+  if (liveTaxBlocked(process.env.STRIPE_SECRET_KEY)) {
+    console.warn('[checkout] live sale blocked: tax policy not approved', slug);
+    return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'tax_policy_not_approved' });
+  }
   const product = productFor(slug);
   const productName = product?.name || `ColleagueAI - ${titleFromSlug(slug)}`;
   const shortName = product?.name ? product.name.replace(/^ColleagueAI\s+/, '') : titleFromSlug(slug);
@@ -252,6 +262,17 @@ export default async function handler(req, res) {
   }
   const buyer = accepted.value.buyer;
   const live = isLiveKey(process.env.STRIPE_SECRET_KEY);
+  // The accountant's treatment for this buyer's category, when the policy is approved (or the sandbox fixture).
+  const policy = policyFor(process.env.STRIPE_SECRET_KEY);
+  const treatment = treatmentFor(policy, process.env.STRIPE_SECRET_KEY, buyer);
+  if (treatment.applied && treatment.action !== 'sell') {
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 'no-store');
+    return res.status(409).end(pageModel({ errors: ['tax_category'], values: formValues(form, optIn, certInterval),
+      notice: treatment.action === 'hold'
+        ? 'This order needs a manual check before payment (for example, a VAT ID that could not be confirmed). Write to hello@colleagueai.ai and we will complete it with you.'
+        : 'We cannot accept this order online. Write to hello@colleagueai.ai.' }));
+  }
   // One id for this purchase attempt, written into every record and Stripe object that follows (lib/orders.js).
   const orderId = newOrderId();
 
@@ -260,7 +281,7 @@ export default async function handler(req, res) {
   let acceptance;
   try {
     acceptance = await recordAcceptance({
-      legalSet: LEGAL_SET, legalVersions: legalVersionString(),
+      legalSet: LEGAL_SET, legalVersions: legalVersionString(), legalDocuments: legalDocuments(),
       agentSlug: slug, sku: product?.sku ?? null, release: product?.release?.version ?? null, tier,
       currency, priceCents: cents,
       // The recurring commitment the buyer opted into, with the terms version shown next to the box.
@@ -283,8 +304,15 @@ export default async function handler(req, res) {
       price: { currency, unitAmount: cents, quantity: 1 },
       certification: withCert ? { interval: certInterval, unitAmount: certUnit } : null,
       buyer,
-      acceptance: { id: acceptance.id, legalSet: LEGAL_SET, legalVersions: legalVersionString(), acceptedAt: acceptance.acceptedAt },
+      acceptance: { id: acceptance.id, legalSet: LEGAL_SET, legalVersions: legalVersionString(), documents: legalDocuments(), acceptedAt: acceptance.acceptedAt },
       payment: { lane: includesBank ? (paymentMethodTypes.length === 1 ? 'bank' : 'any') : 'card' },
+      tax: {
+        policyVersion: treatment.policyVersion, policyStatus: treatment.policyStatus, category: treatment.category,
+        applied: treatment.applied, action: treatment.applied ? treatment.action : null,
+        invoiceNote: treatment.applied ? treatment.invoiceNote : null,
+        invoiceRoute: invoiceRoute(policy, process.env.STRIPE_SECRET_KEY),
+        seller: treatment.applied ? policy.seller : null,
+      },
       lang, partner: partner || null, ref: ref || null,
     });
     if (!created) throw new Error('order id collision');
@@ -347,7 +375,11 @@ export default async function handler(req, res) {
       // The buyer company is the Customer created below: Checkout may complete its name and billing address, and a
       // VAT ID typed on Stripe's page (when none was given on ours) is saved to it, so Stripe verifies it too.
       customer_update: { name: 'auto', address: 'auto' },
-      tax_id_collection: { enabled: true },
+      // Business tax ID collection always; Stripe Tax, a required tax ID and the invoice only as the policy says.
+      ...checkoutTaxParams(policy, process.env.STRIPE_SECRET_KEY, {
+        mode: withCert ? 'subscription' : 'payment', orderId, acceptanceId: acceptance.id, treatment, buyer,
+        description: `${productName}${product?.sku ? ` (SKU ${product.sku})` : ''}, release ${product?.release?.version ?? ''} - perpetual licence for one Microsoft tenant. Order ${orderId}.`,
+      }),
       // The hosted page repeats the acceptance in Stripe's own record (needs the Terms URL set in the
       // Stripe Dashboard; STRIPE_TOS_CONSENT=1 says it is, otherwise Stripe would refuse the session).
       ...(process.env.STRIPE_TOS_CONSENT === '1' ? { consent_collection: { terms_of_service: 'required' } } : {}),
