@@ -112,6 +112,10 @@ jobs:
       - name: Shipped open-source packages stay under permissive licences
         run: node --test tests/licence-inventory.test.mjs
 
+      # The repository is public: no credentials, personal email addresses, tenant addresses or new product source.
+      - name: Public repository exposure guard
+        run: node --test tests/public-exposure.test.mjs
+
       - name: Test-only code stays off main (no do-not-merge markers, no branch-name switches in api/ and lib/)
         run: node --test tests/no-temporary-code.test.mjs
 
