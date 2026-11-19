@@ -186,7 +186,8 @@ export function invoiceHtml(order, email, lang = 'en') {
 }
 
 /** The release record to offer for a fulfilled purchase: the release it bought, or the newest corrective release of
- *  it (1.0.3.4 for a 1.0.3.2 purchase); undefined (current release) for a product with no release history. */
+ *  it (for example 1.0.3.6 for a 1.0.3.2 or 1.0.3.4 purchase); undefined (current release) for a product with no release
+ *  history. */
 export function boughtRelease(entitlement, session, slug) {
   const product = productFor(slug);
   if (!product?.release) return undefined;

@@ -492,13 +492,14 @@ test('missing or wrong release package: the download refuses with a clear answer
   assert.match(good.headers.location, new RegExp(`agents/${SLUG}/${PRODUCT.release.package.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
 });
 
-test('corrective release: a purchase of withdrawn 1.0.3.2 (made before order ids) is offered 1.0.3.4, never the missing package', async () => {
+test('corrective release: a purchase of withdrawn 1.0.3.2 (made before order ids) is offered the current release, never the missing package', async () => {
   const email = 'early.buyer@example.test';
   const s = { id: 'cs_test_legacy_1032', object: 'checkout.session', livemode: false, mode: 'payment', status: 'complete', payment_status: 'paid',
     currency: 'usd', amount_subtotal: PRICE, amount_total: PRICE, customer_details: { email }, metadata: { agent_slug: SLUG, sku: PRODUCT.sku, release: '1.0.3.2' } };
   sessions.set(s.id, s);
   const page = await thankYou(s.id);
-  assert.match(page.body, /CAI-L4-CI-001_1\.0\.3\.4\.zip/);
+  assert.ok(PRODUCT.release.correctiveFor.includes('1.0.3.2'));
+  assert.ok(page.body.includes(PRODUCT.release.package), PRODUCT.release.package);
   assert.ok(!/CAI-L4-CI-001_1\.0\.3\.2\.zip/.test(page.body));
 });
 
