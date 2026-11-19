@@ -148,8 +148,9 @@ story = [
     Paragraph('06 — Data handling', h2),
     Paragraph('Contract documents and extracted data stay in the customer’s Microsoft tenant (SharePoint and Dataverse). Generative AI '
               'processing uses Microsoft services under the customer’s Microsoft agreements; depending on environment settings (“Move '
-              'data across regions”), prompts may be processed outside the environment’s region. ColleagueAI processes only separate '
-              'governance-layer metadata as described in the Trust Center. Customers should assess whether a DPIA is required for their '
+              'data across regions”), prompts may be processed outside the environment’s region. ColleagueAI hosts none of the agents, their '
+              'configuration or audit evidence, never receives customer business data and keeps only order, licence, download and '
+              'partner-registration records. Customers should assess whether a DPIA is required for their '
               'contract data.', body),
     Spacer(1, 6),
     Paragraph(f'This dossier describes release {RELEASE} as tested on 10 November 2026. CAI L4 is ColleagueAI’s internal governance '
