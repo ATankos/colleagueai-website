@@ -71,12 +71,21 @@ const DATA_CLAIMS = [
   'metadati del livello di governance', 'metadati di audit', 'relativi metadati',
   'metadados da camada de governança', 'metadados de auditoria', 'metadados associados',
   'metadane warstwy governance', 'metadane audytu', 'powiązane metadane',
+  // the "What is Colleague AI?" answer (FAQ structured data and the page dictionaries), missed by the first pass
+  'hosts only the governance layer', 'hostí pouze řídicí vrstvu', 'hostet nur die Governance-Steuerungsebene',
+  'n’héberge que le plan de contrôle', 'solo aloja el plano de control', 'ospita solo il piano di controllo',
+  'hospeda apenas o plano de controlo', 'hostuje wyłącznie warstwę sterowania',
+  // the "About Colleague AI" block (agents pages, per-agent page generator) and llms-full.txt
+  'host only the governance control plane', 'hosts only the governance control plane', 'hostíme pouze řídicí vrstvu',
+  'hosten nur die Governance-Steuerungsebene', 'n’hébergeons que le plan de contrôle', 'solo alojamos el plano de control',
+  'ospitiamo solo il piano di controllo', 'hospedamos apenas o plano de controlo', 'hostujemy wyłącznie warstwę sterowania',
 ];
-const GENERATORS = ['scripts/generate-agent-pages.mjs', 'scripts/i18n-translate-visible-copy.cjs', 'scripts/localize-global-page-copy.cjs']
+const GENERATORS = ['scripts/generate-agent-pages.mjs', 'scripts/i18n-translate-visible-copy.cjs', 'scripts/localize-global-page-copy.cjs',
+  'scripts/generate-llms-full.cjs', 'public/llms-full.txt']
   .map((f) => join(ROOT, f));
 const LEGAL_PAGE = /[\\/](terms|license|refund|privacy|ochrana-soukromi|datenschutz|confidentialite|privacidad|prywatnosc|privacidade)(\.html|[\\/]index\.html)$/;
 
-for (const [label, files] of [['committed pages', PUBLIC], ['built site', DIST], ['page generators', GENERATORS]]) {
+for (const [label, files] of [['committed pages', PUBLIC], ['built site', DIST], ['page generators and llms-full.txt', GENERATORS]]) {
   test(`${label}: no page says ColleagueAI processes or hosts customer metadata`, { skip: !files.length && 'run npm run build first' }, () => {
     const bad = [];
     for (const f of files.filter((x) => !LEGAL_PAGE.test(x))) {
@@ -92,6 +101,18 @@ test('the agents page states what ColleagueAI keeps, in every language', () => {
   for (const phrase of ['ColleagueAI receives none of it and keeps only the records of your order, licence and downloads',
     'ColleagueAI z něj nic nedostává', 'ColleagueAI erhält davon nichts', 'ColleagueAI n’en reçoit rien', 'ColleagueAI no recibe nada de ello',
     'ColleagueAI non ne riceve nulla', 'ColleagueAI não recebe nada disso', 'ColleagueAI nie otrzymuje z nich niczego']) {
+    assert.ok(page.includes(phrase), phrase);
+  }
+});
+
+test('the "What is Colleague AI?" answer says the governance evidence stays with the customer, in every language', () => {
+  const page = readFileSync(join(ROOT, 'public/agents.html'), 'utf8');
+  const ld = page.match(/"name":\s*"What is Colleague AI\?",\s*"acceptedAnswer":\s*\{\s*"@type":\s*"Answer",\s*"text":\s*"([^"]+)"/);
+  assert.ok(ld, 'FAQ structured data answer missing');
+  assert.match(ld[1], /their scores, controls and audit evidence stay there too and Colleague AI hosts none of it/);
+  for (const phrase of ['Colleague AI hosts none of it', 'Colleague AI z toho nic nehostuje', 'Colleague AI hostet nichts davon',
+    'Colleague AI n’en héberge rien', 'Colleague AI no aloja nada de ello', 'Colleague AI non ne ospita nulla',
+    'a Colleague AI não aloja nada disso', 'Colleague AI nie hostuje niczego z tego']) {
     assert.ok(page.includes(phrase), phrase);
   }
 });
