@@ -19,7 +19,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { execFileSync } from 'node:child_process';
-import { readFileSync, statSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -37,13 +37,13 @@ export const DETECTORS = {
   json_web_token: /\beyJ[0-9A-Za-z_-]{10,}\.eyJ[0-9A-Za-z_-]{10,}\.[0-9A-Za-z_-]{10,}/,
   personal_email: /\b[A-Za-z0-9._%+-]+@(gmail|googlemail|seznam|email|centrum|post|outlook|hotmail|live|yahoo|icloud|me|proton|protonmail)\.(com|cz|me)\b/i,
   dataverse_environment: /(?:^|[^A-Za-z0-9.-])[a-z0-9-]+\.crm\d*\.dynamics\.com(?=$|[^A-Za-z0-9.-])/i,
-  sharepoint_site: /\b[a-z0-9-]+\.sharepoint\.com\b/i,
-  tenant_domain: /^[a-z0-9-]+\.onmicrosoft\.com$/i,
+  sharepoint_site: /(?:^|[^A-Za-z0-9.-])[a-z0-9-]+\.sharepoint\.com(?=$|[^A-Za-z0-9.-])/i,
+  tenant_domain: /(?:^|[^A-Za-z0-9.-])[a-z0-9-]+\.onmicrosoft\.com(?=$|[^A-Za-z0-9.-])/i,
   windows_user_path: /[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+/,
 };
 
 // Documentation examples Microsoft and others use in place of a real tenant.
-const EXAMPLE_HOST = /^(https?:\/\/)?(contoso|fabrikam|example|yourtenant|yourcompany|your-tenant|tenant)[.-]/i;
+const EXAMPLE_HOST = /^[^A-Za-z0-9]?(https?:\/\/)?(contoso|fabrikam|example|yourtenant|yourcompany|your-tenant|tenant)[.-]/i;
 
 const PRODUCT_SOURCE = /^scripts\/cai-release\/.*(\.(definition|clientdata)\.json|\.ya?ml|\/prompt[^/]*\.json)$/;
 
@@ -52,11 +52,9 @@ function trackedFiles() {
 }
 
 function textOf(path) {
-  const full = join(ROOT, path);
-  let size;
-  try { size = statSync(full).size; } catch { return null; } // deleted in the working tree
-  if (size > 5 * 1024 * 1024) return null;
-  const buf = readFileSync(full);
+  let buf;
+  try { buf = readFileSync(join(ROOT, path)); } catch { return null; } // deleted in the working tree
+  if (buf.length > 5 * 1024 * 1024) return null;
   if (buf.subarray(0, 8000).includes(0)) return null; // binary
   return buf.toString('utf8');
 }
