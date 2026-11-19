@@ -87,7 +87,7 @@ test('success page, test delivery on: links the versioned release package, with 
   const html = deliveryHtml('buyer@example.com', SLUG);
   const pkg = product.release.package;
   assert.deepEqual(linksIn(html).map((c) => c.file), [pkg, 'dossier.pdf'], 'package link first, dossier secondary');
-  assert.match(html, new RegExp(product.release.version.replace(/\./g, '\\.')), 'version is shown to the buyer');
+  assert.ok(html.includes(product.release.version), 'version is shown to the buyer');
   assert.match(html, /START-HERE/, 'buyer is pointed at START-HERE first');
 }));
 
@@ -329,6 +329,18 @@ test('alias: old checkout links reach the current product (live key still blocke
   await checkout({ method: 'GET', query: { agent: OLD_SLUG }, headers: { host: 'example.test' } }, res);
   assert.equal(res.statusCode, 403, 'resolved to the product (not 404 Unknown agent)');
   assert.equal(res.body.code, 'not_approved_for_sale');
+}));
+
+test('checkout: only own catalogue entries count as agents and currencies (no Object.prototype lookups)', () => withEnv({ STRIPE_SECRET_KEY: 'sk_test_x', CHECKOUT_ENABLED: undefined }, async () => {
+  for (const agent of ['constructor', 'tostring', 'hasownproperty', 'proto-x']) {
+    const res = mockRes();
+    await checkout({ method: 'GET', query: { agent }, headers: { host: 'example.test' } }, res);
+    assert.equal(res.statusCode, 404, agent);
+    assert.equal(res.body.error, 'Unknown agent', agent);
+  }
+  const src = readFileSync(join(ROOT, 'api/checkout.js'), 'utf8');
+  assert.match(src, /Object\.hasOwn\(SLUG_TIER, slug\)/);
+  assert.match(src, /Object\.hasOwn\(ALLOWED_CURRENCIES, currencyRaw\)/);
 }));
 
 test('alias: a certificate stored under the retired slug is found by the current slug', async () => {

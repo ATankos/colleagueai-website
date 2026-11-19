@@ -164,7 +164,8 @@ export default async function handler(req, res) {
   const slug = canonicalSlug(String(valueOf(q.agent) || '').trim());
   if (!SLUG_RE.test(slug)) return res.status(400).json({ error: 'Invalid or missing agent' });
 
-  const tier = SLUG_TIER[slug];
+  // Own properties only: a slug such as "constructor" must not resolve through Object.prototype (CodeQL #245).
+  const tier = Object.hasOwn(SLUG_TIER, slug) ? SLUG_TIER[slug] : undefined;
   if (!tier) return res.status(404).json({ error: 'Unknown agent' });
 
   // A product can only be sold with a live key once its record in config/products.json says
@@ -190,7 +191,7 @@ export default async function handler(req, res) {
   const shortName = product?.name ? product.name.replace(/^ColleagueAI\s+/, '') : titleFromSlug(slug);
 
   const currencyRaw = String(valueOf(q.currency) || 'usd').toLowerCase();
-  const currency = ALLOWED_CURRENCIES[currencyRaw] ? currencyRaw : 'usd';
+  const currency = Object.hasOwn(ALLOWED_CURRENCIES, currencyRaw) ? currencyRaw : 'usd';
 
   const cents = priceCents(tier, currency);
   if (!cents) {
