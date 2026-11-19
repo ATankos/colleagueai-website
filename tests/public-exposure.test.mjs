@@ -36,7 +36,7 @@ export const DETECTORS = {
   private_key: /-----BEGIN (RSA |EC |OPENSSH |DSA |)PRIVATE KEY-----/,
   json_web_token: /\beyJ[0-9A-Za-z_-]{10,}\.eyJ[0-9A-Za-z_-]{10,}\.[0-9A-Za-z_-]{10,}/,
   personal_email: /\b[A-Za-z0-9._%+-]+@(gmail|googlemail|seznam|email|centrum|post|outlook|hotmail|live|yahoo|icloud|me|proton|protonmail)\.(com|cz|me)\b/i,
-  dataverse_environment: /\b[a-z0-9-]+\.crm\d*\.dynamics\.com\b/i,
+  dataverse_environment: /(?:^|[^A-Za-z0-9.-])[a-z0-9-]+\.crm\d*\.dynamics\.com(?=$|[^A-Za-z0-9.-])/i,
   sharepoint_site: /\b[a-z0-9-]+\.sharepoint\.com\b/i,
   tenant_domain: /\b[a-z0-9-]+\.onmicrosoft\.com\b/i,
   windows_user_path: /[A-Za-z]:\\{1,2}Users\\{1,2}[A-Za-z0-9._-]+/,
