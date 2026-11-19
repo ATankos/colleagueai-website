@@ -16,6 +16,13 @@
    "metadata": {
     "schemaName": "cai_BusinessTimeZone"
    }
+  },
+  "cai_AdminAlertUpn (cai_AdminAlertUpn)": {
+   "defaultValue": "",
+   "type": "String",
+   "metadata": {
+    "schemaName": "cai_AdminAlertUpn"
+   }
   }
  },
  "triggers": {
@@ -33,7 +40,12 @@
      "connectionName": "shared_commondataserviceforapps",
      "operationId": "SubscribeWebhookTrigger"
     }
-   }
+   },
+   "conditions": [
+    {
+     "expression": "@not(startsWith(coalesce(triggerOutputs()?['body/cai_reviewstatus'], ''), 'Extraction failed'))"
+    }
+   ]
   }
  },
  "actions": {
@@ -54,7 +66,7 @@
     ]
    },
    "runAfter": {
-    "Master_reference": [
+    "Family_owner": [
      "Succeeded"
     ]
    }
@@ -81,8 +93,8 @@
    "inputs": {
     "parameters": {
      "entityName": "cai_contracts",
-     "$select": "cai_contractid,cai_contractreference,cai_documentname,cai_documentrole,cai_reviewstatus,cai_extractionjson,cai_effectivedate,cai_contentversion,cai_approvalblocked,createdon,cai_reviewedvaluesjson,cai_noticedeadline,cai_deadlinebasis,cai_noticestatus,cai_deadlinereview",
-     "$filter": "@concat('startswith(cai_contractreference,''', replace(outputs('Master_reference'), '''', ''''''), ''')')"
+     "$select": "cai_contractid,cai_contractreference,cai_documentname,cai_documentrole,cai_reviewstatus,cai_extractionjson,cai_effectivedate,cai_contentversion,cai_approvalblocked,createdon,cai_reviewedvaluesjson,cai_noticedeadline,cai_deadlinebasis,cai_noticestatus,cai_deadlinereview,_ownerid_value",
+     "$filter": "@concat('startswith(cai_contractreference,''', replace(outputs('Master_reference'), '''', ''''''), ''')', if(empty(coalesce(outputs('Family_owner'), '')), '', concat(' and _ownerid_value eq ', outputs('Family_owner'))))"
     },
     "host": {
      "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
@@ -314,7 +326,7 @@
        "actions": {
         "Next_end": {
          "type": "Compose",
-         "inputs": "@if(or(empty(variables('CurrentEnd')), not(outputs('Has_notice'))), variables('CurrentEnd'), if(less(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), addToTime(variables('CurrentEnd'), coalesce(variables('Eff')?['renewal']?['value']?['period_months'], 12), 'Month', 'yyyy-MM-dd'), variables('CurrentEnd')))",
+         "inputs": "@if(or(empty(variables('CurrentEnd')), not(outputs('Has_notice'))), variables('CurrentEnd'), if(less(ticks(variables('CurrentEnd')), ticks(convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'))), addToTime(variables('CurrentEnd'), coalesce(outputs('Renewal_months_safe'), 12), 'Month', 'yyyy-MM-dd'), variables('CurrentEnd')))",
          "runAfter": {}
         },
         "Set_CurrentEnd_loop": {
@@ -356,7 +368,7 @@
       },
       "Next_term_end": {
        "type": "Compose",
-       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), addToTime(variables('CurrentEnd'), coalesce(variables('Eff')?['renewal']?['value']?['period_months'], 12), 'Month', 'yyyy-MM-dd'), '')",
+       "inputs": "@if(and(not(empty(variables('CurrentEnd'))), outputs('Has_notice')), addToTime(variables('CurrentEnd'), coalesce(outputs('Renewal_months_safe'), 12), 'Month', 'yyyy-MM-dd'), '')",
        "runAfter": {
         "Missed": [
          "Succeeded"
@@ -488,7 +500,7 @@
          "recordId": "@outputs('Master_row')?['cai_contractid']",
          "item/cai_masterreference": "@outputs('Master_reference')",
          "item/cai_effnoticedays": "@if(outputs('D_unverified'), null, if(not(outputs('Has_notice')), null, if(equals(outputs('N_unit'), 'day'), int(outputs('N_amount')), if(equals(outputs('N_unit'), 'week'), mul(7, int(outputs('N_amount'))), null))))",
-         "item/cai_renewalperiodmonths": "@if(equals(variables('Eff')?['renewal']?['value']?['period_months'], null), null, int(variables('Eff')?['renewal']?['value']?['period_months']))",
+         "item/cai_renewalperiodmonths": "@outputs('Renewal_months_safe')",
          "item/cai_efffees": "@if(equals(variables('Eff')?['fees']?['value'], null), '', concat(string(variables('Eff')?['fees']?['value']?['amount']), ' ', coalesce(variables('Eff')?['fees']?['value']?['currency'], ''), ' ', coalesce(variables('Eff')?['fees']?['value']?['period'], ''), ' (source: ', variables('Eff')?['fees']?['source_document'], ')'))",
          "item/cai_effliabilitycap": "@if(equals(variables('Eff')?['liability_cap']?['value'], null), '', concat(coalesce(variables('Eff')?['liability_cap']?['value']?['formula'], ''), ' (source: ', variables('Eff')?['liability_cap']?['source_document'], ')'))",
          "item/cai_currenttermend": "@if(empty(variables('CurrentEnd')), null, variables('CurrentEnd'))",
@@ -576,7 +588,7 @@
        "type": "Compose",
        "inputs": "@coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['wording'], variables('Eff')?['renewal']?['value']?['notice_rule_text'], variables('Eff')?['renewal']?['quote'], '')",
        "runAfter": {
-        "Apply_amendments": [
+        "Numbers_unread": [
          "Succeeded"
         ]
        }
@@ -601,7 +613,7 @@
       },
       "N_legacy_unit": {
        "type": "Compose",
-       "inputs": "@if(or(outputs('N_is_new'), equals(variables('Eff')?['renewal']?['value']?['notice_days'], null)), '', if(and(equals(mod(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30), 0), or(contains(outputs('N_lw'), concat('(', string(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30)), ') month')), contains(outputs('N_lw'), concat(' ', string(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30)), ' month')), startsWith(outputs('N_lw'), concat(string(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30)), ' month')), if(lessOrEquals(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30)], ' month')), false))), 'month', if(and(contains(createArray(360, 365, 366), int(variables('Eff')?['renewal']?['value']?['notice_days'])), or(contains(outputs('N_lw'), 'one year'), contains(outputs('N_lw'), '(1) year'), contains(outputs('N_lw'), ' 1 year'), startsWith(outputs('N_lw'), '1 year'))), 'year', if(and(equals(mod(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7), 0), or(contains(outputs('N_lw'), concat('(', string(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7)), ') week')), contains(outputs('N_lw'), concat(' ', string(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7)), ' week')), startsWith(outputs('N_lw'), concat(string(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7)), ' week')), if(lessOrEquals(div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7)], ' week')), false))), 'week', 'day'))))",
+       "inputs": "@if(or(outputs('N_is_new'), equals(outputs('N_days_safe'), null)), '', if(and(equals(mod(outputs('N_days_safe'), 30), 0), or(contains(outputs('N_lw'), concat('(', string(div(outputs('N_days_safe'), 30)), ') month')), contains(outputs('N_lw'), concat(' ', string(div(outputs('N_days_safe'), 30)), ' month')), startsWith(outputs('N_lw'), concat(string(div(outputs('N_days_safe'), 30)), ' month')), if(lessOrEquals(div(outputs('N_days_safe'), 30), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[div(outputs('N_days_safe'), 30)], ' month')), false))), 'month', if(and(contains(createArray(360, 365, 366), outputs('N_days_safe')), or(contains(outputs('N_lw'), 'one year'), contains(outputs('N_lw'), '(1) year'), contains(outputs('N_lw'), ' 1 year'), startsWith(outputs('N_lw'), '1 year'))), 'year', if(and(equals(mod(outputs('N_days_safe'), 7), 0), or(contains(outputs('N_lw'), concat('(', string(div(outputs('N_days_safe'), 7)), ') week')), contains(outputs('N_lw'), concat(' ', string(div(outputs('N_days_safe'), 7)), ' week')), startsWith(outputs('N_lw'), concat(string(div(outputs('N_days_safe'), 7)), ' week')), if(lessOrEquals(div(outputs('N_days_safe'), 7), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[div(outputs('N_days_safe'), 7)], ' week')), false))), 'week', 'day'))))",
        "runAfter": {
         "N_is_new": [
          "Succeeded"
@@ -619,7 +631,7 @@
       },
       "N_amount0": {
        "type": "Compose",
-       "inputs": "@if(outputs('N_is_new'), int(variables('Eff')?['renewal']?['value']?['notice_period']?['amount']), if(equals(variables('Eff')?['renewal']?['value']?['notice_days'], null), null, if(equals(outputs('N_legacy_unit'), 'month'), div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 30), if(equals(outputs('N_legacy_unit'), 'year'), 1, if(equals(outputs('N_legacy_unit'), 'week'), div(int(variables('Eff')?['renewal']?['value']?['notice_days']), 7), int(variables('Eff')?['renewal']?['value']?['notice_days']))))))",
+       "inputs": "@if(outputs('N_is_new'), outputs('N_amount_safe'), if(equals(outputs('N_days_safe'), null), null, if(equals(outputs('N_legacy_unit'), 'month'), div(outputs('N_days_safe'), 30), if(equals(outputs('N_legacy_unit'), 'year'), 1, if(equals(outputs('N_legacy_unit'), 'week'), div(outputs('N_days_safe'), 7), outputs('N_days_safe'))))))",
        "runAfter": {
         "N_unit0": [
          "Succeeded"
@@ -832,7 +844,7 @@
       },
       "N_flag_list": {
        "type": "Compose",
-       "inputs": "@createArray(if(and(not(outputs('N_is_new')), not(equals(variables('Eff')?['renewal']?['value']?['notice_days'], null)), not(equals(outputs('N_legacy_unit'), 'day'))), concat('the notice wording is in ', outputs('N_legacy_unit'), 's but release 1.0.3.2 stored it as ', string(variables('Eff')?['renewal']?['value']?['notice_days']), ' days; recalculated in calendar ', outputs('N_legacy_unit'), 's from that wording - a reviewer must confirm the notice period'), ''), if(and(outputs('Has_notice'), equals(outputs('N_unit'), 'business_day')), 'the notice period is in business days; a date can only be estimated without a holiday calendar - confirm the period in calendar days after checking holidays', ''), if(and(outputs('Has_notice'), not(outputs('N_is_new')), equals(outputs('N_legacy_unit'), 'day'), not(contains(outputs('N_lw'), string(variables('Eff')?['renewal']?['value']?['notice_days'])))), concat('the stored notice wording does not show the notice period; release 1.0.3.2 stored ', string(variables('Eff')?['renewal']?['value']?['notice_days']), ' days and they are used as days - a reviewer must confirm the notice period'), ''), if(and(outputs('Has_notice'), not(equals(outputs('N_status'), 'reviewer_corrected')), not(contains(createArray('term_end', 'renewal_date', 'term_end_assumed'), outputs('N_reference')))), 'the clause does not say clearly whether the period runs back from the term end or from the renewal date; the earlier candidate date is used', ''), if(and(outputs('Has_notice'), not(equals(outputs('N_status'), 'reviewer_corrected')), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), outputs('N_timing')))), 'the timing wording of the notice clause is unclear; the candidate date is one day earlier than the plain calculation', ''), if(equals(toLower(coalesce(variables('Eff')?['renewal']?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce(variables('Eff')?['renewal']?['quote'], '')), ''), if(outputs('N_conflict'), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the earliest candidate uses the longest period up to 24 months - a reviewer must decide which applies'), ''), if(and(greater(length(outputs('N_all')), length(body('N_plausible'))), not(equals(outputs('N_status'), 'reviewer_corrected'))), 'a notice period longer than 24 months was read from the document (possibly misread small print); it is not used - check the document', ''), if(and(outputs('Has_notice'), not(equals(outputs('N_status'), 'reviewer_corrected')), equals(outputs('N_reference'), 'term_end'), contains(outputs('N_lw'), 'renewal date')), 'the clause refers to the renewal date; the candidate counts back from the end of the term, which can be up to three days earlier - check the reference date', ''), if(and(equals(coalesce(variables('Eff')?['renewal']?['value']?['type'], ''), 'automatic'), not(equals(outputs('N_amount'), null)), empty(outputs('N_unit'))), 'the unit of the notice period is not recognised', ''), if(equals(outputs('Renewal_basis'), 'AUTOMATIC_NOTICE_PERIOD_NOT_FOUND'), 'the contract renews automatically but no notice period was found in the document - a reviewer must check the renewal and notice clauses', ''), if(equals(outputs('Renewal_basis'), 'NO_RENEWAL_CLAUSE_FOUND'), 'no renewal clause was found in the document - a reviewer must check whether and how the contract renews (confirm none if it does not renew automatically)', ''), if(and(not(outputs('Has_notice')), not(equals(outputs('N_status'), 'reviewer_corrected')), greater(length(body('N_clause_objs')), 0), not(equals(toLower(coalesce(variables('Eff')?['renewal']?['value']?['type'], '')), 'automatic'))), 'notice-of-non-renewal clauses were found although the contract was not read as renewing automatically - a reviewer must check the renewal clause', ''), if(and(outputs('N_is_new'), equals(outputs('N_status'), 'conflict_resolved'), greater(length(union(body('N_keys'), body('N_keys'))), 1)), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the extraction applied one of them under the document''s precedence wording - a reviewer must confirm which applies'), ''), if(and(outputs('Has_notice'), outputs('N_is_new'), not(equals(outputs('N_status'), 'reviewer_corrected')), not(outputs('N_use_longest'))), if(or(or(contains(outputs('N_lw'), concat('(', string(outputs('N_amount')), ') ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), contains(outputs('N_lw'), concat(' ', string(outputs('N_amount')), ' ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), startsWith(outputs('N_lw'), concat(string(outputs('N_amount')), ' ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), if(lessOrEquals(int(outputs('N_amount')), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[int(outputs('N_amount'))], ' ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), false)), if(equals(outputs('N_unit'), 'business_day'), or(contains(outputs('N_lw'), concat('(', string(outputs('N_amount')), ') ', 'working day')), contains(outputs('N_lw'), concat(' ', string(outputs('N_amount')), ' ', 'working day')), startsWith(outputs('N_lw'), concat(string(outputs('N_amount')), ' ', 'working day')), if(lessOrEquals(int(outputs('N_amount')), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[int(outputs('N_amount'))], ' ', 'working day')), false)), false)), '', concat('the notice clause wording does not state the period read from it (', string(outputs('N_amount')), ' ', replace(outputs('N_unit'), '_', ' '), '(s)) - check the document')), ''), if(and(greater(length(body('N_clause_mismatch')), 0), not(equals(outputs('N_status'), 'reviewer_corrected'))), concat('the wording of ', string(length(body('N_clause_mismatch'))), ' notice clause(s) does not state the period read from it - check the document'), ''))",
+       "inputs": "@createArray(if(and(not(outputs('N_is_new')), not(equals(outputs('N_days_safe'), null)), not(equals(outputs('N_legacy_unit'), 'day'))), concat('the notice wording is in ', outputs('N_legacy_unit'), 's but release 1.0.3.2 stored it as ', string(variables('Eff')?['renewal']?['value']?['notice_days']), ' days; recalculated in calendar ', outputs('N_legacy_unit'), 's from that wording - a reviewer must confirm the notice period'), ''), if(and(outputs('Has_notice'), equals(outputs('N_unit'), 'business_day')), 'the notice period is in business days; a date can only be estimated without a holiday calendar - confirm the period in calendar days after checking holidays', ''), if(and(outputs('Has_notice'), not(outputs('N_is_new')), equals(outputs('N_legacy_unit'), 'day'), not(contains(outputs('N_lw'), string(variables('Eff')?['renewal']?['value']?['notice_days'])))), concat('the stored notice wording does not show the notice period; release 1.0.3.2 stored ', string(variables('Eff')?['renewal']?['value']?['notice_days']), ' days and they are used as days - a reviewer must confirm the notice period'), ''), if(and(outputs('Has_notice'), not(equals(outputs('N_status'), 'reviewer_corrected')), not(contains(createArray('term_end', 'renewal_date', 'term_end_assumed'), outputs('N_reference')))), 'the clause does not say clearly whether the period runs back from the term end or from the renewal date; the earlier candidate date is used', ''), if(and(outputs('Has_notice'), not(equals(outputs('N_status'), 'reviewer_corrected')), not(contains(createArray('on_or_before', 'before', 'on_or_before_assumed'), outputs('N_timing')))), 'the timing wording of the notice clause is unclear; the candidate date is one day earlier than the plain calculation', ''), if(equals(toLower(coalesce(variables('Eff')?['renewal']?['status'], '')), 'ambiguous'), concat('the document contains conflicting renewal or notice provisions: ', coalesce(variables('Eff')?['renewal']?['quote'], '')), ''), if(outputs('N_conflict'), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the earliest candidate uses the longest period up to 24 months - a reviewer must decide which applies'), ''), if(and(greater(length(outputs('N_all')), length(body('N_plausible'))), not(equals(outputs('N_status'), 'reviewer_corrected'))), 'a notice period longer than 24 months was read from the document (possibly misread small print); it is not used - check the document', ''), if(and(outputs('Has_notice'), not(equals(outputs('N_status'), 'reviewer_corrected')), equals(outputs('N_reference'), 'term_end'), contains(outputs('N_lw'), 'renewal date')), 'the clause refers to the renewal date; the candidate counts back from the end of the term, which can be up to three days earlier - check the reference date', ''), if(and(equals(coalesce(variables('Eff')?['renewal']?['value']?['type'], ''), 'automatic'), not(equals(outputs('N_amount'), null)), empty(outputs('N_unit'))), 'the unit of the notice period is not recognised', ''), if(equals(outputs('Renewal_basis'), 'AUTOMATIC_NOTICE_PERIOD_NOT_FOUND'), 'the contract renews automatically but no notice period was found in the document - a reviewer must check the renewal and notice clauses', ''), if(equals(outputs('Renewal_basis'), 'NO_RENEWAL_CLAUSE_FOUND'), 'no renewal clause was found in the document - a reviewer must check whether and how the contract renews (confirm none if it does not renew automatically)', ''), if(and(not(outputs('Has_notice')), not(equals(outputs('N_status'), 'reviewer_corrected')), greater(length(body('N_clause_objs')), 0), not(equals(toLower(coalesce(variables('Eff')?['renewal']?['value']?['type'], '')), 'automatic'))), 'notice-of-non-renewal clauses were found although the contract was not read as renewing automatically - a reviewer must check the renewal clause', ''), if(and(outputs('N_is_new'), equals(outputs('N_status'), 'conflict_resolved'), greater(length(union(body('N_keys'), body('N_keys'))), 1)), concat('the document states different notice periods (', join(body('N_conflict_text'), '; '), '); the extraction applied one of them under the document''s precedence wording - a reviewer must confirm which applies'), ''), if(and(outputs('Has_notice'), outputs('N_is_new'), not(equals(outputs('N_status'), 'reviewer_corrected')), not(outputs('N_use_longest'))), if(or(or(contains(outputs('N_lw'), concat('(', string(outputs('N_amount')), ') ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), contains(outputs('N_lw'), concat(' ', string(outputs('N_amount')), ' ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), startsWith(outputs('N_lw'), concat(string(outputs('N_amount')), ' ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), if(lessOrEquals(int(outputs('N_amount')), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[int(outputs('N_amount'))], ' ', if(equals(outputs('N_unit'), 'business_day'), 'business day', outputs('N_unit')))), false)), if(equals(outputs('N_unit'), 'business_day'), or(contains(outputs('N_lw'), concat('(', string(outputs('N_amount')), ') ', 'working day')), contains(outputs('N_lw'), concat(' ', string(outputs('N_amount')), ' ', 'working day')), startsWith(outputs('N_lw'), concat(string(outputs('N_amount')), ' ', 'working day')), if(lessOrEquals(int(outputs('N_amount')), 12), contains(outputs('N_lw'), concat(createArray('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve')[int(outputs('N_amount'))], ' ', 'working day')), false)), false)), '', concat('the notice clause wording does not state the period read from it (', string(outputs('N_amount')), ' ', replace(outputs('N_unit'), '_', ' '), '(s)) - check the document')), ''), if(and(greater(length(body('N_clause_mismatch')), 0), not(equals(outputs('N_status'), 'reviewer_corrected'))), concat('the wording of ', string(length(body('N_clause_mismatch'))), ' notice clause(s) does not state the period read from it - check the document'), ''), if(greater(length(body('Numbers_unread')), 0), concat(join(body('Numbers_unread'), '; '), ' - a reviewer must confirm the notice period and the renewal period'), ''))",
        "runAfter": {
         "Later_amendment_refs": [
          "Succeeded"
@@ -1069,6 +1081,54 @@
          "Succeeded"
         ]
        }
+      },
+      "N_amount_safe": {
+       "type": "Compose",
+       "inputs": "@if(isInt(string(coalesce(variables('Eff')?['renewal']?['value']?['notice_period']?['amount'], ''))), int(string(variables('Eff')?['renewal']?['value']?['notice_period']?['amount'])), null)",
+       "runAfter": {
+        "Apply_amendments": [
+         "Succeeded"
+        ]
+       }
+      },
+      "N_days_safe": {
+       "type": "Compose",
+       "inputs": "@if(isInt(string(coalesce(variables('Eff')?['renewal']?['value']?['notice_days'], ''))), int(string(variables('Eff')?['renewal']?['value']?['notice_days'])), null)",
+       "runAfter": {
+        "N_amount_safe": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Renewal_months_safe": {
+       "type": "Compose",
+       "inputs": "@if(isInt(string(coalesce(variables('Eff')?['renewal']?['value']?['period_months'], ''))), int(string(variables('Eff')?['renewal']?['value']?['period_months'])), null)",
+       "runAfter": {
+        "N_days_safe": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Numbers_unread_all": {
+       "type": "Compose",
+       "inputs": "@createArray(if(and(not(equals(variables('Eff')?['renewal']?['value']?['notice_period']?['amount'], null)), equals(outputs('N_amount_safe'), null)), concat('the notice period amount \"', string(variables('Eff')?['renewal']?['value']?['notice_period']?['amount']), '\" could not be read as a whole number'), ''), if(and(not(equals(variables('Eff')?['renewal']?['value']?['notice_days'], null)), equals(outputs('N_days_safe'), null)), concat('the stored notice days \"', string(variables('Eff')?['renewal']?['value']?['notice_days']), '\" could not be read as a whole number'), ''), if(and(not(equals(variables('Eff')?['renewal']?['value']?['period_months'], null)), equals(outputs('Renewal_months_safe'), null)), concat('the renewal period \"', string(variables('Eff')?['renewal']?['value']?['period_months']), '\" could not be read as a number of months'), ''))",
+       "runAfter": {
+        "Renewal_months_safe": [
+         "Succeeded"
+        ]
+       }
+      },
+      "Numbers_unread": {
+       "type": "Query",
+       "inputs": {
+        "from": "@outputs('Numbers_unread_all')",
+        "where": "@not(empty(item()))"
+       },
+       "runAfter": {
+        "Numbers_unread_all": [
+         "Succeeded"
+        ]
+       }
       }
      },
      "else": {
@@ -1243,6 +1303,15 @@
     ]
    }
   },
+  "Family_owner": {
+   "type": "Compose",
+   "inputs": "@triggerOutputs()?['body/_ownerid_value']",
+   "runAfter": {
+    "Master_reference": [
+     "Succeeded"
+    ]
+   }
+  },
   "Report_terms_not_computed": {
    "type": "Scope",
    "runAfter": {
@@ -1260,7 +1329,7 @@
       "parameters": {
        "entityName": "cai_contracts",
        "$select": "cai_contractid,cai_contractreference",
-       "$filter": "@concat('cai_contractreference eq ''', replace(outputs('Master_reference'), '''', ''''''), ''' and cai_documentrole eq ''master'' and cai_reviewstatus eq ''Approved''')",
+       "$filter": "@concat('cai_contractreference eq ''', replace(outputs('Master_reference'), '''', ''''''), ''' and cai_documentrole eq ''master'' and cai_reviewstatus eq ''Approved''', if(empty(coalesce(outputs('Family_owner'), '')), '', concat(' and _ownerid_value eq ', outputs('Family_owner'))))",
        "$orderby": "createdon desc",
        "$top": 1
       },
@@ -1273,7 +1342,7 @@
     },
     "Failure_note": {
      "type": "Compose",
-     "inputs": "@concat('Effective terms could not be computed on ', convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), ' (flow run ', coalesce(workflow()?['run']?['name'], ''), '). No notice deadline is given until a later calculation succeeds. Admin: open the Effective terms run history; the next Daily recompute reports this contract.')",
+     "inputs": "@concat('Effective terms could not be computed on ', convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), ' (flow run ', coalesce(workflow()?['run']?['name'], ''), '). No notice deadline is given until a later calculation succeeds; the Daily recompute retries it every morning. Admin: open the Effective terms run history for the error.')",
      "runAfter": {
       "Find_master_for_failure": [
        "Succeeded",
@@ -1341,10 +1410,32 @@
       }
      }
     },
+    "Alert_admin_terms_not_computed": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+       "connectionName": "shared_teams",
+       "operationId": "PostMessageToConversation"
+      },
+      "parameters": {
+       "poster": "Flow bot",
+       "location": "Chat with Flow bot",
+       "body/recipient": "@parameters('cai_AdminAlertUpn (cai_AdminAlertUpn)')",
+       "body/messageBody": "@concat('<p><b>CAI Contract Intelligence - effective terms NOT computed</b></p><p>Contract: ', outputs('Master_reference'), ' (', coalesce(triggerOutputs()?['body/cai_documentname'], ''), '). ', outputs('Failure_note'), ' The contract now shows DEADLINE NOT VERIFIED and the assistant gives no date for it.</p>')"
+      }
+     },
+     "runAfter": {
+      "Log_terms_not_computed": [
+       "Succeeded",
+       "Failed"
+      ]
+     }
+    },
     "End_run_failed": {
      "type": "Terminate",
      "runAfter": {
-      "Log_terms_not_computed": [
+      "Alert_admin_terms_not_computed": [
        "Succeeded",
        "Failed",
        "TimedOut",

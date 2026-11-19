@@ -1,0 +1,105 @@
+kind: AdaptiveDialog
+modelDescription: "Use for ANY question about a specific contract: its effective terms (notice period and deadline, renewal, fees, liability cap, governing law, termination, etc.), what an amendment changed, and the source clause for each value. Input is the contract reference (an amendment reference is mapped to its master). Reads the register with the signed-in user's own permissions, so it only returns contracts this user may see. Returns the latest approved master's effective terms with per-field source document, location and quote. If the status is NOT_FOUND, say that no contract you have access to has that reference; never say the contract does not exist."
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: ContractReference
+    description: The contract reference, e.g. VC-MSA-2024-017 (an amendment reference such as VC-MSA-2024-017 / AM-01 is mapped to its master).
+    shouldPromptUser: true
+
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SetVariable
+      id: setRef
+      variable: Topic.Ref
+      value: =Trim(First(Split(Trim(Topic.ContractReference), " / ")).Value)
+
+    - kind: InvokeConnectorAction
+      id: listFamilyAsUser
+      input:
+        binding:
+          organization: current
+          entityName: cai_contracts
+          $select: cai_contractid,cai_contractreference,cai_documentname,cai_documentrole,cai_reviewstatus,createdon,cai_extractionjson,cai_noticestatus,cai_noticedeadline,cai_noticetermend,cai_previousnoticedeadline,cai_previouscyclestatus,cai_renewalbasis,cai_currenttermend,cai_effnoticedays,cai_renewalperiodmonths,cai_efffees,cai_effliabilitycap,cai_effectivetermsjson,cai_termscomputedon,cai_termsbasis,cai_contentversion,cai_executionstatus,cai_executionwarning,cai_approvalblocked,cai_correctionstatus,cai_noticeamount,cai_noticeunit,cai_noticewording,cai_deadlinebasis,cai_deadlinereview,_ownerid_value
+          $filter: ="startswith(cai_contractreference,'" & Substitute(Topic.Ref, "'", "''") & "')"
+          $orderby: createdon asc
+
+      output:
+        binding:
+          "@odata.nextLink": Topic.NextLink
+          value: Topic.Rows
+
+      connectionReference: cai_CAIContractIntelligenceAssistant.shared_commondataserviceforapps.shared-commondataser-2d707f83-c482-4aa4-a1d0-627309227a9f
+      connectionProperties:
+        mode: Invoker
+
+      operationId: ListRecordsWithOrganization
+      dynamicOutputSchema:
+        kind: Record
+        properties:
+          "@odata.nextLink": String
+          value:
+            type:
+              kind: Table
+              properties:
+                cai_contractid: String
+                _ownerid_value: String
+                cai_contractreference: String
+                cai_documentname: String
+                cai_documentrole: String
+                cai_reviewstatus: String
+                createdon: DateTime
+                cai_extractionjson: String
+                cai_noticestatus: String
+                cai_noticeamount: Number
+                cai_noticeunit: String
+                cai_noticewording: String
+                cai_deadlinebasis: String
+                cai_deadlinereview: String
+                cai_noticedeadline: Date
+                cai_noticetermend: Date
+                cai_previousnoticedeadline: Date
+                cai_previouscyclestatus: String
+                cai_renewalbasis: String
+                cai_currenttermend: Date
+                cai_effnoticedays: Number
+                cai_renewalperiodmonths: Number
+                cai_efffees: String
+                cai_effliabilitycap: String
+                cai_effectivetermsjson: String
+                cai_termscomputedon: DateTime
+                cai_termsbasis: String
+                cai_contentversion: Number
+                cai_executionstatus: String
+                cai_executionwarning: String
+                cai_approvalblocked: Boolean
+                cai_correctionstatus: String
+
+    - kind: InvokeFlowAction
+      id: computeTerms
+      input:
+        binding:
+          rows: ="{""value"":" & JSON(Topic.Rows) & If(IsBlank(Topic.NextLink), "", ",""@odata.nextLink"":" & JSON(Topic.NextLink)) & "}"
+          text: =Topic.Ref
+
+      output:
+        binding:
+          result: Topic.Result
+
+      flowId: 4dce77cb-f9d9-f111-84e8-000d3a832b24
+
+inputType:
+  properties:
+    ContractReference:
+      displayName: ContractReference
+      description: The contract reference, e.g. VC-MSA-2024-017.
+      type: String
+
+outputType:
+  properties:
+    Result:
+      displayName: Result
+      description: JSON result with status, the latest approved master's effective terms and per-field provenance, limited to contracts the signed-in user can see.
+      type: String
