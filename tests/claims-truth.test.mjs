@@ -75,12 +75,17 @@ const DATA_CLAIMS = [
   'hosts only the governance layer', 'hostí pouze řídicí vrstvu', 'hostet nur die Governance-Steuerungsebene',
   'n’héberge que le plan de contrôle', 'solo aloja el plano de control', 'ospita solo il piano di controllo',
   'hospeda apenas o plano de controlo', 'hostuje wyłącznie warstwę sterowania',
+  // the "About Colleague AI" block (agents pages, per-agent page generator) and llms-full.txt
+  'host only the governance control plane', 'hosts only the governance control plane', 'hostíme pouze řídicí vrstvu',
+  'hosten nur die Governance-Steuerungsebene', 'n’hébergeons que le plan de contrôle', 'solo alojamos el plano de control',
+  'ospitiamo solo il piano di controllo', 'hospedamos apenas o plano de controlo', 'hostujemy wyłącznie warstwę sterowania',
 ];
-const GENERATORS = ['scripts/generate-agent-pages.mjs', 'scripts/i18n-translate-visible-copy.cjs', 'scripts/localize-global-page-copy.cjs']
+const GENERATORS = ['scripts/generate-agent-pages.mjs', 'scripts/i18n-translate-visible-copy.cjs', 'scripts/localize-global-page-copy.cjs',
+  'scripts/generate-llms-full.cjs', 'public/llms-full.txt']
   .map((f) => join(ROOT, f));
 const LEGAL_PAGE = /[\\/](terms|license|refund|privacy|ochrana-soukromi|datenschutz|confidentialite|privacidad|prywatnosc|privacidade)(\.html|[\\/]index\.html)$/;
 
-for (const [label, files] of [['committed pages', PUBLIC], ['built site', DIST], ['page generators', GENERATORS]]) {
+for (const [label, files] of [['committed pages', PUBLIC], ['built site', DIST], ['page generators and llms-full.txt', GENERATORS]]) {
   test(`${label}: no page says ColleagueAI processes or hosts customer metadata`, { skip: !files.length && 'run npm run build first' }, () => {
     const bad = [];
     for (const f of files.filter((x) => !LEGAL_PAGE.test(x))) {
