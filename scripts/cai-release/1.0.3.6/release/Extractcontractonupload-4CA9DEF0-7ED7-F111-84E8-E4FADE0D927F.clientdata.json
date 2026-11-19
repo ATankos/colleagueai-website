@@ -1,0 +1,603 @@
+{
+ "properties": {
+  "connectionReferences": {
+   "shared_sharepointonline": {
+    "api": {
+     "name": "shared_sharepointonline"
+    },
+    "connection": {
+     "connectionReferenceLogicalName": "new_sharedsharepointonline_5330e"
+    },
+    "runtimeSource": "embedded"
+   },
+   "shared_commondataserviceforapps": {
+    "api": {
+     "name": "shared_commondataserviceforapps"
+    },
+    "connection": {
+     "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_9d223"
+    },
+    "runtimeSource": "embedded"
+   },
+   "shared_teams": {
+    "api": {
+     "name": "shared_teams"
+    },
+    "connection": {
+     "connectionReferenceLogicalName": "new_sharedteams_8e81b"
+    },
+    "runtimeSource": "embedded"
+   }
+  },
+  "definition": {
+   "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+   "contentVersion": "1.0.0.0",
+   "actions": {
+    "Get_file_content": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "dataset": "@parameters('cai_SharePointSiteUrl (cai_SharePointSiteUrl)')",
+       "id": "@triggerBody()?['{Identifier}']",
+       "inferContentType": true
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+       "operationId": "GetFileContent",
+       "connectionName": "shared_sharepointonline"
+      }
+     },
+     "runAfter": {
+      "Owner_team_id": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Run_a_prompt": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "recordId": "7dc37c4a-367a-4777-91cf-ce7011607ec9",
+       "item/requestv2/Contract/base64Encoded": "@base64(body('Get_file_content'))"
+      },
+      "host": {
+       "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+       "operationId": "aibuilderpredict_customprompt",
+       "connectionName": "shared_commondataserviceforapps"
+      }
+     },
+     "runAfter": {
+      "Get_file_content": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Parse_JSON": {
+     "type": "ParseJson",
+     "inputs": {
+      "content": "@outputs('Run_a_prompt')?['body/responsev2/predictionOutput/text']",
+      "schema": {
+       "type": "object"
+      }
+     },
+     "runAfter": {
+      "Run_a_prompt": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Add_a_new_row": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_contracts",
+       "item/cai_contractreference": "@coalesce(body('Parse_JSON')?['contract_reference']?['value'], triggerOutputs()?['body/{FilenameWithExtension}'])",
+       "item/cai_contracttype": "@body('Parse_JSON')?['contract_type']?['value']",
+       "item/cai_counterparty": "@concat(body('Parse_JSON')?['parties']?['value']?[0]?['name'], ' / ', body('Parse_JSON')?['parties']?['value']?[1]?['name'])",
+       "item/cai_documenthash": "@concat(triggerOutputs()?['body/{Identifier}'], '#v', string(triggerOutputs()?['body/{VersionNumber}']))",
+       "item/cai_documentname": "@triggerOutputs()?['body/{FilenameWithExtension}']",
+       "item/cai_documentrole": "@body('Parse_JSON')?['document_role']",
+       "item/cai_effectivedate": "@if(empty(body('Parse_JSON')?['effective_date']?['value']), null, body('Parse_JSON')?['effective_date']?['value'])",
+       "item/cai_enddate": "@if(empty(body('Parse_JSON')?['initial_term']?['value']?['end']), null, body('Parse_JSON')?['initial_term']?['value']?['end'])",
+       "item/cai_extractionjson": "@string(body('Parse_JSON'))",
+       "item/cai_governinglaw": "@body('Parse_JSON')?['governing_law']?['value']",
+       "item/cai_liabilitycap": "@body('Parse_JSON')?['liability_cap']?['value']?['formula']",
+       "item/cai_noticedays": "@if(isInt(string(coalesce(body('Parse_JSON')?['renewal']?['value']?['notice_days'], ''))), int(string(body('Parse_JSON')?['renewal']?['value']?['notice_days'])), null)",
+       "item/cai_renewaltype": "@body('Parse_JSON')?['renewal']?['value']?['type']",
+       "item/cai_reviewstatus": "@'Pending review'",
+       "item/cai_sourceurl": "@triggerOutputs()?['body/{Link}']",
+       "item/ownerid@odata.bind": "@concat('teams(', outputs('Owner_team_id'), ')')"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "operationId": "CreateRecord",
+       "connectionName": "shared_commondataserviceforapps"
+      }
+     },
+     "runAfter": {
+      "Parse_JSON": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Apply_to_each": {
+     "type": "Foreach",
+     "foreach": "@createArray('contract_reference','contract_type','parties','signature_status','effective_date','initial_term','renewal','termination_for_convenience','termination_for_cause','change_of_control','fees','payment_terms','late_payment_interest','price_indexation','liability_cap','liability_exclusions','indemnities','ip_ownership','confidentiality_survival','data_protection','governing_law','jurisdiction','assignment','precedence_rule')",
+     "actions": {
+      "Add_a_new_row_1": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_fieldevidences",
+         "item/cai_Contract@odata.bind": "@concat('cai_contracts(', outputs('Add_a_new_row')?['body/cai_contractid'], ')')",
+         "item/cai_evidencestatus": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['status'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['status']))",
+         "item/cai_fieldname": "@items('Apply_to_each')",
+         "item/cai_location": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['location'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['location']))",
+         "item/cai_quote": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['quote'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['quote']))",
+         "item/cai_value": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['value'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['value']))",
+         "item/ownerid@odata.bind": "@concat('teams(', outputs('Owner_team_id'), ')')"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "operationId": "CreateRecord",
+         "connectionName": "shared_commondataserviceforapps"
+        }
+       }
+      }
+     },
+     "runAfter": {
+      "Add_a_new_row": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Find_owner_team": {
+     "type": "OpenApiConnection",
+     "runAfter": {},
+     "inputs": {
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "ListRecords"
+      },
+      "parameters": {
+       "entityName": "teams",
+       "$select": "teamid,name",
+       "$filter": "@concat('teamtype eq 0 and name eq ''', replace(trim(parameters('cai_ContractOwnerTeam (cai_ContractOwnerTeam)')), '''', ''''''), '''')",
+       "$top": 1
+      }
+     }
+    },
+    "Owner_team_configured": {
+     "type": "If",
+     "runAfter": {
+      "Find_owner_team": [
+       "Succeeded"
+      ]
+     },
+     "expression": {
+      "equals": [
+       "@length(outputs('Find_owner_team')?['body/value'])",
+       0
+      ]
+     },
+     "actions": {
+      "Stop_owner_team_missing": {
+       "type": "Terminate",
+       "runAfter": {
+        "Alert_owner_team_missing": [
+         "Succeeded",
+         "Failed",
+         "TimedOut"
+        ]
+       },
+       "inputs": {
+        "runStatus": "Failed",
+        "runError": {
+         "code": "OwnerTeamNotConfigured",
+         "message": "@concat('No owner team named ''', parameters('cai_ContractOwnerTeam (cai_ContractOwnerTeam)'), ''' exists. Set the environment variable cai_ContractOwnerTeam to an existing owner team before uploading contracts. Nothing was extracted.')"
+        }
+       }
+      },
+      "Alert_owner_team_missing": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+         "connectionName": "shared_teams",
+         "operationId": "PostMessageToConversation"
+        },
+        "parameters": {
+         "poster": "Flow bot",
+         "location": "Chat with Flow bot",
+         "body/recipient": "@parameters('cai_AdminAlertUpn (cai_AdminAlertUpn)')",
+         "body/messageBody": "@concat('<p><b>CAI Contract Intelligence - uploads are NOT processed</b></p><p>No owner team named ', parameters('cai_ContractOwnerTeam (cai_ContractOwnerTeam)'), ' exists, so ', triggerOutputs()?['body/{FilenameWithExtension}'], ' was not extracted. Set the environment variable cai_ContractOwnerTeam to an existing owner team that has the CAI Contract Reader role (INSTALL, configuration), then upload the file again.</p>')"
+        }
+       },
+       "runAfter": {}
+      }
+     },
+     "else": {
+      "actions": {}
+     }
+    },
+    "Owner_team_id": {
+     "type": "Compose",
+     "runAfter": {
+      "Owner_team_configured": [
+       "Succeeded"
+      ]
+     },
+     "inputs": "@first(outputs('Find_owner_team')?['body/value'])?['teamid']"
+    },
+    "Find_earlier_failures": {
+     "type": "OpenApiConnection",
+     "runAfter": {
+      "Apply_to_each": [
+       "Succeeded"
+      ]
+     },
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_contracts",
+       "$select": "cai_contractid",
+       "$filter": "@concat('cai_reviewstatus eq ''Extraction failed'' and cai_documentname eq ''', replace(triggerOutputs()?['body/{FilenameWithExtension}'], '''', ''''''), ''' and _ownerid_value eq ', outputs('Owner_team_id'))"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "ListRecords"
+      }
+     }
+    },
+    "Mark_earlier_failures_replaced": {
+     "type": "Foreach",
+     "foreach": "@outputs('Find_earlier_failures')?['body/value']",
+     "runAfter": {
+      "Find_earlier_failures": [
+       "Succeeded"
+      ]
+     },
+     "actions": {
+      "Mark_replaced": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_contracts",
+         "recordId": "@items('Mark_earlier_failures_replaced')?['cai_contractid']",
+         "item/cai_reviewstatus": "Extraction failed - replaced",
+         "item/cai_noticestatus": "@concat('REPLACED: a readable upload of the same file was extracted on ', convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd'), ' as ', coalesce(outputs('Add_a_new_row')?['body/cai_contractreference'], ''), '. This row is kept as evidence of the failed upload.')"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "connectionName": "shared_commondataserviceforapps",
+         "operationId": "UpdateOnlyRecord"
+        }
+       }
+      }
+     }
+    },
+    "Report_extraction_failure": {
+     "type": "Scope",
+     "runAfter": {
+      "Apply_to_each": [
+       "Failed",
+       "Skipped",
+       "TimedOut"
+      ]
+     },
+     "actions": {
+      "Failure_step": {
+       "type": "Compose",
+       "runAfter": {},
+       "inputs": "@if(equals(actions('Get_file_content')?['status'], 'Failed'), 'open', if(equals(actions('Run_a_prompt')?['status'], 'Failed'), 'read', if(equals(actions('Parse_JSON')?['status'], 'Failed'), 'parse', if(equals(actions('Add_a_new_row')?['status'], 'Failed'), 'register', 'evidence'))))"
+      },
+      "Failure_detail_raw": {
+       "type": "Compose",
+       "runAfter": {
+        "Failure_step": [
+         "Succeeded"
+        ]
+       },
+       "inputs": "@string(coalesce(actions('Get_file_content')?['error']?['message'], actions('Run_a_prompt')?['outputs']?['body']?['error']?['message'], actions('Run_a_prompt')?['error']?['message'], actions('Parse_JSON')?['error']?['message'], actions('Add_a_new_row')?['outputs']?['body']?['error']?['message'], actions('Add_a_new_row')?['error']?['message'], actions('Apply_to_each')?['error']?['message'], 'no error text returned'))"
+      },
+      "Failure_detail": {
+       "type": "Compose",
+       "runAfter": {
+        "Failure_detail_raw": [
+         "Succeeded"
+        ]
+       },
+       "inputs": "@if(greater(length(outputs('Failure_detail_raw')), 300), concat(substring(outputs('Failure_detail_raw'), 0, 297), '...'), outputs('Failure_detail_raw'))"
+      },
+      "Failure_reason": {
+       "type": "Compose",
+       "runAfter": {
+        "Failure_detail": [
+         "Succeeded"
+        ]
+       },
+       "inputs": "@if(equals(outputs('Failure_step'), 'open'), 'SharePoint did not return the file (it may have been deleted, moved or locked).', if(equals(outputs('Failure_step'), 'read'), 'The file could not be read as a contract: it may not be a PDF or Word document, it may be a scan without a text layer, password-protected, damaged or too large.', if(equals(outputs('Failure_step'), 'parse'), 'The extraction result could not be understood.', if(equals(outputs('Failure_step'), 'register'), 'The register row could not be written (check that the owner team has the CAI Contract Reader role).', 'The register row was written but some evidence rows were not, so the extraction is incomplete.'))))"
+      },
+      "Failure_todo": {
+       "type": "Compose",
+       "runAfter": {
+        "Failure_reason": [
+         "Succeeded"
+        ]
+       },
+       "inputs": "@if(contains(createArray('open', 'read'), outputs('Failure_step')), 'Upload a text-based PDF or Word copy of the signed contract (run text recognition on a scan first) to the same library. ', 'Upload the file again; if it fails again, ask the administrator to check the flow run. ')"
+      },
+      "Failure_reference": {
+       "type": "Compose",
+       "runAfter": {
+        "Failure_todo": [
+         "Succeeded"
+        ]
+       },
+       "inputs": "@if(equals(actions('Add_a_new_row')?['status'], 'Succeeded'), coalesce(actions('Add_a_new_row')?['outputs']?['body']?['cai_contractreference'], ''), concat('UNREADABLE - ', triggerOutputs()?['body/{FilenameWithExtension}']))"
+      },
+      "Row_exists": {
+       "type": "If",
+       "runAfter": {
+        "Failure_reference": [
+         "Succeeded"
+        ]
+       },
+       "expression": {
+        "equals": [
+         "@actions('Add_a_new_row')?['status']",
+         "Succeeded"
+        ]
+       },
+       "actions": {
+        "Mark_row_failed": {
+         "type": "OpenApiConnection",
+         "inputs": {
+          "parameters": {
+           "entityName": "cai_contracts",
+           "recordId": "@outputs('Add_a_new_row')?['body/cai_contractid']",
+           "item/cai_reviewstatus": "Extraction failed",
+           "item/cai_noticestatus": "@concat('FILE COULD NOT BE PROCESSED - NOT IN THE REGISTER. ', outputs('Failure_reason'), ' ', outputs('Failure_todo'))"
+          },
+          "host": {
+           "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+           "connectionName": "shared_commondataserviceforapps",
+           "operationId": "UpdateOnlyRecord"
+          }
+         }
+        }
+       },
+       "else": {
+        "actions": {
+         "Add_failure_row": {
+          "type": "OpenApiConnection",
+          "inputs": {
+           "parameters": {
+            "entityName": "cai_contracts",
+            "item/cai_contractreference": "@outputs('Failure_reference')",
+            "item/cai_documentname": "@triggerOutputs()?['body/{FilenameWithExtension}']",
+            "item/cai_documenthash": "@concat(triggerOutputs()?['body/{Identifier}'], '#v', string(triggerOutputs()?['body/{VersionNumber}']))",
+            "item/cai_sourceurl": "@triggerOutputs()?['body/{Link}']",
+            "item/cai_reviewstatus": "Extraction failed",
+            "item/cai_approvalblocked": true,
+            "item/cai_noticestatus": "@concat('FILE COULD NOT BE READ - NOT IN THE REGISTER. ', outputs('Failure_reason'), ' ', outputs('Failure_todo'))",
+            "item/cai_extractionjson": "@string(addProperty(json('{}'), 'extraction_failed', setProperty(setProperty(setProperty(setProperty(setProperty(json('{}'), 'step', outputs('Failure_step')), 'error', outputs('Failure_detail')), 'file', triggerOutputs()?['body/{FilenameWithExtension}']), 'uploaded_by', coalesce(triggerOutputs()?['body/Author/DisplayName'], triggerOutputs()?['body/Author/Email'], 'unknown')), 'flow_run', coalesce(workflow()?['run']?['name'], ''))))",
+            "item/ownerid@odata.bind": "@concat('teams(', outputs('Owner_team_id'), ')')"
+           },
+           "host": {
+            "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+            "connectionName": "shared_commondataserviceforapps",
+            "operationId": "CreateRecord"
+           }
+          }
+         }
+        }
+       }
+      },
+      "Failure_row_id": {
+       "type": "Compose",
+       "runAfter": {
+        "Row_exists": [
+         "Succeeded",
+         "Failed"
+        ]
+       },
+       "inputs": "@coalesce(actions('Add_failure_row')?['outputs']?['body']?['cai_contractid'], actions('Add_a_new_row')?['outputs']?['body']?['cai_contractid'], '')"
+      },
+      "Log_extraction_failure": {
+       "type": "OpenApiConnection",
+       "runAfter": {
+        "Failure_row_id": [
+         "Succeeded"
+        ]
+       },
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_reviews",
+         "item/cai_Contract@odata.bind": "@if(empty(outputs('Failure_row_id')), null, concat('cai_contracts(', outputs('Failure_row_id'), ')'))",
+         "item/cai_title": "@concat(triggerOutputs()?['body/{FilenameWithExtension}'], ' - could not be read')",
+         "item/cai_decision": "Extraction failed",
+         "item/cai_reviewer": "CAI Contract Intelligence (system)",
+         "item/cai_decidedon": "@utcNow()",
+         "item/cai_source": "Release 1.0.3.5 extraction failure path",
+         "item/cai_comment": "@concat(outputs('Failure_reason'), ' Detail: ', outputs('Failure_detail'))"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "connectionName": "shared_commondataserviceforapps",
+         "operationId": "CreateRecord"
+        }
+       }
+      },
+      "Notify_reviewer": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+         "connectionName": "shared_teams",
+         "operationId": "PostMessageToConversation"
+        },
+        "parameters": {
+         "poster": "Flow bot",
+         "location": "Chat with Flow bot",
+         "body/recipient": "@parameters('cai_ReviewerUpn (cai_ReviewerUpn)')",
+         "body/messageBody": "@concat('<p><b>Contract file could not be read: ', triggerOutputs()?['body/{FilenameWithExtension}'], '</b></p><p>Uploaded by ', coalesce(triggerOutputs()?['body/Author/DisplayName'], triggerOutputs()?['body/Author/Email'], 'unknown'), ' on ', convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), '. <a href=\"', triggerOutputs()?['body/{Link}'], '\">Open the file</a></p><p><b>Why:</b> ', outputs('Failure_reason'), '</p><p><b>What to do:</b> ', outputs('Failure_todo'), 'The register keeps a row ', outputs('Failure_reference'), ' as evidence of this upload, with no dates; the assistant does not use it.</p>')"
+        }
+       },
+       "runAfter": {
+        "Log_extraction_failure": [
+         "Succeeded",
+         "Failed"
+        ]
+       }
+      },
+      "Uploader_is_someone_else": {
+       "type": "If",
+       "runAfter": {
+        "Notify_reviewer": [
+         "Succeeded",
+         "Failed"
+        ]
+       },
+       "expression": {
+        "and": [
+         {
+          "not": {
+           "equals": [
+            "@coalesce(triggerOutputs()?['body/Author/Email'], '')",
+            ""
+           ]
+          }
+         },
+         {
+          "not": {
+           "equals": [
+            "@toLower(coalesce(triggerOutputs()?['body/Author/Email'], ''))",
+            "@toLower(parameters('cai_ReviewerUpn (cai_ReviewerUpn)'))"
+           ]
+          }
+         }
+        ]
+       },
+       "actions": {
+        "Notify_uploader": {
+         "type": "OpenApiConnection",
+         "inputs": {
+          "host": {
+           "apiId": "/providers/Microsoft.PowerApps/apis/shared_teams",
+           "connectionName": "shared_teams",
+           "operationId": "PostMessageToConversation"
+          },
+          "parameters": {
+           "poster": "Flow bot",
+           "location": "Chat with Flow bot",
+           "body/recipient": "@coalesce(triggerOutputs()?['body/Author/Email'], '')",
+           "body/messageBody": "@concat('<p><b>Contract file could not be read: ', triggerOutputs()?['body/{FilenameWithExtension}'], '</b></p><p>Uploaded by ', coalesce(triggerOutputs()?['body/Author/DisplayName'], triggerOutputs()?['body/Author/Email'], 'unknown'), ' on ', convertFromUtc(utcNow(), parameters('cai_BusinessTimeZone (cai_BusinessTimeZone)'), 'yyyy-MM-dd HH:mm'), '. <a href=\"', triggerOutputs()?['body/{Link}'], '\">Open the file</a></p><p><b>Why:</b> ', outputs('Failure_reason'), '</p><p><b>What to do:</b> ', outputs('Failure_todo'), 'The register keeps a row ', outputs('Failure_reference'), ' as evidence of this upload, with no dates; the assistant does not use it.</p>')"
+          }
+         }
+        }
+       },
+       "else": {
+        "actions": {}
+       }
+      },
+      "End_run_failed": {
+       "type": "Terminate",
+       "runAfter": {
+        "Uploader_is_someone_else": [
+         "Succeeded",
+         "Failed",
+         "TimedOut",
+         "Skipped"
+        ]
+       },
+       "inputs": {
+        "runStatus": "Failed",
+        "runError": {
+         "code": "ExtractionFailed",
+         "message": "@{concat(outputs('Failure_reason'), ' ', outputs('Failure_detail'))}"
+        }
+       }
+      }
+     }
+    }
+   },
+   "triggers": {
+    "When_a_file_is_created_(properties_only)": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "dataset": "@parameters('cai_SharePointSiteUrl (cai_SharePointSiteUrl)')",
+       "table": "@parameters('cai_ContractLibraryId (cai_ContractLibraryId)')"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+       "operationId": "GetOnNewFileItems",
+       "connectionName": "shared_sharepointonline"
+      }
+     },
+     "recurrence": {
+      "interval": 1,
+      "frequency": "Minute"
+     },
+     "splitOn": "@triggerOutputs()?['body/value']"
+    }
+   },
+   "parameters": {
+    "$authentication": {
+     "defaultValue": {},
+     "type": "SecureObject"
+    },
+    "$connections": {
+     "defaultValue": {},
+     "type": "Object"
+    },
+    "cai_SharePointSiteUrl (cai_SharePointSiteUrl)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_SharePointSiteUrl"
+     }
+    },
+    "cai_ContractLibraryId (cai_ContractLibraryId)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_ContractLibraryId"
+     }
+    },
+    "cai_ContractOwnerTeam (cai_ContractOwnerTeam)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_ContractOwnerTeam"
+     }
+    },
+    "cai_AdminAlertUpn (cai_AdminAlertUpn)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_AdminAlertUpn"
+     }
+    },
+    "cai_ReviewerUpn (cai_ReviewerUpn)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_ReviewerUpn"
+     }
+    },
+    "cai_BusinessTimeZone (cai_BusinessTimeZone)": {
+     "defaultValue": "Central Europe Standard Time",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_BusinessTimeZone"
+     }
+    }
+   },
+   "outputs": {}
+  }
+ },
+ "schemaVersion": "1.0.0.0"
+}
