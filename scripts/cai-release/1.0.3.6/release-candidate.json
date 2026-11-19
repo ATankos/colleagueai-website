@@ -1,0 +1,15 @@
+{
+  "_comment": "Release record for CAI-L4-CI-001 1.0.3.6 (the \"release\" entry of config/products.json without _comment and managedSolution). tests/cai-1036-release-candidate.test.mjs checks it against the bundle checksums, the documents, config/products.json and the download rules.",
+  "version": "1.0.3.6",
+  "status": "controlled-test",
+  "package": "CAI-L4-CI-001_1.0.3.6.zip",
+  "sha256": "69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50",
+  "bytes": 368718,
+  "managedSolution": {
+    "file": "CAIContractIntelligence_1_0_3_6_managed.zip",
+    "sha256": "cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8",
+    "bytes": 122951
+  },
+  "releasedAt": "2026-11-19T00:00:00Z",
+  "correctiveFor": ["1.0.3.2", "1.0.3.3", "1.0.3.4"]
+}

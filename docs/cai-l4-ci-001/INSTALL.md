@@ -1,17 +1,20 @@
 <!--
-INSTALL.md of bundle CAI-L4-CI-001 1.0.3.5 (corrective release: 1.0.3.2 counted month-based notice periods as days;
+INSTALL.md of bundle CAI-L4-CI-001 1.0.3.6 (corrective release: 1.0.3.2 counted month-based notice periods as days;
 1.0.3.3 fixed the calculation; 1.0.3.4 withholds every notice deadline that a reviewer has not confirmed; 1.0.3.5 fixes
 three defects found in the 1.0.3.4 tenant test of 11 Nov 2026: a recalculation that failed silently on unusual duration
 wording, a duplicate contract reference in another team marking that team's contract SUPERSEDED, and an unreadable upload
-that left no trace outside the flow history).
+that left no trace outside the flow history; 1.0.3.6 labels every AI-extracted value and excerpt as unverified instead
+of presenting it as a verbatim quotation).
 Statements about the import, flows, role and agent come from real installs of 1.0.3.1 and 1.0.3.2 (8-9 Nov 2026), from
 the 1.0.3.3 and 1.0.3.4 tests (10-11 Nov 2026) and from the 1.0.3.5 tests of 19 Nov 2026 (managed upgrade 1.0.3.4 -> 1.0.3.5
-of a test environment with existing data, clean install in a second test environment, tenant lifecycle test).
+of a test environment with existing data, clean install in a second test environment, tenant lifecycle test) and the
+1.0.3.6 tests of 19 Nov 2026 (managed upgrade 1.0.3.5 -> 1.0.3.6 of the same test environment, review card, deadline
+texts and agent answer checked).
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.5 · **Bundle revision** 1
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 1
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -96,7 +99,7 @@ On a large register, deadline questions can cost more than the daily recompute: 
 
 ## 2. What gets installed
 
-One managed solution, `CAIContractIntelligence` version 1.0.3.5, which contains:
+One managed solution, `CAIContractIntelligence` version 1.0.3.6, which contains:
 
 - **Four Dataverse tables:** Contracts, Reviews, Field evidence and Job runs.
 - **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account. Every day, the daily recompute recalculates the contracts whose notice deadline or term end falls within the next 90 days (*Recompute window*), and once a week it recalculates every approved contract (*Full recompute day*, default Monday). Its Copilot Studio usage therefore **grows with the size of the register** (section 1a).
@@ -139,7 +142,7 @@ Contracts outside the window are still recalculated the moment one of their docu
 ## 4. Import (recommended: in the browser)
 
 1. Go to **make.powerapps.com** and pick your environment (top right).
-2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.5.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_5_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
+2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.6.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_6_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
 3. Open **Solutions → Import solution → Browse**, choose that inner file, and click **Next**.
 4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **Whatever connection you pick here, the import may publish the agent on its own** (it did in three of our five fresh installs, once with a connection created in the wizard and twice with connections that already existed, and did not in the other two; section 7 explains and tells you what to check and do right after the import). Each reference must show a connection before you continue.
 5. **Environment variables.** Enter the five values from section 3, then click **Import**. On a fresh install the five fields are empty; the package ships no placeholder values.
@@ -152,7 +155,8 @@ Contracts outside the window are still recalculated the moment one of their docu
 - The connections step says "0 updates needed, 4 updates optional" and keeps your existing connections; leave it.
 - **From 1.0.2.0:** the upgrade also removes the two old agent tools. Then do section 6, and assign your **existing** contracts and their field evidence to the team (Contracts table → select all → **Assign** → the team; then the same for Field evidence). Until you do, existing contracts are visible to nobody except administrators.
 - **From 1.0.3.0 or 1.0.3.1:** nothing else to do for your team setup; read the next point too.
-- **From 1.0.3.4:** your contracts, field evidence, reviews and job history stay as they are (in our upgrade test of 19 November 2026: 32 contracts, 386 evidence records, 33 reviews and 8 job runs, unchanged), and the import keeps each flow On or Off as it was. Nothing is recalculated by the upgrade. Two things change from the moment of the import: contracts with the same reference in **different** owner teams are no longer treated as duplicates of each other (section 9), and failures are reported (section 9b). A contract that 1.0.3.4 marked *SUPERSEDED* only because a contract with the same reference exists in another team keeps that status until it is recalculated, and the Daily recompute skips superseded contracts. To find them, look in the Contracts table for notice statuses starting with *SUPERSEDED* where no newer approved contract with the same reference exists in the same owner team. To restore one, an administrator sets its **Recompute requested on** column to the current date and time (**Power Apps → Tables → Contracts → Edit**); the contract is recalculated within a minute as a contract of its own team (tested on 19 November 2026). Support can do the search with you.
+- **From 1.0.3.5:** your contracts, field evidence, reviews and job history stay as they are (in our upgrade test of 19 November 2026: 42 contracts, 602 evidence records, 49 reviews and 9 job runs, unchanged), each flow keeps its On or Off state and nothing is recalculated by the upgrade. 1.0.3.6 changes wording only: review cards, deadline texts and the agent say that values and excerpts are extracted by AI and not verified against the document (section 9a). Three things to expect: the import shows a yellow notice and the warning *The original workflow definition has been deactivated and replaced* for the changed flows, which is normal for an upgrade and needs no action; the stored deadline texts of existing contracts keep the 1.0.3.5 wording until a contract is recalculated; and when a contract whose deadline is *not verified* is recalculated for the first time after the upgrade (by the Daily recompute or a change), the reviewer receives its deadline card once more, because the reason text changed.
+- **From 1.0.3.4:** read the point above too. Your contracts, field evidence, reviews and job history stay as they are (in our upgrade test of 19 November 2026: 32 contracts, 386 evidence records, 33 reviews and 8 job runs, unchanged), and the import keeps each flow On or Off as it was. Nothing is recalculated by the upgrade. Two things change from the moment of the import: contracts with the same reference in **different** owner teams are no longer treated as duplicates of each other (section 9), and failures are reported (section 9b). A contract that 1.0.3.4 marked *SUPERSEDED* only because a contract with the same reference exists in another team keeps that status until it is recalculated, and the Daily recompute skips superseded contracts. To find them, look in the Contracts table for notice statuses starting with *SUPERSEDED* where no newer approved contract with the same reference exists in the same owner team. To restore one, an administrator sets its **Recompute requested on** column to the current date and time (**Power Apps → Tables → Contracts → Edit**); the contract is recalculated within a minute as a contract of its own team (tested on 19 November 2026). Support can do the search with you.
 - **From 1.0.3.3, 1.0.3.2 or earlier: existing contracts and deadlines.** Your contracts, field evidence, reviews and job history stay as they are (in our upgrade tests of 10 November 2026 all contract records, 194 evidence records and 7 job runs were unchanged), and the import keeps each flow On or Off as it was. The upgrade itself recalculates nothing, but from the moment of the import the agent no longer gives a date for any deadline that is not confirmed: a deadline stored by 1.0.3.2, and a 1.0.3.3 deadline marked PROVISIONAL, is answered as *Deadline not verified — human review required*. To recalculate all contracts at once: set *Full recompute day* to today's weekday, open **Power Automate → CAI CI - Daily recompute → Run**, wait for the *Job runs* entry, then set the value back. Daily recompute also picks up every contract that still stores an unconfirmed date, whatever the window.
   On recalculation, release 1.0.3.4 and later re-read each notice period that 1.0.3.2 stored in days from the stored notice wording. A period that the wording states in days, and that a reviewer approved, stays CONFIRMED. A period converted to months, years or weeks, and a period whose stored wording does not show it, becomes *not verified*: the stored date is removed (a review record *notice deadline withdrawn until a reviewer confirms it* keeps the old date), and the reviewer receives a deadline card in Teams (section 9a). The stored extraction and evidence are never changed.
 - **In every case** an upgrade does **not** republish the agent: the version your users could reach stays the previous one until your organisation publishes again. If your agent is published, publish it again after the upgrade (section 7, publishing procedure step 3): until you do, the published agent keeps its previous instructions; the deadline answers themselves already follow release 1.0.3.5, because they come from the flows. The agent's instructions in 1.0.3.5 add one line (name other teams' contracts with the same reference instead of mixing them); until you publish again, the published agent keeps the previous instructions, and the data it receives is already separated by team. Run the checks in section 7 anyway.
@@ -163,7 +167,7 @@ Contracts outside the window are still recalculated the moment one of their docu
 3. Run:
 
 ```
-pac solution import --path CAIContractIntelligence_1_0_3_5_managed.zip --settings-file deploymentSettings.json --activate-plugins
+pac solution import --path CAIContractIntelligence_1_0_3_6_managed.zip --settings-file deploymentSettings.json --activate-plugins
 ```
 
 ## 5. Check that all seven flows are on (mandatory)
@@ -196,10 +200,12 @@ The **Flow checker** only says *This flow is off* for a switched-off flow; it do
 
 ```
 set DATAVERSE_TOKEN=<token>      (PowerShell: $env:DATAVERSE_TOKEN = az account get-access-token --resource https://ORG.crmN.dynamics.com --query accessToken -o tsv)
-node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expect-version 1.0.3.5 --daily-recompute off
+node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expect-version 1.0.3.6 --daily-recompute off
 ```
 
 Replace `ORG.crmN.dynamics.com` with your environment URL exactly as the Power Platform admin center shows it (Environments → your environment → *Environment URL*; the number after `crm` differs by region, for example `crm4` or `crm17`). The last line says `READY` or `NOT READY`.
+
+**When you go live, Daily recompute must be On.** It keeps the *days left* and the next notice deadline current after a term rolls over, and it is the scheduled check that notices a missed recalculation. The package ships all seven flows On (each release is checked for this before it is published). Before the first real contract, select **Daily recompute → Turn on** and run the readiness check **without** `--daily-recompute off`: it then reports `NOT READY` while Daily recompute is Off. Check the next morning that the **Job runs** table shows a *SUCCEEDED* run (section 9, step 5).
 
 **While you test: keep Daily recompute Off.** The daily job runs every morning at 05:30 Central European Time and uses Copilot Studio capacity for every contract it recalculates (section 1a). In a test environment, select **Daily recompute → Turn off** after the import and turn it on when you go live; the readiness check accepts this with `--daily-recompute off`. Answers from the agent do not depend on the daily job: terms are recalculated the moment a document is approved or changed, and "days left" is always counted from today.
 
@@ -295,23 +301,24 @@ Use an account that is a **member of the contract owner team**.
 
 If step 1 shows nothing after 5 minutes, check that:
 - the reviewer did not receive a *Contract file could not be read* message instead (section 9b);
+- the file was added at least a minute after **Extract contract on upload** was turned on. A file added in the first minute after the flow is turned on can be missed (seen once, 19 November 2026); upload a copy of it under a different file name;
 - the environment has Copilot Studio capacity (section 1);
 - all five values in section 3 are filled in, and the team exists with exactly that name (section 6);
 - the flows are on (section 5).
 
 ## 9a. What the reviewer must check before approving
 
-Approval is what makes a contract count: until a document is approved, the agent gives no values from it. The review card shows each value with its quoted evidence, and also:
+Approval is what makes a contract count: until a document is approved, the agent gives no values from it. The review card shows each value with the excerpt the AI extracted for it, and also:
 
-- **Notice period** as the extraction read it (amount and unit, for example *6 month(s), on or before the term end*), with the **notice wording** as the extraction quoted it;
-- **Notice clauses found in the whole document**: every sentence about notice of non-renewal that the extraction found, including schedules, order forms and small print. More than one period means you decide which one applies;
+- **Notice period** as the extraction read it (amount and unit, for example *6 month(s), on or before the term end*), with the **notice wording** as the AI extracted it;
+- **Notice clauses the AI found in the document**: every sentence about notice of non-renewal that the extraction found, including schedules, order forms and small print. More than one period means you decide which one applies;
 - **Signed on**, next to the effective date, so that a signing date taken as the effective date is easy to spot.
 
-**Before you confirm a notice period or approve a contract, open the source contract itself** (the file in the contract library), not only the review card, and read its renewal and notice provisions in full: the main terms, every schedule, annex, order form and amendment that applies to it, including those kept as separate documents, and the small print. The card shows only what the extraction found, and the extraction can miss or misread a clause. **The card labels the quotes "Evidence (verbatim quotes)" and the approve option reads "the values match the evidence", but the quotes are the extraction's reading of the document and can carry the same misreading as the value**: in our 19 November 2026 test the card quoted a schedule as "90 (90) months" where the document says "six (6) months". Compare values and quotes with the document, not with each other. Ticking the confirmation records that you have done this check.
+**Before you confirm a notice period or approve a contract, open the source contract itself** (the file in the contract library), not only the review card, and read its renewal and notice provisions in full: the main terms, every schedule, annex, order form and amendment that applies to it, including those kept as separate documents, and the small print. The card shows only what the extraction found, and the extraction can miss or misread a clause. **Everything on the card is the AI's reading of the document, including the text in quotation marks.** The excerpts are not copied from the file and are not checked against it; they can carry the same misreading as the value. The card says so (*Extracted by AI ... and NOT VERIFIED against the document*, *AI-extracted excerpts (unverified - compare them with the original document)*), and its approve option reads *Approve - I checked these values in the original document*. In our tests of 10, 11 and 19 November 2026 the AI read a schedule's "six (6) months" as "90 (90) months" in all four extractions of that document, and showed that misreading as the excerpt. Compare the values and the excerpts with the document, not with each other. Ticking the confirmation records that you have done this check.
 
 Check in particular:
 
-1. **Notice period.** Amount, unit and timing must match the wording and every clause listed. To set or confirm the period, choose **Notice period - applied at once**, type the period (for example `6 months`, `90 days`, `8 weeks`, or `none` if the contract does not renew automatically) and **tick the confirmation** *I have checked this notice period against the original wording in the document and the calculation*. Only a confirmed period is applied; it is recorded with your name, and the extracted value and its evidence are kept. A period typed without the tick is not applied and records the review as *Needs correction*.
+1. **Notice period.** Amount, unit and timing must match the wording and every clause listed. To set or confirm the period, choose **Notice period - applied at once**, type the period (for example `6 months`, `90 days`, `8 weeks`, or `none` if the contract does not renew automatically) and **tick the confirmation** *I have checked this notice period against the original wording in the document and the calculation*. Only a confirmed period is applied; it is recorded with your name, and the AI-extracted value and its excerpt are kept. A period typed without the tick is not applied and records the review as *Needs correction*.
 2. **Effective date.** It must be the date from which the document applies (*"with effect from …"*), not the date it was signed. Correct it with **Effective date - applied at once** (`YYYY-MM-DD`).
 3. **Schedules, annexes and small print.** Read them yourself before approving a liability cap or a notice period. In our test, the extraction listed a contradicting small-print notice clause but misread its 4.5-point light-grey "six (6) months" as "90 (90) months". Release 1.0.3.3 showed the 3-month date (30 September 2027) as PROVISIONAL; release 1.0.3.4 shows no date until the reviewer confirms 6 months, which gives 30 June 2027.
 4. **Any other correction** (for example the liability cap) still records the review as *Needs correction* and blocks approval until it is resolved.
@@ -328,7 +335,7 @@ Check in particular:
 
 For a deadline that is not verified, users and the agent see **Deadline not verified — human review required** and no date, no days left and no reminder. You, the reviewer, receive a **deadline card** in Teams (red banner *DEADLINE NOT VERIFIED*) with the reasons and the **candidate calculations**, one date per clause found, for example *3 month(s) (main clause): 2027-09-30; 90 month(s) (Schedule 2): not used - implausible period*. Candidates are not deadlines and are kept only on the card and in the review log. Confirm the period that applies, as in check 1, and submit **Approve**: the deadline becomes CONFIRMED with your name in its calculation basis. Approving without a confirmed period leaves it not verified; you get no further card for the same reasons, but Daily recompute lists all unverified deadlines to you each day it runs. **The calculation is not a legal interpretation of the clause.**
 
-These tests are limited (15 synthetic notice documents, two deliberately manipulated documents and targeted safeguard tests), not proof that every document is handled correctly. A clause that the extraction does not find at all, or misreads consistently in both the number and the quoted wording, cannot be detected by these checks. The review is the control.
+These tests are limited (15 synthetic notice documents, two deliberately manipulated documents and targeted safeguard tests), not proof that every document is handled correctly. A clause that the extraction does not find at all, or misreads consistently in both the number and the extracted excerpt, cannot be detected by these checks. The review is the control.
 
 ## 9b. When something fails: what you see and what to do
 
@@ -358,7 +365,7 @@ Tested on 19 November 2026 in an upgraded and in a freshly installed environment
 | **Role shows 9 or 11 privileges** | All four fresh imports showed 11 and an upgrade 9. The two extra are standard platform privileges on a private system table (section 2). |
 | **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); one manual run on release 1.0.3.5 (19 November 2026, 5 contracts in the window, all refreshed) succeeded; a full scheduled week has not yet been observed. Contracts that have ended and do not renew are recalculated every day, because their term end lies before the end of the window (section 1a). |
 | **Duplicate approved masters** | When the same contract reference is uploaded and approved twice **in the same owner team**, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Contracts with the same reference in different teams are separate (section 9). Release 1.0.3.4 compared references across teams; after an upgrade, a contract it marked *SUPERSEDED* for that reason keeps the status until it is recalculated (section 4). |
-| **Review card wording** | The card heads the quotes *Evidence (verbatim quotes)* and its approve option reads *the values match the evidence*, but the quotes are the extraction's reading of the document and can carry the same misreading as the value (section 9a). Compare both with the document. The wording of the card will change in a later release. |
+| **Excerpts are AI-extracted, not verified** | The values and excerpts on the review card, the notice wording in the deadline texts and what the agent repeats from the register are the AI's reading of the document, not text copied from it, and nothing checks them against the file. From 1.0.3.6 the card, the deadline texts and the agent say so. A consistent misreading (as in our tests: "90 (90) months" for "six (6) months" in small grey print) is found only by the reviewer reading the document (section 9a). |
 | **Failure messages** | Unreadable files are reported to the reviewer and the uploader, failed recalculations and a missing owner team to the admin (section 9b). The messages are sent once; nobody is reminded. A failed recalculation is retried only by the Daily recompute or by a later change. |
 | **Text-based English PDFs only** | Scanned (image-only) PDFs are not read. |
 | **Processing region** | Generative-AI processing follows your environment's region settings. If *Move data across regions* is allowed, processing may happen outside your region. Check this setting if data location matters to you. |
@@ -368,7 +375,7 @@ Tested on 19 November 2026 in an upgraded and in a freshly installed environment
 
 ## 11. Support
 
-Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) and the release number (1.0.3.5).
+Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) and the release number (1.0.3.6).
 
 ---
 
@@ -376,16 +383,17 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 
 | ✓ | Check | Where | Expected |
 |---|---|---|---|
-| ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.5, Managed |
+| ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.6, Managed |
 | ☐ | Connections | Power Automate → Connections | Dataverse, SharePoint and Teams, all **Connected**, owned by a System Administrator account |
 | ☐ | Connection references | Solutions → CAIContractIntelligence → Connection references | Four, each with a connection |
 | ☐ | Environment variables | Solutions → CAIContractIntelligence → Environment variables | Five with a current value; the two time zones, the recompute window and the full recompute day with their defaults |
 | ☐ | Flows | Solutions → CAIContractIntelligence → Cloud flows | Seven, all **On** (Daily recompute may stay Off while testing) |
+| ☐ | Go-live: Daily recompute | Cloud flows; readiness check | **On** before the first real contract; `node check-cai-install-readiness.mjs` **without** `--daily-recompute off` says `READY`; a *SUCCEEDED* run in Job runs the next morning |
 | ☐ | Readiness check (optional) | `node check-cai-install-readiness.mjs …` | Last line `READY` |
 | ☐ | Owner team | Power Platform admin center → Teams | Name equals the *Contract owner team* value; type Owner; role CAI Contract Reader; members added |
 | ☐ | Security role | Security roles → CAI Contract Reader | Read only on Contract and Field evidence; 9 or 11 privileges in total |
 | ☐ | Agent status | Microsoft 365 admin center → Agents | **Draft** or **Blocked**; never **Available** |
 | ☐ | Agent channels, sharing, authentication | Copilot Studio | No channel; only the owner listed; *Authenticate with Microsoft* |
 | ☐ | Cost alert and limits | Azure; section 1a | A budget with email alerts; initial limits agreed (first month at most 25 contracts, at most 10 documents a day) |
-| ☐ | Reviewer briefed | Sections 9a and 9b | Reviewer opens the source contract and its schedules, attachments and small print before confirming a notice period, and compares values and quotes with the document; knows the four checks, the confirmation tick, the deadline card and the *Contract file could not be read* message; users know that *Deadline not verified* means no date may be relied on |
+| ☐ | Reviewer briefed | Sections 9a and 9b | Reviewer opens the source contract and its schedules, attachments and small print before confirming a notice period, and compares the AI-extracted values and excerpts with the document; knows the four checks, the confirmation tick, the deadline card and the *Contract file could not be read* message; users know that *Deadline not verified* means no date may be relied on |
 | ☐ | First test | Section 9 | Passed with an owner-team member |

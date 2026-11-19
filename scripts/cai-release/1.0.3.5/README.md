@@ -1,8 +1,10 @@
-# CAI-L4-CI-001 1.0.3.5: corrective release, built and tenant-tested, not released
+# CAI-L4-CI-001 1.0.3.5: corrective release, built and tenant-tested, superseded before release
 
-Status on 19 Nov 2026: **built, tested, not released.** The managed solution and the customer bundle exist and are
-reproducible. `config/products.json` still points at 1.0.3.4, `saleApproved` is false, and nothing is uploaded to Blob.
-Releasing needs the founder's approval (see "To release").
+Status on 19 Nov 2026: **superseded by 1.0.3.6 before release (finding F-UX-1), never distributed.** The managed
+solution and the bundle below were built and tested; they were never uploaded to Blob and never listed in
+`config/products.json`. 1.0.3.6 (`../1.0.3.6`) carries the same fixes plus the unverified-extraction labels. The bundle
+documents in `docs/cai-l4-ci-001` now describe 1.0.3.6; `SHA256SUMS-1.0.3.5.txt` keeps the record of this build. The
+"To release" steps below are historical.
 
 | Artifact | Bytes | SHA-256 |
 |---|---|---|

@@ -1,19 +1,19 @@
 # START HERE — ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.5 · **Bundle revision** 1 · **Tier** CAI L4 — Decide (supervised)
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 1 · **Tier** CAI L4 — Decide (supervised)
 
 > **Release status: controlled test release. Not for production use.**
 > Each user sees only the contracts owned by their Dataverse owner team (INSTALL section 6).
-> Release 1.0.3.5 shows a notice deadline only when it is confirmed. Notice periods are kept as stated (for example 6 months) and counted on the calendar; a deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date. **Before confirming a notice period, the reviewer must read the source contract itself, including its schedules, attachments, amendments and small print** (INSTALL section 9a). Release 1.0.3.5 also reports every processing failure (an unreadable file, a failed recalculation, a missing owner team) in the register and in Teams, and treats contracts with the same reference in different owner teams as separate contracts (INSTALL sections 9 and 9b). **Upgrading?** Read INSTALL section 4.
+> Release 1.0.3.6 shows a notice deadline only when it is confirmed. Notice periods are kept as stated (for example 6 months) and counted on the calendar; a deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date. **Before confirming a notice period, the reviewer must read the source contract itself, including its schedules, attachments, amendments and small print** (INSTALL section 9a). Values and text excerpts on the review card, in deadline texts and in the agent's answers are **extracted by AI and not verified against the document**, even when shown in quotation marks; the product labels them so (INSTALL sections 9a and 10). It also reports every processing failure (an unreadable file, a failed recalculation, a missing owner team) in the register and in Teams, and treats contracts with the same reference in different owner teams as separate contracts (INSTALL sections 9 and 9b). **Upgrading?** Read INSTALL section 4.
 
 ## What you have
 
 | File | What it is | Who needs it |
 | --- | --- | --- |
 | `START-HERE.pdf` / `.md` | This page | Everyone |
-| `DOSSIER.pdf` | What the product does and doesn't do, prerequisites and known limitations. Running costs and known limitations of release 1.0.3.5 are in INSTALL sections 1a and 10, which take precedence | Buyer, legal, IT |
+| `DOSSIER.pdf` | What the product does and doesn't do, prerequisites and known limitations. Running costs and known limitations of release 1.0.3.6 are in INSTALL sections 1a and 10, which take precedence | Buyer, legal, IT |
 | `INSTALL.pdf` / `.md` | Step-by-step installation, access setup, safety check and first test (about 60 minutes) | IT administrator |
-| `CAIContractIntelligence_1_0_3_5_managed.zip` | The Microsoft Power Platform solution. Import this file as it is; **don't extract it** (you only extract the outer bundle) | IT administrator |
+| `CAIContractIntelligence_1_0_3_6_managed.zip` | The Microsoft Power Platform solution. Import this file as it is; **don't extract it** (you only extract the outer bundle) | IT administrator |
 | `deploymentSettings.template.json` | Only needed when installing from the command line | IT administrator |
 | `check-cai-install-readiness.mjs` | Optional read-only check after the install: flows on, values set, whether the agent got published (INSTALL section 5) | IT administrator |
 | `LICENSE.txt` | Licence terms and where they are published | Buyer, legal |
@@ -31,15 +31,15 @@
 | Role | Task |
 | --- | --- |
 | Buyer or procurement | Read the dossier; confirm the four points above with IT |
-| IT administrator | Verify the download, then follow `INSTALL.pdf` from start to finish, including **who can see contracts** (section 6) and the **mandatory agent safety check** (section 7); keep **Daily recompute** off while testing (section 5) |
-| Contract reviewer | Receives a review card in Teams for every contract, and approves or corrects the extraction before anyone relies on it, comparing values and quotes with the document itself; receives a *Contract file could not be read* message when an upload cannot be read; makes the checks in INSTALL section 9a and corrects a wrong notice period or effective date directly on the card, and confirms the notice period on each deadline card (red banner) before that deadline is shown to anyone |
+| IT administrator | Verify the download, then follow `INSTALL.pdf` from start to finish, including **who can see contracts** (section 6) and the **mandatory agent safety check** (section 7); keep **Daily recompute** off while testing and **turn it on before go-live** (section 5) |
+| Contract reviewer | Receives a review card in Teams for every contract, and approves or corrects the extraction before anyone relies on it, comparing the AI-extracted values and excerpts with the document itself; receives a *Contract file could not be read* message when an upload cannot be read; makes the checks in INSTALL section 9a and corrects a wrong notice period or effective date directly on the card, and confirms the notice period on each deadline card (red banner) before that deadline is shown to anyone |
 
 ## Verify the download
 
 On Windows, in PowerShell or Command Prompt, in the folder that holds the file:
 
 ```
-certutil -hashfile CAI-L4-CI-001_1.0.3.5.zip SHA256
+certutil -hashfile CAI-L4-CI-001_1.0.3.6.zip SHA256
 ```
 
 The result must match the SHA-256 shown on your order page. Inside the bundle, `SHA256SUMS.txt` lists the checksum of every file.

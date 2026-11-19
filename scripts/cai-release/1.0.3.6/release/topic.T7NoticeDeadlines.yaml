@@ -1,0 +1,97 @@
+kind: AdaptiveDialog
+modelDescription: "Use for portfolio questions about upcoming or missed notice deadlines (e.g. which contracts have a notice deadline in the next 90 days). Input is the number of days ahead (default 90). Reads the register with the signed-in user's own permissions, so it only covers contracts this user may see. Returns every approved contract the user can see (latest approved master per contract) whose stored notice deadline falls in the window, sorted, with days left and status, plus approved contracts without a deadline and why. If nothing is returned, say that no contract you have access to matches; never say a contract does not exist."
+inputs:
+  - kind: AutomaticTaskInput
+    propertyName: DaysAhead
+    description: Number of days ahead to look for notice deadlines. Default 90.
+    shouldPromptUser: false
+
+beginDialog:
+  kind: OnRecognizedIntent
+  id: main
+  intent: {}
+  actions:
+    - kind: SetVariable
+      id: setDays
+      variable: Topic.Days
+      value: =If(IsBlank(Topic.DaysAhead) || Topic.DaysAhead <= 0, 90, Topic.DaysAhead)
+
+    - kind: InvokeConnectorAction
+      id: listApprovedAsUser
+      input:
+        binding:
+          organization: current
+          entityName: cai_contracts
+          $select: cai_contractid,cai_contractreference,cai_documentname,cai_documentrole,cai_reviewstatus,createdon,cai_noticestatus,cai_noticedeadline,cai_noticetermend,cai_previousnoticedeadline,cai_previouscyclestatus,cai_renewalbasis,cai_currenttermend,cai_termscomputedon,cai_termsbasis,cai_contentversion,cai_executionstatus,cai_executionwarning,cai_noticeamount,cai_noticeunit,cai_noticewording,cai_deadlinebasis,cai_deadlinereview,_ownerid_value
+          $filter: cai_reviewstatus eq 'Approved' and (cai_approvalblocked eq null or cai_approvalblocked eq false)
+          $orderby: createdon desc
+
+      output:
+        binding:
+          "@odata.nextLink": Topic.NextLink
+          value: Topic.Rows
+
+      connectionReference: cai_CAIContractIntelligenceAssistant.shared_commondataserviceforapps.shared-commondataser-2d707f83-c482-4aa4-a1d0-627309227a9f
+      connectionProperties:
+        mode: Invoker
+
+      operationId: ListRecordsWithOrganization
+      dynamicOutputSchema:
+        kind: Record
+        properties:
+          "@odata.nextLink": String
+          value:
+            type:
+              kind: Table
+              properties:
+                cai_contractid: String
+                _ownerid_value: String
+                cai_contractreference: String
+                cai_documentname: String
+                cai_documentrole: String
+                cai_reviewstatus: String
+                createdon: DateTime
+                cai_noticestatus: String
+                cai_noticeamount: Number
+                cai_noticeunit: String
+                cai_noticewording: String
+                cai_deadlinebasis: String
+                cai_deadlinereview: String
+                cai_noticedeadline: Date
+                cai_noticetermend: Date
+                cai_previousnoticedeadline: Date
+                cai_previouscyclestatus: String
+                cai_renewalbasis: String
+                cai_currenttermend: Date
+                cai_termscomputedon: DateTime
+                cai_termsbasis: String
+                cai_contentversion: Number
+                cai_executionstatus: String
+                cai_executionwarning: String
+
+    - kind: InvokeFlowAction
+      id: computeDeadlines
+      input:
+        binding:
+          number: =Topic.Days
+          text: ="{""value"":" & JSON(Topic.Rows) & If(IsBlank(Topic.NextLink), "", ",""@odata.nextLink"":" & JSON(Topic.NextLink)) & "}"
+
+      output:
+        binding:
+          result: Topic.Result
+
+      flowId: 7f4045fe-f8d9-f111-84e8-000d3a832b24
+
+inputType:
+  properties:
+    DaysAhead:
+      displayName: DaysAhead
+      description: Number of days ahead to look for notice deadlines. Default 90.
+      type: Number
+
+outputType:
+  properties:
+    Result:
+      displayName: Result
+      description: JSON result with as_of, business_timezone, deadlines_in_window and approved_contracts_without_deadline, limited to contracts the signed-in user can see.
+      type: String
