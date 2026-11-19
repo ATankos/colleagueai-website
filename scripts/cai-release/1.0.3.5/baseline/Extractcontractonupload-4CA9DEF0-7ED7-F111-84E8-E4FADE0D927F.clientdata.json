@@ -1,0 +1,258 @@
+{
+ "properties": {
+  "connectionReferences": {
+   "shared_sharepointonline": {
+    "api": {
+     "name": "shared_sharepointonline"
+    },
+    "connection": {
+     "connectionReferenceLogicalName": "new_sharedsharepointonline_5330e"
+    },
+    "runtimeSource": "embedded"
+   },
+   "shared_commondataserviceforapps": {
+    "api": {
+     "name": "shared_commondataserviceforapps"
+    },
+    "connection": {
+     "connectionReferenceLogicalName": "new_sharedcommondataserviceforapps_9d223"
+    },
+    "runtimeSource": "embedded"
+   }
+  },
+  "definition": {
+   "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+   "contentVersion": "1.0.0.0",
+   "actions": {
+    "Get_file_content": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "dataset": "@parameters('cai_SharePointSiteUrl (cai_SharePointSiteUrl)')",
+       "id": "@triggerBody()?['{Identifier}']",
+       "inferContentType": true
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+       "operationId": "GetFileContent",
+       "connectionName": "shared_sharepointonline"
+      }
+     },
+     "runAfter": {
+      "Owner_team_id": [
+       "Succeeded"
+      ]
+     }
+    },
+    "Run_a_prompt": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "recordId": "7dc37c4a-367a-4777-91cf-ce7011607ec9",
+       "item/requestv2/Contract/base64Encoded": "@base64(body('Get_file_content'))"
+      },
+      "host": {
+       "apiId": "providers/Microsoft.ProcessSimple/operationGroups/aibuilder",
+       "operationId": "aibuilderpredict_customprompt",
+       "connectionName": "shared_commondataserviceforapps"
+      }
+     },
+     "runAfter": {
+      "Get_file_content": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Parse_JSON": {
+     "type": "ParseJson",
+     "inputs": {
+      "content": "@outputs('Run_a_prompt')?['body/responsev2/predictionOutput/text']",
+      "schema": {
+       "type": "object"
+      }
+     },
+     "runAfter": {
+      "Run_a_prompt": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Add_a_new_row": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "entityName": "cai_contracts",
+       "item/cai_contractreference": "@coalesce(body('Parse_JSON')?['contract_reference']?['value'], triggerOutputs()?['body/{FilenameWithExtension}'])",
+       "item/cai_contracttype": "@body('Parse_JSON')?['contract_type']?['value']",
+       "item/cai_counterparty": "@concat(body('Parse_JSON')?['parties']?['value']?[0]?['name'], ' / ', body('Parse_JSON')?['parties']?['value']?[1]?['name'])",
+       "item/cai_documenthash": "@concat(triggerOutputs()?['body/{Identifier}'], '#v', string(triggerOutputs()?['body/{VersionNumber}']))",
+       "item/cai_documentname": "@triggerOutputs()?['body/{FilenameWithExtension}']",
+       "item/cai_documentrole": "@body('Parse_JSON')?['document_role']",
+       "item/cai_effectivedate": "@if(empty(body('Parse_JSON')?['effective_date']?['value']), null, body('Parse_JSON')?['effective_date']?['value'])",
+       "item/cai_enddate": "@if(empty(body('Parse_JSON')?['initial_term']?['value']?['end']), null, body('Parse_JSON')?['initial_term']?['value']?['end'])",
+       "item/cai_extractionjson": "@string(body('Parse_JSON'))",
+       "item/cai_governinglaw": "@body('Parse_JSON')?['governing_law']?['value']",
+       "item/cai_liabilitycap": "@body('Parse_JSON')?['liability_cap']?['value']?['formula']",
+       "item/cai_noticedays": "@if(equals(body('Parse_JSON')?['renewal']?['value']?['notice_days'], null), null, int(body('Parse_JSON')?['renewal']?['value']?['notice_days']))",
+       "item/cai_renewaltype": "@body('Parse_JSON')?['renewal']?['value']?['type']",
+       "item/cai_reviewstatus": "@'Pending review'",
+       "item/cai_sourceurl": "@triggerOutputs()?['body/{Link}']",
+       "item/ownerid@odata.bind": "@concat('teams(', outputs('Owner_team_id'), ')')"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "operationId": "CreateRecord",
+       "connectionName": "shared_commondataserviceforapps"
+      }
+     },
+     "runAfter": {
+      "Parse_JSON": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Apply_to_each": {
+     "type": "Foreach",
+     "foreach": "@createArray('contract_reference','contract_type','parties','signature_status','effective_date','initial_term','renewal','termination_for_convenience','termination_for_cause','change_of_control','fees','payment_terms','late_payment_interest','price_indexation','liability_cap','liability_exclusions','indemnities','ip_ownership','confidentiality_survival','data_protection','governing_law','jurisdiction','assignment','precedence_rule')",
+     "actions": {
+      "Add_a_new_row_1": {
+       "type": "OpenApiConnection",
+       "inputs": {
+        "parameters": {
+         "entityName": "cai_fieldevidences",
+         "item/cai_Contract@odata.bind": "@concat('cai_contracts(', outputs('Add_a_new_row')?['body/cai_contractid'], ')')",
+         "item/cai_evidencestatus": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['status'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['status']))",
+         "item/cai_fieldname": "@items('Apply_to_each')",
+         "item/cai_location": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['location'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['location']))",
+         "item/cai_quote": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['quote'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['quote']))",
+         "item/cai_value": "@if(equals(body('Parse_JSON')?[items('Apply_to_each')]?['value'], null), '', string(body('Parse_JSON')?[items('Apply_to_each')]?['value']))",
+         "item/ownerid@odata.bind": "@concat('teams(', outputs('Owner_team_id'), ')')"
+        },
+        "host": {
+         "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+         "operationId": "CreateRecord",
+         "connectionName": "shared_commondataserviceforapps"
+        }
+       }
+      }
+     },
+     "runAfter": {
+      "Add_a_new_row": [
+       "SUCCEEDED"
+      ]
+     }
+    },
+    "Find_owner_team": {
+     "type": "OpenApiConnection",
+     "runAfter": {},
+     "inputs": {
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps",
+       "connectionName": "shared_commondataserviceforapps",
+       "operationId": "ListRecords"
+      },
+      "parameters": {
+       "entityName": "teams",
+       "$select": "teamid,name",
+       "$filter": "@concat('teamtype eq 0 and name eq ''', replace(trim(parameters('cai_ContractOwnerTeam (cai_ContractOwnerTeam)')), '''', ''''''), '''')",
+       "$top": 1
+      }
+     }
+    },
+    "Owner_team_configured": {
+     "type": "If",
+     "runAfter": {
+      "Find_owner_team": [
+       "Succeeded"
+      ]
+     },
+     "expression": {
+      "equals": [
+       "@length(outputs('Find_owner_team')?['body/value'])",
+       0
+      ]
+     },
+     "actions": {
+      "Stop_owner_team_missing": {
+       "type": "Terminate",
+       "runAfter": {},
+       "inputs": {
+        "runStatus": "Failed",
+        "runError": {
+         "code": "OwnerTeamNotConfigured",
+         "message": "@concat('No owner team named ''', parameters('cai_ContractOwnerTeam (cai_ContractOwnerTeam)'), ''' exists. Set the environment variable cai_ContractOwnerTeam to an existing owner team before uploading contracts. Nothing was extracted.')"
+        }
+       }
+      }
+     },
+     "else": {
+      "actions": {}
+     }
+    },
+    "Owner_team_id": {
+     "type": "Compose",
+     "runAfter": {
+      "Owner_team_configured": [
+       "Succeeded"
+      ]
+     },
+     "inputs": "@first(outputs('Find_owner_team')?['body/value'])?['teamid']"
+    }
+   },
+   "triggers": {
+    "When_a_file_is_created_(properties_only)": {
+     "type": "OpenApiConnection",
+     "inputs": {
+      "parameters": {
+       "dataset": "@parameters('cai_SharePointSiteUrl (cai_SharePointSiteUrl)')",
+       "table": "@parameters('cai_ContractLibraryId (cai_ContractLibraryId)')"
+      },
+      "host": {
+       "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+       "operationId": "GetOnNewFileItems",
+       "connectionName": "shared_sharepointonline"
+      }
+     },
+     "recurrence": {
+      "interval": 1,
+      "frequency": "Minute"
+     },
+     "splitOn": "@triggerOutputs()?['body/value']"
+    }
+   },
+   "parameters": {
+    "$authentication": {
+     "defaultValue": {},
+     "type": "SecureObject"
+    },
+    "$connections": {
+     "defaultValue": {},
+     "type": "Object"
+    },
+    "cai_SharePointSiteUrl (cai_SharePointSiteUrl)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_SharePointSiteUrl"
+     }
+    },
+    "cai_ContractLibraryId (cai_ContractLibraryId)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_ContractLibraryId"
+     }
+    },
+    "cai_ContractOwnerTeam (cai_ContractOwnerTeam)": {
+     "defaultValue": "",
+     "type": "String",
+     "metadata": {
+      "schemaName": "cai_ContractOwnerTeam"
+     }
+    }
+   },
+   "outputs": {}
+  }
+ },
+ "schemaVersion": "1.0.0.0"
+}
