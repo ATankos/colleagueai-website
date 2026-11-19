@@ -1,20 +1,23 @@
 <!--
-INSTALL.md of bundle CAI-L4-CI-001 1.0.3.4 (corrective release: 1.0.3.2 counted month-based notice periods as days;
-1.0.3.3 fixed the calculation; 1.0.3.4 withholds every notice deadline that a reviewer has not confirmed).
+INSTALL.md of bundle CAI-L4-CI-001 1.0.3.5 (corrective release: 1.0.3.2 counted month-based notice periods as days;
+1.0.3.3 fixed the calculation; 1.0.3.4 withholds every notice deadline that a reviewer has not confirmed; 1.0.3.5 fixes
+three defects found in the 1.0.3.4 tenant test of 11 Nov 2026: a recalculation that failed silently on unusual duration
+wording, a duplicate contract reference in another team marking that team's contract SUPERSEDED, and an unreadable upload
+that left no trace outside the flow history).
 Statements about the import, flows, role and agent come from real installs of 1.0.3.1 and 1.0.3.2 (8-9 Nov 2026), from
-the 1.0.3.3 tests and from the 1.0.3.4 tests of 10 Nov 2026 (build and targeted tests in CAI-LAB, upgrade of a test
-environment with existing data, clean install). Bundle revision 2 (documentation only, same managed solution): the
-reviewer's duty to inspect the source contract and its attachments before confirming a notice period (section 9a).
+the 1.0.3.3 and 1.0.3.4 tests (10-11 Nov 2026) and from the 1.0.3.5 tests of 19 Nov 2026 (managed upgrade 1.0.3.4 -> 1.0.3.5
+of a test environment with existing data, clean install in a second test environment, tenant lifecycle test).
 -->
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.4 · **Bundle revision** 2
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.5 · **Bundle revision** 1
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
 > **This guide does not publish the agent.** Publishing is a separate decision that your administrator takes (section 7).
 > **A notice deadline is shown only when it is CONFIRMED.** Any deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date (section 9a).
+> **Failures are reported, not silent.** A file that cannot be read, and a recalculation that fails, each leave a row in the register and a Teams message (section 9b).
 
 **Who this guide is for:** your Power Platform administrator.
 **Time needed:** about 60 minutes, plus a few minutes for the first test contract.
@@ -93,13 +96,13 @@ On a large register, deadline questions can cost more than the daily recompute: 
 
 ## 2. What gets installed
 
-One managed solution, `CAIContractIntelligence` version 1.0.3.4, which contains:
+One managed solution, `CAIContractIntelligence` version 1.0.3.5, which contains:
 
 - **Four Dataverse tables:** Contracts, Reviews, Field evidence and Job runs.
 - **Five processing flows:** extract on upload, review in Teams, content version, effective terms and daily recompute. They run as the installing account. Every day, the daily recompute recalculates the contracts whose notice deadline or term end falls within the next 90 days (*Recompute window*), and once a week it recalculates every approved contract (*Full recompute day*, default Monday). Its Copilot Studio usage therefore **grows with the size of the register** (section 1a).
 - **Two compute flows** used by the agent: they have no connection of their own and only work on data the asking user is allowed to read.
 - **One Copilot Studio agent:** *CAI Contract Intelligence Assistant*. You do not publish it (section 7). When it is used, it reads the register **with the signed-in user's own identity**.
-- **One security role:** *CAI Contract Reader*. For contract data it is **read-only**: Read on Contracts and Field evidence, limited to records owned by the user's team, and nothing else on any ColleagueAI table. It also carries the read-only platform basics every Dataverse role carries. On a fresh import Dataverse may add two more standard platform privileges to the role, Create and Write on its private *SharePoint Data* system table. Every standard role in the environment, including Basic User, already holds both; they apply to that private table, not to the contract tables, and need no action. In our tests both fresh imports showed 11 privileges and an upgrade showed 9.
+- **One security role:** *CAI Contract Reader*. For contract data it is **read-only**: Read on Contracts and Field evidence, limited to records owned by the user's team, and nothing else on any ColleagueAI table. It also carries the read-only platform basics every Dataverse role carries. On a fresh import Dataverse may add two more standard platform privileges to the role, Create and Write on its private *SharePoint Data* system table. Every standard role in the environment, including Basic User, already holds both; they apply to that private table, not to the contract tables, and need no action. In our tests the fresh imports showed 11 privileges and an upgrade showed 9.
 
 Nothing is installed outside the environment you choose.
 
@@ -136,22 +139,23 @@ Contracts outside the window are still recalculated the moment one of their docu
 ## 4. Import (recommended: in the browser)
 
 1. Go to **make.powerapps.com** and pick your environment (top right).
-2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.4.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_4_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
+2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.5.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_5_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
 3. Open **Solutions → Import solution → Browse**, choose that inner file, and click **Next**.
-4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **Whatever connection you pick here, the import may publish the agent on its own** (it did in two of our four fresh installs, once with a connection created in the wizard and once with connections that already existed, and did not in the other two; section 7 explains and tells you what to check and do right after the import). Each reference must show a connection before you continue.
-5. **Environment variables.** Enter the five values from section 3, then click **Import**.
+4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **Whatever connection you pick here, the import may publish the agent on its own** (it did in three of our five fresh installs, once with a connection created in the wizard and twice with connections that already existed, and did not in the other two; section 7 explains and tells you what to check and do right after the import). Each reference must show a connection before you continue.
+5. **Environment variables.** Enter the five values from section 3, then click **Import**. On a fresh install the five fields are empty; the package ships no placeholder values.
 6. Wait for the green "Solution imported successfully" message. This usually takes 2–5 minutes.
 
-**What the import leaves behind:** the solution is installed and the flows whose values and connections are complete are On, except **Review gate (Teams)**, which the import left Off in every fresh install we made, including the 1.0.3.2 and 1.0.3.4 installs (section 5). The agent exists and **may already be published**: go to section 7 check 1 now (Microsoft 365 admin center → Agents; Block it if it shows **Available**), then come back to section 5.
+**What the import leaves behind:** the solution is installed and the flows whose values and connections are complete are On, except **Review gate (Teams)**, which the import left Off in every fresh install we made, including the 1.0.3.2, 1.0.3.4 and 1.0.3.5 installs (section 5). The agent exists and **may already be published**: go to section 7 check 1 now (Microsoft 365 admin center → Agents; Block it if it shows **Available**), then come back to section 5.
 
 **Upgrading?** Import the same way; Power Platform upgrades the solution. Two things we saw on our upgrades:
 - The wizard's **Import** button stays grey until every required value has been typed in this wizard session. A value the wizard pre-fills from your environment (shown as *Target environment value*) does not count. If Import stays grey although every field is filled, click into each pre-filled required field, select its text and type the same value again; Import then becomes available (seen twice, 9 November 2026).
 - The connections step says "0 updates needed, 4 updates optional" and keeps your existing connections; leave it.
 - **From 1.0.2.0:** the upgrade also removes the two old agent tools. Then do section 6, and assign your **existing** contracts and their field evidence to the team (Contracts table → select all → **Assign** → the team; then the same for Field evidence). Until you do, existing contracts are visible to nobody except administrators.
 - **From 1.0.3.0 or 1.0.3.1:** nothing else to do for your team setup; read the next point too.
+- **From 1.0.3.4:** your contracts, field evidence, reviews and job history stay as they are (in our upgrade test of 19 November 2026: 32 contracts, 386 evidence records, 33 reviews and 8 job runs, unchanged), and the import keeps each flow On or Off as it was. Nothing is recalculated by the upgrade. Two things change from the moment of the import: contracts with the same reference in **different** owner teams are no longer treated as duplicates of each other (section 9), and failures are reported (section 9b). A contract that 1.0.3.4 marked *SUPERSEDED* only because a contract with the same reference exists in another team keeps that status until it is recalculated, and the Daily recompute skips superseded contracts. To find them, look in the Contracts table for notice statuses starting with *SUPERSEDED* where no newer approved contract with the same reference exists in the same owner team. To restore one, an administrator sets its **Recompute requested on** column to the current date and time (**Power Apps → Tables → Contracts → Edit**); the contract is recalculated within a minute as a contract of its own team (tested on 19 November 2026). Support can do the search with you.
 - **From 1.0.3.3, 1.0.3.2 or earlier: existing contracts and deadlines.** Your contracts, field evidence, reviews and job history stay as they are (in our upgrade tests of 10 November 2026 all contract records, 194 evidence records and 7 job runs were unchanged), and the import keeps each flow On or Off as it was. The upgrade itself recalculates nothing, but from the moment of the import the agent no longer gives a date for any deadline that is not confirmed: a deadline stored by 1.0.3.2, and a 1.0.3.3 deadline marked PROVISIONAL, is answered as *Deadline not verified — human review required*. To recalculate all contracts at once: set *Full recompute day* to today's weekday, open **Power Automate → CAI CI - Daily recompute → Run**, wait for the *Job runs* entry, then set the value back. Daily recompute also picks up every contract that still stores an unconfirmed date, whatever the window.
-  On recalculation, 1.0.3.4 re-reads each notice period that 1.0.3.2 stored in days from the stored notice wording. A period that the wording states in days, and that a reviewer approved, stays CONFIRMED. A period converted to months, years or weeks, and a period whose stored wording does not show it, becomes *not verified*: the stored date is removed (a review record *notice deadline withdrawn until a reviewer confirms it* keeps the old date), and the reviewer receives a deadline card in Teams (section 9a). The stored extraction and evidence are never changed.
-- **In every case** an upgrade does **not** republish the agent: the version your users could reach stays the previous one until your organisation publishes again. If your agent is published, publish it again after the upgrade (section 7, publishing procedure step 3): until you do, the published agent keeps its previous instructions; the deadline answers themselves already follow release 1.0.3.4, because they come from the flows. Run the checks in section 7 anyway.
+  On recalculation, release 1.0.3.4 and later re-read each notice period that 1.0.3.2 stored in days from the stored notice wording. A period that the wording states in days, and that a reviewer approved, stays CONFIRMED. A period converted to months, years or weeks, and a period whose stored wording does not show it, becomes *not verified*: the stored date is removed (a review record *notice deadline withdrawn until a reviewer confirms it* keeps the old date), and the reviewer receives a deadline card in Teams (section 9a). The stored extraction and evidence are never changed.
+- **In every case** an upgrade does **not** republish the agent: the version your users could reach stays the previous one until your organisation publishes again. If your agent is published, publish it again after the upgrade (section 7, publishing procedure step 3): until you do, the published agent keeps its previous instructions; the deadline answers themselves already follow release 1.0.3.5, because they come from the flows. The agent's instructions in 1.0.3.5 add one line (name other teams' contracts with the same reference instead of mixing them); until you publish again, the published agent keeps the previous instructions, and the data it receives is already separated by team. Run the checks in section 7 anyway.
 
 **Alternative: command line (pac CLI).**
 1. Copy `deploymentSettings.template.json` to `deploymentSettings.json` and fill it in.
@@ -159,12 +163,12 @@ Contracts outside the window are still recalculated the moment one of their docu
 3. Run:
 
 ```
-pac solution import --path CAIContractIntelligence_1_0_3_4_managed.zip --settings-file deploymentSettings.json --activate-plugins
+pac solution import --path CAIContractIntelligence_1_0_3_5_managed.zip --settings-file deploymentSettings.json --activate-plugins
 ```
 
 ## 5. Check that all seven flows are on (mandatory)
 
-The import tries to turn on all seven flows. A flow that is still **Off** is either missing something (the table says what) or, in the case of **Review gate (Teams)**, was not turned on by the import: in all four of our fresh test installs (two of 1.0.3.1, one of 1.0.3.2, one of 1.0.3.4) it stayed Off, even when all five values were entered and no warning appeared. Turn it on by hand (step 3.2); in the 1.0.3.2 and 1.0.3.4 installs this succeeded at the first attempt.
+The import tries to turn on all seven flows. A flow that is still **Off** is either missing something (the table says what) or, in the case of **Review gate (Teams)**, was not turned on by the import: in all five of our fresh test installs (two of 1.0.3.1, one each of 1.0.3.2, 1.0.3.4 and 1.0.3.5) it stayed Off, even when all five values were entered, every import step reported success and no warning appeared. Turn it on by hand (step 3.2); in the 1.0.3.2, 1.0.3.4 and 1.0.3.5 installs this succeeded at the first attempt.
 
 | Flow | It needs |
 |---|---|
@@ -175,6 +179,8 @@ The import tries to turn on all seven flows. A flow that is still **Off** is eit
 | Review gate (Teams) | the **Reviewer** value, the Dataverse connection and the Microsoft Teams connection |
 | Extract contract on upload | the **SharePoint site URL**, **Contract library ID** and **Contract owner team** values, the SharePoint connection and the Dataverse connection |
 | Daily recompute | the **Admin for alerts** value (the two time zones have defaults), the Dataverse connection and the Microsoft Teams connection |
+
+From 1.0.3.5, **Effective terms** also uses the **Admin for alerts** value and the Microsoft Teams connection (for its failure message, section 9b), and **Extract contract on upload** uses the **Reviewer** value and the Microsoft Teams connection (for the unreadable-file message).
 
 1. Open **Solutions → CAIContractIntelligence → Cloud flows**.
 2. Check the status column. Six should show **On**. **Review gate (Teams)** will probably show **Off**; turn it on in step 3. When all seven show **On**, continue.
@@ -190,7 +196,7 @@ The **Flow checker** only says *This flow is off* for a switched-off flow; it do
 
 ```
 set DATAVERSE_TOKEN=<token>      (PowerShell: $env:DATAVERSE_TOKEN = az account get-access-token --resource https://ORG.crmN.dynamics.com --query accessToken -o tsv)
-node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expect-version 1.0.3.4 --daily-recompute off
+node check-cai-install-readiness.mjs --url https://ORG.crmN.dynamics.com --expect-version 1.0.3.5 --daily-recompute off
 ```
 
 Replace `ORG.crmN.dynamics.com` with your environment URL exactly as the Power Platform admin center shows it (Environments → your environment → *Environment URL*; the number after `crm` differs by region, for example `crm4` or `crm17`). The last line says `READY` or `NOT READY`.
@@ -218,12 +224,12 @@ How it works:
 
 ## 7. The agent: you do not publish it (mandatory checks after every import)
 
-**What the import does.** The import creates the agent *CAI Contract Intelligence Assistant* and Power Platform then **tries to publish it by itself**. Whether that succeeds is not under your control and we cannot predict it: in two of our installs (release 1.0.3.1, with connections that already existed, created earlier in the wizard or in Power Automate) the publish failed with *ConnectionNotShared* and the agent stayed a draft; in a clean install of release 1.0.3.2, with a new Dataverse connection created inside the import wizard, the publish **succeeded** and the agent was listed as **Available** (shared with nobody) within a minute; in a clean install of release 1.0.3.4 on 10 November 2026, with connections that already existed, the Copilot Studio service published the agent about three minutes after the import and it was listed as **Available** (shared with nobody). Rebinding the agent's reference to a connection created from inside Copilot Studio also led to a successful publish. Treat the agent as possibly published after every import, and look at what you actually have.
+**What the import does.** The import creates the agent *CAI Contract Intelligence Assistant* and Power Platform then **tries to publish it by itself**. Whether that succeeds is not under your control and we cannot predict it: in two of our installs (release 1.0.3.1, with connections that already existed, created earlier in the wizard or in Power Automate) the publish failed with *ConnectionNotShared* and the agent stayed a draft; in a clean install of release 1.0.3.2, with a new Dataverse connection created inside the import wizard, the publish **succeeded** and the agent was listed as **Available** (shared with nobody) within a minute; in a clean install of release 1.0.3.4 on 10 November 2026, with connections that already existed, the Copilot Studio service published the agent about three minutes after the import and it was listed as **Available** (shared with nobody); in a clean install of release 1.0.3.5 on 19 November 2026, also with existing connections, it was published about one minute after the import and listed as **Available** (shared with nobody, no channel) until we blocked it. Rebinding the agent's reference to a connection created from inside Copilot Studio also led to a successful publish. Treat the agent as possibly published after every import, and look at what you actually have.
 
 | After the import, in Microsoft 365 admin center → Agents → All agents | What it means | What to do |
 |---|---|---|
 | The agent is **Draft** | The automatic publish did not succeed (the message in Copilot Studio reads *ConnectionNotShared*). A draft has no published version, so it cannot be reached through any channel; only people who can open it in Copilot Studio can try it, in the test pane. | Nothing. Leave it as it is. **Do not click Publish to clear the message.** |
-| The agent is **Available** | The automatic publish succeeded and the agent is listed for your organisation, shared with nobody and with no channel. In our clean 1.0.3.2 and 1.0.3.4 installs the entry showed **Available** one to three minutes after the import; we blocked it both times. | Select the agent → **Block**. Then do checks 2 to 5 below. |
+| The agent is **Available** | The automatic publish succeeded and the agent is listed for your organisation, shared with nobody and with no channel. In our clean 1.0.3.2, 1.0.3.4 and 1.0.3.5 installs the entry showed **Available** one to three minutes after the import; we blocked it each time. | Select the agent → **Block**. Then do checks 2 to 5 below. |
 
 **Checks after every import, including upgrades:**
 
@@ -261,7 +267,7 @@ After any publication, run checks 1 to 5 again.
 
 | What you see | What it means | What to do |
 |---|---|---|
-| The agent is **Available** after an import | The automatic publish succeeded (seen in our clean 1.0.3.2 and 1.0.3.4 installs). | Select it → **Block**; run checks 2 to 5. |
+| The agent is **Available** after an import | The automatic publish succeeded (seen in our clean 1.0.3.2, 1.0.3.4 and 1.0.3.5 installs). | Select it → **Block**; run checks 2 to 5. |
 | The agent is **Available** after an **upgrade** | The previously published version stays reachable after an upgrade. | Select it → **Block**. The published version is the previous one until your organisation publishes again. |
 | The agent is **Draft** although the import finished | The automatic publish failed (*ConnectionNotShared*), as in our two 1.0.3.1 installs. The agent has no published version and cannot be reached through any channel. | Nothing. Test in the Copilot Studio test pane (section 9). |
 | Someone outside the owner team can talk to the agent | It was published, shared or given a channel. | Block it in the admin center; in Copilot Studio remove sharing and disconnect every channel; run checks 1 to 5; contact support. |
@@ -285,9 +291,10 @@ Use an account that is a **member of the contract owner team**.
 4. **Correct** a value on a second card. A *Notice period* or *Effective date* correction is applied at once and the document is approved (*Approved with reviewer correction*); any other correction is recorded as *Needs correction*, and a follow-up card arrives.
 5. **Next morning** (only if Daily recompute is On): the **Job runs** table shows the daily recompute with status *SUCCEEDED*, and its details show how many contracts the run covered.
 
-**If you upload the same contract twice** (same contract reference, both approved), the newer approved document holds the effective terms and the older one is marked *SUPERSEDED* in its notice status. The agent answers from the newer one and the older one is not recalculated again.
+**If you upload the same contract twice** (same contract reference, both approved, **same owner team**), the newer approved document holds the effective terms and the older one is marked *SUPERSEDED* in its notice status. The agent answers from the newer one and the older one is not recalculated again. Contracts with the same reference that belong to **different** owner teams are separate contracts: neither changes the other, amendments are matched only to the master of their own team, and the agent names the other teams' contracts with that reference (to a user who can see them) without mixing their terms. Tested on 19 November 2026 with the same reference in three teams.
 
 If step 1 shows nothing after 5 minutes, check that:
+- the reviewer did not receive a *Contract file could not be read* message instead (section 9b);
 - the environment has Copilot Studio capacity (section 1);
 - all five values in section 3 are filled in, and the team exists with exactly that name (section 6);
 - the flows are on (section 5).
@@ -296,11 +303,11 @@ If step 1 shows nothing after 5 minutes, check that:
 
 Approval is what makes a contract count: until a document is approved, the agent gives no values from it. The review card shows each value with its quoted evidence, and also:
 
-- **Notice period** exactly as the contract states it (amount and unit, for example *6 month(s), on or before the term end*), with the verbatim **notice wording**;
+- **Notice period** as the extraction read it (amount and unit, for example *6 month(s), on or before the term end*), with the **notice wording** as the extraction quoted it;
 - **Notice clauses found in the whole document**: every sentence about notice of non-renewal that the extraction found, including schedules, order forms and small print. More than one period means you decide which one applies;
 - **Signed on**, next to the effective date, so that a signing date taken as the effective date is easy to spot.
 
-**Before you confirm a notice period or approve a contract, open the source contract itself** (the file in the contract library), not only the review card, and read its renewal and notice provisions in full: the main terms, every schedule, annex, order form and amendment that applies to it, including those kept as separate documents, and the small print. The card shows only what the extraction found, and the extraction can miss or misread a clause. Ticking the confirmation records that you have done this check.
+**Before you confirm a notice period or approve a contract, open the source contract itself** (the file in the contract library), not only the review card, and read its renewal and notice provisions in full: the main terms, every schedule, annex, order form and amendment that applies to it, including those kept as separate documents, and the small print. The card shows only what the extraction found, and the extraction can miss or misread a clause. **The card labels the quotes "Evidence (verbatim quotes)" and the approve option reads "the values match the evidence", but the quotes are the extraction's reading of the document and can carry the same misreading as the value**: in our 19 November 2026 test the card quoted a schedule as "90 (90) months" where the document says "six (6) months". Compare values and quotes with the document, not with each other. Ticking the confirmation records that you have done this check.
 
 Check in particular:
 
@@ -323,30 +330,45 @@ For a deadline that is not verified, users and the agent see **Deadline not veri
 
 These tests are limited (15 synthetic notice documents, two deliberately manipulated documents and targeted safeguard tests), not proof that every document is handled correctly. A clause that the extraction does not find at all, or misreads consistently in both the number and the quoted wording, cannot be detected by these checks. The review is the control.
 
+## 9b. When something fails: what you see and what to do
+
+From release 1.0.3.5 no processing failure ends silently. Each one leaves a row or status in the register, an entry in the review log and a message in Teams.
+
+| What happened | What you see | What to do |
+|---|---|---|
+| **A file cannot be read** (not a PDF or Word document, a scan without a text layer, password-protected, damaged or too large) | Within about two minutes: a row *UNREADABLE - &lt;file name&gt;* in the Contracts table, owned by the contract owner team, with review status *Extraction failed* and approval blocked; a review-log entry; and a Teams message *Contract file could not be read* to the reviewer, and also to the person who uploaded the file if that is someone else, with the reason and what to do. No review card is sent. The row keeps the error, the file name, the uploader and the flow run as evidence; it is never treated as a contract and the agent gives no terms from it. | Upload a readable copy (a text-based PDF or Word document; run text recognition on a scan first) to the same library. When it has been extracted, the earlier row changes to *Extraction failed - replaced*, names the new contract and is kept as evidence. |
+| **The contract owner team does not exist** (the *Contract owner team* value names no team) | Extraction stops before reading the file; nothing is created; the admin receives a Teams message that the owner team was not found. | Create the team with exactly that name (section 6), then upload the file again. |
+| **A recalculation of effective terms fails** | The contract shows *DEADLINE NOT VERIFIED - HUMAN REVIEW REQUIRED* with the time and the flow run; its stored deadline, notice term end and calculation time are cleared, so the agent withholds its terms; a review-log entry *Effective terms not computed - run failed*; and an immediate Teams message to the admin. | Open **Power Automate → CAI CI - Effective terms → run history** for the error, or contact support with the flow run named in the message. The next successful calculation (after a change, an approval, or the Daily recompute when it is on) restores the deadline. |
+| **A number in the terms cannot be read** (duration, notice amount, notice days or renewal period written in words or in an unusual form) | No failure: the value is treated as unreadable and the deadline is *not verified*, with the reason that a reviewer must confirm the notice period and the renewal period (section 9a). Release 1.0.3.4 failed the whole calculation without any message in this case. | Confirm the period on the deadline card. |
+
+Tested on 19 November 2026 in an upgraded and in a freshly installed environment: unreadable files and their messages and evidence rows, a readable replacement, a forced recalculation failure with its message and its repair, and the missing-owner-team message. In the upgraded environment, calculations from 1.0.3.4 that had failed silently were recalculated successfully.
+
 ## 10. Known limitations of this release
 
 | Limitation | What it means for you |
 |---|---|
-| **The import may or may not publish the agent** | The import's own publish attempt failed in two of our installs and succeeded in two (clean installs of 1.0.3.2 and 1.0.3.4, the second about three minutes after the import); we do not know what decides it. Check the Microsoft 365 admin center right after every import and block an **Available** entry (section 7). Publishing on purpose is a separate procedure (section 7), tested once. |
+| **The import may or may not publish the agent** | The import's own publish attempt failed in two of our installs and succeeded in three (clean installs of 1.0.3.2, 1.0.3.4 and 1.0.3.5, one to three minutes after the import); we do not know what decides it. Check the Microsoft 365 admin center right after every import and block an **Available** entry (section 7). Publishing on purpose is a separate procedure (section 7), tested once. |
 | **Access is per team, not per contract** | Every member of the owner team sees all of that team's contracts. All new uploads go to the one team you set in section 3; assigning by folder is planned. |
-| **Users without a contracts team** | On 9 November 2026 a second, separately licensed test user chatted with the agent in Teams and saw only their own team's contracts, also after being moved to another team and with no caching between the two. A user who belongs to no contracts team gets no data. Such a user gets a plain message ("You don't currently have access to any contracts in the register …") instead of the raw *ConnectorAuthorizationError*; re-tested on 10 November 2026 with a licensed user removed from every contracts team. |
+| **Users without a contracts team** | On 9 November 2026 a second, separately licensed test user chatted with the agent in Teams and saw only their own team's contracts, also after being moved to another team and with no caching between the two. A user who belongs to no contracts team gets no data. Such a user gets a plain message ("You don't currently have access to any contracts in the register …") instead of the raw *ConnectorAuthorizationError*; re-tested on 10 November 2026 with a licensed user removed from every contracts team. On 19 November 2026 (release 1.0.3.5) the data-layer rules were re-tested for a test user moved between teams: the user read only the current team's contracts and evidence, and could not read another team's contract by its id, or create, change or delete any contract or evidence record. |
 | **Deadlines are calendar calculations, not legal advice** | Notice periods are stored as stated and counted on the calendar (section 9a). Month-end dates use the earlier reading. A deadline is given only when CONFIRMED; unclear, conflicting, implausible, business-day or unconfirmed periods are shown as *Deadline not verified — human review required* with no date until a reviewer confirms the period. The deadline does not interpret the clause, notice formalities or the law that applies. |
 | **Deadlines from earlier releases** | After an upgrade, deadlines stored by 1.0.3.2, and 1.0.3.3 deadlines marked PROVISIONAL, are answered as not verified until recalculated; converted month-based periods then need a reviewer's confirmation on the deadline card (section 4). |
 | **Future-dated amendments apply from approval** | An approved amendment changes the effective terms as soon as it is approved, also when it takes effect at a later date. The register then says so: *includes approved amendment(s) that take effect later: <reference> (from <date>)*. The extraction now reads the effective date (*"with effect from"*) and the signing date separately (section 9a). |
-| **Amendments are linked by reference** | An amendment, annex or order form is linked to its master by its contract reference, which must start with the master's reference (for example *SYN-COST-003 / Amendment 1*). An approved document that matches no master is marked *NOT APPLIED - NO MASTER FOUND* in the register instead of being ignored. Contact support to correct the reference. |
+| **Amendments are linked by reference** | An amendment, annex or order form is linked to its master by its contract reference, which must start with the master's reference (for example *SYN-COST-003 / Amendment 1*), and by its owner team: only a master of the same team is used. An approved document that matches no master is marked *NOT APPLIED - NO MASTER FOUND* in the register instead of being ignored. Contact support to correct the reference. |
 | **Small or light print can be misread** | Contradicting notice clauses anywhere in the document are listed on the review card and withhold the deadline until a reviewer confirms the period; other contradicting clauses are listed under *Unusual clauses*. Very small or light-coloured text may be misread by the document reader (section 9a). Tested on 15 synthetic notice documents and two deliberately manipulated documents. |
 | **Role shows 9 or 11 privileges** | All four fresh imports showed 11 and an upgrade 9. The two extra are standard platform privileges on a private system table (section 2). |
-| **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); a full scheduled week has not yet been observed. Contracts that have ended and do not renew are recalculated every day, because their term end lies before the end of the window (section 1a). |
-| **Duplicate approved masters** | When the same contract reference is uploaded and approved twice, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Amendments are matched to their master by contract reference. |
+| **Daily recompute runs at 05:30 Central European Time** | The schedule can't follow the time-zone setting. Outside that time zone, edit the trigger time in the *Daily recompute* flow. It recalculates only contracts with a notice deadline or term end within the recompute window (default 90 days) and all of them on the full recompute day (default Monday). The window logic, the full pass, the *Never* setting, the SUPERSEDED exclusion, the failure report with Teams alert and the warning path were each exercised once on 9 November 2026 in a test register of 11 synthetic contracts (7 manual runs); one manual run on release 1.0.3.5 (19 November 2026, 5 contracts in the window, all refreshed) succeeded; a full scheduled week has not yet been observed. Contracts that have ended and do not renew are recalculated every day, because their term end lies before the end of the window (section 1a). |
+| **Duplicate approved masters** | When the same contract reference is uploaded and approved twice **in the same owner team**, the newer one holds the effective terms and the older is marked *SUPERSEDED*. Contracts with the same reference in different teams are separate (section 9). Release 1.0.3.4 compared references across teams; after an upgrade, a contract it marked *SUPERSEDED* for that reason keeps the status until it is recalculated (section 4). |
+| **Review card wording** | The card heads the quotes *Evidence (verbatim quotes)* and its approve option reads *the values match the evidence*, but the quotes are the extraction's reading of the document and can carry the same misreading as the value (section 9a). Compare both with the document. The wording of the card will change in a later release. |
+| **Failure messages** | Unreadable files are reported to the reviewer and the uploader, failed recalculations and a missing owner team to the admin (section 9b). The messages are sent once; nobody is reminded. A failed recalculation is retried only by the Daily recompute or by a later change. |
 | **Text-based English PDFs only** | Scanned (image-only) PDFs are not read. |
 | **Processing region** | Generative-AI processing follows your environment's region settings. If *Move data across regions* is allowed, processing may happen outside your region. Check this setting if data location matters to you. |
 | **Deadline questions on large registers** | Deadline questions were tested on registers of up to 11 contracts. Each one reads every contract the user can see, 5 flow steps per contract one after another, and Microsoft gives the flow 100 seconds to answer the agent. On a large register a deadline question costs more (section 1a) and may be slow or fail; this has not been measured. |
-| **Running costs are estimates** | Each contract uses Copilot Studio capacity for extraction, recalculation and questions, billed to you by Microsoft. Our estimates, how they were obtained and their uncertainty are in section 1a; they are not yet reconciled with Microsoft's meter. Start with the limits in section 1a. |
+| **Running costs are estimates** | Each contract uses Copilot Studio capacity for extraction, recalculation and questions, billed to you by Microsoft. Our estimates, how they were obtained and their uncertainty are in section 1a; they are not yet reconciled with Microsoft's meter. Release 1.0.3.5 adds 6 steps to each recalculation, 1 or 2 to each extraction and 4 to each question about one contract (not yet measured on Microsoft's meter; failure handling runs only when something fails). Start with the limits in section 1a. |
 | **Short delay on content changes** | When a stored contract changes, its version number updates a few seconds later. |
 
 ## 11. Support
 
-Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) and the release number (1.0.3.4).
+Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) and the release number (1.0.3.5).
 
 ---
 
@@ -354,7 +376,7 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 
 | ✓ | Check | Where | Expected |
 |---|---|---|---|
-| ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.4, Managed |
+| ☐ | Solution installed | Solutions | `CAIContractIntelligence`, version 1.0.3.5, Managed |
 | ☐ | Connections | Power Automate → Connections | Dataverse, SharePoint and Teams, all **Connected**, owned by a System Administrator account |
 | ☐ | Connection references | Solutions → CAIContractIntelligence → Connection references | Four, each with a connection |
 | ☐ | Environment variables | Solutions → CAIContractIntelligence → Environment variables | Five with a current value; the two time zones, the recompute window and the full recompute day with their defaults |
@@ -365,5 +387,5 @@ Email **hello@colleagueai.ai** with your order email, the SKU (CAI-L4-CI-001) an
 | ☐ | Agent status | Microsoft 365 admin center → Agents | **Draft** or **Blocked**; never **Available** |
 | ☐ | Agent channels, sharing, authentication | Copilot Studio | No channel; only the owner listed; *Authenticate with Microsoft* |
 | ☐ | Cost alert and limits | Azure; section 1a | A budget with email alerts; initial limits agreed (first month at most 25 contracts, at most 10 documents a day) |
-| ☐ | Reviewer briefed | Section 9a | Reviewer opens the source contract and its schedules, attachments and small print before confirming a notice period; knows the four checks, the confirmation tick and the deadline card; users know that *Deadline not verified* means no date may be relied on |
+| ☐ | Reviewer briefed | Sections 9a and 9b | Reviewer opens the source contract and its schedules, attachments and small print before confirming a notice period, and compares values and quotes with the document; knows the four checks, the confirmation tick, the deadline card and the *Contract file could not be read* message; users know that *Deadline not verified* means no date may be relied on |
 | ☐ | First test | Section 9 | Passed with an owner-team member |
