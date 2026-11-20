@@ -132,10 +132,23 @@ function bankTransferFor(currency) {
 // payment_method_types from Checkout Session create at API version 2026-09-30.endive (a request that still
 // sends it gets a 400) and lib/stripe.js pins a newer version. Stripe narrows this list to the methods that
 // suit the session (mode, currency, amount, customer) and are enabled in the Dashboard, instead of erroring.
-function methodTypes(method) {
-  if (method === 'bank') return ['customer_balance'];
+// CAI_PAYMENT_METHODS (optional, Production env): comma list of 'card' and/or 'bank'. When set, it is the
+// ceiling for every session: methods outside it are never offered, whatever the buyer's button asked for.
+// First-sale configuration (founder decision 4, 20 Nov 2026): CAI_PAYMENT_METHODS=card keeps bank transfer
+// (pro-forma / SEPA / US wire, accountant question T12) closed until the accountant has answered. Unset =
+// today's behaviour. 'bank' alone would refuse card buyers, so a list without 'card' still keeps 'card'.
+export function allowedMethods(env = process.env) {
+  const raw = String(env.CAI_PAYMENT_METHODS || '').toLowerCase();
+  if (!raw.trim()) return null;
+  const set = new Set(raw.split(',').map((x) => x.trim()).filter(Boolean));
+  return { bank: set.has('bank'), card: true };
+}
+
+export function methodTypes(method, allowed = allowedMethods()) {
+  const bankOk = !allowed || allowed.bank;
+  if (method === 'bank') return bankOk ? ['customer_balance'] : ['card', 'link'];
   if (method === 'card') return ['card', 'link'];
-  return ['customer_balance', 'card', 'link'];
+  return bankOk ? ['customer_balance', 'card', 'link'] : ['card', 'link'];
 }
 
 export default async function handler(req, res) {
