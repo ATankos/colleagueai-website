@@ -518,12 +518,12 @@ display: flex !important;
 <h2 id="data">Architecture: where agents run, where data lives</h2>
 <p>Agents execute inside your own Microsoft Copilot Studio, Power Automate and Azure estate: your tenant, your identity model, your data boundary. Colleague AI hosts none of your agents’ data: their scores, policies and audit evidence stay in your environment. No customer business data is processed on our side. Every agent action in your tenant is logged, time-stamped and attributable.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
-  <h3>Enterprise deployment proof points</h3>
-  <p>ColleagueAI is positioned as a governed agent-package layer, not a shared SaaS workspace for customer business content. In a standard enterprise deployment, the customer controls the tenant, identity boundary, data sources, model endpoint, runtime configuration and audit evidence.</p>
+  <h3>How a deployment is set up</h3>
+  <p>You install the package in your own Microsoft environment and keep control of the tenant, the identities, the data sources and the audit evidence. ColleagueAI never connects to your tenant and receives none of your business content; we keep only the records of your order, licence and downloads.</p>
   <ul>
-    <li><strong>Customer-controlled data plane:</strong> agents are designed to operate against the customer’s Microsoft/cloud estate.</li>
-    <li><strong>RBAC and data lineage:</strong> retrieval patterns should respect existing user permissions.</li>
-    <li><strong>Governance before automation:</strong> each package is mapped to a CAI autonomy tier, human oversight pattern and audit evidence expectation.</li>
+    <li>Your data stays where it is: the package works against your own SharePoint, Dataverse and Teams.</li>
+    <li>Your permissions apply: users see only what their Microsoft roles already allow.</li>
+    <li>Controls come with the package: each one carries a CAI Score tier, a named human role and the evidence it produces.</li>
   </ul>
 </div>
 <h3>What this website itself processes</h3>
@@ -532,7 +532,7 @@ display: flex !important;
 <li><strong>Purchases</strong>: when paid checkout is enabled, payment will be handled entirely by Stripe; we will not see card details. Following a purchase, the buyer email, licensed agent slugs and Stripe session id may be stored so downloads can be released.</li>
 <li><strong>Downloads</strong>: secure package delivery is enabled for commercially released agents after the applicable product has passed the ColleagueAI release and product assurance gates.</li>
 <li><strong>ROI calculator &amp; readiness check</strong>: run entirely in your browser; nothing is sent or stored.</li>
-<li><strong>Partner links</strong>: a partner code from a referral link is kept in your browser (30 days) and attached to a purchase for commission attribution.</li>
+<li><strong>Partner links</strong>: a partner code from a referral link may be kept in your browser and attached to a purchase for commission attribution. Attribution eligibility, method and any applicable attribution window are governed by the approved partner setup and signed partner agreement.</li>
 </ul>
 
 <h2>Subprocessors</h2>
@@ -557,10 +557,10 @@ display: flex !important;
 <li>Responsible disclosure: see <a href="/.well-known/security.txt">security.txt</a> or write to <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. We respond to good-faith reports and won't pursue researchers acting in good faith.</li>
 </ul>
 
-<h2>Pilot programme</h2>
-<p>We're onboarding early customers now. The evaluation path is product-led: review the agent factsheet and live demo, assess the package against your own use case, use the ROI tools with your own assumptions, and review the governance evidence before purchase. Customers who later choose to participate may separately approve an anonymised case study after deployment; publication is never a condition of purchase.</p>
+<h2>Evaluate before you buy</h2>
+<p>Read the factsheet, book a guided evaluation on sample contracts in a test tenant, run the ROI calculator with your own numbers and review the governance evidence on this page. Customers who later choose to may approve an anonymised case study after deployment; publication is never a condition of purchase.</p>
 <div class="cta">
-  <a class="btn btn-p" href="/demo">Book a pilot conversation</a>
+  <a class="btn btn-p" href="/demo">Book a demo</a>
 </div>
 
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">

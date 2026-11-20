@@ -518,12 +518,12 @@ display: flex !important;
 <h2 id="data">Arquitetura: onde os agentes executam e onde os dados permanecem</h2>
 <p>Os agentes são executados no seu próprio ambiente Microsoft Copilot Studio, Power Automate e Azure: o seu tenant, o seu modelo de identidade, a sua fronteira de dados. A Colleague AI não aloja dados dos seus agentes: as pontuações, políticas e evidências de auditoria permanecem no seu ambiente. Do nosso lado não são processados dados de negócio do cliente. Cada ação do agente no seu tenant é registada, marcada com data/hora e atribuível.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
-  <h3>Pontos de prova da implementação empresarial</h3>
-  <p>A ColleagueAI está posicionada como uma camada de pacotes de agentes governados, não como um espaço de trabalho SaaS partilhado para conteúdo de negócio do cliente. Numa implementação empresarial padrão, o cliente controla o tenant, a fronteira de identidade, as fontes de dados, o endpoint do modelo, a configuração de runtime e as evidências de auditoria.</p>
+  <h3>Como se configura uma implementação</h3>
+  <p>Instala o pacote no seu próprio ambiente Microsoft e mantém o controlo do tenant, das identidades, das fontes de dados e das evidências de auditoria. A ColleagueAI nunca se liga ao seu tenant nem recebe qualquer conteúdo de negócio; guardamos apenas os registos da sua encomenda, licença e transferências.</p>
   <ul>
-    <li><strong>Plano de dados controlado pelo cliente:</strong> os agentes são concebidos para operar contra o ambiente Microsoft/nuvem do cliente.</li>
-    <li><strong>RBAC e linhagem de dados:</strong> os padrões de recuperação devem respeitar as permissões de utilizador existentes.</li>
-    <li><strong>Governança antes da automação:</strong> cada pacote é mapeado para um nível de autonomia CAI, um padrão de supervisão humana e uma expectativa de evidências de auditoria.</li>
+    <li>Os seus dados ficam onde estão: o pacote trabalha com o seu próprio SharePoint, Dataverse e Teams.</li>
+    <li>As suas permissões aplicam-se: os utilizadores só veem o que as suas funções Microsoft já permitem.</li>
+    <li>Os controlos vêm com o pacote: cada um tem um nível CAI Score, um papel humano designado e as evidências que produz.</li>
   </ul>
 </div>
 <h3>O que este próprio site processa</h3>
@@ -532,7 +532,7 @@ display: flex !important;
 <li><strong>Compras</strong>: o pagamento é tratado inteiramente pela Stripe; nunca vemos os dados do cartão. Após uma compra, armazenamos o seu e-mail, os slugs dos agentes licenciados e o id de sessão Stripe, para podermos libertar-lhe as transferências.</li>
 <li><strong>Transferências</strong>: os pacotes de agentes são entregues através de URLs assinados e com tempo limitado (validade de 15 minutos).</li>
 <li><strong>Calculadora de ROI &amp; verificação de prontidão</strong>: é executado inteiramente no seu navegador; nada é enviado ou armazenado.</li>
-<li><strong>Ligações de parceiro</strong>: um código de parceiro de uma ligação de referência é mantido no seu navegador (30 dias) e associado a uma compra para atribuição de comissão.</li>
+<li><strong>Ligações de parceiro</strong>: um código de parceiro proveniente de uma ligação de referência pode ser mantido no seu navegador e associado a uma compra para atribuição de comissão. A elegibilidade da atribuição, o método e qualquer janela de atribuição aplicável são regidos pela configuração de parceiro aprovada e pelo acordo de parceria assinado.</li>
 </ul>
 
 <h2>Subprocessadores</h2>
@@ -557,10 +557,10 @@ display: flex !important;
 <li>Divulgação responsável: ver <a href="/.well-known/security.txt">security.txt</a> ou escreva para <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. Respondemos a relatos de boa-fé e não processaremos investigadores que ajam de boa-fé.</li>
 </ul>
 
-<h2>Programa piloto</h2>
-<p>Estamos a integrar os primeiros clientes. O percurso de avaliação é orientado pelo produto: reveja a ficha do agente e a demonstração ao vivo, avalie o pacote face ao seu próprio caso de utilização, use as ferramentas de ROI com os seus próprios pressupostos e reveja as evidências de governança antes da compra. Os clientes que mais tarde optem por participar podem aprovar separadamente um caso de estudo anonimizado após a implantação; a publicação nunca é uma condição de compra.</p>
+<h2>Avalie antes de comprar</h2>
+<p>Leia a ficha do produto, marque uma avaliação guiada com contratos de exemplo num tenant de teste, use a calculadora de ROI com os seus próprios números e reveja as evidências de governação nesta página. Os clientes que mais tarde o desejarem podem aprovar um estudo de caso anonimizado após a implementação; a publicação nunca é condição de compra.</p>
 <div class="cta">
-  <a class="btn btn-p" href="/demo">Marcar uma conversa piloto</a>
+  <a class="btn btn-p" href="/demo">Marcar uma demo</a>
 </div>
 
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">
