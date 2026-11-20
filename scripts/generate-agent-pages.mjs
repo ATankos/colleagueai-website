@@ -48,6 +48,9 @@ function extract(name, open) {
   return vm.runInNewContext('(' + html.slice(j, k + 1) + ')');
 }
 const AGENTS = extract('const AGENTS=', '[');
+/* The product facts of each released package (what it does, who buys it, what it needs, what the price includes and
+   excludes): the same ten rows the catalogue drawer shows, so the factsheet and the drawer never disagree. */
+const PRODUCT_FACTS = extract('window.PRODUCT_FACTS=', '{');
 const slugify = (n) => n.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const esc = (s) => String(s ?? '')
   .replace(/&/g, '&amp;')
@@ -62,8 +65,8 @@ const TIER_DESC = { // verbatim from the CAI Score section of /agents (locked co
   L3: ['Executes routine, low-risk actions inside a bounded workflow: classify, route, fulfil, log. Exceptions and anything unusual are handed to a human. Every action is time-stamped.', 'Owns exceptions'],
   L4: ['Supports decisions and controls in higher-stakes processes: compliance, contracts, security, four-eyes. A named human remains accountable for the call; the agent assists and evidences it. Built for high-risk-process scrutiny.', 'Stays accountable'],
 };
-const ADOPT = 'Ships pre-built for Microsoft Copilot Studio, Power Automate and Azure. You connect it to your environment, classify it on the CAI Score, and it runs in your own tenant. Customer business content remains in the customer-controlled Microsoft environment; ColleagueAI receives none of it and keeps only the records of your order, licence and downloads, as described in the Trust Center.';
-const DEPLOY = 'Agents run inside your own Microsoft Copilot Studio, Power Automate and Azure environment. Colleague AI hosts none of your agents’ data: their scores, policies and audit evidence stay in your environment. Customer business content remains in the customer-controlled Microsoft environment. ColleagueAI receives none of it and keeps only the records of your order, licence and downloads, as described in the Trust Center.';
+const DEPLOY = 'You install the package in your own Microsoft environment (Copilot Studio, Power Automate and Dataverse) and it runs there, in your tenant. Colleague AI hosts none of it: your documents, the register, the reviews and the audit evidence stay with you. Customer business content remains in the customer-controlled Microsoft environment; ColleagueAI receives none of it and keeps only the records of your order, licence and downloads, as described in the Trust Center.';
+const ABOUT = 'Colleague AI s.r.o. is a software company in Prague. We build agent packages for Microsoft 365 and classify each one on the CAI Score, a five-tier risk classification (L1 to L5) that fixes the human role and the evidence an agent must produce. Packages run in your own tenant; we host none of your data.';
 
 
 function page(a) {
@@ -91,6 +94,13 @@ function page(a) {
   const price = (t) => (PRICING.tiers[t] ? usdFmt(PRICING.tiers[t].oneTimeCents / 100) : 'Price on request');
   const cert = (t) => (PRICING.tiers[t] ? usdFmt(PRICING.tiers[t].monthlyCents / 100) : '');
   const sec = (h, b) => b ? `<section><h2>${esc(h)}</h2><p>${esc(b)}</p></section>` : '';
+  /* Released packages open with the product facts: the questions a buyer, an administrator and a finance team ask,
+     answered in the same words as the catalogue drawer. Concepts have no facts block. */
+  const facts = (s) => {
+    const rows = PRODUCT_FACTS[s]?.en;
+    if (!rows) return '';
+    return `<section class="facts"><h2>Product facts</h2><dl>${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl></section>`;
+  };
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -121,8 +131,12 @@ h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
 .chip strong{color:#C65D3A}
 h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#8a857d;margin:34px 0 8px;text-transform:uppercase}
 section p{margin:0}
+.facts dl{margin:10px 0 0;border:1px solid #d8d2c6;border-radius:14px;background:#fff;padding:4px 18px}
+.facts dl div{padding:12px 0;border-bottom:1px solid #ece6da}.facts dl div:last-child{border-bottom:none}
+.facts dt{font-weight:600;font-size:14px;margin:0 0 3px}.facts dd{margin:0;font-size:14.5px;color:#4a4641}
 ul{margin:6px 0 0;padding-left:20px}
 .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:44px}
+.cta-top{margin:-10px 0 8px}
 .btn{display:inline-block;padding:12px 26px;border-radius:999px;text-decoration:none;font-size:14.5px}
 .btn-p{background:#1D1B1A;color:#F5F0E8}.btn-s{border:1.5px solid #1D1B1A;color:#1D1B1A}
 footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
@@ -144,7 +158,7 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
     <option value="pt">Português</option>
   </select>
 </div>
-<div class="eyebrow">Classified under the CAI Score™ · ${esc(tier)}</div>
+<div class="eyebrow">CAI Score™ · ${esc(tier)}</div>
 <h1>${esc(a.n)}</h1>
 <p>${esc(a.desc)}</p>
 <div class="meta">
@@ -153,28 +167,29 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
   <span class="chip">${esc(PILLAR[a.p] ?? a.p)}</span>
   <span class="chip">${esc(a.dom)}</span>
 </div>
+${releaseOf(slug) ? `<div class="cta cta-top"><a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Book a demo →</a><a class="btn btn-s" href="/pricing">${price(a.t)} one-time · what is included</a></div>` : ''}
+${facts(slug)}
 ${sec('Where it fits', a.fit)}
-${sec('Value & ROI', a.roi)}
-${sec('KPI it moves', a.kpi)}
-${sec('Risk & compliance posture', a.comp)}
-${a.pains?.length ? `<section><h2>Pain points it removes</h2><ul>${a.pains.map(p => `<li>${esc(p)}</li>`).join('')}</ul></section>` : ''}
+${sec('What it improves', a.roi)}
+${sec('The number it moves', a.kpi)}
+${sec('Risk and compliance posture', a.comp)}
+${a.pains?.length ? `<section><h2>The problems it removes</h2><ul>${a.pains.map(p => `<li>${esc(p)}</li>`).join('')}</ul></section>` : ''}
 ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? TIER[a.t] : '')} tier means</h2><p>${esc(TIER_DESC[a.t][0])} Human role: ${esc(TIER_DESC[a.t][1])}.</p></section>` : ''}
-<section><h2>How you adopt it</h2><p>${esc(ADOPT)}</p></section>
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
 <section><h2>Release status</h2><p>${releaseOf(slug)
   ? esc((STATUS_TEXT[releaseOf(slug).status] || 'Released.') + ' Current release ' + releaseOf(slug).version + '.')
   : 'Concept. This factsheet and the dossier describe the intended design; no installable package exists yet and this agent is not for sale. Ask us if you would like to pilot it.'}</p></section>
 ${RUNTIME[slug] ? `<section><h2>Microsoft prerequisites and running costs</h2><p>${esc(RUNTIME[slug])}</p></section>` : ''}
 <section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>${releaseOf(slug)
-  ? 'One-time purchase. Access to your package is arranged after your access request is approved and commercial setup is confirmed.'
+  ? 'One-time purchase. You accept the licence terms at checkout, pay through Stripe and download the package from your order page, where your licence agreement confirmation and invoice are kept. Checkout opens once our final legal and tax checks are complete; book a demo and we will tell you when.'
   : 'Today this agent is available as a dossier only.'}</p></section>
 <section><h2>Price</h2><p>${releaseOf(slug) ? '' : 'Published tier price once a package is released: '}<b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases. ${esc(CERT_NOT_OPEN)}</p>
 <p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>
-<section><h2>About Colleague AI</h2><p>Colleague AI is the trust layer for enterprise AI. It classifies AI agents against the CAI Score (a five-tier risk classification from L1 to L5) documenting each agent\u2019s controls and producing an audit trail. Agents run inside your own environment; their scores, controls and audit evidence stay there too, and we host none of it. So you deploy AI you can defend.</p></section>
+<section><h2>About Colleague AI</h2><p>${esc(ABOUT)}</p></section>
 <div class="cta">
-  <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">${releaseOf(slug) ? 'Request access →' : 'Discuss a pilot →'}</a>
-  <a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>
+  <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">${releaseOf(slug) ? 'Book a demo →' : 'Discuss a pilot →'}</a>
+  ${releaseOf(slug) ? '<a class="btn btn-s" href="/pricing">Pricing and what is included</a>' : `<a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>`}
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>
 <footer>Runs in your tenant · Customer-controlled business data plane · © Colleague AI 2026</footer>
