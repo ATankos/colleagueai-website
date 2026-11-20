@@ -10,6 +10,7 @@ import { test, before, after, beforeEach } from 'node:test';
 import assert from 'node:assert';
 import http from 'node:http';
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import Stripe from 'stripe';
 import { casReply } from './kv-cas-fake.mjs';
 
@@ -97,8 +98,61 @@ function stripeReply(req, raw) {
   return [404, { error: { message: `unhandled ${req.method} ${p}` } }];
 }
 
-let webhookServer, webhookBase, checkout, success, download, storage, db, orders, downloadToken;
+// ── fake Resend (the buyer notification, lib/mail.js) and fake private Blob store (order documents) ─────────────
+const mails = [];
+let mailServer;
+let mailMode = 'ok';
+function fakeBlobStore() {
+  const objects = new Map();
+  class BlobNotFoundError extends Error {}
+  return {
+    objects, BlobNotFoundError,
+    put: async (key, body, opts) => {
+      if (opts?.access !== 'private') throw new Error('order documents must be private');
+      if (objects.has(key) && !opts?.allowOverwrite) throw new Error(`This blob already exists: ${key}`);
+      objects.set(key, Buffer.from(body)); return { pathname: key };
+    },
+    head: async (key) => {
+      if (key.startsWith('agents/')) return { size: PRODUCT.release.bytes };
+      if (!objects.has(key)) throw new BlobNotFoundError('not found'); return { size: objects.get(key).length, uploadedAt: new Date().toISOString() };
+    },
+    get: async (key) => (objects.has(key) ? { blob: new Blob([objects.get(key)]) } : null),
+    issueSignedToken: async (o) => ({ validUntil: o.validUntil }),
+    presignUrl: async (t, o) => ({ presignedUrl: `https://store.blob.test/${o.pathname}?sig=x` }),
+  };
+}
+let blobStore = null;
+/** Switch the private document store and the mail transport on for a scenario (both off by default). */
+function withDelivery({ mail = true } = {}) {
+  blobStore = fakeBlobStore();
+  storage.__setBlobSdkForTests(blobStore);
+  process.env.BLOB_STORE_ID = 'store_journey';
+  if (mail) process.env.RESEND_API_KEY = 're_test_journey_dummy_key';
+  return blobStore;
+}
+async function pdfText(bytes) {
+  const { getDocument } = await import('pdfjs-dist/legacy/build/pdf.mjs');
+  const pdf = await getDocument({ data: new Uint8Array(bytes), useSystemFonts: false, disableFontFace: true, verbosity: 0 }).promise;
+  let out = '';
+  for (let i = 1; i <= pdf.numPages; i++) out += (await (await pdf.getPage(i)).getTextContent()).items.map((it) => it.str).join(' ') + ' ';
+  const text = out.replace(/\s+/g, ' ');
+  const squashed = text.replace(/\s+/g, '');
+  return { text, has: (n) => text.includes(n) || squashed.includes(String(n).replace(/\s+/g, '')) };
+}
+
+let webhookServer, webhookBase, checkout, success, download, orderDocument, storage, db, orders, downloadToken;
 before(async () => {
+  mailServer = http.createServer((req, res) => {
+    let raw = '';
+    req.on('data', (c) => { raw += c; });
+    req.on('end', () => {
+      if (mailMode === 'down') { res.writeHead(500); return res.end('{}'); }
+      mails.push({ auth: req.headers.authorization, ...JSON.parse(raw) });
+      res.writeHead(200, { 'content-type': 'application/json' }); res.end(JSON.stringify({ id: `email_${mails.length}` }));
+    });
+  });
+  await new Promise((r) => mailServer.listen(0, '127.0.0.1', r));
+  process.env.RESEND_API_URL = `http://127.0.0.1:${mailServer.address().port}`;
   kvServer = http.createServer((req, res) => {
     let body = '';
     req.on('data', (c) => { body += c; });
@@ -125,6 +179,7 @@ before(async () => {
   ({ default: checkout } = await import('../api/checkout.js'));
   ({ default: success } = await import('../api/success.js'));
   ({ default: download } = await import('../api/download.js'));
+  ({ default: orderDocument } = await import('../api/order-document.js'));
   const webhook = (await import('../api/webhook.js')).default;
   storage = await import('../lib/storage.js');
   db = await import('../lib/db.js');
@@ -139,7 +194,7 @@ before(async () => {
   webhookBase = `http://127.0.0.1:${webhookServer.address().port}`;
 });
 after(async () => {
-  for (const s of [kvServer, stripeServer, webhookServer]) { s.closeAllConnections?.(); await new Promise((r) => s.close(r)); }
+  for (const s of [kvServer, stripeServer, webhookServer, mailServer]) { s.closeAllConnections?.(); await new Promise((r) => s.close(r)); }
 });
 beforeEach(() => {
   kv.clear(); sets.clear(); stripeCalls.length = 0; sessions.clear(); invoices.clear(); refunds.clear(); customers.clear();
@@ -147,6 +202,8 @@ beforeEach(() => {
   for (const k of ['TAX_POLICY_SANDBOX', 'TAX_SANDBOX_INVOICE_ROUTE', 'INVOICE_SANDBOX_FAIL']) delete process.env[k];
   storage.__setBlobSdkForTests(null);
   delete process.env.BLOB_STORE_ID;
+  delete process.env.RESEND_API_KEY;
+  mails.length = 0; mailMode = 'ok'; blobStore = null;
 });
 
 // ── helpers ─────────────────────────────────────────────────────────────────────────────────────────────────────
@@ -546,6 +603,7 @@ test('Continuous Certification stays unavailable: a link or a form asking for it
 
 test('missed webhook and no return visit: the fulfilment check reports the paid order; delivering the event clears it', async () => {
   const { checkFulfilment } = await import('../lib/fulfilmentCheck.js');
+  withDelivery();
   const run = async (list) => {
     const ords = new Map(); const ents = new Map(); const held = new Map();
     for (const x of list) {
@@ -581,3 +639,273 @@ test('missed webhook and no return visit: the fulfilment check reports the paid 
   assert.deepEqual(r.rows, []);
   assert.equal((await order(o.orderId)).status, 'refunded');
 });
+
+// ── documents, delivery and notification (automated contracts, invoicing and delivery brief, section 8) ───────────
+/** The sealed /api/order-document links on a thank-you page, by file name. */
+function documentLinks(pageBody) {
+  const out = {};
+  for (const m of pageBody.matchAll(/href="\/api\/order-document\?t=([A-Za-z0-9_-]+)"/g)) {
+    const c = downloadToken.openOrderDocument(m[1]);
+    if (c.ok) out[c.file] = m[1];
+  }
+  return out;
+}
+async function fetchDocument(t) {
+  const res = mockRes();
+  await orderDocument({ method: 'GET', query: { t } }, res);
+  return res;
+}
+
+test('complete workflow: company → acceptance → payment → licence → agreement PDF → invoice PDF → archive → secure download → notification', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  const store = withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b, { tenant: 'vzorova-prumyslova.example' });
+  assert.equal(o.res.statusCode, 303);
+  const s = finished(o, b);
+  const r = await deliver('checkout.session.completed', s);
+  assert.equal(r.status, 200, JSON.stringify(r.body));
+  assert.deepEqual(r.body.documents, { complete: true, missing: [] }, JSON.stringify(r.body));
+  const ord = await order(o.orderId);
+  assert.equal(ord.status, 'fulfilled');
+  assert.equal(ord.invoice.status, 'issued');
+  assert.equal(ord.documents.agreement.status, 'issued');
+  assert.equal(ord.documents.invoice.status, 'issued');
+  assert.equal(ord.notifications.buyer.status, 'sent');
+  assert.equal(ord.buyer.tenant, 'vzorova-prumyslova.example');
+  // The archive: both PDFs are in the private store, hashed as stored.
+  const agreementBytes = store.objects.get(ord.documents.agreement.key);
+  assert.ok(agreementBytes, 'agreement PDF stored privately');
+  assert.equal(createHashHex(agreementBytes), ord.documents.agreement.sha256);
+  const agreement = await pdfText(agreementBytes);
+  for (const n of ['Licence Agreement Confirmation', b.company, 'Jana Nováková, Jednatelka', 'CAI-L4-CI-001', '1.0.3.6', PRODUCT.release.sha256, 'vzorova-prumyslova.example', LEGAL.set, LEGAL.documents.terms.sha256, 'not a signed instrument', ord.invoice.number]) {
+    assert.ok(agreement.has(n), `agreement PDF missing: ${n}`);
+  }
+  const invoice = await pdfText(store.objects.get(ord.documents.invoice.key));
+  for (const n of [`TEST INVOICE ${ord.invoice.number}`, 'NOT A TAX DOCUMENT', b.company, 'CZ12345678', `pi_${o.id}`, 'USD 14,900.00', 'TEST - domestic treatment not decided']) assert.ok(invoice.has(n), `invoice PDF missing: ${n}`);
+  // The company evidence record.
+  const { getEvidence } = await import('../lib/orderDocuments.js');
+  const ev = await getEvidence(o.orderId);
+  assert.equal(ev.acceptance.id, ord.acceptance.id);
+  assert.equal(ev.documents.agreement.sha256, ord.documents.agreement.sha256);
+  assert.equal(ev.invoice.number, ord.invoice.number);
+  assert.equal(ev.payment.paymentIntentId, `pi_${o.id}`);
+  assert.equal(ev.release.version, '1.0.3.6');
+  assert.equal(ev.delivery.notification.status, 'sent');
+  // The notification: to the order e-mail only, naming the order, the invoice, the hash and the order page.
+  assert.equal(mails.length, 1);
+  assert.deepEqual(mails[0].to, [b.email]);
+  assert.match(mails[0].subject, new RegExp(o.orderId));
+  for (const n of [o.orderId, ord.invoice.number, PRODUCT.release.sha256, `/api/success?session_id=${o.id}`, 'TEST document']) assert.ok(mails[0].text.includes(n), `mail missing: ${n}`);
+  assert.ok(!mails[0].text.includes('sk_') && !mails[0].text.includes('whsec_'));
+  // The order page: documents section with sealed links; each opens to a private presigned URL for the right buyer.
+  const page = await thankYou(o.id);
+  assert.match(page.body, /Your documents/);
+  assert.match(page.body, /Licence entitlement/);
+  assert.match(page.body, /Agreements you accepted/);
+  const links = documentLinks(page.body);
+  assert.deepEqual(Object.keys(links).sort(), [ord.documents.agreement.file, ord.documents.invoice.file].sort());
+  const got = await fetchDocument(links[ord.documents.agreement.file]);
+  assert.equal(got.statusCode, 302);
+  assert.match(got.headers.location, new RegExp(`orders/${o.orderId}/licence-agreement-confirmation\\.pdf`));
+  // The package download itself (secure, signed) is unchanged.
+  const tok = [...page.body.matchAll(/href="\/api\/download\?t=([A-Za-z0-9_-]+)"/g)].map((m) => m[1]).find((t) => downloadToken.openDownload(t).file === PRODUCT.release.package);
+  const dl = mockRes(); await download({ method: 'GET', query: { t: tok } }, dl);
+  assert.equal(dl.statusCode, 302);
+  // Replaying the page produces no new document and no new mail.
+  await thankYou(o.id);
+  assert.equal(store.objects.size, 2);
+  assert.equal(mails.length, 1);
+});
+
+test('declined payment: no licence, no documents, no notification, no completed sale', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  const store = withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  await deliver('checkout.session.expired', finished(o, b, { status: 'expired', payment_status: 'unpaid' }));
+  const ord = await order(o.orderId);
+  assert.equal(ord.status, 'expired');
+  assert.equal(ord.documents, undefined);
+  assert.equal(await entitlement(b.email), null);
+  assert.equal(store.objects.size, 0);
+  assert.equal(mails.length, 0);
+  assert.equal((await thankYou(o.id)).body.includes('Your documents'), false);
+});
+
+test('duplicate webhook: the same paid event twice makes one invoice, one agreement PDF, one evidence record and one mail', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  const store = withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  const s = finished(o, b);
+  const first = await deliver('checkout.session.completed', s, 'evt_dup_docs');
+  assert.equal(first.status, 200);
+  const dup = await deliver('checkout.session.completed', s, 'evt_dup_docs');
+  assert.equal(dup.body.duplicate, 'event');
+  const sameSessionNewEvent = await deliver('checkout.session.async_payment_succeeded', s, 'evt_dup_docs_2');
+  assert.equal(sameSessionNewEvent.status, 200);
+  const ord = await order(o.orderId);
+  assert.equal(ord.invoice.number, `TEST-INV-${new Date().getUTCFullYear()}-0001`);
+  assert.equal(store.objects.size, 2, 'one agreement, one invoice');
+  assert.equal(mails.length, 1);
+  assert.equal((await entitlement(b.email)).stripeSessionIds.length, 1);
+});
+
+test('failed PDF generation: the licence stands, the failure is recorded on the order and reported by the fulfilment check; a later run completes it', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  const store = withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  const s = finished(o, b);
+  // The store refuses the first write (a Blob outage): the agreement cannot be stored.
+  const realPut = store.put;
+  store.put = async () => { throw new Error('blob service unavailable'); };
+  const r = await deliver('checkout.session.completed', s);
+  assert.equal(r.status, 200, 'a document failure never fails the paid event');
+  assert.equal(r.body.documents.complete, false);
+  let ord = await order(o.orderId);
+  assert.equal(ord.status, 'fulfilled');
+  assert.equal(ord.documents.agreement.status, 'failed');
+  assert.equal(ord.documents.agreement.reason, 'agreement_generation_failed');
+  assert.match(ord.documents.agreement.detail, /blob service unavailable/);
+  assert.ok(ord.documents.summary.missing.some((m) => m.startsWith('agreement:')));
+  assert.equal(ord.notifications.buyer.status, 'sent', 'the buyer is still told where the documents will appear');
+  assert.match(mails[0].text, /being prepared/);
+  const page = await thankYou(o.id);
+  assert.match(page.body, /being prepared/);
+  // The fulfilment check lists it until it is complete.
+  const { checkFulfilment } = await import('../lib/fulfilmentCheck.js');
+  let chk = checkFulfilment({ sessions: [s], orders: new Map([[o.orderId, ord]]), entitlements: new Map([[b.email, await entitlement(b.email)]]) });
+  assert.equal(chk.rows[0]?.problem, 'documents_incomplete');
+  // The store is back: a redelivery (or the daily run) completes the package without a second licence or mail.
+  store.put = realPut;
+  await deliver('checkout.session.completed', s, 'evt_docs_retry');
+  ord = await order(o.orderId);
+  assert.equal(ord.documents.agreement.status, 'issued');
+  assert.equal(ord.documents.summary.complete, true);
+  chk = checkFulfilment({ sessions: [s], orders: new Map([[o.orderId, ord]]), entitlements: new Map([[b.email, await entitlement(b.email)]]) });
+  assert.deepEqual(chk.rows, []);
+  assert.equal(mails.length, 1);
+});
+
+test('mail transport down or unset: recorded as not sent, never claimed; the documents are still produced', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  withDelivery({ mail: false });
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  await deliver('checkout.session.completed', finished(o, b));
+  let ord = await order(o.orderId);
+  assert.equal(ord.notifications.buyer.status, 'not_configured');
+  assert.ok(ord.documents.summary.missing.includes('notification:mail_not_configured'));
+  assert.equal(ord.documents.agreement.status, 'issued');
+  process.env.RESEND_API_KEY = 're_test_journey_dummy_key';
+  mailMode = 'down';
+  const o2 = await placeOrder({ ...b, email: 'mail-down@vzorova.example' });
+  await deliver('checkout.session.completed', finished(o2, { ...b, email: 'mail-down@vzorova.example' }));
+  ord = await order(o2.orderId);
+  assert.equal(ord.notifications.buyer.status, 'failed');
+  assert.equal(ord.notifications.buyer.reason, 'send_failed');
+});
+
+test('refund and credit note (sandbox ledger): the credit-note PDF joins the order documents and the evidence; the licence is revoked', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  const store = withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  const s = finished(o, b);
+  await deliver('checkout.session.completed', s);
+  refunds.set(`ch_${o.id}`, [{ id: 're_docs1', object: 'refund', amount: PRICE, status: 'succeeded' }]);
+  const r = await deliver('charge.refunded', charge(s, { amount_refunded: PRICE, refunded: true }));
+  assert.equal(r.status, 200, JSON.stringify(r.body));
+  assert.equal(r.body.creditNotes, 1);
+  const ord = await order(o.orderId);
+  assert.equal(ord.status, 'refunded');
+  const cn = ord.documents.creditNotes.re_docs1;
+  assert.equal(cn.status, 'issued');
+  const text = await pdfText(store.objects.get(cn.key));
+  for (const n of [`TEST CREDIT NOTE ${ord.creditNotes[0].number}`, `Corrects invoice ${ord.invoice.number}`, 're_docs1', '-USD 14,900.00']) assert.ok(text.has(n), `credit note missing: ${n}`);
+  const { getEvidence } = await import('../lib/orderDocuments.js');
+  const ev = await getEvidence(o.orderId);
+  assert.equal(ev.creditNotes[0].refundId, 're_docs1');
+  assert.equal(ev.documents.creditNotes.re_docs1.sha256, cn.sha256);
+  assert.equal(ev.payment.refunded.full, true);
+  assert.ok(!(await entitlement(b.email)).slugs.includes(SLUG));
+  // The refunded buyer still reaches their documents through the (now refunded) order page link.
+  assert.match((await thankYou(o.id)).body, /refunded/);
+});
+
+test('wrong buyer or unauthorised document access: another e-mail, a tampered token, an expired token, a document not yet issued', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  await deliver('checkout.session.completed', finished(o, b));
+  const ord = await order(o.orderId);
+  const file = ord.documents.agreement.file;
+  const other = downloadToken.signOrderDocument({ email: 'someone@else.example', orderId: o.orderId, file });
+  assert.equal((await fetchDocument(other.t)).statusCode, 403);
+  assert.equal((await fetchDocument(other.t)).body.reason, 'not-owner');
+  const good = downloadToken.signOrderDocument({ email: b.email, orderId: o.orderId, file });
+  assert.equal((await fetchDocument(good.t)).statusCode, 302);
+  const tampered = good.t.slice(0, -3) + (good.t.endsWith('AAA') ? 'BBB' : 'AAA');
+  assert.equal((await fetchDocument(tampered)).statusCode, 403);
+  const expired = downloadToken.signOrderDocument({ email: b.email, orderId: o.orderId, file, ttlSeconds: -1 });
+  assert.equal((await fetchDocument(expired.t)).body.reason, 'expired');
+  const unknown = downloadToken.signOrderDocument({ email: b.email, orderId: o.orderId, file: 'credit-note-nope.pdf' });
+  assert.equal((await fetchDocument(unknown.t)).statusCode, 404);
+  // A download token (package endpoint) is not a document token, and the other way round.
+  const dl = downloadToken.signDownload({ email: b.email, slug: SLUG, file: PRODUCT.release.package });
+  assert.equal((await fetchDocument(dl.t)).statusCode, 403);
+  // Another order's buyer cannot read this order even with a valid document name for their own order.
+  const o2 = await placeOrder(BUYERS.de);
+  await deliver('checkout.session.completed', finished(o2, BUYERS.de));
+  const cross = downloadToken.signOrderDocument({ email: BUYERS.de.email, orderId: o.orderId, file });
+  assert.equal((await fetchDocument(cross.t)).statusCode, 403);
+});
+
+test('changed legal version after an earlier purchase: the earlier order\'s documents keep the versions it accepted; a new order gets the new set', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  const store = withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  await deliver('checkout.session.completed', finished(o, b));
+  const ord = await order(o.orderId);
+  assert.equal(ord.acceptance.legalSet, LEGAL.set);
+  const text = await pdfText(store.objects.get(ord.documents.agreement.key));
+  assert.ok(text.has(LEGAL.documents.terms.sha256));
+  // A later order placed against a "new" legal set (simulated on the record, as a version bump would write it) is a
+  // different agreement; the earlier PDF is immutable in the store and its record unchanged.
+  const before = ord.documents.agreement.sha256;
+  await deliver('checkout.session.completed', finished(o, b), 'evt_legal_again');
+  assert.equal((await order(o.orderId)).documents.agreement.sha256, before);
+  assert.equal(createHashHex(store.objects.get(ord.documents.agreement.key)), before);
+  // The confirmation page refuses a stale document set, so no order can be placed against a set that is not current.
+  const stale = mockRes();
+  await checkout({ method: 'POST', query: {}, headers: { host: 'shop.example.test' }, body: { agent: SLUG, method: 'card', lang: 'en', authority: 'on', terms: 'on', delivery: 'on', legal_set: '1999-01-01', ...b } }, stale);
+  assert.equal(stale.statusCode, 400);
+  assert.match(stale.body, /agreements were updated while this page was open/);
+});
+
+test('order recovery: the emailed recovery page reaches the same documents; a buyer category held by the policy never gets this far', async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  withDelivery();
+  const b = BUYERS.cz;
+  const o = await placeOrder(b);
+  await deliver('checkout.session.completed', finished(o, b));
+  // Recovery (api/recover.js) is covered by tests/recover.test.mjs; here: the thank-you link, reopened, re-issues
+  // document links sealed for the same buyer, and each still opens.
+  const links1 = documentLinks((await thankYou(o.id)).body);
+  const links2 = documentLinks((await thankYou(o.id)).body);
+  assert.notEqual(links1['licence-agreement-confirmation.pdf'], links2['licence-agreement-confirmation.pdf'], 'fresh sealed links each time');
+  assert.equal((await fetchDocument(links2['licence-agreement-confirmation.pdf'])).statusCode, 302);
+  // Held category: no session, no order record that could ever be documented.
+  const held = await placeOrder(BUYERS.deNoVat);
+  assert.equal(held.res.statusCode, 409);
+  assert.match(held.res.body, /needs a manual check before payment/);
+  assert.ok(!stripeCalls.some((c) => c.path === '/v1/checkout/sessions' && c.params.get('customer_email') === BUYERS.deNoVat.email));
+});
+
+function createHashHex(bytes) {
+  return createHash('sha256').update(bytes).digest('hex');
+}

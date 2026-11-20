@@ -9,7 +9,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
-import { productionPackages, PERMISSIVE } from '../scripts/legal/licence-inventory.mjs';
+import { productionPackages, isPermissive } from '../scripts/legal/licence-inventory.mjs';
 
 const read = (p) => readFileSync(new URL('../' + p, import.meta.url), 'utf8');
 const LOCK = JSON.parse(read('package-lock.json'));
@@ -19,7 +19,7 @@ const DOC = read('docs/legal/third-party-licences.md');
 test('every production package carries a permissive licence', () => {
   const list = productionPackages(LOCK, PKG);
   assert.ok(list.length >= Object.keys(PKG.dependencies).length);
-  const other = list.filter((p) => !PERMISSIVE.includes(p.license)).map((p) => `${p.name}@${p.version}: ${p.license}`);
+  const other = list.filter((p) => !isPermissive(p.license)).map((p) => `${p.name}@${p.version}: ${p.license}`);
   assert.deepEqual(other, [], 'production packages outside the permissive list need counsel review before they ship');
 });
 
