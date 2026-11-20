@@ -26,7 +26,7 @@ import { withheldReason, paidFacts, stripeIds, billingCountryDiffers } from '../
 import { releaseVersionForSession, releaseForBoughtVersion } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recoverHint } from '../lib/recovery.js';
-import { legalDocumentRecords } from '../lib/legalArchive.js';
+import { legalDocumentRecords, versionSlug } from '../lib/legalArchive.js';
 import LEGAL from '../config/legal.json' with { type: 'json' };
 import { SLUG_TIER, titleFromSlug } from './checkout.js';
 import { ORDER_LOCALES, AGENTS_PATH, PRIVACY_PATH, TIER_NAMES, pickOrderLang, ot } from '../lib/orderI18n.js';
@@ -217,13 +217,15 @@ export function documentsHtml(order, email, lang = 'en') {
     ['Release', order.product?.release || ''], ['Licence', 'perpetual, non-exclusive, non-transferable, one Microsoft tenant'],
     ['Granted', order.facts?.fulfilledAt ? esc(order.facts.fulfilledAt.replace('T', ' ').replace(/\.\d+Z$/, ' UTC')) : 'pending'], ['Order', order.id],
   ].map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
+  // Each accepted document links to the archived text of exactly that version (published by scripts/legal/publish-archive.mjs),
+  // so the buyer reads what was accepted even after the live page has moved to a newer version.
   const accepted = Object.entries(order.acceptance?.documents || legalDocumentRecords(LEGAL)).map(([k, v]) =>
-    `<li><a href="${DOC_PATHS[k] || '/' + k}" target="_blank" rel="noopener">${esc(DOC_TITLES[k] || k)}</a> <span class="o-small">version ${esc(v.version || '')}${v.sha256 ? ` &middot; fingerprint <code>${esc(String(v.sha256).slice(0, 12))}</code>` : ''}</span></li>`).join('');
+    `<li><a href="/legal/archive/${esc(k)}/${esc(versionSlug(v.version || ''))}.html" target="_blank" rel="noopener">${esc(DOC_TITLES[k] || k)}</a> <span class="o-small">version ${esc(v.version || '')} as accepted${v.sha256 ? ` &middot; fingerprint <code>${esc(String(v.sha256).slice(0, 12))}</code>` : ''} &middot; <a href="${DOC_PATHS[k] || '/' + k}" target="_blank" rel="noopener">current version</a></span></li>`).join('');
   return `<section class="o-section"><p class="o-eyebrow">Your documents</p><h2>Order ${esc(order.id)}</h2>` +
     `<div class="o-grid"><article class="o-card"><h3>Licence agreement confirmation</h3>${agreement}</article>` +
     `<article class="o-card"><h3>Licence entitlement</h3><dl class="o-facts">${entitlement}</dl>${invoiceCopy}${creditNotes ? `<div class="o-actions">${creditNotes}</div>` : ''}</article></div>` +
     `<div class="o-grid"><article class="o-card"><h3>Agreements you accepted</h3><ul class="o-text">${accepted}</ul>` +
-    `<p class="o-small">Your order record keeps each document's version and SHA-256 fingerprint, and we keep an archived copy of every version; a later update never changes what you accepted.</p></article>` +
+    `<p class="o-small">Each link opens the archived text of the version you accepted, with its SHA-256 fingerprint; a later update never changes it.</p></article>` +
     `<article class="o-card"><h3>Installation, security and support</h3><p class="o-text">The installation guide and readiness checklist are inside the package: ${fileCode('START-HERE.pdf')} first, then ${fileCode('INSTALL.pdf')}. ` +
     `Verify the download against the SHA-256 shown above before importing.</p><p class="o-text">Support and security reports: ${mailLink()} with your order number. ` +
     `Corrective releases for defects in your release, including security defects, are provided at no further licence fee; new feature releases are not included.</p></article></div></section>`;
