@@ -1,0 +1,75 @@
+{
+  "_comment": "DRAFT PREPARED 20 Nov 2026 FROM THE FOUNDER'S CONFIRMED STATUS (Czech identified person). NOT the accountant's written answer and NOT loaded by the code: config/tax-policy.json stays unapproved until the accountant confirms each line in writing and the approval block is filled. Every decision text below is a proposal for the accountant to confirm, correct or replace.",
+  "version": "2026-11-20-draft-identified-person",
+  "status": "unapproved",
+  "approval": {
+    "approvedBy": null,
+    "role": null,
+    "approvedAt": null,
+    "reference": null
+  },
+  "seller": {
+    "legalName": "Colleague AI s.r.o.",
+    "registrationNumber": "29540852",
+    "register": "Městský soud v Praze, C 448176",
+    "address": "Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic",
+    "vatStatus": "identified_person",
+    "vatId": "CZ29540852",
+    "vatEffectiveFrom": null,
+    "_note": "vatId = DIČ shown on the published legal pages; accountant confirms it and fills the registration date (vatEffectiveFrom)."
+  },
+  "decisions": {
+    "T1_vatStatus": "PROPOSED: Colleague AI s.r.o. is an identified person (identifikovaná osoba, § 6g–6l ZDPH), DIČ CZ29540852, from [date]. It does not charge Czech VAT on domestic supplies and is not a VAT payer; it files a VAT return only for periods with cross-border transactions and an EC Sales List (souhrnné hlášení) for reverse-charge services supplied to EU businesses.",
+    "T2_euBusinessWithVatId": "PROPOSED: Place of supply is the customer's member state (§ 9(1) ZDPH / Art. 44 Directive 2006/112/EC); the customer accounts for VAT (reverse charge). Invoice without Czech VAT, with the note 'Daň odvede zákazník / Reverse charge - Art. 196 Directive 2006/112/EC' and both VAT IDs; reported in the EC Sales List. First-sale treatment: HOLD (manual handling) until the accountant confirms, or SELL once confirmed.",
+    "T3_domesticBusiness": "PROPOSED: Supply by an identified person to a Czech business: no VAT charged; invoice (not a daňový doklad) with the note 'Neplátce DPH - identifikovaná osoba'. SELL.",
+    "T4_nonEuBusiness": "PROPOSED: Place of supply outside the EU; outside the scope of Czech VAT; note 'Outside the scope of Czech VAT (§ 9(1) ZDPH)'. First-sale treatment: HOLD until confirmed.",
+    "T5_businessStatusAndNoVatId": "PROPOSED: An EU buyer without a VAT ID that declares it buys in the course of business: treated as a taxable person only with other evidence; default HOLD for manual handling (the accountant decides what evidence suffices).",
+    "T6_licenceClassification": "PROPOSED: A perpetual software licence delivered as a download is an electronically supplied service (Art. 7 Implementing Regulation (EU) 282/2011); B2B general place-of-supply rule applies.",
+    "T7_taxDocumentRequirements": "PROPOSED: Document per § 29 ZDPH where a daňový doklad is required (reverse-charge supplies to EU businesses); date of taxable supply (DUZP) = the day the service is supplied, i.e. the day of payment for a licence delivered on payment (§ 21 ZDPH); English and USD acceptable with the CZK base recorded in the VAT records; Stripe's number series acceptable (Q1-Q4 of the route assessment).",
+    "T8_currencyConversion": "PROPOSED: USD amounts converted to CZK at the ČNB rate valid on the date of taxable supply (§ 4(8) ZDPH) for the VAT return and EC Sales List; accounting conversion per the accounting policy (daily ČNB rate or fixed rate). The conversion is an accounting step from the payout reconciliation; printed on the invoice only if the accountant requires it.",
+    "T9_revenueRecognition": "PROPOSED: Revenue recognised on delivery of the perpetual licence (download available), i.e. at payment; the accountant confirms.",
+    "T10_partnerCommissions": "PROPOSED: Partner commissions are purchased services; a partner established in the EU invoices with reverse charge to the identified person, who self-assesses; the accountant confirms the regime per partner.",
+    "T11_servicesFromAbroad": "PROPOSED: Services received from abroad (Microsoft Copilot Studio consumption, Vercel, Stripe fees, Upstash, Resend, Anthropic) are reverse-charged by the identified person (§ 108 ZDPH): Czech VAT self-assessed in the VAT return for the month of receipt, due by the 25th of the following month, with no input VAT deduction. The 25 November return covers October.",
+    "T12_bankTransferProforma": "PROPOSED: Bank-transfer orders receive a proforma (not a tax document) from the invoicing route; the invoice/tax document is issued on receipt of payment (DUZP = payment date). Bank transfer stays off for the first sale (CAI_PAYMENT_METHODS=card).",
+    "T13_invoiceRoute": "PROPOSED: Stripe post-payment invoice ('stripe') for the first sale, subject to Q1-Q4 in docs/commerce/invoicing-route-assessment.md; Czech tool only if the accountant requires a Czech number series, a labelled DUZP, CZK on the document or a proforma.",
+    "T14_microsoftConsumption": "PROPOSED: Microsoft bills Copilot Studio consumption to the customer directly; nothing to invoice or re-charge by Colleague AI."
+  },
+  "treatments": {
+    "cz_business": {
+      "action": "sell",
+      "invoiceNote": "Neplátce DPH - identifikovaná osoba (§ 6g ZDPH). No VAT charged.",
+      "basis": "T3"
+    },
+    "eu_business_vat_verified": {
+      "action": "hold",
+      "invoiceNote": "Daň odvede zákazník / Reverse charge - Art. 196 Directive 2006/112/EC.",
+      "basis": "T2 - sell once the accountant confirms"
+    },
+    "eu_business_vat_pending": {
+      "action": "hold",
+      "invoiceNote": "Daň odvede zákazník / Reverse charge - Art. 196 Directive 2006/112/EC (VAT ID verification pending).",
+      "basis": "T2"
+    },
+    "eu_business_vat_unverified": {
+      "action": "hold",
+      "invoiceNote": "",
+      "basis": "T2/T5 - manual check"
+    },
+    "eu_business_no_vat_id": {
+      "action": "hold",
+      "invoiceNote": "",
+      "basis": "T5"
+    },
+    "non_eu_business": {
+      "action": "hold",
+      "invoiceNote": "Outside the scope of Czech VAT (§ 9(1) ZDPH).",
+      "basis": "T4 - sell once confirmed"
+    }
+  },
+  "checkout": {
+    "requireTaxIdIfSupported": true,
+    "stripeTax": false,
+    "invoiceRoute": "stripe",
+    "onCountryMismatch": "hold"
+  }
+}
