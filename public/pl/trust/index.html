@@ -518,12 +518,12 @@ display: flex !important;
 <h2 id="data">Architektura: gdzie działają agenci i gdzie pozostają dane</h2>
 <p>Agenci działają w Twoim własnym środowisku Microsoft Copilot Studio, Power Automate i Azure: Twój tenant, Twój model tożsamości, Twoja granica danych. Colleague AI nie hostuje żadnych danych Twoich agentów: ich oceny, zasady i dowody audytowe pozostają w Twoim środowisku. Po naszej stronie nie są przetwarzane żadne dane biznesowe klienta. Każde działanie agenta w Twoim tenancie jest rejestrowane, opatrzone znacznikiem czasu i przypisywalne.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
-  <h3>Dowody gotowości wdrożenia korporacyjnego</h3>
-  <p>ColleagueAI jest pozycjonowane jako warstwa nadzorowanych pakietów agentów, a nie współdzielony obszar roboczy SaaS dla treści biznesowych klienta. W standardowym wdrożeniu korporacyjnym klient kontroluje tenant, granicę tożsamości, źródła danych, punkt końcowy modelu, konfigurację środowiska uruchomieniowego i dowody audytu.</p>
+  <h3>Jak wygląda wdrożenie</h3>
+  <p>Instalujesz pakiet we własnym środowisku Microsoft i zachowujesz kontrolę nad tenantem, tożsamościami, źródłami danych i dowodami audytowymi. ColleagueAI nigdy nie łączy się z Twoim tenantem i nie otrzymuje żadnych treści biznesowych; przechowujemy tylko rekordy zamówienia, licencji i pobrań.</p>
   <ul>
-    <li><strong>Płaszczyzna danych kontrolowana przez klienta:</strong> agenci są zaprojektowani do działania w środowisku Microsoft/chmury klienta.</li>
-    <li><strong>RBAC i pochodzenie danych:</strong> wzorce wyszukiwania powinny respektować istniejące uprawnienia użytkowników.</li>
-    <li><strong>Nadzór i ład organizacyjny przed automatyzacją:</strong> każdy pakiet jest przypisany do poziomu autonomii CAI, wzorca nadzoru ludzkiego i oczekiwań dotyczących dowodów audytu.</li>
+    <li>Twoje dane zostają tam, gdzie są: pakiet pracuje na Twoim własnym SharePoint, Dataverse i Teams.</li>
+    <li>Obowiązują Twoje uprawnienia: użytkownicy widzą tylko to, na co już pozwalają ich role w Microsoft.</li>
+    <li>Kontrole są częścią pakietu: każdy ma poziom CAI Score, wyznaczoną rolę człowieka i dowody, które generuje.</li>
   </ul>
 </div>
 <h3>Co przetwarza sama ta strona internetowa</h3>
@@ -532,7 +532,7 @@ display: flex !important;
 <li><strong>Zakupy</strong>: płatność jest obsługiwana w całości przez Stripe; nigdy nie widzimy danych karty. Po zakupie przechowujemy Twój e-mail, slugi licencjonowanych agentów oraz identyfikator sesji Stripe, aby udostępnić Ci pliki do pobrania.</li>
 <li><strong>Pobieranie</strong>: pakiety agentów są dostarczane za pomocą podpisanych adresów URL o ograniczonym czasie (wygaśnięcie po 15 minutach).</li>
 <li><strong>Kalkulator ROI &amp; sprawdzenie gotowości</strong>: działa w całości w Twojej przeglądarce; nic nie jest wysyłane ani przechowywane.</li>
-<li><strong>Linki partnerskie</strong>: kod partnerski z linku polecającego jest przechowywany w Twojej przeglądarce (30 dni) i przypisywany do zakupu w celu przyznania prowizji.</li>
+<li><strong>Linki partnerskie</strong>: kod partnerski z linku polecającego może być przechowywany w przeglądarce i powiązany z zakupem w celu przypisania prowizji. Uprawnienie do atrybucji, jej metoda oraz ewentualne okno atrybucji są określone przez zatwierdzoną konfigurację partnerską i podpisaną umowę partnerską.</li>
 </ul>
 
 <h2>Podwykonawcy przetwarzania</h2>
@@ -557,10 +557,10 @@ display: flex !important;
 <li>Odpowiedzialne ujawnianie: zobacz <a href="/.well-known/security.txt">security.txt</a> lub napisz na <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. Odpowiadamy na zgłoszenia w dobrej wierze i nie będziemy ścigać badaczy działających w dobrej wierze.</li>
 </ul>
 
-<h2>Program pilotażowy</h2>
-<p>Obecnie wdrażamy pierwszych klientów. Ścieżka oceny jest prowadzona przez sam produkt: przejrzyj kartę agenta i demo na żywo, oceń pakiet pod kątem własnego przypadku użycia, użyj narzędzi ROI z własnymi założeniami i przed zakupem sprawdź dowody governance. Klienci, którzy później zdecydują się uczestniczyć, mogą osobno zatwierdzić zanonimizowane studium przypadku po wdrożeniu; publikacja nigdy nie jest warunkiem zakupu.</p>
+<h2>Oceń przed zakupem</h2>
+<p>Przeczytaj kartę produktu, umów ocenę z przewodnikiem na przykładowych umowach w testowym tenancie, policz ROI na własnych liczbach i przejrzyj dowody ładu na tej stronie. Klienci, którzy później zechcą, mogą po wdrożeniu zatwierdzić zanonimizowane studium przypadku; publikacja nigdy nie jest warunkiem zakupu.</p>
 <div class="cta">
-  <a class="btn btn-p" href="/demo">Umów rozmowę pilotażową</a>
+  <a class="btn btn-p" href="/demo">Umów demo</a>
 </div>
 
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">
