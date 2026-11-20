@@ -1,0 +1,14 @@
+{
+  "_comment": "Wording the order documents (lib/agreementPdf.js) quote for what a purchase includes. The three sentences per product are the published product facts on the catalogue page (public/agents.html PRODUCT_FACTS); tests/order-documents.test.mjs fails when they drift, so the confirmation PDF never promises more than the catalogue does. Changing a promise means changing both, with the claims-truth review that the catalogue gets.",
+  "licensor": {
+    "support": "Support by e-mail (hello@colleagueai.ai) with your order reference.",
+    "securityReporting": "Security reports: hello@colleagueai.ai. A dedicated security contact and the public vulnerability-disclosure page will be announced to licensees when published."
+  },
+  "products": {
+    "contract-intelligence-and-register": {
+      "includes": "A perpetual, single-tenant licence to this release (1.0.3.6), the signed package with checksum, the install guide and readiness checklist, and corrective releases for defects in this release at no further licence fee. Support by e-mail (hello@colleagueai.ai) with your order reference.",
+      "excludes": "Microsoft licences or Copilot Studio capacity, installation or configuration done for you, new feature releases, scanned-document OCR, languages other than English, and Continuous Certification (not yet open).",
+      "delivery": "One managed Microsoft Power Platform solution (1 Copilot Studio agent, 7 Power Automate flows, 4 Dataverse tables, 1 read-only security role) plus the install guide. You download the package after purchase and import it into your own environment. ColleagueAI never connects to your tenant."
+    }
+  }
+}

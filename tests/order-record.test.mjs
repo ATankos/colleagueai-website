@@ -156,6 +156,7 @@ test('a valid order: one order id in the order record, the acceptance record, th
   assert.deepEqual(order.buyer, {
     company: 'Vzorová Průmyslová a.s.', registrationNumber: '12345678', country: 'CZ',
     taxId: { value: 'CZ12345678', type: 'eu_vat' },
+    tenant: null, // the licensed Microsoft tenant is optional at order (named on the agreement confirmation when given)
     contact: { name: 'Petr Nákupčí', email: 'nakup@vzorova.example' },
     signatory: { name: 'Jana Nováková', role: 'Jednatelka' },
   });

@@ -52,6 +52,9 @@ import { liveRestoreRefused, productFor, canonicalSlug } from '../lib/products.j
 import { releaseVersionForSession } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriodEnd } from '../lib/stripeCompat.js';
+import { ensureOrderDocuments } from '../lib/orderDocuments.js';
+import { notifyBuyer } from '../lib/orderMail.js';
+import { publicBaseUrl } from '../lib/recovery.js';
 
 const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
 
@@ -140,6 +143,26 @@ function missingStripeConfig() {
 
 class InvoiceFailure extends Error {}
 
+/**
+ * The documentation package and the buyer's notification (lib/orderDocuments.js, lib/orderMail.js), after the licence
+ * and the invoice. Never fails the event: a licence rightly granted is not undone by a PDF problem. Whatever is
+ * missing is recorded on the order, logged as an alert, and listed by the fulfilment check until it is complete.
+ */
+async function documentationStep(orderId, { notify = true } = {}) {
+  if (!orderId) return null;
+  try {
+    const baseUrl = publicBaseUrl();
+    let order = await ensureOrderDocuments({ orderId, baseUrl });
+    if (notify) order = (await notifyBuyer({ orderId, baseUrl })) || order;
+    const summary = order?.documents?.summary ?? null;
+    if (summary && !summary.complete) console.error('[ALERT] order %s documentation incomplete: %s', orderId, summary.missing.join(', '));
+    return summary;
+  } catch (err) {
+    console.error('[ALERT] documentation step failed for order %s: %s', orderId, err?.message ?? err);
+    return { complete: false, missing: ['documentation_step_error'] };
+  }
+}
+
 /** Create or record the order's invoice, once, by the route the order was sold under. */
 async function ensureOrderInvoice(orderId, session, stripe) {
   const order = await getOrder(orderId);
@@ -216,7 +239,8 @@ async function fulfillSession(session, eventId, stripe) {
       await releaseEventClaim(eventId);
       throw new InvoiceFailure('Invoice creation failed');
     }
-    return { ...result.response, order: orderId, invoice: invoice?.status ?? null };
+    const documents = await documentationStep(orderId);
+    return { ...result.response, order: orderId, invoice: invoice?.status ?? null, documents };
   }
   return result.response;
 }
@@ -502,7 +526,9 @@ export default async function handler(req, res) {
         try {
           await noteOnOrder(orderId, { sourceId: event.id, type: event.type, set: { invoice: stripeInvoiceSection(inv) } });
         } catch { return res.status(500).json({ error: 'Order record write failed' }); }
-        return res.status(200).json({ received: true, invoice: 'recorded', order: orderId });
+        // The Stripe invoice PDF exists now: store the order's copy of it (the buyer was notified at fulfilment).
+        const documents = event.type === 'invoice.paid' ? await documentationStep(orderId, { notify: false }) : null;
+        return res.status(200).json({ received: true, invoice: 'recorded', order: orderId, ...(documents ? { documents } : {}) });
       }
       return res.status(200).json({ received: true, certification: 'no-subscription' });
     }
@@ -635,6 +661,7 @@ export default async function handler(req, res) {
           facts: { refunded: { amount: obj.amount_refunded ?? null, full: fullyRefunded, at: new Date().toISOString() } } });
         creditNotes = await creditNotesForCharge(stripe, orderId, obj);
         if (creditNotes.failed) return res.status(500).json({ error: 'Credit note creation failed', retry: 'credit_note' });
+        if (creditNotes.issued > 0) await documentationStep(orderId, { notify: false }); // the credit-note PDF joins the order's documents
       }
 
       return res.status(200).json({ received: true, commission: result.state ?? result.reason, ...(certification ? { certification } : {}), ...(creditNotes ? { creditNotes: creditNotes.issued } : {}), ...(orderId ? { order: orderId } : {}) });

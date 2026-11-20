@@ -13,7 +13,8 @@ const sess = (id, o = {}) => ({
   id, status: 'complete', payment_status: 'paid', livemode: false,
   customer_details: { email: `${id}@buyer.example` }, metadata: { order_id: `ord_20261111_${id.padEnd(12, '0').slice(0, 12)}`, agent_slug: SLUG }, ...o,
 });
-const ord = (s, facts) => ({ id: s.metadata.order_id, facts });
+// A fully documented order (lib/orderDocuments.js summary); `documented: false` leaves the documentation step unrun.
+const ord = (s, facts, { documented = true } = {}) => ({ id: s.metadata.order_id, facts, ...(documented ? { documents: { summary: { complete: true, missing: [] } } } : {}) });
 const ent = (s, extra = {}) => ({ email: s.customer_details.email, slugs: [SLUG], sessionSlugs: { [s.id]: [SLUG] }, ...extra });
 const check = (s, { order, entitlement, withheld } = {}) => checkFulfilment({
   sessions: [s],
@@ -48,6 +49,17 @@ test('refunded or disputed orders whose licence is still held for that purchase 
 test('a won dispute counts as a normal sale again', () => {
   const s = sess('won1');
   assert.deepEqual(check(s, { order: ord(s, { paidAt: 'x', fulfilledAt: 'y', dispute: { status: 'won' } }), entitlement: ent(s) }).rows, []);
+});
+
+test('a paid, licensed order whose documentation package is incomplete is named with what is missing', () => {
+  const s = sess('doc1');
+  const r = check(s, { order: ord(s, { paidAt: 'x', fulfilledAt: 'y' }, { documented: false }), entitlement: ent(s) });
+  assert.equal(r.rows[0].problem, 'documents_incomplete');
+  assert.equal(r.rows[0].detail, 'documentation step has not run for this order');
+  const partial = { ...ord(s, { paidAt: 'x', fulfilledAt: 'y' }), documents: { summary: { complete: false, missing: ['invoice_document:stripe_pdf_not_yet_available', 'notification:mail_not_configured'] } } };
+  const r2 = check(s, { order: partial, entitlement: ent(s) });
+  assert.equal(r2.rows[0].detail, 'missing: invoice_document:stripe_pdf_not_yet_available, notification:mail_not_configured');
+  assert.equal(r2.problems, 1);
 });
 
 test('withheld sales, missing orders and orders that never learned of the payment are each named', () => {
