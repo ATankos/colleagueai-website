@@ -204,7 +204,6 @@ function documentLink(email, orderId, file) {
  */
 export function documentsHtml(order, email, lang = 'en') {
   if (!order || !order.facts?.paidAt) return '';
-  if (!ORDER_LOCALES.includes(lang)) lang = 'en';
   const d = order.documents || {};
   const link = (file, label) => { const href = documentLink(email, order.id, file); return href ? `<a class="o-btn o-btn-s" href="${esc(href)}">${ICON.doc}${esc(label)}</a>` : ''; };
   const agreement = d.agreement?.status === 'issued'
