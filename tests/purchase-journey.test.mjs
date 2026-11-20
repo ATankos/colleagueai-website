@@ -716,19 +716,6 @@ test('complete workflow: company → acceptance → payment → licence → agre
   await thankYou(o.id);
   assert.equal(store.objects.size, 2);
   assert.equal(mails.length, 1);
-  // JOURNEY_EVIDENCE_DIR=<dir>: keep the artefacts of this run (the PDFs, the order and evidence records, the mail,
-  // the order page) for the release evidence library. Synthetic data, fake Stripe, nothing sent anywhere.
-  if (process.env.JOURNEY_EVIDENCE_DIR) {
-    const { mkdirSync, writeFileSync } = await import('node:fs');
-    const dir = process.env.JOURNEY_EVIDENCE_DIR;
-    mkdirSync(dir, { recursive: true });
-    for (const [key, bytes] of store.objects) writeFileSync(`${dir}/${key.split('/').pop()}`, bytes);
-    writeFileSync(`${dir}/order.json`, JSON.stringify(ord, null, 2));
-    writeFileSync(`${dir}/evidence.json`, JSON.stringify(ev, null, 2));
-    writeFileSync(`${dir}/acceptance.json`, JSON.stringify(await db.getAcceptance(ord.acceptance.id), null, 2));
-    writeFileSync(`${dir}/notification.txt`, `To: ${mails[0].to.join(', ')}\nSubject: ${mails[0].subject}\n\n${mails[0].text}`);
-    writeFileSync(`${dir}/order-page.html`, page.body);
-  }
 });
 
 test('declined payment: no licence, no documents, no notification, no completed sale', async () => {
