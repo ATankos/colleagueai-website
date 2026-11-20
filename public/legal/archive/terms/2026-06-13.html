@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,follow">
+<title>Terms of Service - version 2026-06-13 (archived) | ColleagueAI</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/order.css">
+<style id="cai-fixed-backtop-css">
+#cai-fixed-backtop {
+position: fixed !important;
+right: 22px !important;
+bottom: 22px !important;
+width: 48px !important;
+height: 48px !important;
+border: 0 !important;
+border-radius: 999px !important;
+background: #1d1b1a !important;
+color: #fff !important;
+font-size: 16px !important;
+font-weight: 700 !important;
+z-index: 2147483647 !important;
+cursor: pointer !important;
+display: none !important;
+align-items: center !important;
+justify-content: center !important;
+line-height: 1 !important;
+}
+#cai-fixed-backtop[data-show="true"] {
+display: flex !important;
+}
+</style>
+<script id="cai-fixed-backtop-js">
+(function () {
+  function ready(fn) {
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", fn);
+    else fn();
+  }
+  function getY() {
+    return window.scrollY ||
+      (document.scrollingElement && document.scrollingElement.scrollTop) ||
+      (document.documentElement && document.documentElement.scrollTop) ||
+      (document.body && document.body.scrollTop) ||
+      0;
+  }
+  function forceTop() {
+    var html = document.documentElement;
+    var body = document.body;
+    var oldHtml = html ? html.style.scrollBehavior : "";
+    var oldBody = body ? body.style.scrollBehavior : "";
+    if (html) html.style.scrollBehavior = "auto";
+    if (body) body.style.scrollBehavior = "auto";
+    try { window.scrollTo(0, 0); } catch (e) {}
+    try { window.scrollTo({ top: 0, left: 0, behavior: "auto" }); } catch (e) {}
+    var nodes = [document.scrollingElement, html, body];
+    for (var i = 0; i < nodes.length; i += 1) {
+      if (!nodes[i]) continue;
+      try { nodes[i].scrollTop = 0; nodes[i].scrollLeft = 0; } catch (e) {}
+    }
+    if (html) html.style.scrollBehavior = oldHtml || "";
+    if (body) body.style.scrollBehavior = oldBody || "";
+  }
+  ready(function () {
+    var button = document.getElementById("cai-fixed-backtop");
+    if (!button) {
+      button = document.createElement("button");
+      button.id = "cai-fixed-backtop";
+      button.type = "button";
+      button.textContent = "Top";
+      button.setAttribute("aria-label", "Back to top");
+      document.body.appendChild(button);
+    }
+    function show() {
+      button.setAttribute("data-show", getY() > 120 ? "true" : "false");
+    }
+    function clickHandler(event) {
+      if (event) { event.preventDefault(); event.stopPropagation(); }
+      forceTop();
+      if (window.requestAnimationFrame) window.requestAnimationFrame(forceTop);
+      window.setTimeout(forceTop, 50);
+      window.setTimeout(forceTop, 150);
+      window.setTimeout(forceTop, 400);
+      window.setTimeout(show, 450);
+    }
+    button.addEventListener("click", clickHandler, true);
+    button.addEventListener("pointerup", clickHandler, true);
+    button.addEventListener("touchend", clickHandler, true);
+    window.addEventListener("scroll", show, { passive: true });
+    window.addEventListener("load", show);
+    show();
+  });
+}());
+</script>
+</head>
+<body>
+<header class="o-nav"><div class="o-wrap"><a class="o-logo" href="/" aria-label="ColleagueAI"><span class="o-logo-text">Colleague<span class="ai">AI</span></span></a></div></header>
+<main class="o-wrap o-accept">
+<p class="o-eyebrow">Archived agreement text</p>
+<p class="o-small">This is the <b>Terms of Service</b>, version <b>2026-06-13</b>, exactly as buyers accepted it under that version. SHA-256 of the agreement text: <code>f0c9f34c055ebb3a24ba5d76671fd735c1b5a2ab005e85b3ecaacf85789a653b</code>. Archived 2026-11-10. It is kept unchanged; the current version is at <a href="/terms">/terms</a>.</p>
+<article class="o-card o-text">
+<h1>Terms of Service</h1>
+<p class="note">Last updated: 13 June 2026 · Colleague AI s.r.o., Školská 1736/12, 110 00 Praha, Czechia (IČO 29540852, DIČ CZ29540852, Městský soud v Praze C 448176) · <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a></p>
+<h2>1. Acceptance</h2><p>By using colleagueai.ai or purchasing any product, subscription, licence or AI agent, you agree to these Terms.</p>
+<h2>2. Accounts</h2><p>You are responsible for accurate details and for safeguarding your credentials and MFA.</p>
+<h2>3. Products & licences</h2><ul><li>Subscriptions renew until cancelled.</li><li>One-time licences follow the <a href="/license">Licence</a>.</li><li>AI agents are licensed per tenant, deployed in your environment.</li></ul>
+<h2>4. Payment</h2><p>When paid checkout is enabled, payments will be processed by Stripe in USD, including applicable taxes (e.g. VAT) based on billing region.</p>
+<h2>5. Acceptable use</h2><p>No security breach attempts, reverse-engineering, resale/redistribution, or unlawful use. Authorised partners under a signed Partner Program Agreement are exempt from the resale and redistribution restriction.</p>
+<h2>6. Intellectual property</h2><p>The CAI Score framework, platform and agent blueprints are proprietary to Colleague AI.</p>
+<h2>7. Disclaimers & liability</h2><p>Provided "as is"; implied warranties excluded and liability limited to amounts paid in the prior 12 months, to the extent permitted by law. ROI/readiness outputs are indicative, not advice.</p>
+<h2>8. Termination</h2><p>Either party may terminate subscriptions, support or other term-based services in accordance with the applicable order. A fully paid perpetual agent-package licence survives termination of those services, unless the licence itself is terminated for material breach.</p>
+<h2>9. Governing law</h2><p>Governed by the laws of Czechia and the EU; courts of Praha, subject to mandatory consumer law.</p>
+<h2>10. Contact</h2><p><a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a></p>
+</article>
+</main>
+<footer class="o-foot"><div class="o-wrap"><span>&copy; Colleague AI s.r.o., Praha &middot; archived copy, not the current version</span></div></footer>
+</body>
+</html>
