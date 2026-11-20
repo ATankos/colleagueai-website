@@ -12,7 +12,16 @@
  */
 import { readFileSync, writeFileSync } from 'node:fs';
 
-export const PERMISSIVE = ['MIT', 'ISC', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', '0BSD', 'Unlicense', 'CC0-1.0', 'BlueOak-1.0.0'];
+export const PERMISSIVE = ['MIT', 'ISC', 'Apache-2.0', 'BSD-2-Clause', 'BSD-3-Clause', '0BSD', 'Unlicense', 'CC0-1.0', 'BlueOak-1.0.0', 'Zlib'];
+
+/** True when an SPDX expression is permissive: every licence in an AND, or at least one in an OR, is on the list. */
+export function isPermissive(expr) {
+  const e = String(expr || '').trim().replace(/^\(|\)$/g, '');
+  if (!e) return false;
+  if (/ AND /.test(e)) return e.split(/ AND /).every(isPermissive);
+  if (/ OR /.test(e)) return e.split(/ OR /).some(isPermissive);
+  return PERMISSIVE.includes(e);
+}
 
 const ROOT = new URL('../../', import.meta.url);
 
@@ -46,6 +55,7 @@ Permissive licences still carry conditions, chiefly keeping the copyright and li
 - **The agent packages sold to customers** (Power Platform managed solutions such as \`CAI-L4-CI-001\`). They are built from Microsoft Power Platform components by Colleague AI and are delivered as a managed solution; this inventory does not inspect them. Their own dependency review is part of the counsel and audit packs.
 - **Microsoft services the packages run on** (Power Platform, Dataverse, Copilot Studio, and any AI capabilities a package uses). The customer licenses these from Microsoft under Microsoft's terms and pays Microsoft for their use; they are not supplied or resold by Colleague AI.
 - **Online services the website uses**: Stripe (payments, tax ID verification, invoices when enabled), Vercel (hosting and file storage), Upstash (key-value records), Sentry (error reports) and the analytics named in the Privacy Policy. These are services under their providers' terms, not licensed code.
+- **Fonts embedded in the order documents** (\`lib/fonts/\`): DejaVu Sans and DejaVu Sans Bold, under the Bitstream Vera Fonts licence (permissive; embedding subsets in documents is expressly permitted; the licence text is kept beside the files as \`lib/fonts/LICENSE_DEJAVU\`). Subsets of them are embedded in every licence agreement confirmation, invoice and credit-note PDF.
 
 ## Packages
 

@@ -448,7 +448,7 @@ export default async function handler(req, res) {
 function formValues(form, optIn, certInterval) {
   const f = (k) => String(form?.[k] ?? '').slice(0, 254);
   return {
-    company: f('company'), reg_number: f('reg_number'), country: f('country').toUpperCase(), tax_id: f('tax_id'),
+    company: f('company'), reg_number: f('reg_number'), country: f('country').toUpperCase(), tax_id: f('tax_id'), tenant: f('tenant'),
     contact_name: f('contact_name'), email: f('email'), name: f('name'), role: f('role'),
     certification: optIn, cert_interval: certInterval,
   };

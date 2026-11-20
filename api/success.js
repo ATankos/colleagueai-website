@@ -19,13 +19,15 @@
 
 import Stripe from 'stripe';
 import { grantEntitlement, recordWithheldSale, sessionAlreadyFulfilled } from '../lib/db.js';
-import { signDownload } from '../lib/downloadToken.js';
+import { signDownload, signOrderDocument } from '../lib/downloadToken.js';
 import { productFor, packageFile, packageDeliverable, canonicalSlug } from '../lib/products.js';
 import { getOrder, recordOrderEvent, orderIdOf, orderStatus } from '../lib/orders.js';
 import { withheldReason, paidFacts, stripeIds, billingCountryDiffers } from '../lib/fulfilment.js';
 import { releaseVersionForSession, releaseForBoughtVersion } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recoverHint } from '../lib/recovery.js';
+import { legalDocumentRecords } from '../lib/legalArchive.js';
+import LEGAL from '../config/legal.json' with { type: 'json' };
 import { SLUG_TIER, titleFromSlug } from './checkout.js';
 import { ORDER_LOCALES, AGENTS_PATH, PRIVACY_PATH, TIER_NAMES, pickOrderLang, ot } from '../lib/orderI18n.js';
 
@@ -185,6 +187,48 @@ export function invoiceHtml(order, email, lang = 'en') {
     `<dl><dt>${esc(t('chip_order'))}</dt><dd><code>${esc(order.id)}</code></dd></dl>${body}</article></section>`;
 }
 
+const DOC_TITLES = { terms: 'Terms of Service', licence: 'Software & Agent Licence', refund: 'Refund Policy', privacy: 'Privacy Policy' };
+const DOC_PATHS = { terms: '/terms', licence: '/license', refund: '/refund', privacy: '/privacy' };
+
+/** A sealed link to one of the order's stored documents; null without the signing secret (then nothing is linked). */
+function documentLink(email, orderId, file) {
+  if (!process.env.DOWNLOAD_TOKEN_SECRET || !file) return null;
+  return signOrderDocument({ email, orderId, file, ttlSeconds: 900 }).path;
+}
+
+/**
+ * The documentation package of a paid order (lib/orderDocuments.js): the licence agreement confirmation, the invoice
+ * copy, the licence entitlement as recorded, the agreements accepted in their exact versions, where the installation
+ * guide is, and the security and support contacts. Shown in English: the agreements are the English texts the buyer
+ * accepted, and the documents name them as such.
+ */
+export function documentsHtml(order, email, lang = 'en') {
+  if (!order || !order.facts?.paidAt) return '';
+  const d = order.documents || {};
+  const link = (file, label) => { const href = documentLink(email, order.id, file); return href ? `<a class="o-btn o-btn-s" href="${esc(href)}">${ICON.doc}${esc(label)}</a>` : ''; };
+  const agreement = d.agreement?.status === 'issued'
+    ? `<p class="o-text">Licence agreement confirmation <b>${esc(d.agreement.reference || '')}</b> records the agreement you concluded (document set ${esc(order.acceptance?.legalSet || '')}). SHA-256 <code>${esc(d.agreement.sha256 || '')}</code>.</p><div class="o-actions">${link(d.agreement.file, 'Agreement confirmation (PDF)')}</div>`
+    : `<p class="o-text">Your licence agreement confirmation is being prepared and will appear here; the agreement itself was concluded when you accepted the documents below and paid.</p>`;
+  const inv = order.invoice || {};
+  const invoiceCopy = d.invoice?.status === 'issued' ? `<div class="o-actions">${link(d.invoice.file, inv.provider === 'sandbox_ledger' ? 'Test invoice (PDF)' : 'Invoice (PDF)')}</div>` : '';
+  const creditNotes = Object.values(d.creditNotes || {}).filter((c) => c.status === 'issued').map((c) => link(c.file, `Credit note ${c.number || ''} (PDF)`)).join('');
+  const entitlement = [
+    ['Licensee', order.buyer?.company || ''], ['Product', `${order.product?.name || ''}${order.product?.sku ? ` (SKU ${order.product.sku})` : ''}`],
+    ['Release', order.product?.release || ''], ['Licence', 'perpetual, non-exclusive, non-transferable, one Microsoft tenant'],
+    ['Granted', order.facts?.fulfilledAt ? esc(order.facts.fulfilledAt.replace('T', ' ').replace(/\.\d+Z$/, ' UTC')) : 'pending'], ['Order', order.id],
+  ].map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('');
+  const accepted = Object.entries(order.acceptance?.documents || legalDocumentRecords(LEGAL)).map(([k, v]) =>
+    `<li><a href="${DOC_PATHS[k] || '/' + k}" target="_blank" rel="noopener">${esc(DOC_TITLES[k] || k)}</a> <span class="o-small">version ${esc(v.version || '')}${v.sha256 ? ` &middot; fingerprint <code>${esc(String(v.sha256).slice(0, 12))}</code>` : ''}</span></li>`).join('');
+  return `<section class="o-section"><p class="o-eyebrow">Your documents</p><h2>Order ${esc(order.id)}</h2>` +
+    `<div class="o-grid"><article class="o-card"><h3>Licence agreement confirmation</h3>${agreement}</article>` +
+    `<article class="o-card"><h3>Licence entitlement</h3><dl class="o-facts">${entitlement}</dl>${invoiceCopy}${creditNotes ? `<div class="o-actions">${creditNotes}</div>` : ''}</article></div>` +
+    `<div class="o-grid"><article class="o-card"><h3>Agreements you accepted</h3><ul class="o-text">${accepted}</ul>` +
+    `<p class="o-small">Your order record keeps each document's version and SHA-256 fingerprint, and we keep an archived copy of every version; a later update never changes what you accepted.</p></article>` +
+    `<article class="o-card"><h3>Installation, security and support</h3><p class="o-text">The installation guide and readiness checklist are inside the package: ${fileCode('START-HERE.pdf')} first, then ${fileCode('INSTALL.pdf')}. ` +
+    `Verify the download against the SHA-256 shown above before importing.</p><p class="o-text">Support and security reports: ${mailLink()} with your order number. ` +
+    `Corrective releases for defects in your release, including security defects, are provided at no further licence fee; new feature releases are not included.</p></article></div></section>`;
+}
+
 /** The release record to offer for a fulfilled purchase: the release it bought, or the newest corrective release of
  *  it (for example 1.0.3.6 for a 1.0.3.2 or 1.0.3.4 purchase); undefined (current release) for a product with no release
  *  history. */
@@ -325,6 +369,6 @@ export default async function handler(req, res) {
     lede: t(packageFile(slug) ? 'paid_lede_pkg' : 'paid_lede_doc', { product: strong(label) }),
     // recoverHint is empty unless the owner has switched recovery on and it can work, so the page is unchanged until then.
     // The release this purchase bought, as first recorded for it: a newer release published since does not replace it.
-    chips: emailChip, body: deliveryHtml(email, slug, lang, boughtRelease(granted, session, slug)) + invoiceHtml(order, email, lang) + recoverHint(lang),
+    chips: emailChip, body: deliveryHtml(email, slug, lang, boughtRelease(granted, session, slug)) + invoiceHtml(order, email, lang) + documentsHtml(order, email, lang) + recoverHint(lang),
   }));
 }
