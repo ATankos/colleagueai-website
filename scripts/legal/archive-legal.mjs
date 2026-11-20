@@ -54,3 +54,6 @@ mkdirSync(dirname(at(MANIFEST).pathname), { recursive: true });
 writeFileSync(at(MANIFEST), JSON.stringify(manifest, null, 2) + '\n');
 writeFileSync(at('config/legal.json'), JSON.stringify(legal, null, 2) + '\n');
 if (!add.length) console.log('legal archive: nothing new to archive');
+// Every archived version is also published as a page the buyer can open (public/legal/archive/...).
+const { publishArchive } = await import('./publish-archive.mjs');
+for (const p of publishArchive()) console.log(`published ${p.url}`);

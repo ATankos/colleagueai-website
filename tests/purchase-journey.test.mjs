@@ -12,6 +12,7 @@ import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import Stripe from 'stripe';
+import { legalFingerprint } from '../lib/legalArchive.js';
 import { casReply } from './kv-cas-fake.mjs';
 
 const ROOT = new URL('..', import.meta.url);
@@ -703,6 +704,14 @@ test('complete workflow: company → acceptance → payment → licence → agre
   assert.match(page.body, /Your documents/);
   assert.match(page.body, /Licence entitlement/);
   assert.match(page.body, /Agreements you accepted/);
+  // The accepted texts themselves are reachable: one archived-version page per accepted document, with its fingerprint.
+  for (const [k, v] of Object.entries(ord.acceptance.documents)) {
+    const slug = v.version.replace(/[^A-Za-z0-9.]+/g, '-').replace(/^-+|-+$/g, '');
+    assert.ok(page.body.includes(`/legal/archive/${k}/${slug}.html`), `order page links the accepted text of ${k}`);
+    const archived = readFileSync(new URL(`public/legal/archive/${k}/${slug}.html`, ROOT), 'utf8');
+    assert.equal(legalFingerprint(archived), v.sha256, `published archived text of ${k} has the accepted fingerprint`);
+  }
+  assert.ok(agreement.has(`/legal/archive/terms/${LEGAL.documents.terms.version}.html`), 'the PDF names where the accepted text can be read');
   const links = documentLinks(page.body);
   assert.deepEqual(Object.keys(links).sort(), [ord.documents.agreement.file, ord.documents.invoice.file].sort());
   const got = await fetchDocument(links[ord.documents.agreement.file]);

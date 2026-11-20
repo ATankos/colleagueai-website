@@ -117,3 +117,16 @@ test('the localized legal pages are recorded as out of sync and are never offere
     assert.ok(read('public/cs/terms.html').includes('licenční práva poté zanikají'), 'cs Terms still carry the old termination clause; if fixed, update config/legal.json translations');
   }
 });
+
+test('every archived version is published as a page a buyer can open, with the same fingerprint (scripts/legal/publish-archive.mjs)', async () => {
+  const { publishArchive, publishedPath } = await import('../scripts/legal/publish-archive.mjs');
+  const { legalFingerprint } = await import('../lib/legalArchive.js');
+  const published = publishArchive({ write: false });
+  assert.equal(published.length, MANIFEST.entries.length);
+  for (const e of MANIFEST.entries) {
+    const page = read(publishedPath(e));
+    assert.equal(legalFingerprint(page), e.sha256, `${e.document}@${e.version}: public page must carry exactly the archived text`);
+    assert.ok(page.includes(e.sha256), 'the page states its own fingerprint');
+    assert.match(page, /archived copy, not the current version/);
+  }
+});
