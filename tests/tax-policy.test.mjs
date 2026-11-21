@@ -231,3 +231,35 @@ test('sandbox fixture: an EU business without a VAT ID is held for manual handli
     assert.equal([...store.keys()].filter((k) => k.startsWith('order:')).length, 0);
   } finally { delete process.env.TAX_POLICY_SANDBOX; }
 });
+
+// Intake readiness (docs/launch/accountant-answer-intake.md): the committed candidate stays inert, and filling exactly
+// the intake fields — with placeholder values standing in for the accountant's words — is all it takes to activate it.
+// The placeholders below are test data, not answers; nothing here is copied into config/tax-policy.json.
+test('intake readiness: the CZ-B2B candidate is inert as committed and becomes active only through the intake fields', () => {
+  assert.equal(POLICY.status, 'unapproved');
+  assert.equal(POLICY.seller.vatStatus, null);
+  assert.equal(POLICY.seller.vatId, null);
+  assert.equal(POLICY.treatments.cz_business, null);
+  for (const c of tax.CATEGORIES.filter((x) => x !== 'cz_business')) assert.equal(POLICY.treatments[c].action, 'hold', c);
+  assert.equal(POLICY.checkout.invoiceRoute, null);
+  assert.equal(POLICY.checkout.czkConversion, null);
+  assert.equal(tax.liveTaxBlocked(LIVE, POLICY), true);
+  const filled = structuredClone(POLICY);
+  Object.assign(filled.approval, { approvedBy: 'ACCOUNTANT NAME', role: 'ROLE', approvedAt: '2026-12-01', reference: 'E-MAIL SUBJECT + DATE' });
+  Object.assign(filled.seller, { vatStatus: 'not_registered' });
+  for (const d of tax.BLOCKING_DECISIONS) filled.decisions[d] = 'ACCOUNTANT SENTENCE';
+  filled.treatments.cz_business = { action: 'sell', invoiceNote: 'ACCOUNTANT WORDING' };
+  Object.assign(filled.checkout, { invoiceRoute: 'company_ledger', czkConversion: 'cnb_daily_rate_on_tax_point' });
+  filled.status = 'approved';
+  assert.deepEqual(tax.policyErrors(filled), [], 'no other field is needed');
+  assert.equal(tax.liveTaxBlocked(LIVE, filled), false);
+  assert.equal(tax.invoiceRoute(filled, LIVE), 'company_ledger');
+  const cz = tax.treatmentFor(filled, LIVE, { country: 'CZ' });
+  assert.deepEqual([cz.applied, cz.action, cz.invoiceNote], [true, 'sell', 'ACCOUNTANT WORDING']);
+  assert.equal(tax.treatmentFor(filled, LIVE, { country: 'DE', taxId: { value: 'DE123456789' } }, 'verified').action, 'hold');
+  assert.ok(!tax.invoiceFooter(filled, cz).includes('DIČ'), 'a seller not registered for VAT prints no DIČ');
+  // A registered seller needs its number and effective date, never one without the other.
+  const registered = structuredClone(filled); registered.seller.vatStatus = 'identified_person';
+  assert.ok(tax.policyErrors(registered).some((e) => e.includes('seller.vatId')));
+  assert.ok(tax.policyErrors(registered).some((e) => e.includes('vatEffectiveFrom')));
+});
