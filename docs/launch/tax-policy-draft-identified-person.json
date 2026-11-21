@@ -1,4 +1,5 @@
 {
+  "_superseded": "21 Nov 2026: SUPERSEDED. This draft assumed the company is an identified person with VAT ID CZ29540852. ARES has no VAT-register entry for IČO 29540852 and VIES answers INVALID (checked 21 Nov 2026); no registration decision is on file. Do not use it as a source of facts. Current inactive policy: config/tax-policy.json (2026-11-21-cz-b2b-candidate-unapproved).",
   "_comment": "DRAFT v2 PREPARED 21 Nov 2026 from the founder's confirmed status (Czech identified person) and the legal & tax review of 21 Nov 2026 (T1-T14). First-sale scope: Czech B2B only. NOT the accountant's written answer and NOT loaded by the code: config/tax-policy.json stays unapproved until the accountant confirms each line in writing and the approval block is filled with a real person, role, date and filing reference. Every decision below is a proposal to confirm, correct or replace; nothing in it is a representation that the tax authority has verified anything.",
   "version": "2026-11-21-draft-identified-person-cz-b2b",
   "status": "unapproved",
