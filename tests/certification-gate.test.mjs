@@ -16,6 +16,9 @@ import assert from 'node:assert';
 import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { casServe } from './kv-cas-fake.mjs';
+// This suite tests checkout behaviour across buyer categories, currencies and payment methods; the first-sale
+// launch scope (CZ businesses, USD, card) has its own suite, tests/launch-scope.test.mjs. Test keys only.
+process.env.LAUNCH_SCOPE_TEST_BYPASS = '1';
 
 const ROOT = new URL('..', import.meta.url);
 const LEGAL = JSON.parse(readFileSync(new URL('config/legal.json', ROOT), 'utf8'));
