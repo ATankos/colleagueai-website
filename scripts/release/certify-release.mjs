@@ -138,13 +138,15 @@ if (audit) {
 // ---------- manual gates ----------
 for (const g of GATES.gates) results.push({ id: g.id, area: g.area, title: g.title, status: g.status, evidence: g.evidence ?? g.blockedBy, manual: true });
 
+// Markdown table cell: escape backslashes first, then the pipe that would end the cell, and keep it on one line.
+const mdCell = (v) => String(v).replace(/\\/g, '\\\\').replace(/\|/g, '\\|').replace(/\r?\n/g, ' ');
 const failed = results.filter((r) => !r.manual && r.status === 'FAIL');
 if (asJson) {
   console.log(JSON.stringify({ release: REL.version, package: REL.package, sha256: REL.sha256, results }, null, 2));
 } else {
   console.log(`# Release certification — ${PRODUCT.sku} ${REL.version} (${REL.package})\n`);
   console.log('| Gate | Area | Check | Status | Evidence |\n|---|---|---|---|---|');
-  for (const r of results) console.log(`| ${r.id}${r.manual ? ' (manual)' : ''} | ${r.area} | ${r.title} | **${r.status}** | ${String(r.evidence).replace(/\|/g, '\\|')} |`);
+  for (const r of results) console.log(`| ${r.id}${r.manual ? ' (manual)' : ''} | ${r.area} | ${r.title} | **${r.status}** | ${mdCell(r.evidence)} |`);
   const count = (s) => results.filter((r) => r.status === s).length;
   console.log(`\nPASS ${count('PASS')} · FAIL ${count('FAIL')} · BLOCKED ${count('BLOCKED')} · REQUIRES FOUNDER APPROVAL ${count('REQUIRES FOUNDER APPROVAL')}`);
 }
