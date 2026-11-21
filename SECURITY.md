@@ -4,7 +4,7 @@
 
 Please report suspected vulnerabilities privately.
 
-Contact: security@colleagueai.ai
+Contact: hello@colleagueai.ai (subject starting "SECURITY")
 
 Please include:
 
