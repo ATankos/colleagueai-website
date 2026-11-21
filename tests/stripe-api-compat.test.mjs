@@ -12,6 +12,9 @@ import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { STRIPE_API_VERSION } from '../lib/stripe.js';
 import { subscriptionPeriodEnd, invoiceSubscriptionId, invoiceSubscriptionPeriodEnd } from '../lib/stripeCompat.js';
+// This suite tests checkout behaviour across buyer categories, currencies and payment methods; the first-sale
+// launch scope (CZ businesses, USD, card) has its own suite, tests/launch-scope.test.mjs. Test keys only.
+process.env.LAUNCH_SCOPE_TEST_BYPASS = '1';
 
 // The checkout writes an acceptance record before it calls Stripe, so the handler needs a KV. A plain in-memory
 // fake on loopback, started before api/checkout.js (and with it lib/db.js) is first imported.

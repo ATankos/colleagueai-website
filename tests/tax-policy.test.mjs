@@ -16,6 +16,9 @@ import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { casServe } from './kv-cas-fake.mjs';
 import * as tax from '../lib/taxPolicy.js';
+// This suite tests checkout behaviour across buyer categories, currencies and payment methods; the first-sale
+// launch scope (CZ businesses, USD, card) has its own suite, tests/launch-scope.test.mjs. Test keys only.
+process.env.LAUNCH_SCOPE_TEST_BYPASS = '1';
 
 const ROOT = new URL('..', import.meta.url);
 const read = (p) => readFileSync(new URL(p, ROOT), 'utf8');
@@ -65,6 +68,15 @@ test('an "approved" policy is still refused while any blocking decision, treatme
   assert.ok(tax.policyErrors(noTreatment).some((e) => e.includes('eu_business_no_vat_id')));
   const vatWithoutNumber = approvedPolicy({ seller: { ...approvedPolicy().seller, vatId: null } });
   assert.ok(tax.policyErrors(vatWithoutNumber).some((e) => e.includes('seller.vatId')));
+  // The company's own invoice series is a valid T13 answer; an unknown route or CZK conversion rule is not.
+  const ledger = approvedPolicy({ checkout: { ...approvedPolicy().checkout, invoiceRoute: 'company_ledger', czkConversion: 'cnb_daily_rate_on_tax_point' } });
+  assert.deepEqual(tax.policyErrors(ledger), []);
+  assert.ok(tax.policyErrors(approvedPolicy({ checkout: { ...approvedPolicy().checkout, invoiceRoute: 'own_pdf' } })).some((e) => e.includes('invoiceRoute')));
+  assert.ok(tax.policyErrors(approvedPolicy({ checkout: { ...approvedPolicy().checkout, czkConversion: 'stripe_payout_rate' } })).some((e) => e.includes('czkConversion')));
+  // A seller recorded as not registered is a valid answer only with evidence elsewhere; it prints no DIČ.
+  const notRegistered = approvedPolicy({ seller: { ...approvedPolicy().seller, vatStatus: 'not_registered', vatId: null, vatEffectiveFrom: null } });
+  assert.deepEqual(tax.policyErrors(notRegistered), []);
+  assert.ok(!tax.invoiceFooter(notRegistered, null).includes('DIČ'));
 });
 
 test('the sandbox fixture applies only with a test key and TAX_POLICY_SANDBOX=1, never with a live key', () => {

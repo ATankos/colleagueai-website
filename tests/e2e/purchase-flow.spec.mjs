@@ -162,9 +162,9 @@ test('order confirmation: product, release, price and the four agreements; fits 
 
 async function fillBuyer(page, email) {
   await page.fill('input[name="company"]', 'Vzorová Průmyslová a.s.');
-  await page.fill('input[name="reg_number"]', '12345678');
+  await page.fill('input[name="reg_number"]', '12345679'); // a valid IČO: the first-sale scope checks the check digit
   await page.selectOption('select[name="country"]', 'CZ');
-  await page.fill('input[name="tax_id"]', 'CZ12345678');
+  await page.fill('input[name="tax_id"]', 'CZ12345679');
   await page.fill('input[name="email"]', email);
   await page.fill('input[name="name"]', 'Jana Nováková');
   await page.fill('input[name="role"]', 'Jednatelka (CEO)');
@@ -193,7 +193,7 @@ test('a complete order pays on Stripe and the thank-you page delivers the releas
   await expect(page).toHaveURL(/\/fake-stripe\/pay\/cs_test_e2e\d+$/);
 
   const cust = stripeCalls.find((c) => c.path === '/v1/customers');
-  expect(cust.params.get('tax_id_data[0][value]')).toBe('CZ12345678');
+  expect(cust.params.get('tax_id_data[0][value]')).toBe('CZ12345679');
   const sess = stripeCalls.find((c) => c.path === '/v1/checkout/sessions');
   const orderId = sess.params.get('metadata[order_id]');
   expect(orderId).toMatch(/^ord_\d{8}_[0-9a-f]+$/);

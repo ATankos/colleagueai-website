@@ -64,6 +64,7 @@ import { recordAcceptance, bindAcceptance } from '../lib/db.js';
 import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, legalDocuments, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
 import { newOrderId, createOrder, recordOrderEvent } from '../lib/orders.js';
 import { policyFor, liveTaxBlocked, treatmentFor, checkoutTaxParams, invoiceRoute } from '../lib/taxPolicy.js';
+import { scopeEnforced, requestScopeError, buyerScopeError, scopePaymentMethodTypes, LAUNCH_SCOPE } from '../lib/launchScope.js';
 
 // slug -> CAI tier. The agents page derives the identical slug when it builds the CTA.
 export const SLUG_TIER = {"acceptance-test-script-generator":"L2","campaign-and-project-management-agent":"L2","compliance-and-audit-action-tracker":"L4","content-and-comms-agent":"L2","contract-obligations-review-agent":"L4","contract-intelligence-and-register":"L4","cyber-security-reporting-agent":"L3","development-and-career-agent":"L2","due-diligence-data-search-agent":"L3","escalation-triage-agent":"L3","four-eyes-control-assistant":"L4","infrastructure-wiki-agent":"L2","leadership-reporting-agent":"L3","maintenance-event-agent":"L2","monthly-reporting-automation-agent":"L2","onboarding-agent":"L2","operations-procedures-assistant":"L2","people-ops-query-agent":"L2","performance-management-agent":"L3","pipeline-reporting-agent":"L2","power-query-code-generator":"L2","reconciliation-root-cause-agent":"L3","risk-control-oversight-agent":"L4","risk-event-capture-agent":"L3","sales-end-to-end-assistant":"L3","sales-opportunity-agent":"L2","sales-qualification-agent":"L2","security-defect-triage-agent":"L4","service-delivery-manager-copilot":"L3","service-desk-backlog-triage-agent":"L3","service-desk-support-agent":"L3","service-request-automation-agent":"L3","service-review-pack-builder":"L2","signing-summary-agent":"L3","sop-generation-agent":"L2","supplier-meeting-minutes-agent":"L2"};
@@ -206,14 +207,25 @@ export default async function handler(req, res) {
   const currencyRaw = String(valueOf(q.currency) || 'usd').toLowerCase();
   const currency = Object.hasOwn(ALLOWED_CURRENCIES, currencyRaw) ? currencyRaw : 'usd';
 
+  const method = String(valueOf(q.method) || '').toLowerCase();
+
+  // First-sale launch scope (config/launch-scope.json, lib/launchScope.js): one product and release, USD, card,
+  // licence only, Czech businesses. Checked here for every request (a link or a direct API call with other
+  // parameters is refused, not silently corrected) and again on the buyer data and on the paid session.
+  const scopeOn = scopeEnforced(process.env.STRIPE_SECRET_KEY);
+  const asksForCertEarly = ['on', '1', 'true', 'yes'].includes(String(valueOf(q.certification) ?? '').toLowerCase())
+    || ['1', 'true', 'yes', 'on', 'month', 'year'].includes(String(valueOf(q.cert) ?? '').toLowerCase());
+  if (scopeOn) {
+    const outOfScope = requestScopeError({ slug, product, currency: currencyRaw, method, certification: asksForCertEarly });
+    if (outOfScope) return res.status(409).json({ error: outOfScope.message, code: outOfScope.code });
+  }
   const cents = priceCents(tier, currency);
   if (!cents) {
     console.error('[checkout] no price for', tier, currency);
     return res.status(400).json({ error: currency === 'usd' ? 'Price not configured' : 'Checkout in this currency is not available' });
   }
 
-  const method = String(valueOf(q.method) || '').toLowerCase();
-  const paymentMethodTypes = methodTypes(method);
+  const paymentMethodTypes = scopeOn ? scopePaymentMethodTypes() : methodTypes(method);
   const includesBank = paymentMethodTypes.indexOf('customer_balance') !== -1;
 
   /* Continuous Certification: opt-in only, and only while the sales gate is on (header comment). */
@@ -259,13 +271,18 @@ export default async function handler(req, res) {
   const carried = { agent: slug, currency, method: method || '', ref: ref || '', partner, lang };
   const pageModel = (extra) => renderAcceptancePage({
     productName, tier, slug, version: product?.release?.version, sku: product?.sku, currency, priceCents: cents,
-    certOffer, certClosed: !certSales, method: includesBank ? 'bank' : method, hidden: carried, cancelUrl, lang, ...extra,
+    certOffer, certClosed: !certSales, method: includesBank ? 'bank' : method, hidden: carried, cancelUrl, lang,
+    scope: scopeOn ? { countries: LAUNCH_SCOPE.buyer.countries } : null, ...extra,
   });
+
+  const scopeNotice = scopeOn
+    ? 'First-sale phase: we sell to companies established in the Czech Republic, paying by card. Enter the company identification number (IČO); a VAT ID, if you give one, must belong to that IČO.'
+    : null;
 
   if (req.method === 'GET') {
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'no-store');
-    return res.status(200).end(pageModel({}));
+    return res.status(200).end(pageModel(scopeNotice ? { notice: scopeNotice } : {}));
   }
 
   const accepted = validateAcceptance(form);
@@ -275,6 +292,14 @@ export default async function handler(req, res) {
     return res.status(400).end(pageModel({ errors: accepted.errors, values: formValues(form, optIn, certInterval) }));
   }
   const buyer = accepted.value.buyer;
+  if (scopeOn) {
+    const buyerOut = buyerScopeError(buyer);
+    if (buyerOut) {
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      res.setHeader('Cache-Control', 'no-store');
+      return res.status(409).end(pageModel({ errors: [buyerOut.field], values: formValues(form, optIn, certInterval), notice: buyerOut.message, scopeRefusal: true }));
+    }
+  }
   const live = isLiveKey(process.env.STRIPE_SECRET_KEY);
   // The accountant's treatment for this buyer's category, when the policy is approved (or the sandbox fixture).
   const policy = policyFor(process.env.STRIPE_SECRET_KEY);
@@ -328,6 +353,7 @@ export default async function handler(req, res) {
         seller: treatment.applied ? policy.seller : null,
       },
       lang, partner: partner || null, ref: ref || null,
+      launchScope: scopeOn ? LAUNCH_SCOPE.version : null,
     });
     if (!created) throw new Error('order id collision');
   } catch (err) {
