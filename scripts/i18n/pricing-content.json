@@ -1700,15 +1700,6 @@
     "pl": "Cennik | ColleagueAI",
     "pt": "Preços | ColleagueAI"
   },
-  "Contract Intelligence &amp; Register costs $14,900 once: a perpetual licence for one Microsoft tenant, the signed package and the installation guide. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.": {
-    "cs": "Contract Intelligence &amp; Register stojí $14,900 jednorázově: trvalá licence pro jeden tenant Microsoft, podepsaný balíček a instalační příručka. Ceny balíčků agentů jsou pevně dané úrovní CAI: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4.",
-    "de": "Contract Intelligence &amp; Register kostet einmalig $14,900: eine unbefristete Lizenz für einen Microsoft-Tenant, das signierte Paket und die Installationsanleitung. Die Preise der Agentenpakete sind nach CAI-Stufe fest: $7,900 für L2, $9,900 für L3 und $14,900 für L4.",
-    "fr": "Contract Intelligence &amp; Register coûte $14,900, en une fois : une licence perpétuelle pour un tenant Microsoft, le package signé et le guide d’installation. Les prix des packages sont fixés par niveau CAI : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4.",
-    "es": "Contract Intelligence &amp; Register cuesta $14,900 en un solo pago: una licencia perpetua para un tenant de Microsoft, el paquete firmado y la guía de instalación. Los precios de los paquetes son fijos por nivel CAI: $7,900 para L2, $9,900 para L3 y $14,900 para L4.",
-    "it": "Contract Intelligence &amp; Register costa $14,900 una tantum: una licenza perpetua per un tenant Microsoft, il pacchetto firmato e la guida all’installazione. I prezzi dei pacchetti sono fissi per livello CAI: $7,900 per L2, $9,900 per L3 e $14,900 per L4.",
-    "pl": "Contract Intelligence &amp; Register kosztuje $14,900 jednorazowo: licencja bezterminowa na jeden tenant Microsoft, podpisany pakiet i instrukcja instalacji. Ceny pakietów agentów są stałe według poziomu CAI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4.",
-    "pt": "O Contract Intelligence &amp; Register custa $14,900, uma única vez: uma licença perpétua para um tenant Microsoft, o pacote assinado e o guia de instalação. Os preços dos pacotes são fixos por nível CAI: $7,900 para L2, $9,900 para L3 e $14,900 para L4."
-  },
   "One product, one published price: Contract Intelligence &amp; Register for $14,900 once. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.": {
     "cs": "Jeden produkt, jedna zveřejněná cena: Contract Intelligence &amp; Register za $14,900 jednorázově. Ceny balíčků agentů jsou pevně dané úrovní CAI: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4.",
     "de": "Ein Produkt, ein veröffentlichter Preis: Contract Intelligence &amp; Register für einmalig $14,900. Die Preise der Agentenpakete sind nach CAI-Stufe fest: $7,900 für L2, $9,900 für L3 und $14,900 für L4.",
@@ -1726,15 +1717,6 @@
     "it": "Un prodotto, un prezzo pubblicato.",
     "pl": "Jeden produkt, jedna opublikowana cena.",
     "pt": "Um produto, um preço publicado."
-  },
-  "Contract Intelligence &amp; Register costs $14,900, once. That buys a perpetual licence for one Microsoft tenant, the signed package, the installation guide and corrective releases for defects in that release. Microsoft bills you separately for the capacity it runs on.": {
-    "cs": "Contract Intelligence &amp; Register stojí $14,900 jednorázově. Za to získáte trvalou licenci pro jeden tenant Microsoft, podepsaný balíček, instalační příručku a opravná vydání pro vady této verze. Kapacitu, na které běží, vám zvlášť účtuje Microsoft.",
-    "de": "Contract Intelligence &amp; Register kostet einmalig $14,900. Dafür bekommen Sie eine unbefristete Lizenz für einen Microsoft-Tenant, das signierte Paket, die Installationsanleitung und Korrektur-Releases für Fehler dieser Version. Die Kapazität, auf der es läuft, rechnet Microsoft separat mit Ihnen ab.",
-    "fr": "Contract Intelligence &amp; Register coûte $14,900, une seule fois. Vous obtenez une licence perpétuelle pour un tenant Microsoft, le package signé, le guide d’installation et les versions correctives des défauts de cette version. Microsoft vous facture séparément la capacité sur laquelle il fonctionne.",
-    "es": "Contract Intelligence &amp; Register cuesta $14,900, una sola vez. Eso incluye una licencia perpetua para un tenant de Microsoft, el paquete firmado, la guía de instalación y las versiones correctivas de defectos de esa versión. Microsoft le factura aparte la capacidad en la que se ejecuta.",
-    "it": "Contract Intelligence &amp; Register costa $14,900, una volta sola. Comprende una licenza perpetua per un tenant Microsoft, il pacchetto firmato, la guida all’installazione e le release correttive dei difetti di quella versione. Microsoft vi fattura separatamente la capacità su cui gira.",
-    "pl": "Contract Intelligence &amp; Register kosztuje $14,900, jednorazowo. W cenie jest licencja bezterminowa na jeden tenant Microsoft, podpisany pakiet, instrukcja instalacji i wydania naprawcze dla wad tej wersji. Za pojemność, na której działa, rozlicza Cię osobno Microsoft.",
-    "pt": "O Contract Intelligence &amp; Register custa $14,900, uma única vez. Isso inclui uma licença perpétua para um tenant Microsoft, o pacote assinado, o guia de instalação e versões corretivas para defeitos dessa versão. A Microsoft fatura-lhe separadamente a capacidade em que corre."
   },
   "What the price includes": {
     "cs": "Co cena zahrnuje",
@@ -1825,15 +1807,6 @@
     "it": "Licenza perpetua della release 1.0.3.6 per un tenant Microsoft",
     "pl": "Licencja bezterminowa na wersję 1.0.3.6 dla jednego tenanta Microsoft",
     "pt": "Licença perpétua da versão 1.0.3.6 para um tenant Microsoft"
-  },
-  "The signed package with its SHA-256 checksum: 1 Copilot Studio agent, 7 Power Automate flows, 4 Dataverse tables, 1 read-only security role": {
-    "cs": "Podepsaný balíček s kontrolním součtem SHA-256: 1 agent Copilot Studio, 7 toků Power Automate, 4 tabulky Dataverse, 1 bezpečnostní role jen pro čtení",
-    "de": "Das signierte Paket mit SHA-256-Prüfsumme: 1 Copilot-Studio-Agent, 7 Power-Automate-Flows, 4 Dataverse-Tabellen, 1 Nur-Lese-Sicherheitsrolle",
-    "fr": "Le package signé avec son empreinte SHA-256 : 1 agent Copilot Studio, 7 flux Power Automate, 4 tables Dataverse, 1 rôle de sécurité en lecture seule",
-    "es": "El paquete firmado con su suma de comprobación SHA-256: 1 agente de Copilot Studio, 7 flujos de Power Automate, 4 tablas de Dataverse, 1 rol de seguridad de solo lectura",
-    "it": "Il pacchetto firmato con checksum SHA-256: 1 agente Copilot Studio, 7 flussi Power Automate, 4 tabelle Dataverse, 1 ruolo di sicurezza in sola lettura",
-    "pl": "Podpisany pakiet z sumą kontrolną SHA-256: 1 agent Copilot Studio, 7 przepływów Power Automate, 4 tabele Dataverse, 1 rola zabezpieczeń tylko do odczytu",
-    "pt": "O pacote assinado com a soma de verificação SHA-256: 1 agente Copilot Studio, 7 fluxos Power Automate, 4 tabelas Dataverse, 1 função de segurança só de leitura"
   },
   "Installation guide and readiness checklist": {
     "cs": "Instalační příručka a kontrolní seznam připravenosti",
@@ -2212,5 +2185,32 @@
     "it": "I prezzi li stabilisce il livello CAI, non la trattativa. Ogni agente rilasciato ha il prezzo fisso del suo livello e ogni cliente paga lo stesso prezzo pubblicato. Oggi solo Contract Intelligence &amp; Register, un agente L4, ha un pacchetto rilasciato. Gli altri livelli mostrano quanto costerà una futura release di quel livello, una volta testata l’installazione.",
     "pl": "Ceny wyznacza poziom CAI, a nie negocjacje. Każdy wydany agent ma stałą cenę swojego poziomu, a każdy klient płaci tę samą opublikowaną cenę. Dziś tylko Contract Intelligence &amp; Register, agent poziomu L4, ma wydany pakiet. Pozostałe poziomy pokazują, ile będzie kosztować przyszłe wydanie na danym poziomie po przejściu testu instalacji.",
     "pt": "Os preços são definidos pelo nível CAI, não por negociação. Cada agente lançado tem o preço fixo do seu nível, e todos os clientes pagam o mesmo preço publicado. Hoje só o Contract Intelligence &amp; Register, um agente L4, tem um pacote lançado. Os outros níveis mostram quanto custará uma futura versão desse nível depois de testada a instalação."
+  },
+  "The versioned release package with its SHA-256 checksum: 1 Copilot Studio agent, 7 Power Automate flows, 4 Dataverse tables, 1 read-only security role": {
+    "cs": "Verzovaný balíček vydání s kontrolním součtem SHA-256: 1 agent Copilot Studio, 7 toků Power Automate, 4 tabulky Dataverse, 1 bezpečnostní role jen pro čtení",
+    "de": "Das versionierte Release-Paket mit SHA-256-Prüfsumme: 1 Copilot-Studio-Agent, 7 Power-Automate-Flows, 4 Dataverse-Tabellen, 1 Nur-Lese-Sicherheitsrolle",
+    "fr": "Le package de version avec son empreinte SHA-256 : 1 agent Copilot Studio, 7 flux Power Automate, 4 tables Dataverse, 1 rôle de sécurité en lecture seule",
+    "es": "El paquete de la versión con su suma de comprobación SHA-256: 1 agente de Copilot Studio, 7 flujos de Power Automate, 4 tablas de Dataverse, 1 rol de seguridad de solo lectura",
+    "it": "Il pacchetto della release con checksum SHA-256: 1 agente Copilot Studio, 7 flussi Power Automate, 4 tabelle Dataverse, 1 ruolo di sicurezza in sola lettura",
+    "pl": "Pakiet wydania z sumą kontrolną SHA-256: 1 agent Copilot Studio, 7 przepływów Power Automate, 4 tabele Dataverse, 1 rola zabezpieczeń tylko do odczytu",
+    "pt": "O pacote da versão com a soma de verificação SHA-256: 1 agente Copilot Studio, 7 fluxos Power Automate, 4 tabelas Dataverse, 1 função de segurança só de leitura"
+  },
+  "Contract Intelligence &amp; Register costs $14,900, once. That buys a perpetual licence for one Microsoft tenant, the release package, the installation guide and corrective releases for defects in that release. Microsoft bills you separately for the capacity it runs on.": {
+    "cs": "Contract Intelligence &amp; Register stojí $14,900 jednorázově. Za to získáte trvalou licenci pro jeden tenant Microsoft, balíček vydání, instalační příručku a opravná vydání pro vady této verze. Kapacitu, na které běží, vám zvlášť účtuje Microsoft.",
+    "de": "Contract Intelligence &amp; Register kostet einmalig $14,900. Dafür bekommen Sie eine unbefristete Lizenz für einen Microsoft-Tenant, das Release-Paket, die Installationsanleitung und Korrektur-Releases für Fehler dieser Version. Die Kapazität, auf der es läuft, rechnet Microsoft separat mit Ihnen ab.",
+    "fr": "Contract Intelligence &amp; Register coûte $14,900, une seule fois. Vous obtenez une licence perpétuelle pour un tenant Microsoft, le package de version, le guide d’installation et les versions correctives des défauts de cette version. Microsoft vous facture séparément la capacité sur laquelle il fonctionne.",
+    "es": "Contract Intelligence &amp; Register cuesta $14,900, una sola vez. Eso incluye una licencia perpetua para un tenant de Microsoft, el paquete de la versión, la guía de instalación y las versiones correctivas de defectos de esa versión. Microsoft le factura aparte la capacidad en la que se ejecuta.",
+    "it": "Contract Intelligence &amp; Register costa $14,900, una volta sola. Comprende una licenza perpetua per un tenant Microsoft, il pacchetto della release, la guida all’installazione e le release correttive dei difetti di quella versione. Microsoft vi fattura separatamente la capacità su cui gira.",
+    "pl": "Contract Intelligence &amp; Register kosztuje $14,900, jednorazowo. W cenie jest licencja bezterminowa na jeden tenant Microsoft, pakiet wydania, instrukcja instalacji i wydania naprawcze dla wad tej wersji. Za pojemność, na której działa, rozlicza Cię osobno Microsoft.",
+    "pt": "O Contract Intelligence &amp; Register custa $14,900, uma única vez. Isso inclui uma licença perpétua para um tenant Microsoft, o pacote da versão, o guia de instalação e versões corretivas para defeitos dessa versão. A Microsoft fatura-lhe separadamente a capacidade em que corre."
+  },
+  "Contract Intelligence &amp; Register costs $14,900 once: a perpetual licence for one Microsoft tenant, the release package and the installation guide. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.": {
+    "cs": "Contract Intelligence &amp; Register stojí $14,900 jednorázově: trvalá licence pro jeden tenant Microsoft, balíček vydání a instalační příručka. Ceny balíčků agentů jsou pevně dané úrovní CAI: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4.",
+    "de": "Contract Intelligence &amp; Register kostet einmalig $14,900: eine unbefristete Lizenz für einen Microsoft-Tenant, das Release-Paket und die Installationsanleitung. Die Preise der Agentenpakete sind nach CAI-Stufe fest: $7,900 für L2, $9,900 für L3 und $14,900 für L4.",
+    "fr": "Contract Intelligence &amp; Register coûte $14,900, en une fois : une licence perpétuelle pour un tenant Microsoft, le package de version et le guide d’installation. Les prix des packages sont fixés par niveau CAI : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4.",
+    "es": "Contract Intelligence &amp; Register cuesta $14,900 en un solo pago: una licencia perpetua para un tenant de Microsoft, el paquete de la versión y la guía de instalación. Los precios de los paquetes son fijos por nivel CAI: $7,900 para L2, $9,900 para L3 y $14,900 para L4.",
+    "it": "Contract Intelligence &amp; Register costa $14,900 una tantum: una licenza perpetua per un tenant Microsoft, il pacchetto della release e la guida all’installazione. I prezzi dei pacchetti sono fissi per livello CAI: $7,900 per L2, $9,900 per L3 e $14,900 per L4.",
+    "pl": "Contract Intelligence &amp; Register kosztuje $14,900 jednorazowo: licencja bezterminowa na jeden tenant Microsoft, pakiet wydania i instrukcja instalacji. Ceny pakietów agentów są stałe według poziomu CAI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4.",
+    "pt": "O Contract Intelligence &amp; Register custa $14,900, uma única vez: uma licença perpétua para um tenant Microsoft, o pacote da versão e o guia de instalação. Os preços dos pacotes são fixos por nível CAI: $7,900 para L2, $9,900 para L3 e $14,900 para L4."
   }
 }
