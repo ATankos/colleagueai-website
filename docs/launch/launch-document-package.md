@@ -45,6 +45,6 @@ No defect found in the tax-point handling. The one structural limit stays as doc
 
 ## 4. Flags
 
-- **Unsigned**: IP licence agreements (both founders). Not represented as signed anywhere.
+- **Unsigned**: IP licence agreements (Instrument A Alexandr Tankos → company; Instrument B Marek Těšitel → company only if he lists works; the company signs through its sole jednatel). Not represented as signed anywhere.
 - **Unapproved**: tax policy (draft only), counsel texts, counsel licence text for a later bundle revision (revision 2 corrects only the release number).
 - **Not configured in Production**: RESEND_API_KEY / MAIL_FROM / DEMO_NOTIFY_EMAIL (notifications), RECOVERY_ENABLED, security@ mailbox, Vercel plan.
