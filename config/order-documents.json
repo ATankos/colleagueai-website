@@ -6,7 +6,7 @@
   },
   "products": {
     "contract-intelligence-and-register": {
-      "includes": "A perpetual, single-tenant licence to this release (1.0.3.6), the signed package with checksum, the install guide and readiness checklist, and corrective releases for defects in this release at no further licence fee. Support by e-mail (hello@colleagueai.ai) with your order reference.",
+      "includes": "A perpetual, single-tenant licence to this release (1.0.3.6), the versioned release package with its SHA-256 checksum, the install guide and readiness checklist, and corrective releases for defects in this release at no further licence fee. Support by e-mail (hello@colleagueai.ai) with your order reference.",
       "excludes": "Microsoft licences or Copilot Studio capacity, installation or configuration done for you, new feature releases, scanned-document OCR, languages other than English, and Continuous Certification (not yet open).",
       "delivery": "One managed Microsoft Power Platform solution (1 Copilot Studio agent, 7 Power Automate flows, 4 Dataverse tables, 1 read-only security role) plus the install guide. You download the package after purchase and import it into your own environment. ColleagueAI never connects to your tenant."
     }
