@@ -6,6 +6,16 @@
 > It does not change shares or voting: an author's licence to the company and the company's ownership are separate
 > questions, and being a shareholder does not by itself give the company any copyright licence.
 
+## Execution summary (final for counsel, 21 November 2026)
+
+| Element | State |
+|---|---|
+| Licensee and its signatory | settled from the register: Colleague AI s.r.o., signed by Marek Těšitel, sole jednatel acting alone (re-check the extract on the signing date) |
+| Instrument A licensor | Alexandr Tankos, author of the Schedule A works by the records; his holding is the licensor only if a written author → holding agreement exists (A1) |
+| Instrument B | only if Marek Těšitel lists works in Schedule B (A2); otherwise not signed |
+| Corporate record | none for Instrument A unless counsel finds a § 54 ZOK connection; for Instrument B a written sole-shareholder record (Part B, 5–6) |
+| Still open | identity details of each signatory (date of birth, residence), completed only on the signed copy and never in this public repository; consideration (A4, with the accountant); controlling language (A5) and signature form (A6, counsel); counsel's review; the signatures |
+
 ## Part 0 — Facts this draft is built on (to re-check against an official extract on the signing date)
 
 | Fact | Source and date | What it means for these instruments |
@@ -27,7 +37,7 @@
 | A4 | Consideration, per instrument | both + accountant | A fixed fee in CZK, a royalty (per cent of net licence revenue), or another stated consideration with its reasoning recorded. Not "free" and not "the shareholding" without a recorded decision; the related-party and tax treatment is the accountant's. |
 | A5 | Governing language of the signed text | counsel | Czech controlling text with an English convenience translation is proposed for a Czech-law instrument between Czech parties. |
 | A6 | Signature form | both | Written form is required for an exclusive licence (§ 2358 Civil Code; § 562 on electronic form): wet ink on two counterparts, or electronic signatures with reliable identification and an audit trail (counsel confirms the level). Hash and store the signed PDF with the release evidence. |
-| A7 | Schedule cut-off | Alexandr | The inventory as at the signing date and the repository commit that fixes it (draft prepared at commit `b6f4dd7b`, 21 Nov 2026). |
+| A7 | Schedule cut-off | Alexandr | The inventory as at the signing date and the repository commit that fixes it (draft prepared at commit `5ef7f284`, 21 Nov 2026). |
 
 ## Part B — Rights chain and corporate procedure (proposed answers for counsel)
 
@@ -133,7 +143,7 @@ Signed in two counterparts.
 
 ---
 
-## Schedule A — Works of Alexandr Tankos (Instrument A), as of commit `b6f4dd7b` (21 November 2026)
+## Schedule A — Works of Alexandr Tankos (Instrument A), as of commit `5ef7f284` (21 November 2026)
 
 Rights-holder evidence per item: **R** = repository history (human commits only under Alexandr Tankos's identities;
 co-authored by Claude on his instruction where marked in commits; automated fixes by Copilot Autofix and dependency
