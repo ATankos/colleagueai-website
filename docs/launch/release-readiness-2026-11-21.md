@@ -8,14 +8,14 @@ Reproduce the automated part: `node scripts/release/certify-release.mjs --bundle
 
 ## 1. Release candidate
 
-| | Bundle revision 1 (delivered) | Bundle revision 2 (candidate, PR #552) |
+| | Bundle revision 1 (delivered, superseded) | Bundle revision 2 (current release bundle) |
 |---|---|---|
 | File | `CAI-L4-CI-001_1.0.3.6.zip` | `CAI-L4-CI-001_1.0.3.6-r2.zip` |
 | Bytes / SHA-256 | 368,718 / `69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50` | 370,005 / `66639e7ffe1c41d9f403081f07655ff6587007726c8e965a9640601ae0fd9ac8` |
 | Managed solution | `cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8` (122,951 B) | same file |
 | LICENSE.txt | says "release 1.0.3.2" (**defect**) | "release 1.0.3.6, bundle revision 2" |
 | Certifier, automated gates | 17 PASS, **1 FAIL (PKG-LICENSE)** | **18/18 PASS** (incl. npm audit 0 advisories) |
-| Where | private Blob, `config/products.json` today | built, reproducible; in the founder's Downloads; **not yet in Blob** |
+| Where | private Blob, kept unchanged (re-hashed 21 Nov 20:38 CET) | private Blob, published by `config/products.json` on main (#552); buyer download verified by hash 21 Nov 20:38 CET |
 
 Revision 2 changes documents only (LICENSE release number; INSTALL §9 capacity symptom and first-upload miss from the
 20 Nov clean install, i.e. PR #533; revision labels and file names; a readiness-script usage example). Revision 1 is
@@ -62,7 +62,7 @@ Not repeated today: revision 2 ships the identical managed solution, so the tena
 
 | # | Blocker | Severity | Owner | Action | Founder approval |
 |---|---|---|---|---|---|
-| 1 | Revision 2 not yet in private Blob; #552 must not merge before | High (download would 404 after merge) | Founder | Upload `CAI-L4-CI-001_1.0.3.6-r2.zip` to `agents/contract-intelligence-and-register/` (store cai-release-packages), then review/merge #552 | Yes |
+| 1 | ~~Revision 2 not in private Blob~~ **resolved 21 Nov 20:3x CET**: uploaded by the founder; between the #552 merge and the upload a delivering deployment refused the package with 503 package_missing (fail-safe, alert logged); buyer download now verified by hash | — | — | — | — |
 | 2 | Tax policy unapproved; invoice route is the sandbox ledger | Critical for a paid sale | Accountant → founder | T1/T3/T7/T8/T13 confirmations, registration evidence, Microsoft G195024562 decision | Yes |
 | 3 | Legal texts (Licence/Terms/Refund/Privacy new versions; #532) unpublished | Critical for a paid sale | Founder, counsel | D1, D1a, D2–D5; counsel review; versioned publication | Yes |
 | 4 | IP instrument unsigned | Critical for a paid sale | Both founders | sign; general-meeting resolution | Yes |
@@ -80,3 +80,11 @@ Not repeated today: revision 2 ships the identical managed solution, so the tena
 every automated gate and the live Stripe TEST journey with direct database evidence; installation and upgrade are
 evidenced in Microsoft tenants. Commercial activation stays closed until blockers 1–6 are resolved and the founder
 gives explicit GO; 7–11 should be closed before or immediately after the first sale.
+
+## 7. Update 21 Nov 2026, 20:40 CET (after #552, #553, #554 merged; revision 2 uploaded)
+
+- Main `8035a157`: CI green, including the order-documents step that the #552/#553 conflict resolution had dropped (restored by #554).
+- Certifier on main against the bundle as the buyer downloaded it: **18/18 automated gates PASS**; manual gates: 1 FAIL
+  (C-1032-FILE, low), 2 BLOCKED, 7 REQUIRES FOUNDER APPROVAL (`config/release-gates.json`).
+- Production: runs main, checkout answers `checkout_disabled`; `saleApproved` false; tax policy unapproved.
+- Recommendation unchanged: **CONDITIONAL GO — NAMED BLOCKERS** (blockers 2–6 above; 7–11 before or right after the first sale).
