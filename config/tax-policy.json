@@ -60,6 +60,7 @@
     "requireTaxIdIfSupported": false,
     "stripeTax": false,
     "invoiceRoute": null,
-    "onCountryMismatch": "hold"
+    "onCountryMismatch": "hold",
+    "czkConversion": null
   }
 }
