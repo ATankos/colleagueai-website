@@ -1,0 +1,341 @@
+{
+ "_comment": "Candidate translations of the corrected Licence §3 and Privacy §4 sentences, carried over from PR #532 (20 Nov 2026). NOT PUBLISHED and not wired into the build: the live locale pages keep their current text until the approved English version is published through docs/legal/proposed/README.md. Machine translation; a translator or counsel reviews it with the approved English text. Each entry: the replaced (old) string and the proposed one, per language. An entry with 'proposed' null is the translation of an English sentence the drafts remove; one with 'current' null is the translation of its replacement (path = [language, English source sentence]).",
+ "entries": [
+  {
+   "path": [
+    "de",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Agenten werden in Ihrer Umgebung mit Microsoft Copilot Studio, Power Automate und Azure ausgeführt. Wir hosten ausschließlich die Governance-Schicht und verarbeiten Ihre Geschäftsdaten nicht.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "de",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Agentenpakete werden in Ihrer eigenen Microsoft-Umgebung bereitgestellt und ausgeführt (Copilot Studio, Power Automate, Dataverse und die damit verbundenen Microsoft-365-Dienste). Colleague AI hostet Ihre Geschäftsinhalte nicht, greift nicht darauf zu und verarbeitet sie nicht; wir verarbeiten nur die Daten, die für Verkauf, Lizenzierung, Lieferung und Support des Pakets erforderlich sind (Bestell-, Lizenz-, Download- und Supportdaten), wie in der Datenschutzerklärung und im Trust Center beschrieben.</p>"
+  },
+  {
+   "path": [
+    "de",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (Hosting &amp; Web-Analyse), Stripe (Zahlungen), Upstash (Speicherung von Berechtigungen, Partnercodes und Demo-/Anfrage-Leads), Cloudflare R2 (Speicherung von Lieferdateien), Resend (Transaktions-E-Mails für Demo- und Anfragebenachrichtigungen), Plausible (cookielose Analyse), Sentry (Fehlerüberwachung), Google Fonts (Webschriften). Vollständige Liste auf Anfrage und im <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "de",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (Hosting &amp; Web-Analyse), Stripe (Zahlungen), Upstash (Speicherung von Berechtigungen, Partnercodes und Demo-/Anfrage-Leads), Vercel Blob (privater Speicher für Lieferdateien), Resend (Transaktions-E-Mails für Demo- und Anfragebenachrichtigungen), Plausible (cookielose Analyse), Sentry (Fehlerüberwachung), Google Fonts (Webschriften). Vollständige Liste auf Anfrage und im <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "de",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (Hosting &amp; Web-Analyse), Stripe (Zahlungen), Upstash (Speicherung von Berechtigungen &amp; Partnercodes), Vercel Blob (privater Speicher für Lieferdateien), Plausible (cookielose Analyse), Sentry (Fehlerüberwachung), Google Fonts (Web-Schriftarten). Vollständige Liste auf Anfrage und im <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "de",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (Hosting &amp; Web-Analyse), Stripe (Zahlungen), Upstash (Speicherung von Berechtigungen &amp; Partnercodes), Cloudflare R2 (Speicherung von Lieferdateien), Plausible (cookielose Analyse), Sentry (Fehlerüberwachung), Google Fonts (Web-Schriftarten). Vollständige Liste auf Anfrage und im <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "pt",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Os agentes são executados no seu ambiente Microsoft Copilot Studio, Power Automate e Azure. Alojamos apenas a camada de governança e não processamos os seus dados empresariais.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "pt",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Os pacotes de agentes são implementados e executados no seu próprio ambiente Microsoft (Copilot Studio, Power Automate, Dataverse e os serviços Microsoft 365 a que se ligam). A Colleague AI não aloja, não acede nem processa o seu conteúdo empresarial; processamos apenas os dados necessários para vender, licenciar, entregar e dar suporte ao pacote (registos de encomenda, licença, transferência e suporte), conforme descrito na Política de privacidade e no Centro de confiança.</p>"
+  },
+  {
+   "path": [
+    "pt",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (alojamento e analytics web), Stripe (pagamentos), Upstash (armazenamento de direitos, códigos de parceiro e leads de demo/pedidos), Cloudflare R2 (armazenamento de ficheiros entregues), Resend (e-mail transacional para notificações de demo e pedidos), Plausible (analytics sem cookies), Sentry (monitorização de erros), Google Fonts (tipos de letra web). Lista completa a pedido e no <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "pt",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (alojamento e analytics web), Stripe (pagamentos), Upstash (armazenamento de direitos, códigos de parceiro e leads de demo/pedidos), Vercel Blob (armazenamento privado de ficheiros entregues), Resend (e-mail transacional para notificações de demo e pedidos), Plausible (analytics sem cookies), Sentry (monitorização de erros), Google Fonts (tipos de letra web). Lista completa a pedido e no <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "pt",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (alojamento &amp; análise web), Stripe (pagamentos), Upstash (armazenamento de direitos de acesso &amp; de códigos de parceiro), Vercel Blob (armazenamento privado dos ficheiros a entregar), Plausible (análise sem cookies), Sentry (monitorização de erros), Google Fonts (tipos de letra web). Lista completa disponível mediante pedido e no <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "pt",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (alojamento &amp; análise web), Stripe (pagamentos), Upstash (armazenamento de direitos de acesso &amp; de códigos de parceiro), Cloudflare R2 (armazenamento dos ficheiros a entregar), Plausible (análise sem cookies), Sentry (monitorização de erros), Google Fonts (tipos de letra web). Lista completa disponível mediante pedido e no <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "it",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Gli agenti vengono eseguiti nel vostro ambiente Microsoft Copilot Studio, Power Automate e Azure. Ospitiamo esclusivamente il livello di governance e non trattiamo i vostri dati aziendali.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "it",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>I pacchetti agente vengono distribuiti ed eseguiti nel vostro ambiente Microsoft (Copilot Studio, Power Automate, Dataverse e i servizi Microsoft 365 a cui si collegano). Colleague AI non ospita, non accede e non tratta i vostri contenuti aziendali; trattiamo solo i dati necessari a vendere, concedere in licenza, consegnare e supportare il pacchetto (dati di ordine, licenza, download e supporto), come descritto nell'Informativa sulla privacy e nel Trust Center.</p>"
+  },
+  {
+   "path": [
+    "it",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hosting e analytics web), Stripe (pagamenti), Upstash (archiviazione di diritti, codici partner e lead demo/richieste), Cloudflare R2 (archiviazione dei file consegnati), Resend (e-mail transazionali per notifiche di demo e richieste), Plausible (analytics senza cookie), Sentry (monitoraggio errori), Google Fonts (font web). Elenco completo su richiesta e nel <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "it",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hosting e analytics web), Stripe (pagamenti), Upstash (archiviazione di diritti, codici partner e lead demo/richieste), Vercel Blob (archiviazione privata dei file consegnati), Resend (e-mail transazionali per notifiche di demo e richieste), Plausible (analytics senza cookie), Sentry (monitoraggio errori), Google Fonts (font web). Elenco completo su richiesta e nel <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "it",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hosting &amp; analisi web), Stripe (pagamenti), Upstash (archiviazione dei diritti &amp; dei codici partner), Vercel Blob (archiviazione privata dei file consegnabili), Plausible (analisi senza cookie), Sentry (monitoraggio degli errori), Google Fonts (web font). Elenco completo su richiesta e nel <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "it",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hosting &amp; analisi web), Stripe (pagamenti), Upstash (archiviazione dei diritti &amp; dei codici partner), Cloudflare R2 (archiviazione dei file consegnabili), Plausible (analisi senza cookie), Sentry (monitoraggio degli errori), Google Fonts (web font). Elenco completo su richiesta e nel <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "es",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Los agentes se ejecutan en su entorno de Microsoft Copilot Studio, Power Automate y Azure. Únicamente alojamos la capa de gobernanza y no tratamos sus datos empresariales.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "es",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Los paquetes de agentes se despliegan y ejecutan en su propio entorno Microsoft (Copilot Studio, Power Automate, Dataverse y los servicios de Microsoft 365 a los que se conectan). Colleague AI no aloja, no accede ni trata su contenido empresarial; solo tratamos los datos necesarios para vender, licenciar, entregar y dar soporte al paquete (registros de pedido, licencia, descarga y soporte), como se describe en la Política de privacidad y en el Trust Center.</p>"
+  },
+  {
+   "path": [
+    "es",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (alojamiento y analítica web), Stripe (pagos), Upstash (almacenamiento de derechos, códigos de partner y leads de demo/consulta), Cloudflare R2 (almacenamiento de archivos entregables), Resend (correo transaccional para notificaciones de demo y consultas), Plausible (analítica sin cookies), Sentry (monitorización de errores), Google Fonts (fuentes web). Lista completa a petición y en el <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "es",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (alojamiento y analítica web), Stripe (pagos), Upstash (almacenamiento de derechos, códigos de partner y leads de demo/consulta), Vercel Blob (almacenamiento privado de archivos entregables), Resend (correo transaccional para notificaciones de demo y consultas), Plausible (analítica sin cookies), Sentry (monitorización de errores), Google Fonts (fuentes web). Lista completa a petición y en el <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "es",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (alojamiento &amp; analítica web), Stripe (pagos), Upstash (almacenamiento de derechos &amp; códigos de partner), Vercel Blob (almacenamiento privado de archivos entregables), Plausible (analítica sin cookies), Sentry (monitorización de errores), Google Fonts (fuentes web). Lista completa disponible a petición y en el <a href=\"/trust\">Centro de Confianza</a>.</p>"
+  },
+  {
+   "path": [
+    "es",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (alojamiento &amp; analítica web), Stripe (pagos), Upstash (almacenamiento de derechos &amp; códigos de partner), Cloudflare R2 (almacenamiento de archivos entregables), Plausible (analítica sin cookies), Sentry (monitorización de errores), Google Fonts (fuentes web). Lista completa disponible a petición y en el <a href=\"/trust\">Centro de Confianza</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "fr",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Les agents s'exécutent dans votre environnement Microsoft Copilot Studio, Power Automate et Azure. Nous hébergeons uniquement la couche de gouvernance et ne traitons pas vos données d'entreprise.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "fr",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Les packages d'agents sont déployés et exécutés dans votre propre environnement Microsoft (Copilot Studio, Power Automate, Dataverse et les services Microsoft 365 auxquels ils se connectent). Colleague AI n'héberge pas, n'accède pas et ne traite pas votre contenu métier ; nous traitons uniquement les données nécessaires à la vente, à la licence, à la livraison et au support du package (données de commande, de licence, de téléchargement et de support), comme décrit dans la Politique de confidentialité et le Trust Center.</p>"
+  },
+  {
+   "path": [
+    "fr",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hébergement &amp; analyse d’audience), Stripe (paiements), Upstash (stockage des droits d’accès, codes partenaires et leads de démo/demande), Cloudflare R2 (stockage des fichiers livrés), Resend (e-mails transactionnels pour les notifications de démo et de demande), Plausible (analyse sans cookies), Sentry (suivi des erreurs), Google Fonts (polices web). Liste complète sur demande et dans le <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "fr",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hébergement &amp; analyse d’audience), Stripe (paiements), Upstash (stockage des droits d’accès, codes partenaires et leads de démo/demande), Vercel Blob (stockage privé des fichiers livrés), Resend (e-mails transactionnels pour les notifications de démo et de demande), Plausible (analyse sans cookies), Sentry (suivi des erreurs), Google Fonts (polices web). Liste complète sur demande et dans le <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "fr",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hébergement &amp; analytique web), Stripe (paiements), Upstash (stockage des droits &amp; des codes partenaires), Vercel Blob (stockage privé des fichiers livrables), Plausible (analytique sans cookie), Sentry (surveillance des erreurs), Google Fonts (polices web). Liste complète sur demande et dans le <a href=\"/trust\">Centre de confiance</a>.</p>"
+  },
+  {
+   "path": [
+    "fr",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hébergement &amp; analytique web), Stripe (paiements), Upstash (stockage des droits &amp; des codes partenaires), Cloudflare R2 (stockage des fichiers livrables), Plausible (analytique sans cookie), Sentry (surveillance des erreurs), Google Fonts (polices web). Liste complète sur demande et dans le <a href=\"/trust\">Centre de confiance</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "pl",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Agenci działają w Państwa środowisku Microsoft Copilot Studio, Power Automate i Azure. Hostujemy wyłącznie warstwę nadzoru (governance) i nie przetwarzamy Państwa danych biznesowych.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "pl",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Pakiety agentów są wdrażane i działają w Państwa własnym środowisku Microsoft (Copilot Studio, Power Automate, Dataverse oraz usługi Microsoft 365, z którymi się łączą). Colleague AI nie hostuje Państwa treści biznesowych, nie ma do nich dostępu ani ich nie przetwarza; przetwarzamy wyłącznie dane niezbędne do sprzedaży, licencjonowania, dostarczenia i wsparcia pakietu (dane zamówienia, licencji, pobrań i wsparcia), zgodnie z Polityką prywatności i Centrum zaufania.</p>"
+  },
+  {
+   "path": [
+    "pl",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hosting i analityka web), Stripe (płatności), Upstash (przechowywanie uprawnień, kodów partnerskich i leadów z demo/zapytań), Cloudflare R2 (przechowywanie dostarczanych plików), Resend (e-maile transakcyjne dla powiadomień o demo i zapytaniach), Plausible (analityka bez cookies), Sentry (monitorowanie błędów), Google Fonts (czcionki web). Pełna lista na życzenie i w <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "pl",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hosting i analityka web), Stripe (płatności), Upstash (przechowywanie uprawnień, kodów partnerskich i leadów z demo/zapytań), Vercel Blob (prywatne przechowywanie dostarczanych plików), Resend (e-maile transakcyjne dla powiadomień o demo i zapytaniach), Plausible (analityka bez cookies), Sentry (monitorowanie błędów), Google Fonts (czcionki web). Pełna lista na życzenie i w <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "pl",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hosting &amp; analityka internetowa), Stripe (płatności), Upstash (przechowywanie uprawnień &amp; kodów partnerskich), Vercel Blob (prywatne przechowywanie plików do pobrania), Plausible (analityka bez plików cookie), Sentry (monitorowanie błędów), Google Fonts (czcionki internetowe). Pełna lista na żądanie oraz w <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "pl",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hosting &amp; analityka internetowa), Stripe (płatności), Upstash (przechowywanie uprawnień &amp; kodów partnerskich), Cloudflare R2 (przechowywanie plików do pobrania), Plausible (analityka bez plików cookie), Sentry (monitorowanie błędów), Google Fonts (czcionki internetowe). Pełna lista na żądanie oraz w <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "cs",
+    "<p>Agents run in your Microsoft Copilot Studio, Power Automate and Azure environment. We host only the governance layer and do not process your business data.</p>"
+   ],
+   "current": "<p>Agenti běží ve vašem prostředí Microsoft Copilot Studio, Power Automate a Azure. Hostujeme pouze vrstvu správy a řízení (governance) a nezpracováváme vaše obchodní data.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "cs",
+    "<p>Agent packages are deployed into and run in your own Microsoft environment (Copilot Studio, Power Automate, Dataverse and the Microsoft 365 services they connect to). Colleague AI does not host, access or process your business content; we process only the data needed to sell, license, deliver and support the package (order, licence, download and support records), as described in the Privacy Policy and the Trust Center.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Balíčky agentů se nasazují a běží ve vašem vlastním prostředí Microsoft (Copilot Studio, Power Automate, Dataverse a služby Microsoft 365, ke kterým se připojují). Colleague AI váš obchodní obsah nehostuje, nepřistupuje k němu ani jej nezpracovává; zpracováváme pouze údaje potřebné k prodeji, licencování, dodání a podpoře balíčku (záznamy o objednávce, licenci, stažení a podpoře), jak je popsáno v Zásadách ochrany osobních údajů a v Centru důvěry.</p>"
+  },
+  {
+   "path": [
+    "cs",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Cloudflare R2 may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hosting a webová analytika), Stripe (platby), Upstash (uložení oprávnění, partnerských kódů a poptávek z dema/kontaktu), Cloudflare R2 (úložiště dodávaných souborů), Resend (transakční e-maily pro oznámení o demu a poptávkách), Plausible (analytika bez cookies), Sentry (monitoring chyb), Google Fonts (webová písma). Úplný seznam na vyžádání a v <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  },
+  {
+   "path": [
+    "cs",
+    "<p>Current services include Vercel (hosting &amp; web analytics), Upstash (demo/enquiry lead storage), Resend (transactional email for demo and enquiry notifications), Plausible (cookieless analytics), Sentry (error monitoring) and Google Fonts (web fonts). When paid checkout is enabled, Stripe may process payments, Upstash may additionally store entitlement and partner-code records, and Vercel Blob (private storage) may store deliverable files. Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hosting a webová analytika), Stripe (platby), Upstash (uložení oprávnění, partnerských kódů a poptávek z dema/kontaktu), Vercel Blob (soukromé úložiště dodávaných souborů), Resend (transakční e-maily pro oznámení o demu a poptávkách), Plausible (analytika bez cookies), Sentry (monitoring chyb), Google Fonts (webová písma). Úplný seznam na vyžádání a v <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "cs",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Vercel Blob (private deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": null,
+   "proposed": "<p>Vercel (hosting &amp; webová analytika), Stripe (platby), Upstash (ukládání oprávnění &amp; partnerských kódů), Vercel Blob (soukromé ukládání dodávaných souborů), Plausible (analytika bez cookies), Sentry (monitorování chyb), Google Fonts (webové fonty). Úplný seznam na vyžádání a v <a href=\"/trust\">Trust Center</a>.</p>"
+  },
+  {
+   "path": [
+    "cs",
+    "<p>Vercel (hosting &amp; web analytics), Stripe (payments), Upstash (entitlement &amp; partner-code storage), Cloudflare R2 (deliverable file storage), Plausible (cookieless analytics), Sentry (error monitoring), Google Fonts (web fonts). Full list on request and in the <a href=\"/trust\">Trust Center</a>.</p>"
+   ],
+   "current": "<p>Vercel (hosting &amp; webová analytika), Stripe (platby), Upstash (ukládání oprávnění &amp; partnerských kódů), Cloudflare R2 (ukládání dodávaných souborů), Plausible (analytika bez cookies), Sentry (monitorování chyb), Google Fonts (webové fonty). Úplný seznam na vyžádání a v <a href=\"/trust\">Trust Center</a>.</p>",
+   "proposed": null
+  }
+ ]
+}

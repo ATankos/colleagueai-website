@@ -24,6 +24,11 @@ VAT register and your billing details before fulfilment; we do not detect consum
 sell to consumers; if a purchase turns out to have been made by a consumer, we cancel it and refund it (Refund Policy
 §4).
 
+**Initial launch scope.** Until we announce otherwise on the order page, we accept online orders only from businesses
+established in the Czech Republic, identified by their IČO, paying by card, for the release named on the order page.
+Orders outside that scope are refused before payment; write to hello@colleagueai.ai and we tell you when your country or
+payment method opens. *[founder decision 3, 21 Nov 2026; remove this paragraph when the scope widens]*
+
 ## 3. Products
 
 (a) **Agent Packages** are one-time purchases of a software release for one Microsoft tenant, licensed perpetually
@@ -47,7 +52,10 @@ customer.
 confirmed; the order page then shows your licence, your documents and the download. We do not store card details.
 
 (c) An invoice is issued for every order and made available on your order page and by e-mail. Where a purchase is held
-for a manual tax or identity check (for example an unconfirmed VAT ID), we tell you before any charge is taken.
+for a manual tax or identity check (for example an unconfirmed VAT ID), we tell you before any charge is taken. If the
+billing details you give on the payment page contradict your order or fall outside the scope in §2 (for example a
+billing address in another country), we hold delivery, contact you, and refund the payment in full if the order cannot
+proceed.
 
 (d) **Microsoft costs.** Running an Agent Package uses your own Microsoft licences and consumption (for example Copilot
 Studio capacity). Microsoft bills those to you; they are not part of our price and we cannot see, cap or refund them.

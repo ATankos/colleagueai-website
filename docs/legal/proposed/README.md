@@ -5,6 +5,19 @@ versions of the four customer-facing agreements and of the licence text inside t
 legal and tax review of 21 November 2026 (items B1.1–B1.9, B2, B3). The live pages (`public/terms.html`, `license.html`,
 `refund.html`, `privacy.html`) and their archived versions (`public/legal/archive/`) are untouched.
 
+## Facts of 21 November 2026 that the drafts reflect
+
+- **Seller identification.** ARES has no VAT-register entry for IČO 29540852 and VIES answered INVALID for
+  CZ29540852 (checked 21 Nov 2026). The drafts state no VAT identifier; one is added only from an official
+  registration decision. The live accepted versions still print "DIČ CZ29540852" inside their text; it leaves them with
+  this new version, never by editing an accepted version.
+- **Who signs for the company.** The Commercial Register (Municipal Court in Prague, C 448176) shows Marek Těšitel as
+  the sole managing director, acting alone, and as the sole registered shareholder. No draft names a second director.
+- **First-sale scope.** Terms §2 states it: Czech businesses, card, the named release (config/launch-scope.json).
+- **PR #532** proposed the Licence §3 and Privacy §4 corrections by editing the live pages in place. Those sentences
+  are superseded by Licence §3 and Privacy §4/§5 of this set; #532 no longer touches a live page, and its seven
+  machine translations are kept for the translator in `translations-2026-11-21-candidates.json` (not wired into the build).
+
 ## How they become operative (no shortcut)
 
 1. Counsel validates or corrects the texts and the founder decides the open points below.

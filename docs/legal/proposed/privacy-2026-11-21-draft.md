@@ -8,7 +8,8 @@ the versioning process after counsel's approval.*
 ## 1. Who we are
 
 Colleague AI s.r.o., Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, registered with the
-Municipal Court in Prague, file C 448176 *[add "DIČ CZ29540852" only if the accountant confirms the registration]*,
+Municipal Court in Prague, file C 448176 *[no VAT identifier is stated: the ARES VAT register has no entry for IČO 29540852 and VIES answered INVALID on
+21 Nov 2026; add one only from an official registration decision]*,
 is the controller of the personal data described in this policy. Contact: hello@colleagueai.ai. We have not appointed
 a data protection officer; the legal requirements for one do not apply to us.
 
@@ -45,7 +46,7 @@ We do not take automated decisions with legal effect about you and we do not use
 | Vercel Inc. | hosting, function logs, and **private file storage (Vercel Blob)** of your order documents and the product packages, reachable only through time-limited links for the order's buyer | United States *[confirm regions from the dashboard]* |
 | Upstash Inc. | the database holding enquiry, order, acceptance, licence and evidence records | United States *[confirm region]* |
 | Stripe Payments Europe, Ltd. / Stripe, Inc. | payments, tax ID verification, and where enabled invoice generation. Stripe is our processor for the payment and an independent controller for its own legal obligations (fraud prevention, financial regulation) | EU and United States |
-| Resend, Inc. | sending transactional e-mail | United States |
+| Resend, Inc. | sending transactional e-mail (order confirmations, document and recovery links) | EU sending region (Ireland, eu-west-1, as configured for colleagueai.ai); Resend is a US company |
 | Plausible Insights OÜ | cookieless analytics | EU |
 | Functional Software, Inc. (Sentry) | error monitoring | EU ingest endpoint |
 | Google LLC | web fonts (your browser's request discloses your IP address to Google) | United States |
@@ -82,8 +83,9 @@ Personal Data Protection (Úřad pro ochranu osobních údajů, uoou.gov.cz) or 
 
 Order documents and packages are stored in private storage and served only through signed, short-lived links. Payment
 data never reaches our systems. Access to our records is limited to the people who administer orders. Security
-vulnerabilities in our products or website can be reported to the contact in our `security.txt` and the Trust Center;
-we handle them under our Vulnerability Handling Procedure.
+vulnerabilities in our products or website can be reported to hello@colleagueai.ai with a subject starting "SECURITY"
+(the contact published in our `security.txt` and on /security); we handle them under our Vulnerability Handling
+Procedure.
 
 ## 9. Cookies
 
