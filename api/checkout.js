@@ -297,7 +297,7 @@ export default async function handler(req, res) {
     if (buyerOut) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.setHeader('Cache-Control', 'no-store');
-      return res.status(409).end(pageModel({ errors: [buyerOut.field], values: formValues(form, optIn, certInterval), notice: buyerOut.message }));
+      return res.status(409).end(pageModel({ errors: [buyerOut.field], values: formValues(form, optIn, certInterval), notice: buyerOut.message, scopeRefusal: true }));
     }
   }
   const live = isLiveKey(process.env.STRIPE_SECRET_KEY);
