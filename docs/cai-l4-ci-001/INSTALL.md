@@ -14,7 +14,7 @@ texts and agent answer checked).
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 1
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 2
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -142,7 +142,7 @@ Contracts outside the window are still recalculated the moment one of their docu
 ## 4. Import (recommended: in the browser)
 
 1. Go to **make.powerapps.com** and pick your environment (top right).
-2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.6.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_6_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
+2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.6-r2.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_6_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
 3. Open **Solutions → Import solution → Browse**, choose that inner file, and click **Next**.
 4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **Whatever connection you pick here, the import may publish the agent on its own** (it did in three of our five fresh installs, once with a connection created in the wizard and twice with connections that already existed, and did not in the other two; section 7 explains and tells you what to check and do right after the import). Each reference must show a connection before you continue.
 5. **Environment variables.** Enter the five values from section 3, then click **Import**. On a fresh install the five fields are empty; the package ships no placeholder values.

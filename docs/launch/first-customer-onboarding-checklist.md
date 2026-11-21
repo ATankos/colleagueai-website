@@ -17,7 +17,7 @@ Tick in order. Nothing in B starts before A is complete; nothing in C before B. 
 - [ ] Payment received (or Stripe `checkout.session.completed` + webhook evidence) [founder]
 
 ## C. Delivery
-- [ ] Download token issued (`api/download`), customer downloads the bundle; **customer-side hash** of `CAI-L4-CI-001_1.0.3.6.zip` reported back and matches the order page [customer admin → founder]
+- [ ] Download token issued (`api/download`), customer downloads the bundle; **customer-side hash** of the bundle the order page names (`CAI-L4-CI-001_1.0.3.6-r2.zip` once revision 2 is published) reported back and matches the order page [customer admin → founder]
 - [ ] Customer admin confirms the four START-HERE points: Dataverse environment, Copilot Studio capacity (plan or credits), Azure budget with alerts set, DPIA decision taken [customer]
 - [ ] Install by the customer admin from INSTALL.pdf (~60 min): import, seven flows On, owner team, **M365 admin center agent check — block an *Available* entry**, first test (section 9). We do not touch their tenant [customer]
 - [ ] First-test result sent to us as: upload time, row appeared (Y/N), card received (Y/N), agent answer (Y/N) — or the 9b message seen [customer → founder]
