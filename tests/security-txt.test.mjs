@@ -1,7 +1,7 @@
 /**
  * tests/security-txt.test.mjs - the security contact is machine-readable, current and consistent (RFC 9116, CRA
  * Art. 13(17) single point of contact, docs/security/vulnerability-handling-procedure.md):
- * /.well-known/security.txt names security@colleagueai.ai, expires in the future and within a year of the check date,
+ * /.well-known/security.txt names one existing, monitored mailbox (hello@colleagueai.ai; no separate security@ mailbox), expires in the future and within a year of the check date,
  * points its Policy at /security; /security exists, is routed, names the same address and makes no certification claim.
  *
  * Usage: node --test tests/security-txt.test.mjs
@@ -12,10 +12,11 @@ import { readFileSync, existsSync } from 'node:fs';
 
 const read = (p) => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
 const TXT = read('public/.well-known/security.txt');
+const ADDRESS = 'hello@colleagueai.ai';
 const field = (k) => [...TXT.matchAll(new RegExp(`^${k}:\\s*(.+)$`, 'gmi'))].map((m) => m[1].trim());
 
 test('security.txt: Contact, Expires, Canonical and Policy are present and well-formed', () => {
-  assert.deepEqual(field('Contact'), ['mailto:security@colleagueai.ai'], 'one contact: the security mailbox');
+  assert.deepEqual(field('Contact'), [`mailto:${ADDRESS}`], 'one contact: the monitored company mailbox');
   const exp = field('Expires');
   assert.equal(exp.length, 1, 'exactly one Expires');
   const at = Date.parse(exp[0]);
@@ -30,12 +31,13 @@ test('security.txt: Contact, Expires, Canonical and Policy are present and well-
 test('/security is a routed page naming the same address, with no certification claim', () => {
   assert.ok(existsSync(new URL('../public/security.html', import.meta.url)));
   const page = read('public/security.html');
-  assert.ok(page.includes('mailto:security@colleagueai.ai'));
+  assert.ok(page.includes(`mailto:${ADDRESS}`));
+  assert.ok(!page.includes('security@colleagueai.ai'), 'no address that does not exist');
   assert.ok(page.includes('<link rel="canonical" href="https://www.colleagueai.ai/security" />'));
   assert.ok(page.includes('does not claim conformity with any scheme'));
   // Wording checks apply to the page's own content, not to the shared site shell (locale route tables, header).
   const main = (page.match(/<main>([\s\S]*?)<\/main>/) || [])[1] || '';
-  assert.ok(main.includes('security@colleagueai.ai'), 'the main content names the address');
+  assert.ok(main.includes(ADDRESS), 'the main content names the address');
   for (const bad of [/safe harbou?r/i, /\bguarantee/i, /within one business day/i, /\bcertified\b/i]) assert.ok(!bad.test(main.replace(/does not claim conformity[^<]*/, '')), `no unapproved promise: ${bad}`);
   const v = JSON.parse(read('vercel.json'));
   assert.ok(v.rewrites.some((r) => r.source === '/security' && r.destination === '/security.html'), '/security is routed');
