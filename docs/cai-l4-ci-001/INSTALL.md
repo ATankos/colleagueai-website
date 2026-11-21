@@ -301,8 +301,8 @@ Use an account that is a **member of the contract owner team**.
 
 If step 1 shows nothing after 5 minutes, check that:
 - the reviewer did not receive a *Contract file could not be read* message instead (section 9b);
-- the file was added at least a minute after **Extract contract on upload** was turned on. A file added in the first minute after the flow is turned on can be missed (seen once, 19 November 2026); upload a copy of it under a different file name;
-- the environment has Copilot Studio capacity (section 1);
+- the file was added at least a minute after **Extract contract on upload** was turned on. A file added before the trigger's first poll after an import or after the flow is turned on can be missed (seen on 19 and 20 November 2026); wait two minutes after the import or after turning the flow on, or upload a copy of the file under a different file name;
+- the environment has Copilot Studio capacity (section 1). Without it the trigger fires but the run fails in under a second with no action executed, and the flow's **Flow checker** (Power Automate → the flow → Flow checker) shows the warning *This environment has insufficient Copilot Credits*. Add the environment to a Copilot Studio pay-as-you-go billing plan or allocate prepaid credits (Power Platform admin center → Licensing → Copilot Studio), then turn **Extract contract on upload** off and on once and upload a copy of the file under a new name (seen on 20 November 2026 in a clean environment that was in no billing plan);
 - all five values in section 3 are filled in, and the team exists with exactly that name (section 6);
 - the flows are on (section 5).
 
