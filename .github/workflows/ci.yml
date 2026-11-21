@@ -118,6 +118,9 @@ jobs:
       - name: Release gates are well-formed and the release certifier runs (manual gates never upgraded)
         run: node --test tests/release-gates.test.mjs
 
+      - name: Security contact is machine-readable and current (security.txt, /security page)
+        run: node --test tests/security-txt.test.mjs
+
       - name: Shipped open-source packages stay under permissive licences
         run: node --test tests/licence-inventory.test.mjs
 

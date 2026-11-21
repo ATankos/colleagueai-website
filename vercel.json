@@ -341,6 +341,10 @@
             "destination": "/accessibility.html"
         },
         {
+            "source": "/security",
+            "destination": "/security.html"
+        },
+        {
             "source": "/responsible-ai",
             "destination": "/responsible-ai.html"
         },
