@@ -47,7 +47,9 @@ import {
 import { getOrder, updateOrder, recordOrderEvent, orderIdOf } from '../lib/orders.js';
 import { withheldReason, paidFacts, stripeIds, billingCountryDiffers } from '../lib/fulfilment.js';
 import { ensureInvoice, ensureCreditNote, stripeInvoiceSection } from '../lib/invoicing.js';
-import { classifyBuyer } from '../lib/taxPolicy.js';
+import { classifyBuyer, policyFor } from '../lib/taxPolicy.js';
+import { taxPointOf } from '../lib/invoicePdf.js';
+import { cnbConversion } from '../lib/cnbRate.js';
 import { liveRestoreRefused, productFor, canonicalSlug } from '../lib/products.js';
 import { releaseVersionForSession } from '../lib/releaseAccess.js';
 import { stripeOptions } from '../lib/stripe.js';
@@ -163,13 +165,34 @@ async function documentationStep(orderId, { notify = true } = {}) {
   }
 }
 
+/**
+ * The CZK conversion for a company-ledger invoice, when the approved policy decides it (T8). null when undecided, for
+ * a CZK sale, or when ČNB cannot be read: the invoice is then issued without a conversion line and says so, never with
+ * a guessed rate.
+ */
+async function czkConversionFor(order, route) {
+  if (route !== 'company_ledger') return null;
+  const policy = policyFor(process.env.STRIPE_SECRET_KEY);
+  if (policy?.checkout?.czkConversion !== 'cnb_daily_rate_on_tax_point') return null;
+  const currency = order.facts?.currency ?? order.price?.currency;
+  if (!currency || String(currency).toLowerCase() === 'czk') return null;
+  const date = taxPointOf(order.facts).date;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) return null;
+  try {
+    return await cnbConversion({ amountMinor: order.facts?.amountTotal ?? order.price?.unitAmount, currency, date });
+  } catch (err) {
+    console.error('[ALERT] CZK conversion not available for order %s: %s', order.id, err?.message ?? err);
+    return null;
+  }
+}
+
 /** Create or record the order's invoice, once, by the route the order was sold under. */
 async function ensureOrderInvoice(orderId, session, stripe) {
   const order = await getOrder(orderId);
   if (!order) return null;
   const route = order.tax?.invoiceRoute ?? null;
   if (order.invoice?.status === 'issued') return order.invoice;
-  const section = await ensureInvoice({ route, order, session, stripe });
+  const section = await ensureInvoice({ route, order, session, stripe, conversion: await czkConversionFor(order, route) });
   await updateOrder(orderId, (o) => (o.invoice?.status === 'issued' ? null : { ...o, invoice: section }));
   if (section.status === 'failed') {
     console.error('[ALERT] invoice not created for order %s (%s, %s); Stripe will retry the event', orderId, section.provider, section.reason);

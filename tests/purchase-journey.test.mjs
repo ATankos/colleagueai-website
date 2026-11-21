@@ -14,6 +14,9 @@ import { createHash } from 'node:crypto';
 import Stripe from 'stripe';
 import { legalFingerprint } from '../lib/legalArchive.js';
 import { casReply } from './kv-cas-fake.mjs';
+// This suite tests checkout behaviour across buyer categories, currencies and payment methods; the first-sale
+// launch scope (CZ businesses, USD, card) has its own suite, tests/launch-scope.test.mjs. Test keys only.
+process.env.LAUNCH_SCOPE_TEST_BYPASS = '1';
 
 const ROOT = new URL('..', import.meta.url);
 const LEGAL = JSON.parse(readFileSync(new URL('config/legal.json', ROOT), 'utf8'));
@@ -918,3 +921,109 @@ test('order recovery: the emailed recovery page reaches the same documents; a bu
 function createHashHex(bytes) {
   return createHash('sha256').update(bytes).digest('hex');
 }
+
+// ── first-sale launch scope (config/launch-scope.json) and the company-ledger invoice route ───────────────────────
+// These scenarios switch the suite's scope bypass off: they run the restricted checkout exactly as the Preview does.
+const CZ_OK = { company: 'Zkušební Strojírny s.r.o.', reg_number: '12345679', country: 'CZ', tax_id: '', email: 'nakup@zkusebni.example', name: 'Petr Zkušební', role: 'Jednatel' };
+async function inScope(fn) {
+  delete process.env.LAUNCH_SCOPE_TEST_BYPASS;
+  try { return await fn(); } finally { process.env.LAUNCH_SCOPE_TEST_BYPASS = '1'; }
+}
+const sessionCreated = () => stripeCalls.some((c) => c.path === '/v1/checkout/sessions' && c.method === 'POST');
+async function getPage(query) {
+  const res = mockRes();
+  await checkout({ method: 'GET', query: { agent: SLUG, lang: 'en', ...query }, headers: { host: 'shop.example.test' } }, res);
+  return res;
+}
+
+test('launch scope: a Czech company pays by card only; the company ledger issues a TEST-series invoice once, and a credit note on refund', () => inScope(async () => {
+  process.env.TAX_POLICY_SANDBOX = '1';
+  process.env.TAX_SANDBOX_INVOICE_ROUTE = 'company_ledger';
+  const store = withDelivery();
+  const page = await getPage({});
+  assert.equal(page.statusCode, 200);
+  assert.match(page.body, /companies established in the Czech Republic, paying by card/);
+  const o = await placeOrder(CZ_OK);
+  assert.equal(o.res.statusCode, 303, String(o.res.body).slice(0, 300));
+  const methods = [...o.params].filter(([k]) => k.startsWith('allowed_payment_method_types')).map(([, v]) => v);
+  assert.deepEqual(methods, ['card'], 'card only: no bank transfer, no Link wallet');
+  const ordBefore = await order(o.orderId);
+  assert.equal(ordBefore.launchScope, '2026-11-21-cz-b2b-first-sale');
+  const s = finished(o, CZ_OK);
+  const r = await deliver('checkout.session.completed', s);
+  assert.equal(r.status, 200, JSON.stringify(r.body));
+  const ord = await order(o.orderId);
+  assert.equal(ord.status, 'fulfilled');
+  assert.equal(ord.invoice.provider, 'company_ledger');
+  assert.match(ord.invoice.number, /^TEST-CAI-INV-\d{4}-00001$/);
+  assert.equal(ord.invoice.test, true);
+  assert.equal(ord.documents.invoice.status, 'issued');
+  const text = await pdfText(store.objects.get(ord.documents.invoice.key));
+  for (const n of [`TEST INVOICE ${ord.invoice.number}`, 'NOT A TAX DOCUMENT', 'company ledger in its separate TEST series', CZ_OK.company, 'Registration number 12345679', 'Company ID (IČO) 29540852', `pi_${o.id}`, 'USD 14,900.00']) {
+    assert.ok(text.has(n), `invoice PDF missing: ${n}`);
+  }
+  assert.ok(!text.text.includes('DIČ'), 'no seller DIČ is printed while the seller has no evidenced VAT registration');
+  // A replayed event allocates no second number.
+  await deliver('checkout.session.completed', s);
+  assert.equal((await order(o.orderId)).invoice.number, ord.invoice.number);
+  assert.equal(kv.get('seq:invoice:company_ledger:test:' + new Date().getUTCFullYear()), '1');
+  assert.ok(!kv.has('seq:invoice:company_ledger:' + new Date().getUTCFullYear()), 'the real series is untouched by a test order');
+  // Refund: one credit note in the TEST series, its PDF joins the order documents.
+  refunds.set(`ch_${o.id}`, [{ id: 're_scope1', object: 'refund', amount: PRICE, status: 'succeeded' }]);
+  const rr = await deliver('charge.refunded', charge(s, { amount_refunded: PRICE, refunded: true }));
+  assert.equal(rr.body.creditNotes, 1, JSON.stringify(rr.body));
+  await deliver('charge.refunded', charge(s, { amount_refunded: PRICE, refunded: true }));
+  const after = await order(o.orderId);
+  assert.equal(after.creditNotes.length, 1);
+  assert.match(after.creditNotes[0].number, /^TEST-CAI-CN-\d{4}-00001$/);
+  const cn = await pdfText(store.objects.get(after.documents.creditNotes.re_scope1.key));
+  for (const n of [`TEST CREDIT NOTE ${after.creditNotes[0].number}`, `Corrects invoice ${ord.invoice.number}`, '-USD 14,900.00']) assert.ok(cn.has(n), `credit note missing: ${n}`);
+}));
+
+test('launch scope: other countries, invalid IČO, a VAT ID of another company, bank, EUR and certification are refused before any record or Stripe call', () => inScope(async () => {
+  const refusals = [
+    [{ ...BUYERS.de }, 'Czech Republic'],
+    [{ ...BUYERS.us }, 'Czech Republic'],
+    [{ ...CZ_OK, reg_number: '12345678' }, 'not a valid IČO'],
+    [{ ...CZ_OK, reg_number: '' }, 'company identification number'],
+    [{ ...CZ_OK, tax_id: 'CZ99999999' }, 'does not belong to this IČO'],
+  ];
+  for (const [buyer, says] of refusals) {
+    stripeCalls.length = 0;
+    const before = kv.size;
+    const o = await placeOrder(buyer);
+    assert.equal(o.res.statusCode, 409, `${buyer.country}/${buyer.reg_number}/${buyer.tax_id}`);
+    assert.ok(String(o.res.body).includes(says), `refusal names the reason: ${says}`);
+    assert.equal(sessionCreated(), false, 'no Stripe session');
+    assert.equal(kv.size, before, 'no acceptance or order record');
+  }
+  // Tampered links and direct API requests: refused, never silently corrected.
+  for (const [query, code] of [[{ method: 'bank' }, 'payment_method_not_in_launch_scope'], [{ currency: 'eur' }, 'currency_not_in_launch_scope'], [{ cert: 'year' }, 'certification_not_in_launch_scope']]) {
+    const page = await getPage(query);
+    assert.equal(page.statusCode, 409, JSON.stringify(query));
+    assert.equal(page.body.code, code);
+    stripeCalls.length = 0;
+    const o = await placeOrder(CZ_OK, query);
+    assert.equal(o.res.statusCode, 409);
+    assert.equal(o.res.body.code, code);
+    assert.equal(sessionCreated(), false);
+  }
+}));
+
+test('launch scope: a billing address or tax ID changed on Stripe\'s page after our form is withheld, not delivered', () => inScope(async () => {
+  const o = await placeOrder(CZ_OK);
+  assert.equal(o.res.statusCode, 303);
+  const moved = finished(o, CZ_OK, { customer_details: { email: CZ_OK.email, business_name: CZ_OK.company, address: { country: 'DE' }, tax_ids: [] } });
+  const r = await deliver('checkout.session.completed', moved);
+  assert.equal(r.body.withheld, 'billing-country-out-of-launch-scope');
+  assert.equal((await order(o.orderId)).status, 'withheld');
+  assert.equal(await entitlement(CZ_OK.email), null);
+
+  const o2 = await placeOrder({ ...CZ_OK, email: 'jiny@zkusebni.example' });
+  const foreignVat = finished(o2, { ...CZ_OK, email: 'jiny@zkusebni.example' }, { customer_details: { email: 'jiny@zkusebni.example', business_name: CZ_OK.company, address: { country: 'CZ' }, tax_ids: [{ type: 'eu_vat', value: 'DE123456789' }] } });
+  assert.equal((await deliver('checkout.session.completed', foreignVat)).body.withheld, 'tax-id-out-of-launch-scope');
+
+  const o3 = await placeOrder({ ...CZ_OK, email: 'treti@zkusebni.example' });
+  const noAddress = finished(o3, { ...CZ_OK, email: 'treti@zkusebni.example' }, { customer_details: { email: 'treti@zkusebni.example', business_name: CZ_OK.company, address: null, tax_ids: [] } });
+  assert.equal((await deliver('checkout.session.completed', noAddress)).body.withheld, 'billing-country-missing');
+}));
