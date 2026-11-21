@@ -43,8 +43,8 @@ We do not take automated decisions with legal effect about you and we do not use
 
 | Provider | What for | Where |
 |---|---|---|
-| Vercel Inc. | hosting, function logs, and **private file storage (Vercel Blob)** of your order documents and the product packages, reachable only through time-limited links for the order's buyer | United States *[confirm regions from the dashboard]* |
-| Upstash Inc. | the database holding enquiry, order, acceptance, licence and evidence records | United States *[confirm region]* |
+| Vercel Inc. | hosting, function logs, and **private file storage (Vercel Blob)** of your order documents and the product packages, reachable only through time-limited links for the order's buyer | private file storage in the EU (Frankfurt, fra1); serverless functions and logs in the United States (Washington, D.C., iad1); Vercel is a US company |
+| Upstash Inc. | the database holding enquiry, order, acceptance, licence and evidence records | EU (Dublin, primary region dub1); Upstash is a US company |
 | Stripe Payments Europe, Ltd. / Stripe, Inc. | payments, tax ID verification, and where enabled invoice generation. Stripe is our processor for the payment and an independent controller for its own legal obligations (fraud prevention, financial regulation) | EU and United States |
 | Resend, Inc. | sending transactional e-mail (order confirmations, document and recovery links) | EU sending region (Ireland, eu-west-1, as configured for colleagueai.ai); Resend is a US company |
 | Plausible Insights OÜ | cookieless analytics | EU |
@@ -56,7 +56,7 @@ kept in the Trust Center.
 
 ## 5. Transfers outside the EEA
 
-Vercel, Upstash, Resend and Google process data in the United States. We rely on the EU-US Data Privacy Framework where
+Vercel (functions and logs) and Google process data in the United States; Upstash, Resend and Vercel Blob store data in the EU but are US companies whose staff or sub-processors may access it from the United States. We rely on the EU-US Data Privacy Framework where
 the provider is certified under it and otherwise on the European Commission's Standard Contractual Clauses contained in
 the provider's data-processing terms. Copies are available on request.
 
@@ -65,7 +65,7 @@ the provider's data-processing terms. Copies are available on request.
 | Data | Kept |
 |---|---|
 | Demo and enquiry requests | 12 months |
-| Order, acceptance and evidence records; invoices, credit notes and licence agreement confirmations | for the retention period that Czech accounting and tax law requires of us *[accountant: 10 years for tax documents under § 35 ZDPH; 5 years for accounting records — confirm]*, then deleted or anonymised |
+| Order, acceptance and evidence records; invoices, credit notes and licence agreement confirmations | for the retention period that Czech accounting and tax law requires of us *[accountant: the period under the Accounting Act (No. 563/1991 Coll., § 31) and, only if the company is VAT-registered, § 35 ZDPH — confirm the number of years]*, then deleted or anonymised |
 | Licence records | for as long as the licence can be exercised (a perpetual licence: until you ask us to close it) |
 | Support material | until the case is closed |
 | Analytics and error data | per the provider's standard retention, without identifying you |

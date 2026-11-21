@@ -18,6 +18,22 @@ legal and tax review of 21 November 2026 (items B1.1–B1.9, B2, B3). The live p
   are superseded by Licence §3 and Privacy §4/§5 of this set; #532 no longer touches a live page, and its seven
   machine translations are kept for the translator in `translations-2026-11-21-candidates.json` (not wired into the build).
 
+## Status of the drafts (21 Nov 2026, final for counsel)
+
+Every factual statement in the four drafts is now taken from a recorded fact: seller identification from the
+Commercial Register (no VAT identifier, none being verified), storage and processing regions from the Vercel and
+Upstash dashboards (Blob fra1, Upstash dub1, functions iad1, Resend eu-west-1), security contact hello@ (published in
+security.txt), first-sale scope from config/launch-scope.json. What is left open is only:
+
+| Open item | Where | Who |
+|---|---|---|
+| D1 / D1a support and security-support periods | Licence §5 | founder |
+| D2 controlling language, D3 law and forum, D4 liability cap | Terms §8, §10, §11 | founder |
+| D5 warranty of title | Licence §4(d) | published only after the IP instrument is signed |
+| retention years for accounting and tax records | Privacy §6 | accountant |
+| "Last updated" date and version labels | every draft | assigned on publication |
+| counsel's review of the whole set | all | counsel |
+
 ## How they become operative (no shortcut)
 
 1. Counsel validates or corrects the texts and the founder decides the open points below.
