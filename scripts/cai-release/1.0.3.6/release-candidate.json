@@ -1,15 +1,31 @@
 {
-  "_comment": "Release record for CAI-L4-CI-001 1.0.3.6 (the \"release\" entry of config/products.json without _comment and managedSolution). tests/cai-1036-release-candidate.test.mjs checks it against the bundle checksums, the documents, config/products.json and the download rules.",
+  "_comment": "Release record for CAI-L4-CI-001 1.0.3.6 (the \"release\" entry of config/products.json without _comment and managedSolution). Bundle revision 2 (21 Nov 2026) corrects documents only - LICENSE.txt release number, INSTALL §9 capacity symptom and first-upload miss (#533), revision labels and file names - with the same managed solution; revision 1 stays on record under previousBundles. tests/cai-1036-release-candidate.test.mjs checks it against the bundle checksums, the documents, config/products.json and the download rules.",
   "version": "1.0.3.6",
   "status": "controlled-test",
-  "package": "CAI-L4-CI-001_1.0.3.6.zip",
-  "sha256": "69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50",
-  "bytes": 368718,
+  "package": "CAI-L4-CI-001_1.0.3.6-r2.zip",
+  "sha256": "66639e7ffe1c41d9f403081f07655ff6587007726c8e965a9640601ae0fd9ac8",
+  "bytes": 370005,
+  "bundleRevision": 2,
   "managedSolution": {
     "file": "CAIContractIntelligence_1_0_3_6_managed.zip",
     "sha256": "cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8",
     "bytes": 122951
   },
   "releasedAt": "2026-11-19T00:00:00Z",
-  "correctiveFor": ["1.0.3.2", "1.0.3.3", "1.0.3.4"]
+  "bundleRevisedAt": "2026-11-21T00:00:00Z",
+  "correctiveFor": [
+    "1.0.3.2",
+    "1.0.3.3",
+    "1.0.3.4"
+  ],
+  "previousBundles": [
+    {
+      "bundleRevision": 1,
+      "package": "CAI-L4-CI-001_1.0.3.6.zip",
+      "sha256": "69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50",
+      "bytes": 368718,
+      "builtAt": "2026-11-19T00:00:00Z",
+      "note": "Delivered bundle of release 1.0.3.6 (test orders of 20 and 21 Nov 2026). Kept unchanged in private Blob and on record; its LICENSE.txt named release 1.0.3.2."
+    }
+  ]
 }

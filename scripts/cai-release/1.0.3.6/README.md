@@ -72,3 +72,33 @@ Tenant (details: Implementation Report section 12):
 2. `config/products.json`: 1.0.3.6 is the release, 1.0.3.4 and 1.0.3.2 stay as previous releases, `saleApproved` false.
 3. Public dossier replaced with the 1.0.3.6 dossier.
 4. Download through `/api/download` on the pull request's Preview with a test entitlement: see the pull request.
+
+## Bundle revision 2 (21 Nov 2026): documents only, same managed solution
+
+| Artifact | Bytes | SHA-256 |
+|---|---|---|
+| `CAI-L4-CI-001_1.0.3.6-r2.zip` (customer bundle, revision 2, reproducible) | 370,005 | `66639e7ffe1c41d9f403081f07655ff6587007726c8e965a9640601ae0fd9ac8` |
+| `CAIContractIntelligence_1_0_3_6_managed.zip` (unchanged) | 122,951 | `cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8` |
+| Revision 1, delivered, kept unchanged: `CAI-L4-CI-001_1.0.3.6.zip` | 368,718 | `69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50` |
+
+What changed (file checksums in `docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6-r2.txt`):
+
+- `LICENSE.txt`: named "release 1.0.3.2" in revision 1; now "release 1.0.3.6, bundle revision 2". No other wording
+  changed: the licence and release-status text that counsel is reviewing (`docs/legal/proposed/package-LICENSE-1.0.3.6.txt`)
+  is not used here; if counsel changes it, that is revision 3.
+- `INSTALL.md` §9 (PR #533): the Copilot-capacity symptom of the 20 Nov clean install and the first-upload miss.
+- `START-HERE.md`, `INSTALL.md`: bundle revision 2 and the file name `CAI-L4-CI-001_1.0.3.6-r2.zip`.
+- `check-cai-install-readiness.mjs`: the usage example names `--expect-version 1.0.3.6` (was 1.0.3.4); no logic change.
+- `MANIFEST.json`, the generated PDFs and `SHA256SUMS.txt` follow from the above.
+
+Unchanged: the managed solution, `DOSSIER.pdf` and `deploymentSettings.template.json` (same checksums as revision 1).
+
+Naming: `scripts/cai-release/build-bundle.py` keeps revision 1 on the historical name `CAI-L4-CI-001_<release>.zip` and
+gives every later revision its own name `CAI-L4-CI-001_<release>-r<N>.zip`, so no delivered bundle is overwritten.
+Built with `build_bundle_1036.sh` (the revision comes from `MANIFEST.template.json`); revision 1 was first rebuilt from
+`main` and matched `69b30676…` byte for byte, and two revision-2 builds were identical.
+
+Publication (founder): upload the file to private Blob as
+`agents/contract-intelligence-and-register/CAI-L4-CI-001_1.0.3.6-r2.zip` **before** this change reaches a deployment,
+because `config/products.json` then points downloads at it. Revision 1 stays in Blob. Buyers of 1.0.3.6 (only the two
+test orders so far) are then offered revision 2; their agreement confirmations keep the revision-1 hash they recorded.
