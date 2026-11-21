@@ -21,7 +21,7 @@ test('the scope names exactly one product, at the release and bundle revision co
   assert.equal(s.sku, P.sku);
   assert.equal(s.release, P.release.version);
   assert.equal(s.bundleRevision, P.release.bundleRevision);
-  assert.equal(P.release.package, 'CAI-L4-CI-001_1.0.3.6-r2.zip');
+  assert.equal(P.release.package, 'CAI-L4-CI-001_1.0.3.6-r3.zip');
   assert.deepEqual(LAUNCH_SCOPE.buyer.countries, ['CZ']);
   assert.deepEqual(LAUNCH_SCOPE.currencies, ['usd']);
   assert.deepEqual(LAUNCH_SCOPE.paymentMethods, ['card']);

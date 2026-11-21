@@ -1,18 +1,18 @@
 {
-  "_comment": "Release record for CAI-L4-CI-001 1.0.3.6 (the \"release\" entry of config/products.json without _comment and managedSolution). Bundle revision 2 (21 Nov 2026) corrects documents only - LICENSE.txt release number, INSTALL §9 capacity symptom and first-upload miss (#533), revision labels and file names - with the same managed solution; revision 1 stays on record under previousBundles. tests/cai-1036-release-candidate.test.mjs checks it against the bundle checksums, the documents, config/products.json and the download rules.",
+  "_comment": "Release record for CAI-L4-CI-001 1.0.3.6 (the \"release\" entry of config/products.json without _comment and managedSolution). Bundle revision 3 (22 Nov 2026) changes documents only, with the same managed solution: release status 'commercial release' instead of 'controlled test release, not for production use', LICENSE.txt with the Licence §5 support periods (24 months; security support period 24 months), dossier status line. Revisions 1 and 2 stay on record under previousBundles and unchanged in Blob. status stays 'controlled-test' (catalogue label 'not yet on general sale') until the founder's GO change. tests/cai-1036-release-candidate.test.mjs checks it against the bundle checksums, the documents, config/products.json and the download rules.",
   "version": "1.0.3.6",
   "status": "controlled-test",
-  "package": "CAI-L4-CI-001_1.0.3.6-r2.zip",
-  "sha256": "66639e7ffe1c41d9f403081f07655ff6587007726c8e965a9640601ae0fd9ac8",
-  "bytes": 370005,
-  "bundleRevision": 2,
+  "package": "CAI-L4-CI-001_1.0.3.6-r3.zip",
+  "sha256": "37a047c183bb3ff5ae33a5fefc59a6488ad84656720f5aaf19c14572473e051d",
+  "bytes": 371721,
+  "bundleRevision": 3,
   "managedSolution": {
     "file": "CAIContractIntelligence_1_0_3_6_managed.zip",
     "sha256": "cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8",
     "bytes": 122951
   },
   "releasedAt": "2026-11-19T00:00:00Z",
-  "bundleRevisedAt": "2026-11-21T00:00:00Z",
+  "bundleRevisedAt": "2026-11-22T00:00:00Z",
   "correctiveFor": [
     "1.0.3.2",
     "1.0.3.3",
@@ -26,6 +26,14 @@
       "bytes": 368718,
       "builtAt": "2026-11-19T00:00:00Z",
       "note": "Delivered bundle of release 1.0.3.6 (test orders of 20 and 21 Nov 2026). Kept unchanged in private Blob and on record; its LICENSE.txt named release 1.0.3.2."
+    },
+    {
+      "bundleRevision": 2,
+      "package": "CAI-L4-CI-001_1.0.3.6-r2.zip",
+      "sha256": "66639e7ffe1c41d9f403081f07655ff6587007726c8e965a9640601ae0fd9ac8",
+      "bytes": 370005,
+      "builtAt": "2026-11-21T00:00:00Z",
+      "note": "Bundle revision 2 (21 Nov 2026): LICENSE.txt release number, INSTALL §9, revision labels. Delivered to Preview test orders; kept unchanged in private Blob and on record. Its texts said 'controlled test release, not for production use'."
     }
   ]
 }

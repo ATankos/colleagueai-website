@@ -1,8 +1,8 @@
 # START HERE — ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 2 · **Tier** CAI L4 — Decide (supervised)
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 3 · **Tier** CAI L4 — Decide (supervised)
 
-> **Release status: controlled test release. Not for production use.**
+> **Release status: commercial release 1.0.3.6, bundle revision 3.** For production use within the scope, prerequisites and limits described in this guide; AI-extracted terms are unverified until a person in your organisation reviews them.
 > Each user sees only the contracts owned by their Dataverse owner team (INSTALL section 6).
 > Release 1.0.3.6 shows a notice deadline only when it is confirmed. Notice periods are kept as stated (for example 6 months) and counted on the calendar; a deadline that a reviewer has not confirmed is shown as *Deadline not verified — human review required*, with no date. **Before confirming a notice period, the reviewer must read the source contract itself, including its schedules, attachments, amendments and small print** (INSTALL section 9a). Values and text excerpts on the review card, in deadline texts and in the agent's answers are **extracted by AI and not verified against the document**, even when shown in quotation marks; the product labels them so (INSTALL sections 9a and 10). It also reports every processing failure (an unreadable file, a failed recalculation, a missing owner team) in the register and in Teams, and treats contracts with the same reference in different owner teams as separate contracts (INSTALL sections 9 and 9b). **Upgrading?** Read INSTALL section 4.
 
@@ -39,7 +39,7 @@
 On Windows, in PowerShell or Command Prompt, in the folder that holds the file:
 
 ```
-certutil -hashfile CAI-L4-CI-001_1.0.3.6-r2.zip SHA256
+certutil -hashfile CAI-L4-CI-001_1.0.3.6-r3.zip SHA256
 ```
 
 The result must match the SHA-256 shown on your order page. Inside the bundle, `SHA256SUMS.txt` lists the checksum of every file.

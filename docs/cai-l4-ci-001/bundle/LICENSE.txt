@@ -1,8 +1,30 @@
-ColleagueAI Contract Intelligence & Register (SKU CAI-L4-CI-001), release 1.0.3.6, bundle revision 2
-Copyright (c) 2026 Colleague AI s.r.o. All rights reserved.
+ColleagueAI Contract Intelligence & Register (SKU CAI-L4-CI-001), release 1.0.3.6, bundle revision 3
+Published by Colleague AI s.r.o., Skolska 1736/12, Nove Mesto, 110 00 Praha 1, Czech Republic
+(ICO 29540852, Municipal Court in Prague, file C 448176). All rights reserved by the rights holders.
 
-Use of this software is governed by the ColleagueAI licence
-terms published at https://www.colleagueai.ai/license and the terms of sale at
-https://www.colleagueai.ai/terms, as in force on the date of purchase.
+This release package is licensed, not sold. Your use of it is governed by the ColleagueAI
+Software & Agent Licence and the Terms of Service in the versions you accepted when you
+ordered. Those versions and their fingerprints are recorded on your order page and archived
+at https://www.colleagueai.ai/legal/archive/. The current texts are published at
+https://www.colleagueai.ai/license and https://www.colleagueai.ai/terms.
 
-Release status: controlled test release. Not for production use.
+Licence summary (the agreement itself prevails):
+- one Microsoft tenant of the licensed company; perpetual; non-exclusive; non-transferable;
+- no redistribution, resale, sublicensing or operation for third parties;
+- the Microsoft services the package runs on are licensed to you by Microsoft, not by us;
+- AI-extracted terms are unverified until a person in your organisation reviews them.
+
+Integrity: this package is identified by its SHA-256 checksum, published on your order page
+and in SHA256SUMS-1.0.3.6-r3.txt. Verify the checksum before you import the solution. The
+package is not digitally signed.
+
+Support (Licence Section 5): for 24 months from delivery, e-mail support at
+hello@colleagueai.ai (with your order number, the SKU and the release number) and corrective
+releases for defects in this release. Security support period of release 1.0.3.6: 24 months
+from delivery, with security updates in that period. No new functions and no indefinite free
+upgrades are promised.
+Security reports: see https://www.colleagueai.ai/.well-known/security.txt (accepted at any time).
+
+Release status: commercial release 1.0.3.6 (corrective release for 1.0.3.2 - 1.0.3.5),
+bundle revision 3. Third-party components and their licences are listed in
+docs/legal/third-party-licences.md in the ColleagueAI repository.
