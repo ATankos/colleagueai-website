@@ -352,7 +352,8 @@ test('the pricing CTA cannot reintroduce tailored-proposal scoping', () => {
   assert.ok(!/prepare a tailored proposal/i.test(html),
     'pricing page still implies a tailored proposal after scoping');
 
-  const band = "Bring a use case and we will help you identify the appropriate fixed-price agent package and clarify customer-managed deployment prerequisites.";
+  // The bottom band invites a demo of the one released package at its published price; it never offers scoping.
+  const band = "A 30-minute guided evaluation on sample contracts in a test tenant, with the review step and the register on screen.";
   assert.ok(html.includes(band),
     'pricing page is missing the fixed-price package-selection bottom-band copy');
   assert.ok(dict[band],
@@ -363,8 +364,8 @@ test('the pricing CTA cannot reintroduce tailored-proposal scoping', () => {
     const built = read(`dist/${loc}/pricing.html`);
     assert.ok(!/Request a tailored proposal/i.test(built),
       `dist/${loc}/pricing.html still exposes the English legacy CTA`);
-    assert.ok(built.includes(dict['Discuss your agent portfolio'][loc]),
-      `dist/${loc}/pricing.html is missing the localized portfolio CTA`);
+    assert.ok(built.includes(dict['Questions before you buy?'][loc]),
+      `dist/${loc}/pricing.html is missing the localized contact heading`);
     assert.ok(built.includes(dict[band][loc]),
       `dist/${loc}/pricing.html is missing the localized bottom-band paragraph`);
   }
@@ -397,8 +398,8 @@ test('the pricing page cannot claim five package tiers', () => {
 test('pricing final polish keeps fixed commercial terms, localized SEO and working tier analytics', () => {
   const html = read('public/pricing.html');
   const dict = JSON.parse(read('scripts/i18n/pricing-content.json'));
-  const metaEn = "Explore fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
-  const ogEn = "Fixed one-time licence pricing for governed enterprise AI agent packages: $7,900 for L2, $9,900 for L3 and $14,900 for L4, with optional Continuous Certification.";
+  const metaEn = "Contract Intelligence &amp; Register costs $14,900 once: a perpetual licence for one Microsoft tenant, the release package and the installation guide. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.";
+  const ogEn = "One product, one published price: Contract Intelligence &amp; Register for $14,900 once. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.";
   const foundingNew = "Founding customers may qualify for preferential payment or Continuous Certification terms in exchange for structured product and deployment feedback and permission to develop an approved case study. Published agent licence prices remain fixed.";
   const deploymentNew = "The published agent licence price is fixed. Customer deployment effort may vary depending on integrations, data readiness, governance requirements and the customer's deployment approach. These deployment costs are borne by the customer or agreed separately with its implementation partner.";
 

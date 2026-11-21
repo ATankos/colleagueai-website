@@ -78,6 +78,9 @@ jobs:
       - name: Tax policy cannot be acted on before the accountant approves it
         run: node --test tests/tax-policy.test.mjs
 
+      - name: VAT-payer threshold watch (lib/vatTurnover.js)
+        run: node --test tests/vat-turnover.test.mjs
+
       - name: Invoice and credit-note adapters are idempotent and fail closed; payouts reconcile to orders
         run: node --test tests/invoicing.test.mjs
 
@@ -108,6 +111,9 @@ jobs:
 
       - name: Accepted agreements are provable word for word (fingerprints, append-only archive, no silent edits)
         run: node --test tests/legal-archive.test.mjs
+
+      - name: Release gates are well-formed and the release certifier runs (manual gates never upgraded)
+        run: node --test tests/release-gates.test.mjs
 
       - name: Shipped open-source packages stay under permissive licences
         run: node --test tests/licence-inventory.test.mjs

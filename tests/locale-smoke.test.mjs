@@ -52,9 +52,10 @@ test('catalogue pages: scripts run and core features work in every language', { 
     const d = dom.window.document;
     assert.deepStrictEqual(errors, [], `${loc}: JS errors on agents page`);
     assert.ok(d.querySelectorAll('#grid .card').length >= 12, `${loc}: agent grid empty`);
-    // walkthrough advances (this is what the FR/IT apostrophe bug killed)
-    d.querySelector('[data-proof-action="next"]').click();
-    assert.ok(/^2/.test(d.querySelector('[data-proof-title]').textContent), `${loc}: walkthrough step 2 broken`);
+    // the drawer opens from a card and names the agent (the static walkthrough that used to be exercised here,
+    // a fictional reconciliation case for a concept agent, was removed from the page)
+    d.querySelector('#grid .card').click();
+    assert.ok(d.getElementById('d-name').textContent.trim().length > 3, `${loc}: drawer did not open from the first card`);
     dom.window.close();
   }
 });

@@ -14,7 +14,7 @@ texts and agent answer checked).
 
 # Installation guide: ColleagueAI Contract Intelligence & Register
 
-**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 1
+**SKU** CAI-L4-CI-001 · **Release** 1.0.3.6 · **Bundle revision** 2
 
 > **Release status: controlled test release. Not for production use.**
 > Who sees which contracts is controlled by Dataverse **owner teams** (section 6). A user sees only the contracts owned by their team.
@@ -142,7 +142,7 @@ Contracts outside the window are still recalculated the moment one of their docu
 ## 4. Import (recommended: in the browser)
 
 1. Go to **make.powerapps.com** and pick your environment (top right).
-2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.6.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_6_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
+2. **Extract the bundle you downloaded** (right-click `CAI-L4-CI-001_1.0.3.6-r2.zip` → *Extract All*). Inside the new folder you find `CAIContractIntelligence_1_0_3_6_managed.zip`. That inner file is the one you import, **as it is: do not extract it**.
 3. Open **Solutions → Import solution → Browse**, choose that inner file, and click **Next**.
 4. **Connections.** You are asked for four connection references: two for **Microsoft Dataverse**, one for **SharePoint** and one for **Microsoft Teams**. Use one System Administrator account for all of them, and create them here in the import wizard or in **Power Automate → Connections**. Pick the same Dataverse connection for both Dataverse references. The second Dataverse reference (its name starts with `cai_CAIContractIntelligenceAssistant`) belongs to the agent; when people chat, the agent reads the register with each user's own sign-in, not with this connection. **Whatever connection you pick here, the import may publish the agent on its own** (it did in three of our five fresh installs, once with a connection created in the wizard and twice with connections that already existed, and did not in the other two; section 7 explains and tells you what to check and do right after the import). Each reference must show a connection before you continue.
 5. **Environment variables.** Enter the five values from section 3, then click **Import**. On a fresh install the five fields are empty; the package ships no placeholder values.
@@ -301,8 +301,8 @@ Use an account that is a **member of the contract owner team**.
 
 If step 1 shows nothing after 5 minutes, check that:
 - the reviewer did not receive a *Contract file could not be read* message instead (section 9b);
-- the file was added at least a minute after **Extract contract on upload** was turned on. A file added in the first minute after the flow is turned on can be missed (seen once, 19 November 2026); upload a copy of it under a different file name;
-- the environment has Copilot Studio capacity (section 1);
+- the file was added at least a minute after **Extract contract on upload** was turned on. A file added before the trigger's first poll after an import or after the flow is turned on can be missed (seen on 19 and 20 November 2026); wait two minutes after the import or after turning the flow on, or upload a copy of the file under a different file name;
+- the environment has Copilot Studio capacity (section 1). Without it the trigger fires but the run fails in under a second with no action executed, and the flow's **Flow checker** (Power Automate → the flow → Flow checker) shows the warning *This environment has insufficient Copilot Credits*. Add the environment to a Copilot Studio pay-as-you-go billing plan or allocate prepaid credits (Power Platform admin center → Licensing → Copilot Studio), then turn **Extract contract on upload** off and on once and upload a copy of the file under a new name (seen on 20 November 2026 in a clean environment that was in no billing plan);
 - all five values in section 3 are filled in, and the team exists with exactly that name (section 6);
 - the flows are on (section 5).
 

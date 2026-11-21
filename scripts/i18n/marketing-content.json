@@ -2185,5 +2185,77 @@
     "it": "Indirizzo e-mail del destinatario e contenuto del messaggio",
     "pl": "Adres e-mail odbiorcy i treść wiadomości",
     "pt": "Endereço de e-mail do destinatário e conteúdo da mensagem"
+  },
+  "How a deployment is set up": {
+    "cs": "Jak nasazení probíhá",
+    "de": "So ist eine Bereitstellung aufgebaut",
+    "fr": "Comment se déroule un déploiement",
+    "es": "Cómo se configura un despliegue",
+    "it": "Come si imposta un deployment",
+    "pl": "Jak wygląda wdrożenie",
+    "pt": "Como se configura uma implementação"
+  },
+  "You install the package in your own Microsoft environment and keep control of the tenant, the identities, the data sources and the audit evidence. ColleagueAI never connects to your tenant and receives none of your business content; we keep only the records of your order, licence and downloads.": {
+    "cs": "Balíček si nainstalujete do vlastního prostředí Microsoft a ponecháte si kontrolu nad tenantem, identitami, zdroji dat i auditními důkazy. ColleagueAI se k vašemu tenantu nikdy nepřipojuje a nedostává žádný váš obchodní obsah; uchováváme jen záznamy o vaší objednávce, licenci a stažení.",
+    "de": "Sie installieren das Paket in Ihrer eigenen Microsoft-Umgebung und behalten die Kontrolle über Tenant, Identitäten, Datenquellen und Audit-Nachweise. ColleagueAI verbindet sich nie mit Ihrem Tenant und erhält keine Ihrer Geschäftsinhalte; wir bewahren nur die Daten zu Ihrer Bestellung, Lizenz und Ihren Downloads auf.",
+    "fr": "Vous installez le package dans votre propre environnement Microsoft et gardez le contrôle du tenant, des identités, des sources de données et des preuves d’audit. ColleagueAI ne se connecte jamais à votre tenant et ne reçoit aucun de vos contenus métier ; nous ne conservons que les données de votre commande, de votre licence et de vos téléchargements.",
+    "es": "Instala el paquete en su propio entorno de Microsoft y conserva el control del tenant, las identidades, las fuentes de datos y las evidencias de auditoría. ColleagueAI nunca se conecta a su tenant ni recibe ningún contenido de negocio; solo guardamos los registros de su pedido, licencia y descargas.",
+    "it": "Installate il pacchetto nel vostro ambiente Microsoft e mantenete il controllo di tenant, identità, fonti dati ed evidenze di audit. ColleagueAI non si collega mai al vostro tenant e non riceve alcun contenuto aziendale; conserviamo solo i record di ordine, licenza e download.",
+    "pl": "Instalujesz pakiet we własnym środowisku Microsoft i zachowujesz kontrolę nad tenantem, tożsamościami, źródłami danych i dowodami audytowymi. ColleagueAI nigdy nie łączy się z Twoim tenantem i nie otrzymuje żadnych treści biznesowych; przechowujemy tylko rekordy zamówienia, licencji i pobrań.",
+    "pt": "Instala o pacote no seu próprio ambiente Microsoft e mantém o controlo do tenant, das identidades, das fontes de dados e das evidências de auditoria. A ColleagueAI nunca se liga ao seu tenant nem recebe qualquer conteúdo de negócio; guardamos apenas os registos da sua encomenda, licença e transferências."
+  },
+  "Your data stays where it is: the package works against your own SharePoint, Dataverse and Teams.": {
+    "cs": "Vaše data zůstávají, kde jsou: balíček pracuje s vaším vlastním SharePointem, Dataverse a Teams.",
+    "de": "Ihre Daten bleiben, wo sie sind: das Paket arbeitet mit Ihrem eigenen SharePoint, Dataverse und Teams.",
+    "fr": "Vos données restent où elles sont : le package travaille avec vos propres SharePoint, Dataverse et Teams.",
+    "es": "Sus datos se quedan donde están: el paquete trabaja con su propio SharePoint, Dataverse y Teams.",
+    "it": "I vostri dati restano dove sono: il pacchetto lavora con i vostri SharePoint, Dataverse e Teams.",
+    "pl": "Twoje dane zostają tam, gdzie są: pakiet pracuje na Twoim własnym SharePoint, Dataverse i Teams.",
+    "pt": "Os seus dados ficam onde estão: o pacote trabalha com o seu próprio SharePoint, Dataverse e Teams."
+  },
+  "Your permissions apply: users see only what their Microsoft roles already allow.": {
+    "cs": "Platí vaše oprávnění: uživatelé vidí jen to, co jim už dovolují jejich role v Microsoftu.",
+    "de": "Ihre Berechtigungen gelten: Nutzer sehen nur, was ihre Microsoft-Rollen ohnehin erlauben.",
+    "fr": "Vos permissions s’appliquent : les utilisateurs ne voient que ce que leurs rôles Microsoft autorisent déjà.",
+    "es": "Se aplican sus permisos: los usuarios solo ven lo que sus roles de Microsoft ya permiten.",
+    "it": "Valgono le vostre autorizzazioni: gli utenti vedono solo ciò che i loro ruoli Microsoft già consentono.",
+    "pl": "Obowiązują Twoje uprawnienia: użytkownicy widzą tylko to, na co już pozwalają ich role w Microsoft.",
+    "pt": "As suas permissões aplicam-se: os utilizadores só veem o que as suas funções Microsoft já permitem."
+  },
+  "Controls come with the package: each one carries a CAI Score tier, a named human role and the evidence it produces.": {
+    "cs": "Kontroly jsou součástí balíčku: každý nese úroveň CAI Score, jmenovanou roli člověka a důkazy, které vytváří.",
+    "de": "Kontrollen kommen mit dem Paket: jedes trägt eine CAI-Score-Stufe, eine benannte menschliche Rolle und die Nachweise, die es erzeugt.",
+    "fr": "Les contrôles font partie du package : chacun porte un niveau CAI Score, un rôle humain nommé et les preuves qu’il produit.",
+    "es": "Los controles vienen con el paquete: cada uno lleva un nivel CAI Score, un rol humano designado y la evidencia que produce.",
+    "it": "I controlli arrivano con il pacchetto: ciascuno ha un livello CAI Score, un ruolo umano designato e le evidenze che produce.",
+    "pl": "Kontrole są częścią pakietu: każdy ma poziom CAI Score, wyznaczoną rolę człowieka i dowody, które generuje.",
+    "pt": "Os controlos vêm com o pacote: cada um tem um nível CAI Score, um papel humano designado e as evidências que produz."
+  },
+  "Evaluate before you buy": {
+    "cs": "Vyhodnoťte před nákupem",
+    "de": "Vor dem Kauf bewerten",
+    "fr": "Évaluez avant d’acheter",
+    "es": "Evalúe antes de comprar",
+    "it": "Valutate prima di acquistare",
+    "pl": "Oceń przed zakupem",
+    "pt": "Avalie antes de comprar"
+  },
+  "Read the factsheet, book a guided evaluation on sample contracts in a test tenant, run the ROI calculator with your own numbers and review the governance evidence on this page. Customers who later choose to may approve an anonymised case study after deployment; publication is never a condition of purchase.": {
+    "cs": "Přečtěte si produktový list, domluvte si vedené vyhodnocení na vzorových smlouvách v testovacím tenantu, spočítejte si ROI s vlastními čísly a projděte důkazy o řízení na této stránce. Zákazníci, kteří se později rozhodnou, mohou po nasazení schválit anonymizovanou případovou studii; zveřejnění nikdy není podmínkou nákupu.",
+    "de": "Lesen Sie das Factsheet, buchen Sie eine begleitete Bewertung an Beispielverträgen in einem Test-Tenant, rechnen Sie den ROI mit Ihren eigenen Zahlen und prüfen Sie die Governance-Nachweise auf dieser Seite. Kunden, die es später möchten, können nach der Bereitstellung eine anonymisierte Fallstudie freigeben; eine Veröffentlichung ist nie Bedingung für den Kauf.",
+    "fr": "Lisez la fiche produit, réservez une évaluation guidée sur des contrats d’exemple dans un tenant de test, lancez le calculateur de ROI avec vos propres chiffres et examinez les preuves de gouvernance sur cette page. Les clients qui le souhaitent peuvent ensuite approuver une étude de cas anonymisée après déploiement ; la publication n’est jamais une condition d’achat.",
+    "es": "Lea la ficha del producto, reserve una evaluación guiada con contratos de ejemplo en un tenant de prueba, use la calculadora de ROI con sus propias cifras y revise la evidencia de gobernanza en esta página. Los clientes que más adelante lo deseen pueden aprobar un caso de estudio anonimizado tras el despliegue; la publicación nunca es condición de compra.",
+    "it": "Leggete la scheda prodotto, prenotate una valutazione guidata su contratti di esempio in un tenant di test, usate il calcolatore di ROI con i vostri numeri e verificate le evidenze di governance in questa pagina. I clienti che in seguito lo vorranno potranno approvare un caso di studio anonimizzato dopo il deployment; la pubblicazione non è mai una condizione di acquisto.",
+    "pl": "Przeczytaj kartę produktu, umów ocenę z przewodnikiem na przykładowych umowach w testowym tenancie, policz ROI na własnych liczbach i przejrzyj dowody ładu na tej stronie. Klienci, którzy później zechcą, mogą po wdrożeniu zatwierdzić zanonimizowane studium przypadku; publikacja nigdy nie jest warunkiem zakupu.",
+    "pt": "Leia a ficha do produto, marque uma avaliação guiada com contratos de exemplo num tenant de teste, use a calculadora de ROI com os seus próprios números e reveja as evidências de governação nesta página. Os clientes que mais tarde o desejarem podem aprovar um estudo de caso anonimizado após a implementação; a publicação nunca é condição de compra."
+  },
+  "Book a demo": {
+    "cs": "Domluvit demo",
+    "de": "Demo buchen",
+    "fr": "Réserver une démo",
+    "es": "Reservar una demo",
+    "it": "Prenota una demo",
+    "pl": "Umów demo",
+    "pt": "Marcar uma demo"
   }
 }

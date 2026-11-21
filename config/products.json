@@ -12,14 +12,26 @@
     "release": {
       "version": "1.0.3.6",
       "status": "controlled-test",
-      "package": "CAI-L4-CI-001_1.0.3.6.zip",
-      "sha256": "69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50",
-      "bytes": 368718,
+      "package": "CAI-L4-CI-001_1.0.3.6-r2.zip",
+      "sha256": "66639e7ffe1c41d9f403081f07655ff6587007726c8e965a9640601ae0fd9ac8",
+      "bytes": 370005,
+      "bundleRevision": 2,
       "releasedAt": "2026-11-19T00:00:00Z",
+      "bundleRevisedAt": "2026-11-21T00:00:00Z",
       "correctiveFor": [
         "1.0.3.2",
         "1.0.3.3",
         "1.0.3.4"
+      ],
+      "previousBundles": [
+        {
+          "bundleRevision": 1,
+          "package": "CAI-L4-CI-001_1.0.3.6.zip",
+          "sha256": "69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50",
+          "bytes": 368718,
+          "builtAt": "2026-11-19T00:00:00Z",
+          "note": "Delivered bundle of release 1.0.3.6 (test orders of 20 and 21 Nov 2026). Kept unchanged in private Blob and on record; its LICENSE.txt named release 1.0.3.2."
+        }
       ]
     },
     "previousReleases": [

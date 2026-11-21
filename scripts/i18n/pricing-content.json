@@ -1690,5 +1690,527 @@
     "it": "Ogni pacchetto agente è un prodotto standardizzato venduto al prezzo di licenza pubblicato per il relativo livello CAI. Il contenuto del pacchetto è definito per l’agente selezionato; il lavoro di deployment specifico del cliente è fuori licenza e resta a carico del cliente o del suo partner di implementazione. Oggi un solo agente ha un pacchetto rilasciato: Contract Intelligence & Register, come soluzione gestita Copilot Studio. Gli altri agenti del catalogo sono concept con il solo dossier; un pacchetto viene elencato per un agente solo dopo il test di installazione.",
     "pl": "Każdy pakiet agenta jest standaryzowanym produktem sprzedawanym po opublikowanej cenie licencji dla danego poziomu CAI. Zawartość pakietu jest zdefiniowana dla wybranego agenta; prace wdrożeniowe specyficzne dla klienta są poza licencją i pozostają po stronie klienta lub jego partnera wdrożeniowego. Obecnie jeden agent ma wydany pakiet: Contract Intelligence & Register, jako zarządzane rozwiązanie Copilot Studio. Pozostali agenci w katalogu to koncepcje z samym dossier; pakiet jest wymieniany dla agenta dopiero po teście instalacji.",
     "pt": "Cada pacote de agente é um produto padronizado vendido ao preço de licença publicado para o respetivo nível CAI. O conteúdo do pacote é definido para o agente selecionado; o trabalho de deployment específico do cliente fica fora da licença e permanece a cargo do cliente ou do seu parceiro de implementação. Hoje um agente tem um pacote lançado: Contract Intelligence & Register, como solução gerida do Copilot Studio. Os restantes agentes do catálogo são conceitos apenas com dossier; um pacote só é listado para um agente depois de testado na instalação."
+  },
+  "Pricing | ColleagueAI": {
+    "cs": "Ceník | ColleagueAI",
+    "de": "Preise | ColleagueAI",
+    "fr": "Tarifs | ColleagueAI",
+    "es": "Precios | ColleagueAI",
+    "it": "Prezzi | ColleagueAI",
+    "pl": "Cennik | ColleagueAI",
+    "pt": "Preços | ColleagueAI"
+  },
+  "One product, one published price: Contract Intelligence &amp; Register for $14,900 once. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.": {
+    "cs": "Jeden produkt, jedna zveřejněná cena: Contract Intelligence &amp; Register za $14,900 jednorázově. Ceny balíčků agentů jsou pevně dané úrovní CAI: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4.",
+    "de": "Ein Produkt, ein veröffentlichter Preis: Contract Intelligence &amp; Register für einmalig $14,900. Die Preise der Agentenpakete sind nach CAI-Stufe fest: $7,900 für L2, $9,900 für L3 und $14,900 für L4.",
+    "fr": "Un produit, un prix publié : Contract Intelligence &amp; Register pour $14,900 en une fois. Les prix des packages sont fixés par niveau CAI : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4.",
+    "es": "Un producto, un precio publicado: Contract Intelligence &amp; Register por $14,900 en un solo pago. Los precios de los paquetes son fijos por nivel CAI: $7,900 para L2, $9,900 para L3 y $14,900 para L4.",
+    "it": "Un prodotto, un prezzo pubblicato: Contract Intelligence &amp; Register a $14,900 una tantum. I prezzi dei pacchetti sono fissi per livello CAI: $7,900 per L2, $9,900 per L3 e $14,900 per L4.",
+    "pl": "Jeden produkt, jedna opublikowana cena: Contract Intelligence &amp; Register za $14,900 jednorazowo. Ceny pakietów agentów są stałe według poziomu CAI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4.",
+    "pt": "Um produto, um preço publicado: Contract Intelligence &amp; Register por $14,900, uma única vez. Os preços dos pacotes são fixos por nível CAI: $7,900 para L2, $9,900 para L3 e $14,900 para L4."
+  },
+  "One product, one published price.": {
+    "cs": "Jeden produkt, jedna zveřejněná cena.",
+    "de": "Ein Produkt, ein veröffentlichter Preis.",
+    "fr": "Un produit, un prix publié.",
+    "es": "Un producto, un precio publicado.",
+    "it": "Un prodotto, un prezzo pubblicato.",
+    "pl": "Jeden produkt, jedna opublikowana cena.",
+    "pt": "Um produto, um preço publicado."
+  },
+  "What the price includes": {
+    "cs": "Co cena zahrnuje",
+    "de": "Was im Preis enthalten ist",
+    "fr": "Ce que comprend le prix",
+    "es": "Qué incluye el precio",
+    "it": "Cosa comprende il prezzo",
+    "pl": "Co obejmuje cena",
+    "pt": "O que o preço inclui"
+  },
+  "Price list by tier": {
+    "cs": "Ceník podle úrovní",
+    "de": "Preisliste nach Stufe",
+    "fr": "Tarifs par niveau",
+    "es": "Precios por nivel",
+    "it": "Listino per livello",
+    "pl": "Cennik według poziomów",
+    "pt": "Preços por nível"
+  },
+  "Ask before you buy": {
+    "cs": "Zeptejte se před nákupem",
+    "de": "Vor dem Kauf fragen",
+    "fr": "Demander avant d’acheter",
+    "es": "Pregunte antes de comprar",
+    "it": "Chiedete prima di acquistare",
+    "pl": "Zapytaj przed zakupem",
+    "pt": "Pergunte antes de comprar"
+  },
+  "CAI L4 · Release 1.0.3.6 · Controlled release": {
+    "cs": "CAI L4 · Verze 1.0.3.6 · Řízené vydání",
+    "de": "CAI L4 · Release 1.0.3.6 · Kontrollierte Freigabe",
+    "fr": "CAI L4 · Version 1.0.3.6 · Version contrôlée",
+    "es": "CAI L4 · Versión 1.0.3.6 · Versión controlada",
+    "it": "CAI L4 · Release 1.0.3.6 · Rilascio controllato",
+    "pl": "CAI L4 · Wersja 1.0.3.6 · Wydanie kontrolowane",
+    "pt": "CAI L4 · Versão 1.0.3.6 · Versão controlada"
+  },
+  "One-time · perpetual licence · one Microsoft tenant": {
+    "cs": "Jednorázově · trvalá licence · jeden tenant Microsoft",
+    "de": "Einmalig · unbefristete Lizenz · ein Microsoft-Tenant",
+    "fr": "Paiement unique · licence perpétuelle · un tenant Microsoft",
+    "es": "Pago único · licencia perpetua · un tenant de Microsoft",
+    "it": "Una tantum · licenza perpetua · un tenant Microsoft",
+    "pl": "Jednorazowo · licencja bezterminowa · jeden tenant Microsoft",
+    "pt": "Pagamento único · licença perpétua · um tenant Microsoft"
+  },
+  "Reads the contracts in one SharePoint library, extracts the terms with evidence, keeps a reviewed register in Dataverse, recalculates notice deadlines daily and answers questions in Teams.": {
+    "cs": "Čte smlouvy v jedné knihovně SharePoint, vytahuje podmínky s důkazy, vede schválený registr v Dataverse, denně přepočítává výpovědní lhůty a odpovídá na otázky v Teams.",
+    "de": "Liest die Verträge in einer SharePoint-Bibliothek, extrahiert die Konditionen mit Belegen, führt ein geprüftes Register in Dataverse, berechnet Kündigungsfristen täglich neu und beantwortet Fragen in Teams.",
+    "fr": "Lit les contrats d’une bibliothèque SharePoint, extrait les clauses avec leurs justificatifs, tient un registre validé dans Dataverse, recalcule chaque jour les préavis et répond aux questions dans Teams.",
+    "es": "Lee los contratos de una biblioteca de SharePoint, extrae las condiciones con evidencias, mantiene un registro revisado en Dataverse, recalcula a diario los plazos de preaviso y responde preguntas en Teams.",
+    "it": "Legge i contratti in una libreria SharePoint, estrae le clausole con le evidenze, tiene un registro verificato in Dataverse, ricalcola ogni giorno i termini di preavviso e risponde alle domande in Teams.",
+    "pl": "Czyta umowy w jednej bibliotece SharePoint, wyodrębnia warunki z dowodami, prowadzi zweryfikowany rejestr w Dataverse, codziennie przelicza okresy wypowiedzenia i odpowiada na pytania w Teams.",
+    "pt": "Lê os contratos numa biblioteca SharePoint, extrai as condições com evidências, mantém um registo revisto no Dataverse, recalcula diariamente os prazos de pré-aviso e responde a perguntas no Teams."
+  },
+  "Read the factsheet": {
+    "cs": "Přečíst produktový list",
+    "de": "Factsheet lesen",
+    "fr": "Lire la fiche produit",
+    "es": "Leer la ficha del producto",
+    "it": "Leggi la scheda prodotto",
+    "pl": "Przeczytaj kartę produktu",
+    "pt": "Ler a ficha do produto"
+  },
+  "Included in the price": {
+    "cs": "V ceně",
+    "de": "Im Preis enthalten",
+    "fr": "Compris dans le prix",
+    "es": "Incluido en el precio",
+    "it": "Compreso nel prezzo",
+    "pl": "W cenie",
+    "pt": "Incluído no preço"
+  },
+  "Not included": {
+    "cs": "Není zahrnuto",
+    "de": "Nicht enthalten",
+    "fr": "Non compris",
+    "es": "No incluido",
+    "it": "Non compreso",
+    "pl": "Nie obejmuje",
+    "pt": "Não incluído"
+  },
+  "Perpetual licence to release 1.0.3.6 for one Microsoft tenant": {
+    "cs": "Trvalá licence k verzi 1.0.3.6 pro jeden tenant Microsoft",
+    "de": "Unbefristete Lizenz für Release 1.0.3.6 für einen Microsoft-Tenant",
+    "fr": "Licence perpétuelle pour la version 1.0.3.6, pour un tenant Microsoft",
+    "es": "Licencia perpetua de la versión 1.0.3.6 para un tenant de Microsoft",
+    "it": "Licenza perpetua della release 1.0.3.6 per un tenant Microsoft",
+    "pl": "Licencja bezterminowa na wersję 1.0.3.6 dla jednego tenanta Microsoft",
+    "pt": "Licença perpétua da versão 1.0.3.6 para um tenant Microsoft"
+  },
+  "Installation guide and readiness checklist": {
+    "cs": "Instalační příručka a kontrolní seznam připravenosti",
+    "de": "Installationsanleitung und Readiness-Checkliste",
+    "fr": "Guide d’installation et liste de vérification",
+    "es": "Guía de instalación y lista de preparación",
+    "it": "Guida all’installazione e checklist di preparazione",
+    "pl": "Instrukcja instalacji i lista kontrolna gotowości",
+    "pt": "Guia de instalação e lista de verificação de prontidão"
+  },
+  "Corrective releases for defects in this release, at no further licence fee": {
+    "cs": "Opravná vydání pro vady této verze bez dalšího licenčního poplatku",
+    "de": "Korrektur-Releases für Fehler dieser Version ohne weitere Lizenzgebühr",
+    "fr": "Versions correctives des défauts de cette version, sans frais de licence supplémentaires",
+    "es": "Versiones correctivas de defectos de esta versión, sin coste de licencia adicional",
+    "it": "Release correttive dei difetti di questa versione, senza ulteriori costi di licenza",
+    "pl": "Wydania naprawcze dla wad tej wersji bez dodatkowej opłaty licencyjnej",
+    "pt": "Versões corretivas para defeitos desta versão, sem custo de licença adicional"
+  },
+  "E-mail support with your order reference": {
+    "cs": "E-mailová podpora s číslem objednávky",
+    "de": "E-Mail-Support mit Ihrer Bestellnummer",
+    "fr": "Support par e-mail avec votre référence de commande",
+    "es": "Soporte por correo electrónico con su referencia de pedido",
+    "it": "Supporto via e-mail con il riferimento dell’ordine",
+    "pl": "Wsparcie e-mail z numerem zamówienia",
+    "pt": "Suporte por e-mail com a referência da encomenda"
+  },
+  "Your licence agreement confirmation and invoice on your order page": {
+    "cs": "Potvrzení licenční smlouvy a faktura na stránce objednávky",
+    "de": "Ihre Lizenzvertragsbestätigung und Rechnung auf Ihrer Bestellseite",
+    "fr": "La confirmation de votre contrat de licence et la facture sur votre page de commande",
+    "es": "La confirmación del contrato de licencia y la factura en su página de pedido",
+    "it": "La conferma del contratto di licenza e la fattura nella pagina dell’ordine",
+    "pl": "Potwierdzenie umowy licencyjnej i faktura na stronie zamówienia",
+    "pt": "A confirmação do contrato de licença e a fatura na página da encomenda"
+  },
+  "Microsoft licences or Copilot Studio capacity: Microsoft bills your usage, roughly USD 0.22-0.40 per 15-page contract extraction at pay-as-you-go prices (our test estimate)": {
+    "cs": "Licence Microsoft ani kapacita Copilot Studio: spotřebu vám účtuje Microsoft, zhruba USD 0,22-0,40 za extrakci 15stránkové smlouvy při cenách pay-as-you-go (náš testovací odhad)",
+    "de": "Microsoft-Lizenzen oder Copilot-Studio-Kapazität: Microsoft rechnet Ihre Nutzung ab, etwa USD 0,22-0,40 je Extraktion eines 15-seitigen Vertrags zu Pay-as-you-go-Preisen (unsere Testschätzung)",
+    "fr": "Licences Microsoft ou capacité Copilot Studio : Microsoft facture votre consommation, environ 0,22 à 0,40 USD par extraction d’un contrat de 15 pages au tarif à l’usage (notre estimation en test)",
+    "es": "Licencias de Microsoft o capacidad de Copilot Studio: Microsoft factura su consumo, unos 0,22-0,40 USD por extracción de un contrato de 15 páginas a precios de pago por uso (nuestra estimación en pruebas)",
+    "it": "Licenze Microsoft o capacità Copilot Studio: Microsoft fattura i vostri consumi, circa 0,22-0,40 USD per l’estrazione di un contratto di 15 pagine a prezzi pay-as-you-go (nostra stima in test)",
+    "pl": "Licencje Microsoft ani pojemność Copilot Studio: zużycie rozlicza Microsoft, około 0,22-0,40 USD za ekstrakcję 15-stronicowej umowy w cenach pay-as-you-go (nasze szacunki z testów)",
+    "pt": "Licenças Microsoft ou capacidade Copilot Studio: a Microsoft fatura o seu consumo, cerca de 0,22-0,40 USD por extração de um contrato de 15 páginas a preços pay-as-you-go (a nossa estimativa em testes)"
+  },
+  "Installation or configuration done for you: your administrator installs it in about 60-90 minutes from the guide": {
+    "cs": "Instalace nebo konfigurace za vás: váš správce ji podle příručky zvládne za zhruba 60-90 minut",
+    "de": "Installation oder Konfiguration durch uns: Ihr Administrator installiert es nach der Anleitung in etwa 60-90 Minuten",
+    "fr": "L’installation ou la configuration à votre place : votre administrateur l’installe en 60 à 90 minutes environ à partir du guide",
+    "es": "La instalación o configuración por nuestra parte: su administrador la instala en unos 60-90 minutos siguiendo la guía",
+    "it": "Installazione o configurazione fatte da noi: il vostro amministratore la installa in circa 60-90 minuti seguendo la guida",
+    "pl": "Instalacja lub konfiguracja za Ciebie: Twój administrator instaluje pakiet w około 60-90 minut według instrukcji",
+    "pt": "Instalação ou configuração feita por nós: o seu administrador instala-o em cerca de 60-90 minutos a partir do guia"
+  },
+  "New feature releases": {
+    "cs": "Nová funkční vydání",
+    "de": "Neue Funktions-Releases",
+    "fr": "Les nouvelles versions fonctionnelles",
+    "es": "Nuevas versiones con funciones",
+    "it": "Nuove release funzionali",
+    "pl": "Nowe wydania funkcjonalne",
+    "pt": "Novas versões com funcionalidades"
+  },
+  "Scanned-document OCR and languages other than English": {
+    "cs": "OCR skenovaných dokumentů a jiné jazyky než angličtina",
+    "de": "OCR gescannter Dokumente und andere Sprachen als Englisch",
+    "fr": "L’OCR de documents numérisés et les langues autres que l’anglais",
+    "es": "OCR de documentos escaneados e idiomas distintos del inglés",
+    "it": "OCR di documenti scansionati e lingue diverse dall’inglese",
+    "pl": "OCR dokumentów skanowanych i języki inne niż angielski",
+    "pt": "OCR de documentos digitalizados e línguas além do inglês"
+  },
+  "Continuous Certification (not yet open)": {
+    "cs": "Continuous Certification (zatím není otevřeno)",
+    "de": "Continuous Certification (noch nicht geöffnet)",
+    "fr": "Continuous Certification (pas encore ouvert)",
+    "es": "Continuous Certification (todavía no abierta)",
+    "it": "Continuous Certification (non ancora aperta)",
+    "pl": "Continuous Certification (jeszcze nieotwarta)",
+    "pt": "Continuous Certification (ainda não aberta)"
+  },
+  "Price list": {
+    "cs": "Ceník",
+    "de": "Preisliste",
+    "fr": "Grille tarifaire",
+    "es": "Lista de precios",
+    "it": "Listino",
+    "pl": "Cennik",
+    "pt": "Lista de preços"
+  },
+  "Every released agent carries the fixed price of its tier, and every customer pays the same published price. Today only Contract Intelligence &amp; Register, an L4 agent, has a released package. The other tiers show what a future release in that tier will cost once it is installation-tested.": {
+    "cs": "Každý vydaný agent má pevnou cenu své úrovně a každý zákazník platí stejnou zveřejněnou cenu. Dnes má vydaný balíček jen Contract Intelligence &amp; Register, agent úrovně L4. Ostatní úrovně ukazují, kolik bude stát budoucí vydání v dané úrovni, jakmile projde instalačním testem.",
+    "de": "Jeder freigegebene Agent trägt den festen Preis seiner Stufe, und jeder Kunde zahlt denselben veröffentlichten Preis. Heute hat nur Contract Intelligence &amp; Register, ein L4-Agent, ein freigegebenes Paket. Die anderen Stufen zeigen, was ein künftiges Release in dieser Stufe kosten wird, sobald es installationsgetestet ist.",
+    "fr": "Chaque agent publié porte le prix fixe de son niveau, et chaque client paie le même prix publié. Aujourd’hui, seul Contract Intelligence &amp; Register, un agent L4, dispose d’un package publié. Les autres niveaux indiquent ce que coûtera une future version de ce niveau, une fois son installation testée.",
+    "es": "Cada agente publicado lleva el precio fijo de su nivel y todos los clientes pagan el mismo precio publicado. Hoy solo Contract Intelligence &amp; Register, un agente L4, tiene un paquete publicado. Los demás niveles muestran lo que costará una futura versión de ese nivel una vez probada su instalación.",
+    "it": "Ogni agente rilasciato ha il prezzo fisso del suo livello e ogni cliente paga lo stesso prezzo pubblicato. Oggi solo Contract Intelligence &amp; Register, un agente L4, ha un pacchetto rilasciato. Gli altri livelli mostrano quanto costerà una futura release di quel livello, una volta testata l’installazione.",
+    "pl": "Każdy wydany agent ma stałą cenę swojego poziomu, a każdy klient płaci tę samą opublikowaną cenę. Dziś tylko Contract Intelligence &amp; Register, agent poziomu L4, ma wydany pakiet. Pozostałe poziomy pokazują, ile będzie kosztować przyszłe wydanie na danym poziomie po przejściu testu instalacji.",
+    "pt": "Cada agente lançado tem o preço fixo do seu nível, e todos os clientes pagam o mesmo preço publicado. Hoje só o Contract Intelligence &amp; Register, um agente L4, tem um pacote lançado. Os outros níveis mostram quanto custará uma futura versão desse nível depois de testada a instalação."
+  },
+  "Agents that draft and assist in lower-risk workflows. No L2 agent has a released package yet.": {
+    "cs": "Agenti, kteří připravují návrhy a pomáhají v méně rizikových workflow. Žádný agent L2 zatím nemá vydaný balíček.",
+    "de": "Agenten, die in Workflows mit geringerem Risiko entwerfen und unterstützen. Noch hat kein L2-Agent ein freigegebenes Paket.",
+    "fr": "Des agents qui rédigent et assistent dans des workflows à moindre risque. Aucun agent L2 n’a encore de package publié.",
+    "es": "Agentes que redactan y asisten en flujos de trabajo de menor riesgo. Ningún agente L2 tiene todavía un paquete publicado.",
+    "it": "Agenti che redigono e assistono in workflow a basso rischio. Nessun agente L2 ha ancora un pacchetto rilasciato.",
+    "pl": "Agenci, którzy przygotowują wersje robocze i wspierają w mniej ryzykownych workflow. Żaden agent L2 nie ma jeszcze wydanego pakietu.",
+    "pt": "Agentes que redigem e apoiam em fluxos de trabalho de menor risco. Nenhum agente L2 tem ainda um pacote lançado."
+  },
+  "Agents that operate a recurring workflow under defined controls. No L3 agent has a released package yet.": {
+    "cs": "Agenti, kteří provozují opakující se workflow pod definovanými kontrolami. Žádný agent L3 zatím nemá vydaný balíček.",
+    "de": "Agenten, die einen wiederkehrenden Workflow unter definierten Kontrollen betreiben. Noch hat kein L3-Agent ein freigegebenes Paket.",
+    "fr": "Des agents qui exécutent un workflow récurrent sous des contrôles définis. Aucun agent L3 n’a encore de package publié.",
+    "es": "Agentes que operan un flujo de trabajo recurrente bajo controles definidos. Ningún agente L3 tiene todavía un paquete publicado.",
+    "it": "Agenti che gestiscono un workflow ricorrente sotto controlli definiti. Nessun agente L3 ha ancora un pacchetto rilasciato.",
+    "pl": "Agenci, którzy obsługują powtarzalny workflow pod zdefiniowanymi kontrolami. Żaden agent L3 nie ma jeszcze wydanego pakietu.",
+    "pt": "Agentes que operam um fluxo de trabalho recorrente sob controlos definidos. Nenhum agente L3 tem ainda um pacote lançado."
+  },
+  "Agents that support decisions under named human supervision. Released today: Contract Intelligence &amp; Register.": {
+    "cs": "Agenti, kteří podporují rozhodování pod jmenovaným lidským dohledem. Dnes vydáno: Contract Intelligence &amp; Register.",
+    "de": "Agenten, die Entscheidungen unter benannter menschlicher Aufsicht unterstützen. Heute freigegeben: Contract Intelligence &amp; Register.",
+    "fr": "Des agents qui appuient des décisions sous supervision humaine nommée. Publié à ce jour : Contract Intelligence &amp; Register.",
+    "es": "Agentes que apoyan decisiones bajo supervisión humana designada. Publicado hoy: Contract Intelligence &amp; Register.",
+    "it": "Agenti che supportano decisioni sotto supervisione umana designata. Rilasciato oggi: Contract Intelligence &amp; Register.",
+    "pl": "Agenci, którzy wspierają decyzje pod wyznaczonym nadzorem człowieka. Wydany dziś: Contract Intelligence &amp; Register.",
+    "pt": "Agentes que apoiam decisões sob supervisão humana designada. Lançado hoje: Contract Intelligence &amp; Register."
+  },
+  "See L2 concepts": {
+    "cs": "Koncepty L2",
+    "de": "L2-Konzepte ansehen",
+    "fr": "Voir les concepts L2",
+    "es": "Ver conceptos L2",
+    "it": "Vedi i concept L2",
+    "pl": "Zobacz koncepcje L2",
+    "pt": "Ver conceitos L2"
+  },
+  "See L3 concepts": {
+    "cs": "Koncepty L3",
+    "de": "L3-Konzepte ansehen",
+    "fr": "Voir les concepts L3",
+    "es": "Ver conceptos L3",
+    "it": "Vedi i concept L3",
+    "pl": "Zobacz koncepcje L3",
+    "pt": "Ver conceitos L3"
+  },
+  "What usually takes the time": {
+    "cs": "Co obvykle zabere nejvíc času",
+    "de": "Was in der Regel die Zeit kostet",
+    "fr": "Ce qui prend généralement du temps",
+    "es": "Lo que suele llevar tiempo",
+    "it": "Cosa richiede di solito più tempo",
+    "pl": "Co zwykle zajmuje najwięcej czasu",
+    "pt": "O que normalmente leva tempo"
+  },
+  "Getting the Microsoft prerequisites in place: a Power Platform environment with Dataverse, Copilot Studio capacity, one SharePoint library and a Teams channel for the reviewer.": {
+    "cs": "Příprava předpokladů u Microsoftu: prostředí Power Platform s Dataverse, kapacita Copilot Studio, jedna knihovna SharePoint a kanál Teams pro kontrolora.",
+    "de": "Die Microsoft-Voraussetzungen schaffen: eine Power-Platform-Umgebung mit Dataverse, Copilot-Studio-Kapazität, eine SharePoint-Bibliothek und ein Teams-Kanal für den Prüfer.",
+    "fr": "Mettre en place les prérequis Microsoft : un environnement Power Platform avec Dataverse, de la capacité Copilot Studio, une bibliothèque SharePoint et un canal Teams pour le réviseur.",
+    "es": "Preparar los requisitos de Microsoft: un entorno de Power Platform con Dataverse, capacidad de Copilot Studio, una biblioteca de SharePoint y un canal de Teams para el revisor.",
+    "it": "Predisporre i prerequisiti Microsoft: un ambiente Power Platform con Dataverse, capacità Copilot Studio, una libreria SharePoint e un canale Teams per il revisore.",
+    "pl": "Przygotowanie wymagań po stronie Microsoft: środowisko Power Platform z Dataverse, pojemność Copilot Studio, jedna biblioteka SharePoint i kanał Teams dla weryfikatora.",
+    "pt": "Preparar os pré-requisitos Microsoft: um ambiente Power Platform com Dataverse, capacidade Copilot Studio, uma biblioteca SharePoint e um canal Teams para o revisor."
+  },
+  "Deciding who reviews extractions and who owns the register, and giving them the roles the installation guide describes.": {
+    "cs": "Rozhodnutí, kdo kontroluje extrakce a kdo vlastní registr, a přidělení rolí popsaných v instalační příručce.",
+    "de": "Festlegen, wer Extraktionen prüft und wer das Register verantwortet, und diesen Personen die Rollen aus der Installationsanleitung geben.",
+    "fr": "Décider qui vérifie les extractions et qui est responsable du registre, puis leur attribuer les rôles décrits dans le guide d’installation.",
+    "es": "Decidir quién revisa las extracciones y quién es responsable del registro, y asignarles los roles que describe la guía de instalación.",
+    "it": "Decidere chi verifica le estrazioni e chi è responsabile del registro, assegnando i ruoli descritti nella guida all’installazione.",
+    "pl": "Ustalenie, kto weryfikuje ekstrakcje i kto odpowiada za rejestr, oraz nadanie im ról opisanych w instrukcji instalacji.",
+    "pt": "Decidir quem revê as extrações e quem é responsável pelo registo, atribuindo-lhes as funções descritas no guia de instalação."
+  },
+  "Loading and reviewing your existing contracts: the first pass through a large archive is where most of the effort goes.": {
+    "cs": "Nahrání a kontrola stávajících smluv: první průchod velkým archivem je místo, kde je nejvíc práce.",
+    "de": "Bestehende Verträge laden und prüfen: der erste Durchgang durch ein großes Archiv ist der größte Teil des Aufwands.",
+    "fr": "Charger et vérifier vos contrats existants : le premier passage sur un gros fonds d’archives représente l’essentiel de l’effort.",
+    "es": "Cargar y revisar sus contratos existentes: la primera pasada por un archivo grande es donde se va la mayor parte del esfuerzo.",
+    "it": "Caricare e verificare i contratti esistenti: il primo passaggio su un archivio ampio è dove va la maggior parte dello sforzo.",
+    "pl": "Wczytanie i weryfikacja istniejących umów: pierwsze przejście przez duże archiwum pochłania najwięcej pracy.",
+    "pt": "Carregar e rever os contratos existentes: a primeira passagem por um arquivo grande é onde vai a maior parte do esforço."
+  },
+  "Connecting other systems, if you want to: the package works on its own, and integrations are your or your partner's work.": {
+    "cs": "Napojení dalších systémů, pokud chcete: balíček funguje sám o sobě a integrace jsou práce vaše nebo vašeho partnera.",
+    "de": "Andere Systeme anbinden, wenn Sie möchten: das Paket funktioniert für sich, Integrationen sind Ihre Arbeit oder die Ihres Partners.",
+    "fr": "Connecter d’autres systèmes, si vous le souhaitez : le package fonctionne seul, et les intégrations relèvent de vous ou de votre partenaire.",
+    "es": "Conectar otros sistemas, si lo desea: el paquete funciona por sí solo y las integraciones son trabajo suyo o de su partner.",
+    "it": "Collegare altri sistemi, se volete: il pacchetto funziona da solo e le integrazioni sono lavoro vostro o del vostro partner.",
+    "pl": "Podłączenie innych systemów, jeśli chcesz: pakiet działa samodzielnie, a integracje to praca Twoja lub Twojego partnera.",
+    "pt": "Ligar outros sistemas, se quiser: o pacote funciona sozinho e as integrações são trabalho seu ou do seu parceiro."
+  },
+  "Is the price a one-time fee?": {
+    "cs": "Je cena jednorázová?",
+    "de": "Ist der Preis eine einmalige Gebühr?",
+    "fr": "Le prix est-il un paiement unique ?",
+    "es": "¿El precio es un pago único?",
+    "it": "Il prezzo è una tantum?",
+    "pl": "Czy cena jest opłatą jednorazową?",
+    "pt": "O preço é um pagamento único?"
+  },
+  "Yes. $14,900 buys a perpetual licence for one Microsoft tenant; there is no subscription for the licence itself. Prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4. Continuous Certification is a separate optional subscription and is not yet open.": {
+    "cs": "Ano. Za $14,900 získáte trvalou licenci pro jeden tenant Microsoft; samotná licence nemá žádné předplatné. Ceny jsou pevně dané úrovní CAI: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4. Continuous Certification je samostatné volitelné předplatné a zatím není otevřeno.",
+    "de": "Ja. $14,900 kaufen eine unbefristete Lizenz für einen Microsoft-Tenant; für die Lizenz selbst gibt es kein Abonnement. Die Preise sind nach CAI-Stufe fest: $7,900 für L2, $9,900 für L3 und $14,900 für L4. Continuous Certification ist ein separates optionales Abonnement und noch nicht geöffnet.",
+    "fr": "Oui. $14,900 achètent une licence perpétuelle pour un tenant Microsoft ; la licence elle-même ne comporte aucun abonnement. Les prix sont fixés par niveau CAI : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4. Continuous Certification est un abonnement optionnel distinct, pas encore ouvert.",
+    "es": "Sí. $14,900 compran una licencia perpetua para un tenant de Microsoft; la licencia en sí no tiene suscripción. Los precios son fijos por nivel CAI: $7,900 para L2, $9,900 para L3 y $14,900 para L4. Continuous Certification es una suscripción opcional aparte y todavía no está abierta.",
+    "it": "Sì. $14,900 acquistano una licenza perpetua per un tenant Microsoft; la licenza in sé non prevede abbonamenti. I prezzi sono fissi per livello CAI: $7,900 per L2, $9,900 per L3 e $14,900 per L4. Continuous Certification è un abbonamento opzionale separato e non è ancora aperto.",
+    "pl": "Tak. Za $14,900 kupujesz licencję bezterminową na jeden tenant Microsoft; sama licencja nie ma subskrypcji. Ceny są stałe według poziomu CAI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4. Continuous Certification to osobna, opcjonalna subskrypcja, jeszcze nieotwarta.",
+    "pt": "Sim. $14,900 compram uma licença perpétua para um tenant Microsoft; a licença em si não tem subscrição. Os preços são fixos por nível CAI: $7,900 para L2, $9,900 para L3 e $14,900 para L4. A Continuous Certification é uma subscrição opcional separada e ainda não está aberta."
+  },
+  "What will Microsoft charge us?": {
+    "cs": "Co nám bude účtovat Microsoft?",
+    "de": "Was berechnet uns Microsoft?",
+    "fr": "Que nous facturera Microsoft ?",
+    "es": "¿Qué nos cobrará Microsoft?",
+    "it": "Cosa ci addebiterà Microsoft?",
+    "pl": "Ile zapłacimy Microsoftowi?",
+    "pt": "O que nos vai cobrar a Microsoft?"
+  },
+  "Copilot Studio credits for every extraction, review, recalculation and agent answer, on your own Microsoft agreement. Our test estimate is roughly USD 0.22-0.40 per 15-page contract extraction at pay-as-you-go prices. We cannot see, cap or refund that usage, so set a cost alert before the first upload.": {
+    "cs": "Kredity Copilot Studio za každou extrakci, kontrolu, přepočet a odpověď agenta, podle vaší vlastní smlouvy s Microsoftem. Náš testovací odhad je zhruba USD 0,22-0,40 za extrakci 15stránkové smlouvy při cenách pay-as-you-go. Tuto spotřebu nevidíme, neomezujeme ani nevracíme, proto si před prvním nahráním nastavte upozornění na náklady.",
+    "de": "Copilot-Studio-Credits für jede Extraktion, Prüfung, Neuberechnung und Agentenantwort, über Ihren eigenen Microsoft-Vertrag. Unsere Testschätzung liegt bei etwa USD 0,22-0,40 je Extraktion eines 15-seitigen Vertrags zu Pay-as-you-go-Preisen. Wir können diese Nutzung weder einsehen noch begrenzen oder erstatten; richten Sie deshalb vor dem ersten Upload eine Kostenwarnung ein.",
+    "fr": "Des crédits Copilot Studio pour chaque extraction, vérification, recalcul et réponse de l’agent, sur votre propre contrat Microsoft. Notre estimation en test est d’environ 0,22 à 0,40 USD par extraction d’un contrat de 15 pages au tarif à l’usage. Nous ne pouvons ni voir, ni plafonner, ni rembourser cette consommation : configurez une alerte de coût avant le premier envoi.",
+    "es": "Créditos de Copilot Studio por cada extracción, revisión, recálculo y respuesta del agente, en su propio contrato con Microsoft. Nuestra estimación en pruebas es de unos 0,22-0,40 USD por extracción de un contrato de 15 páginas a precios de pago por uso. No podemos ver, limitar ni reembolsar ese consumo, así que configure una alerta de coste antes de la primera carga.",
+    "it": "Crediti Copilot Studio per ogni estrazione, revisione, ricalcolo e risposta dell’agente, sul vostro contratto Microsoft. La nostra stima in test è di circa 0,22-0,40 USD per l’estrazione di un contratto di 15 pagine a prezzi pay-as-you-go. Non possiamo vedere, limitare o rimborsare quei consumi: impostate un avviso di costo prima del primo caricamento.",
+    "pl": "Kredyty Copilot Studio za każdą ekstrakcję, weryfikację, przeliczenie i odpowiedź agenta, w ramach Twojej własnej umowy z Microsoft. Nasze szacunki z testów to około 0,22-0,40 USD za ekstrakcję 15-stronicowej umowy w cenach pay-as-you-go. Nie widzimy tego zużycia, nie możemy go ograniczyć ani zwrócić, dlatego ustaw alert kosztów przed pierwszym przesłaniem.",
+    "pt": "Créditos Copilot Studio por cada extração, revisão, recálculo e resposta do agente, no seu próprio contrato com a Microsoft. A nossa estimativa em testes é de cerca de 0,22-0,40 USD por extração de um contrato de 15 páginas a preços pay-as-you-go. Não conseguimos ver, limitar nem reembolsar esse consumo, por isso defina um alerta de custos antes do primeiro carregamento."
+  },
+  "How do we pay, and what documents do we get?": {
+    "cs": "Jak platíme a jaké dokumenty dostaneme?",
+    "de": "Wie bezahlen wir, und welche Dokumente erhalten wir?",
+    "fr": "Comment payons-nous, et quels documents recevons-nous ?",
+    "es": "¿Cómo pagamos y qué documentos recibimos?",
+    "it": "Come si paga e quali documenti riceviamo?",
+    "pl": "Jak płacimy i jakie dokumenty otrzymamy?",
+    "pt": "Como pagamos e que documentos recebemos?"
+  },
+  "You pay at checkout through Stripe after accepting the licence terms. Your order page then holds the licence agreement confirmation, the invoice, the terms you accepted in the versions you accepted, and the download. Checkout opens once our final legal and tax checks are complete.": {
+    "cs": "Platíte při nákupu přes Stripe po přijetí licenčních podmínek. Na stránce objednávky pak najdete potvrzení licenční smlouvy, fakturu, přijaté podmínky ve verzích, které jste přijali, a stažení balíčku. Nákup otevřeme po dokončení závěrečných právních a daňových kontrol.",
+    "de": "Sie zahlen beim Kauf über Stripe, nachdem Sie die Lizenzbedingungen akzeptiert haben. Auf Ihrer Bestellseite finden Sie dann die Lizenzvertragsbestätigung, die Rechnung, die akzeptierten Bedingungen in den akzeptierten Versionen und den Download. Der Kauf wird freigeschaltet, sobald unsere letzten Rechts- und Steuerprüfungen abgeschlossen sind.",
+    "fr": "Vous payez à l’achat via Stripe, après avoir accepté les conditions de licence. Votre page de commande contient ensuite la confirmation du contrat de licence, la facture, les conditions acceptées dans les versions acceptées et le téléchargement. L’achat ouvrira une fois nos dernières vérifications juridiques et fiscales terminées.",
+    "es": "Paga al comprar a través de Stripe tras aceptar las condiciones de licencia. Su página de pedido contiene después la confirmación del contrato de licencia, la factura, las condiciones aceptadas en las versiones aceptadas y la descarga. La compra se abrirá cuando terminen nuestras últimas comprobaciones legales y fiscales.",
+    "it": "Pagate all’acquisto tramite Stripe dopo aver accettato le condizioni di licenza. La pagina dell’ordine contiene poi la conferma del contratto di licenza, la fattura, le condizioni accettate nelle versioni accettate e il download. L’acquisto si apre al termine delle nostre ultime verifiche legali e fiscali.",
+    "pl": "Płacisz przy zakupie przez Stripe po zaakceptowaniu warunków licencji. Na stronie zamówienia znajdziesz potem potwierdzenie umowy licencyjnej, fakturę, zaakceptowane warunki w zaakceptowanych wersjach i pobranie. Zakup otworzymy po zakończeniu ostatnich kontroli prawnych i podatkowych.",
+    "pt": "Paga na compra através do Stripe depois de aceitar as condições de licença. A página da encomenda passa a conter a confirmação do contrato de licença, a fatura, as condições aceites nas versões aceites e a transferência. A compra abre quando as nossas últimas verificações legais e fiscais estiverem concluídas."
+  },
+  "Do you install it for us?": {
+    "cs": "Nainstalujete to za nás?",
+    "de": "Installieren Sie es für uns?",
+    "fr": "L’installez-vous pour nous ?",
+    "es": "¿Lo instalan ustedes?",
+    "it": "Lo installate voi?",
+    "pl": "Czy zainstalujecie to za nas?",
+    "pt": "Instalam-no por nós?"
+  },
+  "No. Your System Administrator imports the package into your own Power Platform environment, following the guide: about 60-90 minutes. ColleagueAI never connects to your tenant. If you want help, an implementation partner can do the installation and any integrations.": {
+    "cs": "Ne. Váš správce (System Administrator) importuje balíček do vašeho vlastního prostředí Power Platform podle příručky: zhruba 60-90 minut. ColleagueAI se k vašemu tenantu nikdy nepřipojuje. Pokud chcete pomoc, instalaci i případné integrace může provést implementační partner.",
+    "de": "Nein. Ihr System Administrator importiert das Paket nach der Anleitung in Ihre eigene Power-Platform-Umgebung: etwa 60-90 Minuten. ColleagueAI verbindet sich nie mit Ihrem Tenant. Wenn Sie Hilfe möchten, kann ein Implementierungspartner die Installation und etwaige Integrationen übernehmen.",
+    "fr": "Non. Votre administrateur système importe le package dans votre propre environnement Power Platform en suivant le guide : 60 à 90 minutes environ. ColleagueAI ne se connecte jamais à votre tenant. Si vous souhaitez de l’aide, un partenaire d’intégration peut réaliser l’installation et les intégrations éventuelles.",
+    "es": "No. Su administrador del sistema importa el paquete en su propio entorno de Power Platform siguiendo la guía: unos 60-90 minutos. ColleagueAI nunca se conecta a su tenant. Si quiere ayuda, un partner de implementación puede hacer la instalación y las integraciones.",
+    "it": "No. Il vostro System Administrator importa il pacchetto nel vostro ambiente Power Platform seguendo la guida: circa 60-90 minuti. ColleagueAI non si collega mai al vostro tenant. Se volete aiuto, un partner di implementazione può occuparsi dell’installazione e delle eventuali integrazioni.",
+    "pl": "Nie. Twój administrator systemu importuje pakiet do Waszego własnego środowiska Power Platform według instrukcji: około 60-90 minut. ColleagueAI nigdy nie łączy się z Twoim tenantem. Jeśli potrzebujesz pomocy, partner wdrożeniowy może wykonać instalację i ewentualne integracje.",
+    "pt": "Não. O seu administrador de sistema importa o pacote para o vosso próprio ambiente Power Platform, seguindo o guia: cerca de 60-90 minutos. A ColleagueAI nunca se liga ao seu tenant. Se quiser ajuda, um parceiro de implementação pode fazer a instalação e eventuais integrações."
+  },
+  "Can we buy more than one agent?": {
+    "cs": "Můžeme koupit více agentů?",
+    "de": "Können wir mehr als einen Agenten kaufen?",
+    "fr": "Pouvons-nous acheter plusieurs agents ?",
+    "es": "¿Podemos comprar más de un agente?",
+    "it": "Possiamo acquistare più di un agente?",
+    "pl": "Czy możemy kupić więcej niż jednego agenta?",
+    "pt": "Podemos comprar mais do que um agente?"
+  },
+  "Each licence covers one agent for one tenant. Today only Contract Intelligence &amp; Register has a released package. Further agents will be sold at their tier price once they have been installation-tested, and they can be combined in the same tenant.": {
+    "cs": "Každá licence pokrývá jednoho agenta pro jeden tenant. Dnes má vydaný balíček jen Contract Intelligence &amp; Register. Další agenti se budou prodávat za cenu své úrovně, jakmile projdou instalačním testem, a lze je kombinovat v jednom tenantu.",
+    "de": "Jede Lizenz deckt einen Agenten für einen Tenant ab. Heute hat nur Contract Intelligence &amp; Register ein freigegebenes Paket. Weitere Agenten werden zum Preis ihrer Stufe verkauft, sobald sie installationsgetestet sind, und lassen sich im selben Tenant kombinieren.",
+    "fr": "Chaque licence couvre un agent pour un tenant. Aujourd’hui, seul Contract Intelligence &amp; Register dispose d’un package publié. Les autres agents seront vendus au prix de leur niveau une fois leur installation testée, et pourront être combinés dans le même tenant.",
+    "es": "Cada licencia cubre un agente para un tenant. Hoy solo Contract Intelligence &amp; Register tiene un paquete publicado. Los demás agentes se venderán al precio de su nivel una vez probada su instalación, y pueden combinarse en el mismo tenant.",
+    "it": "Ogni licenza copre un agente per un tenant. Oggi solo Contract Intelligence &amp; Register ha un pacchetto rilasciato. Gli altri agenti saranno venduti al prezzo del loro livello una volta testata l’installazione, e potranno essere combinati nello stesso tenant.",
+    "pl": "Każda licencja obejmuje jednego agenta na jeden tenant. Dziś tylko Contract Intelligence &amp; Register ma wydany pakiet. Kolejni agenci będą sprzedawani w cenie swojego poziomu po przejściu testu instalacji i można ich łączyć w tym samym tenancie.",
+    "pt": "Cada licença cobre um agente para um tenant. Hoje só o Contract Intelligence &amp; Register tem um pacote lançado. Outros agentes serão vendidos ao preço do seu nível depois de testada a instalação, e podem ser combinados no mesmo tenant."
+  },
+  "Can we get a refund?": {
+    "cs": "Můžeme dostat peníze zpět?",
+    "de": "Bekommen wir eine Rückerstattung?",
+    "fr": "Pouvons-nous obtenir un remboursement ?",
+    "es": "¿Podemos obtener un reembolso?",
+    "it": "Possiamo ottenere un rimborso?",
+    "pl": "Czy możemy otrzymać zwrot?",
+    "pt": "Podemos obter um reembolso?"
+  },
+  "Refunds follow our published refund policy, which you accept at checkout. In short: purchases are business-to-business, so there is no general right to return the package. If the delivered package materially fails to match its factsheet, tell us within 30 days and we will remedy it or refund you. Duplicate or erroneous charges are always refunded.": {
+    "cs": "Vracení peněz se řídí naší zveřejněnou politikou vracení, kterou přijímáte při nákupu. Stručně: nákupy jsou mezi podnikateli, takže obecné právo balíček vrátit neexistuje. Pokud dodaný balíček podstatně neodpovídá produktovému listu, dejte nám vědět do 30 dnů a zjednáme nápravu nebo vrátíme peníze. Duplicitní nebo chybné platby vracíme vždy.",
+    "de": "Rückerstattungen richten sich nach unserer veröffentlichten Erstattungsrichtlinie, die Sie beim Kauf akzeptieren. Kurz gesagt: Käufe erfolgen zwischen Unternehmen, ein allgemeines Rückgaberecht gibt es daher nicht. Weicht das gelieferte Paket wesentlich vom Factsheet ab, melden Sie es innerhalb von 30 Tagen, und wir beheben es oder erstatten. Doppelte oder fehlerhafte Abbuchungen werden immer erstattet.",
+    "fr": "Les remboursements suivent notre politique de remboursement publiée, que vous acceptez à l’achat. En résumé : les achats se font entre entreprises, il n’existe donc pas de droit général de retour du package. Si le package livré ne correspond pas substantiellement à sa fiche produit, signalez-le dans les 30 jours et nous y remédierons ou vous rembourserons. Les débits en double ou erronés sont toujours remboursés.",
+    "es": "Los reembolsos siguen nuestra política de reembolsos publicada, que acepta al comprar. En resumen: las compras son entre empresas, por lo que no existe un derecho general a devolver el paquete. Si el paquete entregado no se corresponde sustancialmente con su ficha, avísenos en 30 días y lo corregiremos o le reembolsaremos. Los cobros duplicados o erróneos se reembolsan siempre.",
+    "it": "I rimborsi seguono la nostra politica di rimborso pubblicata, che accettate all’acquisto. In breve: gli acquisti sono tra imprese, quindi non esiste un diritto generale di restituire il pacchetto. Se il pacchetto consegnato non corrisponde sostanzialmente alla scheda prodotto, segnalatelo entro 30 giorni e provvederemo a correggerlo o a rimborsarvi. Gli addebiti doppi o errati vengono sempre rimborsati.",
+    "pl": "Zwroty podlegają naszej opublikowanej polityce zwrotów, którą akceptujesz przy zakupie. W skrócie: zakupy są między firmami, więc nie ma ogólnego prawa do zwrotu pakietu. Jeśli dostarczony pakiet istotnie nie odpowiada karcie produktu, powiedz nam o tym w ciągu 30 dni, a naprawimy go albo zwrócimy pieniądze. Podwójne lub błędne obciążenia zawsze zwracamy.",
+    "pt": "Os reembolsos seguem a nossa política de reembolsos publicada, que aceita na compra. Em resumo: as compras são entre empresas, pelo que não existe um direito geral de devolver o pacote. Se o pacote entregue não corresponder substancialmente à ficha do produto, avise-nos em 30 dias e corrigimos ou reembolsamos. Cobranças duplicadas ou erradas são sempre reembolsadas."
+  },
+  "Before you buy": {
+    "cs": "Před nákupem",
+    "de": "Vor dem Kauf",
+    "fr": "Avant d’acheter",
+    "es": "Antes de comprar",
+    "it": "Prima di acquistare",
+    "pl": "Przed zakupem",
+    "pt": "Antes de comprar"
+  },
+  "Questions before you buy?": {
+    "cs": "Máte otázky před nákupem?",
+    "de": "Fragen vor dem Kauf?",
+    "fr": "Des questions avant d’acheter ?",
+    "es": "¿Preguntas antes de comprar?",
+    "it": "Domande prima di acquistare?",
+    "pl": "Pytania przed zakupem?",
+    "pt": "Perguntas antes de comprar?"
+  },
+  "One e-mail reaches the team, and we reply within one business day. Tell us a little about your situation so the answer is useful:": {
+    "cs": "Jeden e-mail dorazí k celému týmu a odpovídáme do jednoho pracovního dne. Napište nám něco o své situaci, aby odpověď byla užitečná:",
+    "de": "Eine E-Mail erreicht das Team, und wir antworten innerhalb eines Werktags. Sagen Sie uns kurz etwas zu Ihrer Situation, damit die Antwort nützlich ist:",
+    "fr": "Un seul e-mail suffit pour joindre l’équipe, et nous répondons sous un jour ouvré. Dites-nous un mot de votre situation pour que la réponse soit utile :",
+    "es": "Un solo correo llega al equipo y respondemos en un día laborable. Cuéntenos un poco sobre su situación para que la respuesta le sirva:",
+    "it": "Una sola e-mail raggiunge il team e rispondiamo entro un giorno lavorativo. Raccontateci un po’ della vostra situazione, così la risposta sarà utile:",
+    "pl": "Jeden e-mail trafia do całego zespołu, a odpowiadamy w ciągu jednego dnia roboczego. Opisz krótko swoją sytuację, aby odpowiedź była przydatna:",
+    "pt": "Um único e-mail chega à equipa, e respondemos num dia útil. Diga-nos um pouco sobre a sua situação para que a resposta seja útil:"
+  },
+  "How many contracts you manage, and where they live today": {
+    "cs": "Kolik smluv spravujete a kde jsou dnes uložené",
+    "de": "Wie viele Verträge Sie verwalten und wo sie heute liegen",
+    "fr": "Combien de contrats vous gérez, et où ils se trouvent aujourd’hui",
+    "es": "Cuántos contratos gestiona y dónde están hoy",
+    "it": "Quanti contratti gestite e dove si trovano oggi",
+    "pl": "Ile umów zarządzasz i gdzie są dziś przechowywane",
+    "pt": "Quantos contratos gere e onde estão hoje"
+  },
+  "Whether you already have a Power Platform environment and Copilot Studio capacity": {
+    "cs": "Zda už máte prostředí Power Platform a kapacitu Copilot Studio",
+    "de": "Ob Sie bereits eine Power-Platform-Umgebung und Copilot-Studio-Kapazität haben",
+    "fr": "Si vous disposez déjà d’un environnement Power Platform et de capacité Copilot Studio",
+    "es": "Si ya tiene un entorno de Power Platform y capacidad de Copilot Studio",
+    "it": "Se avete già un ambiente Power Platform e capacità Copilot Studio",
+    "pl": "Czy masz już środowisko Power Platform i pojemność Copilot Studio",
+    "pt": "Se já tem um ambiente Power Platform e capacidade Copilot Studio"
+  },
+  "When you would like to be up and running": {
+    "cs": "Kdy byste chtěli mít řešení v provozu",
+    "de": "Wann Sie startklar sein möchten",
+    "fr": "Quand vous souhaitez être opérationnel",
+    "es": "Cuándo le gustaría estar en marcha",
+    "it": "Quando vorreste essere operativi",
+    "pl": "Kiedy chcesz zacząć korzystać",
+    "pt": "Quando gostaria de estar a funcionar"
+  },
+  "See it before you buy it.": {
+    "cs": "Podívejte se na něj, než ho koupíte.",
+    "de": "Sehen Sie es, bevor Sie es kaufen.",
+    "fr": "Voyez-le avant de l’acheter.",
+    "es": "Véalo antes de comprarlo.",
+    "it": "Vedetelo prima di acquistarlo.",
+    "pl": "Zobacz, zanim kupisz.",
+    "pt": "Veja-o antes de o comprar."
+  },
+  "A 30-minute guided evaluation on sample contracts in a test tenant, with the review step and the register on screen.": {
+    "cs": "30minutové vedené vyhodnocení na vzorových smlouvách v testovacím tenantu, s kontrolním krokem a registrem na obrazovce.",
+    "de": "Eine 30-minütige begleitete Bewertung mit Beispielverträgen in einem Test-Tenant, mit Prüfschritt und Register auf dem Bildschirm.",
+    "fr": "Une évaluation guidée de 30 minutes sur des contrats d’exemple dans un tenant de test, avec l’étape de vérification et le registre à l’écran.",
+    "es": "Una evaluación guiada de 30 minutos con contratos de ejemplo en un tenant de prueba, con el paso de revisión y el registro en pantalla.",
+    "it": "Una valutazione guidata di 30 minuti su contratti di esempio in un tenant di test, con il passaggio di revisione e il registro sullo schermo.",
+    "pl": "30-minutowa ocena z przewodnikiem na przykładowych umowach w testowym tenancie, z krokiem weryfikacji i rejestrem na ekranie.",
+    "pt": "Uma avaliação guiada de 30 minutos com contratos de exemplo num tenant de teste, com o passo de revisão e o registo no ecrã."
+  },
+  "Prices are set by CAI tier, not by negotiation. Every released agent carries the fixed price of its tier, and every customer pays the same published price. Today only Contract Intelligence &amp; Register, an L4 agent, has a released package. The other tiers show what a future release in that tier will cost once it is installation-tested.": {
+    "cs": "Ceny určuje úroveň CAI, ne vyjednávání. Každý vydaný agent má pevnou cenu své úrovně a každý zákazník platí stejnou zveřejněnou cenu. Dnes má vydaný balíček jen Contract Intelligence &amp; Register, agent úrovně L4. Ostatní úrovně ukazují, kolik bude stát budoucí vydání v dané úrovni, jakmile projde instalačním testem.",
+    "de": "Die Preise richten sich nach der CAI-Stufe, nicht nach Verhandlung. Jeder freigegebene Agent trägt den festen Preis seiner Stufe, und jeder Kunde zahlt denselben veröffentlichten Preis. Heute hat nur Contract Intelligence &amp; Register, ein L4-Agent, ein freigegebenes Paket. Die anderen Stufen zeigen, was ein künftiges Release in dieser Stufe kosten wird, sobald es installationsgetestet ist.",
+    "fr": "Les prix sont fixés par niveau CAI, pas par négociation. Chaque agent publié porte le prix fixe de son niveau, et chaque client paie le même prix publié. Aujourd’hui, seul Contract Intelligence &amp; Register, un agent L4, dispose d’un package publié. Les autres niveaux indiquent ce que coûtera une future version de ce niveau, une fois son installation testée.",
+    "es": "Los precios los fija el nivel CAI, no la negociación. Cada agente publicado lleva el precio fijo de su nivel y todos los clientes pagan el mismo precio publicado. Hoy solo Contract Intelligence &amp; Register, un agente L4, tiene un paquete publicado. Los demás niveles muestran lo que costará una futura versión de ese nivel una vez probada su instalación.",
+    "it": "I prezzi li stabilisce il livello CAI, non la trattativa. Ogni agente rilasciato ha il prezzo fisso del suo livello e ogni cliente paga lo stesso prezzo pubblicato. Oggi solo Contract Intelligence &amp; Register, un agente L4, ha un pacchetto rilasciato. Gli altri livelli mostrano quanto costerà una futura release di quel livello, una volta testata l’installazione.",
+    "pl": "Ceny wyznacza poziom CAI, a nie negocjacje. Każdy wydany agent ma stałą cenę swojego poziomu, a każdy klient płaci tę samą opublikowaną cenę. Dziś tylko Contract Intelligence &amp; Register, agent poziomu L4, ma wydany pakiet. Pozostałe poziomy pokazują, ile będzie kosztować przyszłe wydanie na danym poziomie po przejściu testu instalacji.",
+    "pt": "Os preços são definidos pelo nível CAI, não por negociação. Cada agente lançado tem o preço fixo do seu nível, e todos os clientes pagam o mesmo preço publicado. Hoje só o Contract Intelligence &amp; Register, um agente L4, tem um pacote lançado. Os outros níveis mostram quanto custará uma futura versão desse nível depois de testada a instalação."
+  },
+  "The versioned release package with its SHA-256 checksum: 1 Copilot Studio agent, 7 Power Automate flows, 4 Dataverse tables, 1 read-only security role": {
+    "cs": "Verzovaný balíček vydání s kontrolním součtem SHA-256: 1 agent Copilot Studio, 7 toků Power Automate, 4 tabulky Dataverse, 1 bezpečnostní role jen pro čtení",
+    "de": "Das versionierte Release-Paket mit SHA-256-Prüfsumme: 1 Copilot-Studio-Agent, 7 Power-Automate-Flows, 4 Dataverse-Tabellen, 1 Nur-Lese-Sicherheitsrolle",
+    "fr": "Le package de version avec son empreinte SHA-256 : 1 agent Copilot Studio, 7 flux Power Automate, 4 tables Dataverse, 1 rôle de sécurité en lecture seule",
+    "es": "El paquete de la versión con su suma de comprobación SHA-256: 1 agente de Copilot Studio, 7 flujos de Power Automate, 4 tablas de Dataverse, 1 rol de seguridad de solo lectura",
+    "it": "Il pacchetto della release con checksum SHA-256: 1 agente Copilot Studio, 7 flussi Power Automate, 4 tabelle Dataverse, 1 ruolo di sicurezza in sola lettura",
+    "pl": "Pakiet wydania z sumą kontrolną SHA-256: 1 agent Copilot Studio, 7 przepływów Power Automate, 4 tabele Dataverse, 1 rola zabezpieczeń tylko do odczytu",
+    "pt": "O pacote da versão com a soma de verificação SHA-256: 1 agente Copilot Studio, 7 fluxos Power Automate, 4 tabelas Dataverse, 1 função de segurança só de leitura"
+  },
+  "Contract Intelligence &amp; Register costs $14,900, once. That buys a perpetual licence for one Microsoft tenant, the release package, the installation guide and corrective releases for defects in that release. Microsoft bills you separately for the capacity it runs on.": {
+    "cs": "Contract Intelligence &amp; Register stojí $14,900 jednorázově. Za to získáte trvalou licenci pro jeden tenant Microsoft, balíček vydání, instalační příručku a opravná vydání pro vady této verze. Kapacitu, na které běží, vám zvlášť účtuje Microsoft.",
+    "de": "Contract Intelligence &amp; Register kostet einmalig $14,900. Dafür bekommen Sie eine unbefristete Lizenz für einen Microsoft-Tenant, das Release-Paket, die Installationsanleitung und Korrektur-Releases für Fehler dieser Version. Die Kapazität, auf der es läuft, rechnet Microsoft separat mit Ihnen ab.",
+    "fr": "Contract Intelligence &amp; Register coûte $14,900, une seule fois. Vous obtenez une licence perpétuelle pour un tenant Microsoft, le package de version, le guide d’installation et les versions correctives des défauts de cette version. Microsoft vous facture séparément la capacité sur laquelle il fonctionne.",
+    "es": "Contract Intelligence &amp; Register cuesta $14,900, una sola vez. Eso incluye una licencia perpetua para un tenant de Microsoft, el paquete de la versión, la guía de instalación y las versiones correctivas de defectos de esa versión. Microsoft le factura aparte la capacidad en la que se ejecuta.",
+    "it": "Contract Intelligence &amp; Register costa $14,900, una volta sola. Comprende una licenza perpetua per un tenant Microsoft, il pacchetto della release, la guida all’installazione e le release correttive dei difetti di quella versione. Microsoft vi fattura separatamente la capacità su cui gira.",
+    "pl": "Contract Intelligence &amp; Register kosztuje $14,900, jednorazowo. W cenie jest licencja bezterminowa na jeden tenant Microsoft, pakiet wydania, instrukcja instalacji i wydania naprawcze dla wad tej wersji. Za pojemność, na której działa, rozlicza Cię osobno Microsoft.",
+    "pt": "O Contract Intelligence &amp; Register custa $14,900, uma única vez. Isso inclui uma licença perpétua para um tenant Microsoft, o pacote da versão, o guia de instalação e versões corretivas para defeitos dessa versão. A Microsoft fatura-lhe separadamente a capacidade em que corre."
+  },
+  "Contract Intelligence &amp; Register costs $14,900 once: a perpetual licence for one Microsoft tenant, the release package and the installation guide. Agent package prices are fixed by CAI tier: $7,900 for L2, $9,900 for L3 and $14,900 for L4.": {
+    "cs": "Contract Intelligence &amp; Register stojí $14,900 jednorázově: trvalá licence pro jeden tenant Microsoft, balíček vydání a instalační příručka. Ceny balíčků agentů jsou pevně dané úrovní CAI: $7,900 pro L2, $9,900 pro L3 a $14,900 pro L4.",
+    "de": "Contract Intelligence &amp; Register kostet einmalig $14,900: eine unbefristete Lizenz für einen Microsoft-Tenant, das Release-Paket und die Installationsanleitung. Die Preise der Agentenpakete sind nach CAI-Stufe fest: $7,900 für L2, $9,900 für L3 und $14,900 für L4.",
+    "fr": "Contract Intelligence &amp; Register coûte $14,900, en une fois : une licence perpétuelle pour un tenant Microsoft, le package de version et le guide d’installation. Les prix des packages sont fixés par niveau CAI : $7,900 pour L2, $9,900 pour L3 et $14,900 pour L4.",
+    "es": "Contract Intelligence &amp; Register cuesta $14,900 en un solo pago: una licencia perpetua para un tenant de Microsoft, el paquete de la versión y la guía de instalación. Los precios de los paquetes son fijos por nivel CAI: $7,900 para L2, $9,900 para L3 y $14,900 para L4.",
+    "it": "Contract Intelligence &amp; Register costa $14,900 una tantum: una licenza perpetua per un tenant Microsoft, il pacchetto della release e la guida all’installazione. I prezzi dei pacchetti sono fissi per livello CAI: $7,900 per L2, $9,900 per L3 e $14,900 per L4.",
+    "pl": "Contract Intelligence &amp; Register kosztuje $14,900 jednorazowo: licencja bezterminowa na jeden tenant Microsoft, pakiet wydania i instrukcja instalacji. Ceny pakietów agentów są stałe według poziomu CAI: $7,900 dla L2, $9,900 dla L3 i $14,900 dla L4.",
+    "pt": "O Contract Intelligence &amp; Register custa $14,900, uma única vez: uma licença perpétua para um tenant Microsoft, o pacote da versão e o guia de instalação. Os preços dos pacotes são fixos por nível CAI: $7,900 para L2, $9,900 para L3 e $14,900 para L4."
   }
 }

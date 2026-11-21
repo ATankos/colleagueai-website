@@ -2,8 +2,12 @@
  * tests/cai-1036-release-candidate.test.mjs - release 1.0.3.6 of CAI-L4-CI-001: the bundle record, its documents,
  * config/products.json and the download rules agree.
  *
- * - scripts/cai-release/1.0.3.6/release-candidate.json names the bundle and managed-solution checksums that
- *   docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6.txt records, and those are the checksums of the committed sources.
+ * - scripts/cai-release/1.0.3.6/release-candidate.json names the bundle and managed-solution checksums that the
+ *   SHA256SUMS file of its bundle revision records (SHA256SUMS-1.0.3.6.txt for revision 1, SHA256SUMS-1.0.3.6-r<N>.txt
+ *   after), and those are the checksums of the committed sources.
+ * - A bundle revision never overwrites a delivered one: each later revision has its own file name, and the earlier
+ *   revisions stay listed under previousBundles with their recorded checksums (revision 1: 69b30676…, delivered to
+ *   the test orders of 20 and 21 Nov 2026). LICENSE.txt names the release and revision it ships in.
  * - The bundle documents (MANIFEST template, START-HERE, INSTALL) name release 1.0.3.6 and its managed file, never
  *   call AI-extracted excerpts verbatim quotes, and tell the installer to turn Daily recompute on before go-live.
  * - config/products.json is either still on 1.0.3.4 or exactly this record, with 1.0.3.4 and 1.0.3.2 kept as previous
@@ -26,8 +30,10 @@ const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const read = (p) => readFileSync(join(ROOT, p), 'utf8');
 const sha = (p) => createHash('sha256').update(readFileSync(join(ROOT, p))).digest('hex');
 const CAND = JSON.parse(read('scripts/cai-release/1.0.3.6/release-candidate.json'));
-const SUMS = Object.fromEntries(read('docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6.txt').trim().split('\n')
-  .map((l) => l.split(/\s+/)).map(([h, n]) => [n, h]));
+const sumsOf = (file) => Object.fromEntries(read(file).trim().split('\n').map((l) => l.split(/\s+/)).map(([h, n]) => [n, h]));
+const REV = CAND.bundleRevision ?? 1;
+const BUNDLE_NAME = REV === 1 ? 'CAI-L4-CI-001_1.0.3.6' : `CAI-L4-CI-001_1.0.3.6-r${REV}`;
+const SUMS = sumsOf(`docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6${REV === 1 ? '' : `-r${REV}`}.txt`);
 const PRODUCTS = JSON.parse(read('config/products.json'));
 const SLUG = 'contract-intelligence-and-register';
 const REAL = PRODUCTS[SLUG];
@@ -36,7 +42,7 @@ const { managedSolution, _comment, ...RECORD } = CAND;
 test('the release record carries the checksums the bundle records', () => {
   assert.equal(CAND.version, '1.0.3.6');
   assert.equal(CAND.status, 'controlled-test');
-  assert.equal(CAND.package, 'CAI-L4-CI-001_1.0.3.6.zip');
+  assert.equal(CAND.package, `${BUNDLE_NAME}.zip`);
   assert.equal(SUMS[CAND.package], CAND.sha256, 'bundle zip sha256');
   assert.equal(SUMS[managedSolution.file], managedSolution.sha256, 'managed solution sha256');
   assert.equal(managedSolution.sha256, 'cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8', 'the package exported from CAI-LAB and tenant-tested');
@@ -58,6 +64,7 @@ test('bundle documents name release 1.0.3.6, its managed file and every bundle f
   assert.equal(manifest.release, '1.0.3.6');
   assert.equal(manifest.solution.version, '1.0.3.6');
   assert.equal(manifest.solution.file, managedSolution.file);
+  assert.equal(manifest.bundleRevision, REV, 'MANIFEST template and release record name the same bundle revision');
   const files = manifest.files.map((f) => f.name).concat('MANIFEST.json');
   assert.deepEqual(Object.keys(SUMS).filter((n) => n !== CAND.package).sort(), [...files].sort(), 'SHA256SUMS lists every bundle file');
   const start = read('docs/cai-l4-ci-001/bundle/START-HERE.md');
@@ -66,6 +73,10 @@ test('bundle documents name release 1.0.3.6, its managed file and every bundle f
     assert.match(text, /\*\*Release\*\* 1\.0\.3\.6/, `${name} header`);
     assert.ok(text.includes(managedSolution.file), `${name} names the managed file`);
     assert.ok(!/CAIContractIntelligence_1_0_3_[2345]_managed\.zip/.test(text), `${name} names no earlier managed file`);
+    assert.match(text, new RegExp(`\\*\\*Bundle revision\\*\\* ${REV}\\b`), `${name} names bundle revision ${REV}`);
+    assert.ok(text.includes(`${BUNDLE_NAME}.zip`), `${name} names the bundle file the buyer downloads`);
+    const otherNames = [...text.matchAll(/CAI-L4-CI-001_1\.0\.3\.6(?:-r\d+)?\.zip/g)].map((m) => m[0]).filter((n) => n !== `${BUNDLE_NAME}.zip`);
+    assert.deepEqual(otherNames, [], `${name} names no other revision's bundle file`);
   }
   assert.match(install, /--expect-version 1\.0\.3\.6/);
 });
@@ -133,4 +144,34 @@ test('the 1.0.3.6 dossier keeps the corrected data-hosting wording (F-DOC-1, F-D
   }
   assert.match(src, /hosts none of the agents/);
   assert.match(src, /RELEASE = '1\.0\.3\.6'/);
+});
+
+test('LICENSE.txt names the release and bundle revision it ships in', () => {
+  const first = read('docs/cai-l4-ci-001/bundle/LICENSE.txt').split('\n')[0];
+  assert.match(first, /\(SKU CAI-L4-CI-001\), release 1\.0\.3\.6\b/);
+  if (REV > 1) assert.ok(first.includes(`bundle revision ${REV}`), first);
+  assert.ok(!/release 1\.0\.3\.[0-5]\b/.test(first), 'no earlier release number (the 1.0.3.6 revision-1 defect)');
+});
+
+test('earlier bundle revisions stay on record and are never overwritten', () => {
+  const history = CAND.previousBundles ?? [];
+  assert.equal(history.length, REV - 1, 'one record per earlier revision');
+  history.forEach((b, i) => {
+    assert.equal(b.bundleRevision, i + 1);
+    assert.match(b.sha256, /^[0-9a-f]{64}$/);
+    assert.notEqual(b.package, CAND.package, 'each revision has its own file name');
+    assert.notEqual(b.sha256, CAND.sha256);
+  });
+  if (REV > 1) {
+    const r1 = history[0];
+    assert.deepEqual([r1.package, r1.sha256, r1.bytes],
+      ['CAI-L4-CI-001_1.0.3.6.zip', '69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50', 368718], 'delivered revision 1');
+    // the revision-1 checksum file is history: still present and unchanged in what it says about the delivered bundle
+    assert.equal(sumsOf('docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6.txt')[r1.package], r1.sha256);
+  }
+});
+
+test('the bundle builder gives revision 2 and later their own file name and keeps revision 1 on the historical name', () => {
+  const src = read('scripts/cai-release/build-bundle.py');
+  assert.match(src, /NAME = f'CAI-L4-CI-001_\{RELEASE\}' if _rev == 1 else f'CAI-L4-CI-001_\{RELEASE\}-r\{_rev\}'/);
 });

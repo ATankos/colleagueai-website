@@ -113,3 +113,21 @@ Proposed distinction, to be mirrored in the Licence (§5/§6), the product facts
 ## 9. What is not claimed
 
 No CE marking, conformity assessment, ISO/SOC certification or regulatory approval exists or is claimed; the site's claims-truth test keeps such words off the pages. Nothing in this file is published until counsel's answers and the founder's D10 are recorded in the Implementation Report.
+
+## 10. Operability check before launch (added 21 November 2026)
+
+The review of 21 November 2026 is right that a procedure on paper is not a process. Before the first sale the founder
+confirms each line with evidence (a screenshot or a register row), and the result goes into the launch evidence:
+
+| # | Check | Evidence |
+|---|---|---|
+| O1 | `security@colleagueai.ai` exists, both founders receive it, a test mail from an external address was auto-acknowledged with a reference | the acknowledgement e-mail |
+| O2 | `/.well-known/security.txt` published with the new contact, policy URL and an `Expires` date within 12 months (text in section 2) | the live file |
+| O3 | `/security/disclosure` published (ready page: `docs/security/disclosure-page-READY.html`, copied to `public/security/disclosure.html` and localized through the usual generator after counsel's C2/C3 answers) | the live page |
+| O4 | "Security register" list exists on the Release evidence site with the columns of section 3; one dry-run row created and closed | the row |
+| O5 | Reporting path identified: the ENISA single reporting platform account (or the interim national CSIRT submission route) with login held by the founder and the deputy; a dry run of the form up to the final step | screenshot of the form |
+| O6 | Customer notification template (section 7) sent once to the founders' own order from the test purchase | the e-mail |
+| O7 | Support window published in the licence (founder decision D1 in `docs/legal/proposed/README.md`) so that "supported versions" on the disclosure page is a fact, not a promise | the published licence |
+
+Until O1–O5 are done, the disclosure page and `security.txt` keep `hello@colleagueai.ai` and the procedure is marked
+"draft" in the Trust Center; no CRA conformity, CE marking or certification is claimed at any stage.

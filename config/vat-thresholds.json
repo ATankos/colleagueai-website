@@ -1,0 +1,9 @@
+{
+  "_comment": "Czech VAT-payer turnover thresholds (zákon č. 235/2004 Sb., § 6, rules in force from 1 January 2025): an identified person whose turnover in a calendar year exceeds CZK 2,000,000 becomes a VAT payer from 1 January of the following year, and from the day after the turnover exceeds CZK 2,536,500. Turnover is the value of supplies with place of supply in the Czech Republic that count under § 4a ZDPH, in CZK at the rate for the date of supply; it is not worldwide gross receipts and not Stripe payouts. lib/vatTurnover.js measures orders against these figures and warns from warnAtShare of the lower threshold; the accountant confirms which supplies count. Update this file when the law changes: effectiveFrom is the first calendar year these figures apply to; the year being measured is chosen by the caller (default: the current year), never stored here.",
+  "effectiveFrom": 2025,
+  "currency": "CZK",
+  "payerFromNextYearCzk": 2000000,
+  "payerImmediatelyCzk": 2536500,
+  "warnAtShare": 0.8,
+  "source": "https://financnisprava.gov.cz/cs/financni-sprava/novinky/novinky-2025/informace-ke-zmenam-v-platcovstvi-dph-2025"
+}
