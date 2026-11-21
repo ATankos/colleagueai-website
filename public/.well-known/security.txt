@@ -1,4 +1,4 @@
-Contact: mailto:security@colleagueai.ai
+Contact: mailto:hello@colleagueai.ai
 Expires: 2027-07-09T00:00:00.000Z
 Preferred-Languages: en, cs
 Canonical: https://www.colleagueai.ai/.well-known/security.txt

@@ -1,0 +1,16 @@
+{
+  "_comment": "First-sale launch scope (founder decision 3, 21 Nov 2026). Enforced by lib/launchScope.js in api/checkout.js (GET and POST) and in lib/fulfilment.js (a paid session outside the scope is withheld, not fulfilled). It narrows what may be sold; it never widens anything: saleApproved (config/products.json) and the tax policy (config/tax-policy.json) still gate live sales on their own. Changing this file is a founder decision recorded in the pull request.",
+  "version": "2026-11-21-cz-b2b-first-sale",
+  "buyer": {
+    "countries": ["CZ"],
+    "requireRegistrationNumber": true,
+    "registrationNumberFormat": "cz_ico",
+    "vatIdMustMatchRegistrationNumber": true
+  },
+  "currencies": ["usd"],
+  "paymentMethods": ["card"],
+  "certification": false,
+  "products": {
+    "contract-intelligence-and-register": { "sku": "CAI-L4-CI-001", "release": "1.0.3.6", "bundleRevision": 2 }
+  }
+}
