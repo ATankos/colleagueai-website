@@ -25,7 +25,10 @@ import re
 m = re.fullmatch(r'CAIContractIntelligence_(\d+)_(\d+)_(\d+)_(\d+)_managed\.zip', managed.name)
 assert m, managed.name
 RELEASE = '.'.join(m.groups())
-NAME = f'CAI-L4-CI-001_{RELEASE}'
+# Bundle revision 1 keeps the historical name CAI-L4-CI-001_<release>; a later revision of the same release (documents
+# only, same managed solution) gets its own file name, CAI-L4-CI-001_<release>-r<N>, so a delivered bundle is never
+# overwritten and every revision keeps its own SHA-256 on record.
+_rev = None
 with zipfile.ZipFile(managed) as z:
     assert z.testzip() is None, 'managed zip is corrupt'
     names = z.namelist()
@@ -34,6 +37,9 @@ with zipfile.ZipFile(managed) as z:
     assert f'<Version>{RELEASE}</Version>' in sx and '<Managed>1</Managed>' in sx, 'solution.xml version or managed flag differs'
 template = json.loads((src / 'MANIFEST.template.json').read_text(encoding='utf-8'))
 assert template['release'] == RELEASE and template['solution']['file'] == managed.name, 'MANIFEST.template.json is for another release'
+_rev = int(template.get('bundleRevision', 1))
+assert _rev >= 1, 'bundleRevision must be 1 or more'
+NAME = f'CAI-L4-CI-001_{RELEASE}' if _rev == 1 else f'CAI-L4-CI-001_{RELEASE}-r{_rev}'
 folder = out / NAME
 if folder.exists():
     shutil.rmtree(folder)

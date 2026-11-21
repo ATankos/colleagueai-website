@@ -17,6 +17,8 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+// The current release record: the documents name the package and hash that config/products.json publishes.
+const RELEASE = JSON.parse(readFileSync(new URL('../config/products.json', import.meta.url), 'utf8'))['contract-intelligence-and-register'].release;
 
 const ROOT = new URL('..', import.meta.url);
 const DOCS = JSON.parse(readFileSync(new URL('config/order-documents.json', ROOT), 'utf8'));
@@ -103,7 +105,7 @@ test('agreement confirmation PDF: every required element is on the page, and it 
     'Licence Agreement Confirmation', 'Colleague AI s.r.o.', 'Školská 1736/12', 'Company ID (IČO) 29540852',           // licensor
     'Vzorová Průmyslová a.s.', 'Business registration number 12345678', 'Czechia (CZ)', 'VAT / tax ID CZ12345678',   // licensee
     model.reference, 'ord_20261120_abcdef123456', 'acc_0123456789abcdef01234567', 'pi_doc1',                        // references
-    'CAI-L4-CI-001', '1.0.3.6', 'CAI-L4-CI-001_1.0.3.6.zip', '69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2b', // product + hash
+    'CAI-L4-CI-001', RELEASE.version, RELEASE.package, RELEASE.sha256.slice(0, 54), // product + hash of the current release
     'single-tenant licence', 'vzorova-prumyslova.example (as stated by the Licensee at order)', 'Perpetual for the licensed tenant', // scope, tenant, duration
     'USD 14,900.00', 'TEST MODE - no real payment',                                                                   // price, mode
     DOCS.products['contract-intelligence-and-register'].includes.slice(0, 60), DOCS.products['contract-intelligence-and-register'].excludes.slice(0, 60),
@@ -268,7 +270,7 @@ test('ensureOrderDocuments: produced once, recorded with hashes, evidence writte
     assert.equal(evidence.documents.agreement.sha256, o.documents.agreement.sha256);
     assert.equal(evidence.invoice.number, 'TEST-INV-2026-0001');
     assert.equal(evidence.payment.paymentIntentId, 'pi_doc1');
-    assert.equal(evidence.release.sha256, '69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50');
+    assert.equal(evidence.release.sha256, RELEASE.sha256);
     assert.equal(evidence.acceptance.documents.terms.sha256, 'a'.repeat(64));
     // 3. Run again: nothing new is written.
     const puts = sdk.objects.size;

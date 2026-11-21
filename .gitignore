@@ -44,3 +44,4 @@ caef/
 TEST-REPORT-*.md
 
 RECOVERY.md
+__pycache__/
