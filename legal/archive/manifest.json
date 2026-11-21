@@ -48,16 +48,16 @@
       "sha256": "cb862062aed86d519c649181aca34ce90b26209f0ddf8d8edad04605e2f3bbed",
       "path": "legal/archive/terms/2026-11-21.html",
       "source": "public/terms.html",
-      "archivedAt": "2026-11-21T21:56:12.715Z"
+      "archivedAt": "2026-11-21T23:09:26.051Z"
     },
     {
       "document": "licence",
       "title": "Software & Agent Licence",
       "version": "2026-11-21",
-      "sha256": "c0038992abd3eb1e61e05ecf55552a79171fd69ef7bbb0159701eb2e42dda659",
+      "sha256": "5885cab0c9a863e4197175889a1c9ac5dbd65571266a04e837666f177e059f1f",
       "path": "legal/archive/licence/2026-11-21.html",
       "source": "public/license.html",
-      "archivedAt": "2026-11-21T21:56:12.715Z"
+      "archivedAt": "2026-11-21T23:09:26.051Z"
     },
     {
       "document": "refund",
@@ -66,16 +66,16 @@
       "sha256": "957d28e58b77e1a70bb5a1fbc9cbc4ca7b66cf080aaf3381b4d43e6f8558e97d",
       "path": "legal/archive/refund/1.1-2026-11-21.html",
       "source": "public/refund.html",
-      "archivedAt": "2026-11-21T21:56:12.715Z"
+      "archivedAt": "2026-11-21T23:09:26.051Z"
     },
     {
       "document": "privacy",
       "title": "Privacy Policy",
       "version": "2026-11-21",
-      "sha256": "80d13ed5a8e39594693eecb75db14cd85394938e51cc8fed14eb7776577638d0",
+      "sha256": "a9307f3e8275d16c3ff6234cdb84c7f8916c45b8a0cd9287da4cd78233deb3c5",
       "path": "legal/archive/privacy/2026-11-21.html",
       "source": "public/privacy.html",
-      "archivedAt": "2026-11-21T21:56:12.715Z"
+      "archivedAt": "2026-11-21T23:09:26.051Z"
     }
   ]
 }

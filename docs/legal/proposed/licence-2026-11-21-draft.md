@@ -64,9 +64,12 @@ the product. Your Microsoft usage (for example Copilot Studio capacity) is bille
 agreement and is not part of this Licence.
 
 ColleagueAI separately processes the information needed for website enquiries, orders, payment administration,
-licensing, secure downloads and support, as the Privacy Policy explains. If you voluntarily send us personal data or
-documents in a support request (for example a contract excerpt to reproduce a problem), we use them only for that case,
-keep them only as long as the case needs, and do not act as your processor unless we agree so in writing.
+licensing, secure downloads and support, as the Privacy Policy explains. Support does not need your business content:
+describe the problem, and send only what the case needs. If you send documents in a support request (for example a
+contract excerpt to reproduce a problem), we use them only to resolve that case and delete them when it is closed.
+Please remove other people's personal data from them first. If personal data for which your company is the controller
+is needed to resolve a case, we agree written processing terms with you (Article 28 GDPR) before you send it; if such
+data reaches us without those terms, we do not use it, delete it and ask you for a version without it.
 
 ## 4. Ownership and rights
 

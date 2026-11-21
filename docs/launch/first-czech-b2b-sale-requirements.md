@@ -4,8 +4,9 @@
 `remaining-approvals.md` as the single checklist for the first paid order; that file keeps the GO sequence.*
 
 The scope of the first sale is one order from one Czech legal entity for Contract Intelligence & Register (CAI-L4-CI-001,
-release 1.0.3.6, USD 14,900), paid by card through Stripe, with the seller acting as a Czech identified person. EU, non-EU
-and consumer purchases stay on hold in the tax matrix (`tax-policy-draft-identified-person.json`).
+release 1.0.3.6, USD 14,900), paid by card through Stripe (`config/launch-scope.json`). The seller's VAT status is not
+verified (checked 21 Nov 2026: ARES has no VAT-register entry for IČO 29540852, VIES answers INVALID; no registration decision on file); the accountant establishes it (T1). EU, non-EU and consumer purchases stay on hold in
+`config/tax-policy.json` (the earlier `tax-policy-draft-identified-person.json` is superseded).
 
 ## 1. Three kinds of requirement
 
@@ -20,7 +21,7 @@ and consumer purchases stay on hold in the tax matrix (`tax-policy-draft-identif
 | # | Item | Kind | Status 21 Nov | Exactly what is missing | Owner |
 |---|---|---|---|---|---|
 | 1 | Seller VAT status: identified person, DIČ CZ29540852, effective date | A (tax) | founder-confirmed; not evidenced | registration certificate or official confirmation with the effective date → `seller.vatEffectiveFrom` | founder (records) |
-| 2 | Tax treatment of the first order: domestic B2B supply by an identified person, no Czech VAT, invoice note per T3 | A (tax) | drafted (T1–T14 v2) | accountant's written confirmation of T1, T3, T7, T8, T13 with a reference; then `config/tax-policy.json` approval block and `status: approved` in a PR | accountant → founder |
+| 2 | Tax treatment of the first order: domestic B2B supply under the seller's official VAT status (to be established, T1), invoice note per T3 | A (tax) | drafted (T1–T14 v2) | accountant's written confirmation of T1, T3, T7, T8, T13 with a reference; then `config/tax-policy.json` approval block and `status: approved` in a PR | accountant → founder |
 | 3 | Invoice document meets the T7 list (seller, buyer, supply, date of issue, tax point with its basis and the separate payment and delivery dates, number, note, archived copy) | A (tax) | code ready for both routes (`lib/invoicePdf.js` `taxPointOf`: delivery is the supply, payment before delivery is an advance under § 20a(2) ZDPH); no real sample yet | one Stripe-generated invoice PDF from the new Preview purchase, checked line by line (T13); if it fails, `invoiceRoute: czech` | me (check) → accountant (decision) |
 | 4 | CZK conversion method for VAT records and accounting (T8) | A (tax/accounting) | rule drafted (ČNB rate on the date of supply) | accountant's written choice of the accounting rate method | accountant |
 | 5 | Microsoft supplier invoice G195024562 (Oct 2026): treatment and whether a return is due by 25 Nov 2026 | A (tax) | open; decision tree written (tax draft T11) | the ORIGINAL invoice, read for: supplier entity and VAT number; the customer block (is DIČ CZ29540852 printed?); the VAT line (rate, amount, whose VAT; EUR 45.89 on EUR 218.52 is 21 % = Czech rate, i.e. VAT was probably charged because no VAT ID was on the account); any reverse-charge legend; issue date and service period / tax point; service description; net amount, currency and CZK rule; payment date. Foreign supplier + no VAT + reverse-charge legend → self-assess 21 % in the October return (due 25 Nov 2026), no deduction. Foreign supplier + VAT charged → accountant decides whether § 108(3) still applies; update the Microsoft account with the DIČ. Czech supplier → domestic, nothing to self-assess. Nothing is reverse-charged automatically. | founder (document) → accountant |
@@ -56,5 +57,6 @@ Items 5 and 6 run in parallel and do not block the order itself, but item 5 may 
 ## 4. What this document does not do
 
 It does not invent any approval. No line above says "approved" that is not evidenced by a document a person signed or
-a file a person can open. The founders' 50/50 ownership and the identified-person status are taken as confirmed facts
-and are not reopened.
+a file a person can open. Corrected 21 Nov 2026: neither a VAT registration nor a registered 50/50 ownership is
+assumed. The Commercial Register shows Marek Těšitel as sole managing director and sole shareholder; the VAT status is
+not verified (checked 21 Nov 2026: ARES has no VAT-register entry for IČO 29540852, VIES answers INVALID; no registration decision on file).
