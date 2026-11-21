@@ -46,7 +46,11 @@ test('the certification terms still make the refund promises the public page rel
 
 test('every refund page carves those promises out of its general no-pro-rata rule', () => {
   const missing = [];
-  for (const page of ['refund.html', ...LOCALES.map((l) => `${l}/refund.html`)]) {
+  // While the translations are out of sync the localized refund pages carry no agreement text, only a pointer to the
+  // English version (scripts/legal/localized-legal-pointers.cjs), so only the English page is checked then.
+  const legal = JSON.parse(readFileSync(new URL('../config/legal.json', import.meta.url), 'utf8'));
+  const localized = legal.translations.status === 'out_of_sync' ? [] : LOCALES.map((l) => `${l}/refund.html`);
+  for (const page of ['refund.html', ...localized]) {
     const body = section7(read('public/' + page));
     // "Continuous Certification" is protected vocabulary and stays untranslated
     // in all eight, so it is the one marker that works in every language.

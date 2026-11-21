@@ -63,9 +63,10 @@ credit note that references the original invoice.
 
 Where we bill a service on a recurring basis (for example Continuous Certification, when offered), you can cancel at any
 time with effect from the end of the current billing period; a started period is not refunded pro rata unless
-mandatory law requires it. If we narrow the scope of Continuous Certification you may end it and receive a pro-rata
-refund of the unused term; if we discontinue a package, the subscription ends and the unused term is refunded pro rata.
-Your perpetual licence to the release you bought is unaffected in both cases.
+mandatory law requires it. Two exceptions follow from the Continuous Certification terms: if we narrow the covered scope
+of Continuous Certification you may end it and receive a pro-rata refund of the unused term; if we discontinue a
+package, the subscription ends and the unused term is refunded pro rata. Your perpetual licence to the version already
+purchased is unaffected in both cases.
 
 ## 8. How to ask
 
