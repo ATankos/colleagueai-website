@@ -151,3 +151,48 @@ test('reconciliation: every balance transaction is matched to its order and the 
   assert.match(csv, /Beispiel Werke GmbH/);
   assert.equal(rec.reconcilePayout({ payout: { id: 'po_2', amount: 1 }, balanceTransactions: bts, orders: {} }).matchesPayout, false);
 });
+
+// ── company ledger (the company's own invoice series) ──────────────────────────────────────────────────────────
+const SELLER = { legalName: 'Colleague AI s.r.o.', registrationNumber: '29540852', address: 'Školská 1736/12, 110 00 Praha 1', register: 'Městský soud v Praze, C 448176', vatStatus: null, vatId: null };
+const LIVE = { ...ORDER, id: 'ord_20261121_aaaaaaaaaaaa', mode: 'live', buyer: { company: 'Zkušební Strojírny s.r.o.', country: 'CZ', registrationNumber: '12345679', taxId: null },
+  facts: { ...ORDER.facts, paidAt: '2026-11-21T10:00:00Z', fulfilledAt: '2026-11-21T10:00:05Z' }, tax: { category: 'cz_business', applied: true, invoiceNote: 'wording from the approved policy', seller: SELLER }, stripe: { paymentIntentId: 'pi_x' } };
+
+test('company ledger: a live order gets the next number of the real yearly series, once; the document carries only recorded facts', async () => {
+  const a = await inv.ensureInvoice({ route: 'company_ledger', order: LIVE, now: NOW });
+  assert.equal(a.status, 'issued');
+  assert.equal(a.number, 'CAI-INV-2026-00001');
+  assert.equal(a.test, undefined);
+  const again = await inv.ensureInvoice({ route: 'company_ledger', order: LIVE, now: NOW });
+  assert.equal(again.number, 'CAI-INV-2026-00001', 'a retry returns the same invoice');
+  assert.equal(store.get('seq:invoice:company_ledger:2026'), '1');
+  const doc = JSON.parse(store.get(inv.ledgerDocKey('company_ledger', 'CAI-INV-2026-00001')));
+  assert.deepEqual(doc.seller, SELLER);
+  assert.equal(doc.taxTreatment.invoiceNote, 'wording from the approved policy');
+  assert.equal(doc.paidAt, LIVE.facts.paidAt);
+  assert.equal(doc.conversion, undefined, 'no CZK conversion unless one is passed (T8)');
+  const second = await inv.ensureInvoice({ route: 'company_ledger', order: { ...LIVE, id: 'ord_20261121_bbbbbbbbbbbb' }, now: NOW });
+  assert.equal(second.number, 'CAI-INV-2026-00002');
+  const test = await inv.ensureInvoice({ route: 'company_ledger', order: { ...LIVE, id: 'ord_20261121_cccccccccccc', mode: 'test' }, now: NOW });
+  assert.equal(test.number, 'TEST-CAI-INV-2026-00001');
+  assert.equal(store.get('seq:invoice:company_ledger:2026'), '2', 'test orders never consume the real series');
+});
+
+test('company ledger: refuses an unpaid order or one without a recorded seller; a claim in progress is pending, not a second number', async () => {
+  assert.equal((await inv.ensureInvoice({ route: 'company_ledger', order: { ...LIVE, facts: {} }, now: NOW })).reason, 'not_paid');
+  assert.equal((await inv.ensureInvoice({ route: 'company_ledger', order: { ...LIVE, tax: { ...LIVE.tax, seller: null } }, now: NOW })).reason, 'seller_not_recorded');
+  store.set(`invoice:company_ledger:order:${LIVE.id}`, JSON.stringify({ status: 'allocating' }));
+  const p = await inv.ensureInvoice({ route: 'company_ledger', order: LIVE, now: NOW });
+  assert.equal(p.status, 'pending');
+  assert.equal(store.get('seq:invoice:company_ledger:2026'), undefined);
+});
+
+test('company ledger: one credit note per refund, in the CN series, linked to the invoice', async () => {
+  const invSection = await inv.ensureInvoice({ route: 'company_ledger', order: LIVE, now: NOW });
+  const order = { ...LIVE, invoice: invSection };
+  const cn = await inv.ensureCreditNote({ route: 'company_ledger', order, refund: { id: 're_1', amount: 1490000 }, now: NOW });
+  assert.equal(cn.number, 'CAI-CN-2026-00001');
+  assert.equal(cn.invoiceNumber, 'CAI-INV-2026-00001');
+  const again = await inv.ensureCreditNote({ route: 'company_ledger', order, refund: { id: 're_1', amount: 1490000 }, now: NOW });
+  assert.equal(again.number, 'CAI-CN-2026-00001');
+  assert.equal((await inv.ensureCreditNote({ route: 'company_ledger', order: { ...order, creditNotes: [cn] }, refund: { id: 're_1', amount: 1490000 }, now: NOW })).skipped, 'already_issued');
+});
