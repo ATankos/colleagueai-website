@@ -1,6 +1,6 @@
 # Company IP rights: what is documented, what is missing (20 November 2026)
 
-**Status: review for counsel. Nothing here is a legal conclusion, nothing is signed, and nothing here approves any right.** The founders' 50/50 ownership of the company is taken as settled and is not discussed.
+**Status: review for counsel. Nothing here is a legal conclusion, nothing is signed, and nothing here approves any right.** Correction of 21 Nov 2026: the Commercial Register shows Marek Těšitel as sole managing director and sole shareholder (100 %); no registered 50/50 ownership is assumed. Equity is a separate question from the authors' rights reviewed here; see `ip-licence-agreement-DRAFT.md` Part 0 and Part C.
 
 ## 1. The question
 
