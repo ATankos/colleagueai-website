@@ -112,6 +112,9 @@ jobs:
       - name: Accepted agreements are provable word for word (fingerprints, append-only archive, no silent edits)
         run: node --test tests/legal-archive.test.mjs
 
+      - name: Release gates are well-formed and the release certifier runs (manual gates never upgraded)
+        run: node --test tests/release-gates.test.mjs
+
       - name: Shipped open-source packages stay under permissive licences
         run: node --test tests/licence-inventory.test.mjs
 
