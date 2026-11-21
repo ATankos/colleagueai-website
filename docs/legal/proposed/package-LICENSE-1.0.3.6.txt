@@ -1,0 +1,26 @@
+ColleagueAI Contract Intelligence & Register (SKU CAI-L4-CI-001), release 1.0.3.6
+Copyright (c) 2026 Colleague AI s.r.o., Skolska 1736/12, 110 00 Praha 1, Czech Republic (ICO 29540852).
+All rights reserved.
+
+This release package is licensed, not sold. Your use of it is governed by the ColleagueAI
+Software & Agent Licence and the Terms of Service in the versions you accepted when you
+ordered, which are recorded on your order page together with their fingerprints and are
+archived at https://www.colleagueai.ai/legal/archive/. The current texts are published at
+https://www.colleagueai.ai/license and https://www.colleagueai.ai/terms.
+
+Licence summary (the agreement itself prevails):
+- one Microsoft tenant of the licensed company; perpetual; non-exclusive; non-transferable;
+- no redistribution, resale, sublicensing or operation for third parties;
+- the Microsoft services the package runs on are licensed to you by Microsoft, not by us;
+- AI-extracted terms are unverified until a person in your organisation reviews them.
+
+Integrity: this package is identified by its SHA-256 checksum, published on your order page
+and in SHA256SUMS-1.0.3.6.txt. Verify the checksum before you import the solution. The
+package is not digitally signed.
+
+Support: hello@colleagueai.ai with your order number, the SKU and the release number.
+Security reports: see https://www.colleagueai.ai/.well-known/security.txt.
+
+Release status: controlled release 1.0.3.6 (corrective release for 1.0.3.2 - 1.0.3.5).
+Third-party components and their licences: docs/legal/third-party-licences.md in the
+ColleagueAI repository and THIRD-PARTY-NOTICES in this package where applicable.

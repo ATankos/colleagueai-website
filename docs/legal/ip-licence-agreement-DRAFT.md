@@ -1,5 +1,45 @@
 # EXCLUSIVE LICENCE AGREEMENT — DRAFT, NOT SIGNED, FOR COUNSEL REVIEW
 
+> **Execution readiness (added 21 November 2026, legal review item C).** The agreement below is complete in structure;
+> it cannot be signed until the facts in Part A are filled in and the steps in Part B are done. Nothing here is signed.
+> The founders' 50/50 ownership of the Company is settled and is not touched by this instrument, which concerns
+> **authors' rights in works**, a different question from equity.
+
+## Part A — Facts to fill in before signature
+
+| # | Blank | Who supplies it | Notes |
+|---|---|---|---|
+| A1 | Author (1): full name, date of birth, residence | technical co-founder | Authorship is personal; a holding company is not the author. If the Author's existing agreement with his holding s.r.o. assigns or licenses his works to the holding, the holding must be the Licensor **and** the Author–holding instrument must be attached (rights chain). If no such instrument exists, the Author signs directly and the holding is not a party. |
+| A2 | Author (2): the public co-founder, for any work he authored | public co-founder | Items 9 (commercial copy), 11 (brand assets) and parts of 12 may contain his contributions. Either he signs an identical agreement for his works (two bilateral instruments) or both sign one tri-partite agreement. Without it the Company's rights in those items are incomplete. |
+| A3 | Who signs for the Company | both directors | Where an Author is also a director, self-dealing rules apply (§§ 54–57 Act No. 90/2012 Coll., ZOK): the director notifies the other director and the general meeting of the conflict; the general meeting (both shareholders) approves the contract by resolution, recorded in writing; the **other** director signs for the Company, or both sign with the resolution attached. |
+| A4 | Consideration (§ 4) | founders + accountant | Choose one: (a) fixed fee in CZK; (b) royalty per sale (percentage of net licence revenue); (c) stated nominal fee with the reasoning recorded. A licence for no separately stated fee between a shareholder-director and the company is a related-party transaction: the accountant confirms the arm's-length position and the personal income-tax treatment for the Author (§ 7 or § 10 of Act No. 586/1992 Coll. as applicable) before signature. |
+| A5 | Governing language | counsel | Czech controlling text with an English convenience translation is the safe choice for a Czech-law instrument between Czech parties; the English draft below is the working text. |
+| A6 | Signature form | founders | Exclusive licence must be in writing (§ 2358(2) Civil Code): wet-ink signatures on two counterparts, or qualified electronic signatures (eIDAS); keep the signed PDF and a hash of it in the company records. |
+| A7 | Schedule 1 cut-off | technical co-founder | Confirm the inventory as of the signature date (currently 20 November 2026) and the repository commit that fixes it. |
+
+## Part B — Rights chain and legal form (what counsel confirms, with the proposed answers)
+
+1. **Form: exclusive licence, not assignment.** Czech copyright cannot be assigned inter vivos (§ 26 Act No. 121/2000
+   Coll.); the mechanism is an exclusive licence under §§ 2358 ff. Civil Code with the right to sublicense
+   (§ 2363), which is what the Company needs to sell under its Software & Agent Licence. Written form is mandatory.
+2. **Commissioned work (§ 58(7) Copyright Act / § 61) does not apply** to works created before any commissioning
+   contract existed, and there was none; **employee work (§ 58(1))** does not apply because neither founder was an
+   employee of the Company when the works were created. The licence route therefore covers all items of Schedule 1.
+   Works created **after** signature can be covered either by § 2 (future works, determined by field) or by a separate
+   commissioning or employment arrangement; counsel chooses.
+3. **AI-assisted parts (§ 1.4):** the Author licenses whatever rights exist in output he directed and selected; the
+   Company does not claim copyright in output that has no human authorship, and this is reflected in customer-facing
+   statements (the Licence warrants rights "held or licensed", not authorship of every line).
+4. **Chain to customers:** Author → (holding, if A1 applies) → Company → customer under the published Software &
+   Agent Licence. Each link must exist in writing before the customer-facing warranty of title (proposed Licence §4(d))
+   is published.
+5. **Evidence to keep:** the signed instrument(s), the general-meeting resolution (A3), the accountant's note (A4),
+   the Schedule 1 commit reference (A7), and the Author–holding instrument if any (A1). Store them with the release
+   evidence; they are not published.
+
+---
+
+
 *(Výhradní licenční smlouva — návrh. Prepared 20 November 2026 by the technical co-founder with Claude; English working draft. Counsel decides the governing text, the language of the signed version, and whether a Czech version controls. Nothing below has been agreed or signed.)*
 
 **Between**
@@ -59,7 +99,7 @@ Signed in two counterparts.
 | ______________________ [Author] | ______________________ Colleague AI s.r.o., [director] |
 | Date: | Date: |
 
-*This draft is unsigned. Do not represent it as executed.*
+*This draft is unsigned. Do not represent it as executed. Signature requires Part A complete and the general-meeting resolution in Part A3.*
 
 ---
 

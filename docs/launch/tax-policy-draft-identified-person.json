@@ -1,6 +1,6 @@
 {
-  "_comment": "DRAFT PREPARED 20 Nov 2026 FROM THE FOUNDER'S CONFIRMED STATUS (Czech identified person). NOT the accountant's written answer and NOT loaded by the code: config/tax-policy.json stays unapproved until the accountant confirms each line in writing and the approval block is filled. Every decision text below is a proposal for the accountant to confirm, correct or replace.",
-  "version": "2026-11-20-draft-identified-person",
+  "_comment": "DRAFT v2 PREPARED 21 Nov 2026 from the founder's confirmed status (Czech identified person) and the legal & tax review of 21 Nov 2026 (T1-T14). First-sale scope: Czech B2B only. NOT the accountant's written answer and NOT loaded by the code: config/tax-policy.json stays unapproved until the accountant confirms each line in writing and the approval block is filled with a real person, role, date and filing reference. Every decision below is a proposal to confirm, correct or replace; nothing in it is a representation that the tax authority has verified anything.",
+  "version": "2026-11-21-draft-identified-person-cz-b2b",
   "status": "unapproved",
   "approval": {
     "approvedBy": null,
@@ -16,34 +16,34 @@
     "vatStatus": "identified_person",
     "vatId": "CZ29540852",
     "vatEffectiveFrom": null,
-    "_note": "vatId = DIČ shown on the published legal pages; accountant confirms it and fills the registration date (vatEffectiveFrom)."
+    "_note": "vatId = DIČ shown on the published legal pages. Use it only if it matches the actual registration; the accountant confirms it against the registration certificate and fills vatEffectiveFrom from that document. Do not represent the status as verified by the tax authority until then."
   },
   "decisions": {
-    "T1_vatStatus": "PROPOSED: Colleague AI s.r.o. is an identified person (identifikovaná osoba, § 6g–6l ZDPH), DIČ CZ29540852, from [date]. It does not charge Czech VAT on domestic supplies and is not a VAT payer; it files a VAT return only for periods with cross-border transactions and an EC Sales List (souhrnné hlášení) for reverse-charge services supplied to EU businesses.",
-    "T2_euBusinessWithVatId": "PROPOSED: Place of supply is the customer's member state (§ 9(1) ZDPH / Art. 44 Directive 2006/112/EC); the customer accounts for VAT (reverse charge). Invoice without Czech VAT, with the note 'Daň odvede zákazník / Reverse charge - Art. 196 Directive 2006/112/EC' and both VAT IDs; reported in the EC Sales List. First-sale treatment: HOLD (manual handling) until the accountant confirms, or SELL once confirmed.",
-    "T3_domesticBusiness": "PROPOSED: Supply by an identified person to a Czech business: no VAT charged; invoice (not a daňový doklad) with the note 'Neplátce DPH - identifikovaná osoba'. SELL.",
-    "T4_nonEuBusiness": "PROPOSED: Place of supply outside the EU; outside the scope of Czech VAT; note 'Outside the scope of Czech VAT (§ 9(1) ZDPH)'. First-sale treatment: HOLD until confirmed.",
-    "T5_businessStatusAndNoVatId": "PROPOSED: An EU buyer without a VAT ID that declares it buys in the course of business: treated as a taxable person only with other evidence; default HOLD for manual handling (the accountant decides what evidence suffices).",
-    "T6_licenceClassification": "PROPOSED: A perpetual software licence delivered as a download is an electronically supplied service (Art. 7 Implementing Regulation (EU) 282/2011); B2B general place-of-supply rule applies.",
-    "T7_taxDocumentRequirements": "PROPOSED: Document per § 29 ZDPH where a daňový doklad is required (reverse-charge supplies to EU businesses); date of taxable supply (DUZP) = the day the service is supplied, i.e. the day of payment for a licence delivered on payment (§ 21 ZDPH); English and USD acceptable with the CZK base recorded in the VAT records; Stripe's number series acceptable (Q1-Q4 of the route assessment).",
-    "T8_currencyConversion": "PROPOSED: USD amounts converted to CZK at the ČNB rate valid on the date of taxable supply (§ 4(8) ZDPH) for the VAT return and EC Sales List; accounting conversion per the accounting policy (daily ČNB rate or fixed rate). The conversion is an accounting step from the payout reconciliation; printed on the invoice only if the accountant requires it.",
-    "T9_revenueRecognition": "PROPOSED: Revenue recognised on delivery of the perpetual licence (download available), i.e. at payment; the accountant confirms.",
-    "T10_partnerCommissions": "PROPOSED: Partner commissions are purchased services; a partner established in the EU invoices with reverse charge to the identified person, who self-assesses; the accountant confirms the regime per partner.",
-    "T11_servicesFromAbroad": "PROPOSED: Services received from abroad (Microsoft Copilot Studio consumption, Vercel, Stripe fees, Upstash, Resend, Anthropic) are reverse-charged by the identified person (§ 108 ZDPH): Czech VAT self-assessed in the VAT return for the month of receipt, due by the 25th of the following month, with no input VAT deduction. The 25 November return covers October.",
-    "T12_bankTransferProforma": "PROPOSED: Bank-transfer orders receive a proforma (not a tax document) from the invoicing route; the invoice/tax document is issued on receipt of payment (DUZP = payment date). Bank transfer stays off for the first sale (CAI_PAYMENT_METHODS=card).",
-    "T13_invoiceRoute": "PROPOSED: Stripe post-payment invoice ('stripe') for the first sale, subject to Q1-Q4 in docs/commerce/invoicing-route-assessment.md; Czech tool only if the accountant requires a Czech number series, a labelled DUZP, CZK on the document or a proforma.",
-    "T14_microsoftConsumption": "PROPOSED: Microsoft bills Copilot Studio consumption to the customer directly; nothing to invoice or re-charge by Colleague AI."
+    "T1_vatStatus": "PROPOSED: Colleague AI s.r.o. is treated as an identified person (identifikovaná osoba, § 6g-6l ZDPH), DIČ CZ29540852, from [vatEffectiveFrom - from the registration certificate], not a VAT payer. It charges no Czech VAT on ordinary domestic supplies. It files a VAT return only for periods with reverse-charge transactions and an EC Sales List (souhrnné hlášení) for services supplied to EU businesses. EVIDENCE NEEDED: registration certificate or official confirmation with the effective date (founder); accountant's written confirmation.",
+    "T2_euBusinessWithVatId": "PROPOSED: Place of supply = the customer's member state (§ 9(1) ZDPH / Art. 44 Directive 2006/112/EC); the customer accounts for VAT where Art. 196 applies. Document without Czech VAT, with both VAT IDs and the note 'Daň odvede zákazník / Reverse charge - Art. 196 Directive 2006/112/EC'; reported in the EC Sales List for the period. FIRST SALE: HOLD (manual handling; VAT ID and business status verified first). Kept in the matrix so that switching to SELL later is a configuration change, not a redesign.",
+    "T3_domesticBusiness": "PROPOSED: Supply by an identified person to a Czech business: no Czech VAT. The document is an invoice (faktura), not a daňový doklad, and carries the note 'Dodavatel není plátcem DPH; je identifikovanou osobou (§ 6g zákona č. 235/2004 Sb.). / The supplier is not a VAT payer; it is an identified person. No Czech VAT is charged.' Never print reverse-charge wording on a domestic invoice. SELL once T1 (registration evidence), T7 (document content) and T13 (route) are documented; until then HOLD.",
+    "T4_nonEuBusiness": "PROPOSED: B2B software licence service supplied where the business customer is established (§ 9(1) ZDPH); outside the scope of Czech VAT with the note 'Outside the scope of Czech VAT (§ 9(1) ZDPH)'. Foreign tax or nexus questions and the customer's business documentation are checked case by case. FIRST SALE: HOLD.",
+    "T5_businessStatusAndNoVatId": "PROPOSED: The absence of a VAT ID does not settle whether an EU buyer is a taxable person; request documentary evidence (registration extract, business website, order on company letterhead) and review manually. FIRST SALE: HOLD. Consumers (B2C) are not sold to at all: checkout is B2B-only by declaration, and a buyer who turns out to be a consumer is refunded (treatment 'consumer': block).",
+    "T6_licenceClassification": "PROPOSED: Standard downloadable software is an electronically supplied service (Art. 7 Implementing Regulation (EU) 282/2011); the B2B general place-of-supply rule applies. Bespoke development, live consulting or mixed services are NOT covered by this policy and must not be sold under SKU CAI-L4-CI-001. The accountant confirms against the actual SKU and licence text.",
+    "T7_taxDocumentRequirements": "PROPOSED: Every invoice identifies supplier (name, address, IČO, DIČ), customer (name, address, registration number, VAT ID if any), the supply (SKU, release, 'perpetual licence for one Microsoft tenant'), consideration (USD, and the CZK base in the records per T8), date of issue, a unique number, the payment reference and the tax note of the buyer category. Date of supply: the day the licence is delivered, which in the standard flow is the moment the download becomes available (order.facts.fulfilledAt, normally seconds after order.facts.paidAt); the record keeps both timestamps, and the document prints the delivery date as the date of supply (not an assumed paidAt). Where delivery is NOT immediate (withheld sale, bank transfer), the advance-payment rules apply and the accountant decides the document. EVIDENCE NEEDED: one real Stripe-generated invoice PDF from the test purchase, checked line by line against this list before T13 is approved.",
+    "T8_currencyConversion": "PROPOSED: The contract price is in USD. For VAT records and the EC Sales List, USD is converted to CZK at the ČNB rate valid on the date of supply (§ 4(8) ZDPH); for accounting, at the rate the accounting policy fixes (daily ČNB rate, or the fixed rate for the period). The Stripe settlement/payout rate is NEVER the statutory conversion; it is recorded separately for bank reconciliation (scripts/commerce/reconcile-payout.mjs). The order record stores gross payment, the applicable rate, its source and date, the CZK value, and Stripe's payout amount and fees (invoice.conversion {rate, source, date, amountCzk}; printed on our own documents only when present). EVIDENCE NEEDED: the accountant's written choice of accounting rate method; then the rate source is wired into the invoicing route.",
+    "T9_revenueRecognition": "PROPOSED: The one-off licence is recognised when delivered (download available = fulfilledAt). Corrective releases within the support window and e-mail support are a separately identified promise; the accountant decides whether a portion is deferred. Continuous Certification (not open) would be recognised over its period. EVIDENCE NEEDED: written accounting policy.",
+    "T10_partnerCommissions": "PROPOSED: No partner commission on the first sale (CAI_PARTNER_PROGRAM off for the launch order). When commissions start, each partner's entity, residence, VAT status and contract decide the treatment (an EU-established partner's service is normally reverse-charged by the identified person; a Czech partner invoices under its own status). Not one rule for all.",
+    "T11_servicesFromAbroad": "PROPOSED: A service received from a foreign business with place of supply in the Czech Republic is self-assessed by the identified person (§ 108 ZDPH) in the return for the month of receipt, due by the 25th of the following month, without input deduction. NOT every supplier fee is the same: each invoice is read for the supplier entity, its VAT ID, whether VAT was (correctly or incorrectly) charged, the service and the tax point. URGENT: Microsoft invoice G195024562 (reported 30 Oct 2026, EUR 218.52 net + EUR 45.89 VAT) - the accountant inspects the original document, decides whether an October 2026 self-assessment or a corrected supplier document is due, and whether a return by 25 Nov 2026 is required. No amount is booked from this note.",
+    "T12_bankTransferProforma": "PROPOSED: Bank transfer stays OFF for the first live sale (CAI_PAYMENT_METHODS=card). If enabled later: proforma (not a tax document) at order, invoice on receipt of payment, advance-payment and tax-point rules designed and approved separately.",
+    "T13_invoiceRoute": "PROPOSED: The Stripe post-payment invoice is reused ONLY if a real Stripe-generated PDF from the Preview test purchase shows every T7 item (seller and buyer details, issue date, date of supply, unique number, the T3 note, no reverse-charge wording on a CZ document, archived copy on the order). Otherwise the Czech route (our own numbering, lib/invoicePdf.js, CZK per T8) is used. Stripe is not labelled compliant until that check is written up (docs/commerce/invoicing-route-assessment.md Q1-Q4).",
+    "T14_microsoftConsumption": "PROPOSED: Microsoft bills Copilot Studio / Power Platform consumption to the customer directly under the customer's own Microsoft agreement; nothing is invoiced or re-charged by Colleague AI. The product facts, pricing page and licence say so consistently (verified 21 Nov 2026)."
   },
   "treatments": {
     "cz_business": {
-      "action": "sell",
-      "invoiceNote": "Neplátce DPH - identifikovaná osoba (§ 6g ZDPH). No VAT charged.",
-      "basis": "T3"
+      "action": "hold",
+      "invoiceNote": "Dodavatel není plátcem DPH; je identifikovanou osobou (§ 6g zákona č. 235/2004 Sb.). / The supplier is not a VAT payer; it is an identified person. No Czech VAT is charged.",
+      "basis": "T3 - set to sell once T1, T7 and T13 are documented; this is the only category planned for the first sale"
     },
     "eu_business_vat_verified": {
       "action": "hold",
       "invoiceNote": "Daň odvede zákazník / Reverse charge - Art. 196 Directive 2006/112/EC.",
-      "basis": "T2 - sell once the accountant confirms"
+      "basis": "T2 - hold for the first sale; sell later by configuration once the accountant confirms"
     },
     "eu_business_vat_pending": {
       "action": "hold",
@@ -63,13 +63,27 @@
     "non_eu_business": {
       "action": "hold",
       "invoiceNote": "Outside the scope of Czech VAT (§ 9(1) ZDPH).",
-      "basis": "T4 - sell once confirmed"
+      "basis": "T4 - hold for the first sale"
+    },
+    "consumer": {
+      "action": "block",
+      "invoiceNote": "",
+      "basis": "T5 - B2B only; checkout requires a business declaration and a consumer purchase is refunded"
     }
   },
   "checkout": {
     "requireTaxIdIfSupported": true,
     "stripeTax": false,
     "invoiceRoute": "stripe",
-    "onCountryMismatch": "hold"
+    "onCountryMismatch": "hold",
+    "_note": "stripeTax stays false unless a separate analysis establishes that Stripe Tax should calculate a tax; invoiceRoute 'stripe' is conditional on T13 and switches to the Czech route if the sample fails the T7 check."
+  },
+  "turnoverMonitoring": {
+    "rule": "Czech VAT-payer thresholds for a calendar year: CZK 2,000,000 (payer from 1 January of the next year) and CZK 2,536,500 (payer from the day after the threshold is crossed), counting supplies with place of supply in the Czech Republic under § 4a ZDPH at the CZK value for the date of supply - not worldwide receipts, not Stripe payouts.",
+    "implementation": "config/vat-thresholds.json + lib/vatTurnover.js + scripts/commerce/vat-turnover.mjs (read-only; warns at 80 % of the lower threshold; lists orders that still lack a CZK conversion instead of counting them at zero).",
+    "cadence": "run monthly with the VAT-return check and after every sale; the accountant confirms which supplies count."
+  },
+  "expansion": {
+    "note": "All non-CZ categories remain in the matrix with their wording so that opening EU B2B (T2) or non-EU B2B (T4) later is a treatment change from hold to sell with the accountant's written confirmation, plus EC Sales List filing for T2. Nothing in the code assumes CZ-only."
   }
 }

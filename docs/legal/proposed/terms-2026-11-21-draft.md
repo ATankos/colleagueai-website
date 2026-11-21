@@ -1,0 +1,111 @@
+# Terms of Service — DRAFT for version 2026-11-21 (not in force)
+
+*Proposed replacement for the live text of 13 June 2026. Publication only through the versioning process after
+counsel's approval; founder decisions D2–D4 in `README.md`.*
+
+**Colleague AI s.r.o.**, Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, registered with the
+Municipal Court in Prague, file C 448176 ("**ColleagueAI**", "we"). Contact: hello@colleagueai.ai.
+
+## 1. What these Terms cover
+
+These Terms apply to the use of colleagueai.ai and to every purchase from ColleagueAI. A purchased Agent Package is
+also governed by the Software & Agent Licence; refunds by the Refund Policy; personal data by the Privacy Policy. At
+checkout you accept the four documents in the versions shown there; your order records those versions and their
+fingerprints, and we keep an archived copy of each version that you can read from your order page.
+
+## 2. Business customers only
+
+We sell to businesses, public bodies and other legal entities acting in the course of their activity. By ordering you
+confirm that you act for such an entity, that the person placing the order is authorised to bind it, and that the
+company details you enter are correct, because they appear on your invoice and licence confirmation. We do not sell to
+consumers; if a purchase turns out to have been made by a consumer, we cancel it and refund it (Refund Policy §4).
+
+## 3. Products
+
+(a) **Agent Packages** are one-time purchases of a software release for one Microsoft tenant, licensed perpetually
+under the Software & Agent Licence. What a package does, what it requires from Microsoft, what the price includes and
+what it excludes is stated in its factsheet and product facts on the day of purchase; those statements are part of the
+description of the goods you buy.
+
+(b) **Subscriptions** (for example Continuous Certification, when offered) run for the period stated and renew until
+cancelled with effect from the end of the current period, unless the order says otherwise.
+
+(c) **Concepts.** Entries in our catalogue marked as concepts or "dossier only" are not products and cannot be
+ordered.
+
+## 4. Ordering and payment
+
+(a) Prices are published on our website in US dollars and exclude VAT or similar taxes; the applicable tax treatment is
+shown before payment and on the invoice. Agent Package prices are fixed by CAI tier and are the same for every
+customer.
+
+(b) Payment is taken by Stripe at checkout. The agreement for an Agent Package is concluded when your payment is
+confirmed; the order page then shows your licence, your documents and the download. We do not store card details.
+
+(c) An invoice is issued for every order and made available on your order page and by e-mail. Where a purchase is held
+for a manual tax or identity check (for example an unconfirmed VAT ID), we tell you before any charge is taken.
+
+(d) **Microsoft costs.** Running an Agent Package uses your own Microsoft licences and consumption (for example Copilot
+Studio capacity). Microsoft bills those to you; they are not part of our price and we cannot see, cap or refund them.
+
+## 5. Delivery
+
+An Agent Package is delivered when the download becomes available on your order page, normally within minutes of
+payment. You verify the download against its SHA-256 checksum and install it yourself, following the guide. If
+delivery is delayed by a check under §4(c), we tell you when it is released.
+
+## 6. Acceptable use
+
+You may not attempt to breach the security of our website or services, resell or redistribute an Agent Package
+outside the Licence, use our services for unlawful purposes, or misrepresent your identity or authority. Authorised
+partners act under a signed Partner Program Agreement.
+
+## 7. Intellectual property
+
+The website, the CAI Score framework, the Agent Packages and their documentation are protected by intellectual-property
+rights owned by ColleagueAI or licensed to it. You receive only the rights that the Licence or these Terms grant
+expressly. Your own data and content remain yours.
+
+## 8. Warranties and liability
+
+(a) ColleagueAI warrants that it will provide the services with reasonable care and that an Agent Package will
+materially conform to its factsheet as set out in the Licence (§7). ROI calculators, readiness scores and similar
+tools give estimates from the figures you enter; they are not advice and not a promise of results.
+
+(b) To the extent permitted by law, we give no other warranty, express or implied.
+
+(c) Nothing in these Terms excludes or limits liability that cannot be excluded or limited under applicable law,
+including liability for death or personal injury, for intentional or grossly negligent breach, or under § 2898 of the
+Czech Civil Code. Subject to that, ColleagueAI's total liability arising out of or in connection with a product or
+service, in contract, tort or otherwise, is limited to the amount you paid for that product or service in the 12
+months before the event giving rise to the claim *[founder decision D4]*, and ColleagueAI is not liable for indirect or
+consequential loss, loss of profit, or loss of data that reasonable backups would have prevented.
+
+(d) These limits also apply to claims by you against our staff and contractors.
+
+## 9. Termination
+
+Either party may end a subscription or other term-based service as the order allows. A fully paid perpetual licence
+survives the end of those services and of these Terms; it ends only as the Licence provides (§6). We may suspend
+access to our website for a serious breach of §6, telling you why.
+
+## 10. Governing law and disputes
+
+These Terms, the Licence and every order are governed by the law of the Czech Republic. Disputes that cannot be
+settled by discussion are decided by the courts of Prague, Czech Republic, with jurisdiction determined by our
+registered office *[founder decision D3]*. Mandatory rules of the law of the country where you are established are not
+affected where they apply regardless of this clause.
+
+## 11. Language and changes
+
+(a) These Terms and the other documents are drafted in English, which is the controlling version. Translations on our
+website are provided for convenience; where they differ, the English text applies *[founder decision D2]*.
+
+(b) We may publish new versions of these documents. A new version applies to orders placed after its publication; the
+version you accepted stays recorded on your order and continues to govern that order.
+
+## 12. Contact
+
+Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha 1 · IČO 29540852 · hello@colleagueai.ai
+
+*Last updated: [date of approval] · version [to be assigned on publication]*
