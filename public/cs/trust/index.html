@@ -479,7 +479,7 @@ display: flex !important;
       <a class="ch-l" href="/cs/duvera">Důvěra</a>
       <a class="ch-l" href="/cs/partneri">Partneři</a>
       <a class="ch-l" href="/cs/kontakt">Kontakt</a>
-      <select class="lang" id="langsel" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"></select><a class="ch-cta" href="/demo">Domluvit schůzku</a>
+      <select class="lang" id="langsel" aria-label="Language" style="background:transparent;color:#F5F0E8;border:1px solid rgba(255,255,255,.28);border-radius:100px;padding:6px 14px;font-size:13px;cursor:pointer;margin-left:14px"></select><a class="ch-cta" href="/demo">Domluvit demo</a>
       <button class="cai-hdr-burger" onclick="var m=document.getElementById('caihdrm');m.classList.toggle('open')" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </div>
@@ -518,12 +518,12 @@ display: flex !important;
 <h2 id="data">Architektura: kde agenti běží a kde zůstávají data</h2>
 <p>Agenti běží ve vašem vlastním prostředí Microsoft Copilot Studio, Power Automate a Azure: váš tenant, váš model identity, vaše datová hranice. Colleague AI nehostuje žádná data vašich agentů: jejich skóre, zásady a auditní důkazy zůstávají ve vašem prostředí. Na naší straně se nezpracovávají žádná obchodní data zákazníka. Každá akce agenta ve vašem tenantu je protokolována, opatřena časovým razítkem a přiřaditelná.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
-  <h3>Doklady připravenosti pro podnikové nasazení</h3>
-  <p>ColleagueAI je pozicováno jako vrstva řízených balíčků agentů, nikoli jako sdílený SaaS pracovní prostor pro obchodní obsah zákazníka. Při standardním podnikovém nasazení zákazník kontroluje tenant, hranici identity, zdroje dat, koncový bod modelu, konfiguraci runtime a auditní důkazy.</p>
+  <h3>Jak nasazení probíhá</h3>
+  <p>Balíček si nainstalujete do vlastního prostředí Microsoft a ponecháte si kontrolu nad tenantem, identitami, zdroji dat i auditními důkazy. ColleagueAI se k vašemu tenantu nikdy nepřipojuje a nedostává žádný váš obchodní obsah; uchováváme jen záznamy o vaší objednávce, licenci a stažení.</p>
   <ul>
-    <li><strong>Datová rovina řízená zákazníkem:</strong> agenti jsou navrženi tak, aby pracovali proti prostředí Microsoft/cloud zákazníka.</li>
-    <li><strong>RBAC a původ dat:</strong> vyhledávací vzory by měly respektovat stávající oprávnění uživatelů.</li>
-    <li><strong>Řízení a dohled před automatizací:</strong> každý balíček je namapován na stupeň autonomie CAI, vzor lidského dohledu a očekávání auditních důkazů.</li>
+    <li>Vaše data zůstávají, kde jsou: balíček pracuje s vaším vlastním SharePointem, Dataverse a Teams.</li>
+    <li>Platí vaše oprávnění: uživatelé vidí jen to, co jim už dovolují jejich role v Microsoftu.</li>
+    <li>Kontroly jsou součástí balíčku: každý nese úroveň CAI Score, jmenovanou roli člověka a důkazy, které vytváří.</li>
   </ul>
 </div>
 <h3>Co tato webová stránka sama zpracovává</h3>
@@ -532,7 +532,7 @@ display: flex !important;
 <li><strong>Nákupy</strong>: platba je plně zpracována přes Stripe; nikdy nevidíme údaje o kartě. Po nákupu ukládáme váš e-mail, slugy licencovaných agentů a ID relace Stripe, abychom vám mohli uvolnit stažení.</li>
 <li><strong>Stahování</strong>: balíčky agentů jsou doručovány prostřednictvím podepsaných, časově omezených URL (platnost 15 minut).</li>
 <li><strong>Kalkulačka ROI &amp; kontrola připravenosti</strong>: běží zcela ve vašem prohlížeči; nic se neodesílá ani neukládá.</li>
-<li><strong>Partnerské odkazy</strong>: partnerský kód z doporučovacího odkazu se uchovává ve vašem prohlížeči (30 dní) a připojuje se k nákupu pro přiřazení provize.</li>
+<li><strong>Partnerské odkazy</strong>: partnerský kód z doporučovacího odkazu může být uchován ve vašem prohlížeči a připojen k nákupu pro účely přiřazení provize. Nárok na atribuci, její metoda a případné atribuční okno se řídí schváleným partnerským nastavením a podepsanou partnerskou smlouvou.</li>
 </ul>
 
 <h2>Subdodavatelé zpracování</h2>
@@ -557,10 +557,10 @@ display: flex !important;
 <li>Odpovědné zveřejnění: viz <a href="/.well-known/security.txt">security.txt</a> nebo napište na <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. Reagujeme na zprávy podané v dobré víře a nebudeme stíhat výzkumníky jednající v dobré víře.</li>
 </ul>
 
-<h2>Pilotní program</h2>
-<p>Nyní přijímáme první zákazníky. Hodnocení produktu je vedeno samotným produktem: projděte si factsheet agenta a živou ukázku, posuďte balíček podle vlastního případu použití, použijte ROI nástroje s vlastními předpoklady a před nákupem si zkontrolujte governance důkazy. Zákazníci, kteří se později rozhodnou zapojit, mohou samostatně schválit anonymizovanou případovou studii po nasazení; její zveřejnění nikdy není podmínkou nákupu.</p>
+<h2>Vyhodnoťte před nákupem</h2>
+<p>Přečtěte si produktový list, domluvte si vedené vyhodnocení na vzorových smlouvách v testovacím tenantu, spočítejte si ROI s vlastními čísly a projděte důkazy o řízení na této stránce. Zákazníci, kteří se později rozhodnou, mohou po nasazení schválit anonymizovanou případovou studii; zveřejnění nikdy není podmínkou nákupu.</p>
 <div class="cta">
-  <a class="btn btn-p" href="/demo">Domluvit pilotní rozhovor</a>
+  <a class="btn btn-p" href="/demo">Domluvit demo</a>
 </div>
 
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">

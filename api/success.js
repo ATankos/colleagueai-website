@@ -177,7 +177,7 @@ export function invoiceHtml(order, email, lang = 'en') {
   } else if (inv.status === 'issued') {
     const links = [inv.hostedUrl ? `<a class="o-btn o-btn-s" href="${esc(inv.hostedUrl)}" rel="noopener">${esc(t('inv_view'))}</a>` : '',
       inv.pdfUrl ? `<a class="o-btn o-btn-s" href="${esc(inv.pdfUrl)}" rel="noopener">${esc(t('inv_pdf'))}</a>` : ''].join('');
-    body = `<p class="o-text">${esc(t('inv_issued', { number: inv.number || inv.id || '' }))}</p>${links ? `<div class="o-actions">${links}</div>` : ''}`;
+    body = `<p class="o-text">${esc(t('inv_issued', { number: inv.number || inv.id || '' }))}</p><p class="o-small">${esc(t('inv_explain'))}</p>${links ? `<div class="o-actions">${links}</div>` : ''}`;
   } else if (!order.tax?.invoiceRoute) {
     body = `<p class="o-text">${esc(t('inv_off'))}</p>`;
   } else {

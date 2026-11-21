@@ -518,12 +518,12 @@ display: flex !important;
 <h2 id="data">Architecture : où les agents s'exécutent et où les données restent</h2>
 <p>Les agents s'exécutent dans votre propre parc Microsoft Copilot Studio, Power Automate et Azure: votre tenant, votre modèle d'identité, votre périmètre de données. Colleague AI n’héberge aucune donnée de vos agents : leurs scores, politiques et preuves d’audit restent dans votre environnement. Aucune donnée métier du client n'est traitée de notre côté. Chaque action d'agent dans votre tenant est journalisée, horodatée et traçable.</p>
 <div id="trust-tenant-architecture-proof" class="trust-proof">
-  <h3>Points de preuve du déploiement en entreprise</h3>
-  <p>ColleagueAI se positionne comme une couche de packages d'agents gouvernés, et non comme un espace de travail SaaS partagé pour le contenu métier du client. Dans un déploiement d'entreprise standard, le client contrôle le tenant, le périmètre d'identité, les sources de données, le point de terminaison du modèle, la configuration d'exécution et les preuves d'audit.</p>
+  <h3>Comment se déroule un déploiement</h3>
+  <p>Vous installez le package dans votre propre environnement Microsoft et gardez le contrôle du tenant, des identités, des sources de données et des preuves d’audit. ColleagueAI ne se connecte jamais à votre tenant et ne reçoit aucun de vos contenus métier ; nous ne conservons que les données de votre commande, de votre licence et de vos téléchargements.</p>
   <ul>
-    <li><strong>Plan de données contrôlé par le client :</strong> les agents sont conçus pour fonctionner sur le parc Microsoft/cloud du client.</li>
-    <li><strong>RBAC et traçabilité des données :</strong> les modèles de recherche doivent respecter les autorisations existantes des utilisateurs.</li>
-    <li><strong>La gouvernance avant l'automatisation :</strong> chaque package est associé à un niveau d'autonomie CAI, à un modèle de supervision humaine et à une attente de preuves d'audit.</li>
+    <li>Vos données restent où elles sont : le package travaille avec vos propres SharePoint, Dataverse et Teams.</li>
+    <li>Vos permissions s’appliquent : les utilisateurs ne voient que ce que leurs rôles Microsoft autorisent déjà.</li>
+    <li>Les contrôles font partie du package : chacun porte un niveau CAI Score, un rôle humain nommé et les preuves qu’il produit.</li>
   </ul>
 </div>
 <h3>Ce que ce site web traite lui-même</h3>
@@ -532,7 +532,7 @@ display: flex !important;
 <li><strong>Achats</strong>: le paiement est entièrement géré par Stripe ; nous ne voyons jamais les détails de la carte. Après un achat, nous stockons votre e-mail, les slugs des agents sous licence et l'identifiant de session Stripe, afin de pouvoir vous débloquer les téléchargements.</li>
 <li><strong>Téléchargements</strong>: les packages d'agents sont livrés via des URL signées et à durée limitée (expiration de 15 minutes).</li>
 <li><strong>Calculateur de ROI &amp; test de maturité</strong>: s'exécute entièrement dans votre navigateur ; rien n'est envoyé ni stocké.</li>
-<li><strong>Liens partenaires</strong>: un code partenaire issu d'un lien de parrainage est conservé dans votre navigateur (30 jours) et rattaché à un achat pour l'attribution de la commission.</li>
+<li><strong>Liens partenaires</strong>: un code partenaire provenant d'un lien de parrainage peut être conservé dans votre navigateur et associé à un achat aux fins d'attribution de commission. L'éligibilité à l'attribution, sa méthode et toute fenêtre d'attribution applicable sont régies par la configuration partenaire approuvée et l'accord de partenariat signé.</li>
 </ul>
 
 <h2>Sous-traitants</h2>
@@ -557,10 +557,10 @@ display: flex !important;
 <li>Divulgation responsable : voir <a href="/.well-known/security.txt">security.txt</a> ou écrivez à <a href="mailto:hello@colleagueai.ai">hello@colleagueai.ai</a>. Nous répondons aux signalements de bonne foi et ne poursuivrons pas les chercheurs agissant de bonne foi.</li>
 </ul>
 
-<h2>Programme pilote</h2>
-<p>Nous accueillons actuellement nos premiers clients. L’évaluation est guidée par le produit : consultez la fiche de l’agent et la démo en direct, évaluez le package par rapport à votre propre cas d’usage, utilisez les outils de ROI avec vos propres hypothèses et examinez les preuves de gouvernance avant l’achat. Les clients qui souhaitent ensuite participer peuvent approuver séparément une étude de cas anonymisée après le déploiement ; sa publication n’est jamais une condition d’achat.</p>
+<h2>Évaluez avant d’acheter</h2>
+<p>Lisez la fiche produit, réservez une évaluation guidée sur des contrats d’exemple dans un tenant de test, lancez le calculateur de ROI avec vos propres chiffres et examinez les preuves de gouvernance sur cette page. Les clients qui le souhaitent peuvent ensuite approuver une étude de cas anonymisée après déploiement ; la publication n’est jamais une condition d’achat.</p>
 <div class="cta">
-  <a class="btn btn-p" href="/demo">Planifier un entretien pilote</a>
+  <a class="btn btn-p" href="/demo">Réserver une démo</a>
 </div>
 
 <section id="usage-intelligence-trust" class="usage-intel" aria-labelledby="usage-intelligence-trust-title">

@@ -158,7 +158,7 @@ describe('Demo booking form', () => {
     await user.click(submitButton())
 
     const confirmation = await screen.findByRole('status')
-    expect(confirmation).toHaveTextContent(/demo request received/i)
+    expect(confirmation).toHaveTextContent(/we have your request/i)
     expect(confirmation).toHaveAttribute('aria-live', 'polite')
     expect(screen.queryByRole('button', { name: /request demo/i })).not.toBeInTheDocument()
   })
@@ -234,16 +234,28 @@ describe('Demo agent context', () => {
     expect(payload.agentTier).toBe('L4')
   })
 
-  it('shows the fixed one-time package price for the tier, matching /pricing', () => {
+  it('shows the fixed one-time package price for the released package, matching /pricing', () => {
     // Asserted against config/pricing.json rather than a literal, so a price change
     // updates the site and this test together instead of silently diverging.
     // The label is the P2 fix wording: "Package price", not "Indicative package price".
-    const expected = (PRICING.tiers.L3.oneTimeCents / 100).toLocaleString('en-US')
-    visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
+    const expected = (PRICING.tiers.L4.oneTimeCents / 100).toLocaleString('en-US')
+    visit('/demo?agent=contract-intelligence-and-register&tier=L4')
     render(<Demo />)
 
     expect(screen.getByText(new RegExp(`Package price: \\$${expected} \\(one-time\\)`))).toBeInTheDocument()
     expect(screen.queryByText(/Indicative package price/)).not.toBeInTheDocument()
+  })
+
+  it('calls a concept agent a concept and quotes its tier price only as the price once released', () => {
+    // Only an agent with a product record in config/products.json has a released package. A concept must not be
+    // presented as something with a package price (launch-readiness finding LR-04, content brief section 5).
+    const expected = (PRICING.tiers.L3.oneTimeCents / 100).toLocaleString('en-US')
+    visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
+    render(<Demo />)
+
+    expect(screen.getByText(/Concept · dossier only/)).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(`tier price once released: \\$${expected}`))).toBeInTheDocument()
+    expect(screen.queryByText(/Package price:/)).not.toBeInTheDocument()
   })
 
   it('shows no price for a tier that is not sold', () => {
@@ -307,7 +319,7 @@ describe('Demo localisation', () => {
     visit('/pl/demo')
     render(<Demo />)
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Zarezerwuj demo')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Umów demo')
     expect(screen.getByLabelText(/ryzyko, bezpieczeństwo i zgodność/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/dane i infrastruktura/i)).toBeInTheDocument()
   })
@@ -324,7 +336,7 @@ describe('Demo localisation', () => {
     visit('/xx/demo')
     render(<Demo />)
 
-    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Book Your Demo')
+    expect(screen.getByRole('heading', { level: 1 })).toHaveTextContent('Book a demo')
     await waitFor(() => expect(document.documentElement.lang).toBe('en'))
   })
 

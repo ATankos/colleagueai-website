@@ -59,6 +59,60 @@ const locales = {
   pt: { label:'Idioma', notice:'Você está vendo o guia de agentes em português. A jornada do comprador, CAI Score, launch gate e navegação de confiança/parceiros estão disponíveis em todas as páginas de idioma suportadas.', start:'Começar', who:'Para quem', catalogue:'Catálogo de agentes', next:'Próximos passos', trust:'Confiança', partners:'Parceiros', buyerGuide:'Guia do comprador', buyerTitle:'Pacotes de agentes de IA governados para equipes enterprise.', buyerLede:'Use esta página para escolher um caso de uso, entender o perfil de governança, revisar o factsheet do agente e solicitar uma demo. O checkout pago permanece bloqueado até a revisão jurídica e a aprovação Stripe end-to-end.', step1:'1. Escolha um problema de negócio', step1Text:'Comece por operações financeiras, dados de entidades legais, compliance, reporting, procurement ou operações de cliente.', step2:'2. Revise o pacote do agente', step2Text:'Cada pacote é posicionado por resultado, necessidades de dados, complexidade de governança e caminho de entrega.', step3:'3. Verifique o factsheet', step3Text:'Veja supervisão humana, evidência de auditoria, limitações e dependências do caso de uso do cliente.', step4:'4. Solicite o próximo passo', step4Text:'Agende uma demo ou registre interesse como parceiro. O checkout comercial está intencionalmente desativado.', browse:'Ver catálogo de agentes', reviewTrust:'Revisar arquitetura de confiança', registerPartner:'Registrar interesse de parceiro', whoKicker:'Para quem', whoTitle:'Para compradores que precisam de resultados governados, não outro sandbox genérico de agentes.', bestFit:'Equipes mais adequadas', diff:'O que diferencia a ColleagueAI', note:'A ColleagueAI descreve suporte de governança e prontidão de implantação, não uma garantia legal geral de compliance.', scoreKicker:'Guia CAI Score', scoreTitle: 'Compreenda a complexidade da implantação antes da demonstração.', scoreLede: 'O CAI Score é uma estimativa prática da complexidade de implantação e governança. Não é uma classificação jurídica de conformidade e não substitui a avaliação de risco específica do cliente.', low:'Baixa complexidade', lowText:'Entradas claras, workflow estreito, baixo risco operacional e revisão simples.', medium:'Complexidade média', mediumText:'Vários sistemas, aprovações estruturadas, exceções definidas e necessidades de auditoria mais fortes.', high:'Alta complexidade', highText:'Processos regulados, dados sensíveis, ownership transversal e supervisão humana mais forte.', dependent:'Dependente do cliente', dependentText:'O risco final depende do caso de uso, acesso a dados, jurisdição, integração e controles internos.', plain:'Em termos simples: o CAI Score ajuda compradores a entender o esforço de entrega e governança antes de comprometer tempo, acesso a dados ou orçamento.', nextKicker:'O que acontece depois', nextTitle:'Um caminho simples do interesse à avaliação controlada.', next1:'1. Confirmar o caso de uso', next1Text:'Identificamos o processo, responsável de negócio, resultado esperado e contexto de risco.', next2:'2. Mapear dados e acesso', next2Text:'Esclarecemos sistemas, premissas RBAC, campos sensíveis e restrições de integração.', next3:'3. Revisar governança', next3Text:'Alinhamos controles do factsheet, supervisão humana, necessidades de auditoria e gates de aprovação.', next4:'4. Propor blueprint', next4Text:'Descrevemos abordagem de implantação, passos de entrega e gates legais/Stripe restantes.', seeGate:'Ver checkout gate' }
 };
 
+/* "What happens next" on the catalogue page: the four steps from the factsheet to a running package. Keyed by the
+   English on the page; the locale value replaces it in the generated locale pages. */
+const NEXT = {
+  en: { title: 'From the factsheet to a running package in four steps.',
+    s1: '1. Read the factsheet', s1t: 'What the agent does, what it needs from Microsoft, what the licence includes and what it leaves out.',
+    s2: '2. See it on sample data', s2t: 'A 30-minute guided evaluation in a test tenant, with the review step on screen.',
+    s3: '3. Buy at the published price', s3t: 'Accept the licence terms at checkout and pay through Stripe; your agreement, invoice and download are on your order page.',
+    s4: '4. Install it yourself', s4t: 'Your administrator imports the package in about 60-90 minutes from the guide. We never connect to your tenant.',
+    demo: 'Book a demo', trust: 'Read the Trust Center' },
+  cs: { title: 'Od produktového listu k běžícímu balíčku ve čtyřech krocích.',
+    s1: '1. Přečtěte si produktový list', s1t: 'Co agent dělá, co potřebuje od Microsoftu, co licence zahrnuje a co ne.',
+    s2: '2. Vyzkoušejte na vzorových datech', s2t: '30minutové vedené vyhodnocení v testovacím tenantu, s kontrolním krokem na obrazovce.',
+    s3: '3. Kupte za zveřejněnou cenu', s3t: 'Při nákupu přijmete licenční podmínky a zaplatíte přes Stripe; smlouvu, fakturu i stažení najdete na stránce objednávky.',
+    s4: '4. Nainstalujte si ho sami', s4t: 'Váš správce importuje balíček podle příručky za zhruba 60-90 minut. K vašemu tenantu se nikdy nepřipojujeme.',
+    demo: 'Domluvit demo', trust: 'Otevřít Trust Center' },
+  de: { title: 'Vom Factsheet zum laufenden Paket in vier Schritten.',
+    s1: '1. Factsheet lesen', s1t: 'Was der Agent tut, was er von Microsoft braucht, was die Lizenz enthält und was nicht.',
+    s2: '2. An Beispieldaten ansehen', s2t: 'Eine 30-minütige begleitete Bewertung in einem Test-Tenant, mit dem Prüfschritt auf dem Bildschirm.',
+    s3: '3. Zum veröffentlichten Preis kaufen', s3t: 'Lizenzbedingungen beim Kauf akzeptieren und über Stripe zahlen; Vertrag, Rechnung und Download liegen auf Ihrer Bestellseite.',
+    s4: '4. Selbst installieren', s4t: 'Ihr Administrator importiert das Paket nach der Anleitung in etwa 60-90 Minuten. Wir verbinden uns nie mit Ihrem Tenant.',
+    demo: 'Demo buchen', trust: 'Trust Center lesen' },
+  fr: { title: 'De la fiche produit au package en service, en quatre étapes.',
+    s1: '1. Lire la fiche produit', s1t: 'Ce que fait l’agent, ce qu’il demande à Microsoft, ce que la licence inclut et ce qu’elle exclut.',
+    s2: '2. Le voir sur des données d’exemple', s2t: 'Une évaluation guidée de 30 minutes dans un tenant de test, avec l’étape de vérification à l’écran.',
+    s3: '3. Acheter au prix publié', s3t: 'Acceptez les conditions de licence à l’achat et payez via Stripe ; contrat, facture et téléchargement sont sur votre page de commande.',
+    s4: '4. L’installer vous-même', s4t: 'Votre administrateur importe le package en 60 à 90 minutes environ à partir du guide. Nous ne nous connectons jamais à votre tenant.',
+    demo: 'Réserver une démo', trust: 'Lire le Trust Center' },
+  es: { title: 'De la ficha del producto a un paquete en marcha, en cuatro pasos.',
+    s1: '1. Lea la ficha del producto', s1t: 'Qué hace el agente, qué necesita de Microsoft, qué incluye la licencia y qué deja fuera.',
+    s2: '2. Véalo con datos de ejemplo', s2t: 'Una evaluación guiada de 30 minutos en un tenant de prueba, con el paso de revisión en pantalla.',
+    s3: '3. Compre al precio publicado', s3t: 'Acepte las condiciones de licencia al comprar y pague a través de Stripe; el contrato, la factura y la descarga están en su página de pedido.',
+    s4: '4. Instálelo usted mismo', s4t: 'Su administrador importa el paquete en unos 60-90 minutos siguiendo la guía. Nunca nos conectamos a su tenant.',
+    demo: 'Reservar una demo', trust: 'Leer el Trust Center' },
+  it: { title: 'Dalla scheda prodotto a un pacchetto in funzione, in quattro passaggi.',
+    s1: '1. Leggete la scheda prodotto', s1t: 'Cosa fa l’agente, cosa richiede da Microsoft, cosa include la licenza e cosa esclude.',
+    s2: '2. Vedetelo su dati di esempio', s2t: 'Una valutazione guidata di 30 minuti in un tenant di test, con il passaggio di revisione sullo schermo.',
+    s3: '3. Acquistate al prezzo pubblicato', s3t: 'Accettate le condizioni di licenza all’acquisto e pagate tramite Stripe; contratto, fattura e download sono nella pagina dell’ordine.',
+    s4: '4. Installatelo da soli', s4t: 'Il vostro amministratore importa il pacchetto in circa 60-90 minuti seguendo la guida. Non ci colleghiamo mai al vostro tenant.',
+    demo: 'Prenota una demo', trust: 'Leggi il Trust Center' },
+  pl: { title: 'Od karty produktu do działającego pakietu w czterech krokach.',
+    s1: '1. Przeczytaj kartę produktu', s1t: 'Co robi agent, czego wymaga od Microsoftu, co obejmuje licencja i czego nie.',
+    s2: '2. Zobacz na przykładowych danych', s2t: '30-minutowa ocena z przewodnikiem w testowym tenancie, z krokiem weryfikacji na ekranie.',
+    s3: '3. Kup w opublikowanej cenie', s3t: 'Zaakceptuj warunki licencji przy zakupie i zapłać przez Stripe; umowa, faktura i pobranie są na stronie zamówienia.',
+    s4: '4. Zainstaluj samodzielnie', s4t: 'Twój administrator importuje pakiet w około 60-90 minut według instrukcji. Nigdy nie łączymy się z Twoim tenantem.',
+    demo: 'Umów demo', trust: 'Przeczytaj Trust Center' },
+  pt: { title: 'Da ficha do produto a um pacote a funcionar, em quatro passos.',
+    s1: '1. Leia a ficha do produto', s1t: 'O que o agente faz, o que precisa da Microsoft, o que a licença inclui e o que deixa de fora.',
+    s2: '2. Veja-o com dados de exemplo', s2t: 'Uma avaliação guiada de 30 minutos num tenant de teste, com o passo de revisão no ecrã.',
+    s3: '3. Compre ao preço publicado', s3t: 'Aceite as condições de licença na compra e pague através do Stripe; o contrato, a fatura e a transferência estão na página da encomenda.',
+    s4: '4. Instale-o você mesmo', s4t: 'O seu administrador importa o pacote em cerca de 60-90 minutos a partir do guia. Nunca nos ligamos ao seu tenant.',
+    demo: 'Marcar uma demo', trust: 'Ler o Trust Center' },
+};
+const NEXT_KEYS = Object.entries(NEXT.en).map(([k, v]) => [v, k]);
+
 const replacementKeys = [
   ['Start here','start'], ['Who it is for','who'], ['Agent catalogue','catalogue'], ['Next steps','next'], ['Buyer guide','buyerGuide'], ['Governed AI agent packages for enterprise teams.','buyerTitle'], ['Use this page to choose a business use case, understand the governance profile, review the agent factsheet, and request a demo. Paid checkout remains gated until legal review and Stripe end-to-end approval are complete.','buyerLede'], ['1. Choose a business problem','step1'], ['Start from finance operations, legal entity data, compliance, reporting, procurement, or customer operations.','step1Text'], ['2. Review the agent package','step2'], ['Each package is positioned by outcome, data needs, governance complexity, and delivery path.','step2Text'], ['3. Check the factsheet','step3'], ['Look at human oversight, audit evidence, limitations, and customer-use-case dependencies.','step3Text'], ['4. Request the next step','step4'], ['Book a demo or register partner interest. Commercial checkout is intentionally disabled for now.','step4Text'], ['Browse agent catalogue','browse'], ['Review trust architecture','reviewTrust'], ['Register partner interest','registerPartner'], ['Who this is for','whoKicker'], ['Built for buyers who need governed outcomes, not another generic agent sandbox.','whoTitle'], ['Best-fit teams','bestFit'], ['What makes ColleagueAI different','diff'], ['This positioning is intentionally cautious: ColleagueAI describes governance support and deployment readiness, not a blanket legal compliance guarantee.','note'], ['CAI Score guide','scoreKicker'], ['Understand deployment complexity before the demo.','scoreTitle'], ['The CAI Score is a practical estimate of deployment and governance complexity. It is not a legal compliance rating and does not replace customer-specific risk review.','scoreLede'], ['Low complexity','low'], ['Clear inputs, narrow workflow, low operational risk, simple review path.','lowText'], ['Medium complexity','medium'], ['Multiple systems, structured approvals, defined exception handling, stronger audit needs.','mediumText'], ['High complexity','high'], ['Regulated processes, sensitive data, cross-functional ownership, stronger human oversight.','highText'], ['Customer dependent','dependent'], ['Final risk depends on the use case, data access, jurisdiction, integration design, and internal controls.','dependentText'], ['Plain English: CAI Score helps buyers understand the delivery and governance effort before committing time, data access, or budget.','plain'], ['What happens next','nextKicker'], ['A simple path from interest to controlled evaluation.','nextTitle'], ['1. Confirm the use case','next1'], ['We identify the process, business owner, expected output, and risk context.','next1Text'], ['2. Map data and access','next2'], ['We clarify systems, RBAC assumptions, sensitive fields, and integration constraints.','next2Text'], ['3. Review governance','next3'], ['We align factsheet controls, human oversight, audit needs, and approval gates.','next3Text'], ['4. Propose blueprint','next4'], ['We outline deployment approach, delivery steps, and remaining legal/Stripe gates.','next4Text'], ['See checkout gate','seeGate']
 ];
@@ -71,6 +125,9 @@ function localizeFile(file, locale) {
   const t = locales[locale];
   let html = fs.readFileSync(file, 'utf8');
   for (const [from, key] of replacementKeys) html = replaceAll(html, from, t[key]);
+  for (const [from, key] of NEXT_KEYS) {
+    html = replaceAll(html, '>' + from + '<', '>' + NEXT[locale][key] + '<');
+  }
   html = replaceAll(html, '>Trust<', '>' + t.trust + '<');
   html = replaceAll(html, '>Partners<', '>' + t.partners + '<');
   // Consolidated to a single language switcher: strip any legacy language-guide panel.
@@ -88,7 +145,7 @@ for (const locale of Object.keys(locales)) {
   for (const file of files) localizeFile(file, locale);
 }
 
-const checks = [['public/cs/agents.html','Průvodce pro kupující'], ['public/de/agents.html','Governed AI-Agentenpakete'], ['public/fr/agents.html','Guide acheteur'], ['public/es/agents.html','Guía para compradores'], ['public/it/agents.html','Guida buyer'], ['public/pl/agents.html','Przewodnik kupującego'], ['public/pt/agents.html','Guia do comprador']];
+const checks = Object.entries(NEXT).filter(([l]) => l !== 'en').map(([l, t]) => ['public/' + l + '/agents.html', t.title]);
 for (const [file, token] of checks) {
   if (fs.existsSync(file) && !fs.readFileSync(file, 'utf8').includes(token)) throw new Error('Missing localized token in ' + file + ': ' + token);
 }

@@ -17,6 +17,8 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
+// The current release record: the documents name the package and hash that config/products.json publishes.
+const RELEASE = JSON.parse(readFileSync(new URL('../config/products.json', import.meta.url), 'utf8'))['contract-intelligence-and-register'].release;
 
 const ROOT = new URL('..', import.meta.url);
 const DOCS = JSON.parse(readFileSync(new URL('config/order-documents.json', ROOT), 'utf8'));
@@ -103,7 +105,7 @@ test('agreement confirmation PDF: every required element is on the page, and it 
     'Licence Agreement Confirmation', 'Colleague AI s.r.o.', 'Školská 1736/12', 'Company ID (IČO) 29540852',           // licensor
     'Vzorová Průmyslová a.s.', 'Business registration number 12345678', 'Czechia (CZ)', 'VAT / tax ID CZ12345678',   // licensee
     model.reference, 'ord_20261120_abcdef123456', 'acc_0123456789abcdef01234567', 'pi_doc1',                        // references
-    'CAI-L4-CI-001', '1.0.3.6', 'CAI-L4-CI-001_1.0.3.6.zip', '69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2b', // product + hash
+    'CAI-L4-CI-001', RELEASE.version, RELEASE.package, RELEASE.sha256.slice(0, 54), // product + hash of the current release
     'single-tenant licence', 'vzorova-prumyslova.example (as stated by the Licensee at order)', 'Perpetual for the licensed tenant', // scope, tenant, duration
     'USD 14,900.00', 'TEST MODE - no real payment',                                                                   // price, mode
     DOCS.products['contract-intelligence-and-register'].includes.slice(0, 60), DOCS.products['contract-intelligence-and-register'].excludes.slice(0, 60),
@@ -150,7 +152,7 @@ test('sandbox invoice and credit-note PDFs: marked TEST on their face, with numb
   const order = paidOrder();
   const doc = { number: 'TEST-INV-2026-0001', kind: 'invoice', provider: 'sandbox_ledger', test: true, issuedAt: '2026-11-20T18:05:00.500Z', orderId: order.id, seller: order.tax.seller, buyer: order.buyer, product: order.product, currency: 'usd', subtotal: 1490000, tax: 0, total: 1490000, taxTreatment: order.tax };
   const inv = await pdfText(await invoicePdf.renderInvoicePdf(invoicePdf.invoiceModel({ doc, order })));
-  for (const n of ['TEST INVOICE TEST-INV-2026-0001', 'NOT A TAX DOCUMENT', 'Colleague AI s.r.o.', 'Vzorová Průmyslová a.s.', 'VAT / tax ID CZ12345678', 'Invoice date 2026-11-20', 'Date of taxable supply 2026-11-20', 'pi_doc1', 'USD 14,900.00', 'TEST - domestic treatment not decided', 'Accounting conversion to CZK: not shown', 'decision T8']) {
+  for (const n of ['TEST INVOICE TEST-INV-2026-0001', 'NOT A TAX DOCUMENT', 'Colleague AI s.r.o.', 'Vzorová Průmyslová a.s.', 'VAT / tax ID CZ12345678', 'Invoice date 2026-11-20', 'Date of taxable supply 2026-11-20', 'Payment received 2026-11-20', 'Licence delivered 2026-11-20', 'pi_doc1', 'USD 14,900.00', 'TEST - domestic treatment not decided', 'Accounting conversion to CZK: not shown', 'decision T8']) {
     assert.ok(inv.has(n), `invoice missing: ${n}`);
   }
   assert.ok(!/Tax ID \(DIČ\)/.test(inv.text), 'no DIČ while the seller is not registered');
@@ -160,6 +162,28 @@ test('sandbox invoice and credit-note PDFs: marked TEST on their face, with numb
   // With an approved conversion recorded on the ledger entry it is shown with its source and date.
   const withRate = invoicePdf.invoiceModel({ doc: { ...doc, conversion: { rate: '21.345', amountCzk: 31804050, source: 'ČNB', date: '2026-11-20' } }, order });
   assert.match(withRate.conversion[0], /CZK 318,040\.50 at 21\.345 USD\/CZK \(ČNB, 2026-11-20\)/);
+});
+
+test('invoice tax point: delivery is the supply, payment before delivery is an advance, neither date is assumed from the other', async () => {
+  const tp = invoicePdf.taxPointOf;
+  // standard flow: card confirmed seconds before the download is released -> same day, both rules agree
+  assert.deepEqual(tp({ paidAt: '2026-11-20T18:05:00.000Z', fulfilledAt: '2026-11-20T18:05:01.000Z' }), { date: '2026-11-20', basis: 'licence delivered on the day of payment (§ 21(3) and § 20a(2) ZDPH give the same day)' });
+  // payment on one day, delivery on a later day -> tax point is the payment day (advance), delivery printed separately
+  assert.equal(tp({ paidAt: '2026-11-20T23:59:00.000Z', fulfilledAt: '2026-11-22T09:00:00.000Z' }).date, '2026-11-20');
+  assert.match(tp({ paidAt: '2026-11-20T23:59:00.000Z', fulfilledAt: '2026-11-22T09:00:00.000Z' }).basis, /§ 20a\(2\)/);
+  // paid, not delivered (withheld sale) -> advance payment, said so; the delivery date is NOT assumed
+  const adv = tp({ paidAt: '2026-11-20T18:05:00.000Z' });
+  assert.equal(adv.date, '2026-11-20');
+  assert.match(adv.basis, /advance payment .* licence not yet delivered/);
+  // delivered before payment (bank transfer released on approval) -> delivery day
+  assert.equal(tp({ paidAt: '2026-11-25T10:00:00.000Z', fulfilledAt: '2026-11-21T10:00:00.000Z' }).date, '2026-11-21');
+  assert.equal(tp({}).date, 'not established');
+  // the rendered document carries the separate timestamps and never falls back to the issue date
+  const order = paidOrder({ facts: { ...paidOrder().facts, fulfilledAt: null } });
+  const doc = { number: 'TEST-INV-2026-0002', kind: 'invoice', provider: 'sandbox_ledger', test: true, issuedAt: '2026-11-23T08:00:00.000Z', orderId: order.id, seller: order.tax.seller, buyer: order.buyer, product: order.product, currency: 'usd', subtotal: 1490000, tax: 0, total: 1490000, taxTreatment: order.tax };
+  const inv = await pdfText(await invoicePdf.renderInvoicePdf(invoicePdf.invoiceModel({ doc, order })));
+  for (const n of ['Invoice date 2026-11-23', 'Date of taxable supply 2026-11-20', 'advance payment received before delivery', 'Licence delivered not yet delivered']) assert.ok(inv.has(n), `invoice missing: ${n}`);
+  assert.ok(!inv.has('Date of taxable supply 2026-11-23'), 'the issue date is never used as the tax point');
 });
 
 /** An in-memory Blob store with the SDK surface lib/documentStore.js uses. */
@@ -246,7 +270,7 @@ test('ensureOrderDocuments: produced once, recorded with hashes, evidence writte
     assert.equal(evidence.documents.agreement.sha256, o.documents.agreement.sha256);
     assert.equal(evidence.invoice.number, 'TEST-INV-2026-0001');
     assert.equal(evidence.payment.paymentIntentId, 'pi_doc1');
-    assert.equal(evidence.release.sha256, '69b3067694fdb27952f66addae17b45836dddfd3965bae6f5e6fe2bdd25dbd50');
+    assert.equal(evidence.release.sha256, RELEASE.sha256);
     assert.equal(evidence.acceptance.documents.terms.sha256, 'a'.repeat(64));
     // 3. Run again: nothing new is written.
     const puts = sdk.objects.size;

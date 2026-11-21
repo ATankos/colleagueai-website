@@ -5,6 +5,7 @@
  */
 import { useEffect, useState } from 'react';
 import PRICING from '../config/pricing.json';
+import PRODUCTS from '../config/products.json';
 
 const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
 const serif = 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
@@ -15,132 +16,140 @@ const sans = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial
 // options are real site categories, not invented product names.
 const L = {
   en: {
-    title: 'Book Your Demo', subtitle: 'See ColleagueAI in action. Our team will walk you through your use case and pricing.',
+    title: 'Book a demo', subtitle: 'A 30-minute guided evaluation of Contract Intelligence & Register on sample contracts in a test tenant, with the review step and the register on screen. We also walk through the catalogue factsheets for your use case and answer your pricing questions.',
     formTitle: 'Your Information', email: 'Email *', company: 'Company *', role: 'Your Role *',
     agentsTitle: 'Areas of Interest', schedule: 'Schedule', date: 'Preferred Date *', timezone: 'Time Zone *',
     submit: 'Request Demo', submitting: 'Submitting…',
-    success: 'Demo request received! We’ll contact you within 24 hours.',
+    success: 'Thanks, we have your request. We reply within one business day with a time.',
     error: 'Failed to submit demo request. Please try again.',
     pillars: { ops: 'Operations & Service', risk: 'Risk, Security & Compliance', data: 'Data & Infrastructure', sales: 'Sales & Marketing', corp: 'Corporate' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'You are requesting',
     indicative: 'Package price', oneTime: 'one-time',
+    concept: 'Concept · dossier only', tierPrice: 'tier price once released',
     privacy: 'We use these details only to arrange your demo. Colleague AI s.r.o., Praha. See our',
     privacyLink: 'Privacy Policy',
     privacyHref: '/privacy',
-    contact:'/contact', agents:'/agents', title2:'Book a Demo | Colleague AI', desc:'Schedule a personalized demo of governed enterprise AI agents.',
+    contact:'/contact', agents:'/agents', title2:'Book a Demo | Colleague AI', desc:'Book a 30-minute guided evaluation of Contract Intelligence & Register on sample contracts in a test tenant, with the review step and the register on screen.',
   },
   cs: {
-    title: 'Rezervovat demo', subtitle: 'Podívejte se na ColleagueAI v akci. Náš tým vás provede vaším případem použití a cenou.',
+    title: 'Domluvit demo', subtitle: '30minutové vedené vyhodnocení Contract Intelligence & Register na vzorových smlouvách v testovacím tenantu, s kontrolním krokem a registrem na obrazovce. Projdeme s vámi i produktové listy z katalogu pro váš případ použití a zodpovíme otázky k ceně.',
     formTitle: 'Vaše údaje', email: 'E-mail *', company: 'Společnost *', role: 'Vaše pozice *',
     agentsTitle: 'Oblasti zájmu', schedule: 'Plán', date: 'Preferované datum *', timezone: 'Časové pásmo *',
     submit: 'Požádat o demo', submitting: 'Odesílání…',
-    success: 'Žádost o demo přijata! Kontaktujeme vás do 24 hodin.',
+    success: 'Děkujeme, žádost máme. Odpovíme do jednoho pracovního dne s návrhem termínu.',
     error: 'Nepodařilo se odeslat žádost o demo. Zkuste to prosím znovu.',
     pillars: { ops: 'Provoz a služby', risk: 'Riziko, bezpečnost a compliance', data: 'Data a infrastruktura', sales: 'Obchod a marketing', corp: 'Korporátní' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Požadujete',
     indicative: 'Cena balíčku', oneTime: 'jednorázově',
+    concept: 'Koncept · pouze dokumentace', tierPrice: 'cena úrovně po vydání',
     privacy: 'Tyto údaje použijeme pouze k domluvení ukázky. Colleague AI s.r.o., Praha. Viz naše',
     privacyLink: 'Zásady ochrany osobních údajů',
     privacyHref: '/cs/ochrana-soukromi',
-    contact:'/cs/kontakt', agents:'/cs/agenti', title2:'Zarezervovat si demo | Colleague AI', desc:'Naplánujte si personalizovanou ukázku řízeného enterprise AI agenta.',
+    contact:'/cs/kontakt', agents:'/cs/agenti', title2:'Zarezervovat si demo | Colleague AI', desc:'Rezervujte si 30minutové vedené vyhodnocení Contract Intelligence & Register na vzorových smlouvách v testovacím tenantu, s kontrolním krokem a registrem na obrazovce.',
   },
   de: {
-    title: 'Demo buchen', subtitle: 'ColleagueAI in Aktion sehen. Unser Team führt Sie durch Ihren Anwendungsfall und die Preisgestaltung.',
+    title: 'Demo buchen', subtitle: 'Eine 30-minütige begleitete Bewertung von Contract Intelligence & Register an Beispielverträgen in einem Test-Tenant, mit Prüfschritt und Register auf dem Bildschirm. Wir gehen außerdem die Katalog-Factsheets für Ihren Anwendungsfall durch und beantworten Ihre Preisfragen.',
     formTitle: 'Ihre Informationen', email: 'E-Mail *', company: 'Unternehmen *', role: 'Ihre Rolle *',
     agentsTitle: 'Interessensbereiche', schedule: 'Zeitplan', date: 'Bevorzugtes Datum *', timezone: 'Zeitzone *',
     submit: 'Demo anfordern', submitting: 'Wird gesendet…',
-    success: 'Demo-Anfrage erhalten! Wir kontaktieren Sie innerhalb von 24 Stunden.',
+    success: 'Danke, Ihre Anfrage ist da. Wir antworten innerhalb eines Werktags mit einem Terminvorschlag.',
     error: 'Fehler beim Senden der Demo-Anfrage. Bitte versuchen Sie es erneut.',
     pillars: { ops: 'Betrieb & Service', risk: 'Risiko, Sicherheit & Compliance', data: 'Daten & Infrastruktur', sales: 'Vertrieb & Marketing', corp: 'Unternehmen' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Sie fragen an',
     indicative: 'Paketpreis', oneTime: 'einmalig',
+    concept: 'Konzept · nur Dossier', tierPrice: 'Stufenpreis nach Freigabe',
     privacy: 'Wir verwenden diese Angaben ausschließlich zur Vereinbarung Ihrer Demo. Colleague AI s.r.o., Prag. Siehe unsere',
     privacyLink: 'Datenschutzerklärung',
     privacyHref: '/de/datenschutz',
-    contact:'/de/kontakt', agents:'/de/agenten', title2:'Demo buchen | Colleague AI', desc:'Vereinbaren Sie eine personalisierte Demo überwachter Enterprise-AI-Agenten.',
+    contact:'/de/kontakt', agents:'/de/agenten', title2:'Demo buchen | Colleague AI', desc:'Buchen Sie eine 30-minütige begleitete Bewertung von Contract Intelligence & Register an Beispielverträgen in einem Test-Tenant, mit Prüfschritt und Register auf dem Bildschirm.',
   },
   fr: {
-    title: 'Réserver une démo', subtitle: 'Voyez ColleagueAI en action. Notre équipe vous guidera à travers votre cas d’usage et les tarifs.',
+    title: 'Réserver une démo', subtitle: 'Une évaluation guidée de 30 minutes de Contract Intelligence & Register sur des contrats d’exemple dans un tenant de test, avec l’étape de vérification et le registre à l’écran. Nous parcourons aussi les fiches produit du catalogue pour votre cas d’usage et répondons à vos questions sur les tarifs.',
     formTitle: 'Vos informations', email: 'E-mail *', company: 'Entreprise *', role: 'Votre rôle *',
     agentsTitle: 'Domaines d’intérêt', schedule: 'Calendrier', date: 'Date préférée *', timezone: 'Fuseau horaire *',
     submit: 'Demander une démo', submitting: 'Envoi en cours…',
-    success: 'Demande de démo reçue ! Nous vous contacterons sous 24 heures.',
+    success: 'Merci, votre demande est bien reçue. Nous répondons sous un jour ouvré avec une proposition de créneau.',
     error: 'Erreur lors de l’envoi de la demande de démo. Veuillez réessayer.',
     pillars: { ops: 'Opérations & service', risk: 'Risque, sécurité & conformité', data: 'Données & infrastructure', sales: 'Ventes & marketing', corp: 'Fonctions support' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Vous demandez',
     indicative: 'Prix du package', oneTime: 'paiement unique',
+    concept: 'Concept · dossier uniquement', tierPrice: 'prix du niveau une fois publié',
     privacy: 'Nous utilisons ces informations uniquement pour organiser votre démo. Colleague AI s.r.o., Prague. Voir notre',
     privacyLink: 'politique de confidentialité',
     privacyHref: '/fr/confidentialite',
-    contact:'/fr/contact', agents:'/fr/agents', title2:'Réserver une démo | Colleague AI', desc:'Planifiez une démonstration personnalisée des agents IA gouvernés.',
+    contact:'/fr/contact', agents:'/fr/agents', title2:'Réserver une démo | Colleague AI', desc:'Réservez une évaluation guidée de 30 minutes de Contract Intelligence & Register sur des contrats d’exemple dans un tenant de test, avec l’étape de vérification et le registre à l’écran.',
   },
   es: {
-    title: 'Reservar demostración', subtitle: 'Vea ColleagueAI en acción. Nuestro equipo le guiará a través de su caso de uso y precios.',
+    title: 'Reservar una demo', subtitle: 'Una evaluación guiada de 30 minutos de Contract Intelligence & Register con contratos de ejemplo en un tenant de prueba, con el paso de revisión y el registro en pantalla. También repasamos las fichas del catálogo para su caso de uso y respondemos a sus preguntas sobre precios.',
     formTitle: 'Su información', email: 'Correo electrónico *', company: 'Empresa *', role: 'Su rol *',
     agentsTitle: 'Áreas de interés', schedule: 'Horario', date: 'Fecha preferida *', timezone: 'Zona horaria *',
     submit: 'Solicitar demostración', submitting: 'Enviando…',
-    success: '¡Solicitud de demostración recibida! Nos pondremos en contacto en 24 horas.',
+    success: 'Gracias, hemos recibido su solicitud. Respondemos en un día laborable con una propuesta de horario.',
     error: 'Error al enviar la solicitud de demostración. Inténtelo de nuevo.',
     pillars: { ops: 'Operaciones y servicio', risk: 'Riesgo, seguridad y cumplimiento', data: 'Datos e infraestructura', sales: 'Ventas y marketing', corp: 'Corporativo' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está solicitando',
     indicative: 'Precio del paquete', oneTime: 'pago único',
+    concept: 'Concepto · solo dossier', tierPrice: 'precio del nivel una vez publicado',
     privacy: 'Usamos estos datos únicamente para concertar su demostración. Colleague AI s.r.o., Praga. Consulte nuestra',
     privacyLink: 'Política de privacidad',
     privacyHref: '/es/privacidad',
-    contact:'/es/contacto', agents:'/es/agentes', title2:'Reservar una demo | Colleague AI', desc:'Programe una demostración personalizada de agentes IA gobernados.',
+    contact:'/es/contacto', agents:'/es/agentes', title2:'Reservar una demo | Colleague AI', desc:'Reserve una evaluación guiada de 30 minutos de Contract Intelligence & Register con contratos de ejemplo en un tenant de prueba, con el paso de revisión y el registro en pantalla.',
   },
   it: {
-    title: 'Prenota demo', subtitle: 'Vedi ColleagueAI in azione. Il nostro team ti guiderà attraverso il tuo caso d’uso e i prezzi.',
+    title: 'Prenota una demo', subtitle: 'Una valutazione guidata di 30 minuti di Contract Intelligence & Register su contratti di esempio in un tenant di test, con il passaggio di revisione e il registro sullo schermo. Esaminiamo anche le schede prodotto del catalogo per il vostro caso d’uso e rispondiamo alle domande sui prezzi.',
     formTitle: 'Le tue informazioni', email: 'E-mail *', company: 'Azienda *', role: 'Il tuo ruolo *',
     agentsTitle: 'Aree di interesse', schedule: 'Programma', date: 'Data preferita *', timezone: 'Fuso orario *',
     submit: 'Richiedi demo', submitting: 'Invio in corso…',
-    success: 'Richiesta demo ricevuta! Ti contatteremo entro 24 ore.',
+    success: 'Grazie, abbiamo ricevuto la richiesta. Rispondiamo entro un giorno lavorativo con una proposta di orario.',
     error: 'Errore nell’invio della richiesta di demo. Riprova.',
     pillars: { ops: 'Operations e servizio', risk: 'Rischio, sicurezza e compliance', data: 'Dati e infrastruttura', sales: 'Vendite e marketing', corp: 'Corporate' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Stai richiedendo',
     indicative: 'Prezzo del pacchetto', oneTime: 'una tantum',
+    concept: 'Concept · solo dossier', tierPrice: 'prezzo del livello una volta rilasciato',
     privacy: 'Utilizziamo questi dati solo per organizzare la tua demo. Colleague AI s.r.o., Praga. Consulta la nostra',
     privacyLink: 'Informativa sulla privacy',
     privacyHref: '/it/privacy',
-    contact:'/it/contatti', agents:'/it/agenti', title2:'Prenota una demo | Colleague AI', desc:'Pianifica una demo personalizzata di agenti IA governati.',
+    contact:'/it/contatti', agents:'/it/agenti', title2:'Prenota una demo | Colleague AI', desc:'Prenota una valutazione guidata di 30 minuti di Contract Intelligence & Register su contratti di esempio in un tenant di test, con il passaggio di revisione e il registro sullo schermo.',
   },
   pl: {
-    title: 'Zarezerwuj demo', subtitle: 'Zobacz ColleagueAI w akcji. Nasz zespół przeprowadzi Cię przez Twój przypadek użycia i ceny.',
+    title: 'Umów demo', subtitle: '30-minutowa ocena z przewodnikiem Contract Intelligence & Register na przykładowych umowach w testowym tenancie, z krokiem weryfikacji i rejestrem na ekranie. Omówimy też karty produktów z katalogu dla Twojego przypadku użycia i odpowiemy na pytania o ceny.',
     formTitle: 'Twoje informacje', email: 'E-mail *', company: 'Firma *', role: 'Twoja rola *',
     agentsTitle: 'Obszary zainteresowania', schedule: 'Harmonogram', date: 'Preferowana data *', timezone: 'Strefa czasowa *',
     submit: 'Poproś o demo', submitting: 'Wysyłanie…',
-    success: 'Otrzymano prośbę o demo! Skontaktujemy się w ciągu 24 godzin.',
+    success: 'Dziękujemy, mamy Twoje zgłoszenie. Odpowiemy w ciągu jednego dnia roboczego z propozycją terminu.',
     error: 'Błąd przy przesyłaniu prośby o demo. Spróbuj ponownie.',
     pillars: { ops: 'Operacje i usługi', risk: 'Ryzyko, bezpieczeństwo i zgodność', data: 'Dane i infrastruktura', sales: 'Sprzedaż i marketing', corp: 'Korporacyjne' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Zamawiasz',
     indicative: 'Cena pakietu', oneTime: 'jednorazowo',
+    concept: 'Koncepcja · tylko dossier', tierPrice: 'cena poziomu po wydaniu',
     privacy: 'Używamy tych danych wyłącznie do umówienia demonstracji. Colleague AI s.r.o., Praga. Zobacz naszą',
     privacyLink: 'Politykę prywatności',
     privacyHref: '/pl/prywatnosc',
-    contact:'/pl/kontakt', agents:'/pl/agenci', title2:'Zarezerwuj demo | Colleague AI', desc:'Zaplanuj spersonalizowaną demonstrację nadzorowanych agentów AI.',
+    contact:'/pl/kontakt', agents:'/pl/agenci', title2:'Zarezerwuj demo | Colleague AI', desc:'Umów 30-minutową ocenę z przewodnikiem Contract Intelligence & Register na przykładowych umowach w testowym tenancie, z krokiem weryfikacji i rejestrem na ekranie.',
   },
   pt: {
-    title: 'Agendar demo', subtitle: 'Veja a ColleagueAI em ação. Nossa equipe vai guiar você pelo seu caso de uso e preços.',
+    title: 'Marcar uma demo', subtitle: 'Uma avaliação guiada de 30 minutos do Contract Intelligence & Register com contratos de exemplo num tenant de teste, com o passo de revisão e o registo no ecrã. Também percorremos as fichas do catálogo para o seu caso de uso e respondemos às suas perguntas sobre preços.',
     formTitle: 'Suas informações', email: 'E-mail *', company: 'Empresa *', role: 'Seu cargo *',
     agentsTitle: 'Áreas de interesse', schedule: 'Agenda', date: 'Data preferida *', timezone: 'Fuso horário *',
     submit: 'Solicitar demo', submitting: 'Enviando…',
-    success: 'Solicitação de demo recebida! Entraremos em contato em até 24 horas.',
+    success: 'Obrigado, recebemos o seu pedido. Respondemos num dia útil com uma proposta de horário.',
     error: 'Erro ao enviar a solicitação de demo. Tente novamente.',
     pillars: { ops: 'Operações e serviço', risk: 'Risco, segurança e conformidade', data: 'Dados e infraestrutura', sales: 'Vendas e marketing', corp: 'Corporativo' },
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está a solicitar',
     indicative: 'Preço do pacote', oneTime: 'pagamento único',
+    concept: 'Conceito · apenas dossier', tierPrice: 'preço do nível depois de lançado',
     privacy: 'Usamos estes dados apenas para agendar a sua demonstração. Colleague AI s.r.o., Praga. Consulte a nossa',
     privacyLink: 'Política de Privacidade',
     privacyHref: '/pt/privacidade',
-    contact:'/pt/contacto', agents:'/pt/agentes', title2:'Agendar uma demo | Colleague AI', desc:'Agende uma demonstração personalizada de agentes IA governados.',
+    contact:'/pt/contacto', agents:'/pt/agentes', title2:'Agendar uma demo | Colleague AI', desc:'Marque uma avaliação guiada de 30 minutos do Contract Intelligence & Register com contratos de exemplo num tenant de teste, com o passo de revisão e o registo no ecrã.',
   },
 };
 
@@ -184,6 +193,8 @@ function requestedAgent() {
     tier: safeTier,
     label: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
     priceUsd: PACKAGE_PRICE_USD[safeTier] || 0,
+    // only an agent with a product record has a released package; everything else is a concept with a dossier
+    released: Boolean(PRODUCTS[slug]?.release),
   };
 }
 
@@ -332,9 +343,9 @@ export default function Demo() {
                 <p className="demo-requested">
                   {t.requested}: <strong>{requested.label}</strong>
                   {requested.tier ? ` · CAI ${requested.tier}` : ''}
-                  {requested.priceUsd
-                    ? ` · ${t.indicative}: $${requested.priceUsd.toLocaleString('en-US')} (${t.oneTime})`
-                    : ''}
+                  {requested.released
+                    ? (requested.priceUsd ? ` · ${t.indicative}: $${requested.priceUsd.toLocaleString('en-US')} (${t.oneTime})` : '')
+                    : ` · ${t.concept}${requested.priceUsd ? ` · ${t.tierPrice}: $${requested.priceUsd.toLocaleString('en-US')}` : ''}`}
                 </p>
               )}
               <fieldset>
