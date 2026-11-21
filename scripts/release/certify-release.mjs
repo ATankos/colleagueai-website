@@ -101,7 +101,7 @@ if (!bundlePath) {
 
 // ---------- commercial / security suites ----------
 const SUITES = [
-  ['C-CHECKOUT', 'commercial', 'Checkout: acceptance before payment, B2B fields, card lane, CSP', ['tests/acceptance.test.mjs', 'tests/stripe-api-compat.test.mjs']],
+  ['C-CHECKOUT', 'commercial', 'Checkout: acceptance before payment, B2B fields, card lane, CSP, first-sale launch scope', ['tests/acceptance.test.mjs', 'tests/stripe-api-compat.test.mjs', 'tests/launch-scope.test.mjs']],
   ['C-WEBHOOK', 'commercial', 'Webhook: signature, idempotency, retries, refunds, disputes', ['tests/webhook.test.mjs']],
   ['C-ENTITLEMENT', 'commercial', 'Entitlements: one per purchase, concurrency, release access', ['tests/entitlement.test.mjs', 'tests/entitlement-concurrency.test.mjs', 'tests/release-access.test.mjs']],
   ['C-ORDER', 'commercial', 'Order record, purchase journey, fulfilment check', ['tests/order-record.test.mjs', 'tests/purchase-journey.test.mjs', 'tests/fulfilment-check.test.mjs']],
