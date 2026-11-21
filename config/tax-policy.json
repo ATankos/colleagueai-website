@@ -1,6 +1,6 @@
 {
-  "_comment": "Tax and invoicing policy for ColleagueAI sales. NOT APPROVED. It records the accountant's decisions (Accountant Decision Pack, questions T1-T14) and nothing in the code assumes them: while status is 'unapproved', live checkout is refused (lib/taxPolicy.js liveTaxBlocked), no Stripe Tax is calculated, no invoice is created and no tax wording is printed. To approve it: fill every decision and treatment with the accountant's written answer, set approval (who, role, date, and where the written answer is filed) and status 'approved'. tests/tax-policy.test.mjs refuses an 'approved' policy with any blocking decision, treatment or approval field left empty. Treatments are per buyer category (lib/taxPolicy.js classifyBuyer); 'action' is sell | hold | block, and every printed wording comes from here, never from code.",
-  "version": "2026-11-10-unapproved",
+  "_comment": "Tax and invoicing policy for ColleagueAI sales. NOT APPROVED. It records the accountant's decisions (Accountant Decision Pack, questions T1-T14) and nothing in the code assumes them: while status is 'unapproved', live checkout is refused (lib/taxPolicy.js liveTaxBlocked), no Stripe Tax is calculated, no invoice is created and no tax wording is printed. To approve it: fill every decision and treatment with the accountant's written answer, set approval (who, role, date, and where the written answer is filed) and status 'approved'. tests/tax-policy.test.mjs refuses an 'approved' policy with any blocking decision, treatment or approval field left empty. Treatments are per buyer category (lib/taxPolicy.js classifyBuyer); 'action' is sell | hold | block, and every printed wording comes from here, never from code. FIRST-SALE SCOPE (founder decision 3, 21 Nov 2026): Czech businesses only (config/launch-scope.json); every other category is 'hold'. cz_business stays null until the seller's VAT status is evidenced: ARES has no VAT-register entry for IČO 29540852 and VIES answers INVALID for CZ29540852 (checked 21 Nov 2026), so seller.vatStatus, vatId and vatEffectiveFrom are null, not assumed.",
+  "version": "2026-11-21-cz-b2b-candidate-unapproved",
   "status": "unapproved",
   "approval": {
     "approvedBy": null,
@@ -35,11 +35,26 @@
   },
   "treatments": {
     "cz_business": null,
-    "eu_business_vat_verified": null,
-    "eu_business_vat_pending": null,
-    "eu_business_vat_unverified": null,
-    "eu_business_no_vat_id": null,
-    "non_eu_business": null
+    "eu_business_vat_verified": {
+      "action": "hold",
+      "invoiceNote": ""
+    },
+    "eu_business_vat_pending": {
+      "action": "hold",
+      "invoiceNote": ""
+    },
+    "eu_business_vat_unverified": {
+      "action": "hold",
+      "invoiceNote": ""
+    },
+    "eu_business_no_vat_id": {
+      "action": "hold",
+      "invoiceNote": ""
+    },
+    "non_eu_business": {
+      "action": "hold",
+      "invoiceNote": ""
+    }
   },
   "checkout": {
     "requireTaxIdIfSupported": false,

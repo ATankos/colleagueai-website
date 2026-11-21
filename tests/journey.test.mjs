@@ -8,7 +8,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { readFileSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 
@@ -298,39 +298,38 @@ test('the CAI Score itself is still never called a certification, in any languag
   }
 });
 
-/* The company is VAT-registered (DIÄŒ CZ29540852, confirmed by the FinanÄnÃ­ ÃºÅ™ad
- * 25 Aug 2026). An enterprise buyer's finance team validates that number before
- * paying an invoice, so wherever the IÄŒO is published the DIÄŒ must appear with
- * it â€” and the two must never disagree. */
-test('every page that publishes the company ID also publishes the VAT ID', () => {
-  const ICO = '29540852';
-  const DIC = 'CZ29540852';
-  const pages = ['imprint.html', 'contact.html', 'terms.html', 'privacy.html', 'license.html',
-    'partner-agreement.html', 'refund.html', 'agents.html', 'home.html', 'pricing.html',
-    ...LOCALES.flatMap((l) => ['contact.html', 'home.html', 'imprint.html', 'terms.html', 'privacy.html'].map((p) => `${l}/${p}`))];
-
-  for (const p of pages) {
-    const html = read(p);
-    if (!html.includes(ICO)) continue;
-    assert.ok(html.includes(DIC), `${p} publishes the IÄŒO but not the DIÄŒ`);
-    // every rendered IÄŒO must have the DIÄŒ within reach, not just once on the page
-    // plain index scanning: no regex built from data, and no backtracking
-    const orphan = [];
-    for (let at = html.indexOf(ICO); at !== -1; at = html.indexOf(ICO, at + 1)) {
-      const ctx = html.slice(Math.max(0, at - 60), at + ICO.length + 140);
-      if (!ctx.includes(DIC)) orphan.push(ctx);
+/* VAT identification (founder decision 1, 21 Nov 2026). The ARES VAT register has no entry for IČO 29540852 and
+ * VIES answers INVALID for CZ29540852 (checked 21 Nov 2026), and no registration decision is on file. Until one is,
+ * no page may present CZ29540852 as a VAT ID: not in the structured data (vatID / a DIČ property), not in a footer,
+ * an imprint or a contact block. The accepted agreements (Terms, Licence, Privacy, Refund, Partner Agreement and
+ * their translations) still carry the identifier inside their versioned text; it leaves them with their next
+ * version (docs/legal/proposed/), never by editing an accepted version in place. When a registration decision
+ * exists, restore the identifier from config/tax-policy.json seller.vatId, not from memory. */
+const VAT_ID_ON_RECORD = null; // config/tax-policy.json seller.vatId once evidenced
+const ACCEPTED_LEGAL = /(^|\/)(terms|license|privacy|refund|partner-agreement)(\/index)?\.html$/;
+test('no page presents an unverified VAT ID outside the versioned agreements', () => {
+  const offenders = [];
+  const walk = (dir) => {
+    for (const e of readdirSync(new URL(`../public/${dir}`, import.meta.url), { withFileTypes: true })) {
+      const rel = dir ? `${dir}/${e.name}` : e.name;
+      if (e.isDirectory()) { if (rel !== 'legal') walk(rel); continue; }
+      if (!/\.(html|txt)$/.test(e.name)) continue;
+      if (ACCEPTED_LEGAL.test(rel)) continue;
+      if (read(rel).includes('CZ29540852')) offenders.push(rel);
     }
-    assert.deepEqual(orphan, [], `${p} has an IÄŒO with no DIÄŒ beside it: ${orphan[0]?.slice(0, 90)}`);
-  }
+  };
+  walk('');
+  assert.equal(VAT_ID_ON_RECORD, null, 'a VAT ID on record must come with its registration decision and a change to this test');
+  assert.deepEqual(offenders, [], `pages still present CZ29540852: ${offenders.slice(0, 5).join(', ')}`);
 });
 
-test('the structured data publishes the VAT ID in a machine-readable field', () => {
-  for (const p of ['terms.html', 'privacy.html', 'contact.html', 'home.html', 'license.html']) {
+test('the structured data publishes no VAT ID while none is on record', () => {
+  for (const p of ['terms.html', 'privacy.html', 'contact.html', 'home.html', 'license.html', 'imprint.html', 'agents.html']) {
     const blocks = [...read(p).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-    const withOrg = blocks.map((b) => JSON.parse(b[1])).filter((d) => JSON.stringify(d).includes('29540852'));
-    assert.ok(withOrg.length > 0, `${p} has no organization structured data`);
-    for (const d of withOrg) {
-      assert.ok(JSON.stringify(d).includes('"vatID":"CZ29540852"'), `${p} structured data is missing vatID`);
+    for (const b of blocks) {
+      const d = JSON.stringify(JSON.parse(b[1]));
+      assert.ok(!d.includes('"vatID"'), `${p} structured data declares a vatID`);
+      assert.ok(!d.includes('CZ29540852'), `${p} structured data carries CZ29540852`);
     }
   }
 });
