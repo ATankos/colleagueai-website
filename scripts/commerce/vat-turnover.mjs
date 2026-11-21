@@ -1,14 +1,16 @@
 #!/usr/bin/env node
-// Czech VAT-payer threshold watch (lib/vatTurnover.js): sums this calendar year's LIVE, paid orders in CZK and
-// compares them with config/vat-thresholds.json. Read-only. Orders without a CZK conversion on their invoice record
-// are converted with the rate you pass, or listed as unconverted.
+// Czech VAT-payer threshold watch (lib/vatTurnover.js): sums the calendar year's LIVE, paid orders WITH PLACE OF
+// SUPPLY IN THE CZECH REPUBLIC (read from the tax treatment recorded on each order) in CZK and compares them with
+// config/vat-thresholds.json. Read-only. Orders whose place of supply is not established, or that have no CZK
+// conversion on their invoice record and no rate passed here, are listed as UNRESOLVED and the result is never 'ok'
+// while any exist. A crossing is detected at the date of supply; a later refund does not undo it.
 //
 //   STRIPE_SECRET_KEY=sk_live_... KV_REST_API_URL=... KV_REST_API_TOKEN=... \
 //   node scripts/commerce/vat-turnover.mjs [--year 2026] [--rate USD=23.45] [--json out.json]
 //
-// --rate CUR=X applies one rate to every unconverted order in that currency (use the ČNB rate the accountant names;
-// for a precise figure give each order its invoice conversion instead). Exit code: 0 ok, 1 approaching or over a
-// threshold, 2 usage error.
+// --rate CUR=X applies one rate to every order in that currency that has no invoice conversion (use the ČNB rate the
+// accountant names; for a precise figure give each order its invoice conversion instead). --year defaults to the
+// current year. Exit code: 0 ok, 1 unresolved, approaching or over a threshold, 2 usage error.
 import { writeFileSync } from 'node:fs';
 import Stripe from 'stripe';
 import { stripeOptions } from '../../lib/stripe.js';
@@ -36,6 +38,6 @@ for await (const s of stripe.checkout.sessions.list({ created: { gte: since, lt:
 }
 const result = vatTurnover({ orders, year, rateFor: (cur) => rates[cur] ?? null });
 console.log(describeTurnover(result));
-for (const r of result.rows) console.log(`  ${r.orderId}  ${r.supplyDate}  ${r.amount} ${r.currency}  ->  ${r.czk === null ? 'UNCONVERTED' : `CZK ${r.czk}`}  (${r.how ?? 'no rate'})`);
+for (const r of result.rows) console.log(`  ${r.orderId}  ${r.supplyDate}  ${r.place.padEnd(10)}  ${r.gross} ${r.currency}${r.refunded ? ` (refunded ${r.refunded})` : ''}  ->  ${r.counts === true ? `CZK ${r.grossCzk} gross / ${r.netCzk} net` : r.counts === false ? 'not Czech turnover' : 'UNRESOLVED'}  (${r.how})`);
 if (opt('--json')) writeFileSync(opt('--json'), JSON.stringify(result, null, 2));
 process.exit(result.status === 'ok' ? 0 : 1);

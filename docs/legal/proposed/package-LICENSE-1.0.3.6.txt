@@ -19,7 +19,12 @@ and in SHA256SUMS-1.0.3.6.txt. Verify the checksum before you import the solutio
 package is not digitally signed.
 
 Support: hello@colleagueai.ai with your order number, the SKU and the release number.
-Security reports: see https://www.colleagueai.ai/.well-known/security.txt.
+Functional support and corrective releases for ordinary defects: for the period stated in
+the Licence (Section 5(a), (b)). Security vulnerability handling and security updates: for the
+security support period of this release stated on its factsheet, never shorter than the
+period the law applicable to this release requires (Licence Section 5(c)). No new functions
+and no indefinite free upgrades are promised.
+Security reports: see https://www.colleagueai.ai/.well-known/security.txt (accepted at any time).
 
 Release status: controlled release 1.0.3.6 (corrective release for 1.0.3.2 - 1.0.3.5).
 Third-party components and their licences: docs/legal/third-party-licences.md in the

@@ -86,26 +86,45 @@ remains yours. ColleagueAI claims no rights in it.
 this sentence only once the author-to-company rights instrument in `docs/legal/ip-licence-agreement-DRAFT.md` is
 executed; founder decision D5.]*
 
-## 5. Support, corrective releases and security
+## 5. Support, corrective releases and security updates
 
-(a) **Support window.** For **24 months from the day the purchased release is delivered** (download available on your
-order page) *[founder decision D1]*, ColleagueAI provides, at no further licence fee:
-- corrective releases for defects in the purchased release, including security defects, as described in the
-  Vulnerability Handling Procedure in the Trust Center;
-- e-mail support at hello@colleagueai.ai on business days, for installation questions, reproducible defects and
-  security reports, with your order number.
+Three different things are promised here, each with its own period. None of them is a promise of new features or
+of free upgrades without end.
 
-(b) **What support does not include:** installation, configuration or operation of the package in your tenant (your
+(a) **Functional support.** For **24 months from the day the purchased release is delivered** (download available on
+your order page) *[founder decision D1]*, ColleagueAI answers e-mail at hello@colleagueai.ai on business days, with your
+order number, about installation of the package from its installation guide and about reproducible defects in the
+purchased release.
+
+(b) **Corrective releases for ordinary defects.** For the same 24 months *[D1]*, where the purchased release
+materially fails to conform to its factsheet or installation guide, ColleagueAI provides a corrective release, a
+corrected package or corrected documentation, as described in the Refund Policy §5. A corrective release fixes a
+defect; it does not add functions.
+
+(c) **Security vulnerability handling and security updates.** Independently of (a) and (b), ColleagueAI handles
+security vulnerabilities reported in the purchased release under its Vulnerability Handling Procedure (Trust Center)
+and provides security updates for the **security support period** of that release. The security support period of
+each release is stated on its factsheet *[founder decision D1a: for release 1.0.3.6 the proposal is 24 months from
+delivery, the same as (a) and (b)]* and is in every case **at least the period that the law applicable to that
+release requires**. Where a release is placed on the market, or substantially modified, on or after 11 December 2027,
+Regulation (EU) 2024/2847 (Cyber Resilience Act), Article 13(8), requires a security support period that reflects the
+expected time of use and is at least five years from the day that release is placed on the market, unless the
+product is expected to be used for a shorter time, and ColleagueAI will state that period on the factsheet
+accordingly. A security update within the security support period is provided at no further licence fee, as a
+corrective release, without new functions. Security vulnerability **reports** are accepted at any time, inside or
+outside any period, at the security contact in the Trust Center and in our `security.txt`; the reporting duties that
+apply to ColleagueAI under the Cyber Resilience Act (Article 14, applicable from 11 September 2026) are performed
+whether or not a support period has ended.
+
+(d) **What is not included** in (a)–(c): installation, configuration or operation of the package in your tenant (your
 administrator or implementation partner does that from the guide); changes to your Microsoft environment; new
-features; support for modifications you made to the package; and anything excluded by the factsheet (for example
-scanned documents or languages the release does not support).
+features or new releases with new functions; support for modifications you made to the package; packages or
+components you obtained elsewhere; and anything excluded by the factsheet (for example scanned documents or languages
+the release does not support).
 
-(c) **After the support window** you keep the perpetual licence and the last corrective release you received; further
-releases are available as separate purchases or under a maintenance arrangement we may offer.
-
-(d) **Security reports** can be made at any time, inside or outside the support window, to the security contact in
-the Trust Center and in our `security.txt`; we handle them under the Vulnerability Handling Procedure and the duties
-that apply to us under EU Regulation 2024/2847 (Cyber Resilience Act).
+(e) **After a period ends** you keep the perpetual licence and the last release you received. New releases with new
+functions are separate purchases, and support beyond (a)–(c) is available only under a maintenance arrangement we may
+offer in writing. Nothing in this Licence promises functional upgrades without end.
 
 ## 6. Term and termination
 

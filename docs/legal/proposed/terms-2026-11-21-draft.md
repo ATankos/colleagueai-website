@@ -17,8 +17,12 @@ fingerprints, and we keep an archived copy of each version that you can read fro
 
 We sell to businesses, public bodies and other legal entities acting in the course of their activity. By ordering you
 confirm that you act for such an entity, that the person placing the order is authorised to bind it, and that the
-company details you enter are correct, because they appear on your invoice and licence confirmation. We do not sell to
-consumers; if a purchase turns out to have been made by a consumer, we cancel it and refund it (Refund Policy §4).
+company details you enter are correct, because they appear on your invoice and licence confirmation. The order form
+requires the entity's legal name, registration number and country, a named authorised person and that declaration;
+an order without them is not accepted. We rely on your declaration and may check it against public registers, the
+VAT register and your billing details before fulfilment; we do not detect consumer purchases automatically. We do not
+sell to consumers; if a purchase turns out to have been made by a consumer, we cancel it and refund it (Refund Policy
+§4).
 
 ## 3. Products
 

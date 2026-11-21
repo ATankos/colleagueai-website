@@ -34,16 +34,18 @@ purchase made in the course of business.
 
 ## 4. Consumers
 
-We do not sell to consumers, and checkout requires a declaration that you buy for a business. If a purchase is
-nevertheless made by a consumer, tell us within 14 days of the purchase: we cancel the order, revoke the licence and
-refund the full price. We do not rely on a waiver of the withdrawal right for digital content.
+We do not sell to consumers, and checkout requires the buyer company's identification and a declaration that the
+purchase is made in the course of its business; we rely on that declaration and do not detect consumer purchases
+automatically. If a purchase is nevertheless made by a consumer, tell us within 14 days of the purchase: we cancel
+the order, revoke the licence and refund the full price. We do not rely on a waiver of the withdrawal right for
+digital content.
 
 ## 5. Defective or non-conforming packages
 
 If a delivered package materially fails to conform to its published factsheet or installation guide, contact us within
 30 days of delivery with your order number and a description (and, where possible, the readiness-check output). We
 will first try to remedy the problem — a corrective release, a corrected package or corrected documentation — within
-a reasonable time, normally 30 days. If we cannot deliver a conforming package within that time, you may choose a
+a reasonable time, normally 30 days (the corrective-release commitment of Licence §5(b) applies for its period). If we cannot deliver a conforming package within that time, you may choose a
 proportionate price reduction or a full refund of the affected package, in which case the licence to it ends. These
 remedies are in addition to any rights that the Czech Civil Code gives a business customer for defective performance.
 
