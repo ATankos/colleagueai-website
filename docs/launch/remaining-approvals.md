@@ -1,5 +1,7 @@
 # Exact remaining approvals before the first paid launch (20 November 2026, 20:00 UTC)
 
+> **21 November 2026:** the single current checklist, with each item classified as required by law / our own gate / recommended review, is `first-czech-b2b-sale-requirements.md`. The tax draft is now v2 (`tax-policy-draft-identified-person.json`, CZ B2B only), the proposed agreement texts are in `../legal/proposed/`, and the IP draft carries an execution checklist. Section C below (the GO sequence) still applies.
+
 Everything in the sales, contract, invoice and delivery chain is built and tested in the Stripe sandbox (PR #539). Nothing below is a development task; each line is a written decision or an action only its owner can take. Order matters: A before B before C.
 
 ## A. Written adviser decisions (critical path; the VAT filing deadline of 25 Nov makes T1/T11 urgent)
