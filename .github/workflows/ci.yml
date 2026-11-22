@@ -93,6 +93,14 @@ jobs:
       - name: Every paid session has the order state and licence its payment calls for (missed-webhook check)
         run: node --test tests/fulfilment-check.test.mjs
 
+      - name: Checkout kill switch fails closed (live key or Production needs CHECKOUT_ENABLED=true)
+        run: node --test tests/checkout-switch.test.mjs
+
+      # A product with saleApproved true must carry its evidence (IP instrument hash, every gate PASS, recorded GO
+      # decision); otherwise this step fails and the required "test" check blocks the merge.
+      - name: Product onboarding and sale evidence (scripts/release/validate-product.mjs)
+        run: node --test tests/product-onboarding.test.mjs
+
       # Corrective release 1.0.3.5 (D-ET-1, F-T-3, F-T-4): unreadable terms and files never fail silently, and a contract
       # reference is scoped to its owner team (no cross-team superseding), checked on the generated flow definitions.
       - name: Release 1.0.3.5 flows (no silent failures, team-scoped contract families, unreadable files reported)
