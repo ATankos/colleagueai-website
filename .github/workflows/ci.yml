@@ -105,6 +105,12 @@ jobs:
       - name: Every paid session has the order state and licence its payment calls for (missed-webhook check)
         run: node --test tests/fulfilment-check.test.mjs
 
+      - name: Release safety with a live key (kill switch, sale approval, tax gate, no sandbox override)
+        run: node --test tests/release-safety.test.mjs
+
+      - name: Partner page commercial promises
+        run: node --test tests/partner-programme.test.mjs
+
       - name: Checkout kill switch fails closed (live key or Production needs CHECKOUT_ENABLED=true)
         run: node --test tests/checkout-switch.test.mjs
 

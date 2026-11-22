@@ -37,11 +37,16 @@ const LEAD = 'If you also implement the agent for your client, you contract and 
 const TERM_CARVE_OUT = 'Implementation, integration and support work a partner performs for its own '
   + 'client is contracted and invoiced by the partner; ColleagueAI takes no share of it.';
 const TERM_REVERSAL = 'If a sale is refunded or charged back, the commission for that sale is reversed.';
-const FAQ = 'Yes. You can refer the client and take the 10%, or licence the agents yourself and '
-  + 'deploy them under your own service agreement. Either way, any implementation, integration or '
-  + 'support work you do for your client is yours to contract and invoice. ColleagueAI takes no '
-  + 'share of it.';
-const NEW_COPY = [LEAD, TERM_CARVE_OUT, TERM_REVERSAL, FAQ];
+// Current reseller FAQ answer (copy aligned with the Partner Agreement on 25 Sep 2026, commit 615eec10: reselling
+// only where the signed partner agreement permits it). Its locale versions come from the page translation
+// dictionary, not scripts/i18n/reviewed-copy.json, so it is checked in the built pages below, not in that file.
+const FAQ = 'Yes, where your signed ColleagueAI Partner Agreement expressly permits that route. You can refer the client '
+  + 'under the standard Referral Partner model, or, if specifically approved, license and deploy agents for your client '
+  + 'under your own service agreement. Any implementation, integration or support services you provide are yours to '
+  + 'contract and invoice. ColleagueAI takes no share of those services.';
+// The answer it replaced; it promised self-licensing to every partner and must not come back.
+const RETIRED_FAQ = 'Yes. You can refer the client and take the 10%, or licence the agents yourself and deploy them under your own service agreement.';
+const NEW_COPY = [LEAD, TERM_CARVE_OUT, TERM_REVERSAL];
 
 test('the implementation carve-out is stated where a partner will read it', () => {
   const html = read('public/partners.html');
@@ -51,6 +56,7 @@ test('the implementation carve-out is stated where a partner will read it', () =
   // what a search engine reads. A fix to one and not the other is the defect.
   assert.equal(html.split(FAQ).length - 1, 2,
     'the reseller FAQ answer must be identical in the visible FAQ and in the FAQ payload');
+  assert.ok(!html.includes(RETIRED_FAQ), 'the retired FAQ answer (self-licensing for every partner) is back on the page');
   assert.ok(!html.includes('Which routes apply to you is confirmed at approval'),
     'the old FAQ answer is still on the page and contradicts the carve-out beside it');
 });
@@ -88,7 +94,7 @@ test('no built locale page serves one of them back in English', {
 }, () => {
   for (const loc of LOCALES) {
     const html = readFileSync(distPath(loc + '/partners.html'), 'utf8');
-    for (const en of NEW_COPY) {
+    for (const en of [...NEW_COPY, FAQ]) {
       assert.ok(!html.includes(en),
         `/${loc}/partners serves this in English: "${en.slice(0, 60)}..."`);
     }
