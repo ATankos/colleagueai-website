@@ -41,7 +41,7 @@ const { managedSolution, _comment, ...RECORD } = CAND;
 
 test('the release record carries the checksums the bundle records', () => {
   assert.equal(CAND.version, '1.0.3.6');
-  assert.equal(CAND.status, 'controlled-test');
+  assert.ok(['controlled-test', 'released'].includes(CAND.status), 'released only through the GO change');
   assert.equal(CAND.package, `${BUNDLE_NAME}.zip`);
   assert.equal(SUMS[CAND.package], CAND.sha256, 'bundle zip sha256');
   assert.equal(SUMS[managedSolution.file], managedSolution.sha256, 'managed solution sha256');
@@ -109,8 +109,9 @@ test('INSTALL and START-HERE require Daily recompute On for go-live; the readine
   assert.match(read('scripts/cai-release/1.0.3.6/build_bundle_1036.sh'), /check-cai-solution-package\.mjs" "\$work\/unpacked" --expect-version 1\.0\.3\.6/);
 });
 
-test('config/products.json: 1.0.3.6 is the release or not yet switched; earlier releases are kept; sale stays closed', () => {
-  assert.equal(REAL.saleApproved, false);
+test('config/products.json: 1.0.3.6 is the release or not yet switched; earlier releases are kept; sale opens only with the GO change', () => {
+  // Sale is opened only by the GO change, which also marks the release 'released'; never one without the other.
+  assert.equal(REAL.saleApproved, REAL.release.status === 'released');
   assert.ok(['1.0.3.4', CAND.version].includes(REAL.release.version), REAL.release.version);
   if (REAL.release.version === CAND.version) {
     assert.deepEqual(REAL.release, RECORD, 'the release entry is exactly the candidate record');

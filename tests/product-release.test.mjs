@@ -40,6 +40,13 @@ const product = PRODUCTS[SLUG];
 const db = await import('../lib/db.js');
 const { signDownload, openDownload } = await import('../lib/downloadToken.js');
 const products = await import('../lib/products.js');
+
+// The GO change approves this product for sale. The guards below are about what an UNAPPROVED release does, so they set
+// the in-memory record to unapproved for their duration (the record object is shared with lib/products.js).
+async function asUnapproved(fn) {
+  const rec = products.productFor(SLUG); const was = rec.saleApproved; rec.saleApproved = false;
+  try { return await fn(); } finally { rec.saleApproved = was; }
+}
 const storage = await import('../lib/storage.js');
 const download = (await import('../api/download.js')).default;
 const checkout = (await import('../api/checkout.js')).default;
@@ -91,12 +98,12 @@ test('success page, test delivery on: links the versioned release package, with 
   assert.match(html, /START-HERE/, 'buyer is pointed at START-HERE first');
 }));
 
-test('success page, unapproved release without test delivery: no package link, dossier only', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, () => {
+test('success page, unapproved release without test delivery: no package link, dossier only', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, () => asUnapproved(async () => {
   const html = deliveryHtml('buyer@example.com', SLUG);
   assert.doesNotMatch(html, /\.zip/);
   assert.deepEqual(linksIn(html).map((c) => c.file), ['dossier.pdf']);
   assert.match(html, /not yet available for download/);
-}));
+})));
 
 test('agents without a release package keep the existing dossier link', () => {
   const html = deliveryHtml('buyer@example.com', 'onboarding-agent');
@@ -127,11 +134,11 @@ async function requestFile(slug, file) {
 }
 const requestPackage = (slug = SLUG) => requestFile(slug, product.release.package);
 
-test('download: an unapproved release is withheld from an entitled buyer unless test delivery is on', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
+test('download: an unapproved release is withheld from an entitled buyer unless test delivery is on', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => asUnapproved(async () => {
   const res = await requestPackage();
   assert.equal(res.statusCode, 403);
   assert.equal(res.body.code, 'release_not_approved');
-}));
+})));
 
 test('download: without object storage a package request fails loudly instead of returning a placeholder', () => withEnv({ RELEASE_TEST_DELIVERY: '1' }, async () => {
   const res = await requestPackage();
@@ -222,19 +229,19 @@ test('download: a request with no token, or the old email-and-signature form, is
   assert.equal(legacy.statusCode, 403, 'an email-addressed link must not be honoured');
 }));
 
-test('download: the connect package of an unapproved release is withheld too, unless test delivery is on', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
+test('download: the connect package of an unapproved release is withheld too, unless test delivery is on', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => asUnapproved(async () => {
   const res = await requestFile(SLUG, 'connect-package.zip');
   assert.equal(res.statusCode, 403);
   assert.equal(res.body.code, 'release_not_approved');
-}));
+})));
 
 test('download: the connect package of an agent with no release record is not held back by the release gate', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, async () => {
   const res = await requestFile('onboarding-agent', 'connect-package.zip');
   assert.notEqual(res.body?.code, 'release_not_approved');
 }));
 
-test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved release; test keys can', async () => {
-  assert.equal(product.saleApproved, false, 'release 1.0.3.4 is a controlled test release, not approved for sale');
+test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved release; test keys can', async () => asUnapproved(async () => {
+  assert.equal(products.productFor(SLUG).saleApproved, false, 'the record is unapproved for this check');
   for (const key of ['sk_live_not_a_real_key', 'rk_live_not_a_real_key']) {
     await withEnv({ STRIPE_SECRET_KEY: key, CHECKOUT_ENABLED: undefined }, async () => {
       const res = mockRes();
@@ -249,16 +256,17 @@ test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved rele
   assert.equal(products.liveSaleBlocked('onboarding-agent', 'sk_test_x'), false, 'test-mode checkout of a catalogue agent keeps working');
   assert.equal(products.liveRestoreRefused('onboarding-agent', true), false, 'a won dispute on a purchase made before the rule still restores access (not a sale)');
   assert.equal(products.liveRestoreRefused(SLUG, true), true, 'a won dispute on an unapproved release with a record is not restored');
-});
+}));
 
 test('approval opens both gates: live sale allowed and package deliverable without the test flag', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, () => {
   const rec = products.productFor(SLUG);
+  const was = rec.saleApproved;
   rec.saleApproved = true;
   try {
     assert.equal(products.liveSaleBlocked(SLUG, 'sk_live_x'), false);
     assert.equal(products.packageDeliverable(SLUG), true);
   } finally {
-    rec.saleApproved = false;
+    rec.saleApproved = was;
   }
 }));
 
@@ -324,12 +332,12 @@ test('alias: new grants are stored under the current slug, and a refund revokes 
   assert.deepEqual(after.slugs, ['onboarding-agent']);
 });
 
-test('alias: old checkout links reach the current product (live key still blocked by the sale gate)', () => withEnv({ STRIPE_SECRET_KEY: 'sk_live_x', CHECKOUT_ENABLED: undefined }, async () => {
+test('alias: old checkout links reach the current product (live key still blocked by the sale gate)', () => withEnv({ STRIPE_SECRET_KEY: 'sk_live_x', CHECKOUT_ENABLED: undefined }, async () => asUnapproved(async () => {
   const res = mockRes();
   await checkout({ method: 'GET', query: { agent: OLD_SLUG }, headers: { host: 'example.test' } }, res);
   assert.equal(res.statusCode, 403, 'resolved to the product (not 404 Unknown agent)');
   assert.equal(res.body.code, 'not_approved_for_sale');
-}));
+})));
 
 test('checkout: only own catalogue entries count as agents and currencies (no Object.prototype lookups)', () => withEnv({ STRIPE_SECRET_KEY: 'sk_test_x', CHECKOUT_ENABLED: undefined }, async () => {
   for (const agent of ['constructor', 'tostring', 'hasownproperty', 'proto-x']) {
