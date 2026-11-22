@@ -35,7 +35,9 @@ function approvedPolicy(overrides = {}) {
     ...POLICY,
     status: 'approved',
     approval: { approvedBy: 'Test Accountant', role: 'Accountant', approvedAt: '2026-12-01', reference: 'letter of 1 Dec 2026' },
-    seller: { ...POLICY.seller, vatStatus: 'vat_payer', vatId: 'CZ29540852', vatEffectiveFrom: '2026-12-01' },
+    seller: { ...POLICY.seller, vatStatus: 'vat_payer', vatId: 'CZ29540852', vatEffectiveFrom: '2026-01-01',
+      vatStatusEvidence: { officialRecord: 'test registration record' },
+      vatStatusHistory: [{ status: 'vat_payer', effectiveFrom: '2026-01-01', verified: true, evidenceReference: 'test registration record' }] },
     decisions: Object.fromEntries(Object.keys(POLICY.decisions).map((k) => [k, `answer to ${k}`])),
     treatments: {
       cz_business: t('sell'), eu_business_vat_verified: t('sell'), eu_business_vat_pending: t('hold'),
@@ -74,8 +76,11 @@ test('an "approved" policy is still refused while any blocking decision, treatme
   assert.ok(tax.policyErrors(approvedPolicy({ checkout: { ...approvedPolicy().checkout, invoiceRoute: 'own_pdf' } })).some((e) => e.includes('invoiceRoute')));
   assert.ok(tax.policyErrors(approvedPolicy({ checkout: { ...approvedPolicy().checkout, czkConversion: 'stripe_payout_rate' } })).some((e) => e.includes('czkConversion')));
   // A seller recorded as not registered is a valid answer only with evidence elsewhere; it prints no DIČ.
-  const notRegistered = approvedPolicy({ seller: { ...approvedPolicy().seller, vatStatus: 'not_registered', vatId: null, vatEffectiveFrom: null } });
+  // It charges no VAT, so Stripe Tax stays off (lib/taxPolicy.js refuses the combination).
+  const notRegistered = approvedPolicy({ seller: { ...approvedPolicy().seller, vatStatus: 'not_registered', vatId: null, vatEffectiveFrom: null, vatStatusHistory: [] },
+    checkout: { ...approvedPolicy().checkout, stripeTax: false } });
   assert.deepEqual(tax.policyErrors(notRegistered), []);
+  assert.ok(tax.policyErrors({ ...notRegistered, checkout: { ...notRegistered.checkout, stripeTax: true } }).some((e) => e.includes('stripeTax must be false')));
   assert.ok(!tax.invoiceFooter(notRegistered, null).includes('DIČ'));
 });
 
@@ -237,8 +242,12 @@ test('sandbox fixture: an EU business without a VAT ID is held for manual handli
 // The placeholders below are test data, not answers; nothing here is copied into config/tax-policy.json.
 test('intake readiness: the CZ-B2B candidate is inert as committed and becomes active only through the intake fields', () => {
   assert.equal(POLICY.status, 'unapproved');
-  assert.equal(POLICY.seller.vatStatus, null);
+  // 22 Nov 2026: identified person as reported by the founder from the accountant; no official record yet.
+  assert.equal(POLICY.seller.vatStatus, 'identified_person');
   assert.equal(POLICY.seller.vatId, null);
+  assert.equal(POLICY.seller.vatEffectiveFrom, null);
+  assert.equal(POLICY.seller.vatStatusEvidence.officialRecord, null);
+  assert.ok(POLICY.seller.vatStatusHistory.every((e) => e.verified === false), 'no history entry is verified without the official record');
   assert.equal(POLICY.treatments.cz_business, null);
   for (const c of tax.CATEGORIES.filter((x) => x !== 'cz_business')) assert.equal(POLICY.treatments[c].action, 'hold', c);
   assert.equal(POLICY.checkout.invoiceRoute, null);
@@ -246,7 +255,10 @@ test('intake readiness: the CZ-B2B candidate is inert as committed and becomes a
   assert.equal(tax.liveTaxBlocked(LIVE, POLICY), true);
   const filled = structuredClone(POLICY);
   Object.assign(filled.approval, { approvedBy: 'ACCOUNTANT NAME', role: 'ROLE', approvedAt: '2026-12-01', reference: 'E-MAIL SUBJECT + DATE' });
-  Object.assign(filled.seller, { vatStatus: 'not_registered' });
+  // Placeholder official facts (test data only): number, effective date, record reference and its verified entry.
+  Object.assign(filled.seller, { vatId: 'CZ00000000', vatEffectiveFrom: '2026-01-01' });
+  filled.seller.vatStatusEvidence.officialRecord = 'REGISTRATION DECISION REFERENCE';
+  filled.seller.vatStatusHistory = [{ status: 'identified_person', effectiveFrom: '2026-01-01', verified: true, evidenceReference: 'REGISTRATION DECISION REFERENCE' }];
   for (const d of tax.BLOCKING_DECISIONS) filled.decisions[d] = 'ACCOUNTANT SENTENCE';
   filled.treatments.cz_business = { action: 'sell', invoiceNote: 'ACCOUNTANT WORDING' };
   Object.assign(filled.checkout, { invoiceRoute: 'company_ledger', czkConversion: 'cnb_daily_rate_on_tax_point' });
@@ -257,9 +269,14 @@ test('intake readiness: the CZ-B2B candidate is inert as committed and becomes a
   const cz = tax.treatmentFor(filled, LIVE, { country: 'CZ' });
   assert.deepEqual([cz.applied, cz.action, cz.invoiceNote], [true, 'sell', 'ACCOUNTANT WORDING']);
   assert.equal(tax.treatmentFor(filled, LIVE, { country: 'DE', taxId: { value: 'DE123456789' } }, 'verified').action, 'hold');
-  assert.ok(!tax.invoiceFooter(filled, cz).includes('DIČ'), 'a seller not registered for VAT prints no DIČ');
-  // A registered seller needs its number and effective date, never one without the other.
-  const registered = structuredClone(filled); registered.seller.vatStatus = 'identified_person';
+  assert.ok(!tax.invoiceFooter(filled, cz).includes('DIČ'), 'an identified person prints no DIČ on a domestic invoice unless the approved policy says so');
+  // A registered seller needs its number, effective date and official record, never one without the others.
+  const registered = structuredClone(filled); registered.seller.vatId = null; registered.seller.vatEffectiveFrom = null; registered.seller.vatStatusEvidence.officialRecord = null;
   assert.ok(tax.policyErrors(registered).some((e) => e.includes('seller.vatId')));
   assert.ok(tax.policyErrors(registered).some((e) => e.includes('vatEffectiveFrom')));
+  assert.ok(tax.policyErrors(registered).some((e) => e.includes('officialRecord')));
+  // An unregistered seller (if the official record says so) needs none of them.
+  const unregistered = structuredClone(filled);
+  Object.assign(unregistered.seller, { vatStatus: 'not_registered', vatId: null, vatEffectiveFrom: null, vatStatusHistory: [] });
+  assert.deepEqual(tax.policyErrors(unregistered), []);
 });

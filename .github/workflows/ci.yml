@@ -81,6 +81,12 @@ jobs:
       - name: VAT-payer threshold watch (lib/vatTurnover.js)
         run: node --test tests/vat-turnover.test.mjs
 
+      - name: Identified person and VAT-status transition (no VAT by a non-payer, effective-dated status, immutable invoices)
+        run: node --test tests/vat-identified-person.test.mjs
+
+      - name: Foreign-supplier purchase register (no automatic tax treatment)
+        run: node --test tests/foreign-purchases.test.mjs
+
       - name: Invoice and credit-note adapters are idempotent and fail closed; payouts reconcile to orders
         run: node --test tests/invoicing.test.mjs
 
