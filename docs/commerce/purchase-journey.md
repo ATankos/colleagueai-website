@@ -47,7 +47,7 @@
 | `saleApproved` in `config/products.json` | `false` | live checkout for that release (merge only with the founder's GO) |
 | `config/tax-policy.json status` | `unapproved` | live checkout (`liveTaxBlocked`), Stripe Tax, required tax ID and invoices, per the accountant's answers |
 | Stripe live keys (`STRIPE_SECRET_KEY`, `STRIPE_WEBHOOK_SECRET`) in Production | test keys | live mode |
-| `CHECKOUT_ENABLED` | on unless set to `false` | `false` takes checkout offline (kill switch) |
+| `CHECKOUT_ENABLED` | fail closed: a live key or Production needs exactly `true`; test keys outside Production are on unless `false` | `false` takes checkout offline everywhere (kill switch) |
 | `CERTIFICATION_SALES_ENABLED` | off | Continuous Certification subscriptions (stays off) |
 | `RECOVERY_ENABLED` | off | email recovery of download links |
 | `STRIPE_TOS_CONSENT` | off | Stripe's own terms checkbox, once a terms URL is set in Stripe |

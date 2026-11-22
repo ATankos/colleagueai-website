@@ -34,7 +34,7 @@ Nothing in this document contains a secret, and no step asks you to share one.
 | `STRIPE_WEBHOOK_SECRET` | `whsec_…` |
 | `DOWNLOAD_TOKEN_SECRET` | any long random string (`openssl rand -hex 32`). Downloads are refused without it. Changing it invalidates every outstanding link; buyers recover by reopening their `/api/success` URL (or, when emailed recovery is switched on, section 6a) |
 | `KV_REST_API_URL` / `KV_REST_API_TOKEN` | your Upstash REST pair (already set for demo bookings — confirm they exist for Preview) |
-| `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's pay panel to checkout mode in the built preview only |
+| `CAI_ENABLE_CHECKOUT` | `1` — flips the storefront's master flag in the built preview only; the buy path still opens only for products whose status is `released` (`caiSaleOpen`) |
 
 **Optional, for the emailed-recovery test only (section 6a). Leave all of these unset for the first pass:**
 

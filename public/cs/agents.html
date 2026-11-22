@@ -2041,7 +2041,7 @@ function renderGovernanceFactsheet(a){
   }).join('');
 }
 
-/* per-agent package availability, generated from config/packages.json */function caiPkgFor(s){var m=/*CAI_PKG*/{"contract-intelligence-and-register":["copilot-studio"]}/*/CAI_PKG*/;return m[s]||[];}/* release status per agent, generated from config/products.json: an agent with no product record is a concept */function caiStatusFor(s){var a=/*CAI_AVAIL*/{"contract-intelligence-and-register":"controlled"}/*/CAI_AVAIL*/,L={"en":{"controlled":"Controlled release","concept":"Concept · dossier only"},"cs":{"controlled":"Řízené vydání","concept":"Koncept · pouze dokumentace"},"de":{"controlled":"Kontrollierte Freigabe","concept":"Konzept · nur Dossier"},"fr":{"controlled":"Version contrôlée","concept":"Concept · dossier uniquement"},"es":{"controlled":"Versión controlada","concept":"Concepto · solo dossier"},"it":{"controlled":"Rilascio controllato","concept":"Concept · solo dossier"},"pl":{"controlled":"Wydanie kontrolowane","concept":"Koncepcja · tylko dossier"},"pt":{"controlled":"Versão controlada","concept":"Conceito · apenas dossier"}},l=String(document.documentElement.lang||"en").slice(0,2),t=L[l]||L.en;return t[a[s]||"concept"];}
+/* per-agent package availability, generated from config/packages.json */function caiPkgFor(s){var m=/*CAI_PKG*/{"contract-intelligence-and-register":["copilot-studio"]}/*/CAI_PKG*/;return m[s]||[];}/* release status per agent, generated from config/products.json: an agent with no product record is a concept */function caiAvailOf(s){var a=/*CAI_AVAIL*/{"contract-intelligence-and-register":"controlled"}/*/CAI_AVAIL*/;return Object.prototype.hasOwnProperty.call(a,s)?a[s]:"concept";}function caiSaleOpen(s,on){var v=caiAvailOf(s);return on===true&&(v==="released"||(v==="controlled"&&/*CAI_PREVIEW_SALE*/false));}function caiStatusFor(s){var a={};a[s]=caiAvailOf(s);var L={"en":{"controlled":"Controlled release","concept":"Concept · dossier only"},"cs":{"controlled":"Řízené vydání","concept":"Koncept · pouze dokumentace"},"de":{"controlled":"Kontrollierte Freigabe","concept":"Konzept · nur Dossier"},"fr":{"controlled":"Version contrôlée","concept":"Concept · dossier uniquement"},"es":{"controlled":"Versión controlada","concept":"Concepto · solo dossier"},"it":{"controlled":"Rilascio controllato","concept":"Concept · solo dossier"},"pl":{"controlled":"Wydanie kontrolowane","concept":"Koncepcja · tylko dossier"},"pt":{"controlled":"Versão controlada","concept":"Conceito · apenas dossier"}},l=String(document.documentElement.lang||"en").slice(0,2),t=L[l]||L.en;return t[a[s]||"concept"];}
 function openDrawer(i){window.__caiDi=i;
   const a=AGENTS[i];
   const dbadge=document.getElementById('d-badge');
@@ -2242,7 +2242,7 @@ applyLang(init);
     var q='?agent='+encodeURIComponent(cur.slug)+'&tier='+encodeURIComponent(cur.tier||'');
     return (STORE.schedulerUrl||'/demo')+q+(window.__cai_partner?'&partner='+encodeURIComponent(window.__cai_partner):'');
   }
-  function ctaUrl(cur,ref){ return STORE.checkoutEnabled?checkoutUrl(cur.slug,ref):accessUrl(cur); }
+  function ctaUrl(cur,ref){ return caiSaleOpen(cur.slug,STORE.checkoutEnabled)?checkoutUrl(cur.slug,ref):accessUrl(cur); }
   function newRef(slug){
     var id=(window.crypto&&crypto.randomUUID)?crypto.randomUUID():(Date.now().toString(36)+Math.random().toString(36).slice(2,10));
     return 'cai-'+slug.slice(0,18)+'-'+id;
@@ -2286,7 +2286,7 @@ applyLang(init);
     // The price still shows — it is labelled indicative — but purchase terms are
     // only asked for when there is something to purchase. Requesting access is
     // not a purchase, so the terms row stays hidden while checkout is off.
-    if(p!=null && STORE.checkoutEnabled){
+    if(p!=null && caiSaleOpen(cur.slug,STORE.checkoutEnabled)){
       cta.textContent=(window.T?T('pay_cta'):'Request access ->');
       cta.dataset.mode='checkout'; termsRow.style.display='flex'; cb.checked=false;
     } else {
