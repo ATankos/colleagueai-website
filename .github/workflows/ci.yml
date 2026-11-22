@@ -90,6 +90,9 @@ jobs:
       - name: First-sale launch scope (CZ businesses, card, one release) and ČNB conversion
         run: node --test tests/launch-scope.test.mjs
 
+      - name: IP rights evidence, restricted student works, redacted evidence manifest
+        run: node --test tests/legal-evidence.test.mjs
+
       - name: Every paid session has the order state and licence its payment calls for (missed-webhook check)
         run: node --test tests/fulfilment-check.test.mjs
 
@@ -100,9 +103,6 @@ jobs:
       # decision); otherwise this step fails and the required "test" check blocks the merge.
       - name: Product onboarding and sale evidence (scripts/release/validate-product.mjs)
         run: node --test tests/product-onboarding.test.mjs
-
-      - name: IP rights evidence, restricted student works, redacted evidence manifest
-        run: node --test tests/legal-evidence.test.mjs
 
       # Corrective release 1.0.3.5 (D-ET-1, F-T-3, F-T-4): unreadable terms and files never fail silently, and a contract
       # reference is scoped to its owner team (no cross-team superseding), checked on the generated flow definitions.
