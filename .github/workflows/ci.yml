@@ -101,6 +101,12 @@ jobs:
       - name: Product onboarding and sale evidence (scripts/release/validate-product.mjs)
         run: node --test tests/product-onboarding.test.mjs
 
+      - name: Release safety with a live key (kill switch, sale approval, tax gate, no sandbox override)
+        run: node --test tests/release-safety.test.mjs
+
+      - name: Partner page commercial promises
+        run: node --test tests/partner-programme.test.mjs
+
       # Corrective release 1.0.3.5 (D-ET-1, F-T-3, F-T-4): unreadable terms and files never fail silently, and a contract
       # reference is scoped to its owner team (no cross-team superseding), checked on the generated flow definitions.
       - name: Release 1.0.3.5 flows (no silent failures, team-scoped contract families, unreadable files reported)
