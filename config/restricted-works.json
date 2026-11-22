@@ -1,0 +1,8 @@
+{
+  "_comment": "Works the company may not license, sell or claim until their rights chain is documented. A slug listed here cannot carry a product record with saleApproved true, and cannot pass the validator's onboarding, unless its entry is 'cleared' with a verified rights_chain record in config/evidence-manifest.json. Register: docs/legal/restricted-works.md.",
+  "works": [
+    { "slug": "operations-procedures-assistant", "name": "Operations Procedures Assistant", "origin": "IFSA Agent Factory, Agent 1 (students, Fall 2026)", "status": "restricted", "missing": ["signed licence or assignment from each contributing student", "IFSA's written position on IP from the project"], "evidenceId": null },
+    { "slug": "service-review-pack-builder", "name": "Service Review Pack Builder", "origin": "IFSA Agent Factory, Agent 2 (students, Fall 2026)", "status": "restricted", "missing": ["signed licence or assignment from each contributing student", "IFSA's written position on IP from the project"], "evidenceId": null },
+    { "slug": "risk-event-capture-agent", "name": "Risk Event Capture", "origin": "IFSA Agent Factory, Agent 3 target (students, Fall 2026)", "status": "restricted", "missing": ["signed licence or assignment from each contributing student", "IFSA's written position on IP from the project"], "evidenceId": null }
+  ]
+}

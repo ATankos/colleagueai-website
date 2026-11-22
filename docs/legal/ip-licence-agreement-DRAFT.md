@@ -1,4 +1,8 @@
-# EXCLUSIVE LICENCE AGREEMENTS (AUTHOR → COMPANY) — DRAFT, NOT SIGNED, FOR COUNSEL REVIEW
+# EXCLUSIVE LICENCE AGREEMENTS (AUTHOR → COMPANY) — SUPERSEDED DRAFT
+
+> **Superseded on 22 Nov 2026** by `docs/legal/ip/` (Instrument A in Czech and English, Schedules A–D, Instrument B
+> assessment, corporate-authority checklist, remuneration options, evidence procedure). This file is kept unchanged
+> below as the record of the 21 Nov 2026 draft. Do not sign from it.
 
 > **Status, 21 November 2026.** Nothing in this file is signed, agreed or approved. It does not confer any right, and no
 > customer-facing statement may rely on it until the instruments are executed (`docs/legal/proposed/README.md`, D5).
