@@ -231,5 +231,5 @@ test('built factsheets: certification not yet open everywhere; the released pack
     assert.equal(s.includes('Microsoft prerequisites and running costs'), RELEASED.includes(slug), `${slug}: running-cost section only and always on released packages`);
   }
   const ci = readFileSync(DIST.find((f) => f.endsWith(`agents${join('/', RELEASED[0])}.html`) || f.endsWith(`/agents/${RELEASED[0]}.html`)), 'utf8');
-  assert.match(ci, /<span class="chip">Controlled release<\/span>/);
+  assert.match(ci, PRODUCTS[RELEASED[0]].release.status === 'released' ? /<span class="chip">Released package<\/span>/ : /<span class="chip">Controlled release<\/span>/);
 });

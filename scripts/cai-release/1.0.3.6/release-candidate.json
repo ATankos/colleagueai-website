@@ -1,7 +1,7 @@
 {
   "_comment": "Release record for CAI-L4-CI-001 1.0.3.6 (the \"release\" entry of config/products.json without _comment and managedSolution). Bundle revision 3 (22 Nov 2026) changes documents only, with the same managed solution: release status 'commercial release' instead of 'controlled test release, not for production use', LICENSE.txt with the Licence §5 support periods (24 months; security support period 24 months), dossier status line. Revisions 1 and 2 stay on record under previousBundles and unchanged in Blob. status stays 'controlled-test' (catalogue label 'not yet on general sale') until the founder's GO change. tests/cai-1036-release-candidate.test.mjs checks it against the bundle checksums, the documents, config/products.json and the download rules.",
   "version": "1.0.3.6",
-  "status": "controlled-test",
+  "status": "released",
   "package": "CAI-L4-CI-001_1.0.3.6-r3.zip",
   "sha256": "37a047c183bb3ff5ae33a5fefc59a6488ad84656720f5aaf19c14572473e051d",
   "bytes": 371721,

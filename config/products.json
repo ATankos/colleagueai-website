@@ -7,11 +7,11 @@
     "aliases": [
       "contract-summarisation-agent"
     ],
-    "saleApproved": false,
+    "saleApproved": true,
     "legacyEntitlementVersion": "1.0.3.2",
     "release": {
       "version": "1.0.3.6",
-      "status": "controlled-test",
+      "status": "released",
       "package": "CAI-L4-CI-001_1.0.3.6-r3.zip",
       "sha256": "37a047c183bb3ff5ae33a5fefc59a6488ad84656720f5aaf19c14572473e051d",
       "bytes": 371721,
