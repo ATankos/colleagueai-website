@@ -47,3 +47,26 @@ test('the certifier runs without a bundle and reports manual gates exactly as re
   for (const g of GATES.gates) assert.equal(out.results.find((r) => r.id === g.id).status, g.status, g.id);
   assert.equal(run.status, 0, 'only automated FAILs change the exit code');
 });
+
+// Decisions are recorded, and a gate that needs a person cannot pass without that person's recorded approval and
+// verified evidence (scripts/release/validate-product.mjs gateDecisionErrors).
+test('every gate records who decided, when and on what; approval gates need the approver and verified evidence', async () => {
+  const { gateDecisionErrors } = await import('../scripts/release/validate-product.mjs');
+  const MANIFEST = JSON.parse(readFileSync(new URL('../config/evidence-manifest.json', import.meta.url), 'utf8'));
+  assert.deepEqual(gateDecisionErrors(GATES, MANIFEST), []);
+  const clone = () => JSON.parse(JSON.stringify(GATES));
+  const at = (g, id) => g.gates.find((x) => x.id === id);
+  let g = clone(); at(g, 'L-IP').status = 'PASS';
+  assert.ok(gateDecisionErrors(g, MANIFEST).some((e) => e.startsWith('L-IP: PASS without the written approval')));
+  g = clone(); Object.assign(at(g, 'L-IP'), { status: 'PASS', approval: { by: 'Founder (test)', role: 'founder', at: '2026-12-01', reference: 'letter (test)' } });
+  assert.ok(gateDecisionErrors(g, MANIFEST).some((e) => e.startsWith('L-IP: PASS while its evidence is not verified: ip-instrument-a')), 'approval alone does not pass a gate whose evidence is pending');
+  g = clone(); Object.assign(at(g, 'T-TAX-POLICY'), { status: 'PASS', approval: { by: 'X', role: 'counsel', at: '2026-12-01', reference: 'r' } });
+  assert.ok(gateDecisionErrors(g, MANIFEST).some((e) => e.includes('needs accountant or founder')));
+  g = clone(); delete at(g, 'P-UPGRADE').decision;
+  assert.ok(gateDecisionErrors(g, MANIFEST).some((e) => e.startsWith('P-UPGRADE: PASS without decision')));
+  for (const id of ['L-LEGAL-TEXTS', 'L-IP', 'T-TAX-POLICY', 'O-PROD-CONFIG']) {
+    const x = at(GATES, id);
+    assert.ok(x.requiredApprover?.length, `${id} names its approver`);
+    assert.equal(x.approval.by, null, `${id}: no approval is recorded by an engineering change`);
+  }
+});
