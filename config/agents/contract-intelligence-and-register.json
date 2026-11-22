@@ -1,0 +1,55 @@
+{
+  "_comment": "Commercial product record for CAI-L4-CI-001 (reference product). Template and rules: config/agents/_template.json, docs/commercial-framework/README.md.",
+  "schema": "cai-commercial-product/1",
+  "slug": "contract-intelligence-and-register",
+  "sku": "CAI-L4-CI-001",
+  "category": "Legal",
+  "capabilities": [
+    "Extracts parties, dates, notice periods, renewals and amendments from text-based English PDF contracts in one SharePoint library, each value with its location and the AI-extracted excerpt",
+    "Keeps the contract register in Dataverse; only reviewer-approved terms feed effective terms and deadlines",
+    "Recalculates notice deadlines daily (calendar calculation, month-based periods included) and answers register questions in Teams"
+  ],
+  "useCases": [
+    "Legal, procurement and finance teams on Microsoft 365 that track renewals and notice deadlines in spreadsheets"
+  ],
+  "exclusions": [
+    "Microsoft licences or Copilot Studio capacity",
+    "Installation or configuration done for the customer",
+    "New feature releases",
+    "Scanned-document OCR; languages other than English",
+    "Legal interpretation or advice",
+    "Continuous Certification (not yet open)"
+  ],
+  "managedSolution": { "uniqueName": "CAIContractIntelligence", "version": "1.0.3.6", "file": "CAIContractIntelligence_1_0_3_6_managed.zip", "sha256": "cca6f657831a09d35e680a6cdc5be4eba329072ae918d76c1c2c8fa9dedad0f8" },
+  "microsoft": {
+    "licences": ["Power Platform environment with Dataverse (about 1 GB free)", "Microsoft 365 with Teams for reviewer, admin and users", "SharePoint document library", "System Administrator role for the installer"],
+    "capacity": "Copilot Studio capacity is mandatory: prepaid Copilot Credits or a pay-as-you-go billing plan linked to the environment; billed by Microsoft to the customer (INSTALL §1a)",
+    "installValues": ["five values in INSTALL §3 (library, owner team, reviewer, admin, recompute settings)"],
+    "connections": ["three connection references bound at import (INSTALL §4)"]
+  },
+  "tenant": {
+    "permissions": ["CAI Contract Reader: read-only on Contracts and Field evidence, team-owned records only (INSTALL §2)", "flows run as the installing System Administrator", "agent reads with the signed-in user's identity"],
+    "isolation": "Per owner team: users read only their team's contracts and evidence (tested 9, 10 and 19 Nov 2026; INSTALL §10)",
+    "humanReview": "Every extraction is confirmed or corrected by a named reviewer in Teams before it counts (INSTALL §9a)",
+    "governance": ["evidence excerpt and location stored per value", "corrections kept beside the original evidence", "agent not published by the import; admin-center check after every import (INSTALL §7)"]
+  },
+  "support": { "months": 24, "correctiveReleases": true, "securitySupportMonths": 24, "channel": "hello@colleagueai.ai" },
+  "knownLimitations": "docs/cai-l4-ci-001/INSTALL.md#10-known-limitations-of-this-release",
+  "documentation": { "installGuide": "docs/cai-l4-ci-001/INSTALL.md", "startHere": "docs/cai-l4-ci-001/bundle/START-HERE.md", "sha256sums": "docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6-r3.txt", "dossierPdf": "public/docs/agents/contract-intelligence-and-register.pdf" },
+  "release": { "record": "scripts/cai-release/1.0.3.6/release-candidate.json", "gates": "config/release-gates.json", "certifier": "scripts/release/certify-release.mjs" },
+  "ip": {
+    "status": "unsigned",
+    "instrument": "IP Licence Instrument A, Schedule A (docs/legal/ip-licence-agreement-DRAFT.md); Instrument B only if Marek Těšitel lists works",
+    "contributors": [
+      { "name": "Alexandr Tankos", "role": "human author of the solution, documents and website code, by the records", "basis": "licence to the company under Instrument A (not yet signed)" },
+      { "name": "Claude (AI assistant)", "role": "code and text generated on Alexandr Tankos's instruction", "basis": "none needed (no human author); covered through the instructing author" }
+    ],
+    "studentWork": "none: built in CAI-LAB separately from the IFSA student project (founder statement, 20 Nov 2026)",
+    "evidenceSha256": null
+  },
+  "tests": {
+    "automated": ["tests/cai-1036-release-candidate.test.mjs", "tests/product-release.test.mjs", "tests/purchase-journey.test.mjs", "tests/webhook.test.mjs", "tests/launch-scope.test.mjs"],
+    "tenantEvidence": ["tenant-log-1036.md (Release evidence library)", "scripts/cai-release/1.0.3.6/README.md"]
+  },
+  "sale": { "goDecision": null }
+}

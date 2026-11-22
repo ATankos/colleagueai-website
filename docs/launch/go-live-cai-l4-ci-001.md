@@ -1,54 +1,30 @@
-# GO-LIVE — Contract Intelligence & Register (CAI-L4-CI-001 1.0.3.6, bundle revision 3) only
+# GO: Contract Intelligence & Register (CAI-L4-CI-001 1.0.3.6, bundle revision 3) only
 
-This PR approves exactly one product for sale (`config/products.json` `saleApproved: true`, release status `released`).
-Every other catalogue agent has no approved record and stays refused for live keys (default-deny). The first-sale scope
-(`config/launch-scope.json`: Czech businesses, card, USD, this release) and the tax policy gate stay in force: **with the
-tax policy unapproved, live checkout still refuses (`tax_policy_not_approved`) even after this PR is merged.**
+This PR opens sale of one product. It sets:
+- `saleApproved: true` and release status `released` in `config/products.json` and the release record;
+- catalogue status "Commercial release";
+- the storefront master flag `checkoutEnabled: true`.
 
-## Merge only when every line below has its evidence (none may be assumed)
+The storefront opens the buy path only for products whose status is `released` (`caiSaleOpen`, from #567). Concept
+agents keep "Request access". Other products, foreign buyers, bank transfer and certification stay refused: default
+deny, plus `config/launch-scope.json`.
 
-| # | Condition | Evidence to attach to the PR |
-|---|---|---|
-| 1 | Vercel team on a commercial plan (Pro) | Vercel → Settings → Billing shows Pro |
-| 2 | Company VAT position established; accountant's written T1/T3/T6/T7/T8/T13; tax policy PR merged with `status: approved` | registration decision or accountant's written confirmation; the merged policy PR |
-| 3 | IP: Instrument A (Alexandr Tankos → company) signed; Instrument B if Schedule B lists works | signed PDF(s) stored outside this public repo; their SHA-256 in the PR |
-| 4 | Provider DPAs accepted/filed: Vercel, Upstash, Stripe, Resend, Sentry, Plausible | date and where each is filed |
-| 5 | Bundle r3 in Blob, #565 merged, one buyer download verified (371,721 B, `37a047c1…e051d`) | Blob listing + download hash |
-| 6 | Production environment (below) set | Vercel env list (names only) |
-| 7 | Stripe live account activated; live webhook endpoint (below) created | Stripe Dashboard → Developers → Webhooks |
+**This PR is red on purpose until the evidence exists.** `tests/product-onboarding.test.mjs` fails while any for-sale
+check fails:
+- the IP instrument is executed and its SHA-256 recorded in `config/agents/contract-intelligence-and-register.json`;
+- every gate in `config/release-gates.json` is PASS;
+- `sale.goDecision` (approvedBy, date, reference) is filled with the founder's written GO.
 
-## Production environment (Vercel → Settings → Environment Variables → Production)
+Locally, `npm run validate:products -- --for-sale` lists what is still missing.
 
-| Name | Value / source |
-|---|---|
-| `STRIPE_SECRET_KEY` | live restricted or secret key (`rk_live_…`/`sk_live_…`), Sensitive |
-| `STRIPE_WEBHOOK_SECRET` | signing secret of the live endpoint below, Sensitive |
-| `DOWNLOAD_TOKEN_SECRET` | new random 32+ byte value for Production (not the Preview one), Sensitive |
-| `BLOB_STORE_ID` | store `cai-release-packages` connected to Production (Storage → store → Projects → environments) |
-| `RESEND_API_KEY` | Resend key for the verified domain colleagueai.ai, Sensitive |
-| `MAIL_FROM` | `ColleagueAI <hello@colleagueai.ai>` |
-| `RECOVERY_ENABLED` | `1` |
-| `CHECKOUT_ENABLED` | stays `false` until step 9 |
-| KV (`KV_REST_API_*`) | already set for Production; Production uses unprefixed keys, Preview `preview:` |
+## Order (platform steps: `docs/launch/production-activation.md`)
 
-Not set in Production: `TAX_POLICY_SANDBOX`, `TAX_SANDBOX_INVOICE_ROUTE`, `RELEASE_TEST_DELIVERY`, `LAUNCH_SCOPE_TEST_BYPASS`
-(all ignored or refused with a live key anyway).
+1. Platform preconditions A1–A8 evidenced; Production variables and the live webhook set, with
+   `CHECKOUT_ENABLED=false`.
+2. #567 merged (fail-closed switch and per-product storefront). Tax-approval PR merged.
+3. This PR: fill `sale.goDecision` and the IP hash, update the gates with their evidence; CI green; mark ready.
+4. Founder sets `CHECKOUT_ENABLED=true` in Production. It takes effect only with the next deployment.
+5. Merge this PR. The deployment it triggers opens the API and the storefront together: one step is the GO.
+6. Controlled first live order and checks: production-activation.md §D7.
 
-## Stripe live webhook
-
-Endpoint `https://www.colleagueai.ai/api/webhook`, events: `checkout.session.completed`,
-`checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`,
-`charge.refunded`, `charge.dispute.created`, `charge.dispute.closed`, `customer.tax_id.created`,
-`customer.tax_id.updated`, `customer.subscription.updated`, `customer.subscription.deleted`.
-Payment methods: card (the session requests card only). Optional: switch Link off in Settings → Payment methods.
-
-## Order of operations
-
-1. Conditions 1–7 evidenced. 2. Merge the tax-policy approval PR. 3. Merge this PR (Production redeploys; checkout still off).
-4. Verify on Production: `/api/checkout?agent=contract-intelligence-and-register` with the kill switch still `false`
-   answers 503 `checkout_disabled`; `/agents` factsheet shows "Commercially available", release 1.0.3.6, r3 checksum.
-5. Founder sets `CHECKOUT_ENABLED` to anything other than `false` and redeploys. That is the GO.
-6. First customer order: the founder watches the webhook delivery (200), the order page (licence, invoice
-   CAI-INV-YYYY-00001, agreement PDF, download), and the e-mail.
-
-**Rollback:** set `CHECKOUT_ENABLED=false` and redeploy (refuses new checkouts at once; paid orders keep their access).
+**Rollback:** `CHECKOUT_ENABLED=false` + redeploy (all sales), or revert this PR (this product).

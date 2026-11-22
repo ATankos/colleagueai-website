@@ -1,0 +1,36 @@
+{
+  "_comment": "ColleagueAI commercial product record, one per sellable agent: config/agents/<slug>.json. Copy this file, fill every field, run `node scripts/release/validate-product.mjs <slug>`. It holds only what no other file holds: price and package identity live in config/products.json and config/pricing.json, the factsheet text in public/agents.html (window.PRODUCT_FACTS) and scripts/generate-agent-pages.mjs (RUNTIME), the first-sale scope in config/launch-scope.json. Evidence fields name where the evidence is kept; never write an approval, signature or test result that does not exist. Schema: docs/commercial-framework/README.md.",
+  "schema": "cai-commercial-product/1",
+  "slug": "<catalogue slug>",
+  "sku": "CAI-L<tier>-<XX>-<NNN>",
+  "category": "<catalogue category, e.g. Legal>",
+  "capabilities": ["<what it does, only demonstrated features>"],
+  "useCases": ["<who uses it for what>"],
+  "exclusions": ["<what it does not do / is not included>"],
+  "managedSolution": { "uniqueName": "<solution unique name>", "version": "<x.y.z.w>", "file": "<managed zip>", "sha256": "<64 hex>" },
+  "microsoft": {
+    "licences": ["<required Microsoft licences>"],
+    "capacity": "<Copilot Studio capacity and how it is billed>",
+    "installValues": ["<environment variables / values the admin sets>"],
+    "connections": ["<connection references>"]
+  },
+  "tenant": {
+    "permissions": ["<security roles and what they can read/write>"],
+    "isolation": "<how data is separated (team, BU, user)>",
+    "humanReview": "<which outputs need a named reviewer before they count>",
+    "governance": ["<audit trail, evidence, publishing controls>"]
+  },
+  "support": { "months": 24, "correctiveReleases": true, "securitySupportMonths": 24, "channel": "hello@colleagueai.ai" },
+  "knownLimitations": "<path#section of the install guide's limitations table>",
+  "documentation": { "installGuide": "<repo path>", "startHere": "<repo path>", "sha256sums": "<repo path>", "dossierPdf": "public/docs/agents/<slug>.pdf" },
+  "release": { "record": "scripts/cai-release/<version>/release-candidate.json", "gates": "<repo path of the gate list>", "certifier": "scripts/release/certify-release.mjs" },
+  "ip": {
+    "status": "unsigned | executed",
+    "instrument": "<instrument and schedule that cover the works>",
+    "contributors": [ { "name": "<person>", "role": "<what they made>", "basis": "<author | employee | licence | assignment | none needed>" } ],
+    "studentWork": "<none | which works, and the signed licence/assignment that covers them>",
+    "evidenceSha256": null
+  },
+  "tests": { "automated": ["<test files>"], "tenantEvidence": ["<where the tenant test logs are kept>"] },
+  "sale": { "goDecision": null }
+}

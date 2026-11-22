@@ -59,6 +59,7 @@ import Stripe from 'stripe';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug, isLiveKey } from '../lib/products.js';
+import { checkoutEnabled } from '../lib/checkoutSwitch.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recordAcceptance, bindAcceptance } from '../lib/db.js';
 import { validateAcceptance, renderAcceptancePage, readForm, clientFingerprint, legalVersionString, legalDocuments, LEGAL_SET, CERT_TERMS, certificationSalesEnabled } from '../lib/acceptance.js';
@@ -162,9 +163,9 @@ export default async function handler(req, res) {
     return res.status(503).json({ error: 'Checkout is not enabled', code: 'checkout_disabled' });
   }
 
-  // Kill-switch: set CHECKOUT_ENABLED=false in the environment to take paid checkout offline
-  // instantly (e.g. before legal/Stripe sign-off) without a redeploy. Defaults to enabled.
-  if (process.env.CHECKOUT_ENABLED === 'false') {
+  // Kill switch, fail closed (lib/checkoutSwitch.js): a live key or the Production deployment needs
+  // CHECKOUT_ENABLED=true exactly; CHECKOUT_ENABLED=false closes checkout everywhere.
+  if (!checkoutEnabled()) {
     return res.status(503).json({ error: 'Checkout is temporarily unavailable', code: 'checkout_disabled' });
   }
 

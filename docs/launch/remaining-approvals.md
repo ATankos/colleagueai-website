@@ -1,5 +1,7 @@
 # Exact remaining approvals before the first paid launch (20 November 2026, 20:00 UTC)
 
+> **22 November 2026:** the current activation runbook is `production-activation.md`; the product framework is `../commercial-framework/README.md`.
+>
 > **21 November 2026:** the single current checklist, with each item classified as required by law / our own gate / recommended review, is `first-czech-b2b-sale-requirements.md`. The tax draft is now v2 (`tax-policy-draft-identified-person.json`, CZ B2B only), the proposed agreement texts are in `../legal/proposed/`, and the IP draft carries an execution checklist. Section C below (the GO sequence) still applies.
 
 Everything in the sales, contract, invoice and delivery chain is built and tested in the Stripe sandbox (PR #539). Nothing below is a development task; each line is a written decision or an action only its owner can take. Order matters: A before B before C.
@@ -34,10 +36,10 @@ Everything in the sales, contract, invoice and delivery chain is built and teste
 ## C. The GO sequence (only after A and B; executed by the founder, never by an agent)
 
 1. Merge the tax-policy PR (A4) and the legal-version PRs (A5); publish bundle revision 2 (A7) if counsel's text arrived.
-2. Enter **live** `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in Vercel Production (founder types them; `CAI_ENABLE_CHECKOUT` stays unset).
+2. Enter **live** `STRIPE_SECRET_KEY` and `STRIPE_WEBHOOK_SECRET` in Vercel Production (founder types them; `CHECKOUT_ENABLED` stays `false`).
 3. Kill-switch rehearsal: `/api/checkout` → 503; confirm the one-commit rollback.
 4. Founder's own PR: `saleApproved: true` for `contract-intelligence-and-register` only; required review per G6; merge.
-5. Set `CAI_ENABLE_CHECKOUT=1`; smoke: catalogue shows the product, `/api/checkout` returns a live session URL (no purchase).
+5. Set `CHECKOUT_ENABLED=true` (fail closed: nothing else opens live checkout; see `production-activation.md`); smoke: catalogue shows the product, `/api/checkout` returns a live session URL (no purchase).
 6. First live order; verify webhook → licence → agreement PDF → invoice → documents → notification → download hash; support mailbox watched; `scripts/commerce/check-fulfilment.mjs` the next morning.
 
 ## Safeguards in force today
