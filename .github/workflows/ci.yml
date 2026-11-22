@@ -90,6 +90,12 @@ jobs:
       - name: First-sale launch scope (CZ businesses, card, one release) and ČNB conversion
         run: node --test tests/launch-scope.test.mjs
 
+      - name: IP rights evidence, restricted student works, redacted evidence manifest
+        run: node --test tests/legal-evidence.test.mjs
+
+      - name: No confidential evidence in the repository, logs or client build
+        run: node --test tests/confidential-exposure.test.mjs
+
       - name: Every paid session has the order state and licence its payment calls for (missed-webhook check)
         run: node --test tests/fulfilment-check.test.mjs
 

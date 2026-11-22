@@ -50,9 +50,24 @@ This lists the open-source packages that ship with the website and its server fu
 
 Permissive licences still carry conditions, chiefly keeping the copyright and licence notice with copies of the code. The website ships these packages bundled or as server dependencies and does not redistribute them to customers as source. Whether a notices file must be published with the site is a question for counsel (see the counsel pack).
 
+## Delivered to customers: CAI-L4-CI-001 1.0.3.6 bundle revision 3
+
+Reviewed 2026-11-22 from the delivered file \`CAI-L4-CI-001_1.0.3.6-r3.zip\` (SHA-256 \`37a047c1…e051d\`). None of the npm packages below is in it.
+
+| Item in the bundle | Origin | Licence / basis |
+| --- | --- | --- |
+| \`CAIContractIntelligence_1_0_3_6_managed.zip\`: agent, topics, instructions, 7 flows, 4 tables, 1 role, 9 environment variable definitions | Colleague AI (IP Instrument A, Schedule A) | Software & Agent Licence |
+| Microsoft connectors the flows call: Dataverse (\`shared_commondataserviceforapps\`), SharePoint (\`shared_sharepointonline\`), Teams (\`shared_teams\`) | Microsoft; referenced, not contained | the customer's Microsoft agreement |
+| \`START-HERE\`, \`INSTALL\`, \`LICENSE.txt\`, \`MANIFEST.json\`, \`SHA256SUMS.txt\`, \`deploymentSettings.template.json\`, \`DOSSIER.pdf\` | Colleague AI | Software & Agent Licence |
+| \`check-cai-install-readiness.mjs\` (no imports beyond Node.js built-ins) | Colleague AI | Software & Agent Licence |
+| Fonts embedded as subsets in the PDFs: DejaVu Sans, DejaVu Sans Bold, DejaVu Sans Mono | DejaVu fonts | Bitstream Vera / DejaVu licence (embedding in documents permitted) |
+| Fonts embedded as subsets in \`INSTALL.pdf\` and \`START-HERE.pdf\`: Inter Regular, Bold, Italic | Inter (Rasmus Andersson) | SIL Open Font License 1.1 (embedding in documents permitted; the fonts themselves are not redistributed) |
+
+This review says what the bundle contains and under which terms. It is not an IP clearance: the company's own rights depend on IP Instrument A (\`docs/legal/ip/\`).
+
 ## Not covered by this list
 
-- **The agent packages sold to customers** (Power Platform managed solutions such as \`CAI-L4-CI-001\`). They are built from Microsoft Power Platform components by Colleague AI and are delivered as a managed solution; this inventory does not inspect them. Their own dependency review is part of the counsel and audit packs.
+- **The agent packages sold to customers.** These are not npm packages and are reviewed separately above, under "Delivered to customers: CAI-L4-CI-001 1.0.3.6 bundle revision 3".
 - **Microsoft services the packages run on** (Power Platform, Dataverse, Copilot Studio, and any AI capabilities a package uses). The customer licenses these from Microsoft under Microsoft's terms and pays Microsoft for their use; they are not supplied or resold by Colleague AI.
 - **Online services the website uses**: Stripe (payments, tax ID verification, invoices when enabled), Vercel (hosting and file storage), Upstash (key-value records), Sentry (error reports) and the analytics named in the Privacy Policy. These are services under their providers' terms, not licensed code.
 - **Fonts embedded in the order documents** (\`lib/fonts/\`): DejaVu Sans and DejaVu Sans Bold, under the Bitstream Vera Fonts licence (permissive; embedding subsets in documents is expressly permitted; the licence text is kept beside the files as \`lib/fonts/LICENSE_DEJAVU\`). Subsets of them are embedded in every licence agreement confirmation, invoice and credit-note PDF.
