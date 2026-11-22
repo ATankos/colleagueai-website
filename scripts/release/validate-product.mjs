@@ -39,6 +39,8 @@ export function loadContext(root = ROOT) {
   return {
     products: rj('config/products.json'), pricing: rj('config/pricing.json'), packages: rj('config/packages.json'),
     scope: rj('config/launch-scope.json'), agentsHtml, generator,
+    evidence: existsSync(join(root, 'config/evidence-manifest.json')) ? rj('config/evidence-manifest.json') : { records: [] },
+    restricted: existsSync(join(root, 'config/restricted-works.json')) ? rj('config/restricted-works.json') : { works: [] },
     agentRecord: (slug) => (existsSync(join(root, `config/agents/${slug}.json`)) ? rj(`config/agents/${slug}.json`) : null),
     readJson: rj, exists: (p) => typeof p === 'string' && p.length > 0 && existsSync(join(root, p.split('#')[0])),
   };
@@ -51,6 +53,14 @@ export function validateProduct(slug, { forSale = false, ctx = loadContext() } =
   const R = P.release || {};
   const A = ctx.agentRecord(slug);
   const need = (cond, msg) => { if (!cond) onboarding.push(msg); };
+
+  // a restricted work (e.g. IFSA student products) cannot be a product until its rights chain is verified
+  const rw = (ctx.restricted.works || []).find((w) => w.slug === slug);
+  if (rw) {
+    const ev = (ctx.evidence.records || []).find((r) => r.id === rw.evidenceId);
+    need(rw.status === 'cleared' && ev?.type === 'rights_chain' && ev.status === 'verified' && HEX64.test(ev.sha256 || ''),
+      `restricted work (config/restricted-works.json): no verified rights chain - missing: ${(rw.missing || []).join('; ')}`);
+  }
 
   // products.json + shared configuration
   need(filled(P.name), 'products.json: name');
@@ -85,6 +95,12 @@ export function validateProduct(slug, { forSale = false, ctx = loadContext() } =
     for (const t of A.tests?.automated || []) need(ctx.exists(t), `agent record: test ${t} not found`);
     need(filled(A.ip?.instrument) && filled(A.ip?.contributors) && filled(A.ip?.studentWork) && ['unsigned', 'executed'].includes(A.ip?.status),
       'agent record: ip (instrument, contributors, studentWork, status unsigned|executed)');
+    // 'executed' is a claim about a signed document: it needs a verified evidence record with the same fingerprint
+    if (A.ip?.status === 'executed') {
+      const ev = (ctx.evidence.records || []).find((r) => r.type === 'ip_instrument' && [slug, 'company'].includes(r.subject) && r.status === 'verified' && r.sha256 === A.ip.evidenceSha256);
+      need(HEX64.test(A.ip.evidenceSha256 || '') && ev, 'agent record: ip.status "executed" without a verified ip_instrument record of the same SHA-256 in config/evidence-manifest.json');
+    }
+    need(A.ip?.status !== 'unsigned' || A.ip?.evidenceSha256 == null, 'agent record: an unsigned instrument has no evidence fingerprint');
 
     // release record agrees with products.json
     if (ctx.exists(A.release?.record)) {
@@ -120,6 +136,58 @@ export function validateProduct(slug, { forSale = false, ctx = loadContext() } =
   return { slug, onboarding, sale, level };
 }
 
+const EVIDENCE_TYPES = ['ip_instrument', 'ip_schedule', 'ip_declaration', 'rights_chain', 'corporate_extract', 'corporate_record',
+  'tax_registration', 'accountant_advice', 'third_party_review', 'release_record', 'package_fingerprint', 'customer_licence_version'];
+const EVIDENCE_STATUS = ['pending', 'received', 'verified', 'superseded'];
+const PII_KEYS = /birth|address|residence|personal|idnumber|passport|signature(?!s?Ref)|iban|account/i;
+
+/** The public evidence manifest stays an index: known types and statuses, private references, no personal data. */
+export function evidenceManifestErrors(manifest) {
+  const errors = [];
+  const ids = new Set();
+  for (const [i, r] of (manifest?.records || []).entries()) {
+    const at = `evidence[${i}] ${r?.id || ''}`;
+    if (!r?.id || ids.has(r.id)) errors.push(`${at}: missing or duplicate id`); ids.add(r?.id);
+    if (!EVIDENCE_TYPES.includes(r?.type)) errors.push(`${at}: unknown type ${r?.type}`);
+    if (!EVIDENCE_STATUS.includes(r?.status)) errors.push(`${at}: unknown status ${r?.status}`);
+    if (!/^(private|repo):\S+$/.test(r?.storageRef || '')) errors.push(`${at}: storageRef must be a private: or repo: reference`);
+    if (r?.status === 'verified' && String(r.storageRef).startsWith('private:') && !HEX64.test(r.sha256 || '')) errors.push(`${at}: verified private evidence needs its SHA-256`);
+    if (r?.sha256 != null && !HEX64.test(r.sha256)) errors.push(`${at}: sha256 must be 64 hex or null`);
+    for (const k of Object.keys(r || {})) if (PII_KEYS.test(k)) errors.push(`${at}: field "${k}" looks like personal data; keep it in the private original`);
+  }
+  return errors;
+}
+
+const APPROVER_ROLES = ['founder', 'accountant', 'counsel'];
+const ISO = /^\d{4}-\d{2}-\d{2}/;
+
+/**
+ * Every release gate records its decision. An engineering PASS/FAIL names who recorded it, when and in which commit.
+ * A gate that needs a person (requiredApprover) is PASS only with that person's written approval recorded (by, role,
+ * at, reference), the role among the required ones, and every evidence-manifest record of the gate verified.
+ */
+export function gateDecisionErrors(gates, manifest) {
+  const errors = [];
+  for (const g of gates?.gates || []) {
+    if (['PASS', 'FAIL'].includes(g.status) && !g.requiredApprover) {
+      const d = g.decision || {};
+      if (!d.recordedBy || !ISO.test(String(d.recordedAt || '')) || !/^[0-9a-f]{7,40}$/.test(String(d.recordCommit || ''))) errors.push(`${g.id}: ${g.status} without decision {recordedBy, recordedAt, recordCommit}`);
+    }
+    if (g.requiredApprover) {
+      if (!Array.isArray(g.requiredApprover) || !g.requiredApprover.every((r) => APPROVER_ROLES.includes(r))) errors.push(`${g.id}: requiredApprover must list founder, accountant or counsel`);
+      const a = g.approval || {};
+      const approved = a.by && APPROVER_ROLES.includes(a.role) && ISO.test(String(a.at || '')) && a.reference;
+      if (g.status === 'PASS') {
+        if (!approved) errors.push(`${g.id}: PASS without the written approval {by, role, at, reference}`);
+        else if (!g.requiredApprover.includes(a.role)) errors.push(`${g.id}: approved by a ${a.role}, needs ${g.requiredApprover.join(' or ')}`);
+        const open = (manifest?.records || []).filter((r) => r.gate === g.id && r.status !== 'verified').map((r) => r.id);
+        if (open.length) errors.push(`${g.id}: PASS while its evidence is not verified: ${open.join(', ')}`);
+      } else if (approved) errors.push(`${g.id}: approval recorded but status is ${g.status}`);
+    }
+  }
+  return errors;
+}
+
 function readFileSyncSafe(ctx, p) { try { return readFileSync(join(ROOT, p), 'utf8'); } catch { return ''; } }
 
 export function validateAll({ slugs, forSale = false, ctx = loadContext() } = {}) {
@@ -137,7 +205,10 @@ if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
     for (const m of r.onboarding) console.log(`  ✗ onboarding: ${m}`);
     for (const m of r.sale) console.log(`  ✗ for sale:   ${m}`);
   }
-  const products = loadContext().products;
-  const failed = results.some((r) => r.onboarding.length || ((forSale || products[r.slug]?.saleApproved) && r.sale.length));
+  const ctxAll = loadContext();
+  const products = ctxAll.products;
+  const evErr = [...evidenceManifestErrors(ctxAll.evidence), ...gateDecisionErrors(ctxAll.readJson('config/release-gates.json'), ctxAll.evidence)];
+  for (const e of evErr) console.log(`  ✗ evidence manifest: ${e}`);
+  const failed = evErr.length > 0 || results.some((r) => r.onboarding.length || ((forSale || products[r.slug]?.saleApproved) && r.sale.length));
   process.exit(failed ? 1 : 0);
 }
