@@ -584,11 +584,17 @@ test('unapproved purchase attempts: concept agents and live keys are refused bef
   assert.equal(concept.body.code, 'not_available');
   process.env.STRIPE_SECRET_KEY = 'sk_live_NOT_A_REAL_KEY';
   try {
+    // Fail closed: a live key with the switch unset never reaches the sale gate.
+    const closed = mockRes();
+    await checkout({ method: 'GET', query: { agent: SLUG }, headers: { host: 'x' } }, closed);
+    assert.equal(closed.statusCode, 503);
+    assert.equal(closed.body.code, 'checkout_disabled');
+    process.env.CHECKOUT_ENABLED = 'true';
     const live = mockRes();
     await checkout({ method: 'GET', query: { agent: SLUG }, headers: { host: 'x' } }, live);
     assert.equal(live.statusCode, 403);
     assert.equal(live.body.code, 'not_approved_for_sale');
-  } finally { process.env.STRIPE_SECRET_KEY = 'sk_test_journey_never_sent'; }
+  } finally { process.env.STRIPE_SECRET_KEY = 'sk_test_journey_never_sent'; delete process.env.CHECKOUT_ENABLED; }
   assert.equal(stripeCalls.length, 0);
   assert.equal([...kv.keys()].length, 0);
 });

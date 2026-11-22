@@ -29,8 +29,9 @@ if (!fs.existsSync(dist)) {
   process.exit(1);
 }
 
-const NEEDLE = "checkoutEnabled:false";
-const REPLACEMENT = "checkoutEnabled:true";
+// The master flag, and the Preview-only opening of controlled-test products (on Production the buy path opens
+// only for a product whose status is "released", i.e. after its GO PR).
+const SWAPS = [["checkoutEnabled:false", "checkoutEnabled:true"], ["/*CAI_PREVIEW_SALE*/false", "/*CAI_PREVIEW_SALE*/true"]];
 let patched = 0;
 
 const walk = (dir) => {
@@ -43,8 +44,9 @@ const walk = (dir) => {
     if (!/\.(html|js)$/.test(name)) continue;
     let src;
     try { src = fs.readFileSync(p, "utf8"); } catch { continue; }
-    if (!src.includes(NEEDLE)) continue;
-    fs.writeFileSync(p, src.split(NEEDLE).join(REPLACEMENT), "utf8");
+    if (!SWAPS.some(([a]) => src.includes(a))) continue;
+    for (const [a, b] of SWAPS) src = src.split(a).join(b);
+    fs.writeFileSync(p, src, "utf8");
     patched += 1;
   }
 };
