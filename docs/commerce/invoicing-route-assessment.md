@@ -5,7 +5,7 @@
 ## What ColleagueAI is, for this purpose
 
 - Colleague AI s.r.o. sells a perpetual software licence (an electronically supplied service) to businesses only. Three buyer groups matter for the first sales: a Czech business, an EU business with a VAT ID, a non-EU business.
-- The seller's VAT status is the accountant's T1 answer. The brief's working assumption is **identified person** (*identifikovaná osoba*) "while that remains the confirmed status". An identified person does not charge Czech VAT on domestic supplies, files a VAT return only for the months with cross-border transactions, and reports reverse-charge services to EU businesses in the EC Sales List (*souhrnné hlášení*), in CZK. The accountant confirms or corrects this; the code assumes none of it (`lib/taxPolicy.js`).
+- The seller's VAT status is the accountant's T1 answer and is **not verified** (checked 21 Nov 2026: ARES has no VAT-register entry for IČO 29540852, VIES answers INVALID; no registration decision on file). The earlier working assumption of **identified person** (*identifikovaná osoba*) is kept below only as one scenario the accountant may confirm or reject; the company's own invoice series (`company_ledger`) works for any of the three statuses. An identified person does not charge Czech VAT on domestic supplies, files a VAT return only for the months with cross-border transactions, and reports reverse-charge services to EU businesses in the EC Sales List (*souhrnné hlášení*), in CZK. The accountant confirms or corrects this; the code assumes none of it (`lib/taxPolicy.js`).
 
 ## Requirements, and what each route delivers
 

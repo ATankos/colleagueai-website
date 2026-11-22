@@ -55,7 +55,9 @@ test('an archived copy that is edited, removed or listed twice is reported', () 
 test('a page edited without a new version is caught; a menu or footer change is not an amendment', () => {
   const d = LEGAL.documents.terms;
   const page = read(pageFile(d));
-  const wordChanged = { ...repoFiles(), [pageFile(d)]: page.replace('<h2>8. Termination</h2><p>', '<h2>8. Termination</h2><p>Changed. ') };
+  // Any section heading followed by its first paragraph: the drill does not depend on the wording of one version.
+  const firstPara = page.match(/<h2>[^<]+<\/h2>\s*<p>/)[0];
+  const wordChanged = { ...repoFiles(), [pageFile(d)]: page.replace(firstPara, `${firstPara}Changed. `) };
   assert.match(checkArchive({ legal: LEGAL, manifest: MANIFEST, files: wordChanged }).join('\n'), /changed but its version is still/);
   const chrome = { ...repoFiles(), [pageFile(d)]: page.replace('<footer>', '<footer><a href="/new">New link</a> ').replace('← Agent Catalogue', '← Catalogue') };
   assert.deepEqual(checkArchive({ legal: LEGAL, manifest: MANIFEST, files: chrome }), []);
@@ -64,7 +66,8 @@ test('a page edited without a new version is caught; a menu or footer change is 
 test('amendment drill: a new version is archived beside the old one; the same version with new words is refused', () => {
   const d = LEGAL.documents.terms;
   const page = read(pageFile(d));
-  const amended = page.replace('Last updated: 13 June 2026', 'Last updated: 1 January 2027').replace('<h2>10. Contact</h2>', '<h2>10. Notices</h2>');
+  const lastHeading = [...page.matchAll(/<h2>([^<]+)<\/h2>/g)].pop()[0];
+  const amended = page.replace(d.pageMarker, 'Last updated: 1 January 2027').replace(lastHeading, '<h2>99. Notices</h2>');
   // same version, new words: refused
   const sameVersion = planArchive({ legal: LEGAL, manifest: MANIFEST, pages: { ...Object.fromEntries(Object.entries(LEGAL.documents).map(([k, x]) => [k, read(pageFile(x))])), terms: amended } });
   assert.equal(sameVersion.refuse.length, 1);
@@ -81,7 +84,8 @@ test('amendment drill: a new version is archived beside the old one; the same ve
   legal2.documents.terms = { ...legal2.documents.terms, sha256: plan.add[0].sha256, archive: plan.add[0].path };
   const files2 = { ...repoFiles(), [pageFile(d)]: amended, [plan.add[0].path]: plan.add[0].content };
   assert.deepEqual(checkArchive({ legal: legal2, manifest: manifest2, files: files2 }), [], 'the old version is still archived and still verifies');
-  assert.ok(manifest2.entries.some((e) => e.document === 'terms' && e.version === '2026-06-13'));
+  assert.ok(manifest2.entries.some((e) => e.document === 'terms' && e.version === '2026-06-13'), 'the first accepted version stays archived');
+  assert.ok(manifest2.entries.some((e) => e.document === 'terms' && e.version === d.version), 'the current version stays archived');
 });
 
 test('text extraction: the agreement only, words not markup', () => {
@@ -107,14 +111,22 @@ test('the order confirmation shows each version with its fingerprint and links o
   assert.match(html, /Seller: Colleague AI s\.r\.o\., Školská 1736\/12[^<]*IČO\) 29540852, registered at Městský soud v Praze, C 448176/);
 });
 
-test('the localized legal pages are recorded as out of sync and are never offered as the accepted text', () => {
+test('the localized legal pages are recorded as out of sync and are never offered as the accepted text', async () => {
   assert.equal(LEGAL.translations.acceptedLanguage, 'en');
   assert.ok(['out_of_sync', 'in_sync'].includes(LEGAL.translations.status));
   if (LEGAL.translations.status === 'out_of_sync') {
-    // The known difference: the localized Terms still say licence rights end on termination; English says a paid
-    // perpetual licence survives. When counsel approves the texts and the translations are redone, set in_sync.
-    assert.ok(read('public/terms.html').includes('perpetual agent-package licence survives termination'));
-    assert.ok(read('public/cs/terms.html').includes('licenční práva poté zanikají'), 'cs Terms still carry the old termination clause; if fixed, update config/legal.json translations');
+    // While out of sync, a localized agreement page shows no agreement text: it states that the English version is
+    // binding and links to it (scripts/legal/localized-legal-pointers.cjs). Checked on the built pages.
+    const { execFileSync } = await import('node:child_process');
+    execFileSync(process.execPath, ['scripts/legal/localized-legal-pointers.cjs'], { cwd: new URL('..', import.meta.url) });
+    for (const l of LEGAL.translations.locales) {
+      for (const [doc, href] of [['terms', '/terms'], ['license', '/license'], ['privacy', '/privacy'], ['refund', '/refund']]) {
+        const page = read(`public/${l}/${doc}.html`);
+        const main = page.slice(page.indexOf('</h1>'), page.indexOf('</main>'));
+        assert.ok(main.includes(`data-legal-pointer="${doc}"`) && main.includes(`href="${href}"`), `${l}/${doc} points to the English text`);
+        assert.ok(!/<h2>/.test(main), `${l}/${doc} carries no agreement text of its own while out of sync`);
+      }
+    }
   }
 });
 
