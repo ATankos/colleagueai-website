@@ -27,7 +27,7 @@ test('the scope names exactly one product, at the release and bundle revision co
   assert.deepEqual(LAUNCH_SCOPE.paymentMethods, ['card']);
   assert.equal(LAUNCH_SCOPE.certification, false);
   assert.deepEqual(scopePaymentMethodTypes(), ['card']);
-  assert.equal(P.saleApproved, P.release.status === 'released', 'the scope never opens a sale by itself: only the GO change approves and releases');
+  assert.equal(P.saleApproved, false, 'the scope never opens a sale by itself');
 });
 
 test('IČO check digit (mod 11, weights 8..2)', () => {

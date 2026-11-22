@@ -40,8 +40,7 @@ test('1.0.3.5 is marked superseded and is never published', () => {
   assert.match(CAND._comment, /SUPERSEDED before release by 1\.0\.3\.6/);
   const listed = [REAL.release, ...(REAL.previousReleases || [])].map((r) => r.version);
   assert.ok(!listed.includes('1.0.3.5'), `config/products.json lists ${listed.join(', ')}`);
-  // Sale is opened only by the GO change, which also marks the release 'released'; never one without the other.
-  assert.equal(REAL.saleApproved, REAL.release.status === 'released');
+  assert.equal(REAL.saleApproved, false);
 });
 
 test('the 1.0.3.5 dossier makes none of the retired data-hosting claims (F-DOC-1, F-DOC-2)', () => {
