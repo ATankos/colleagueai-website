@@ -1,0 +1,12 @@
+[
+  {
+    "_comment": "One record per supplier invoice. Copy into the PRIVATE register (not this repository). Fill from the original invoice; leave accountantDecision null until the accountant answers in writing. Values below are placeholders.",
+    "id": "<supplier>-<invoice number>",
+    "supplier": { "name": "<legal entity exactly as on the invoice>", "country": "<ISO country of the issuing entity>", "taxId": "<supplier VAT/tax ID as printed, or 'none printed'>" },
+    "service": { "description": "<as on the invoice>", "class": "cloud_hosting | saas_subscription | software_licence | ai_api_usage | payment_processing | domain_registration | email_delivery | advertising | marketplace_fee | professional_service | other", "periodStart": "YYYY-MM-DD", "periodEnd": "YYYY-MM-DD" },
+    "invoice": { "number": "<number>", "date": "YYYY-MM-DD", "currency": "EUR | USD | CZK", "netAmount": 0, "vatAmount": 0, "vatRate": null, "vatCountry": "<country whose VAT was charged, or null>", "reverseChargeLegend": false, "customerTaxIdShown": false, "customerIdentifierPrinted": "<which Colleague AI identifier the invoice prints>" },
+    "payment": { "date": "YYYY-MM-DD", "method": "<card / transfer>", "amountCharged": 0, "currencyCharged": "<currency>" },
+    "evidence": { "sha256": "<64 hex of the original PDF>", "storageRef": "<private storage path or document id>" },
+    "accountantDecision": null
+  }
+]

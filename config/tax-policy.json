@@ -1,5 +1,5 @@
 {
-  "_comment": "Tax and invoicing policy for ColleagueAI sales. NOT APPROVED. It records the accountant's decisions (Accountant Decision Pack, questions T1-T14) and nothing in the code assumes them: while status is 'unapproved', live checkout is refused (lib/taxPolicy.js liveTaxBlocked), no Stripe Tax is calculated, no invoice is created and no tax wording is printed. To approve it: fill every decision and treatment with the accountant's written answer, set approval (who, role, date, and where the written answer is filed) and status 'approved'. tests/tax-policy.test.mjs refuses an 'approved' policy with any blocking decision, treatment or approval field left empty. Treatments are per buyer category (lib/taxPolicy.js classifyBuyer); 'action' is sell | hold | block, and every printed wording comes from here, never from code. FIRST-SALE SCOPE (founder decision 3, 21 Nov 2026): Czech businesses only (config/launch-scope.json); every other category is 'hold'. cz_business stays null until the seller's VAT status is evidenced: ARES has no VAT-register entry for IČO 29540852 and VIES answers INVALID for CZ29540852 (checked 21 Nov 2026), so seller.vatStatus, vatId and vatEffectiveFrom are null, not assumed.",
+  "_comment": "Tax and invoicing policy for ColleagueAI sales. NOT APPROVED. It records the accountant's decisions (Accountant Decision Pack, questions T1-T14) and nothing in the code assumes them: while status is 'unapproved', live checkout is refused (lib/taxPolicy.js liveTaxBlocked), no Stripe Tax is calculated, no invoice is created and no tax wording is printed. To approve it: fill every decision and treatment with the accountant's written answer, set approval (who, role, date, and where the written answer is filed) and status 'approved'. tests/tax-policy.test.mjs refuses an 'approved' policy with any blocking decision, treatment or approval field left empty. Treatments are per buyer category (lib/taxPolicy.js classifyBuyer); 'action' is sell | hold | block, and every printed wording comes from here, never from code. FIRST-SALE SCOPE (founder decision 3, 21 Nov 2026): Czech businesses only (config/launch-scope.json); every other category is 'hold'. SELLER STATUS (22 Nov 2026): the founder reports that the company's accountant confirms Colleague AI s.r.o. is registered as an identified person (identifikovaná osoba), not a VAT payer, for 2026. seller.vatStatus is set to identified_person on that report. It is NOT an official record: vatId, vatEffectiveFrom and vatStatusEvidence.officialRecord stay null, the history entry stays verified:false, and lib/taxPolicy.js refuses approval until the registration decision (or the tax-register record) is on file. Earlier checks (21 Nov 2026: no VAT-payer entry in ARES; VIES INVALID for CZ29540852) are not contradicted by an identified-person registration only if the official record says so; the accountant reconciles them. A later VAT-payer registration (contemplated for 2027) is added as a verified history entry only from the official decision, and takes effect only with a re-approved policy. cz_business stays null until the accountant's written wording exists.",
   "version": "2026-11-21-cz-b2b-candidate-unapproved",
   "status": "unapproved",
   "approval": {
@@ -13,9 +13,24 @@
     "registrationNumber": "29540852",
     "register": "Městský soud v Praze, C 448176",
     "address": "Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic",
-    "vatStatus": null,
+    "vatStatus": "identified_person",
     "vatId": null,
-    "vatEffectiveFrom": null
+    "vatEffectiveFrom": null,
+    "vatStatusEvidence": {
+      "founderReported": "22 Nov 2026: founder reports the accountant confirms registration as identifikovaná osoba; not a full VAT payer in 2026; full registration contemplated for 2027 (date to be set by law and the official record).",
+      "officialRecord": null,
+      "accountantWrittenConfirmation": null
+    },
+    "vatStatusHistory": [
+      {
+        "status": "identified_person",
+        "effectiveFrom": null,
+        "verified": false,
+        "evidenceReference": null,
+        "note": "reported, not yet evidenced by the official record"
+      }
+    ],
+    "showVatIdOnDomesticInvoices": null
   },
   "decisions": {
     "T1_vatStatus": null,

@@ -1,0 +1,5 @@
+{
+  "_comment": "Patterns (case-insensitive regular expressions) that lib/taxPolicy.js uses to REFUSE a tax policy whose printed wording contradicts the seller's status. They are guards, not wording: nothing here is ever printed. payerWording: phrases that present a document as a VAT/tax document of a VAT payer; refused while seller.vatStatus is not vat_payer. recipientAccountsWording: phrases saying the customer accounts for the tax; refused on the domestic (cz_business) treatment. Kept in a config file so that the code carries no tax wording (tests/tax-policy.test.mjs).",
+  "payerWording": "daňov[ýé] doklad|tax invoice|\\bvat invoice",
+  "recipientAccountsWording": "reverse.?charge|daň odvede zákazník|přenesen[áé] daňov"
+}
