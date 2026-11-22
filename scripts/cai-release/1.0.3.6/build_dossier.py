@@ -54,7 +54,7 @@ def footer(canvas, doc):
     canvas.saveState()
     canvas.setFont('DV', 7.5)
     canvas.setFillColor(GREY)
-    canvas.drawString(20 * mm, 12 * mm, f'ColleagueAI Contract Intelligence & Register · CAI-L4-CI-001 · release {RELEASE} (controlled test release)')
+    canvas.drawString(20 * mm, 12 * mm, f'ColleagueAI Contract Intelligence & Register · CAI-L4-CI-001 · release {RELEASE} (commercial release)')
     canvas.drawRightString(190 * mm, 12 * mm, f'p.{doc.page}')
     canvas.restoreState()
 
@@ -63,7 +63,7 @@ story = [
     Paragraph('COLLEAGUEAI · AGENT DOSSIER · CAI SCORE L4 — DECIDE (SUPERVISED)', kicker),
     Paragraph('Contract Intelligence &amp; Register', title),
     Paragraph(f'SKU CAI-L4-CI-001 · Microsoft Copilot Studio managed solution CAIContractIntelligence · '
-              f'Release {RELEASE} — controlled test release, not yet released for sale. Corrective release: a notice deadline is shown '
+              f'Release {RELEASE} — commercial release for licensed customers. Corrective release: a notice deadline is shown '
               'only when a reviewer has confirmed it, every processing failure is reported, and contracts are kept apart by owner team.', sub),
     Paragraph('01 — What it does', h2),
     Paragraph('Extracts the key terms of each contract with their location and an AI-extracted excerpt, routes every extraction to a named '

@@ -102,3 +102,16 @@ Publication (founder): upload the file to private Blob as
 `agents/contract-intelligence-and-register/CAI-L4-CI-001_1.0.3.6-r2.zip` **before** this change reaches a deployment,
 because `config/products.json` then points downloads at it. Revision 1 stays in Blob. Buyers of 1.0.3.6 (only the two
 test orders so far) are then offered revision 2; their agreement confirmations keep the revision-1 hash they recorded.
+
+## Bundle revision 3 (22 November 2026)
+
+Documents only; the managed solution is unchanged (`cca6f657…0f8`). `CAI-L4-CI-001_1.0.3.6-r3.zip`, 371,721 bytes,
+SHA-256 `37a047c183bb3ff5ae33a5fefc59a6488ad84656720f5aaf19c14572473e051d` (reproducible: two builds give the same hash).
+
+- Release status in START-HERE, INSTALL, MANIFEST and the dossier: commercial release, instead of "controlled test release.
+  Not for production use".
+- LICENSE.txt: publisher block, the Licence §5 support periods (24 months support and corrective releases; security
+  support period of release 1.0.3.6: 24 months from delivery), checksum file name.
+- File checksums: `docs/cai-l4-ci-001/bundle/SHA256SUMS-1.0.3.6-r3.txt`. Revisions 1 and 2 stay on record under
+  `previousBundles` and unchanged in Blob.
+- The catalogue status stays `controlled-test` ("not yet on general sale") until the founder's GO change.

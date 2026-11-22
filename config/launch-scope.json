@@ -11,6 +11,6 @@
   "paymentMethods": ["card"],
   "certification": false,
   "products": {
-    "contract-intelligence-and-register": { "sku": "CAI-L4-CI-001", "release": "1.0.3.6", "bundleRevision": 2 }
+    "contract-intelligence-and-register": { "sku": "CAI-L4-CI-001", "release": "1.0.3.6", "bundleRevision": 3 }
   }
 }

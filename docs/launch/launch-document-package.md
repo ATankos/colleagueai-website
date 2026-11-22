@@ -10,7 +10,7 @@ Seller status (corrected 21 Nov 2026): **Colleague AI s.r.o., IČO 29540852; VAT
 | Licence agreement confirmation PDF `AGR-<order>` | generated per order, `lib/agreementPdf.js`; sample `scripts/commerce/order-documents-sample.mjs` | **Live** (merged #539) |
 | Invoice (Stripe post-payment invoice, our copy stored) / TEST invoice from the sandbox ledger | `lib/invoicing.js`, `lib/invoicePdf.js` | **Live for test orders**; a real invoice needs the approved tax policy (A1–A3) |
 | Credit note per refund | same | Live for test orders |
-| Package `CAI-L4-CI-001_1.0.3.6.zip` (SHA-256 69b30676…dbd50), START-HERE, INSTALL, dossier, readiness check | private Blob store; `config/products.json` | **Published, bundle revision 1**; revision 2 `CAI-L4-CI-001_1.0.3.6-r2.zip` (SHA-256 66639e7f…d9ac8, LICENSE release number and INSTALL §9 corrected) built and recorded, upload to Blob pending; counsel licence text would be revision 3. Earlier note: revision 2 staged offline, waits for counsel's LICENSE.txt (status line "controlled test release" is the current text) |
+| Package `CAI-L4-CI-001_1.0.3.6-r3.zip` (SHA-256 37a047c1…e051d, 371,721 B), START-HERE, INSTALL, dossier, readiness check | private Blob store; `config/products.json` | **Revision 3 built (commercial release status, Licence §5 support periods); upload to Blob pending.** Revisions 1 (`…1.0.3.6.zip`, 69b30676…) and 2 (`…-r2.zip`, 66639e7f…) stay unchanged in Blob and under `previousBundles` |
 | Order page with documents, entitlement, accepted agreements, support and security contacts | `api/success.js` | Live |
 | Order notification e-mail | `lib/orderMail.js` | Live, **not configured** in Production (RESEND_API_KEY) |
 
