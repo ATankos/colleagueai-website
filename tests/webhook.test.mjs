@@ -510,15 +510,7 @@ async function getSuccess(sessionId) {
   }
 }
 
-// The GO change approves Contract Intelligence & Register; this guard is about an UNAPPROVED release, so the shared
-// in-memory record is set to unapproved for its duration.
-async function asUnapproved(fn) {
-  const rec = (await import('../lib/products.js')).productFor('contract-intelligence-and-register');
-  const was = rec.saleApproved; rec.saleApproved = false;
-  try { return await fn(); } finally { rec.saleApproved = was; }
-}
-
-test('12a. a paid LIVE checkout for an unapproved release grants nothing and leaves a withheld record', () => asUnapproved(async () => {
+test('12a. a paid LIVE checkout for an unapproved release grants nothing and leaves a withheld record', async () => {
   const r = await deliver(sessionEvent({ sessionId: 'cs_live_a', livemode: true }));
   assert.equal(r.status, 200, 'answer 200 so Stripe does not keep retrying a sale that is held on purpose');
   assert.equal(r.body.withheld, 'not-approved-for-sale');
@@ -528,7 +520,7 @@ test('12a. a paid LIVE checkout for an unapproved release grants nothing and lea
   assert.ok(rec, 'no withheld-sale record for the owner to refund from');
   assert.equal(rec.reason, 'not-approved-for-sale');
   assert.equal(rec.email, undefined, 'the buyer email must not be copied into the record');
-}));
+});
 
 test('12b. a LIVE session where no money was taken is withheld too', async () => {
   /* Approve the release for this test only, so the approval rule passes and the money check is what withholds it. */

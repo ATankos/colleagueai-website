@@ -577,15 +577,7 @@ test('lost download: reopening the thank-you link issues fresh 15-minute links t
   assert.notDeepEqual(first.map((c) => c.exp), second.map((c) => c.exp), 'new links, new expiry');
 });
 
-// The GO change approves Contract Intelligence & Register; this guard is about an UNAPPROVED release, so the shared
-// in-memory record is set to unapproved for its duration.
-async function asUnapproved(fn) {
-  const rec = (await import('../lib/products.js')).productFor('contract-intelligence-and-register');
-  const was = rec.saleApproved; rec.saleApproved = false;
-  try { return await fn(); } finally { rec.saleApproved = was; }
-}
-
-test('unapproved purchase attempts: concept agents and live keys are refused before any record or Stripe call', () => asUnapproved(async () => {
+test('unapproved purchase attempts: concept agents and live keys are refused before any record or Stripe call', async () => {
   const concept = mockRes();
   await checkout({ method: 'GET', query: { agent: 'operations-procedures-assistant' }, headers: { host: 'x' } }, concept);
   assert.equal(concept.statusCode, 409);
@@ -605,7 +597,7 @@ test('unapproved purchase attempts: concept agents and live keys are refused bef
   } finally { process.env.STRIPE_SECRET_KEY = 'sk_test_journey_never_sent'; delete process.env.CHECKOUT_ENABLED; }
   assert.equal(stripeCalls.length, 0);
   assert.equal([...kv.keys()].length, 0);
-}));
+});
 
 test('Continuous Certification stays unavailable: a link or a form asking for it is refused, only the licence is sold', async () => {
   const link = mockRes();
