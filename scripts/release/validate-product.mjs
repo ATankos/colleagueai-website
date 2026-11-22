@@ -21,6 +21,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const HEX64 = /^[0-9a-f]{64}$/;
+const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const PLACEHOLDER = /<[^>]+>/;
 
 function filled(v) {
@@ -64,7 +65,7 @@ export function validateProduct(slug, { forSale = false, ctx = loadContext() } =
   need(R.bytes > 0, 'products.json: release.bytes');
   need((ctx.packages.agents?.[slug] || []).length > 0, 'packages.json: no installable package listed');
   need(ctx.agentsHtml.includes(`"${slug}":{"en"`), 'public/agents.html: no PRODUCT_FACTS entry (factsheet facts)');
-  need(new RegExp(`'${slug}':\\s*'`).test(ctx.generator), 'scripts/generate-agent-pages.mjs: no RUNTIME (Microsoft running costs) entry');
+  need(SLUG_RE.test(slug) && (ctx.generator.includes(`'${slug}': '`) || ctx.generator.includes(`'${slug}':'`)), 'scripts/generate-agent-pages.mjs: no RUNTIME (Microsoft running costs) entry');
 
   // per-agent commercial record
   if (!A) {
