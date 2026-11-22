@@ -17,7 +17,10 @@ test('no signed document, identity document or accounting record is tracked', ()
   const allowedPdf = /^(public\/docs\/agents\/|docs\/cai-l4-ci-001\/test-fixtures\/)/;
   const pdfs = tracked.filter((f) => /\.pdf$/i.test(f) && !allowedPdf.test(f));
   assert.deepEqual(pdfs, [], 'PDFs outside the published dossiers and synthetic fixtures');
-  assert.deepEqual(tracked.filter((f) => /(signed|podepsan|passport|obcansky-prukaz|invoice-G\d+|registrace|osvedceni)/i.test(f)), []);
+  // Originals (scans, PDFs, spreadsheets) of signed, identity, registration or supplier-invoice documents. Markdown
+  // working records about them (e.g. docs/commerce/microsoft-invoice-G195024562.md) are allowed: they hold no original.
+  assert.deepEqual(tracked.filter((f) => /(signed|podepsan|passport|obcansky-prukaz|invoice-G\d+|registrace|osvedceni)/i.test(f)
+    && /\.(pdf|png|jpe?g|tiff?|heic|csv|xlsx?|docx?|eml|msg|zip)$/i.test(f)), []);
 });
 
 test('tracked text holds no Czech birth number, IBAN or payment card number', () => {
