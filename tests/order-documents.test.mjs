@@ -109,7 +109,7 @@ test('agreement confirmation PDF: every required element is on the page, and it 
     'single-tenant licence', 'vzorova-prumyslova.example (as stated by the Licensee at order)', 'Perpetual for the licensed tenant', // scope, tenant, duration
     'USD 14,900.00', 'TEST MODE - no real payment',                                                                   // price, mode
     DOCS.products['contract-intelligence-and-register'].includes.slice(0, 60), DOCS.products['contract-intelligence-and-register'].excludes.slice(0, 60),
-    'Support by e-mail (hello@colleagueai.ai)', 'including security defects', 'New feature releases are not included', // support + security updates
+    'Support by e-mail (hello@colleagueai.ai)', 'security support period', 'New feature releases are not included', // support + security updates
     'Terms of Service', 'Software & Agent Licence', 'Refund Policy', 'Privacy Policy', '2026-06-13', '1.0 (2026-07-09)', 'a'.repeat(64), 'd'.repeat(64), // documents
     'Electronic acceptance (click-through)', 'Jana Nováková, Jednatelka', 'Confirmed: authorised to enter into this agreement', 'right of withdrawal lapses', // evidence
     '2026-11-20 18:00:01 UTC', 'f00dcafe0123', 'not a new acceptance', 'No handwritten or qualified electronic signature',

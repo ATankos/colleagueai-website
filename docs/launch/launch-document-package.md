@@ -1,6 +1,6 @@
 # Final launch document package — CAI-L4-CI-001 release 1.0.3.6 (20 November 2026)
 
-Seller status used throughout: **Colleague AI s.r.o., Czech identified person (identifikovaná osoba), DIČ CZ29540852** — the founder's confirmed status; the accountant's written confirmation is still the evidence the tax policy needs (A1 below). The founders' 50/50 arrangement is settled and not part of this package.
+Seller status (corrected 21 Nov 2026): **Colleague AI s.r.o., IČO 29540852; VAT status not verified** (checked 21 Nov 2026: ARES has no VAT-register entry for IČO 29540852, VIES answers INVALID; no registration decision on file). The accountant establishes it from the official record (A1 below). The Commercial Register shows Marek Těšitel as sole managing director and sole shareholder; no registered 50/50 ownership is assumed.
 
 ## 1. Customer-facing documents (what a buyer receives)
 
@@ -38,7 +38,7 @@ What the code does today, against the identified-person draft (the accountant co
 | Currency | USD invoice acceptable; CZK base in the VAT records | USD only on both routes | Consistent; CZK amount on the document only if the accountant requires it (then the Czech route) |
 | CZK conversion | ČNB rate on the DUZP (§ 4(8) ZDPH) | Not computed by the code. Our PDF prints a conversion only when the ledger entry carries `conversion {rate, source, date, amountCzk}`; otherwise it states the rule is not yet recorded. `scripts/commerce/reconcile-payout.mjs` gives the accountant the per-order amounts in the balance currency | Consistent with "accounting step"; if T8 requires the CZK amount on the invoice, the Czech route is needed (gap, known) |
 | Reverse-charge wording | per category `invoiceNote` | Printed from the policy on both routes (Stripe footer / our Tax statement) | Consistent once approved |
-| Domestic note "Neplátce DPH - identifikovaná osoba" | T3 | same mechanism | Consistent once approved |
+| Domestic invoice note: the accountant's wording for the status established under T1 | T3 | same mechanism | Consistent once approved |
 | Received services (T11) | self-assessed in the VAT return by the 25th | out of the code's scope (accounting) | 25 Nov deadline — accountant |
 
 No defect found in the tax-point handling. The one structural limit stays as documented: a CZK amount on the invoice itself needs the Czech route.

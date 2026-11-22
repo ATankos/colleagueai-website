@@ -310,9 +310,10 @@ phrased so the answer is short.
 11. The site now states that for non-subscribers **a newer certified release is
     a new licence purchase**. Is that safe as published pricing, and does it
     need to appear in the Terms rather than only in marketing copy?
-12. Prices are shown in USD by a Czech company now VAT-registered
-    (DIČ CZ29540852). Do we need to state the VAT treatment on the page, and
-    does the answer differ for a full plátce DPH versus an identifikovaná osoba?
+12. Prices are shown in USD by a Czech company whose VAT registration is not
+    verified (checked 21 Nov 2026: ARES has no VAT-register entry for IČO 29540852, VIES answers INVALID; no registration decision on file). Do we need to state the VAT treatment on the page,
+    and how does the answer depend on the status the accountant establishes
+    (plátce DPH, identifikovaná osoba, or not registered)?
 
 ## 9. What the obligation could cost — the exposure model
 

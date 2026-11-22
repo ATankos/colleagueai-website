@@ -8,7 +8,8 @@ the versioning process after counsel's approval.*
 ## 1. Who we are
 
 Colleague AI s.r.o., Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, registered with the
-Municipal Court in Prague, file C 448176 *[add "DIČ CZ29540852" only if the accountant confirms the registration]*,
+Municipal Court in Prague, file C 448176 *[no VAT identifier is stated: the ARES VAT register has no entry for IČO 29540852 and VIES answered INVALID on
+21 Nov 2026; add one only from an official registration decision]*,
 is the controller of the personal data described in this policy. Contact: hello@colleagueai.ai. We have not appointed
 a data protection officer; the legal requirements for one do not apply to us.
 
@@ -33,7 +34,7 @@ purchase documents, security and support. That is what this policy describes.
 | (d) After payment | your licence record (buyer e-mail, product, release, Stripe session id), the licence agreement confirmation PDF, the invoice and any credit note, download and recovery events | delivering and documenting the purchase (Art. 6(1)(b)); keeping accounting and tax records (Art. 6(1)(c)) |
 | (e) We e-mail you | order confirmation, download recovery link, demo confirmation | performing the contract (Art. 6(1)(b)) |
 | (f) You visit the site | cookieless analytics (page views, referrer, device class, country) and error reports (URL, browser string; no form content) | legitimate interest in operating, securing and improving the site (Art. 6(1)(f)); no tracking cookies |
-| (g) You ask for support | what you send us, which may include contract excerpts or screenshots | handling your request (Art. 6(1)(b)). Send only what the case needs; we use it for that case only and delete it when the case is closed, and we do not act as your processor unless we agree so in writing |
+| (g) You ask for support | what you send us, which may include contract excerpts or screenshots | handling your request (Art. 6(1)(b)) for your own contact details. Send only what the case needs and remove other people's personal data first. We use support material only to resolve that case and delete it when the case is closed. Where personal data for which your company is the controller is needed to resolve a case, we first agree written processing terms with you (Art. 28 GDPR) and process that data only on your instructions; such data received without those terms is not used and is deleted |
 | (h) Marketing | your e-mail and preferences | only with your consent (Art. 6(1)(a)), which you can withdraw at any time |
 
 We do not take automated decisions with legal effect about you and we do not use your data to train AI models.
@@ -42,10 +43,10 @@ We do not take automated decisions with legal effect about you and we do not use
 
 | Provider | What for | Where |
 |---|---|---|
-| Vercel Inc. | hosting, function logs, and **private file storage (Vercel Blob)** of your order documents and the product packages, reachable only through time-limited links for the order's buyer | United States *[confirm regions from the dashboard]* |
-| Upstash Inc. | the database holding enquiry, order, acceptance, licence and evidence records | United States *[confirm region]* |
+| Vercel Inc. | hosting, function logs, and **private file storage (Vercel Blob)** of your order documents and the product packages, reachable only through time-limited links for the order's buyer | private file storage in the EU (Frankfurt, fra1); serverless functions and logs in the United States (Washington, D.C., iad1); Vercel is a US company |
+| Upstash Inc. | the database holding enquiry, order, acceptance, licence and evidence records | EU (Dublin, primary region dub1); Upstash is a US company |
 | Stripe Payments Europe, Ltd. / Stripe, Inc. | payments, tax ID verification, and where enabled invoice generation. Stripe is our processor for the payment and an independent controller for its own legal obligations (fraud prevention, financial regulation) | EU and United States |
-| Resend, Inc. | sending transactional e-mail | United States |
+| Resend, Inc. | sending transactional e-mail (order confirmations, document and recovery links) | EU sending region (Ireland, eu-west-1, as configured for colleagueai.ai); Resend is a US company |
 | Plausible Insights OÜ | cookieless analytics | EU |
 | Functional Software, Inc. (Sentry) | error monitoring | EU ingest endpoint |
 | Google LLC | web fonts (your browser's request discloses your IP address to Google) | United States |
@@ -55,7 +56,7 @@ kept in the Trust Center.
 
 ## 5. Transfers outside the EEA
 
-Vercel, Upstash, Resend and Google process data in the United States. We rely on the EU-US Data Privacy Framework where
+Vercel (functions and logs) and Google process data in the United States; Upstash, Resend and Vercel Blob store data in the EU but are US companies whose staff or sub-processors may access it from the United States. We rely on the EU-US Data Privacy Framework where
 the provider is certified under it and otherwise on the European Commission's Standard Contractual Clauses contained in
 the provider's data-processing terms. Copies are available on request.
 
@@ -64,7 +65,7 @@ the provider's data-processing terms. Copies are available on request.
 | Data | Kept |
 |---|---|
 | Demo and enquiry requests | 12 months |
-| Order, acceptance and evidence records; invoices, credit notes and licence agreement confirmations | for the retention period that Czech accounting and tax law requires of us *[accountant: 10 years for tax documents under § 35 ZDPH; 5 years for accounting records — confirm]*, then deleted or anonymised |
+| Order, acceptance and evidence records; invoices, credit notes and licence agreement confirmations | for the retention period that Czech accounting and tax law requires of us *[accountant: the period under the Accounting Act (No. 563/1991 Coll., § 31) and, only if the company is VAT-registered, § 35 ZDPH — confirm the number of years]*, then deleted or anonymised |
 | Licence records | for as long as the licence can be exercised (a perpetual licence: until you ask us to close it) |
 | Support material | until the case is closed |
 | Analytics and error data | per the provider's standard retention, without identifying you |
@@ -82,8 +83,9 @@ Personal Data Protection (Úřad pro ochranu osobních údajů, uoou.gov.cz) or 
 
 Order documents and packages are stored in private storage and served only through signed, short-lived links. Payment
 data never reaches our systems. Access to our records is limited to the people who administer orders. Security
-vulnerabilities in our products or website can be reported to the contact in our `security.txt` and the Trust Center;
-we handle them under our Vulnerability Handling Procedure.
+vulnerabilities in our products or website can be reported to hello@colleagueai.ai with a subject starting "SECURITY"
+(the contact published in our `security.txt` and on /security); we handle them under our Vulnerability Handling
+Procedure.
 
 ## 9. Cookies
 

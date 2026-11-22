@@ -54,7 +54,7 @@ is silent.
 
 **One wording note.** The public page says "ColleagueAI"; the agreement says
 "Colleague AI", which is how the entity is named in its own header
-(Colleague AI s.r.o., ICO 29540852, DIC CZ29540852). The clause above follows
+(Colleague AI s.r.o., ICO 29540852; no VAT identifier is stated (checked 21 Nov 2026: ARES has no VAT-register entry for IČO 29540852, VIES answers INVALID; no registration decision on file)). The clause above follows
 the agreement. If counsel wants the two aligned, the public page is the one to
 change, not the contract.
 
