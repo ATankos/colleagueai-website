@@ -101,6 +101,12 @@ jobs:
       - name: Product onboarding and sale evidence (scripts/release/validate-product.mjs)
         run: node --test tests/product-onboarding.test.mjs
 
+      - name: Identified person and VAT-status transition (no VAT by a non-payer, effective-dated status, immutable invoices)
+        run: node --test tests/vat-identified-person.test.mjs
+
+      - name: Foreign-supplier purchase register (no automatic tax treatment)
+        run: node --test tests/foreign-purchases.test.mjs
+
       # Corrective release 1.0.3.5 (D-ET-1, F-T-3, F-T-4): unreadable terms and files never fail silently, and a contract
       # reference is scoped to its owner team (no cross-team superseding), checked on the generated flow definitions.
       - name: Release 1.0.3.5 flows (no silent failures, team-scoped contract families, unreadable files reported)
