@@ -6,7 +6,7 @@ than invoking a waiver); §5 states the business customer's statutory remedies; 
 subscription wording. Publication only through the versioning process after counsel's approval.*
 
 This Refund Policy applies to purchases from Colleague AI s.r.o., Školská 1736/12, Nové Město, 110 00 Praha 1, Czech
-Republic, IČO 29540852 ("ColleagueAI", "we"). It forms part of the Terms of Service and the Software & Agent Licence.
+Republic, IČO 29540852, DIČ CZ29540852 ("ColleagueAI", "we"). It forms part of the Terms of Service and the Software & Agent Licence.
 
 ## 1. Evaluate before you buy
 
@@ -80,7 +80,7 @@ affected package while the dispute is examined. Please write to us first; most p
 
 ## 10. Contact
 
-Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha 1 · IČO 29540852 · registered with the Municipal Court
+Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha 1 · IČO 29540852, DIČ CZ29540852 · registered with the Municipal Court
 in Prague, file C 448176 · hello@colleagueai.ai
 
 *Version 1.1 · Effective [date of approval]*

@@ -14,9 +14,10 @@
     "register": "Městský soud v Praze, C 448176",
     "address": "Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic",
     "vatStatus": "identified_person",
-    "vatId": null,
+    "vatId": "CZ29540852",
     "vatEffectiveFrom": null,
     "vatStatusEvidence": {
+      "founderDecision25Nov": "25 Nov 2026: founder instructs DIČ CZ29540852 to be stated on the website, contracts and invoices; ARES (no DIČ) and VIES (INVALID) checked the same day.",
       "founderReported": "22 Nov 2026: founder reports the accountant confirms registration as identifikovaná osoba; not a full VAT payer in 2026; full registration contemplated for 2027 (date to be set by law and the official record).",
       "officialRecord": null,
       "accountantWrittenConfirmation": null
