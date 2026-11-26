@@ -12,7 +12,9 @@
  *   - spam protection: per-IP rate limit, a honeypot field and a minimum fill time;
  *   - duplicate detection: one registration per email and agent per 30 days (SET NX on a salted hash, so the
  *     dedupe key holds no plain address); a duplicate answers 200 with duplicate:true and stores nothing new;
- *   - notification to the existing lead inbox (RESEND_API_KEY + DEMO_NOTIFY_EMAIL), optional and best-effort;
+ *   - notification to the existing lead inbox (RESEND_API_KEY + DEMO_NOTIFY_EMAIL), recorded on the registration and
+ *     retried idempotently by scripts/interest-notify-retry.mjs (lib/interestNotify.js);
+ *   - direct follow-up about the agent (consent, required) is separate from optional marketing (marketingOptIn, unticked);
  *   - success is reported only after the record is stored, and no release date is ever promised.
  * Demand counters (lib/db.js incrDemand): per agent and month, no personal data, read by scripts/demand-report.mjs.
  *
@@ -26,8 +28,10 @@
 import crypto from 'node:crypto';
 import { rateLimit, saveLead, claimOnce, releaseKey, incrDemand } from '../lib/db.js';
 import { recordFor, publicStatus } from '../lib/availability.js';
+import { newNotification, notifyInterest } from '../lib/interestNotify.js';
 
 export const CONSENT_VERSION = 'interest-2026-11-26';
+export const MARKETING_VERSION = 'marketing-2026-11-26';
 export const collectionEnabled = () => process.env.INTEREST_COLLECTION_ENABLED === 'true';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const OPEN_FOR_INTEREST = new Set(['coming-soon', 'temporarily-unavailable', 'early-access']);
@@ -48,6 +52,17 @@ function ipKey(req) {
   return crypto.createHmac('sha256', salt).update(clientIp(req) + '|' + new Date().toISOString().slice(0, 10)).digest('hex').slice(0, 24);
 }
 
+const BOT_UA = /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|monitor|curl|wget|python-requests|httpclient|axios|node-fetch|go-http|java\//i;
+export function isBot(req) {
+  const ua = String(first(req.headers?.['user-agent']) || '');
+  return !ua || BOT_UA.test(ua);
+}
+function viewKey(req, agent) {
+  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
+  const ua = String(first(req.headers?.['user-agent']) || '').slice(0, 200);
+  return crypto.createHmac('sha256', salt).update([clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|')).digest('hex').slice(0, 32);
+}
+
 function clientIp(req) {
   const fwd = first(req.headers['x-forwarded-for']);
   if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
@@ -57,36 +72,6 @@ function clientIp(req) {
 function dedupeKey(email, agent) {
   const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
   return 'interest:seen:' + crypto.createHmac('sha256', salt).update(email.toLowerCase() + '|' + agent).digest('hex').slice(0, 32);
-}
-
-async function notify(record) {
-  const key = process.env.RESEND_API_KEY;
-  const to = process.env.DEMO_NOTIFY_EMAIL;
-  if (!key || !to) return { sent: false, reason: 'not-configured' };
-  const lines = [
-    `Agent:       ${record.agentSlug} (${record.agentTier || '-'}, ${record.availability})`,
-    `Company:     ${record.company}`,
-    `Role:        ${record.role || '-'}`,
-    `Email:       ${record.email}`,
-    `Industry:    ${record.industry || '-'}`,
-    `Technology:  ${record.techEnvironment || '-'}`,
-    `Timeframe:   ${record.timeframe || '-'}`,
-    `Use case:    ${record.useCase}`,
-    `Other needs: ${record.requirements || '-'}`,
-    `Record:      ${record.id}`,
-  ];
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: process.env.DEMO_NOTIFY_FROM || 'ColleagueAI <hello@colleagueai.ai>',
-      to: [to], reply_to: record.email,
-      subject: `Interest registered: ${record.agentSlug} (${record.company})`,
-      text: lines.join('\n'),
-    }),
-  });
-  if (!res.ok) throw new Error(`Resend ${res.status}`);
-  return { sent: true };
 }
 
 export default async function handler(req, res) {
@@ -104,9 +89,12 @@ export default async function handler(req, res) {
   if (!rec) return res.status(400).json({ error: 'Unknown agent', code: 'unknown_agent' });
 
   // Anonymous view beacon: counts only, no personal data, its own rate limit; never fails the page.
+  // Filtered engagement: obvious automation is counted apart, and each visitor counts once per agent per day.
+  // The daily key is a salted hash of address + user agent + agent + day, kept 24 h: no persistent visitor id.
   if (first(req.query?.event) === 'view') {
     try {
-      if (await rateLimit(`interest-view:${ipKey(req)}`, 120, 3600)) await incrDemand('view', agent);
+      if (isBot(req)) await incrDemand('bot', agent);
+      else if (await rateLimit(`interest-view:${ipKey(req)}`, 120, 3600) && await claimOnce(`demand:seen:${viewKey(req, agent)}`, 86400)) await incrDemand('view', agent);
     } catch { /* counters are best-effort */ }
     return res.status(204).end();
   }
@@ -161,7 +149,9 @@ export default async function handler(req, res) {
       techEnvironment: pick(body.techEnvironment, TECH),
       timeframe: pick(body.timeframe, TIMEFRAME),
       requirements: clean(body.requirements, 600) || null,
-      consent: { version: CONSENT_VERSION, at: new Date().toISOString() },
+      consent: { version: CONSENT_VERSION, at: new Date().toISOString(), scope: 'follow-up about this agent' },
+      marketing: { optIn: body.marketingOptIn === true, version: MARKETING_VERSION, at: body.marketingOptIn === true ? new Date().toISOString() : null },
+      notification: newNotification(),
       locale: /^[a-z]{2}$/.test(clean(body.locale, 2)) ? clean(body.locale, 2) : 'en',
       source: clean(first(req.headers.referer), 300) || null,
     }, { ttlDays: 365 });
@@ -173,8 +163,9 @@ export default async function handler(req, res) {
 
   try { await incrDemand('interest', agent); } catch { /* counters are best-effort */ }
   let notified;
-  try { notified = await notify(record); } catch (e) { console.error('[interest] notification failed for', record.id, '-', e.message); notified = { sent: false }; }
-  console.log('[interest]', { id: record.id, agent, availability, notified: notified.sent });
+  try { notified = await notifyInterest(record.id); } catch { notified = { status: 'failed' }; }
+  // No personal data in logs: the id, the agent and the notification state only.
+  console.log('[interest]', { id: record.id, agent, availability, notification: notified.status });
 
   return res.status(200).json({ success: true, id: record.id });
 }

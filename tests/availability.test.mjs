@@ -16,7 +16,7 @@ import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import AV from '../config/availability.json' with { type: 'json' };
 import PR from '../config/products.json' with { type: 'json' };
-import { publicStatus, commercialSaleAllowed, permittedActions, registryErrors, approvalValid, agentRecord, PUBLIC, PUBLIC_LABELS } from '../lib/availability.js';
+import { publicStatus, commercialSaleAllowed, permittedActions, registryErrors, approvalValid, agentRecord, releaseEvidenceErrors, PUBLIC, PUBLIC_LABELS } from '../lib/availability.js';
 import { approveCommercially } from './helpers/commercial-approval.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -27,13 +27,24 @@ const CI = 'contract-intelligence-and-register';
 const VER = PR[CI].release.version;
 const APPROVED = { approvedBy: 'Founder', date: '2026-11-26', reference: 'PR #1', release: VER };
 /** Clones of both files with CI fully approved for sale (or with the given overrides). */
-/** A fake set of config/agents records: the GO decision and early access for CI. */
-const agentsWith = (sale) => ({ get: (s) => (s === CI ? { sale } : null) });
-function approvedWorld({ approval = APPROVED, saleApproved = true, status = 'released', lifecycle = 'commercially-approved', publicStatus: ps = 'available', tier } = {}) {
+/** A fake repository for the gate: the config/agents record, its release record, its gates and the launch scope. */
+const REL = PR[CI].release;
+const GOOD_REC = { version: VER, package: REL.package, sha256: REL.sha256, bytes: REL.bytes, bundleRevision: REL.bundleRevision, status: 'released' };
+const PASS_GATE = (id, area = 'product') => ({ id, area, status: 'PASS', decision: { recordedBy: 'engineering', recordedAt: '2026-11-26', recordCommit: 'abcdef1' } });
+const GOOD_GATES = { release: VER, gates: [PASS_GATE('P-INSTALL'), PASS_GATE('C-E2E', 'commercial')] };
+function agentsWith(sale, { rec = GOOD_REC, gates = GOOD_GATES, ip = { status: 'executed', evidenceSha256: 'a'.repeat(64) }, scope = { products: { [CI]: { sku: PR[CI].sku, release: VER, bundleRevision: REL.bundleRevision } } } } = {}) {
+  return {
+    get: (s) => (s === CI ? { sale, ip, release: { record: 'rec.json', gates: 'gates.json' } } : null),
+    json: (k) => (k === 'rec.json' ? rec : k === 'gates.json' ? gates : null),
+    scope, evidence: { records: [] },
+  };
+}
+function approvedWorld({ approval = APPROVED, saleApproved = true, status = 'released', lifecycle = 'commercially-approved', publicStatus: ps = 'available', tier, catalogue = {}, repo = {} } = {}) {
   const r = clone(AV), p = clone(PR);
-  Object.assign(r.agents[CI], { lifecycle, publicStatus: ps }); if (tier) r.agents[CI].cai.targetLevel = tier;
+  Object.assign(r.agents[CI], { lifecycle, publicStatus: ps, technicalReadiness: 'technically-approved', certification: 'internally-certified', releaseBlockers: [] }, catalogue);
+  if (tier) r.agents[CI].cai.targetLevel = tier;
   Object.assign(p[CI], { saleApproved }); p[CI].release.status = status;
-  return [r, p, agentsWith({ goDecision: approval, earlyAccess: null })];
+  return [r, p, agentsWith({ goDecision: approval, earlyAccess: null }, repo)];
 }
 
 // ---------- fake KV ----------
@@ -41,7 +52,8 @@ const store = new Map(); const lists = new Map();
 const kvServer = http.createServer((req, res) => {
   const [, cmd, ...rest] = req.url.split('/').map(decodeURIComponent);
   switch (cmd) {
-    case 'SET': if (rest.includes('NX') && store.has(rest[0])) return res.end(JSON.stringify({ result: null })); store.set(rest[0], rest[1]); return res.end(JSON.stringify({ result: 'OK' }));
+    case 'SET': if (rest.includes('NX') && store.has(rest[0])) return res.end(JSON.stringify({ result: null })); if (rest.includes('XX') && !store.has(rest[0])) return res.end(JSON.stringify({ result: null })); store.set(rest[0], rest[1]); return res.end(JSON.stringify({ result: 'OK' }));
+    case 'LREM': { const l = (lists.get(rest[0]) ?? []).filter((x) => x !== rest[2]); lists.set(rest[0], l); return res.end(JSON.stringify({ result: 1 })); }
     case 'GET': return res.end(JSON.stringify({ result: store.get(rest[0]) ?? null }));
     case 'DEL': store.delete(rest[0]); return res.end(JSON.stringify({ result: 1 }));
     case 'EXPIRE': return res.end(JSON.stringify({ result: 1 }));
@@ -127,6 +139,56 @@ test('fail closed: each record alone is not enough (saleApproved, approval, rele
   assert.equal(commercialSaleAllowed('onboarding-agent', r), false, 'no product record, no sale');
 });
 
+test('fail closed: release evidence must exist AND apply to this exact release and package', () => {
+  const bad = {
+    'blockers missing': { catalogue: { releaseBlockers: undefined } },
+    'blockers not a list': { catalogue: { releaseBlockers: 'none' } },
+    'open blocker': { catalogue: { releaseBlockers: ['counsel sign-off'] } },
+    'not technically approved': { catalogue: { technicalReadiness: 'release-candidate' } },
+    'not certified': { catalogue: { certification: 'internal-review' } },
+    'no release record': { repo: { rec: null } },
+    'record for another version': { repo: { rec: { ...GOOD_REC, version: '1.0.3.4' } } },
+    'record for another package': { repo: { rec: { ...GOOD_REC, sha256: 'b'.repeat(64) } } },
+    'record for another revision': { repo: { rec: { ...GOOD_REC, bundleRevision: 2 } } },
+    'no gates': { repo: { gates: null } },
+    'gates for another version': { repo: { gates: { ...GOOD_GATES, release: '1.0.3.4' } } },
+    'empty gates': { repo: { gates: { release: VER, gates: [] } } },
+    'a gate not PASS': { repo: { gates: { release: VER, gates: [...GOOD_GATES.gates, { id: 'L-IP', area: 'legal', status: 'REQUIRES FOUNDER APPROVAL', requiredApprover: ['founder'] }] } } },
+    'PASS without a decision': { repo: { gates: { release: VER, gates: [{ id: 'P-X', area: 'product', status: 'PASS' }] } } },
+    'PASS without the founder approval': { repo: { gates: { release: VER, gates: [{ id: 'L-IP', area: 'legal', status: 'PASS', requiredApprover: ['founder'] }] } } },
+    'outside the launch scope': { repo: { scope: { products: {} } } },
+    'IP not executed': { repo: { ip: { status: 'unsigned' } } },
+  };
+  for (const [name, o] of Object.entries(bad)) {
+    const [r, p, a] = approvedWorld(o);
+    assert.equal(commercialSaleAllowed(CI, r, p, new Date(), a), false, name);
+    assert.equal(publicStatus(CI, r, p, new Date(), a), 'coming-soon', name);
+  }
+  // The real repository: Contract Intelligence 1.0.3.6 is refused for documented, specific reasons.
+  const why = releaseEvidenceErrors(CI);
+  assert.ok(why.some((e) => e.includes('open release blocker')) && why.some((e) => e.includes('gates not PASS')) && why.some((e) => e.includes('IP instrument')), why.join('; '));
+  assert.ok(!why.some((e) => e.includes('does not match')), 'the real release record matches release 1.0.3.6 and its package');
+});
+
+test('early access: independent version-specific approval AND validated technical readiness', () => {
+  const n = new Date(); const EA = { ...APPROVED };
+  const world = (catalogue, repo) => { const [r, p] = approvedWorld({ catalogue: { publicStatus: 'early-access', lifecycle: 'technically-approved', ...catalogue } }); return [r, p, agentsWith({ goDecision: null, earlyAccess: EA }, repo)]; };
+  let [r, p, a] = world({});
+  assert.equal(publicStatus(CI, r, p, n, a), 'early-access');
+  for (const [name, c, repo] of [['in development', { technicalReadiness: 'prototype' }], ['blockers missing', { releaseBlockers: undefined }],
+    ['product gate open', {}, { gates: { release: VER, gates: [{ id: 'P-WORKFLOW-CLEAN', area: 'product', status: 'BLOCKED' }] } }],
+    ['gates for another version', {}, { gates: { ...GOOD_GATES, release: '1.0.3.4' } }], ['package mismatch', {}, { rec: { ...GOOD_REC, sha256: 'c'.repeat(64) } }]]) {
+    [r, p, a] = world(c, repo);
+    assert.equal(publicStatus(CI, r, p, n, a), 'coming-soon', name);
+  }
+  // A commercial gate still open does not block early access; it does block a sale.
+  [r, p, a] = world({}, { gates: { release: VER, gates: [PASS_GATE('P-INSTALL'), { id: 'T-TAX-POLICY', area: 'commercial', status: 'REQUIRES FOUNDER APPROVAL' }] } });
+  assert.equal(publicStatus(CI, r, p, n, a), 'early-access');
+  assert.equal(commercialSaleAllowed(CI, r, p, n, a), false);
+  // The real repository today: P-WORKFLOW-CLEAN is BLOCKED, so early access could not open even with an approval.
+  assert.ok(releaseEvidenceErrors(CI, 'early-access').some((e) => e.includes('P-WORKFLOW-CLEAN')));
+});
+
 test('technical approval never activates a commercial sale or early access', () => {
   const r = clone(AV);
   Object.assign(r.agents[CI], { lifecycle: 'technically-approved', technicalReadiness: 'technically-approved', certification: 'internally-certified', publicStatus: 'available' });
@@ -137,11 +199,12 @@ test('technical approval never activates a commercial sale or early access', () 
 });
 
 test('early access needs its own valid, version-specific approval and is not a sale', () => {
-  const r = clone(AV), p = clone(PR), n = new Date(); r.agents[CI].publicStatus = 'early-access';
+  const [r, p] = approvedWorld({ catalogue: { publicStatus: 'early-access', lifecycle: 'technically-approved' } }); const n = new Date();
   assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: null })), 'coming-soon');
   assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED, release: '1.0.3.4' } })), 'coming-soon', 'an approval for another version');
   assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED, revokedAt: '2026-11-27' } })), 'coming-soon', 'a revoked approval');
   assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED, expiresAt: '2026-11-26' } })), 'coming-soon', 'an expired approval');
+  assert.equal(publicStatus(CI, r, p, n, agentsWith({ goDecision: { ...APPROVED } })), 'coming-soon', 'a GO decision is not an early-access approval');
   assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED } })), 'early-access');
   assert.equal(commercialSaleAllowed(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED } })), false, 'early access is not a sale');
 });
@@ -346,17 +409,88 @@ test('interest: spam protection (honeypot, instant submit, rate limit) stores no
 });
 
 test('interest: view beacon counts anonymously and never errors', async () => {
-  const r = await post({ agent: 'onboarding-agent' }, { query: { event: 'view' } });
+  const r = resDouble();
+  await interest({ method: 'POST', body: { agent: 'onboarding-agent' }, query: { event: 'view' }, headers: { 'x-forwarded-for': '198.51.100.7', 'user-agent': 'Mozilla/5.0 Safari/605' }, socket: {} }, r);
   assert.equal(r.statusCode, 204);
   assert.equal(store.get(`demand:view:onboarding-agent:${new Date().toISOString().slice(0, 7)}`), 1);
 });
 
-test('demand report: qualified-lead rule and ranking are deterministic and carry no personal data', async () => {
-  const { buildReport, toCsv, isQualified } = await import('../scripts/demand-report.mjs');
-  const lead = { agentSlug: 'onboarding-agent', email: 'x@example.com', timeframe: '3-6-months', techEnvironment: 'copilot-studio', useCase: 'x'.repeat(40), industry: 'manufacturing' };
-  assert.equal(isQualified(lead), true);
-  assert.equal(isQualified({ ...lead, timeframe: 'exploring' }), false);
-  const rows = buildReport({ slugs: SLUGS, counters: { view: { 'onboarding-agent': 20 }, interest: {}, demo: {} }, interest: [lead], demos: [] });
-  assert.equal(rows[0].agent, 'onboarding-agent'); assert.equal(rows[0].demandIndex, 100); assert.equal(rows[0].viewToInterest, 5);
+test('demand tiers: engagement, registrations, high intent, qualified and validated intent stay separate', async () => {
+  const { buildReport, toCsv, isHighIntent, isQualified } = await import('../scripts/demand-report.mjs');
+  const base = { agentSlug: 'onboarding-agent', email: 'x@corp.example', timeframe: '0-3-months', techEnvironment: 'copilot-studio', useCase: 'x'.repeat(40), industry: 'manufacturing' };
+  assert.equal(isHighIntent(base), true);
+  assert.equal(isQualified(base), false, 'a corporate e-mail and a near timeframe alone are not a qualified lead');
+  assert.equal(isHighIntent({ ...base, useCase: '' }), false);
+  assert.equal(isQualified({ ...base, salesQualification: { stage: 'qualified' } }), false, 'a qualification needs who and when');
+  const q = { ...base, salesQualification: { stage: 'pilot-agreed', by: 'Sales', at: '2026-11-26T10:00:00Z' } };
+  const interest = [q, base, base, { ...base, agentSlug: 'sop-generation-agent', timeframe: 'exploring' }];
+  const rows = buildReport({ slugs: SLUGS, counters: { view: { 'onboarding-agent': 40, 'people-ops-query-agent': 5000 }, bot: { 'people-ops-query-agent': 900 }, demo: {} }, interest, demos: [] });
+  const ob = rows.find((r) => r.agent === 'onboarding-agent'); const po = rows.find((r) => r.agent === 'people-ops-query-agent'); const sop = rows.find((r) => r.agent === 'sop-generation-agent');
+  assert.deepEqual([ob.registrations, ob.highIntent, ob.qualified, ob.validatedIntent], [3, 3, 1, 1]);
+  assert.equal(ob.rank, 1, 'a validated opportunity outranks heavy anonymous traffic');
+  assert.ok(po.demandIndex < ob.demandIndex && po.botViews === 900);
+  assert.equal(sop.insufficientData, true); assert.equal(sop.rank, null); assert.equal(sop.demandIndex, null);
+  assert.ok(rows.filter((r) => r.insufficientData).every((r) => r.rank === null), 'no ranking on insufficient data');
   assert.doesNotMatch(toCsv(rows), /@/);
+});
+
+test('views: bots are counted apart and a visitor counts once per agent per day, without a persistent id', async () => {
+  const day = new Date().toISOString().slice(0, 7);
+  const view = (ua, ip = '198.51.100.20') => interest({ method: 'POST', body: { agent: 'onboarding-agent' }, query: { event: 'view' }, headers: { 'x-forwarded-for': ip, 'user-agent': ua }, socket: {} }, resDouble());
+  const human = 'Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 Chrome/131 Safari/537.36';
+  await view(human); await view(human); await view(human, '198.51.100.21'); await view('curl/8.4'); await view('');
+  assert.equal(store.get(`demand:view:onboarding-agent:${day}`), 2);
+  assert.equal(store.get(`demand:bot:onboarding-agent:${day}`), 2);
+  assert.ok([...store.keys()].filter((k) => k.startsWith('demand:seen:')).every((k) => !/198\.51|Mozilla/.test(k)));
+});
+
+test('notifications: recorded per registration, idempotent, bounded, and never logged with personal data', async () => {
+  const { notifyInterest, retryDue, MAX_ATTEMPTS } = await import('../lib/interestNotify.js');
+  const logs = []; const keepLog = console.log; console.log = (...a) => logs.push(a.map(String).join(' '));
+  let r;
+  try { r = await post({ ...VALID, email: 'notify.me@example.com' }); } finally { console.log = keepLog; }
+  const id = r.body.id; const read = () => JSON.parse(store.get(`lead:interest:${id}`));
+  assert.equal(read().notification.status, 'not-configured', 'no provider configured: recorded, not silently dropped');
+  assert.ok(logs.every((l) => !l.includes('notify.me@example.com') && !l.includes('Example s.r.o.')), 'logs hold no personal data');
+  assert.equal(read().marketing.optIn, false, 'marketing is opt-in and separate from the follow-up consent');
+  process.env.RESEND_API_KEY = 're_test_dummy'; process.env.DEMO_NOTIFY_EMAIL = 'inbox@example.com';
+  try {
+    const calls = [];
+    const fail = async (u, o) => { calls.push(o); return { ok: false, status: 500, json: async () => ({ message: 'leaks notify.me@example.com' }) }; };
+    let n = await notifyInterest(id, { fetchImpl: fail });
+    assert.equal(n.status, 'failed'); assert.equal(n.attempts, 1); assert.equal(n.lastError, 'HTTP 500');
+    assert.doesNotMatch(JSON.stringify(read().notification), /example\.com/, 'provider error bodies are not stored');
+    assert.equal(retryDue(read(), Date.now()), false, 'back-off before the next attempt');
+    assert.equal(retryDue(read(), Date.now() + 6 * 60 * 1000), true);
+    const ok = async (u, o) => { calls.push(o); return { ok: true, status: 200, json: async () => ({ id: 'em_123' }) }; };
+    n = await notifyInterest(id, { fetchImpl: ok });
+    assert.equal(n.status, 'accepted'); assert.equal(n.providerId, 'em_123'); assert.ok(n.acceptedAt); assert.equal(n.deliveredAt, null, 'acceptance is not delivery');
+    assert.equal(calls[1].headers['Idempotency-Key'], `interest-notify/${id}`);
+    await notifyInterest(id, { fetchImpl: ok });
+    assert.equal(calls.length, 2, 'an accepted notification is never sent again');
+    // Bounded: a registration that keeps failing gives up after MAX_ATTEMPTS.
+    const r2 = await post({ ...VALID, email: 'second@example.com' });
+    for (let i = 0; i < MAX_ATTEMPTS + 2; i++) await notifyInterest(r2.body.id, { fetchImpl: fail });
+    const n2 = JSON.parse(store.get(`lead:interest:${r2.body.id}`)).notification;
+    assert.equal(n2.status, 'gave-up'); assert.equal(n2.attempts, MAX_ATTEMPTS);
+    // A concurrent run is locked out.
+    store.set(`interest:notify-lock:${id}`, '1');
+    assert.equal((await notifyInterest(id, { fetchImpl: ok })).status, 'locked');
+  } finally { delete process.env.RESEND_API_KEY; delete process.env.DEMO_NOTIFY_EMAIL; }
+});
+
+test('operations: qualification needs a named person; deletion removes the records and the duplicate check', async () => {
+  const ops = await import('../scripts/interest-ops.mjs');
+  const a = await post({ ...VALID, email: 'Delete.Me@example.com' });
+  await post({ ...VALID, email: 'delete.me@example.com', agent: 'sop-generation-agent' });
+  await assert.rejects(ops.qualify({ id: a.body.id, stage: 'qualified', by: '', apply: true }));
+  await assert.rejects(ops.qualify({ id: a.body.id, stage: 'hot', by: 'Sales', apply: true }));
+  await ops.qualify({ id: a.body.id, stage: 'purchase-intent', by: 'Sales lead', apply: true });
+  assert.equal(JSON.parse(store.get(`lead:interest:${a.body.id}`)).salesQualification.stage, 'purchase-intent');
+  const dry = await ops.deleteByEmail({ email: 'DELETE.me@example.com', apply: false });
+  assert.equal(dry.matched, 2); assert.equal(dry.deleted, false);
+  await ops.deleteByEmail({ email: 'delete.me@example.com', apply: true });
+  assert.equal(store.get(`lead:interest:${a.body.id}`), undefined);
+  assert.ok(!lists.get('lead:index:interest').includes(a.body.id));
+  assert.equal((await post({ ...VALID, email: 'delete.me@example.com' })).body.duplicate, undefined, 'the duplicate check was cleared too');
 });

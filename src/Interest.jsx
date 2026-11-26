@@ -24,7 +24,7 @@ export default function Interest({ slug, label, tier }) {
   const t = IL[lang] || IL.en;
   const name = AVAILABILITY.agents?.[slug]?.name || label;
   const [startedAt] = useState(() => Date.now());
-  const [f, setF] = useState({ email: '', company: '', role: '', useCase: '', industry: '', techEnvironment: '', timeframe: '', requirements: '', consent: false, website: '' });
+  const [f, setF] = useState({ email: '', company: '', role: '', useCase: '', industry: '', techEnvironment: '', timeframe: '', requirements: '', consent: false, marketingOptIn: false, website: '' });
   const [state, setState] = useState('idle');
   // Gate B: the server decides whether interest is collected (INTEREST_COLLECTION_ENABLED). Until it says yes,
   // no form is shown, so the page never offers a submission the server would refuse.
@@ -104,6 +104,10 @@ export default function Interest({ slug, label, tier }) {
         <label className="checkbox-label" style={{ alignItems: 'flex-start' }}>
           <input type="checkbox" name="consent" checked={f.consent} onChange={on} required style={{ marginTop: 4 }} />
           <span>{t.consent}</span>
+        </label>
+        <label className="checkbox-label" style={{ alignItems: 'flex-start', marginTop: 8 }}>
+          <input type="checkbox" name="marketingOptIn" checked={f.marketingOptIn} onChange={on} style={{ marginTop: 4 }} />
+          <span>{t.marketing}</span>
         </label>
       </fieldset>
       <button type="submit" className="demo-submit" disabled={state === 'sending'}>{state === 'sending' ? t.submitting : t.submit}</button>
