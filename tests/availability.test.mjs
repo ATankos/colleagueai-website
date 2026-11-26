@@ -221,6 +221,13 @@ test('the interest form has every field in all eight languages', async () => {
   }
 });
 
+test('no page tells customers an agent can be bought today, in any language', () => {
+  const CLAIMS = /evaluate and buy today|one package you can evaluate and buy|the one you can evaluate and buy|dnes můžete vyhodnotit a koupit|který můžete vyhodnotit a koupit|heute bewerten und kaufen|bewerten und kaufen können|évaluer et acheter aujourd|pouvez évaluer et acheter\.|evaluar y comprar hoy|puede evaluar y comprar\.|valutare e acquistare oggi|potete valutare e acquistare\.|dziś ocenić i kupić|możesz ocenić i kupić\.|avaliar e comprar hoje|pode avaliar e comprar\.|one in controlled release|35 (?:agents )?as concepts/i;
+  const files = walk(join(ROOT, 'public')).filter((f) => /\.(html|txt|js)$/.test(f) && !/[\\/]legal[\\/]/.test(f));
+  const hits = files.filter((f) => CLAIMS.test(readFileSync(f, 'utf8')));
+  assert.deepEqual(hits.map((f) => f.slice(ROOT.length)), []);
+});
+
 test('structured data and AI-readable content never present an unapproved agent as on sale', () => {
   const files = walk(join(ROOT, 'public')).filter((f) => /\.(html|txt)$/.test(f) && !/[\\/]legal[\\/]/.test(f));
   for (const f of files) {
