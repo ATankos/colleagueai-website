@@ -65,3 +65,37 @@ test('no control requires access to a customer environment', () => {
     assert.doesNotMatch(c.requirement, /\b(remote access|access (to|into) the customer'?s? (tenant|environment)|install(s)? into the customer)/i, c.id);
   }
 });
+
+test('applicability matrix covers the required frameworks with valid mapping statuses', () => {
+  const required = ['AIA', 'GDPR', 'CRA', 'ISO42001', 'ISO27001', 'ISO27002', 'ISO27701', 'ISO23894', 'ISO31000', 'NIST', 'OWASP'];
+  assert.deepEqual(Object.keys(mcl.frameworks).sort(), [...required].sort());
+  assert.deepEqual(Object.keys(mcl.mappingStatus).sort(), ['future', 'indicative', 'verified']);
+  const used = new Set();
+  for (const d of mcl.domains) {
+    const rows = mcl.applicabilityMatrix[d.id];
+    assert.ok(Array.isArray(rows) && rows.length, `${d.id} has no mapping`);
+    for (const r of rows) {
+      assert.ok(mcl.frameworks[r.framework], `${d.id}: unknown framework ${r.framework}`);
+      assert.ok(['verified', 'indicative', 'future'].includes(r.status), `${d.id}: ${r.status}`);
+      assert.ok(String(r.ref || '').trim(), `${d.id}: empty ref`);
+      // A verified mapping is a factual claim: it must say who checked which edition, and when.
+      if (r.status === 'verified') for (const k of ['verifiedBy', 'verifiedOn', 'edition']) assert.ok(r[k], `${d.id} ${r.framework}: verified without ${k}`);
+      used.add(r.framework);
+    }
+  }
+  for (const f of required) assert.ok(used.has(f), `${f} is never mapped`);
+});
+
+test('certificate state keeps subscription separate from release currency and decision', () => {
+  const c = mcl.controls.find((x) => x.id === 'CAI-D17-03');
+  for (const w of ['subscription', 'release currency', 'superseded', 'suspended', 'revoked', 'deployment']) assert.match(c.requirement, new RegExp(w, 'i'));
+  assert.match(c.requirement, /active subscription alone never shows Active/i);
+});
+
+test('Art. 50(2) transitional period is conditional, and CRA reporting names all stages', () => {
+  const a50 = mcl.controls.find((x) => x.id === 'CAI-D03-02').requirement;
+  assert.match(a50, /eligibility conditions/i);
+  assert.match(a50, /before the package is first placed on the market/i);
+  const cra = mcl.controls.find((x) => x.id === 'CAI-D08-03').requirement;
+  for (const w of ['early warning within 24 h', 'notification within 72 h', 'final report', '14 days', 'one month', 'intermediate', 'users informed']) assert.ok(cra.includes(w), w);
+});
