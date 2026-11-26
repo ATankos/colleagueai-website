@@ -1,0 +1,10 @@
+{
+  "_comment": "Demand scoring for scripts/demand-report.mjs. Five tiers are reported separately and never merged into one count: engagement (filtered, unique daily views), registrations (unique per e-mail and agent), highIntent (registration with a near timeframe, a supported Microsoft environment and a described use case), qualified (a person recorded salesQualification stage qualified or higher) and validatedIntent (stage pilot-agreed or purchase-intent). A corporate e-mail and a timeframe alone never make a lead qualified. Each tier is normalised to 0-1 across agents before weighting, so heavy anonymous traffic cannot outrank a real opportunity. An agent below the minimum signals is reported as insufficient data and not ranked.",
+  "weights": { "validatedIntent": 0.40, "qualified": 0.25, "highIntent": 0.15, "registrations": 0.10, "demos": 0.07, "engagement": 0.03 },
+  "highIntent": {
+    "timeframes": ["0-3-months", "3-6-months"],
+    "techEnvironments": ["m365-copilot", "copilot-studio", "power-platform"],
+    "minUseCaseChars": 40
+  },
+  "minimumSignals": { "registrations": 3, "demos": 2, "engagement": 50 }
+}

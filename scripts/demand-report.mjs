@@ -3,37 +3,40 @@
  *
  *   node scripts/demand-report.mjs [--months 6] [--out demand.csv]
  *
- * Needs the KV credentials of the environment to read (KV_REST_API_URL / KV_REST_API_TOKEN, see lib/db.js).
- * Reads the anonymous monthly counters (views, interest, demo) and the interest and demo leads, and writes one
- * row per agent: views, interest registrations, qualified leads, demo requests, conversion rates, the most
- * frequent industry, technology environment and timeframe, and a relative demand index (0-100).
- * Personal data is never written to the output: only counts and categories.
- *
- * Qualified lead (documented rule, change it here): an interest registration with a timeframe within 12 months,
- * a Microsoft environment the packages run on (M365 Copilot, Copilot Studio or Power Platform) and a use case of
- * at least 40 characters.
+ * Needs the KV credentials of the environment (KV_REST_API_URL / KV_REST_API_TOKEN, see lib/db.js).
+ * Scoring rules live in config/demand-scoring.json. Five tiers are kept apart:
+ *   engagement        filtered website engagement: unique (per visitor, agent and day) non-bot views
+ *   registrations     unique interest registrations (one per e-mail and agent per 30 days)
+ *   highIntent        registrations with a near timeframe, a supported Microsoft environment and a described use case
+ *   qualified         registrations a PERSON qualified after contact (salesQualification stage qualified or higher)
+ *   validatedIntent   qualified registrations with an agreed pilot or a stated purchase intent
+ * A corporate e-mail and a timeframe alone never make a lead qualified. The demand index normalises each tier
+ * across agents before weighting, and an agent below the minimum signals is reported as insufficient data and not
+ * ranked. Output holds counts and categories only, never personal data.
  */
 import { writeFileSync } from 'node:fs';
 import { AVAILABILITY, publicStatus } from '../lib/availability.js';
+import SCORING from '../config/demand-scoring.json' with { type: 'json' };
 
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > -1 ? process.argv[i + 1] : d; };
 const MONTHS = Math.max(1, Math.min(24, Number(arg('--months', 6)) || 6));
 const OUT = arg('--out', null);
+const QUALIFIED = new Set(['qualified', 'pilot-agreed', 'purchase-intent']);
+const VALIDATED = new Set(['pilot-agreed', 'purchase-intent']);
 
 export function monthsBack(n, now = new Date()) {
   const out = [];
-  for (let i = 0; i < n; i++) {
-    const d = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1));
-    out.push(d.toISOString().slice(0, 7));
-  }
+  for (let i = 0; i < n; i++) out.push(new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth() - i, 1)).toISOString().slice(0, 7));
   return out;
 }
 
-export function isQualified(lead) {
-  return ['0-3-months', '3-6-months', '6-12-months'].includes(lead.timeframe) &&
-    ['m365-copilot', 'copilot-studio', 'power-platform'].includes(lead.techEnvironment) &&
-    typeof lead.useCase === 'string' && lead.useCase.trim().length >= 40;
+export function isHighIntent(lead, s = SCORING) {
+  return s.highIntent.timeframes.includes(lead.timeframe) && s.highIntent.techEnvironments.includes(lead.techEnvironment) &&
+    typeof lead.useCase === 'string' && lead.useCase.trim().length >= s.highIntent.minUseCaseChars;
 }
+const stage = (l) => (l.salesQualification && l.salesQualification.by && l.salesQualification.at ? l.salesQualification.stage : null);
+export const isQualified = (l) => QUALIFIED.has(stage(l));
+export const isValidatedIntent = (l) => VALIDATED.has(stage(l));
 
 const top = (arr) => {
   const c = {}; for (const v of arr) if (v) c[v] = (c[v] || 0) + 1;
@@ -42,30 +45,39 @@ const top = (arr) => {
 };
 
 /** Pure aggregation, tested without a store. */
-export function buildReport({ slugs, counters, interest, demos }) {
+export function buildReport({ slugs, counters, interest, demos, scoring = SCORING }) {
   const rows = slugs.map((slug) => {
     const mine = interest.filter((l) => l.agentSlug === slug);
-    const views = counters.view[slug] || 0;
-    const reg = Math.max(mine.length, counters.interest[slug] || 0);
-    const demo = Math.max(demos.filter((d) => d.agentSlug === slug).length, counters.demo[slug] || 0);
-    const qualified = mine.filter(isQualified).length;
-    return {
+    const row = {
       agent: slug, name: AVAILABILITY.agents[slug]?.name || slug, tier: AVAILABILITY.agents[slug]?.cai?.targetLevel || '',
-      availability: publicStatus(slug), views, interest: reg, qualified, demos: demo,
-      viewToInterest: views ? +(reg / views * 100).toFixed(1) : null,
-      interestToQualified: reg ? +(qualified / reg * 100).toFixed(1) : null,
+      availability: publicStatus(slug),
+      engagement: counters.view?.[slug] || 0, botViews: counters.bot?.[slug] || 0,
+      registrations: mine.length, highIntent: mine.filter((l) => isHighIntent(l, scoring)).length,
+      qualified: mine.filter(isQualified).length, validatedIntent: mine.filter(isValidatedIntent).length,
+      demos: Math.max(demos.filter((d) => d.agentSlug === slug).length, counters.demo?.[slug] || 0),
       topIndustry: top(mine.map((l) => l.industry)), topTechnology: top(mine.map((l) => l.techEnvironment)), topTimeframe: top(mine.map((l) => l.timeframe)),
     };
+    row.engagementToRegistration = row.engagement ? +(row.registrations / row.engagement * 100).toFixed(1) : null;
+    const m = scoring.minimumSignals;
+    row.insufficientData = !(row.qualified > 0 || row.registrations >= m.registrations || row.demos >= m.demos || row.engagement >= m.engagement);
+    return row;
   });
-  // Relative demand: qualified leads weigh 5, other registrations 2, demo requests 3, views 0.05.
-  const score = (r) => r.qualified * 5 + (r.interest - r.qualified) * 2 + r.demos * 3 + r.views * 0.05;
-  const max = Math.max(1, ...rows.map(score));
-  for (const r of rows) r.demandIndex = Math.round(score(r) / max * 100);
-  return rows.sort((a, b) => b.demandIndex - a.demandIndex || a.agent.localeCompare(b.agent));
+  const tiers = Object.keys(scoring.weights);
+  const max = Object.fromEntries(tiers.map((k) => [k, Math.max(0, ...rows.map((r) => r[k] || 0))]));
+  for (const r of rows) {
+    const score = tiers.reduce((s, k) => s + scoring.weights[k] * (max[k] ? (r[k] || 0) / max[k] : 0), 0);
+    r.demandIndex = r.insufficientData ? null : Math.round(score * 100);
+  }
+  const ranked = rows.filter((r) => r.demandIndex != null).sort((a, b) => b.demandIndex - a.demandIndex || a.agent.localeCompare(b.agent));
+  ranked.forEach((r, i) => { r.rank = i + 1; });
+  const rest = rows.filter((r) => r.demandIndex == null).sort((a, b) => a.agent.localeCompare(b.agent));
+  for (const r of rest) r.rank = null;
+  return [...ranked, ...rest];
 }
 
 export function toCsv(rows) {
-  const cols = ['agent', 'name', 'tier', 'availability', 'views', 'interest', 'qualified', 'demos', 'viewToInterest', 'interestToQualified', 'topIndustry', 'topTechnology', 'topTimeframe', 'demandIndex'];
+  const cols = ['rank', 'agent', 'name', 'tier', 'availability', 'engagement', 'botViews', 'registrations', 'highIntent', 'qualified', 'validatedIntent', 'demos',
+    'engagementToRegistration', 'topIndustry', 'topTechnology', 'topTimeframe', 'insufficientData', 'demandIndex'];
   const q = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
   return [cols.join(','), ...rows.map((r) => cols.map((c) => q(r[c])).join(','))].join('\n') + '\n';
 }
@@ -74,15 +86,13 @@ async function main() {
   const { readDemand, listLeads } = await import('../lib/db.js');
   const slugs = Object.keys(AVAILABILITY.agents);
   const months = monthsBack(MONTHS);
-  const counters = { view: {}, interest: {}, demo: {} };
+  const counters = { view: {}, bot: {}, demo: {} };
   for (const kind of Object.keys(counters)) {
     for (const s of slugs) counters[kind][s] = Object.values(await readDemand(kind, s, months)).reduce((a, b) => a + b, 0);
   }
   const since = `${months[months.length - 1]}-01`;
   const inWindow = (l) => String(l.receivedAt || '') >= since;
-  const interest = (await listLeads('interest', 5000)).filter(inWindow);
-  const demos = (await listLeads('demo', 5000)).filter(inWindow);
-  const rows = buildReport({ slugs, counters, interest, demos });
+  const rows = buildReport({ slugs, counters, interest: (await listLeads('interest', 100000)).filter(inWindow), demos: (await listLeads('demo', 100000)).filter(inWindow) });
   const csv = toCsv(rows);
   if (OUT) { writeFileSync(OUT, csv); console.log(`[demand-report] ${rows.length} agents, ${months.length} months -> ${OUT}`); } else process.stdout.write(csv);
 }
