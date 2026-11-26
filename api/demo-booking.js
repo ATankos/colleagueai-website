@@ -22,7 +22,7 @@
  * DEMO_NOTIFY_EMAIL set the booking is also emailed; without them the lead is
  * still durable and readable via listLeads('demo').
  */
-import { rateLimit, saveLead } from '../lib/db.js';
+import { rateLimit, saveLead, incrDemand } from '../lib/db.js';
 
 const MAX = { email: 254, company: 200, role: 120, timeZone: 60 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -153,6 +153,8 @@ export default async function handler(req, res) {
       code: 'store_unavailable',
     });
   }
+
+  if (agentSlug) { try { await incrDemand('demo', agentSlug); } catch { /* counters are best-effort */ } }
 
   // The booking is safe at this point. A failed notification is worth knowing
   // about but must not fail the request, since the lead is already durable.

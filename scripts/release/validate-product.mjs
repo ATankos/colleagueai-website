@@ -18,6 +18,7 @@
 import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { approvalValid } from '../../lib/availability.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const HEX64 = /^[0-9a-f]{64}$/;
@@ -130,6 +131,8 @@ export function validateProduct(slug, { forSale = false, ctx = loadContext() } =
       }
       const go = A.sale?.goDecision;
       s(go && filled(go.approvedBy) && filled(go.date) && filled(go.reference), 'no recorded GO decision (sale.goDecision: approvedBy, date, reference)');
+      // The GO is version-specific and must still be in force (lib/availability.js reads the same record at run time).
+      s(approvalValid(go, R.version), `sale.goDecision is not valid for release ${R.version} (needs release "${R.version}", not expired or revoked)`);
     }
   }
   const level = onboarding.length ? 'incomplete' : sale.length ? 'onboarded' : (forSale || P.saleApproved ? 'sale-ready' : 'onboarded');

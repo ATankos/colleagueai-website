@@ -1745,14 +1745,14 @@
     "pl": "Zapytaj przed zakupem",
     "pt": "Pergunte antes de comprar"
   },
-  "CAI L4 · Release 1.0.3.6 · Controlled release": {
-    "cs": "CAI L4 · Verze 1.0.3.6 · Řízené vydání",
-    "de": "CAI L4 · Release 1.0.3.6 · Kontrollierte Freigabe",
-    "fr": "CAI L4 · Version 1.0.3.6 · Version contrôlée",
-    "es": "CAI L4 · Versión 1.0.3.6 · Versión controlada",
-    "it": "CAI L4 · Release 1.0.3.6 · Rilascio controllato",
-    "pl": "CAI L4 · Wersja 1.0.3.6 · Wydanie kontrolowane",
-    "pt": "CAI L4 · Versão 1.0.3.6 · Versão controlada"
+  "CAI L4 · Release 1.0.3.6 · Coming soon": {
+    "cs": "CAI L4 · Verze 1.0.3.6 · Připravujeme",
+    "de": "CAI L4 · Release 1.0.3.6 · Demnächst",
+    "fr": "CAI L4 · Version 1.0.3.6 · Bientôt disponible",
+    "es": "CAI L4 · Versión 1.0.3.6 · Próximamente",
+    "it": "CAI L4 · Release 1.0.3.6 · Prossimamente",
+    "pl": "CAI L4 · Wersja 1.0.3.6 · Wkrótce",
+    "pt": "CAI L4 · Versão 1.0.3.6 · Em breve"
   },
   "One-time · perpetual licence · one Microsoft tenant": {
     "cs": "Jednorázově · trvalá licence · jeden tenant Microsoft",

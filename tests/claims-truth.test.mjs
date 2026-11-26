@@ -14,6 +14,8 @@
  *
  * Usage: node --test tests/claims-truth.test.mjs   (the factsheet checks additionally need `npm run build`)
  */
+import AVAIL from '../config/availability.json' with { type: 'json' };
+import { publicStatus } from '../lib/availability.js';
 import { test } from 'node:test';
 import assert from 'node:assert';
 import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
@@ -132,13 +134,15 @@ test('concept agents offer no installable package; only released products list o
   for (const slug of Object.keys(PACKAGES.agents)) assert.ok(RELEASED.includes(slug), `${slug} lists a package but has no product record`);
 });
 
-test('every agents page embeds the release-status map built from config/products.json', () => {
+test('every agents page embeds the availability map built from config/availability.json', () => {
   const pages = PUBLIC.filter((f) => /[\\/]agents(\.html|[\\/]index\.html)$/.test(f));
   assert.ok(pages.length >= 9, `found ${pages.length} agents pages`);
   for (const f of pages) {
     const m = readFileSync(f, 'utf8').match(/\/\*CAI_AVAIL\*\/(\{.*?\})\/\*\/CAI_AVAIL\*\//);
     assert.ok(m, `${f}: release-status map missing`);
-    assert.deepEqual(Object.keys(JSON.parse(m[1])).sort(), [...RELEASED].sort(), `${f}: status map drifted from config/products.json`);
+    const map = JSON.parse(m[1]);
+    assert.deepEqual(Object.keys(map).sort(), Object.keys(AVAIL.agents).sort(), `${f}: availability map does not cover every catalogue agent`);
+    for (const [slug, v] of Object.entries(map)) assert.equal(v, publicStatus(slug), `${f}: ${slug} drifted from config/availability.json`);
     const s = readFileSync(f, 'utf8');
     assert.match(s, /caiStatusFor\(cur\.slug\)/, `${f}: pay panel does not show the release status`);
     assert.match(s, /caiStatusFor\(a\.n/, `${f}: drawer does not show the release status`);
@@ -231,5 +235,5 @@ test('built factsheets: certification not yet open everywhere; the released pack
     assert.equal(s.includes('Microsoft prerequisites and running costs'), RELEASED.includes(slug), `${slug}: running-cost section only and always on released packages`);
   }
   const ci = readFileSync(DIST.find((f) => f.endsWith(`agents${join('/', RELEASED[0])}.html`) || f.endsWith(`/agents/${RELEASED[0]}.html`)), 'utf8');
-  assert.match(ci, /<span class="chip">Controlled release<\/span>/);
+  assert.match(ci, /<span class="chip">Coming soon<\/span>/);
 });

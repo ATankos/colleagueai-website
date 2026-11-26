@@ -11,6 +11,7 @@ import vm from 'node:vm';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 import PACKAGES from '../config/packages.json' with { type: 'json' };
 import PRODUCTS from '../config/products.json' with { type: 'json' };
+import { publicStatus, recordFor, commercialSaleAllowed, PUBLIC_LABELS } from '../lib/availability.js';
 const PKG_LABEL = { 'copilot-studio': 'Copilot Studio managed solution', 'm365-copilot': 'Microsoft 365 Copilot package' };
 const packagesFor = (slug) => PACKAGES.agents[slug] || PACKAGES.default;
 /* Release status (finding LR-04): an agent with a product record in config/products.json has a released package;
@@ -26,7 +27,7 @@ const RUNTIME = {
   'contract-intelligence-and-register': 'This package runs on your own Microsoft licences and capacity: a Power Platform environment with Dataverse, a Copilot Studio billing plan (pay-as-you-go Copilot Credits or a credit pack), SharePoint and Microsoft Teams. Document extraction, the scheduled recalculation of deadlines and agent answers consume Copilot Credits that Microsoft bills to you, not ColleagueAI; the amount grows with the number of contracts, amendments and questions. The installation guide lists the prerequisites; ask us for a sizing estimate before you buy.',
 };
 const STATUS_TEXT = {
-  'controlled-test': 'Controlled release: installable and tested; not yet on general sale.',
+  'controlled-test': 'Release candidate: installable and tested in a controlled environment; not on sale.',
   released: 'Commercially available.',
 };
 
@@ -84,7 +85,12 @@ function page(a) {
       { '@type': 'Organization', '@id': `${BASE}/#org`, name: 'Colleague AI', url: BASE, logo: `${BASE}/logo.svg` },
       { '@type': 'Product', '@id': `${url}#product`, name: a.n, description: a.desc,
         category: a.dom, brand: { '@type': 'Brand', name: 'Colleague AI' }, url,
-        additionalProperty: [{ '@type': 'PropertyValue', name: 'CAI Score tier', value: a.t }] },
+        /* Availability comes from config/availability.json. No Offer is published unless the commercial sale is
+           authorised, so search engines never read a Coming-soon agent as on sale. The CAI level is a target. */
+        additionalProperty: [
+          { '@type': 'PropertyValue', name: 'Target CAI level (classification, not a verified CAI Score)', value: a.t },
+          { '@type': 'PropertyValue', name: 'Availability', value: PUBLIC_LABELS.en[publicStatus(slug)] }],
+        ...(commercialSaleAllowed(slug) ? { offers: { '@type': 'Offer', availability: 'https://schema.org/InStock', price: String(PRICING.tiers[a.t].oneTimeCents / 100), priceCurrency: 'USD', url } } : {}) },
       { '@type': 'BreadcrumbList', itemListElement: [
         { '@type': 'ListItem', position: 1, name: 'Agent Catalogue', item: `${BASE}/agents` },
         { '@type': 'ListItem', position: 2, name: a.n, item: url }] },
@@ -163,7 +169,7 @@ footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6
 <p>${esc(a.desc)}</p>
 <div class="meta">
   <span class="chip">CAI tier <strong>${esc(a.t)}</strong></span>
-  <span class="chip">${releaseOf(slug) ? (releaseOf(slug).status === 'controlled-test' ? 'Controlled release' : 'Released package') : 'Concept · dossier only'}</span>
+  <span class="chip">${esc(PUBLIC_LABELS.en[publicStatus(slug)])}</span>
   <span class="chip">${esc(PILLAR[a.p] ?? a.p)}</span>
   <span class="chip">${esc(a.dom)}</span>
 </div>
@@ -176,24 +182,32 @@ ${sec('Risk and compliance posture', a.comp)}
 ${a.pains?.length ? `<section><h2>The problems it removes</h2><ul>${a.pains.map(p => `<li>${esc(p)}</li>`).join('')}</ul></section>` : ''}
 ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? TIER[a.t] : '')} tier means</h2><p>${esc(TIER_DESC[a.t][0])} Human role: ${esc(TIER_DESC[a.t][1])}.</p></section>` : ''}
 <section><h2>Deployment &amp; data</h2><p>${esc(DEPLOY)}</p></section>
-<section><h2>Release status</h2><p>${releaseOf(slug)
-  ? esc((STATUS_TEXT[releaseOf(slug).status] || 'Released.') + ' Current release ' + releaseOf(slug).version + '.')
-  : 'Concept. This factsheet and the dossier describe the intended design; no installable package exists yet and this agent is not for sale. Ask us if you would like to pilot it.'}</p></section>
+<section><h2>Availability and certification status</h2><dl class="status">
+  <div><dt>Availability</dt><dd>${esc(PUBLIC_LABELS.en[publicStatus(slug)])}${publicStatus(slug) === 'coming-soon' ? ' &mdash; not yet available for purchase. No release date has been announced.' : ''}</dd></div>
+  <div><dt>CAI framework classification</dt><dd>Target level ${esc(a.t)} (${esc(TIER[a.t] ?? '')}). A target classification, not an achieved certification.</dd></div>
+  <div><dt>Verified CAI Score</dt><dd>${recordFor(slug)?.cai?.verifiedScore != null ? esc(String(recordFor(slug).cai.verifiedScore)) : 'Not yet assessed.'}</dd></div>
+  <div><dt>Technical status</dt><dd>${releaseOf(slug)
+    ? esc((STATUS_TEXT[releaseOf(slug).status] || 'Released.') + ' Current release ' + releaseOf(slug).version + '.')
+    : 'In design. The dossier sets out the governed workflow, its controls and the human role; the installable package is not yet released.'}</dd></div>
+  <div><dt>Commercial release</dt><dd>${commercialSaleAllowed(slug) ? 'Authorised.' : 'Not yet authorised.'}</dd></div>
+  <div><dt>Continuous Certification</dt><dd>No active coverage; it can start only with a licence purchase.</dd></div>
+</dl></section>
 ${RUNTIME[slug] ? `<section><h2>Microsoft prerequisites and running costs</h2><p>${esc(RUNTIME[slug])}</p></section>` : ''}
 <section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>${releaseOf(slug)
   ? 'One-time purchase. You accept the licence terms at checkout, pay through Stripe and download the package from your order page, where your licence agreement confirmation and invoice are kept. Checkout opens once our final legal and tax checks are complete; book a demo and we will tell you when.'
-  : 'Today this agent is available as a dossier only.'}</p></section>
+  : 'Today you can review the agent dossier; the installable package is coming soon.'}</p></section>
 <section><h2>Price</h2><p>${releaseOf(slug) ? '' : 'Published tier price once a package is released: '}<b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases. ${esc(CERT_NOT_OPEN)}</p>
 <p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>
 <section><h2>About Colleague AI</h2><p>${esc(ABOUT)}</p></section>
 <div class="cta">
-  <a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">${releaseOf(slug) ? 'Book a demo →' : 'Discuss a pilot →'}</a>
+  ${commercialSaleAllowed(slug) ? `<a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Book a demo →</a>` : `<a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}&amp;intent=interest" data-track="interest_cta" data-agent="${slug}">Register your interest →</a>`}
   ${releaseOf(slug) ? '<a class="btn btn-s" href="/pricing">Pricing and what is included</a>' : `<a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>`}
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>
 <footer>Runs in your tenant · Customer-controlled business data plane · © Colleague AI 2026</footer>
 </main>
+<script>try{if(navigator.sendBeacon)navigator.sendBeacon("/api/interest?event=view",new Blob([JSON.stringify({agent:${JSON.stringify(slug)}})],{type:"application/json"}));}catch(e){}</script>
 <script>
 (function () {
   var select = document.getElementById("factsheet-lang");

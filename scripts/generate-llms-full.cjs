@@ -21,6 +21,10 @@ function extract(name, open) {
   return vm.runInNewContext("(" + html.slice(j, k + 1) + ")");
 }
 const AGENTS = extract("const AGENTS=", "[");
+/* Public availability per agent (config/availability.json, kept in step by scripts/sync-availability.mjs, which
+   writes the same statuses into the agents pages). Read from the built page so this CommonJS step needs no ESM. */
+const AVAIL = (() => { const m = html.match(/\/\*CAI_AVAIL\*\/(\{.*?\})\/\*\/CAI_AVAIL\*\//); return m ? JSON.parse(m[1]) : {}; })();
+const AVAIL_LABEL = { "coming-soon": "Coming soon (not yet available for purchase)", "early-access": "Early access", available: "Available", "temporarily-unavailable": "Temporarily unavailable", discontinued: "Discontinued" };
 
 const AUTHORITY_SOURCE = JSON.parse(
   fs.readFileSync(
@@ -63,23 +67,25 @@ const slug = (n) => n.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, 
 let out = `# ColleagueAI, full reference for AI assistants
 
 ColleagueAI (Colleague AI s.r.o., Prague, Czech Republic, IČO 29540852, DIČ CZ29540852) is the trust layer for enterprise AI:
-${AGENTS.length} governed agent packages, each classified on the CAI Score, a five-tier risk framework (L1 Assist,
+a planned portfolio of ${AGENTS.length} governed enterprise AI agents, each classified on the CAI Score, a five-tier risk framework (L1 Assist,
 L2 Draft, L3 Operate, L4 Decide supervised, L5 Autonomous). Agents run in the customer's own Microsoft tenant
 (Copilot Studio, Power Automate, Azure); ColleagueAI hosts none of the agents, their configuration or audit evidence,
-never receives customer business data and keeps only order, licence, download and partner-registration records. The catalogue ships at L2-L4; no agent runs fully autonomously today.
+never receives customer business data and keeps only order, licence, download and partner-registration records. The catalogue is designed at L2-L4; no agent runs fully autonomously today.
+Availability: ${Object.values(AVAIL).filter((v) => v === "available").length} of ${AGENTS.length} agents are commercially available today; every other agent is "Coming soon" and cannot be purchased yet. The CAI tier shown for each agent is its target classification, not a verified CAI Score. Interest can be registered per agent at /demo?agent=<slug>&intent=interest.
 
 Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /score (CAI Score),
 /certified (certification), /trust (trust centre), /pricing, /demo, /insights,
 /responsible-ai (commitments), /partners, /refund, /contact.
 Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 
-## Agent catalogue (${AGENTS.length} packages)
+## Agent catalogue (${AGENTS.length} planned agents)
 `;
 for (const a of AGENTS) {
   out += `
 ### ${a.n}
 - URL: https://www.colleagueai.ai/agents/${slug(a.n)}
-- CAI tier: ${a.t} (${TIER[a.t] || a.t}) · Pillar: ${PILLAR[a.p] || a.p} · Domain: ${a.dom}
+- Availability: ${AVAIL_LABEL[AVAIL[slug(a.n)] || "coming-soon"]}
+- Target CAI tier (classification, not a verified score): ${a.t} (${TIER[a.t] || a.t}) · Pillar: ${PILLAR[a.p] || a.p} · Domain: ${a.dom}
 - What it does: ${a.desc}
 - Where it fits: ${a.fit}
 - Value: ${a.roi}
