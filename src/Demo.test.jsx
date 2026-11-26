@@ -246,16 +246,26 @@ describe('Demo agent context', () => {
     expect(screen.queryByText(/Indicative package price/)).not.toBeInTheDocument()
   })
 
-  it('calls a concept agent a concept and quotes its tier price only as the price once released', () => {
+  it('calls a concept agent Coming soon and quotes its tier price only as the price once released', () => {
     // Only an agent with a product record in config/products.json has a released package. A concept must not be
     // presented as something with a package price (launch-readiness finding LR-04, content brief section 5).
     const expected = (PRICING.tiers.L3.oneTimeCents / 100).toLocaleString('en-US')
     visit('/demo?agent=reconciliation-root-cause-agent&tier=L3')
     render(<Demo />)
 
-    expect(screen.getByText(/Concept · dossier only/)).toBeInTheDocument()
+    expect(screen.getByText(/Coming soon · not yet for sale/)).toBeInTheDocument()
     expect(screen.getByText(new RegExp(`tier price once released: \\$${expected}`))).toBeInTheDocument()
     expect(screen.queryByText(/Package price:/)).not.toBeInTheDocument()
+  })
+
+  it('opens the interest registration form, not the demo booking, for intent=interest', () => {
+    visit('/demo?agent=onboarding-agent&tier=L2&intent=interest')
+    render(<Demo />)
+    expect(screen.getByRole('heading', { level: 1, name: 'Register your interest' })).toBeInTheDocument()
+    expect(screen.queryByRole('heading', { name: 'Book a demo' })).not.toBeInTheDocument()
+    expect(screen.getByLabelText(/Intended business use/)).toBeRequired()
+    expect(screen.getByRole('checkbox', { name: /may store these details for 12 months/ })).toBeRequired()
+    expect(screen.queryByLabelText(/Preferred Date/)).not.toBeInTheDocument()
   })
 
   it('shows no price for a tier that is not sold', () => {

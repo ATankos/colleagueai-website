@@ -2,7 +2,7 @@
 
 Full machine-readable catalogue: https://www.colleagueai.ai/llms-full.txt
 
-ColleagueAI provides governed AI agents and AI controls for enterprise operations, finance, risk, compliance, legal, procurement, HR, sales, and service workflows.
+ColleagueAI is building a planned portfolio of governed AI agents and AI controls for enterprise operations, finance, risk, compliance, legal, procurement, HR, sales, and service workflows. No agent is commercially available yet: every agent in the catalogue is shown as "Coming soon", and interest can be registered per agent.
 
 ## Primary pages
 
@@ -42,7 +42,7 @@ The agent catalogue includes use cases across:
 
 Production deployments are designed for enterprise governance, controlled access, audit trail, and customer-environment alignment.
 
-This website has one form: the demo / access request at /demo, which submits your enquiry details (work email, company, role and preferred date) to ColleagueAI so we can arrange a demo. All other enquiries reach ColleagueAI by email.
+This website has two forms, both at /demo: the demo request and, for Coming-soon agents, the per-agent interest registration (work email, company, intended use, Microsoft environment and timeframe). The demo / access request at /demo which submits your enquiry details (work email, company, role and preferred date) to ColleagueAI so we can arrange a demo. All other enquiries reach ColleagueAI by email.
 
 ## Contact
 

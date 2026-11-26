@@ -28,6 +28,7 @@ purchase documents, security and support. That is what this policy describes.
 | When | Data | Purpose and legal basis |
 |---|---|---|
 | (a) You request a demo or contact us | name, work e-mail, company, the areas you are interested in, your message | answering your request — steps before a contract (Art. 6(1)(b) GDPR) and our legitimate interest in following up a business enquiry (Art. 6(1)(f)) |
+| (a2) You register interest in an agent that is not yet on sale | work e-mail, company, optional role, the agent, your intended use, optional industry, Microsoft environment, timeframe and other requirements | your consent (Art. 6(1)(a) GDPR), which you can withdraw at any time; we use it to contact you about that agent and to measure demand per agent in aggregated, anonymous counts |
 | (b) You order a package | your company's name, registration number, country and VAT or tax ID; optionally the Microsoft tenant to be licensed; the purchasing contact's name and e-mail; the name and role of the person accepting our agreements; the confirmations given; the storefront language and browser type; a salted hash of your network address (we do not store the address itself) | concluding and performing the contract, and keeping evidence of which agreements were accepted (Art. 6(1)(b), (f)) |
 | (c) You pay | card or bank details and billing address, entered on Stripe's hosted page; tax ID verification | performing the contract and complying with tax and accounting law (Art. 6(1)(b), (c)). We receive Stripe's identifiers, the amount, billing country and name and the verification result; we never see or store card numbers |
 | (d) After payment | your licence record (buyer e-mail, product, release, Stripe session id), the licence agreement confirmation PDF, the invoice and any credit note, download and recovery events | delivering and documenting the purchase (Art. 6(1)(b)); keeping accounting and tax records (Art. 6(1)(c)) |
@@ -64,6 +65,7 @@ the provider's data-processing terms. Copies are available on request.
 | Data | Kept |
 |---|---|
 | Demo and enquiry requests | 12 months |
+| Interest registrations | 12 months (365 days), or earlier if you withdraw consent; a pseudonymous duplicate check is kept 30 days |
 | Order, acceptance and evidence records; invoices, credit notes and licence agreement confirmations | for the retention period that Czech accounting and tax law requires of us *[accountant: the period under the Accounting Act (No. 563/1991 Coll., § 31) and, only if the company is VAT-registered, § 35 ZDPH — confirm the number of years]*, then deleted or anonymised |
 | Licence records | for as long as the licence can be exercised (a perpetual licence: until you ask us to close it) |
 | Support material | until the case is closed |

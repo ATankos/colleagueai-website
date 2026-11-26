@@ -52,6 +52,11 @@ jobs:
       - name: Demo booking (lead is stored, or the visitor is told it was not)
         run: node --test tests/demo-booking.test.mjs
 
+      # P0 availability framework: every unapproved agent is Coming soon, no direct API call can buy one,
+      # pages/locales/structured data agree, L5 never sold, interest registration consented and de-duplicated.
+      - name: Agent availability and interest registration
+        run: node --test tests/availability.test.mjs
+
       - name: Partner commission ledger (approval gate, rate locking, reversals)
         run: node --test tests/commission-ledger.test.mjs
 

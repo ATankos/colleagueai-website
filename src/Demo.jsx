@@ -6,6 +6,8 @@
 import { useEffect, useState } from 'react';
 import PRICING from '../config/pricing.json';
 import PRODUCTS from '../config/products.json';
+import Interest from './Interest.jsx';
+import { IL } from './i18n/interestCopy.js';
 
 const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
 const serif = 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
@@ -26,7 +28,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'You are requesting',
     indicative: 'Package price', oneTime: 'one-time',
-    concept: 'Concept · dossier only', tierPrice: 'tier price once released',
+    concept: 'Coming soon · not yet for sale', tierPrice: 'tier price once released',
     privacy: 'We use these details only to arrange your demo. Colleague AI s.r.o., Praha. See our',
     privacyLink: 'Privacy Policy',
     privacyHref: '/privacy',
@@ -43,7 +45,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Požadujete',
     indicative: 'Cena balíčku', oneTime: 'jednorázově',
-    concept: 'Koncept · pouze dokumentace', tierPrice: 'cena úrovně po vydání',
+    concept: 'Připravujeme · zatím nelze koupit', tierPrice: 'cena úrovně po vydání',
     privacy: 'Tyto údaje použijeme pouze k domluvení ukázky. Colleague AI s.r.o., Praha. Viz naše',
     privacyLink: 'Zásady ochrany osobních údajů',
     privacyHref: '/cs/ochrana-soukromi',
@@ -60,7 +62,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Sie fragen an',
     indicative: 'Paketpreis', oneTime: 'einmalig',
-    concept: 'Konzept · nur Dossier', tierPrice: 'Stufenpreis nach Freigabe',
+    concept: 'Demnächst · noch nicht erhältlich', tierPrice: 'Stufenpreis nach Freigabe',
     privacy: 'Wir verwenden diese Angaben ausschließlich zur Vereinbarung Ihrer Demo. Colleague AI s.r.o., Prag. Siehe unsere',
     privacyLink: 'Datenschutzerklärung',
     privacyHref: '/de/datenschutz',
@@ -77,7 +79,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Vous demandez',
     indicative: 'Prix du package', oneTime: 'paiement unique',
-    concept: 'Concept · dossier uniquement', tierPrice: 'prix du niveau une fois publié',
+    concept: 'Bientôt disponible · pas encore en vente', tierPrice: 'prix du niveau une fois publié',
     privacy: 'Nous utilisons ces informations uniquement pour organiser votre démo. Colleague AI s.r.o., Prague. Voir notre',
     privacyLink: 'politique de confidentialité',
     privacyHref: '/fr/confidentialite',
@@ -94,7 +96,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está solicitando',
     indicative: 'Precio del paquete', oneTime: 'pago único',
-    concept: 'Concepto · solo dossier', tierPrice: 'precio del nivel una vez publicado',
+    concept: 'Próximamente · aún no a la venta', tierPrice: 'precio del nivel una vez publicado',
     privacy: 'Usamos estos datos únicamente para concertar su demostración. Colleague AI s.r.o., Praga. Consulte nuestra',
     privacyLink: 'Política de privacidad',
     privacyHref: '/es/privacidad',
@@ -111,7 +113,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Stai richiedendo',
     indicative: 'Prezzo del pacchetto', oneTime: 'una tantum',
-    concept: 'Concept · solo dossier', tierPrice: 'prezzo del livello una volta rilasciato',
+    concept: 'Prossimamente · non ancora in vendita', tierPrice: 'prezzo del livello una volta rilasciato',
     privacy: 'Utilizziamo questi dati solo per organizzare la tua demo. Colleague AI s.r.o., Praga. Consulta la nostra',
     privacyLink: 'Informativa sulla privacy',
     privacyHref: '/it/privacy',
@@ -128,7 +130,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Zamawiasz',
     indicative: 'Cena pakietu', oneTime: 'jednorazowo',
-    concept: 'Koncepcja · tylko dossier', tierPrice: 'cena poziomu po wydaniu',
+    concept: 'Wkrótce · jeszcze nie w sprzedaży', tierPrice: 'cena poziomu po wydaniu',
     privacy: 'Używamy tych danych wyłącznie do umówienia demonstracji. Colleague AI s.r.o., Praga. Zobacz naszą',
     privacyLink: 'Politykę prywatności',
     privacyHref: '/pl/prywatnosc',
@@ -145,7 +147,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está a solicitar',
     indicative: 'Preço do pacote', oneTime: 'pagamento único',
-    concept: 'Conceito · apenas dossier', tierPrice: 'preço do nível depois de lançado',
+    concept: 'Em breve · ainda não à venda', tierPrice: 'preço do nível depois de lançado',
     privacy: 'Usamos estes dados apenas para agendar a sua demonstração. Colleague AI s.r.o., Praga. Consulte a nossa',
     privacyLink: 'Política de Privacidade',
     privacyHref: '/pt/privacidade',
@@ -163,7 +165,8 @@ function todayISO() {
 
 function copy() {
   const m = (typeof window !== 'undefined' ? window.location.pathname : '').match(/^\/(cs|de|fr|es|it|pl|pt)(\/|$)/);
-  return L[m ? m[1] : 'en'] || L.en;
+  const lang = m ? m[1] : 'en';
+  return { ...(L[lang] || L.en), lang };
 }
 
 /**
@@ -195,11 +198,13 @@ function requestedAgent() {
     priceUsd: PACKAGE_PRICE_USD[safeTier] || 0,
     // only an agent with a product record has a released package; everything else is a concept with a dossier
     released: Boolean(PRODUCTS[slug]?.release),
+    // the factsheet and catalogue send intent=interest for agents that are not on sale
+    interest: q.get('intent') === 'interest',
   };
 }
 
 export default function Demo() {
-  const t = copy();
+  const [t] = useState(copy);
   const [requested] = useState(requestedAgent);
 
   // CAI-008: set lang attribute + localized metadata for this locale. The
@@ -327,12 +332,14 @@ export default function Demo() {
 
       <main className="demo-container">
         <div className="demo-hero">
-          <span className="demo-kicker">Demo</span>
-          <h1>{t.title}</h1>
-          <p className="demo-subtitle">{t.subtitle}</p>
+          <span className="demo-kicker">{requested?.interest ? (IL[t.lang] || IL.en).status : 'Demo'}</span>
+          <h1>{requested?.interest ? (IL[t.lang] || IL.en).legend : t.title}</h1>
+          {!requested?.interest && <p className="demo-subtitle">{t.subtitle}</p>}
         </div>
 
-        {submitted ? (
+        {requested?.interest ? (
+          <Interest slug={requested.slug} label={requested.label} tier={requested.tier} />
+        ) : submitted ? (
           <div className="success-msg" role="status" aria-live="polite">{t.success}</div>
         ) : (
           <>

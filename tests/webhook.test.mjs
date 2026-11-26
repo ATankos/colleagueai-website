@@ -8,6 +8,7 @@
  * IMPORTANT: assertions encode the INTENDED behaviour from the go-live spec. Tests that FAIL
  * document real defects (see GO-LIVE-TEST-REPORT.md) and become regression tests once fixed.
  */
+import { approveCommercially } from './helpers/commercial-approval.mjs';
 import { test, before, after, beforeEach, mock } from 'node:test';
 import assert from 'node:assert';
 import util from 'node:util';
@@ -526,12 +527,14 @@ test('12b. a LIVE session where no money was taken is withheld too', async () =>
   /* Approve the release for this test only, so the approval rule passes and the money check is what withholds it. */
   const rec = products.productFor(UNAPPROVED);
   rec.saleApproved = true;
+  const restore = approveCommercially(UNAPPROVED);
   try {
     const r = await deliver(sessionEvent({ sessionId: 'cs_live_b', livemode: true,
       paymentStatus: 'no_payment_required', amount: 0 }));
     assert.equal(r.body.withheld, 'no-payment-taken');
     assert.equal(entitled(UNAPPROVED), false, 'a session with no payment must not unlock an agent');
   } finally {
+    restore();
     rec.saleApproved = false;
   }
 });

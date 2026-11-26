@@ -1,0 +1,988 @@
+{
+  "_comment": "Agent availability registry (P0, 26 Nov 2026). One record per catalogue agent. Internal lifecycle, technical readiness, certification and commercial approval are separate attributes; the public status is derived from them by lib/availability.js and can never be wider than the approvals recorded here. Commercial approval and early access each need an explicit record (approvedBy, approvedAt, reference); no technical state turns either on. Changing an approval is a founder decision recorded in the pull request. saleApproved (config/products.json), the tax policy and CHECKOUT_ENABLED still gate live sales on their own.",
+  "version": "2026-11-26",
+  "agents": {
+    "reconciliation-root-cause-agent": {
+      "name": "Reconciliation Root-Cause Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "service-desk-backlog-triage-agent": {
+      "name": "Service Desk Backlog Triage Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "four-eyes-control-assistant": {
+      "name": "Four-Eyes Control Assistant",
+      "cai": {
+        "targetLevel": "L4",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "operations-procedures-assistant": {
+      "name": "Operations Procedures Assistant",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "in-testing",
+      "technicalReadiness": "testing",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "P2 defect: Contoso 60-day expense deadline (DEF-03)",
+        "No-access restricted-document boundary untested",
+        "Model general knowledge enabled (useModelKnowledge)",
+        "No product record or released package"
+      ],
+      "note": "IFSA Agent Factory agent; release 1.0.0.4 independent E2E test 23 Nov 2026: NO-GO, 1.0.0.5 remediation in progress."
+    },
+    "service-desk-support-agent": {
+      "name": "Service Desk Support Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "service-request-automation-agent": {
+      "name": "Service Request Automation Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "service-delivery-manager-copilot": {
+      "name": "Service Delivery Manager Copilot",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "service-review-pack-builder": {
+      "name": "Service Review Pack Builder",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "in-testing",
+      "technicalReadiness": "testing",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "P2 defect: service-team pack refusal (DEF-01)",
+        "P2 defect: MES KPI mapping (DEF-02)",
+        "No-access restricted-document boundary untested",
+        "No product record or released package"
+      ],
+      "note": "IFSA Agent Factory agent; release 1.0.0.4 independent E2E test 23 Nov 2026: NO-GO, 1.0.0.5 remediation in progress."
+    },
+    "escalation-triage-agent": {
+      "name": "Escalation Triage Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "risk-event-capture-agent": {
+      "name": "Risk Event Capture Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "in-development",
+      "technicalReadiness": "prototype",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "No test results",
+        "No product record or released package"
+      ],
+      "note": "IFSA Agent Factory target agent; chat prototype reported by the student team on 25 Nov 2026, not yet tested."
+    },
+    "security-defect-triage-agent": {
+      "name": "Security Defect Triage Agent",
+      "cai": {
+        "targetLevel": "L4",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "compliance-and-audit-action-tracker": {
+      "name": "Compliance & Audit Action Tracker",
+      "cai": {
+        "targetLevel": "L4",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "cyber-security-reporting-agent": {
+      "name": "Cyber Security Reporting Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "due-diligence-data-search-agent": {
+      "name": "Due Diligence Data Search Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "risk-control-oversight-agent": {
+      "name": "Risk Control Oversight Agent",
+      "cai": {
+        "targetLevel": "L4",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "power-query-code-generator": {
+      "name": "Power Query Code Generator",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "infrastructure-wiki-agent": {
+      "name": "Infrastructure Wiki Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "maintenance-event-agent": {
+      "name": "Maintenance Event Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "sales-qualification-agent": {
+      "name": "Sales Qualification Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "sales-opportunity-agent": {
+      "name": "Sales Opportunity Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "sales-end-to-end-assistant": {
+      "name": "Sales End-to-End Assistant",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "pipeline-reporting-agent": {
+      "name": "Pipeline Reporting Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "content-and-comms-agent": {
+      "name": "Content & Comms Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "campaign-and-project-management-agent": {
+      "name": "Campaign & Project Management Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "contract-obligations-review-agent": {
+      "name": "Contract Obligations Review Agent",
+      "cai": {
+        "targetLevel": "L4",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "sop-generation-agent": {
+      "name": "SOP Generation Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "acceptance-test-script-generator": {
+      "name": "Acceptance Test Script Generator",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "supplier-meeting-minutes-agent": {
+      "name": "Supplier Meeting Minutes Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "monthly-reporting-automation-agent": {
+      "name": "Monthly Reporting Automation Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "onboarding-agent": {
+      "name": "Onboarding Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "development-and-career-agent": {
+      "name": "Development & Career Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "people-ops-query-agent": {
+      "name": "People Ops Query Agent",
+      "cai": {
+        "targetLevel": "L2",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "performance-management-agent": {
+      "name": "Performance Management Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "contract-intelligence-and-register": {
+      "name": "Contract Intelligence & Register",
+      "cai": {
+        "targetLevel": "L4",
+        "verifiedScore": null
+      },
+      "lifecycle": "technically-approved",
+      "technicalReadiness": "technically-approved",
+      "certification": "internal-review",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Written approvals from accountant and counsel",
+        "Tax policy (config/tax-policy.json) not approved",
+        "Clean-tenant functional test not executed",
+        "Founder commercial GO not recorded (saleApproved=false)"
+      ],
+      "note": "Release 1.0.3.6 accepted by the founder on 20 Nov 2026 as technically ready for controlled deployment."
+    },
+    "signing-summary-agent": {
+      "name": "Signing Summary Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    },
+    "leadership-reporting-agent": {
+      "name": "Leadership Reporting Agent",
+      "cai": {
+        "targetLevel": "L3",
+        "verifiedScore": null
+      },
+      "lifecycle": "concept",
+      "technicalReadiness": "none",
+      "certification": "none",
+      "commercialApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "earlyAccessApproval": {
+        "status": "not-approved",
+        "approvedBy": null,
+        "approvedAt": null,
+        "reference": null
+      },
+      "publicStatus": "coming-soon",
+      "releaseBlockers": [
+        "Concept: dossier only, no build"
+      ],
+      "note": null
+    }
+  }
+}

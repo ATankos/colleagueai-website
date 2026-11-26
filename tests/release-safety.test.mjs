@@ -1,6 +1,7 @@
 // Release safety as committed: with a LIVE key no sale can start while the kill switch, the product's sale approval
 // or the tax policy says no, and no sandbox override reaches live mode. Each layer is checked on its own, with the
 // others open, so removing any one of them fails here. Nothing calls Stripe: every refusal happens before.
+import { approveCommercially } from './helpers/commercial-approval.mjs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
@@ -33,8 +34,9 @@ async function run(env, { approved } = {}) {
   for (const k of keys) { if (env[k] === undefined) delete process.env[k]; else process.env[k] = env[k]; }
   const rec = products.productFor(SLUG); const was = rec.saleApproved;
   if (approved !== undefined) rec.saleApproved = approved;
+  const restore = approved ? approveCommercially(SLUG) : () => {};
   try { const r = res(); await checkout({ method: 'GET', query: { agent: SLUG }, headers: { host: 'x' } }, r); return r; }
-  finally { rec.saleApproved = was; for (const k of keys) { if (prev[k] === undefined) delete process.env[k]; else process.env[k] = prev[k]; } }
+  finally { restore(); rec.saleApproved = was; for (const k of keys) { if (prev[k] === undefined) delete process.env[k]; else process.env[k] = prev[k]; } }
 }
 
 test('as committed: the product is not approved for sale and the tax policy is not approved', () => {
