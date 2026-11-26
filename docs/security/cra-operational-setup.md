@@ -82,6 +82,7 @@ Identical to the release process already gated in the repository, named here for
 |---|---|---|---|---|
 | Early warning | ≤ 24 h after *aware at* | ≤ 24 h after *aware at* | Founder (deputy: public co-founder) | Register: timestamp + platform reference |
 | Notification | ≤ 72 h after *aware at* | ≤ 72 h after *aware at* | same | same |
+| Intermediate report | on request of the coordinating CSIRT, with relevant status updates | on request of the coordinating CSIRT | same | same |
 | Final report | ≤ 14 days after a corrective/mitigating measure is available | ≤ 1 month after the incident notification | same | same |
 | Users informed | without undue delay, with mitigations | without undue delay, with mitigations | same | Register + mail log |
 
