@@ -24,15 +24,27 @@ const BENEFITS = ['b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'b10'];
 const STATUS = Object.freeze({ b1: 'sub', b2: 'built', b3: 'plan', b4: 'built', b5: 'sub', b6: 'plan', b7: 'built', b8: 'sub', b9: 'built', b10: 'built' });
 const ROWS = ['r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7'];
 const STATUS_KEY = { built: 'st_built', sub: 'st_sub', plan: 'st_plan' };
+/* The specific capability each "built and tested" label vouches for, and the test that covers it. */
+const BUILT_CAPABILITY = Object.freeze({
+  b2: 'tests/public-exposure.test.mjs; P-ISOLATION; founder decision 10 Nov 2026 (no phone-home, no provider access)',
+  b4: 'tests/release-access.test.mjs (correctiveFor releases reach buyers without certification)',
+  b7: 'tests/availability.test.mjs (releaseEvidenceErrors, mandatory gates)',
+  b9: 'tests/certification.test.mjs, tests/certificate-state.test.mjs (/api/certificate)',
+  b10: 'tests/certification.test.mjs test 1 (lapse never touches the licence); tests/certificate-state.test.mjs B5',
+});
 
 const leaf = (tag, key, text, cls = '') => `<${tag}${cls ? ` class="${cls}"` : ''} data-i18n-cai="cert_${key}">${text}</${tag}>`;
 
-/** An approved video asset, or null. Approval and a same-origin file are required; no third-party embed. */
+const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
+/** An approved video asset, or null. Approval, a same-origin file and captions in all eight languages are required;
+ *  no third-party embed. Until then the slot stays hidden (nothing is emitted). */
 function approvedVideo() {
   const v = MEDIA.ccVideo;
   if (!v || typeof v !== 'object') return null;
   const local = (p) => typeof p === 'string' && /^\/media\/[a-z0-9._-]+$/i.test(p);
   if (!local(v.src) || !v.approvedBy || !v.approvedOn) return null;
+  const caps = v.captions && typeof v.captions === 'object' ? v.captions : {};
+  if (!LOCALES.every((l) => typeof caps[l] === 'string' && /^\/media\/[a-z0-9._-]+\.vtt$/i.test(caps[l]))) return null;
   return v;
 }
 
@@ -50,6 +62,7 @@ const CSS = `
 .cc-pillar .cc-msg{font-size:clamp(22px,3.4vw,32px);line-height:1.2;margin:0 0 10px;font-weight:700}
 .cc-pillar .cc-msg span{display:block}.cc-pillar .cc-msg span+span{color:#C65D3A}
 .cc-pillar .cc-sub{max-width:68ch;margin:0 0 12px;line-height:1.6}
+.cc-pillar .cc-lic{max-width:68ch;margin:0 0 14px;font-size:14px;line-height:1.5;color:#3d3a35}
 .cc-pillar .cc-soon{display:inline-block;font-size:13px;background:#FBF2EE;border:1px solid #E4C7BA;border-radius:100px;padding:4px 12px;margin:0 0 18px}
 .cc-pillar h3{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#5c574f;margin:24px 0 10px}
 .cc-pillar .cc-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
@@ -80,11 +93,16 @@ function render(loc, { variant = 'compact', withVideo = false, link = null } = {
   parts.push(`<h2 class="cc-msg" id="cc-msg-${variant}">${leaf('span', 'msg', t.msg)} ${leaf('span', 'msg2', t.msg2)}</h2>`);
   parts.push(leaf('p', 'msg_sub', t.msg_sub, 'cc-sub'));
   parts.push(leaf('p', 'soon', t.soon, 'cc-soon'));
+  parts.push(leaf('p', 'lic_note', t.lic_note, 'cc-lic'));
   if (variant === 'full') {
     parts.push(leaf('h3', 'b_h', t.b_h));
     parts.push('<ul class="cc-grid">' + BENEFITS.map((b) => {
       const st = STATUS[b];
-      return `<li data-cc-status="${st}">${leaf('b', `${b}_t`, t[`${b}_t`])}${leaf('span', STATUS_KEY[st], t[STATUS_KEY[st]], `cc-st cc-st-${st}`)}${leaf('p', b, t[b])}</li>`;
+      // A "built and tested" label names the specific verified capability (BUILT_CAPABILITY), never the whole area.
+      const badge = st === 'built'
+        ? `<span class="cc-st cc-st-built">${leaf('span', 'st_built', t.st_built)}: ${leaf('span', `${b}_v`, t[`${b}_v`])}</span>`
+        : leaf('span', STATUS_KEY[st], t[STATUS_KEY[st]], `cc-st cc-st-${st}`);
+      return `<li data-cc-status="${st}">${leaf('b', `${b}_t`, t[`${b}_t`])}${badge}${leaf('p', b, t[b])}</li>`;
     }).join('') + '</ul>');
     parts.push(leaf('p', 'st_legend', t.st_legend, 'cc-legend'));
     parts.push(leaf('h3', 'cmp_h', t.cmp_h));
@@ -98,4 +116,4 @@ function render(loc, { variant = 'compact', withVideo = false, link = null } = {
   return parts.join('\n');
 }
 
-module.exports = { render, CSS, STATUS, BENEFITS, ROWS, approvedVideo };
+module.exports = { render, CSS, STATUS, BENEFITS, ROWS, BUILT_CAPABILITY, approvedVideo };

@@ -40,8 +40,11 @@ const href = (loc, page) => {
 };
 
 const STYLE = `
-.cai-cert .crumb{font-size:13px;margin-bottom:28px}.cai-cert .crumb a{color:#C65D3A;text-decoration:none}
-.cai-cert .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+.cai-cert .crumb{font-size:13px;margin-bottom:28px}.cai-cert .crumb a{color:#9A3D1F;text-decoration:none}
+.cai-cert .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#5c574f;letter-spacing:.05em;margin-bottom:10px}
+/* the site-wide mobile fix paints every eyebrow terracotta with !important (3.7:1 on cream at 12.5px, below AA); this
+   page's eyebrow overrides it with a more specific !important rule */
+.cai-cert .eyebrow,.cai-cert .eyebrow *{color:#5c574f !important}
 .cai-cert h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
 .cai-cert h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#8a857d;margin:38px 0 10px;text-transform:uppercase}
 .cai-cert ul{margin:6px 0 0;padding-left:20px}.cai-cert li{margin-bottom:6px}
@@ -54,8 +57,8 @@ const STYLE = `
 .cai-cert .verify input{flex:1 1 240px;padding:11px 14px;border:1px solid #d8d2c6;border-radius:10px;font-size:15px;font-family:ui-monospace,Consolas,monospace}
 .cai-cert .vis-hidden{position:absolute;left:-9999px}
 .cai-cert .note{font-size:13.5px;color:#5c574f}
-.cai-cert .cert-legal{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
-.cai-cert .cert-legal a{color:#8a857d}
+.cai-cert .cert-legal{font-size:12px;color:#5c574f;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+.cai-cert .cert-legal a{color:#5c574f}
 `.trim();
 
 /* The page takes the site's shell and owns only what goes inside <main>.

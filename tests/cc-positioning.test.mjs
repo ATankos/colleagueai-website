@@ -26,13 +26,30 @@ const PRICING = JSON.parse(readFileSync(new URL('config/pricing.json', ROOT), 'u
 const pillar = require('../scripts/lib/cc-pillar.cjs');
 const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const certUrl = (l) => (l === 'en' ? '/certified' : `/${l}/${ROUTES.slugs.certified[l]}`);
-const KEYS = ['msg', 'msg2', 'msg_sub', 'soon', 'st_built', 'st_sub', 'st_plan', 'st_legend', 'b_h', 'cmp_h', 'cmp_c1', 'cmp_c2', 'cta', 'video_h',
+const KEYS = ['msg', 'msg2', 'msg_sub', 'soon', 'lic_note', 'b2_v', 'b4_v', 'b7_v', 'b9_v', 'b10_v', 'st_built', 'st_sub', 'st_plan', 'st_legend', 'b_h', 'cmp_h', 'cmp_c1', 'cmp_c2', 'cta', 'video_h',
   ...pillar.BENEFITS.flatMap((b) => [b, `${b}_t`]), ...pillar.ROWS.flatMap((r) => [r, `${r}a`, `${r}b`])];
 
 test('status of every benefit is pinned: built and tested, subscription benefit, or planned', () => {
   assert.deepEqual({ ...pillar.STATUS }, {
     b1: 'sub', b2: 'built', b3: 'plan', b4: 'built', b5: 'sub', b6: 'plan', b7: 'built', b8: 'sub', b9: 'built', b10: 'built',
   });
+});
+
+test('every "built and tested" label names a specific capability backed by a named test, never a whole area', () => {
+  const built = Object.entries(pillar.STATUS).filter(([, s]) => s === 'built').map(([b]) => b);
+  assert.deepEqual(Object.keys(pillar.BUILT_CAPABILITY).sort(), built.sort());
+  const html = pillar.render('en', { variant: 'full' });
+  for (const b of built) {
+    assert.ok(C.en[`${b}_v`] && C.en[`${b}_v`] !== C.en[`${b}_t`], `${b}: the label must name the capability, not repeat the area`);
+    assert.ok(html.includes(`${C.en.st_built}</span>: <span data-i18n-cai="cert_${b}_v">${C.en[`${b}_v`]}</span>`), `${b}: badge`);
+    for (const f of pillar.BUILT_CAPABILITY[b].match(/tests\/[a-z-]+\.test\.mjs/g) || []) assert.ok(existsSync(new URL(f, ROOT)), f);
+  }
+  assert.match(C.en.st_legend, /only to the specific capability/);
+});
+
+test('every block says security fixes, corrective releases and legal remediation need no subscription', () => {
+  for (const l of LOCALES) for (const v of ['full', 'compact']) assert.ok(pillar.render(l, { variant: v }).includes(C[l].lic_note), `${l}/${v}`);
+  assert.match(C.en.lic_note, /No subscription is needed for security fixes, corrective releases or remediation that the law requires/);
 });
 
 test('the programme copy exists in all eight languages and is translated', () => {
@@ -103,9 +120,15 @@ test('no L5 price is shown anywhere on the built site', { skip: !built && 'build
   assert.deepEqual(PRICING.subscriptionTiersOffered, ['L2', 'L3', 'L4']);
 });
 
-test('the video slot renders only for an approved, same-origin asset', () => {
+test('the video slot stays hidden until an approved same-origin video with captions in all eight languages exists', () => {
   assert.equal(pillar.approvedVideo(), null, 'config/media.json must carry no video until one is approved');
-  assert.ok(!pillar.render('en', { variant: 'full', withVideo: true }).includes('<video'));
+  for (const l of LOCALES) assert.ok(!pillar.render(l, { variant: 'full', withVideo: true }).includes('<video'), l);
+  const src = readFileSync(new URL('scripts/lib/cc-pillar.cjs', ROOT), 'utf8');
+  assert.ok(src.includes("LOCALES.every((l) => typeof caps[l] === 'string'"), 'captions for every language are required');
+});
+
+test('/certified is in the Lighthouse accessibility regression set', () => {
+  assert.ok(readFileSync(new URL('scripts/run-lhci.mjs', ROOT), 'utf8').includes('/certified`'));
 });
 
 test('llms-full.txt describes the programme with its status and without L5', { skip: !built && 'build first' }, () => {
