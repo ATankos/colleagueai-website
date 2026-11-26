@@ -8,7 +8,7 @@
  */
 import { test } from 'node:test';
 import assert from 'node:assert';
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync } from 'node:fs';
 import { JSDOM } from 'jsdom';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 
@@ -298,38 +298,43 @@ test('the CAI Score itself is still never called a certification, in any languag
   }
 });
 
-/* VAT identification (founder decision 1, 21 Nov 2026). The ARES VAT register has no entry for IČO 29540852 and
- * VIES answers INVALID for CZ29540852 (checked 21 Nov 2026), and no registration decision is on file. Until one is,
- * no page may present CZ29540852 as a VAT ID: not in the structured data (vatID / a DIČ property), not in a footer,
- * an imprint or a contact block. The accepted agreements (Terms, Licence, Privacy, Refund, Partner Agreement and
- * their translations) still carry the identifier inside their versioned text; it leaves them with their next
- * version (docs/legal/proposed/), never by editing an accepted version in place. When a registration decision
- * exists, restore the identifier from config/tax-policy.json seller.vatId, not from memory. */
-const VAT_ID_ON_RECORD = null; // config/tax-policy.json seller.vatId once evidenced
-const ACCEPTED_LEGAL = /(^|\/)(terms|license|privacy|refund|partner-agreement)(\/index)?\.html$/;
-test('no page presents an unverified VAT ID outside the versioned agreements', () => {
-  const offenders = [];
-  const walk = (dir) => {
-    for (const e of readdirSync(new URL(`../public/${dir}`, import.meta.url), { withFileTypes: true })) {
-      const rel = dir ? `${dir}/${e.name}` : e.name;
-      if (e.isDirectory()) { if (rel !== 'legal') walk(rel); continue; }
-      if (!/\.(html|txt)$/.test(e.name)) continue;
-      if (ACCEPTED_LEGAL.test(rel)) continue;
-      if (read(rel).includes('CZ29540852')) offenders.push(rel);
+/* VAT identification (founder decision, 25 Nov 2026): the company publishes DIČ CZ29540852 wherever the IČO
+ * appears. Note: on 25 Nov 2026 ARES still listed no DIČ and VIES answered INVALID; the founder chose to publish
+ * ahead of the official record. Wherever the IČO is published the DIČ must appear with it, and the two must never
+ * disagree. */
+test('every page that publishes the company ID also publishes the VAT ID', () => {
+  const ICO = '29540852';
+  const DIC = 'CZ29540852';
+  const pages = ['imprint.html', 'contact.html', 'terms.html', 'privacy.html', 'license.html',
+    'partner-agreement.html', 'refund.html', 'agents.html', 'home.html', 'pricing.html',
+    ...LOCALES.flatMap((l) => ['contact.html', 'home.html', 'imprint.html', 'terms.html', 'privacy.html'].map((p) => `${l}/${p}`))];
+
+  // Accepted agreements are versioned texts: they are never edited in place (legal fingerprints). The DIČ
+  // enters them with their next version (docs/legal/proposed/), so they are not held to this rule.
+  const ACCEPTED_LEGAL = /(^|\/)(terms|license|privacy|refund|partner-agreement)(\/index)?\.html$/;
+  for (const p of pages) {
+    if (ACCEPTED_LEGAL.test(p)) continue;
+    const html = read(p);
+    if (!html.includes(ICO)) continue;
+    assert.ok(html.includes(DIC), `${p} publishes the IÄŒO but not the DIÄŒ`);
+    // every rendered IÄŒO must have the DIÄŒ within reach, not just once on the page
+    // plain index scanning: no regex built from data, and no backtracking
+    const orphan = [];
+    for (let at = html.indexOf(ICO); at !== -1; at = html.indexOf(ICO, at + 1)) {
+      const ctx = html.slice(Math.max(0, at - 60), at + ICO.length + 140);
+      if (!ctx.includes(DIC)) orphan.push(ctx);
     }
-  };
-  walk('');
-  assert.equal(VAT_ID_ON_RECORD, null, 'a VAT ID on record must come with its registration decision and a change to this test');
-  assert.deepEqual(offenders, [], `pages still present CZ29540852: ${offenders.slice(0, 5).join(', ')}`);
+    assert.deepEqual(orphan, [], `${p} has an IÄŒO with no DIÄŒ beside it: ${orphan[0]?.slice(0, 90)}`);
+  }
 });
 
-test('the structured data publishes no VAT ID while none is on record', () => {
-  for (const p of ['terms.html', 'privacy.html', 'contact.html', 'home.html', 'license.html', 'imprint.html', 'agents.html']) {
+test('the structured data publishes the VAT ID in a machine-readable field', () => {
+  for (const p of ['terms.html', 'privacy.html', 'contact.html', 'home.html', 'license.html']) {
     const blocks = [...read(p).matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)];
-    for (const b of blocks) {
-      const d = JSON.stringify(JSON.parse(b[1]));
-      assert.ok(!d.includes('"vatID"'), `${p} structured data declares a vatID`);
-      assert.ok(!d.includes('CZ29540852'), `${p} structured data carries CZ29540852`);
+    const withOrg = blocks.map((b) => JSON.parse(b[1])).filter((d) => JSON.stringify(d).includes('29540852'));
+    assert.ok(withOrg.length > 0, `${p} has no organization structured data`);
+    for (const d of withOrg) {
+      assert.ok(JSON.stringify(d).includes('"vatID":"CZ29540852"'), `${p} structured data is missing vatID`);
     }
   }
 });

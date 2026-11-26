@@ -197,7 +197,7 @@ function page(loc) {
 </form>
 
 <div class="cert-legal">
-  Colleague AI s.r.o., &Scaron;kolsk&aacute; 1736/12, 110 00 Praha &middot; I&Ccaron;O 29540852 &middot;
+  Colleague AI s.r.o., &Scaron;kolsk&aacute; 1736/12, 110 00 Praha &middot; I&Ccaron;O 29540852 &middot; DI&Ccaron; CZ29540852 &middot;
   <a href="${href(loc, 'terms')}">${t.f_terms}</a> &middot;
   <a href="${href(loc, 'license')}">${t.f_licence}</a> &middot;
   <a href="${href(loc, 'trust')}">${t.f_trust}</a>

@@ -244,7 +244,9 @@ test('intake readiness: the CZ-B2B candidate is inert as committed and becomes a
   assert.equal(POLICY.status, 'unapproved');
   // 22 Nov 2026: identified person as reported by the founder from the accountant; no official record yet.
   assert.equal(POLICY.seller.vatStatus, 'identified_person');
-  assert.equal(POLICY.seller.vatId, null);
+  // 25 Nov 2026: founder decision to state DIČ CZ29540852; the effective date and official record are still missing,
+  // so the policy stays inert.
+  assert.equal(POLICY.seller.vatId, 'CZ29540852');
   assert.equal(POLICY.seller.vatEffectiveFrom, null);
   assert.equal(POLICY.seller.vatStatusEvidence.officialRecord, null);
   assert.ok(POLICY.seller.vatStatusHistory.every((e) => e.verified === false), 'no history entry is verified without the official record');

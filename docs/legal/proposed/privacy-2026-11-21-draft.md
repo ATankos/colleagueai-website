@@ -7,9 +7,8 @@ the versioning process after counsel's approval.*
 
 ## 1. Who we are
 
-Colleague AI s.r.o., Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, registered with the
-Municipal Court in Prague, file C 448176 *[no VAT identifier is stated: the ARES VAT register has no entry for IČO 29540852 and VIES answered INVALID on
-21 Nov 2026; add one only from an official registration decision]*,
+Colleague AI s.r.o., Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, DIČ CZ29540852, registered with the
+Municipal Court in Prague, file C 448176,
 is the controller of the personal data described in this policy. Contact: hello@colleagueai.ai. We have not appointed
 a data protection officer; the legal requirements for one do not apply to us.
 

@@ -153,7 +153,7 @@ test('reconciliation: every balance transaction is matched to its order and the 
 });
 
 // ── company ledger (the company's own invoice series) ──────────────────────────────────────────────────────────
-const SELLER = { legalName: 'Colleague AI s.r.o.', registrationNumber: '29540852', address: 'Školská 1736/12, 110 00 Praha 1', register: 'Městský soud v Praze, C 448176', vatStatus: null, vatId: null };
+const SELLER = { legalName: 'Colleague AI s.r.o.', registrationNumber: '29540852', address: 'Školská 1736/12, Nové Město, 110 00 Praha 1', register: 'Městský soud v Praze, C 448176', vatStatus: null, vatId: null };
 const LIVE = { ...ORDER, id: 'ord_20261121_aaaaaaaaaaaa', mode: 'live', buyer: { company: 'Zkušební Strojírny s.r.o.', country: 'CZ', registrationNumber: '12345679', taxId: null },
   facts: { ...ORDER.facts, paidAt: '2026-11-21T10:00:00Z', fulfilledAt: '2026-11-21T10:00:05Z' }, tax: { category: 'cz_business', applied: true, invoiceNote: 'wording from the approved policy', seller: SELLER }, stripe: { paymentIntentId: 'pi_x' } };
 
