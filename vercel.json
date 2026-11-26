@@ -783,7 +783,7 @@
   ],
   "functions": {
     "api/*.js": {
-      "includeFiles": "config/agents/*.json"
+      "includeFiles": "{config/agents/*.json,config/release-gates.json,scripts/cai-release/*/release-candidate.json}"
     }
   }
 }
