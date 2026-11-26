@@ -28,7 +28,25 @@ A visitor viewing an agent that is not yet on sale ("Coming soon") can leave bus
 | Marketing opt-in (version `marketing-2026-11-26`, time) | no, unticked by default | Separate consent for product news |
 | Notification state, sales qualification | system / staff | Operations (section 6) |
 
-**Not collected:** name, phone number, address or IP address. Rate limiting uses a salted daily hash, not the address.
+**Not asked for on the form:** name, phone number or postal address.
+
+### Network information: not stored as an IP address, but still processed
+
+The service does **not store a raw IP address** in its own database. It does, however, **process** network information. That information is personal data, so the privacy notice must say so.
+
+| Processing | What is used | What is kept, and for how long |
+|---|---|---|
+| Delivering the request (hosting) | The visitor's IP address, request headers and user agent are received by Vercel's infrastructure for every request, as on any website | Vercel's function and request logs, kept for Vercel's log retention period (runtime logs are visible to us for 1 hour on the current plan; counsel to confirm Vercel's own retention from its DPA); Vercel acts as processor |
+| Rate limiting a submission | The IP address is read in memory, combined with the date and hashed with a secret salt (HMAC-SHA-256) | Only the hash, as the counter key `rl:interest:<hash>`, which expires after 1 hour |
+| Unique-view counting (demand measurement) | The IP address, user agent, agent and date are hashed with the salt | Only the hash, for 24 hours. The counter itself holds counts only |
+| Duplicate check | Work e-mail and agent (no network data) are hashed with the salt | Only the hash, for 30 days |
+
+**Points for the decision:**
+- A salted hash is **pseudonymised**, not anonymous, data (GDPR recital 26). Whoever holds the salt and a candidate address could match it.
+  - The salt is a production secret (`INTEREST_DEDUPE_SALT`). It must be set before Gate B, so that the code's built-in fallback value is never used.
+  - The hash keys must not be described as "anonymous". The demand **counts** may be.
+- Lawful basis for this processing: legitimate interest (Art. 6(1)(f)) in protecting the service against abuse and in operating it. This is separate from the consent for follow-up.
+- Privacy notice: row (a2) now says that network information is processed for security and rate limiting and is kept only as short-lived salted hashes. The hosting and log row already names Vercel and its log period.
 
 ## 3. Lawful basis (decision for Marek, counsel to confirm)
 
@@ -49,7 +67,9 @@ An alternative is legitimate interest (Art. 6(1)(f)) for a business enquiry, as 
 |---|---|
 | Registration record | 365 days, removed automatically by the store, or earlier on withdrawal or erasure |
 | Duplicate-check key (salted hash of e-mail and agent) | 30 days |
-| Unique-view key (salted hash, no plain IP or user agent) | 24 hours |
+| Rate-limit key (salted daily hash of the IP address) | 1 hour |
+| Unique-view key (salted hash of IP address, user agent, agent and date; no plain IP address or user agent stored) | 24 hours |
+| Hosting logs at Vercel (may contain the IP address) | Vercel's log retention period (see above) |
 | Demand counters | Counts only (no personal data), 25 months |
 | Copy of each registration in the lead inbox (notification e-mail) | **Needs a retention rule.** Proposed: delete after 12 months, or at erasure |
 
@@ -94,18 +114,25 @@ These must be approved and published as a **new version** of the Privacy Policy.
 
 ## 9. Gate B activation steps (in order)
 
-1. Marek approves sections 3–8, and counsel confirms the lawful basis (section 3) and the marketing wording (section 4).
+The binding sequence is in `docs/launch/release-gates-abc.md`, Gate B (parts A–C). In summary:
+
+1. Marek approves sections 3–8, and counsel confirms the lawful basis (sections 2 and 3) and the marketing wording (section 4).
 2. Publish the new Privacy Policy version through the existing legal-archive process.
 3. File the DPAs for Upstash, Resend and Vercel (gate O-DPA-SECURITY).
 4. Decide the inbox-copy retention rule (section 5) and note it in `interest-operations.md`.
-5. Production configuration check: `RESEND_API_KEY`, `DEMO_NOTIFY_EMAIL` and `DEMO_NOTIFY_FROM` are set, and `INTEREST_DEDUPE_SALT` is set to a new random value.
-6. Set `INTEREST_COLLECTION_ENABLED=true` in Vercel **Production** and redeploy.
-7. Run one end-to-end test with a test address:
-   - submit the form;
-   - check the record in `interest-ops status`;
-   - check that the notification is `accepted` and appears in the inbox;
-   - delete the test record with `interest-ops delete --apply`.
-8. Record the authorisation: date, approver, reference, and who set the variable (`docs/launch/release-gates-abc.md`, Gate B).
+5. Close R8 with the authorised read-only production reconciliation.
+6. Check the production configuration without enabling collection:
+   - `RESEND_API_KEY`, `DEMO_NOTIFY_EMAIL` and `DEMO_NOTIFY_FROM` are set;
+   - `INTEREST_DEDUPE_SALT` is set to a new random value.
+7. **Founder authorisation, documented first.** The founder records a written authorisation in the Gate B authorisation log (date, approver, reference, the person who will set the variable). Nothing is enabled before this entry exists.
+8. The named person sets `INTEREST_COLLECTION_ENABLED=true` in Vercel **Production** and redeploys.
+9. **Production verification evidence**, recorded in the same log:
+   - deployment and commit;
+   - the status check returns `{"enabled":true}`;
+   - one test submission is accepted, appears in `interest-ops status`, and its notification is `accepted` and received;
+   - the test record is deleted with `interest-ops delete --apply`;
+   - checkout is still disabled, and the agents are still "Coming soon".
+10. If verification fails, roll back immediately and record it.
 
 **To roll back:** remove the variable and redeploy. Stored records stay until their retention ends or until erasure.
 
@@ -118,4 +145,7 @@ These must be approved and published as a **new version** of the Privacy Policy.
 | Retention incl. inbox copies (section 5) | | | | |
 | Privacy notice version published (section 8) | | | | |
 | DPAs filed (section 7) | | | | |
-| Gate B opened (section 9, step 6) | | | | |
+| Network-information processing and its wording (section 2) | | | | |
+| R8 reconciliation completed (section 9, step 5) | | | | |
+| Founder authorisation to enable Gate B (section 9, step 7) | | | | |
+| Production verification evidence recorded (section 9, step 9) | | | | |

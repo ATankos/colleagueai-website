@@ -24,13 +24,45 @@ Switch: the server-side environment variable `INTEREST_COLLECTION_ENABLED=true`,
   - `GET /api/interest?status` answers `{enabled:false}`;
   - the page shows no form, only the direct contact route (hello@ and the existing demo booking).
 
-Turn it on only when every item below is done:
+Turn it on in this order. A step is done only when its evidence is recorded.
 
-1. The privacy notice covering interest registrations (purpose, legal basis, 12-month retention) is formally approved and published as a new version. The draft is in `docs/legal/proposed/`.
-2. The production lead storage (KV) and the notification configuration (`RESEND_API_KEY`, `DEMO_NOTIFY_EMAIL`) are verified.
-3. One successful end-to-end submission, and its notification, on Production with a test address. Delete the test record afterwards.
-4. The retention, deletion and missed-notification procedures are documented (`docs/launch/interest-operations.md`, done) and the operator has run `interest-ops status` on Production.
-5. The founder's authorisation is recorded: date, reference and the person who set the variable.
+**A. Preconditions** (before any authorisation):
+1. The privacy approval pack (`docs/launch/privacy-approval-pack-interest-registration.md`) is approved by Marek Těšitel, with counsel's confirmation of the lawful basis and the marketing wording.
+2. The Privacy Policy version covering interest registrations is published through the legal archive.
+3. The DPAs for Upstash, Resend and Vercel are on file (O-DPA-SECURITY).
+4. R8 is closed by the authorised read-only production reconciliation.
+5. The production configuration is checked without enabling collection:
+   - `RESEND_API_KEY`, `DEMO_NOTIFY_EMAIL` and `DEMO_NOTIFY_FROM` are set;
+   - `INTEREST_DEDUPE_SALT` is set to a new random value, so the code's built-in fallback is never used;
+   - production KV is reachable (`interest-ops status`).
+
+**B. Founder authorisation** (documented **before** the variable is set):
+
+6. Record the written authorisation in this file under "Gate B authorisation log", with:
+   - date and time;
+   - approver;
+   - reference to the approval record in the privacy pack, section 10;
+   - the person who will set the variable.
+
+   Without this entry, nobody sets `INTEREST_COLLECTION_ENABLED`.
+
+**C. Enable, then verify on Production:**
+
+7. The named person sets `INTEREST_COLLECTION_ENABLED=true` in Vercel Production and redeploys.
+8. Record the production verification evidence in the log:
+   - the deployment id and commit;
+   - `GET /api/interest?status` returns `{"enabled":true}`;
+   - one test submission with a test address is accepted;
+   - its record appears in `interest-ops status`, and its notification is `accepted` and received in the inbox;
+   - the test record is deleted with `interest-ops delete --apply`;
+   - checkout still answers `checkout_disabled`, and all 36 agents are still "Coming soon".
+9. If any check in step 8 fails, remove the variable, redeploy and record the rollback.
+
+### Gate B authorisation log
+
+| Date / time | Approver | Reference | Set by | Deployment / commit | Verification evidence | Result |
+|---|---|---|---|---|---|---|
+| (none: Gate B closed) | | | | | | |
 
 To turn it off again, remove the variable and redeploy. Records already stored are kept until their retention ends or are deleted on request.
 
@@ -55,7 +87,7 @@ Today, Contract Intelligence & Register 1.0.3.6 is refused for:
 - 4 open release blockers;
 - certification `internal-review`;
 - 9 gates not at PASS;
-- the IP instrument, which is not executed.
+- the IP licence (Instrument A, exclusive licence agreement), which is not executed.
 
 Its release record matches the package.
 
@@ -74,11 +106,11 @@ None of these opens a sale today. Each must be reviewed before the first per-rel
 
 | # | Issue | Effect | Proposed handling |
 |---|---|---|---|
-| R1 | Required-review rule bypassed: #577, #578 and #580 were merged by the owner with 0 approving reviews | Code that runs the commercial gate went to production without independent review | Close O-REVIEW-CONTROL: add a second reviewer, or record a written bypass-with-log decision. A future GO PR must not be merged without that |
+| R1 | Required-review rule bypassed: #577, #578 and #580 were merged by the owner with 0 approving reviews | Code that runs the commercial gate went to production without independent review | **Open.** O-REVIEW-CONTROL stays open until an independent approving reviewer is established. No administrative bypass, including for the GO PR and the closure PR #581 |
 | R2 | `MANDATORY_GATES` (`lib/releaseGates.js`) is a fixed list taken from release 1.0.3.6 | A new kind of agent or release may need gates the list does not name | Review the list as part of each new agent's onboarding (`docs/commercial-framework`) |
 | R3 | Release evidence bundling verified by static trace (`@vercel/nft`) and tests, not by a live read in production (checkout is disabled, so the path never runs) | If a file were missing at run time the sale is refused (fail closed), not opened | Verify once on a Preview with checkout enabled in test mode before the GO |
 | R4 | Package delivery to existing entitlements follows `saleApproved`, not the GO decision (deliberate: buyers keep what they paid for) | Revoking the GO stops new sales but not downloads by past buyers | Accepted by design; to stop delivery, set `saleApproved: false` |
 | R5 | Early access opens visibility only; there is no early-access purchase or delivery path | An early-access approval cannot sell | Accepted; a paid early-access offer would need its own design and approval |
 | R6 | Catalogue lifecycle, technical readiness and certification in `config/availability.json` are maintained by hand | A wrong lifecycle cannot open a sale (every gate must also agree), but can mis-describe status | Update in the same PR as each release decision; `registryErrors()` reports inconsistencies in CI |
 | R7 | Interest notification "accepted" is not delivery confirmation | A notification could be lost after the provider accepted it | Gate B: weekly `interest-ops status`; a Resend delivery webhook would need a separate decision |
-| R8 | Interest registrations between 14:03:40 and 14:16:02 UTC on 26 Nov (after #577, before log retention) are not reconciled | Possible unrecorded personal data | Close with the read-only reconciliation in the closure handover |
+| R8 | Interest registrations between 14:03:40 and 14:16:02 UTC on 26 Nov (after #577, before log retention) are not reconciled | Possible unrecorded personal data | **Open.** Close only with the authorised read-only production reconciliation (`interest-operations.md`), recording the date, who ran it and the aggregate counts here. Gate B precondition A4 |

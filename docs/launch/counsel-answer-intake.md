@@ -12,7 +12,7 @@ Purpose: each written counsel decision maps to one repository action. Nothing is
 ## B. Right to sell — chain of title (Execution Plan §3, term sheets A/B)
 | Counsel delivers | Engineer action |
 |---|---|
-| Signed IP assignment or licence from the author(s)/holding to Colleague AI s.r.o., or written confirmation the company already holds the rights | File the signed PDF in the Release evidence library (private); record its reference in the Implementation Report gate table (G2); no code change |
+| Signed Instrument A: the exclusive licence agreement (*výhradní licenční smlouva*) from Alexandr Tankos personally to Colleague AI s.r.o., with the right to sublicense. Czech economic copyright cannot be assigned, and no holding is substituted as licensor. Add Instrument B only for works Marek Těšitel lists (`docs/legal/ip/README.md`) | File the signed PDF in the Release evidence library (private); record its reference in the Implementation Report gate table (G2); no code change |
 
 ## C. Bundle revision 2 — PR #533 is the open draft
 | Counsel delivers | Engineer action |
