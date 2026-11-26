@@ -20,7 +20,8 @@ Switch: the server-side environment variable `INTEREST_COLLECTION_ENABLED=true`,
 
 - No code, build step or deployment sets it.
 - While it is off:
-  - `POST /api/interest` refuses with `interest_collection_disabled` before reading any field;
+  - `POST /api/interest` first validates the agent identifier (an unknown agent answers 400 `unknown_agent`; the agent identifier is not personal data), then refuses with 503 `interest_collection_disabled`;
+  - no personal registration field (e-mail, company, role, use, environment, timeframe, consent, marketing opt-in) is read, validated, stored or forwarded while collection is disabled;
   - `GET /api/interest?status` answers `{enabled:false}`;
   - the page shows no form, only the direct contact route (hello@ and the existing demo booking).
 
@@ -106,7 +107,7 @@ None of these opens a sale today. Each must be reviewed before the first per-rel
 
 | # | Issue | Effect | Proposed handling |
 |---|---|---|---|
-| R1 | Required-review rule bypassed: #577, #578 and #580 (code) and #581, #582, #583 (documentation and the MCL test) were merged by the owner with 0 approving reviews | Code that runs the commercial gate went to production without independent review; the closure and programme documents are not independently reviewed | **Open.** O-REVIEW-CONTROL stays open until an independent approving reviewer is established. No administrative bypass, including for the GO PR and the closure PR #581 |
+| R1 | The required-review ruleset ("Protect main - required review", 1 approval, active since 19 Nov 2026 16:08 UTC) lets the Repository admin role bypass it for pull requests. **58 pull requests were merged into `main` after it took effect, all by the owner account with 0 approving reviews:** #526–#571, #573–#578, #580–#584 and #587. This includes #584, which put the certificate-state code into production. (#579 was merged into a feature branch, not `main`.) Full list and mechanism: `docs/launch/review-governance-2026-11-26.md` | Code and documents, including those that run the commercial gate and the certificate logic, went to production without independent review | **Open.** O-REVIEW-CONTROL stays open until an independent approving reviewer is established and the admin bypass is removed (proposal in the governance note). No administrative bypass, including for the GO PR |
 | R2 | `MANDATORY_GATES` (`lib/releaseGates.js`) is a fixed list taken from release 1.0.3.6 | A new kind of agent or release may need gates the list does not name | Review the list as part of each new agent's onboarding (`docs/commercial-framework`) |
 | R3 | Release evidence bundling verified by static trace (`@vercel/nft`) and tests, not by a live read in production (checkout is disabled, so the path never runs) | If a file were missing at run time the sale is refused (fail closed), not opened | Verify once on a Preview with checkout enabled in test mode before the GO |
 | R4 | Package delivery to existing entitlements follows `saleApproved`, not the GO decision (deliberate: buyers keep what they paid for) | Revoking the GO stops new sales but not downloads by past buyers | Accepted by design; to stop delivery, set `saleApproved: false` |

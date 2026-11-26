@@ -17,3 +17,5 @@
 **Role codes** are as in the MCL: FT and FC (founders), SGA and SGB (student groups), INT (intern), IR (independent reviewer).
 
 **Data rule:** synthetic data only. No customer data or personal data goes into any template except the commercial metrics, and those are aggregates only.
+
+Workstream closure and the handover of remaining dependencies: `../cc-workstream-closure-2026-11-26.md`. Review governance (read-only finding and the minimum fix): `../../launch/review-governance-2026-11-26.md`.
