@@ -1,5 +1,11 @@
 # Continuous Certification — product spec, vocabulary contract, counsel brief
 
+> **v1.0 programme (26 Nov 2026):** `docs/continuous-certification/cc-v1.0-programme-specification.md` extends this
+> document to 18 assurance domains, four assurance dimensions and one canonical control library
+> (`docs/continuous-certification/cai-master-control-library-v1.0.json`). It also corrects §1 item 3: where a change in
+> law creates an obligation on ColleagueAI as provider of a shipped version, the remediation goes to every affected
+> licensee, subscribed or not (spec §4.3). Sections 3–9 below still apply.
+
 Status: **draft for review**. Sections 4 and 5 are written for counsel and must
 not ship as-is without legal sign-off. Everything else is the engineering
 contract the code and the CI guards implement.
