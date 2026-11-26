@@ -258,9 +258,20 @@ describe('Demo agent context', () => {
     expect(screen.queryByText(/Package price:/)).not.toBeInTheDocument()
   })
 
-  it('opens the interest registration form, not the demo booking, for intent=interest', () => {
+  it('shows no form, only a direct contact route, while the server has interest collection switched off', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ enabled: false }) })))
     visit('/demo?agent=onboarding-agent&tier=L2&intent=interest')
     render(<Demo />)
+    expect(await screen.findByText(/opens soon/)).toBeInTheDocument()
+    expect(screen.queryByLabelText(/Business email/)).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'Book a demo' })).toHaveAttribute('href', '/demo?agent=onboarding-agent&tier=L2')
+  })
+
+  it('opens the interest registration form, not the demo booking, for intent=interest', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => ({ ok: true, json: async () => ({ enabled: true }) })))
+    visit('/demo?agent=onboarding-agent&tier=L2&intent=interest')
+    render(<Demo />)
+    await screen.findByLabelText(/Business email/)
     expect(screen.getByRole('heading', { level: 1, name: 'Register your interest' })).toBeInTheDocument()
     expect(screen.queryByRole('heading', { name: 'Book a demo' })).not.toBeInTheDocument()
     // Minimal mandatory fields: email, company and consent; everything else is optional.

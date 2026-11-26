@@ -3,7 +3,7 @@
  * Posts to /api/interest. Data is minimised to what sales needs to qualify the interest; consent is explicit and
  * versioned; no release date is promised. Copy exists for all eight site languages so a page never mixes them.
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AVAILABILITY from '../config/availability.json';
 import { IL } from './i18n/interestCopy.js';
 
@@ -26,6 +26,17 @@ export default function Interest({ slug, label, tier }) {
   const [startedAt] = useState(() => Date.now());
   const [f, setF] = useState({ email: '', company: '', role: '', useCase: '', industry: '', techEnvironment: '', timeframe: '', requirements: '', consent: false, website: '' });
   const [state, setState] = useState('idle');
+  // Gate B: the server decides whether interest is collected (INTEREST_COLLECTION_ENABLED). Until it says yes,
+  // no form is shown, so the page never offers a submission the server would refuse.
+  const [open, setOpen] = useState(null);
+  useEffect(() => {
+    let live = true;
+    fetch('/api/interest?status=1', { cache: 'no-store' })
+      .then((r) => (r.ok ? r.json() : { enabled: false }))
+      .then((j) => { if (live) setOpen(j.enabled === true); })
+      .catch(() => { if (live) setOpen(false); });
+    return () => { live = false; };
+  }, []);
   const on = (e) => { const { name: k, value, type, checked } = e.target; setF((p) => ({ ...p, [k]: type === 'checkbox' ? checked : value })); };
 
   const submit = async (e) => {
@@ -42,6 +53,16 @@ export default function Interest({ slug, label, tier }) {
     } catch { setState('error'); }
   };
 
+  if (open === null) return <div className="demo-form" aria-busy="true" data-intent="interest" data-agent={slug} />;
+  if (open === false) {
+    return (
+      <div className="demo-form" data-intent="interest" data-agent={slug} data-collection="disabled">
+        <p className="demo-requested"><strong>{name}</strong>{tier ? ` · CAI ${tier}` : ''} · <span data-availability="coming-soon">{t.status}</span></p>
+        <p style={{ fontSize: 15, margin: '0 0 18px' }}>{t.closed}</p>
+        <a className="demo-submit" style={{ display: 'inline-block', textDecoration: 'none' }} href={`${lang === 'en' ? '' : '/' + lang}/demo?agent=${encodeURIComponent(slug)}${tier ? '&tier=' + encodeURIComponent(tier) : ''}`}>{t.demoLink}</a>
+      </div>
+    );
+  }
   if (state === 'done' || state === 'duplicate') {
     return <div className="success-msg" role="status" aria-live="polite">{state === 'done' ? t.success : t.duplicate}</div>;
   }
