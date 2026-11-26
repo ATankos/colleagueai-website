@@ -4,7 +4,7 @@ Each gate is opened by its own record. Opening one never opens another.
 
 ## Gate A: website deployment (Coming-soon catalogue)
 
-**State: open since 26 Nov 2026 (PR #577).**
+**State: open since 26 Nov 2026 (PR #577; verified again on production commit `0355c524` after #578 and #580).**
 
 - All 36 agents show "Coming soon" (`config/availability.json`, `lib/availability.js`).
 - Zero agents are commercially available. No `sale.goDecision` is recorded, and `saleApproved` is false.
@@ -67,3 +67,18 @@ Its release record matches the package.
 - every **product-area** gate at PASS.
 
 Today P-WORKFLOW-CLEAN is BLOCKED, so early access could not open even with an approval.
+
+## Residual control issues recorded against Gate C (26 Nov 2026)
+
+None of these opens a sale today. Each must be reviewed before the first per-release GO.
+
+| # | Issue | Effect | Proposed handling |
+|---|---|---|---|
+| R1 | Required-review rule bypassed: #577, #578 and #580 were merged by the owner with 0 approving reviews | Code that runs the commercial gate went to production without independent review | Close O-REVIEW-CONTROL: add a second reviewer, or record a written bypass-with-log decision. A future GO PR must not be merged without that |
+| R2 | `MANDATORY_GATES` (`lib/releaseGates.js`) is a fixed list taken from release 1.0.3.6 | A new kind of agent or release may need gates the list does not name | Review the list as part of each new agent's onboarding (`docs/commercial-framework`) |
+| R3 | Release evidence bundling verified by static trace (`@vercel/nft`) and tests, not by a live read in production (checkout is disabled, so the path never runs) | If a file were missing at run time the sale is refused (fail closed), not opened | Verify once on a Preview with checkout enabled in test mode before the GO |
+| R4 | Package delivery to existing entitlements follows `saleApproved`, not the GO decision (deliberate: buyers keep what they paid for) | Revoking the GO stops new sales but not downloads by past buyers | Accepted by design; to stop delivery, set `saleApproved: false` |
+| R5 | Early access opens visibility only; there is no early-access purchase or delivery path | An early-access approval cannot sell | Accepted; a paid early-access offer would need its own design and approval |
+| R6 | Catalogue lifecycle, technical readiness and certification in `config/availability.json` are maintained by hand | A wrong lifecycle cannot open a sale (every gate must also agree), but can mis-describe status | Update in the same PR as each release decision; `registryErrors()` reports inconsistencies in CI |
+| R7 | Interest notification "accepted" is not delivery confirmation | A notification could be lost after the provider accepted it | Gate B: weekly `interest-ops status`; a Resend delivery webhook would need a separate decision |
+| R8 | Interest registrations between 14:03:40 and 14:16:02 UTC on 26 Nov (after #577, before log retention) are not reconciled | Possible unrecorded personal data | Close with the read-only reconciliation in the closure handover |

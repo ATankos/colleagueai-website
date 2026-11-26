@@ -88,3 +88,39 @@ gives explicit GO; 7–11 should be closed before or immediately after the first
   (C-1032-FILE, low), 2 BLOCKED, 7 REQUIRES FOUNDER APPROVAL (`config/release-gates.json`).
 - Production: runs main, checkout answers `checkout_disabled`; `saleApproved` false; tax policy unapproved.
 - Recommendation unchanged: **CONDITIONAL GO — NAMED BLOCKERS** (blockers 2–6 above; 7–11 before or right after the first sale).
+
+## 8. Update 26 Nov 2026: consolidated commercial blockers for 1.0.3.6 (single list)
+
+This section consolidates every open item that keeps 1.0.3.6 from a paid sale. It supersedes the open rows of section 5; resolved rows stay there as history.
+
+**State at production commit `0355c524` (#580):**
+- All 36 agents show "Coming soon".
+- Checkout answers `checkout_disabled`.
+- Interest collection is off (Gate B).
+- No `sale.goDecision` is recorded.
+- The run-time gate (`releaseEvidenceErrors`) refuses 1.0.3.6 for exactly these four reasons:
+  - 4 open release blockers;
+  - certification `internal-review`;
+  - 9 gates not PASS;
+  - IP instrument not executed.
+- The release record matches the bundle (revision 3) and the launch scope.
+
+| # | Blocker | Gate / record | Owner | Founder approval |
+|---|---|---|---|---|
+| B1 | Tax policy unapproved; invoice route still the sandbox ledger | T-TAX-POLICY; `config/tax-policy.json` | Accountant → founder | Yes |
+| B2 | Legal texts (Licence, Terms, Refund, Privacy) new versions unpublished; Privacy now also carries rows (a2) and (a3) | L-LEGAL-TEXTS | Founder, counsel | Yes |
+| B3 | IP instrument unsigned; `ip.status` not executed | L-IP; `config/agents/…json` ip | Both founders | Yes |
+| B4 | DPAs (Vercel, Upstash, Resend, Stripe); security@, security.txt, disclosure page | O-DPA-SECURITY | Founder | Yes |
+| B5 | Production configuration (live keys, Blob, Resend, recovery, card-only) | O-PROD-CONFIG | Founder | Yes |
+| B6 | Second reviewer for the required-review rule. #577, #578 and #580 were merged with **0 approving reviews** (owner bypass) | O-REVIEW-CONTROL | Founder | Yes |
+| B7 | Clean-environment workflow blocked by Copilot capacity | P-WORKFLOW-CLEAN | Founder (Microsoft billing) | No (technical); costs money, needs founder yes |
+| B8 | Declined card / 3-D Secure not exercised on the Preview | C-DECLINE-3DS | Founder | No |
+| B9 | Sandbox refund on the Preview not exercised end to end | C-REFUND-PREVIEW | Founder | Yes |
+| B10 | Certification still `internal-review` in `config/availability.json` (set to `internally-certified` only when B1–B9 are closed and the certifier passes on the final bundle) | availability record | Engineering → founder | Yes |
+| B11 | `releaseBlockers` in `config/availability.json` list four open items (approvals, tax policy, clean-tenant test, founder GO); emptied only as each closes | availability record | Engineering | — |
+| B12 | `CAI-L4-CI-001_1.0.3.2.zip` listed but absent from Blob | C-1032-FILE (not in the mandatory set) | Founder | Yes |
+| B13 | Founder commercial GO not recorded | `sale.goDecision` {approvedBy, date, reference, release: "1.0.3.6"}; `saleApproved: true`; `release.status: released`; lifecycle `commercially-approved`; publicStatus `available` | Founder | Yes |
+
+**Recommendation: CONDITIONAL GO, NAMED BLOCKERS.**
+- B1–B6 and B13 are required for the first paid sale.
+- B7–B12 must be closed before the GO is recorded, because the run-time gate refuses while any of them is open.
