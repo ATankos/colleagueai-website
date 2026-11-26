@@ -82,6 +82,18 @@ Recommended option first.
 3. **Subscription GO** as a separate written decision, once spec §8.2 is met.
 4. **December 2027 preparation** complete by 30 Sep 2027.
 
+## 5a. Follow-up pull requests prepared (26 Nov 2026, none merged)
+
+Each pull request needs an independent approving review. No administrative bypass.
+
+| PR | Content | Decision it implements | Status |
+|---|---|---|---|
+| #584 | Certificate four-axis state: payment never implies an active certification claim | D9 | prepared; awaiting founder approval of D9 and review |
+| #585 | Operating templates (change register, impact assessment, evidence pack, quarterly assurance report, AI Token Economy benchmark, Deployment Assurance Kit) and commercial metrics | D7 | prepared; operational, not contractual |
+| #586 | Website: Continuous Certification as a commercial pillar in 8 languages; L5 removed from customer pricing; video slot for an approved asset | D10 and positioning | prepared; operational change under the freeze, needs founder approval |
+
+Approving a decision here does not merge a pull request, approve spend, or create a contractual commitment.
+
 ## 6. Approval record
 
 | Decision | Founder (technical) | Founder (commercial) | Date | Notes |

@@ -56,6 +56,8 @@ jobs:
       # pages/locales/structured data agree, L5 never sold, interest registration consented and de-duplicated.
       - name: Agent availability and interest registration
         run: node --test tests/availability.test.mjs
+      - name: CAI Master Control Library structure (18 domains, applicability matrix, obligation classes)
+        run: node --test tests/cai-mcl.test.mjs
 
       - name: Partner commission ledger (approval gate, rate locking, reversals)
         run: node --test tests/commission-ledger.test.mjs
