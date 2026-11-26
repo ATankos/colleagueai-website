@@ -42,11 +42,15 @@ after(() => kvServer.close());
 beforeEach(() => { kvStore.clear(); kvFail = false; });
 
 const HOUR = 3600;
+// A product whose current release has passed product certification (certifiedAt recorded).
+const CERTIFIED_PRODUCT = {
+  release: { version: '1.0.3.6', package: 'pkg-1036.zip', releasedAt: '2026-11-19T00:00:00Z', certifiedAt: '2026-11-30T00:00:00Z' },
+};
 const nowSec = () => Math.floor(Date.now() / 1000);
 
 async function issue({ email = 'buyer@example.com', slug = 'contract-intelligence-and-register',
   tier = 'L4', subscriptionId = 'sub_1', periodEnd = nowSec() + 30 * 24 * HOUR } = {}) {
-  return db.issueCertification({ email, slug, tier, subscriptionId, currentPeriodEnd: periodEnd });
+  return db.issueCertification({ email, slug, tier, subscriptionId, currentPeriodEnd: periodEnd, certifiedVersion: '1.0.3.6' });
 }
 
 // ── 1. the licence/certification separation ─────────────────────────────────
@@ -99,21 +103,23 @@ test('3b. paid invoice renews the term and clears past_due', async () => {
   const renewed = await db.renewCertification('sub_1', nowSec() + 60 * 24 * HOUR);
   assert.equal(renewed.status, 'active');
   assert.equal(renewed.pastDueSince, null);
-  assert.ok(db.isCertificationCurrent(renewed));
+  // Renewal restores the SUBSCRIPTION axis. The public claim also needs a current certified release (four-axis rule):
+  assert.ok(db.isCertificationCurrent(renewed, CERTIFIED_PRODUCT));
+  assert.equal(db.isCertificationCurrent(renewed), false, 'without a certified product record the claim fails closed');
 });
 
 test('3c. a failed payment marks past_due but does not lapse — Stripe is still retrying', async () => {
   await issue();
   const cert = await db.markCertificationPastDue('sub_1');
   assert.equal(cert.status, 'past_due');
-  assert.equal(db.isCertificationCurrent(cert), false, 'past_due must not read as currently certified');
+  assert.equal(db.isCertificationCurrent(cert, CERTIFIED_PRODUCT), false, 'past_due must not read as currently certified');
   assert.notEqual(cert.status, 'lapsed');
 });
 
 test('3d. an expired term is not current even while the record still says active', async () => {
   const cert = await issue({ periodEnd: nowSec() - HOUR });
   assert.equal(cert.status, 'active');
-  assert.equal(db.isCertificationCurrent(cert), false,
+  assert.equal(db.isCertificationCurrent(cert, CERTIFIED_PRODUCT), false,
     'DEFECT: a certificate past its validUntil must never verify as current');
 });
 
@@ -146,13 +152,16 @@ function invoke(query) {
   });
 }
 
-test('4a. valid id verifies as active and returns the scope statement', async () => {
+test('4a. a paid-up certificate on a release not (yet) certified verifies, but is NOT active; scope statement present', async () => {
+  // config/products.json records no certifiedAt for any release today, so payment alone must never produce the claim.
   const cert = await issue();
   const r = await invoke({ id: cert.certificateId, format: 'json' });
   assert.equal(r.statusCode, 200);
   const body = JSON.parse(r.body);
   assert.equal(body.valid, true);
-  assert.equal(body.current, true);
+  assert.equal(body.current, false, 'DEFECT: an active payment subscription produced an active certification claim');
+  assert.equal(body.state.subscription, 'active');
+  assert.equal(body.state.releaseCurrency, 'not-certified');
   assert.ok(/not accreditation, attestation or certification by any third party/i.test(body.scope),
     'the verification response must carry the not-third-party scope statement');
   assert.ok(!r.body.includes('buyer@example.com'), 'endpoint must never return the holder email');
@@ -163,7 +172,8 @@ test('4b. lapsed certificate verifies as NOT current, and says the licence is un
   await db.lapseCertification('sub_1', 'cancelled');
   const r = await invoke({ id: cert.certificateId });
   assert.equal(r.statusCode, 200);
-  assert.ok(/not currently certified|Lapsed/i.test(r.body));
+  assert.ok(/not currently certified|Lapsed|Not a certified release|Certified at release, not current/i.test(r.body));
+  assert.doesNotMatch(r.body, /Colleague AI Certified — Active/);
   assert.ok(/licence to the agent package is unaffected/i.test(r.body));
 });
 

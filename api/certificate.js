@@ -15,7 +15,9 @@
  * overclaim the release-gate audits kept finding.
  */
 
-import { getCertification, publicCertificate, isCertificationCurrent } from '../lib/db.js';
+import { getCertification, publicCertificate } from '../lib/db.js';
+import { productFor } from '../lib/products.js';
+import { certificateState } from '../lib/certificateState.js';
 
 const ID_RE = /^CAI-L[1-5]-[0-9A-F]{8}$/;
 
@@ -81,8 +83,23 @@ export default async function handler(req, res) {
 
   if (!cert) return fail(404, 'not-found', 'No certificate with that id has been issued.');
 
-  const current = isCertificationCurrent(cert);
-  const publicView = { ...publicCertificate(cert), current };
+  // Four separate axes (lib/certificateState.js). "current" is the single public claim and needs all of: an active
+  // subscription in term, the current certified release, and no suspension, revocation or discontinuation.
+  const state = certificateState(cert, productFor(cert.agentSlug));
+  const current = state.active;
+  const publicView = {
+    ...publicCertificate(cert),
+    current,
+    state: {
+      subscription: state.subscription,
+      releaseCurrency: state.releaseCurrency,
+      currentCertifiedRelease: state.currentCertifiedRelease,
+      decision: state.decision,
+      decisionReason: state.decisionReason,
+      deployment: state.deployment,
+      label: state.label,
+    },
+  };
 
   if (wantsJson) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
@@ -90,9 +107,18 @@ export default async function handler(req, res) {
     return res.status(200).json({ valid: true, ...publicView, scope: SCOPE_NOTE });
   }
 
-  const statusLabel = current
-    ? 'Colleague AI Certified — Active'
-    : cert.status === 'past_due' ? 'Payment overdue — not currently active' : 'Lapsed — not currently certified';
+  const statusLabel = state.label;
+  const subscriptionText = { active: 'Active', past_due: 'Payment overdue', cancelled: 'Cancelled', lapsed: 'Ended' }[state.subscription] || 'Ended';
+  const currencyText = {
+    current: 'Current certified release',
+    superseded: `Superseded by ${state.currentCertifiedRelease}`,
+    withdrawn: 'Withdrawn',
+    'not-certified': 'Not a certified release',
+  }[state.releaseCurrency];
+  const decisionText = { valid: 'Valid', suspended: 'Suspended', revoked: 'Revoked', discontinued: 'Discontinued' }[state.decision];
+  const deploymentText = state.deployment.state === 'reported'
+    ? `${state.deployment.versionInUse} (reported by the holder; not verified by Colleague AI)`
+    : 'Not reported';
 
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   res.setHeader('Cache-Control', 'no-store');
@@ -105,6 +131,10 @@ export default async function handler(req, res) {
     `<dt>Certified release</dt><dd>${esc(cert.certifiedVersion ?? '—')}</dd>` +
     `<dt>Issued</dt><dd>${esc((cert.issuedAt || '').slice(0, 10) || '—')}</dd>` +
     `<dt>Valid until</dt><dd>${esc((cert.validUntil || '').slice(0, 10) || 'end of current period')}</dd>` +
+    `<dt>Subscription</dt><dd>${esc(subscriptionText)}</dd>` +
+    `<dt>Release</dt><dd>${esc(currencyText)}</dd>` +
+    `<dt>Certificate</dt><dd>${esc(decisionText)}</dd>` +
+    `<dt>Deployment</dt><dd>${esc(deploymentText)}</dd>` +
     `</dl>` +
     (current ? '' : '<p><b>This certificate is not currently active.</b> The holder’s licence to the agent package is unaffected, but the version is no longer listed as a current Colleague AI Certified Release.</p>')));
 }
