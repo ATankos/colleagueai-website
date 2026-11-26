@@ -1,6 +1,7 @@
 /* Copy for the interest registration form (src/Interest.jsx), all eight site languages. */
 export const IL = {
   en: {
+    marketing: 'Optional: also send me occasional ColleagueAI product news. I can unsubscribe at any time.',
     closed: 'Registration of interest for this agent opens soon. Until then, write to us at hello@colleagueai.ai or book a demo.', demoLink: 'Book a demo',
     legend: 'Register your interest', status: 'Coming soon', note: 'This agent is not yet available for purchase. Tell us what you need and we will contact you when it moves forward. We do not announce release dates in advance.',
     email: 'Business email *', company: 'Company *', role: 'Your role', useCase: 'Intended business use', industry: 'Industry', tech: 'Current Microsoft environment', timeframe: 'Expected implementation timeframe', requirements: 'Other requirements (optional)', choose: 'Choose…',
@@ -12,6 +13,7 @@ export const IL = {
     ind_: { 'financial-services': 'Financial services', manufacturing: 'Manufacturing', 'public-sector': 'Public sector', healthcare: 'Healthcare', technology: 'Technology', 'professional-services': 'Professional services', retail: 'Retail', 'energy-utilities': 'Energy & utilities', logistics: 'Logistics', other: 'Other' },
   },
   cs: {
+    marketing: 'Nepovinné: posílejte mi také občasné novinky o produktech ColleagueAI. Odhlásit se mohu kdykoli.',
     closed: 'Registrace zájmu o tohoto agenta bude brzy otevřena. Do té doby nám napište na hello@colleagueai.ai nebo si domluvte demo.', demoLink: 'Domluvit demo',
     legend: 'Zaregistrovat zájem', status: 'Připravujeme', note: 'Tohoto agenta zatím nelze koupit. Napište nám, co potřebujete, a ozveme se, až bude pokračovat. Termíny vydání předem neoznamujeme.',
     email: 'Pracovní e-mail *', company: 'Společnost *', role: 'Vaše role', useCase: 'Zamýšlené použití ve firmě', industry: 'Odvětví', tech: 'Současné prostředí Microsoft', timeframe: 'Předpokládaný termín zavedení', requirements: 'Další požadavky (nepovinné)', choose: 'Vyberte…',
@@ -23,6 +25,7 @@ export const IL = {
     ind_: { 'financial-services': 'Finanční služby', manufacturing: 'Výroba', 'public-sector': 'Veřejný sektor', healthcare: 'Zdravotnictví', technology: 'Technologie', 'professional-services': 'Profesní služby', retail: 'Maloobchod', 'energy-utilities': 'Energetika a utility', logistics: 'Logistika', other: 'Jiné' },
   },
   de: {
+    marketing: 'Optional: Senden Sie mir gelegentlich auch Produktneuigkeiten von ColleagueAI. Ich kann mich jederzeit abmelden.',
     closed: 'Die Interessenregistrierung für diesen Agenten öffnet in Kürze. Bis dahin schreiben Sie uns an hello@colleagueai.ai oder buchen Sie eine Demo.', demoLink: 'Demo buchen',
     legend: 'Interesse registrieren', status: 'Demnächst', note: 'Dieser Agent ist noch nicht erhältlich. Sagen Sie uns, was Sie brauchen; wir melden uns, sobald es weitergeht. Veröffentlichungstermine kündigen wir nicht im Voraus an.',
     email: 'Geschäftliche E-Mail *', company: 'Unternehmen *', role: 'Ihre Rolle', useCase: 'Geplanter Einsatz', industry: 'Branche', tech: 'Aktuelle Microsoft-Umgebung', timeframe: 'Geplanter Einführungszeitraum', requirements: 'Weitere Anforderungen (optional)', choose: 'Bitte wählen…',
@@ -34,6 +37,7 @@ export const IL = {
     ind_: { 'financial-services': 'Finanzdienstleistungen', manufacturing: 'Fertigung', 'public-sector': 'Öffentlicher Sektor', healthcare: 'Gesundheitswesen', technology: 'Technologie', 'professional-services': 'Beratung und Dienstleistungen', retail: 'Handel', 'energy-utilities': 'Energie und Versorgung', logistics: 'Logistik', other: 'Andere' },
   },
   fr: {
+    marketing: 'Facultatif : envoyez-moi aussi, de temps en temps, les actualités produits de ColleagueAI. Je peux me désabonner à tout moment.',
     closed: 'L’enregistrement de l’intérêt pour cet agent ouvrira prochainement. D’ici là, écrivez-nous à hello@colleagueai.ai ou réservez une démonstration.', demoLink: 'Réserver une démo',
     legend: 'Enregistrer votre intérêt', status: 'Bientôt disponible', note: "Cet agent n'est pas encore disponible à l'achat. Dites-nous ce dont vous avez besoin ; nous vous recontacterons lorsqu'il avancera. Nous n'annonçons pas de date de sortie à l'avance.",
     email: 'E-mail professionnel *', company: 'Entreprise *', role: 'Votre fonction', useCase: 'Usage prévu', industry: 'Secteur', tech: 'Environnement Microsoft actuel', timeframe: 'Délai de mise en œuvre prévu', requirements: 'Autres exigences (facultatif)', choose: 'Choisir…',
@@ -45,6 +49,7 @@ export const IL = {
     ind_: { 'financial-services': 'Services financiers', manufacturing: 'Industrie', 'public-sector': 'Secteur public', healthcare: 'Santé', technology: 'Technologie', 'professional-services': 'Services professionnels', retail: 'Commerce de détail', 'energy-utilities': 'Énergie et services publics', logistics: 'Logistique', other: 'Autre' },
   },
   es: {
+    marketing: 'Opcional: envíenme también noticias ocasionales de productos de ColleagueAI. Puedo darme de baja en cualquier momento.',
     closed: 'El registro de interés para este agente se abrirá próximamente. Mientras tanto, escríbanos a hello@colleagueai.ai o reserve una demostración.', demoLink: 'Reservar una demo',
     legend: 'Registrar su interés', status: 'Próximamente', note: 'Este agente aún no está disponible para la compra. Díganos qué necesita y le contactaremos cuando avance. No anunciamos fechas de lanzamiento por adelantado.',
     email: 'Correo profesional *', company: 'Empresa *', role: 'Su cargo', useCase: 'Uso previsto', industry: 'Sector', tech: 'Entorno Microsoft actual', timeframe: 'Plazo de implantación previsto', requirements: 'Otros requisitos (opcional)', choose: 'Elegir…',
@@ -56,6 +61,7 @@ export const IL = {
     ind_: { 'financial-services': 'Servicios financieros', manufacturing: 'Industria', 'public-sector': 'Sector público', healthcare: 'Sanidad', technology: 'Tecnología', 'professional-services': 'Servicios profesionales', retail: 'Comercio minorista', 'energy-utilities': 'Energía y servicios públicos', logistics: 'Logística', other: 'Otro' },
   },
   it: {
+    marketing: 'Facoltativo: inviatemi anche occasionali novità sui prodotti ColleagueAI. Posso disiscrivermi in qualsiasi momento.',
     closed: 'La registrazione dell’interesse per questo agente aprirà a breve. Nel frattempo scrivici a hello@colleagueai.ai o prenota una demo.', demoLink: 'Prenota una demo',
     legend: 'Registra il tuo interesse', status: 'Prossimamente', note: "Questo agente non è ancora acquistabile. Dicci di cosa hai bisogno e ti contatteremo quando procederà. Non annunciamo date di rilascio in anticipo.",
     email: 'E-mail aziendale *', company: 'Azienda *', role: 'Il tuo ruolo', useCase: 'Uso previsto', industry: 'Settore', tech: 'Ambiente Microsoft attuale', timeframe: 'Tempi di adozione previsti', requirements: 'Altri requisiti (facoltativo)', choose: 'Scegli…',
@@ -67,6 +73,7 @@ export const IL = {
     ind_: { 'financial-services': 'Servizi finanziari', manufacturing: 'Manifattura', 'public-sector': 'Settore pubblico', healthcare: 'Sanità', technology: 'Tecnologia', 'professional-services': 'Servizi professionali', retail: 'Commercio al dettaglio', 'energy-utilities': 'Energia e utility', logistics: 'Logistica', other: 'Altro' },
   },
   pl: {
+    marketing: 'Opcjonalnie: przesyłajcie mi też od czasu do czasu informacje o produktach ColleagueAI. Mogę zrezygnować w każdej chwili.',
     closed: 'Rejestracja zainteresowania tym agentem zostanie wkrótce otwarta. Do tego czasu napisz do nas na hello@colleagueai.ai lub umów prezentację.', demoLink: 'Umów prezentację',
     legend: 'Zgłoś zainteresowanie', status: 'Wkrótce', note: 'Tego agenta nie można jeszcze kupić. Napisz, czego potrzebujesz, a skontaktujemy się, gdy prace pójdą naprzód. Nie ogłaszamy dat premiery z wyprzedzeniem.',
     email: 'Służbowy e-mail *', company: 'Firma *', role: 'Twoja rola', useCase: 'Planowane zastosowanie', industry: 'Branża', tech: 'Obecne środowisko Microsoft', timeframe: 'Planowany termin wdrożenia', requirements: 'Inne wymagania (opcjonalnie)', choose: 'Wybierz…',
@@ -78,6 +85,7 @@ export const IL = {
     ind_: { 'financial-services': 'Usługi finansowe', manufacturing: 'Produkcja', 'public-sector': 'Sektor publiczny', healthcare: 'Ochrona zdrowia', technology: 'Technologia', 'professional-services': 'Usługi profesjonalne', retail: 'Handel detaliczny', 'energy-utilities': 'Energetyka i media', logistics: 'Logistyka', other: 'Inne' },
   },
   pt: {
+    marketing: 'Opcional: enviem-me também, ocasionalmente, novidades sobre os produtos ColleagueAI. Posso cancelar a qualquer momento.',
     closed: 'O registo de interesse neste agente abrirá em breve. Até lá, escreva-nos para hello@colleagueai.ai ou marque uma demonstração.', demoLink: 'Marcar uma demonstração',
     legend: 'Registar o seu interesse', status: 'Em breve', note: 'Este agente ainda não está disponível para compra. Diga-nos o que precisa e contactá-lo-emos quando avançar. Não anunciamos datas de lançamento antecipadamente.',
     email: 'E-mail profissional *', company: 'Empresa *', role: 'A sua função', useCase: 'Utilização prevista', industry: 'Setor', tech: 'Ambiente Microsoft atual', timeframe: 'Prazo de implementação previsto', requirements: 'Outros requisitos (opcional)', choose: 'Escolher…',
