@@ -93,7 +93,9 @@ Status: ${CC.soon}
 Status labels: ${CC.st_legend}
 
 Benefits:
-${BENEFITS.map((b) => `- ${CC[b + "_t"]} [${label[STATUS[b]]}]: ${CC[b]}`).join("\n")}
+${BENEFITS.map((b) => `- ${CC[b + "_t"]} [${STATUS[b] === "built" ? `${CC.st_built}: ${CC[b + "_v"]}` : label[STATUS[b]]}]: ${CC[b]}`).join("\n")}
+
+${CC.lic_note}
 
 ${CC.cmp_h} (feature | perpetual licence | with Continuous Certification):
 ${ROWS.map((r) => `- ${CC[r]} | ${CC[r + "a"]} | ${CC[r + "b"]}`).join("\n")}
