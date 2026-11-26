@@ -32,5 +32,5 @@
     "evidenceSha256": null
   },
   "tests": { "automated": ["<test files>"], "tenantEvidence": ["<where the tenant test logs are kept>"] },
-  "sale": { "goDecision": null }
+  "sale": { "goDecision": null, "earlyAccess": null, "_sale_comment": "goDecision / earlyAccess, once written by the founder: {approvedBy, date, reference, release: \"<exact version>\", expiresAt?: ISO date, revokedAt?: ISO date}. Version-specific; lib/availability.js fails closed on anything missing, other-version, expired or revoked." }
 }

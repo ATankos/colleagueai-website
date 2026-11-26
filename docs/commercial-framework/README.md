@@ -62,7 +62,9 @@ the reference product.
 | Release record, bundle, checksums, dossier | `scripts/cai-release/<version>/`, `docs/<sku>/bundle/`, `public/docs/agents/<slug>.pdf` |
 | Release gates (tenant tests, approvals) | gate list named in `config/agents/<slug>.json` → `release.gates` |
 | First-sale scope | `config/launch-scope.json` → `products` |
-| Sale approval | `saleApproved: true` + `release.status: released` + `sale.goDecision` |
+| Sale approval | `saleApproved: true` + `release.status: released` + `sale.goDecision` for that exact release (`release`, optional `expiresAt`, `revokedAt`) + lifecycle `commercially-approved` in `config/availability.json` |
+| Early access | `sale.earlyAccess` for that exact release (same shape); never implied by technical approval |
+| Public status | derived by `lib/availability.js` from the above; "Coming soon" until every record agrees |
 
 ## 3. Onboarding an agent: one process
 

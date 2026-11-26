@@ -8,6 +8,7 @@
  * IMPORTANT: assertions encode the INTENDED behaviour from the go-live spec. Tests that FAIL
  * document real defects (see GO-LIVE-TEST-REPORT.md) and become regression tests once fixed.
  */
+import { approveCommercially } from './helpers/commercial-approval.mjs';
 import { test, before, after, beforeEach, mock } from 'node:test';
 import assert from 'node:assert';
 import util from 'node:util';
@@ -526,12 +527,14 @@ test('12b. a LIVE session where no money was taken is withheld too', async () =>
   /* Approve the release for this test only, so the approval rule passes and the money check is what withholds it. */
   const rec = products.productFor(UNAPPROVED);
   rec.saleApproved = true;
+  const restore = approveCommercially(UNAPPROVED);
   try {
     const r = await deliver(sessionEvent({ sessionId: 'cs_live_b', livemode: true,
       paymentStatus: 'no_payment_required', amount: 0 }));
     assert.equal(r.body.withheld, 'no-payment-taken');
     assert.equal(entitled(UNAPPROVED), false, 'a session with no payment must not unlock an agent');
   } finally {
+    restore();
     rec.saleApproved = false;
   }
 });
@@ -554,6 +557,21 @@ test('12e. a LIVE agent with no approved record is withheld too (default-deny)',
   assert.equal(r.body.withheld, 'not-approved-for-sale');
   assert.equal(entitled('onboarding-agent'), false, 'live money must not unlock a catalogue agent without an approved record');
   assert.ok(kvStore.has('sale-withheld:cs_live_e'), 'the withheld sale is recorded for the owner');
+});
+
+test('12p. a stale Payment Link / webhook for a release with saleApproved but NO version-specific GO decision is withheld', async () => {
+  /* The release flag alone (e.g. flipped by mistake, or a link created before a GO was revoked) must not grant. */
+  const rec = products.productFor(UNAPPROVED);
+  rec.saleApproved = true;
+  try {
+    const r = await deliver(sessionEvent({ sessionId: 'cs_live_p', livemode: true }));
+    assert.equal(r.status, 200);
+    assert.equal(r.body.withheld, 'not-approved-for-sale');
+    assert.equal(entitled(UNAPPROVED), false, 'a paid session outside the commercial approval unlocked the agent');
+    assert.ok(kvStore.has('sale-withheld:cs_live_p'), 'the owner has a record to refund from');
+  } finally {
+    rec.saleApproved = false;
+  }
 });
 
 test('12l. a LIVE re-delivery of a session that already fulfilled is not withheld or recorded as a new sale', async () => {

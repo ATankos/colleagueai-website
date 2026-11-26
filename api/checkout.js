@@ -59,6 +59,7 @@ import Stripe from 'stripe';
 import PRICING from '../config/pricing.json' with { type: 'json' };
 import { ORDER_LOCALES, AGENTS_PATH } from '../lib/orderI18n.js';
 import { productFor, liveSaleBlocked, canonicalSlug, isLiveKey } from '../lib/products.js';
+import { publicStatus } from '../lib/availability.js';
 import { checkoutEnabled } from '../lib/checkoutSwitch.js';
 import { stripeOptions } from '../lib/stripe.js';
 import { recordAcceptance, bindAcceptance } from '../lib/db.js';
@@ -182,6 +183,8 @@ export default async function handler(req, res) {
   // Own properties only: a slug such as "constructor" must not resolve through Object.prototype (CodeQL #245).
   const tier = Object.hasOwn(SLUG_TIER, slug) ? SLUG_TIER[slug] : undefined;
   if (!tier) return res.status(404).json({ error: 'Unknown agent' });
+  // L5 (autonomous) is never sold, in any mode, whatever a link or a direct API call asks for.
+  if (tier === 'L5') return res.status(409).json({ error: 'This agent is not available for purchase', code: 'not_available' });
 
   // A product can only be sold with a live key once its record in config/products.json says
   // saleApproved: true. A catalogue agent with no record there is refused too (default-deny).
@@ -192,9 +195,12 @@ export default async function handler(req, res) {
   if (!productFor(slug)) {
     return res.status(409).json({ error: 'This agent is a concept and is not available for purchase', code: 'not_available' });
   }
+  // Live money needs two records to agree (lib/products.js liveSaleRefused): saleApproved on the release AND an
+  // explicit commercial authorisation in config/availability.json. A Coming-soon agent is refused here, server-side,
+  // and again at fulfilment and delivery, whatever the storefront shows.
   if (liveSaleBlocked(slug, process.env.STRIPE_SECRET_KEY)) {
     console.warn('[checkout] live sale blocked: release not approved for sale', slug);
-    return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'not_approved_for_sale' });
+    return res.status(403).json({ error: 'This product is not yet available for purchase', code: 'not_approved_for_sale', availability: publicStatus(slug) });
   }
   // Live sales also wait for the accountant: an unapproved tax policy refuses any live checkout.
   if (liveTaxBlocked(process.env.STRIPE_SECRET_KEY)) {

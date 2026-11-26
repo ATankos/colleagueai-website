@@ -6,9 +6,11 @@
 import { useEffect, useState } from 'react';
 import PRICING from '../config/pricing.json';
 import PRODUCTS from '../config/products.json';
+import Interest from './Interest.jsx';
+import './demo.css';
+import { IL } from './i18n/interestCopy.js';
 
 const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
-const serif = 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif';
 const sans = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
 
 // Pillar labels match the live catalogue taxonomy (public/*/agents.html chip
@@ -26,7 +28,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'You are requesting',
     indicative: 'Package price', oneTime: 'one-time',
-    concept: 'Concept · dossier only', tierPrice: 'tier price once released',
+    concept: 'Coming soon · not yet for sale', tierPrice: 'tier price once released',
     privacy: 'We use these details only to arrange your demo. Colleague AI s.r.o., Praha. See our',
     privacyLink: 'Privacy Policy',
     privacyHref: '/privacy',
@@ -43,7 +45,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Požadujete',
     indicative: 'Cena balíčku', oneTime: 'jednorázově',
-    concept: 'Koncept · pouze dokumentace', tierPrice: 'cena úrovně po vydání',
+    concept: 'Připravujeme · zatím nelze koupit', tierPrice: 'cena úrovně po vydání',
     privacy: 'Tyto údaje použijeme pouze k domluvení ukázky. Colleague AI s.r.o., Praha. Viz naše',
     privacyLink: 'Zásady ochrany osobních údajů',
     privacyHref: '/cs/ochrana-soukromi',
@@ -60,7 +62,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Sie fragen an',
     indicative: 'Paketpreis', oneTime: 'einmalig',
-    concept: 'Konzept · nur Dossier', tierPrice: 'Stufenpreis nach Freigabe',
+    concept: 'Demnächst · noch nicht erhältlich', tierPrice: 'Stufenpreis nach Freigabe',
     privacy: 'Wir verwenden diese Angaben ausschließlich zur Vereinbarung Ihrer Demo. Colleague AI s.r.o., Prag. Siehe unsere',
     privacyLink: 'Datenschutzerklärung',
     privacyHref: '/de/datenschutz',
@@ -77,7 +79,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Vous demandez',
     indicative: 'Prix du package', oneTime: 'paiement unique',
-    concept: 'Concept · dossier uniquement', tierPrice: 'prix du niveau une fois publié',
+    concept: 'Bientôt disponible · pas encore en vente', tierPrice: 'prix du niveau une fois publié',
     privacy: 'Nous utilisons ces informations uniquement pour organiser votre démo. Colleague AI s.r.o., Prague. Voir notre',
     privacyLink: 'politique de confidentialité',
     privacyHref: '/fr/confidentialite',
@@ -94,7 +96,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está solicitando',
     indicative: 'Precio del paquete', oneTime: 'pago único',
-    concept: 'Concepto · solo dossier', tierPrice: 'precio del nivel una vez publicado',
+    concept: 'Próximamente · aún no a la venta', tierPrice: 'precio del nivel una vez publicado',
     privacy: 'Usamos estos datos únicamente para concertar su demostración. Colleague AI s.r.o., Praga. Consulte nuestra',
     privacyLink: 'Política de privacidad',
     privacyHref: '/es/privacidad',
@@ -111,7 +113,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Stai richiedendo',
     indicative: 'Prezzo del pacchetto', oneTime: 'una tantum',
-    concept: 'Concept · solo dossier', tierPrice: 'prezzo del livello una volta rilasciato',
+    concept: 'Prossimamente · non ancora in vendita', tierPrice: 'prezzo del livello una volta rilasciato',
     privacy: 'Utilizziamo questi dati solo per organizzare la tua demo. Colleague AI s.r.o., Praga. Consulta la nostra',
     privacyLink: 'Informativa sulla privacy',
     privacyHref: '/it/privacy',
@@ -128,7 +130,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Zamawiasz',
     indicative: 'Cena pakietu', oneTime: 'jednorazowo',
-    concept: 'Koncepcja · tylko dossier', tierPrice: 'cena poziomu po wydaniu',
+    concept: 'Wkrótce · jeszcze nie w sprzedaży', tierPrice: 'cena poziomu po wydaniu',
     privacy: 'Używamy tych danych wyłącznie do umówienia demonstracji. Colleague AI s.r.o., Praga. Zobacz naszą',
     privacyLink: 'Politykę prywatności',
     privacyHref: '/pl/prywatnosc',
@@ -145,7 +147,7 @@ const L = {
     timezones: { UTC: 'UTC', EST: 'EST (UTC-5)', CST: 'CST (UTC-6)', MST: 'MST (UTC-7)', PST: 'PST (UTC-8)', CET: 'CET (UTC+1)', CEST: 'CEST (UTC+2)' },
     requested: 'Está a solicitar',
     indicative: 'Preço do pacote', oneTime: 'pagamento único',
-    concept: 'Conceito · apenas dossier', tierPrice: 'preço do nível depois de lançado',
+    concept: 'Em breve · ainda não à venda', tierPrice: 'preço do nível depois de lançado',
     privacy: 'Usamos estes dados apenas para agendar a sua demonstração. Colleague AI s.r.o., Praga. Consulte a nossa',
     privacyLink: 'Política de Privacidade',
     privacyHref: '/pt/privacidade',
@@ -163,7 +165,8 @@ function todayISO() {
 
 function copy() {
   const m = (typeof window !== 'undefined' ? window.location.pathname : '').match(/^\/(cs|de|fr|es|it|pl|pt)(\/|$)/);
-  return L[m ? m[1] : 'en'] || L.en;
+  const lang = m ? m[1] : 'en';
+  return { ...(L[lang] || L.en), lang };
 }
 
 /**
@@ -195,11 +198,13 @@ function requestedAgent() {
     priceUsd: PACKAGE_PRICE_USD[safeTier] || 0,
     // only an agent with a product record has a released package; everything else is a concept with a dossier
     released: Boolean(PRODUCTS[slug]?.release),
+    // the factsheet and catalogue send intent=interest for agents that are not on sale
+    interest: q.get('intent') === 'interest',
   };
 }
 
 export default function Demo() {
-  const t = copy();
+  const [t] = useState(copy);
   const [requested] = useState(requestedAgent);
 
   // CAI-008: set lang attribute + localized metadata for this locale. The
@@ -284,55 +289,17 @@ export default function Demo() {
   };
 
   return (
-    <div style={{ background: C.cream, color: C.graphite, fontFamily: sans, minHeight: '100vh', lineHeight: 1.6 }}>
-      <style>{`
-        * { box-sizing: border-box; }
-        body { margin: 0; }
-        .demo-container { max-width: 720px; margin: 0 auto; padding: 0 22px; }
-        .demo-hero { text-align: center; padding: 60px 22px 40px; }
-        .demo-kicker { font-family: ui-monospace, Consolas, monospace; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: ${C.soft}; display: block; margin-bottom: 16px; }
-        h1 { font-family: ${serif}; font-weight: 500; font-size: clamp(30px, 6vw, 46px); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 16px; }
-        .demo-subtitle { font-size: 17px; color: ${C.soft}; max-width: 520px; margin: 0 auto 40px; }
-        .demo-form { background: ${C.paper}; padding: 32px; border-radius: 12px; margin: 0 0 40px; border: 1px solid ${C.line}; }
-        fieldset { border: none; padding: 0; margin: 0 0 24px; }
-        legend { font-size: 14px; font-weight: 600; margin: 0 0 12px; padding: 0; }
-        label { display: block; font-size: 14px; font-weight: 500; margin: 0 0 6px; }
-        input, select { width: 100%; padding: 10px 12px; border: 1px solid ${C.line}; border-radius: 6px; font-family: ${sans}; font-size: 14px; margin: 0 0 12px; background: #fff; color: ${C.graphite}; }
-        input:focus, select:focus { outline: 2px solid ${C.terra}; outline-offset: -2px; border-color: ${C.terra}; }
-        .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px; }
-        .checkbox-label { display: flex; align-items: center; font-size: 14px; cursor: pointer; font-weight: 400; }
-        .checkbox-label input { width: auto; margin: 0 8px 0 0; }
-        .demo-submit { background: ${C.terra}; color: #fff; padding: 13px 26px; border: none; border-radius: 100px; font-weight: 600; font-size: 15px; cursor: pointer; width: 100%; }
-        .demo-submit:hover { background: #A94A2C; }
-        .demo-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-        .demo-requested { background: #fff; border: 1px solid ${C.line}; border-left: 3px solid ${C.terra}; border-radius: 8px; padding: 11px 14px; margin: 0 0 20px; font-size: 14px; }
-        /* C.muted (#8A857C) reads as ~3.2:1 on this panel's cream/paper backgrounds —
-           short of WCAG AA's 4.5:1 for normal text (axe: color-contrast, serious).
-           C.soft is the same palette's darker secondary tone (8:1+ on both) and was
-           already used elsewhere for readable-but-secondary text; reusing it here
-           keeps the look but clears the ratio. C.terra (the brand accent) on these
-           backgrounds and as this link's color is ALSO short (3.7-4.2:1) — left
-           alone since that's the brand colour itself, not a one-component fix. */
-        .demo-privacy { font-size: 12.5px; color: ${C.soft}; line-height: 1.5; margin: 14px 0 0; text-align: center; }
-        .demo-privacy a { color: ${C.terra}; }
-        .success-msg { background: #E8F5E9; color: #2E7D32; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
-        .error-msg { background: #FFEBEE; color: #C62828; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
-        a:focus-visible { outline: 2px solid ${C.terra}; outline-offset: 2px; }
-        @media (max-width: 560px) {
-          .demo-form { padding: 20px; }
-          input, select { font-size: 16px; }
-        }
-        @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
-      `}</style>
-
+    <div className="demo-root" style={{ background: C.cream, color: C.graphite, fontFamily: sans, minHeight: '100vh', lineHeight: 1.6 }}>
       <main className="demo-container">
         <div className="demo-hero">
-          <span className="demo-kicker">Demo</span>
-          <h1>{t.title}</h1>
-          <p className="demo-subtitle">{t.subtitle}</p>
+          <span className="demo-kicker">{requested?.interest ? (IL[t.lang] || IL.en).status : 'Demo'}</span>
+          <h1>{requested?.interest ? (IL[t.lang] || IL.en).legend : t.title}</h1>
+          {!requested?.interest && <p className="demo-subtitle">{t.subtitle}</p>}
         </div>
 
-        {submitted ? (
+        {requested?.interest ? (
+          <Interest slug={requested.slug} label={requested.label} tier={requested.tier} />
+        ) : submitted ? (
           <div className="success-msg" role="status" aria-live="polite">{t.success}</div>
         ) : (
           <>
