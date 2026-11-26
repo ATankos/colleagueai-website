@@ -10,6 +10,7 @@
  */
 import { AVAILABILITY, agentRecord, primeRepoJson } from '../../lib/availability.js';
 import PRODUCTS from '../../config/products.json' with { type: 'json' };
+import { MANDATORY_GATES } from '../../lib/releaseGates.js';
 
 export function approveCommercially(slug) {
   const cat = AVAILABILITY.agents[slug]; const savedCat = structuredClone(cat);
@@ -20,7 +21,7 @@ export function approveCommercially(slug) {
   if (agent && rel) {
     const recPath = `test/${slug}/release.json`; const gatesPath = `test/${slug}/gates.json`;
     primeRepoJson(recPath, { version: rel.version, package: rel.package, sha256: rel.sha256, bytes: rel.bytes, bundleRevision: rel.bundleRevision, status: 'released' });
-    primeRepoJson(gatesPath, { release: rel.version, gates: [{ id: 'T-ALL', area: 'product', status: 'PASS', decision: { recordedBy: 'test', recordedAt: '2026-11-26', recordCommit: 'abcdef1' } }] });
+    primeRepoJson(gatesPath, { release: rel.version, gates: MANDATORY_GATES.map((id) => ({ id, area: id.startsWith('P-') ? 'product' : 'commercial', status: 'PASS', decision: { recordedBy: 'test', recordedAt: '2026-11-26', recordCommit: 'abcdef1' } })) });
     agent.sale = { ...agent.sale, goDecision: { approvedBy: 'TEST FOUNDER', date: '2026-11-26', reference: 'TEST PR', release: rel.version } };
     agent.ip = { ...agent.ip, status: 'executed', evidenceSha256: 'a'.repeat(64) };
     agent.release = { ...agent.release, record: recPath, gates: gatesPath };

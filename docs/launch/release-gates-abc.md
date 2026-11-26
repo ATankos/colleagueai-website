@@ -38,7 +38,7 @@ To turn it off again, remove the variable and redeploy. Records already stored a
 
 **State: closed for all 36 agents.**
 
-Per agent and per release version, `lib/availability.js` checks the following at run time. Each is read from the record the existing framework already keeps, and must apply to **this exact release version and package**:
+Per agent and per release version, `lib/availability.js` checks (including that the release gates contain the complete mandatory set, `MANDATORY_GATES` in `lib/releaseGates.js`) the following at run time. Each is read from the record the existing framework already keeps, and must apply to **this exact release version and package**:
 
 | Record | Requirement |
 |---|---|

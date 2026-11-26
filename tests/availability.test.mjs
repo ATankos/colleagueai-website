@@ -31,7 +31,11 @@ const APPROVED = { approvedBy: 'Founder', date: '2026-11-26', reference: 'PR #1'
 const REL = PR[CI].release;
 const GOOD_REC = { version: VER, package: REL.package, sha256: REL.sha256, bytes: REL.bytes, bundleRevision: REL.bundleRevision, status: 'released' };
 const PASS_GATE = (id, area = 'product') => ({ id, area, status: 'PASS', decision: { recordedBy: 'engineering', recordedAt: '2026-11-26', recordCommit: 'abcdef1' } });
-const GOOD_GATES = { release: VER, gates: [PASS_GATE('P-INSTALL'), PASS_GATE('C-E2E', 'commercial')] };
+import { MANDATORY_GATES } from '../lib/releaseGates.js';
+const area = (id) => ({ P: 'product', C: 'commercial', L: 'legal', T: 'tax', O: 'operations' }[id[0]]);
+const APPROVED_GATE = (id) => ({ id, area: area(id), status: 'PASS', requiredApprover: ['founder'], approval: { by: 'Founder', role: 'founder', at: '2026-11-26', reference: 'PR' } });
+const FOUNDER_GATES = new Set(['C-REFUND-PREVIEW', 'L-LEGAL-TEXTS', 'L-IP', 'T-TAX-POLICY', 'O-DPA-SECURITY', 'O-PROD-CONFIG', 'O-REVIEW-CONTROL']);
+const GOOD_GATES = { release: VER, gates: MANDATORY_GATES.map((id) => (FOUNDER_GATES.has(id) ? APPROVED_GATE(id) : PASS_GATE(id, area(id)))) };
 function agentsWith(sale, { rec = GOOD_REC, gates = GOOD_GATES, ip = { status: 'executed', evidenceSha256: 'a'.repeat(64) }, scope = { products: { [CI]: { sku: PR[CI].sku, release: VER, bundleRevision: REL.bundleRevision } } } } = {}) {
   return {
     get: (s) => (s === CI ? { sale, ip, release: { record: 'rec.json', gates: 'gates.json' } } : null),
@@ -153,6 +157,8 @@ test('fail closed: release evidence must exist AND apply to this exact release a
     'no gates': { repo: { gates: null } },
     'gates for another version': { repo: { gates: { ...GOOD_GATES, release: '1.0.3.4' } } },
     'empty gates': { repo: { gates: { release: VER, gates: [] } } },
+    'a mandatory gate dropped from the file': { repo: { gates: { ...GOOD_GATES, gates: GOOD_GATES.gates.filter((x) => x.id !== 'L-IP') } } },
+    'a mandatory product gate dropped': { repo: { gates: { ...GOOD_GATES, gates: GOOD_GATES.gates.filter((x) => x.id !== 'P-ISOLATION') } } },
     'a gate not PASS': { repo: { gates: { release: VER, gates: [...GOOD_GATES.gates, { id: 'L-IP', area: 'legal', status: 'REQUIRES FOUNDER APPROVAL', requiredApprover: ['founder'] }] } } },
     'PASS without a decision': { repo: { gates: { release: VER, gates: [{ id: 'P-X', area: 'product', status: 'PASS' }] } } },
     'PASS without the founder approval': { repo: { gates: { release: VER, gates: [{ id: 'L-IP', area: 'legal', status: 'PASS', requiredApprover: ['founder'] }] } } },
@@ -176,13 +182,14 @@ test('early access: independent version-specific approval AND validated technica
   let [r, p, a] = world({});
   assert.equal(publicStatus(CI, r, p, n, a), 'early-access');
   for (const [name, c, repo] of [['in development', { technicalReadiness: 'prototype' }], ['blockers missing', { releaseBlockers: undefined }],
-    ['product gate open', {}, { gates: { release: VER, gates: [{ id: 'P-WORKFLOW-CLEAN', area: 'product', status: 'BLOCKED' }] } }],
+    ['product gate open', {}, { gates: { release: VER, gates: GOOD_GATES.gates.map((x) => (x.id === 'P-WORKFLOW-CLEAN' ? { id: x.id, area: 'product', status: 'BLOCKED', blockedBy: 'test' } : x)) } }],
+    ['mandatory product gate missing', {}, { gates: { release: VER, gates: GOOD_GATES.gates.filter((x) => x.id !== 'P-UNINSTALL') } }],
     ['gates for another version', {}, { gates: { ...GOOD_GATES, release: '1.0.3.4' } }], ['package mismatch', {}, { rec: { ...GOOD_REC, sha256: 'c'.repeat(64) } }]]) {
     [r, p, a] = world(c, repo);
     assert.equal(publicStatus(CI, r, p, n, a), 'coming-soon', name);
   }
   // A commercial gate still open does not block early access; it does block a sale.
-  [r, p, a] = world({}, { gates: { release: VER, gates: [PASS_GATE('P-INSTALL'), { id: 'T-TAX-POLICY', area: 'commercial', status: 'REQUIRES FOUNDER APPROVAL' }] } });
+  [r, p, a] = world({}, { gates: { release: VER, gates: GOOD_GATES.gates.map((x) => (x.id === 'T-TAX-POLICY' ? { id: 'T-TAX-POLICY', area: 'tax', status: 'REQUIRES FOUNDER APPROVAL', requiredApprover: ['founder'] } : x)) } });
   assert.equal(publicStatus(CI, r, p, n, a), 'early-access');
   assert.equal(commercialSaleAllowed(CI, r, p, n, a), false);
   // The real repository today: P-WORKFLOW-CLEAN is BLOCKED, so early access could not open even with an approval.
@@ -196,6 +203,23 @@ test('technical approval never activates a commercial sale or early access', () 
   assert.equal(commercialSaleAllowed(CI, r), false);
   r.agents[CI].publicStatus = 'early-access';
   assert.equal(publicStatus(CI, r), 'coming-soon');
+});
+
+test('release evidence is read only from config/ and scripts/cai-release/<version>/release-candidate.json', async () => {
+  const { repoJson } = await import('../lib/availability.js');
+  assert.ok(repoJson('config/release-gates.json')); assert.ok(repoJson('scripts/cai-release/1.0.3.6/release-candidate.json'));
+  for (const bad of ['package.json', '../package.json', '/etc/passwd.json', 'config/../package.json', 'scripts/cai-release/1.0.3.6/flows/x.json', 'api/x.json']) assert.equal(repoJson(bad), null, bad);
+});
+
+test('mandatory gate set: the real gates file carries every mandatory gate; revoked early access never opens', () => {
+  const real = JSON.parse(readFileSync(join(ROOT, 'config/release-gates.json'), 'utf8'));
+  const ids = new Set(real.gates.map((g) => g.id));
+  assert.deepEqual(MANDATORY_GATES.filter((id) => !ids.has(id)), [], 'config/release-gates.json lacks a mandatory gate');
+  assert.ok(!releaseEvidenceErrors(CI).some((e) => e.includes('mandatory gates missing')));
+  for (const ea of [{ ...APPROVED, revokedAt: '2026-11-26' }, { ...APPROVED, revokedAt: '2026-11-26', expiresAt: '2099-01-01' }, { ...APPROVED, status: 'revoked', revokedAt: '2026-11-26' }]) {
+    const [r, p] = approvedWorld({ catalogue: { publicStatus: 'early-access', lifecycle: 'technically-approved' } });
+    assert.equal(publicStatus(CI, r, p, new Date(), agentsWith({ earlyAccess: ea })), 'coming-soon', JSON.stringify(ea));
+  }
 });
 
 test('early access needs its own valid, version-specific approval and is not a sale', () => {
