@@ -87,3 +87,38 @@ The tiers are separate:
 | `validatedIntent` | Pilot agreed or purchase intent |
 
 Weights and minimum signals are in `config/demand-scoring.json`. Agents below the minimum show "insufficient data" and are not ranked.
+
+## Read-only reconciliation (closes the 26 Nov 14:03:40–14:16:02 UTC evidence gap)
+
+Run once with the **production** KV credentials (`vercel env pull .env.prod --environment=production`, then `set -a; . ./.env.prod; set +a`).
+
+What it does:
+- It only reads, using `LRANGE`, `SCAN` and `GET`. It writes, deletes and sends nothing.
+- It compares the index list `lead:index:interest` with the stored `lead:interest:*` records.
+- It prints counts and record ids only, never an e-mail address or company.
+
+Delete `.env.prod` afterwards.
+
+```bash
+node -e '
+const B=process.env.KV_REST_API_URL||process.env.UPSTASH_REDIS_REST_URL, T=process.env.KV_REST_API_TOKEN||process.env.UPSTASH_REDIS_REST_TOKEN;
+const kv=async(...a)=>{const r=await fetch(B+"/"+a.map(encodeURIComponent).join("/"),{headers:{Authorization:"Bearer "+T}});if(!r.ok)throw new Error(r.status);return (await r.json()).result};
+(async()=>{
+ const idx=await kv("LRANGE","lead:index:interest","0","-1")||[];
+ const keys=[];let c="0";do{const [n,k]=await kv("SCAN",c,"MATCH","lead:interest:*","COUNT","500");c=n;keys.push(...k)}while(c!=="0");
+ const stored=keys.map(k=>k.slice("lead:interest:".length)), S=new Set(stored), I=new Set(idx);
+ const lo=Date.parse("2026-11-26T14:03:40Z"), hi=Date.parse("2026-11-26T14:16:02Z");
+ let inGap=0, st={}, ag={};
+ for(const k of keys){const r=JSON.parse(await kv("GET",k)||"null");if(!r)continue;const t=Date.parse(r.receivedAt);if(t>=lo&&t<=hi)inGap++;
+  const s=r.notification?.status||"none";st[s]=(st[s]||0)+1;ag[r.agentSlug||"?"]=(ag[r.agentSlug||"?"]||0)+1}
+ console.log(JSON.stringify({indexEntries:idx.length,storedRecords:stored.length,
+  indexWithoutRecord:idx.filter(i=>!S.has(i)),recordsNotIndexed:stored.filter(i=>!I.has(i)),
+  receivedInGapWindow:inGap,notificationStatus:st,perAgent:ag},null,1))})().catch(e=>{console.error("failed",e.message);process.exit(1)})'
+```
+
+**Reading the result:**
+- Zero everywhere means no registration was stored, and the gap is closed with "none".
+- For any record: check `interest-ops status`, and decide under the privacy pack (keep pending Gate B, or delete). Do **not** contact the registrant before Gate B is approved.
+- `indexWithoutRecord` lists ids whose record has expired or was deleted. This is harmless; trim the index only by a deliberate decision.
+- `recordsNotIndexed` lists records that `listLeads` cannot see. Record each one and handle it the same way.
+- Record the result (date, who ran it, the counts) in `release-gates-abc.md`, R8.
