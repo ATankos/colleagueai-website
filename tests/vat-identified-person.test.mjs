@@ -78,7 +78,9 @@ test('policy wording cannot present an identified person as a VAT payer, or a do
 test('a reported status is not an official record: the committed policy fails closed', () => {
   const e = tax.policyErrors(tax.TAX_POLICY);
   assert.equal(tax.TAX_POLICY.seller.vatStatus, 'identified_person');
-  for (const k of ['seller.vatId', 'vatEffectiveFrom', 'officialRecord', 'vatStatusHistory']) assert.ok(e.some((x) => x.includes(k)), k);
+  // 25 Nov 2026: the DIČ is stated by founder decision; the policy still fails closed on the missing official facts.
+  assert.equal(tax.TAX_POLICY.seller.vatId, 'CZ29540852');
+  for (const k of ['vatEffectiveFrom', 'officialRecord', 'vatStatusHistory']) assert.ok(e.some((x) => x.includes(k)), k);
   assert.equal(tax.liveTaxBlocked('sk_live_x'), true);
 });
 
