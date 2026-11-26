@@ -51,7 +51,7 @@ const CSS = `
 .cc-pillar .cc-msg span{display:block}.cc-pillar .cc-msg span+span{color:#C65D3A}
 .cc-pillar .cc-sub{max-width:68ch;margin:0 0 12px;line-height:1.6}
 .cc-pillar .cc-soon{display:inline-block;font-size:13px;background:#FBF2EE;border:1px solid #E4C7BA;border-radius:100px;padding:4px 12px;margin:0 0 18px}
-.cc-pillar h3{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#8a857d;margin:24px 0 10px}
+.cc-pillar h3{font-size:14px;letter-spacing:.04em;text-transform:uppercase;color:#5c574f;margin:24px 0 10px}
 .cc-pillar .cc-grid{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:12px}
 .cc-pillar .cc-grid li{border:1px solid #e7e0d5;border-radius:12px;padding:14px 16px;min-width:0}
 .cc-pillar .cc-grid b{display:block;margin-bottom:4px}
@@ -63,7 +63,7 @@ const CSS = `
 .cc-pillar .cc-legend{font-size:12.5px;color:#5c574f;margin-top:10px}
 .cc-pillar .cc-cmp{overflow-x:auto}.cc-pillar table{width:100%;border-collapse:collapse;font-size:14.5px}
 .cc-pillar th,.cc-pillar td{text-align:left;padding:9px 10px;border-bottom:1px solid #e7e0d5;vertical-align:top}
-.cc-pillar .cc-cta{display:inline-block;margin-top:18px;color:#C65D3A;font-weight:600}
+.cc-pillar .cc-cta{display:inline-block;margin-top:18px;color:#9A3D1F;font-weight:600}
 .cc-pillar .cc-video{margin:0 0 18px}.cc-pillar .cc-video video{width:100%;max-width:100%;border-radius:12px;aspect-ratio:16/9;background:#1d1b1a}
 .cc-pillar .cc-video figcaption{font-weight:600;margin-bottom:8px}
 `.trim();
@@ -88,8 +88,8 @@ function render(loc, { variant = 'compact', withVideo = false, link = null } = {
     }).join('') + '</ul>');
     parts.push(leaf('p', 'st_legend', t.st_legend, 'cc-legend'));
     parts.push(leaf('h3', 'cmp_h', t.cmp_h));
-    parts.push('<div class="cc-cmp"><table><thead><tr><th></th>' + leaf('th', 'cmp_c1', t.cmp_c1) + leaf('th', 'cmp_c2', t.cmp_c2) + '</tr></thead><tbody>' +
-      ROWS.map((r) => `<tr>${leaf('td', r, t[r])}${leaf('td', `${r}a`, t[`${r}a`])}${leaf('td', `${r}b`, t[`${r}b`])}</tr>`).join('') + '</tbody></table></div>');
+    parts.push('<div class="cc-cmp"><table><thead><tr><td></td>' + leaf('th', 'cmp_c1', t.cmp_c1).replace('<th ', '<th scope="col" ') + leaf('th', 'cmp_c2', t.cmp_c2).replace('<th ', '<th scope="col" ') + '</tr></thead><tbody>' +
+      ROWS.map((r) => `<tr>${leaf('th', r, t[r]).replace('<th ', '<th scope="row" ')}${leaf('td', `${r}a`, t[`${r}a`])}${leaf('td', `${r}b`, t[`${r}b`])}</tr>`).join('') + '</tbody></table></div>');
   } else {
     parts.push('<ul class="cc-chips">' + BENEFITS.map((b) => `<li data-cc-status="${STATUS[b]}">${leaf('span', `${b}_t`, t[`${b}_t`])}</li>`).join('') + '</ul>');
   }
