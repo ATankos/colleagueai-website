@@ -2,7 +2,7 @@
 export const IL = {
   en: {
     legend: 'Register your interest', status: 'Coming soon', note: 'This agent is not yet available for purchase. Tell us what you need and we will contact you when it moves forward. We do not announce release dates in advance.',
-    email: 'Business email *', company: 'Company *', role: 'Your role', useCase: 'Intended business use *', industry: 'Industry', tech: 'Current Microsoft environment', timeframe: 'Expected implementation timeframe', requirements: 'Other requirements (optional)', choose: 'Choose…',
+    email: 'Business email *', company: 'Company *', role: 'Your role', useCase: 'Intended business use', industry: 'Industry', tech: 'Current Microsoft environment', timeframe: 'Expected implementation timeframe', requirements: 'Other requirements (optional)', choose: 'Choose…',
     consent: 'I agree that Colleague AI s.r.o. may store these details for 12 months and contact me about this agent. I can withdraw consent at any time.',
     submit: 'Register interest', submitting: 'Sending…', success: 'Thank you. Your interest is registered and we will contact you about this agent. No release date has been set yet.', duplicate: 'You have already registered interest in this agent. We have your details.', error: 'We could not record your registration. Please try again or email hello@colleagueai.ai.',
     privacy: 'How we handle personal data:', privacyLink: 'privacy notice', privacyHref: '/privacy',
@@ -12,7 +12,7 @@ export const IL = {
   },
   cs: {
     legend: 'Zaregistrovat zájem', status: 'Připravujeme', note: 'Tohoto agenta zatím nelze koupit. Napište nám, co potřebujete, a ozveme se, až bude pokračovat. Termíny vydání předem neoznamujeme.',
-    email: 'Pracovní e-mail *', company: 'Společnost *', role: 'Vaše role', useCase: 'Zamýšlené použití ve firmě *', industry: 'Odvětví', tech: 'Současné prostředí Microsoft', timeframe: 'Předpokládaný termín zavedení', requirements: 'Další požadavky (nepovinné)', choose: 'Vyberte…',
+    email: 'Pracovní e-mail *', company: 'Společnost *', role: 'Vaše role', useCase: 'Zamýšlené použití ve firmě', industry: 'Odvětví', tech: 'Současné prostředí Microsoft', timeframe: 'Předpokládaný termín zavedení', requirements: 'Další požadavky (nepovinné)', choose: 'Vyberte…',
     consent: 'Souhlasím, že Colleague AI s.r.o. může tyto údaje uchovávat 12 měsíců a kontaktovat mě ohledně tohoto agenta. Souhlas mohu kdykoli odvolat.',
     submit: 'Zaregistrovat zájem', submitting: 'Odesílám…', success: 'Děkujeme. Váš zájem je zaregistrován a ohledně tohoto agenta se vám ozveme. Termín vydání zatím není stanoven.', duplicate: 'O tohoto agenta už jste zájem zaregistrovali. Vaše údaje máme.', error: 'Registraci se nepodařilo uložit. Zkuste to znovu nebo napište na hello@colleagueai.ai.',
     privacy: 'Jak zpracováváme osobní údaje:', privacyLink: 'zásady ochrany soukromí', privacyHref: '/cs/ochrana-soukromi',
@@ -22,7 +22,7 @@ export const IL = {
   },
   de: {
     legend: 'Interesse registrieren', status: 'Demnächst', note: 'Dieser Agent ist noch nicht erhältlich. Sagen Sie uns, was Sie brauchen; wir melden uns, sobald es weitergeht. Veröffentlichungstermine kündigen wir nicht im Voraus an.',
-    email: 'Geschäftliche E-Mail *', company: 'Unternehmen *', role: 'Ihre Rolle', useCase: 'Geplanter Einsatz *', industry: 'Branche', tech: 'Aktuelle Microsoft-Umgebung', timeframe: 'Geplanter Einführungszeitraum', requirements: 'Weitere Anforderungen (optional)', choose: 'Bitte wählen…',
+    email: 'Geschäftliche E-Mail *', company: 'Unternehmen *', role: 'Ihre Rolle', useCase: 'Geplanter Einsatz', industry: 'Branche', tech: 'Aktuelle Microsoft-Umgebung', timeframe: 'Geplanter Einführungszeitraum', requirements: 'Weitere Anforderungen (optional)', choose: 'Bitte wählen…',
     consent: 'Ich bin einverstanden, dass die Colleague AI s.r.o. diese Angaben 12 Monate speichert und mich zu diesem Agenten kontaktiert. Ich kann die Einwilligung jederzeit widerrufen.',
     submit: 'Interesse registrieren', submitting: 'Wird gesendet…', success: 'Vielen Dank. Ihr Interesse ist registriert; wir melden uns zu diesem Agenten. Ein Veröffentlichungstermin steht noch nicht fest.', duplicate: 'Sie haben Ihr Interesse an diesem Agenten bereits registriert.', error: 'Die Registrierung konnte nicht gespeichert werden. Bitte erneut versuchen oder an hello@colleagueai.ai schreiben.',
     privacy: 'Umgang mit personenbezogenen Daten:', privacyLink: 'Datenschutzhinweis', privacyHref: '/de/datenschutz',
@@ -32,7 +32,7 @@ export const IL = {
   },
   fr: {
     legend: 'Enregistrer votre intérêt', status: 'Bientôt disponible', note: "Cet agent n'est pas encore disponible à l'achat. Dites-nous ce dont vous avez besoin ; nous vous recontacterons lorsqu'il avancera. Nous n'annonçons pas de date de sortie à l'avance.",
-    email: 'E-mail professionnel *', company: 'Entreprise *', role: 'Votre fonction', useCase: 'Usage prévu *', industry: 'Secteur', tech: 'Environnement Microsoft actuel', timeframe: 'Délai de mise en œuvre prévu', requirements: 'Autres exigences (facultatif)', choose: 'Choisir…',
+    email: 'E-mail professionnel *', company: 'Entreprise *', role: 'Votre fonction', useCase: 'Usage prévu', industry: 'Secteur', tech: 'Environnement Microsoft actuel', timeframe: 'Délai de mise en œuvre prévu', requirements: 'Autres exigences (facultatif)', choose: 'Choisir…',
     consent: "J'accepte que Colleague AI s.r.o. conserve ces informations pendant 12 mois et me contacte au sujet de cet agent. Je peux retirer mon consentement à tout moment.",
     submit: "Enregistrer l'intérêt", submitting: 'Envoi…', success: "Merci. Votre intérêt est enregistré et nous vous contacterons au sujet de cet agent. Aucune date de sortie n'est encore fixée.", duplicate: 'Vous avez déjà enregistré votre intérêt pour cet agent.', error: "L'enregistrement a échoué. Réessayez ou écrivez à hello@colleagueai.ai.",
     privacy: 'Traitement des données personnelles :', privacyLink: 'politique de confidentialité', privacyHref: '/fr/confidentialite',
@@ -42,7 +42,7 @@ export const IL = {
   },
   es: {
     legend: 'Registrar su interés', status: 'Próximamente', note: 'Este agente aún no está disponible para la compra. Díganos qué necesita y le contactaremos cuando avance. No anunciamos fechas de lanzamiento por adelantado.',
-    email: 'Correo profesional *', company: 'Empresa *', role: 'Su cargo', useCase: 'Uso previsto *', industry: 'Sector', tech: 'Entorno Microsoft actual', timeframe: 'Plazo de implantación previsto', requirements: 'Otros requisitos (opcional)', choose: 'Elegir…',
+    email: 'Correo profesional *', company: 'Empresa *', role: 'Su cargo', useCase: 'Uso previsto', industry: 'Sector', tech: 'Entorno Microsoft actual', timeframe: 'Plazo de implantación previsto', requirements: 'Otros requisitos (opcional)', choose: 'Elegir…',
     consent: 'Acepto que Colleague AI s.r.o. conserve estos datos durante 12 meses y me contacte sobre este agente. Puedo retirar el consentimiento en cualquier momento.',
     submit: 'Registrar interés', submitting: 'Enviando…', success: 'Gracias. Su interés está registrado y le contactaremos sobre este agente. Aún no hay fecha de lanzamiento.', duplicate: 'Ya registró su interés en este agente.', error: 'No pudimos guardar su registro. Inténtelo de nuevo o escriba a hello@colleagueai.ai.',
     privacy: 'Cómo tratamos los datos personales:', privacyLink: 'aviso de privacidad', privacyHref: '/es/privacidad',
@@ -52,7 +52,7 @@ export const IL = {
   },
   it: {
     legend: 'Registra il tuo interesse', status: 'Prossimamente', note: "Questo agente non è ancora acquistabile. Dicci di cosa hai bisogno e ti contatteremo quando procederà. Non annunciamo date di rilascio in anticipo.",
-    email: 'E-mail aziendale *', company: 'Azienda *', role: 'Il tuo ruolo', useCase: 'Uso previsto *', industry: 'Settore', tech: 'Ambiente Microsoft attuale', timeframe: 'Tempi di adozione previsti', requirements: 'Altri requisiti (facoltativo)', choose: 'Scegli…',
+    email: 'E-mail aziendale *', company: 'Azienda *', role: 'Il tuo ruolo', useCase: 'Uso previsto', industry: 'Settore', tech: 'Ambiente Microsoft attuale', timeframe: 'Tempi di adozione previsti', requirements: 'Altri requisiti (facoltativo)', choose: 'Scegli…',
     consent: 'Acconsento che Colleague AI s.r.o. conservi questi dati per 12 mesi e mi contatti riguardo a questo agente. Posso revocare il consenso in qualsiasi momento.',
     submit: 'Registra interesse', submitting: 'Invio…', success: 'Grazie. Il tuo interesse è registrato e ti contatteremo riguardo a questo agente. Non è ancora fissata una data di rilascio.', duplicate: 'Hai già registrato interesse per questo agente.', error: 'Non è stato possibile salvare la registrazione. Riprova o scrivi a hello@colleagueai.ai.',
     privacy: 'Come trattiamo i dati personali:', privacyLink: 'informativa privacy', privacyHref: '/it/privacy',
@@ -62,7 +62,7 @@ export const IL = {
   },
   pl: {
     legend: 'Zgłoś zainteresowanie', status: 'Wkrótce', note: 'Tego agenta nie można jeszcze kupić. Napisz, czego potrzebujesz, a skontaktujemy się, gdy prace pójdą naprzód. Nie ogłaszamy dat premiery z wyprzedzeniem.',
-    email: 'Służbowy e-mail *', company: 'Firma *', role: 'Twoja rola', useCase: 'Planowane zastosowanie *', industry: 'Branża', tech: 'Obecne środowisko Microsoft', timeframe: 'Planowany termin wdrożenia', requirements: 'Inne wymagania (opcjonalnie)', choose: 'Wybierz…',
+    email: 'Służbowy e-mail *', company: 'Firma *', role: 'Twoja rola', useCase: 'Planowane zastosowanie', industry: 'Branża', tech: 'Obecne środowisko Microsoft', timeframe: 'Planowany termin wdrożenia', requirements: 'Inne wymagania (opcjonalnie)', choose: 'Wybierz…',
     consent: 'Zgadzam się, aby Colleague AI s.r.o. przechowywała te dane przez 12 miesięcy i kontaktowała się ze mną w sprawie tego agenta. Mogę w każdej chwili wycofać zgodę.',
     submit: 'Zgłoś zainteresowanie', submitting: 'Wysyłanie…', success: 'Dziękujemy. Zainteresowanie zostało zarejestrowane; skontaktujemy się w sprawie tego agenta. Data premiery nie jest jeszcze ustalona.', duplicate: 'Zainteresowanie tym agentem zostało już zgłoszone.', error: 'Nie udało się zapisać zgłoszenia. Spróbuj ponownie lub napisz na hello@colleagueai.ai.',
     privacy: 'Jak przetwarzamy dane osobowe:', privacyLink: 'polityka prywatności', privacyHref: '/pl/prywatnosc',
@@ -72,7 +72,7 @@ export const IL = {
   },
   pt: {
     legend: 'Registar o seu interesse', status: 'Em breve', note: 'Este agente ainda não está disponível para compra. Diga-nos o que precisa e contactá-lo-emos quando avançar. Não anunciamos datas de lançamento antecipadamente.',
-    email: 'E-mail profissional *', company: 'Empresa *', role: 'A sua função', useCase: 'Utilização prevista *', industry: 'Setor', tech: 'Ambiente Microsoft atual', timeframe: 'Prazo de implementação previsto', requirements: 'Outros requisitos (opcional)', choose: 'Escolher…',
+    email: 'E-mail profissional *', company: 'Empresa *', role: 'A sua função', useCase: 'Utilização prevista', industry: 'Setor', tech: 'Ambiente Microsoft atual', timeframe: 'Prazo de implementação previsto', requirements: 'Outros requisitos (opcional)', choose: 'Escolher…',
     consent: 'Aceito que a Colleague AI s.r.o. guarde estes dados durante 12 meses e me contacte sobre este agente. Posso retirar o consentimento a qualquer momento.',
     submit: 'Registar interesse', submitting: 'A enviar…', success: 'Obrigado. O seu interesse está registado e iremos contactá-lo sobre este agente. Ainda não há data de lançamento.', duplicate: 'Já registou interesse neste agente.', error: 'Não foi possível guardar o registo. Tente novamente ou escreva para hello@colleagueai.ai.',
     privacy: 'Como tratamos os dados pessoais:', privacyLink: 'aviso de privacidade', privacyHref: '/pt/privacidade',

@@ -188,14 +188,14 @@ ${TIER_DESC[a.t] ? `<section><h2>What the ${esc(a.t)} · ${esc(TIER_DESC[a.t] ? 
   <div><dt>Verified CAI Score</dt><dd>${recordFor(slug)?.cai?.verifiedScore != null ? esc(String(recordFor(slug).cai.verifiedScore)) : 'Not yet assessed.'}</dd></div>
   <div><dt>Technical status</dt><dd>${releaseOf(slug)
     ? esc((STATUS_TEXT[releaseOf(slug).status] || 'Released.') + ' Current release ' + releaseOf(slug).version + '.')
-    : 'Concept. This factsheet and the dossier describe the intended design; no installable package exists yet.'}</dd></div>
+    : 'In design. The dossier sets out the governed workflow, its controls and the human role; the installable package is not yet released.'}</dd></div>
   <div><dt>Commercial release</dt><dd>${commercialSaleAllowed(slug) ? 'Authorised.' : 'Not yet authorised.'}</dd></div>
   <div><dt>Continuous Certification</dt><dd>No active coverage; it can start only with a licence purchase.</dd></div>
 </dl></section>
 ${RUNTIME[slug] ? `<section><h2>Microsoft prerequisites and running costs</h2><p>${esc(RUNTIME[slug])}</p></section>` : ''}
 <section><h2>What you get</h2><ul>${packagesFor(slug).map((k) => `<li>${esc(PKG_LABEL[k] || k)}</li>`).join('')}<li>Agent dossier (PDF)</li></ul><p>${releaseOf(slug)
   ? 'One-time purchase. You accept the licence terms at checkout, pay through Stripe and download the package from your order page, where your licence agreement confirmation and invoice are kept. Checkout opens once our final legal and tax checks are complete; book a demo and we will tell you when.'
-  : 'Today this agent is available as a dossier only.'}</p></section>
+  : 'Today you can review the agent dossier; the installable package is coming soon.'}</p></section>
 <section><h2>Price</h2><p>${releaseOf(slug) ? '' : 'Published tier price once a package is released: '}<b>${price(a.t)} one-time</b> for a perpetual licence to this version, plus <b>${cert(a.t)} / month</b> for Continuous Certification &mdash; recommended, and the only route to updated certified releases. ${esc(CERT_NOT_OPEN)}</p>
 <p>The version you buy is yours forever. The rules it was built against are not: without an active subscription a newer certified release is a new licence purchase, and you follow the covered scope yourself. With it, the package stays listed as a current Colleague AI Certified Release, you get the updated release when a change inside the covered scope requires one at no further licence fee, and you get a Certificate ID a reviewer can check.</p>
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>

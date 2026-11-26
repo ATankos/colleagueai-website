@@ -559,6 +559,21 @@ test('12e. a LIVE agent with no approved record is withheld too (default-deny)',
   assert.ok(kvStore.has('sale-withheld:cs_live_e'), 'the withheld sale is recorded for the owner');
 });
 
+test('12p. a stale Payment Link / webhook for a release with saleApproved but NO version-specific GO decision is withheld', async () => {
+  /* The release flag alone (e.g. flipped by mistake, or a link created before a GO was revoked) must not grant. */
+  const rec = products.productFor(UNAPPROVED);
+  rec.saleApproved = true;
+  try {
+    const r = await deliver(sessionEvent({ sessionId: 'cs_live_p', livemode: true }));
+    assert.equal(r.status, 200);
+    assert.equal(r.body.withheld, 'not-approved-for-sale');
+    assert.equal(entitled(UNAPPROVED), false, 'a paid session outside the commercial approval unlocked the agent');
+    assert.ok(kvStore.has('sale-withheld:cs_live_p'), 'the owner has a record to refund from');
+  } finally {
+    rec.saleApproved = false;
+  }
+});
+
 test('12l. a LIVE re-delivery of a session that already fulfilled is not withheld or recorded as a new sale', async () => {
   kvStore.set('stripe:session:cs_live_l', '1');
   const r = await deliver(sessionEvent({ sessionId: 'cs_live_l', livemode: true, slug: 'onboarding-agent' }));

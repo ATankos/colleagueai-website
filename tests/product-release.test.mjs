@@ -255,9 +255,9 @@ test('checkout: live keys (sk_live_ and rk_live_) cannot sell an unapproved rele
 test('approval opens both gates: live sale allowed and package deliverable without the test flag', () => withEnv({ RELEASE_TEST_DELIVERY: undefined }, () => {
   const rec = products.productFor(SLUG);
   rec.saleApproved = true;
-  // saleApproved alone is not enough: the commercial authorisation in config/availability.json must agree.
-  assert.equal(products.liveSaleBlocked(SLUG, 'sk_live_x'), true, 'technical/release approval alone must not open a live sale');
-  assert.equal(products.packageDeliverable(SLUG), false);
+  // saleApproved alone is not enough to SELL: the version-specific GO decision (config/agents/<slug>.json) must agree.
+  // Delivery to an existing entitlement keeps following saleApproved, so buyers keep what they paid for.
+  assert.equal(products.liveSaleBlocked(SLUG, 'sk_live_x'), true, 'release approval alone must not open a live sale');
   const restore = approveCommercially(SLUG);
   try {
     assert.equal(products.liveSaleBlocked(SLUG, 'sk_live_x'), false);
@@ -388,7 +388,7 @@ test('packages: generated factsheets list only the packages each agent offers', 
   const other = readFileSync(join(ROOT, 'dist/agents/onboarding-agent.html'), 'utf8');
   assert.doesNotMatch(other, /Microsoft 365 Copilot package|Copilot Studio managed solution|connect package/, 'a concept agent lists no installable package');
   assert.match(other, /<span class="chip">Coming soon<\/span>/);
-  assert.match(other, /no installable package exists yet/);
+  assert.match(other, /the installable package is not yet released/);
 });
 
 test('success page: every catalogue agent gets the branded delivery card with its name, CAI tier and a signed download', () => withEnv({ RELEASE_TEST_DELIVERY: '1', DOWNLOAD_TOKEN_SECRET: 'test-only-secret' }, () => {

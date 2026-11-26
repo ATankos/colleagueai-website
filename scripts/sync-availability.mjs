@@ -13,7 +13,7 @@
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { AVAILABILITY, publicStatus, commercialSaleAllowed, permittedActions, PUBLIC_LABELS } from '../lib/availability.js';
+import { AVAILABILITY, publicStatus, commercialSaleAllowed, permittedActions, approvalValid, PUBLIC_LABELS } from '../lib/availability.js';
 import PRODUCTS from '../config/products.json' with { type: 'json' };
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
@@ -59,11 +59,17 @@ for (const f of files) {
   }
 }
 // The agent inventory (docs/launch/agent-availability-inventory.csv) is generated from the same registry.
+// Approvals come only from the release record in config/products.json (single source).
+function releaseCols(s) {
+  const p = Object.hasOwn(PRODUCTS, s) ? PRODUCTS[s] : null; const rel = p?.release;
+  const state = (a) => (!a ? 'none' : approvalValid(a, rel?.version) ? `valid for ${rel.version}` : 'invalid (fails closed)');
+  return [rel ? `${rel.version} (${rel.status})` : 'none', p ? String(p.saleApproved === true) : 'no product record', state(rel?.commercialApproval), state(rel?.earlyAccessApproval)];
+}
 export function inventoryCsv() {
   const q = (v) => { const s = Array.isArray(v) ? v.join('; ') : v == null ? '' : String(v); return /[",\n;]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; };
-  const cols = ['agent_id', 'name', 'target_cai_level', 'verified_cai_score', 'lifecycle', 'technical_readiness', 'certification', 'commercial_approval', 'early_access_approval', 'public_availability', 'permitted_customer_actions', 'release_blockers'];
+  const cols = ['agent_id', 'name', 'target_cai_level', 'verified_cai_score', 'lifecycle', 'technical_readiness', 'certification', 'current_release', 'sale_approved', 'commercial_approval', 'early_access_approval', 'public_availability', 'permitted_customer_actions', 'release_blockers'];
   const rows = slugs.map((s) => { const r = AVAILABILITY.agents[s]; return [s, r.name, r.cai.targetLevel, r.cai.verifiedScore ?? 'not assessed', r.lifecycle, r.technicalReadiness, r.certification,
-    r.commercialApproval.status, r.earlyAccessApproval.status, publicStatus(s), permittedActions(s), r.releaseBlockers]; });
+    ...releaseCols(s), publicStatus(s), permittedActions(s), r.releaseBlockers]; });
   return [cols.join(','), ...rows.map((r) => r.map(q).join(','))].join('\n') + '\n';
 }
 const INV = join(ROOT, 'docs/launch/agent-availability-inventory.csv');

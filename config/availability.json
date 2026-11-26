@@ -1,5 +1,5 @@
 {
-  "_comment": "Agent availability registry (P0, 26 Nov 2026). One record per catalogue agent. Internal lifecycle, technical readiness, certification and commercial approval are separate attributes; the public status is derived from them by lib/availability.js and can never be wider than the approvals recorded here. Commercial approval and early access each need an explicit record (approvedBy, approvedAt, reference); no technical state turns either on. Changing an approval is a founder decision recorded in the pull request. saleApproved (config/products.json), the tax policy and CHECKOUT_ENABLED still gate live sales on their own.",
+  "_comment": "Catalogue lifecycle registry (P0, 26 Nov 2026): one record per catalogue agent with its internal lifecycle, technical readiness, certification, target vs verified CAI level, the public status requested and the release blockers. It holds NO approvals. The single source of commercial and early-access approval is the release record in config/products.json (release.commercialApproval / release.earlyAccessApproval, version-specific, same {by, role, at, reference} shape as config/release-gates.json), together with saleApproved. lib/availability.js derives the public status from both files and fails closed: a missing, incomplete, expired, revoked or other-version approval never opens a sale or early access. Changing either file is a founder decision recorded in the pull request.",
   "version": "2026-11-26",
   "agents": {
     "reconciliation-root-cause-agent": {
@@ -11,18 +11,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -38,18 +26,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -65,18 +41,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -92,18 +56,6 @@
       "lifecycle": "in-testing",
       "technicalReadiness": "testing",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "P2 defect: Contoso 60-day expense deadline (DEF-03)",
@@ -122,18 +74,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -149,18 +89,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -176,18 +104,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -203,18 +119,6 @@
       "lifecycle": "in-testing",
       "technicalReadiness": "testing",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "P2 defect: service-team pack refusal (DEF-01)",
@@ -233,18 +137,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -260,18 +152,6 @@
       "lifecycle": "in-development",
       "technicalReadiness": "prototype",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "No test results",
@@ -288,18 +168,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -315,18 +183,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -342,18 +198,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -369,18 +213,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -396,18 +228,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -423,18 +243,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -450,18 +258,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -477,18 +273,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -504,18 +288,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -531,18 +303,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -558,18 +318,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -585,18 +333,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -612,18 +348,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -639,18 +363,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -666,18 +378,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -693,18 +393,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -720,18 +408,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -747,18 +423,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -774,18 +438,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -801,18 +453,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -828,18 +468,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -855,18 +483,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -882,18 +498,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -909,18 +513,6 @@
       "lifecycle": "technically-approved",
       "technicalReadiness": "technically-approved",
       "certification": "internal-review",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Written approvals from accountant and counsel",
@@ -939,18 +531,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"
@@ -966,18 +546,6 @@
       "lifecycle": "concept",
       "technicalReadiness": "none",
       "certification": "none",
-      "commercialApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
-      "earlyAccessApproval": {
-        "status": "not-approved",
-        "approvedBy": null,
-        "approvedAt": null,
-        "reference": null
-      },
       "publicStatus": "coming-soon",
       "releaseBlockers": [
         "Concept: dossier only, no build"

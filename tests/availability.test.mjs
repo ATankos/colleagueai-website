@@ -15,14 +15,26 @@ import { readFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import AV from '../config/availability.json' with { type: 'json' };
-import { publicStatus, commercialSaleAllowed, permittedActions, registryErrors, approvalComplete, PUBLIC, PUBLIC_LABELS } from '../lib/availability.js';
+import PR from '../config/products.json' with { type: 'json' };
+import { publicStatus, commercialSaleAllowed, permittedActions, registryErrors, approvalValid, agentRecord, PUBLIC, PUBLIC_LABELS } from '../lib/availability.js';
 import { approveCommercially } from './helpers/commercial-approval.mjs';
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url));
 const SLUGS = Object.keys(AV.agents);
 const clone = (x) => structuredClone(x);
 const walk = (d, o = []) => { for (const n of readdirSync(d)) { const p = join(d, n); statSync(p).isDirectory() ? walk(p, o) : o.push(p); } return o; };
-const APPROVED = { status: 'approved', approvedBy: 'Founder', approvedAt: '2026-12-01', reference: 'PR #1' };
+const CI = 'contract-intelligence-and-register';
+const VER = PR[CI].release.version;
+const APPROVED = { approvedBy: 'Founder', date: '2026-11-26', reference: 'PR #1', release: VER };
+/** Clones of both files with CI fully approved for sale (or with the given overrides). */
+/** A fake set of config/agents records: the GO decision and early access for CI. */
+const agentsWith = (sale) => ({ get: (s) => (s === CI ? { sale } : null) });
+function approvedWorld({ approval = APPROVED, saleApproved = true, status = 'released', lifecycle = 'commercially-approved', publicStatus: ps = 'available', tier } = {}) {
+  const r = clone(AV), p = clone(PR);
+  Object.assign(r.agents[CI], { lifecycle, publicStatus: ps }); if (tier) r.agents[CI].cai.targetLevel = tier;
+  Object.assign(p[CI], { saleApproved }); p[CI].release.status = status;
+  return [r, p, agentsWith({ goDecision: approval, earlyAccess: null })];
+}
 
 // ---------- fake KV ----------
 const store = new Map(); const lists = new Map();
@@ -55,52 +67,88 @@ const post = async (body, { query = {}, ip = '198.51.100.7' } = {}) => { const r
 const VALID = { agent: 'onboarding-agent', email: 'it.lead@example.com', company: 'Example s.r.o.', useCase: 'Onboard new starters across three sites with a governed checklist and HR hand-offs.', techEnvironment: 'copilot-studio', timeframe: '3-6-months', industry: 'manufacturing', consent: true, startedAt: Date.now() - 60000 };
 
 // ---------- 1. registry ----------
-test('registry: 36 agents, structurally valid, every one Coming soon and none commercially approved', () => {
+test('registry: 36 agents, consistent, every one Coming soon, none commercially available; evidence preserved', () => {
   assert.equal(SLUGS.length, 36);
   assert.deepEqual(registryErrors(), []);
   for (const s of SLUGS) {
     assert.equal(publicStatus(s), 'coming-soon', s);
     assert.equal(commercialSaleAllowed(s), false, s);
-    assert.equal(AV.agents[s].commercialApproval.status, 'not-approved', s);
     assert.ok(permittedActions(s).includes('register-interest') && !permittedActions(s).includes('purchase-licence'), s);
+    assert.ok(!('commercialApproval' in AV.agents[s]) && !('goDecision' in AV.agents[s]), `${s}: approvals live only in config/agents/<slug>.json`);
   }
-  assert.equal(publicStatus('contract-intelligence-and-register'), 'coming-soon', 'Contract Intelligence stays Coming soon until explicit authorisation');
+  // Contract Intelligence keeps its technical maturity, releases and evidence; it is still Coming soon.
+  assert.equal(AV.agents[CI].lifecycle, 'technically-approved');
+  assert.equal(PR[CI].release.version, '1.0.3.6');
+  assert.deepEqual(PR[CI].previousReleases.map((r) => r.version), ['1.0.3.2', '1.0.3.4']);
+  assert.equal(PR[CI].release.status, 'controlled-test');
+  assert.equal(PR[CI].saleApproved, false);
+  assert.equal(agentRecord(CI).sale.goDecision, null, 'no GO decision recorded');
+  assert.equal(publicStatus(CI), 'coming-soon');
 });
 
-test('technical approval never activates a commercial sale', () => {
+test('a fully approved world opens the sale; this proves the tests below fail for the right reason', () => {
+  const [r, p, a] = approvedWorld();
+  assert.deepEqual(registryErrors(r, p, new Date(), a), []);
+  assert.equal(commercialSaleAllowed(CI, r, p, new Date(), a), true);
+  assert.equal(publicStatus(CI, r, p, new Date(), a), 'available');
+});
+
+test('fail closed: missing, incomplete, expired, revoked, future-dated or other-version approvals never open a sale', () => {
+  const now = new Date('2026-12-01T00:00:00Z');
+  const bad = {
+    missing: null,
+    noApprover: { ...APPROVED, approvedBy: '' },
+    noReference: { ...APPROVED, reference: ' ' },
+    badDate: { ...APPROVED, date: 'soon' },
+    future: { ...APPROVED, date: '2027-01-01' },
+    otherVersion: { ...APPROVED, release: '1.0.3.4' },
+    noVersion: { ...APPROVED, release: undefined },
+    expired: { ...APPROVED, expiresAt: '2026-11-30' },
+    revoked: { ...APPROVED, revokedAt: '2026-11-28' },
+  };
+  for (const [name, ap] of Object.entries(bad)) {
+    assert.equal(approvalValid(ap, VER, now), false, name);
+    const [r, p, a] = approvedWorld({ approval: ap });
+    assert.equal(commercialSaleAllowed(CI, r, p, now, a), false, name);
+    assert.equal(publicStatus(CI, r, p, now, a), 'coming-soon', name);
+    assert.ok(registryErrors(r, p, now, a).length > 0, `${name}: inconsistency is reported`);
+  }
+  assert.equal(approvalValid({ ...APPROVED, expiresAt: '2027-06-01' }, VER, now), true, 'an unexpired approval stays valid');
+});
+
+test('fail closed: each record alone is not enough (saleApproved, approval, release status, lifecycle)', () => {
+  for (const o of [{ saleApproved: false }, { status: 'controlled-test' }, { lifecycle: 'technically-approved' }, { lifecycle: 'release-candidate' }]) {
+    const [r, p, a] = approvedWorld(o);
+    assert.equal(commercialSaleAllowed(CI, r, p, new Date(), a), false, JSON.stringify(o));
+    assert.equal(publicStatus(CI, r, p, new Date(), a), 'coming-soon', JSON.stringify(o));
+  }
+  const r = clone(AV); r.agents['onboarding-agent'].publicStatus = 'available'; r.agents['onboarding-agent'].lifecycle = 'generally-available';
+  assert.equal(commercialSaleAllowed('onboarding-agent', r), false, 'no product record, no sale');
+});
+
+test('technical approval never activates a commercial sale or early access', () => {
   const r = clone(AV);
-  Object.assign(r.agents['contract-intelligence-and-register'], { lifecycle: 'technically-approved', technicalReadiness: 'technically-approved', certification: 'internally-certified', publicStatus: 'available' });
-  assert.equal(publicStatus('contract-intelligence-and-register', r), 'coming-soon');
-  assert.equal(commercialSaleAllowed('contract-intelligence-and-register', r), false);
-  assert.ok(registryErrors(r).some((e) => e.includes('not supported by its approvals')), 'a requested status wider than the approvals is a registry error');
+  Object.assign(r.agents[CI], { lifecycle: 'technically-approved', technicalReadiness: 'technically-approved', certification: 'internally-certified', publicStatus: 'available' });
+  assert.equal(publicStatus(CI, r), 'coming-soon');
+  assert.equal(commercialSaleAllowed(CI, r), false);
+  r.agents[CI].publicStatus = 'early-access';
+  assert.equal(publicStatus(CI, r), 'coming-soon');
 });
 
-test('commercial availability needs a complete, explicit approval record and a sellable lifecycle', () => {
-  const s = 'onboarding-agent';
-  const make = (approval, lifecycle = 'generally-available') => { const r = clone(AV); Object.assign(r.agents[s], { lifecycle, publicStatus: 'available', commercialApproval: approval }); return r; };
-  for (const bad of [{ ...APPROVED, approvedBy: null }, { ...APPROVED, approvedAt: 'soon' }, { ...APPROVED, reference: '' }, { ...APPROVED, status: 'revoked' }]) {
-    assert.equal(commercialSaleAllowed(s, make(bad)), false, JSON.stringify(bad));
-    assert.equal(approvalComplete(bad), false);
-  }
-  assert.equal(commercialSaleAllowed(s, make(APPROVED, 'technically-approved')), false, 'approval without the commercial lifecycle state');
-  assert.equal(commercialSaleAllowed(s, make(APPROVED)), true);
-  assert.equal(publicStatus(s, make(APPROVED)), 'available');
-});
-
-test('early access needs its own approval and never follows technical approval', () => {
-  const s = 'onboarding-agent'; const r = clone(AV);
-  Object.assign(r.agents[s], { lifecycle: 'technically-approved', publicStatus: 'early-access' });
-  assert.equal(publicStatus(s, r), 'coming-soon');
-  r.agents[s].earlyAccessApproval = { ...APPROVED };
-  assert.equal(publicStatus(s, r), 'early-access');
-  assert.equal(commercialSaleAllowed(s, r), false, 'early access is not a commercial sale by itself');
+test('early access needs its own valid, version-specific approval and is not a sale', () => {
+  const r = clone(AV), p = clone(PR), n = new Date(); r.agents[CI].publicStatus = 'early-access';
+  assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: null })), 'coming-soon');
+  assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED, release: '1.0.3.4' } })), 'coming-soon', 'an approval for another version');
+  assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED, revokedAt: '2026-11-27' } })), 'coming-soon', 'a revoked approval');
+  assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED, expiresAt: '2026-11-26' } })), 'coming-soon', 'an expired approval');
+  assert.equal(publicStatus(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED } })), 'early-access');
+  assert.equal(commercialSaleAllowed(CI, r, p, n, agentsWith({ earlyAccess: { ...APPROVED } })), false, 'early access is not a sale');
 });
 
 test('L5 is never available and never sold, even with every approval recorded', () => {
-  const r = clone(AV); const s = 'onboarding-agent';
-  Object.assign(r.agents[s], { cai: { targetLevel: 'L5', verifiedScore: null }, lifecycle: 'generally-available', publicStatus: 'available', commercialApproval: { ...APPROVED }, earlyAccessApproval: { ...APPROVED } });
-  assert.equal(commercialSaleAllowed(s, r), false);
-  assert.notEqual(publicStatus(s, r), 'available');
+  const [r, p, a] = approvedWorld({ tier: 'L5' });
+  assert.equal(commercialSaleAllowed(CI, r, p, new Date(), a), false);
+  assert.notEqual(publicStatus(CI, r, p, new Date(), a), 'available');
   const tiers = JSON.parse(readFileSync(join(ROOT, 'api/checkout.js'), 'utf8').match(/const SLUG_TIER = (\{[\s\S]*?\});/)[1]);
   assert.ok(!Object.values(tiers).includes('L5'), 'no catalogue agent is sold at L5');
   assert.match(readFileSync(join(ROOT, 'api/checkout.js'), 'utf8'), /tier === 'L5'\) return res\.status\(409\)/);
@@ -130,8 +178,8 @@ test('no unapproved agent can be bought with a live key through a direct API cal
       const r = resDouble(); await checkout({ method: 'GET', query: { agent: 'contract-intelligence-and-register' }, headers: { host: 'x' } }, r);
       assert.equal(r.statusCode, 403); assert.equal(r.body.code, 'not_approved_for_sale'); assert.equal(r.body.availability, 'coming-soon');
       assert.ok(products.liveFulfilmentWithheld({ livemode: true, payment_status: 'paid', amount_total: 100, metadata: { agent_slug: 'contract-intelligence-and-register' } }), 'a paid live session (e.g. a payment link) is withheld: no licence, no entitlement');
-      assert.equal(products.packageDeliverable('contract-intelligence-and-register'), false, 'no production package download');
     } finally { rec.saleApproved = false; }
+    assert.equal(products.packageDeliverable('contract-intelligence-and-register'), false, 'as committed, no production package download');
   } finally {
     for (const [k, v] of [['STRIPE_SECRET_KEY', keep.k], ['CHECKOUT_ENABLED', keep.c], ['VERCEL_ENV', keep.v]]) { if (v === undefined) delete process.env[k]; else process.env[k] = v; }
   }
@@ -198,6 +246,21 @@ test('built factsheets agree with the catalogue and separate the certification a
   }
 });
 
+test('SEO/GEO: all 36 agents stay discoverable and indexable; HTML is never served stale from cache', { skip: !existsSync(join(ROOT, 'dist/sitemap.xml')) && 'run npm run build first' }, () => {
+  const sitemap = readFileSync(join(ROOT, 'dist/sitemap.xml'), 'utf8');
+  for (const s of SLUGS) {
+    assert.ok(sitemap.includes(`/agents/${s}`), `${s}: in the sitemap`);
+    const f = join(ROOT, 'dist/agents', s + '.html');
+    if (!existsSync(f)) continue;
+    const h = readFileSync(f, 'utf8');
+    assert.match(h, /<meta name="robots" content="index, follow/, `${s}: indexable`);
+    assert.doesNotMatch(h, /noindex/, `${s}: noindex`);
+  }
+  const vercel = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8'));
+  const page = vercel.headers.find((x) => x.source === '/((?!assets/).*)');
+  assert.equal(page.headers.find((x) => x.key.toLowerCase() === 'cache-control').value, 'public, max-age=0, must-revalidate');
+});
+
 test('the build refuses to run with drifted pages', () => {
   assert.match(JSON.parse(readFileSync(join(ROOT, 'package.json'), 'utf8')).scripts.build, /^node scripts\/sync-availability\.mjs --check && /);
 });
@@ -225,11 +288,13 @@ test('interest: duplicates within 30 days store nothing new; the dedupe key hold
 
 test('interest: consent, required fields, known agent and an open status are all enforced', async () => {
   assert.equal((await post({ ...VALID, consent: false })).body.code, 'consent_required');
-  assert.equal((await post({ ...VALID, useCase: '' })).body.code, 'missing_fields');
+  assert.equal((await post({ ...VALID, company: '' })).body.code, 'missing_fields');
+  assert.equal((await post({ ...VALID, email: 'minimal@example.com', useCase: '', industry: '', techEnvironment: '', timeframe: '' })).statusCode, 200, 'email, company and consent are the only mandatory fields');
   assert.equal((await post({ ...VALID, email: 'nope' })).body.code, 'invalid_email');
   assert.equal((await post({ ...VALID, agent: 'constructor' })).body.code, 'unknown_agent');
-  const restore = approveCommercially('onboarding-agent');
-  try { assert.equal((await post(VALID)).body.code, 'not_open_for_interest', 'an Available agent is bought, not registered'); } finally { restore(); }
+  const rec = PR[CI]; rec.saleApproved = true; const restore = approveCommercially(CI);
+  try { assert.equal((await post({ ...VALID, agent: CI })).body.code, 'not_open_for_interest', 'an Available agent is bought, not registered'); }
+  finally { restore(); rec.saleApproved = false; }
 });
 
 test('interest: spam protection (honeypot, instant submit, rate limit) stores nothing', async () => {

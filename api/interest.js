@@ -115,7 +115,7 @@ export default async function handler(req, res) {
   const email = clean(body.email, 254);
   const company = clean(body.company, 200);
   const useCase = clean(body.useCase, 600);
-  if (!email || !company || !useCase) return res.status(400).json({ error: 'Missing required fields', code: 'missing_fields' });
+  if (!email || !company) return res.status(400).json({ error: 'Missing required fields', code: 'missing_fields' });
   if (!EMAIL_RE.test(email)) return res.status(400).json({ error: 'Invalid email format', code: 'invalid_email' });
   if (body.consent !== true) return res.status(400).json({ error: 'Consent is required', code: 'consent_required' });
 
@@ -133,7 +133,7 @@ export default async function handler(req, res) {
       agentSlug: agent,
       agentTier: rec.cai?.targetLevel || null,
       availability,
-      useCase,
+      useCase: useCase || null,
       industry: pick(body.industry, INDUSTRY),
       techEnvironment: pick(body.techEnvironment, TECH),
       timeframe: pick(body.timeframe, TIMEFRAME),

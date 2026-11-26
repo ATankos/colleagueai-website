@@ -263,7 +263,10 @@ describe('Demo agent context', () => {
     render(<Demo />)
     expect(screen.getByRole('heading', { level: 1, name: 'Register your interest' })).toBeInTheDocument()
     expect(screen.queryByRole('heading', { name: 'Book a demo' })).not.toBeInTheDocument()
-    expect(screen.getByLabelText(/Intended business use/)).toBeRequired()
+    // Minimal mandatory fields: email, company and consent; everything else is optional.
+    expect(screen.getByLabelText(/Business email/)).toBeRequired()
+    expect(screen.getByLabelText(/^Company/)).toBeRequired()
+    expect(screen.getByLabelText(/Intended business use/)).not.toBeRequired()
     expect(screen.getByRole('checkbox', { name: /may store these details for 12 months/ })).toBeRequired()
     expect(screen.queryByLabelText(/Preferred Date/)).not.toBeInTheDocument()
   })

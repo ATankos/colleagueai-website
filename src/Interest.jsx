@@ -68,7 +68,7 @@ export default function Interest({ slug, label, tier }) {
         <label htmlFor="i-role">{t.role}</label>
         <input id="i-role" type="text" name="role" value={f.role} onChange={on} autoComplete="organization-title" />
         <label htmlFor="i-useCase">{t.useCase}</label>
-        <textarea id="i-useCase" name="useCase" value={f.useCase} onChange={on} required maxLength={600} rows={3}
+        <textarea id="i-useCase" name="useCase" value={f.useCase} onChange={on} maxLength={600} rows={3}
           style={{ width: '100%', padding: '10px 12px', border: `1px solid ${C.line}`, borderRadius: 6, font: 'inherit', fontSize: 14, margin: '0 0 12px' }} />
         {sel('industry', INDUSTRY, t.ind_, t.industry)}
         {sel('techEnvironment', TECH, t.tech_, t.tech)}
