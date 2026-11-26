@@ -46,11 +46,11 @@ const STYLE = `
    page's eyebrow overrides it with a more specific !important rule */
 .cai-cert .eyebrow,.cai-cert .eyebrow *{color:#5c574f !important}
 .cai-cert h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
-.cai-cert h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#8a857d;margin:38px 0 10px;text-transform:uppercase}
+.cai-cert h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#5c574f;margin:38px 0 10px;text-transform:uppercase}
 .cai-cert ul{margin:6px 0 0;padding-left:20px}.cai-cert li{margin-bottom:6px}
 .cai-cert table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
 .cai-cert th,.cai-cert td{text-align:left;padding:9px 10px;border-bottom:1px solid #d8d2c6}
-.cai-cert th{color:#8a857d;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.cai-cert th{color:#5c574f;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
 .cai-cert .callout{background:#fff;border:1px solid #d8d2c6;border-radius:14px;padding:20px 22px;margin-top:14px}
 .cai-cert .callout.warn{background:#FBF2EE;border-color:#E4C7BA}
 .cai-cert .verify{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
