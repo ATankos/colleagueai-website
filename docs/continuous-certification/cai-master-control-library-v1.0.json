@@ -1,7 +1,7 @@
 {
  "_comment": "CANONICAL CAI Master Control Library (MCL). One list for every agent package and for all four assurance dimensions. Edited only through a reviewed PR; tests/cai-mcl.test.mjs checks its structure. References marked '(reference)' or '(indicative)' are mappings for orientation, not claims that the instrument applies or is met. ISO/IEC 42001 references are to clauses and Annex A objectives and must be verified against a licensed copy of the standard before the MCL is approved.",
  "library": "CAI Master Control Library",
- "version": "1.0.0-draft",
+ "version": "1.0.0-rc1",
  "status": "draft-for-approval",
  "date": "2026-11-26",
  "dimensions": {
@@ -75,7 +75,7 @@
   },
   {
    "id": "D11",
-   "name": "AI model lifecycle management"
+   "name": "AI model lifecycle and Microsoft platform compatibility"
   },
   {
    "id": "D12",
@@ -103,7 +103,7 @@
   },
   {
    "id": "D18",
-   "name": "Business value, performance and consumption benchmarking"
+   "name": "Business value, performance and AI Token Economy benchmarking"
   }
  ],
  "controls": [
@@ -308,8 +308,8 @@
   {
    "id": "CAI-D03-02",
    "domain": "D03",
-   "title": "Synthetic content marking decision",
-   "requirement": "For each package, record whether it generates synthetic content within Art. 50(2) and, if so, how it is marked; decided before 2 Dec 2026 for packages already on the market.",
+   "title": "Synthetic content marking: applicability assessment",
+   "requirement": "For each package, a recorded assessment states whether it generates synthetic audio, image, video or text within Art. 50(2), whether an exception applies (for example assistive editing that does not substantially alter the input), and whether any transitional period is available, which is the case only where its eligibility conditions are met (per the adopted text, systems already placed on the market before 2 Aug 2026). Counsel confirms it before the package is first placed on the market; where Art. 50(2) applies, marking ships in the first release.",
    "dimensions": [
     "PC"
    ],
@@ -504,7 +504,7 @@
    "id": "CAI-D06-01",
    "domain": "D06",
    "title": "Regulatory source register",
-   "requirement": "The instruments in the covered scope (I-1 to I-4) and Microsoft platform notices are scanned weekly and every relevant item is logged.",
+   "requirement": "The instruments in the covered scope (I-1 to I-4), Microsoft Copilot Studio and Power Platform notices (compatibility and breaking changes) and the frameworks in the applicability matrix are scanned weekly and every relevant item is logged.",
    "dimensions": [
     "SC"
    ],
@@ -758,15 +758,15 @@
   {
    "id": "CAI-D08-03",
    "domain": "D08",
-   "title": "CRA reporting",
-   "requirement": "Actively exploited vulnerabilities and severe incidents are reported through the ENISA Single Reporting Platform: early warning 24 h, notification 72 h, final report on time.",
+   "title": "CRA reporting: early warning, notification, final report",
+   "requirement": "For an actively exploited vulnerability or a severe incident affecting a package: early warning within 24 h of becoming aware; notification within 72 h; final report within 14 days after a corrective or mitigating measure is available (vulnerability) or within one month after the incident notification (severe incident); intermediate reports when requested; affected users informed without undue delay with mitigations. Submitted through the ENISA Single Reporting Platform to the coordinating CSIRT; account and submission path registered before the first sale (CRA set-up item C6).",
    "dimensions": [
     "PC"
    ],
    "obligation": "M",
    "trigger": "event",
    "method": "manual",
-   "evidence": "SRP submission record",
+   "evidence": "SRP submission references and timestamps in the security register; user notification log",
    "accountable": "FC",
    "responsible": "FT",
    "phase": "P0",
@@ -1704,8 +1704,8 @@
   {
    "id": "CAI-D17-03",
    "domain": "D17",
-   "title": "Certificate status lifecycle",
-   "requirement": "Each certificate is active, lapsed, suspended, revoked, superseded or discontinued; the public verification endpoint shows the status and what is covered, with no personal data.",
+   "title": "Certificate status: separate axes",
+   "requirement": "The certificate record keeps four separate states: subscription (active, past_due, cancelled, lapsed); release currency (current certified release, superseded, withdrawn); certificate decision (valid, suspended, revoked, discontinued); customer-reported deployment (not reported, version in use). The public label 'Colleague AI Certified — Active' requires all of: subscription active and in term, certified version is the current certified release of its package, decision valid. An active subscription alone never shows Active. No personal data is shown.",
    "dimensions": [
     "SC"
    ],
@@ -1717,7 +1717,7 @@
    "responsible": "FT",
    "phase": "P2",
    "reuse": "central",
-   "status": "existing",
+   "status": "new",
    "references": []
   },
   {
@@ -1804,7 +1804,7 @@
   {
    "id": "CAI-D18-01",
    "domain": "D18",
-   "title": "Benchmark protocol",
+   "title": "AI Token Economy benchmark protocol",
    "requirement": "A fixed synthetic workload per package is run on CAI-TEST, measuring Copilot Studio consumption per business transaction, latency (p50, p95) and task success rate.",
    "dimensions": [
     "PC",
@@ -1825,7 +1825,7 @@
    "id": "CAI-D18-02",
    "domain": "D18",
    "title": "Consumption change report",
-   "requirement": "For subscribers, each benchmark run is compared with the previous certified release; a consumption increase above 15% or a success-rate drop above 2 points is flagged in the evidence report.",
+   "requirement": "For subscribers, each benchmark run is compared with the previous certified release; a consumption increase above 15% or a success-rate drop above 2 points is flagged in the evidence report. Priority operational deliverable from the dry run; contractual only after the dry run validates delivery capacity (spec §4.2).",
    "dimensions": [
     "SC"
    ],
@@ -1883,7 +1883,7 @@
    "id": "CAI-D18-05",
    "domain": "D18",
    "title": "Standardised evidence report",
-   "requirement": "One report template per package, assembled from release records, change assessments, regression and benchmark results; issued quarterly to active subscribers. The release-time evidence summary ships to every buyer as part of the documentation set (D05-01).",
+   "requirement": "One report template per package, assembled from release records, change assessments, regression and benchmark results; issued quarterly to active subscribers. The release-time evidence summary ships to every buyer as part of the documentation set (D05-01). Priority operational deliverable from the dry run; contractual only after the dry run validates delivery capacity (spec §4.2).",
    "dimensions": [
     "SC"
    ],
@@ -1898,5 +1898,581 @@
    "status": "new",
    "references": []
   }
- ]
+ ],
+ "mappingStatus": {
+  "verified": "Checked against the official text of the cited edition by a named checker, with date. Required before a reference appears in any customer-facing material.",
+  "indicative": "Prepared by ColleagueAI and not yet checked against the official text. Internal only.",
+  "future": "Planned coverage for a later MCL version or an obligation not yet applicable."
+ },
+ "frameworks": {
+  "AIA": {
+   "name": "EU AI Act, Regulation (EU) 2024/1689, as amended by the Digital Omnibus on AI (2026)",
+   "kind": "law",
+   "access": "free official text (EUR-Lex)",
+   "applies": "Yes: ColleagueAI is provider of AI systems. Art. 4 and Art. 5 apply now; Art. 50 since 2 Aug 2026; Chapter III high-risk duties only if a package's intended purpose is screened as Annex III (from 2 Dec 2027)."
+  },
+  "GDPR": {
+   "name": "GDPR, Regulation (EU) 2016/679",
+   "kind": "law",
+   "access": "free official text (EUR-Lex)",
+   "applies": "Yes: to ColleagueAI's own processing (website, interest, orders). Customer is controller for data its agents process; ColleagueAI has no access and is not processor of that data."
+  },
+  "CRA": {
+   "name": "Cyber Resilience Act, Regulation (EU) 2024/2847",
+   "kind": "law",
+   "access": "free official text (EUR-Lex)",
+   "applies": "Likely yes for a distributed software package (counsel to confirm 'product with digital elements' and the role as manufacturer). Art. 14 reporting since 11 Sep 2026; Art. 13 and Annex I from 11 Dec 2027."
+  },
+  "ISO42001": {
+   "name": "ISO/IEC 42001:2023 AI management system",
+   "kind": "voluntary standard",
+   "access": "paid; licensed copy needed to verify",
+   "applies": "Voluntary reference. No certification held or claimed."
+  },
+  "ISO27001": {
+   "name": "ISO/IEC 27001:2022 information security management",
+   "kind": "voluntary standard",
+   "access": "paid",
+   "applies": "Voluntary reference. No certification held or claimed."
+  },
+  "ISO27002": {
+   "name": "ISO/IEC 27002:2022 information security controls",
+   "kind": "voluntary standard",
+   "access": "paid",
+   "applies": "Voluntary reference for control wording."
+  },
+  "ISO27701": {
+   "name": "ISO/IEC 27701 privacy information management (edition to be confirmed at purchase)",
+   "kind": "voluntary standard",
+   "access": "paid",
+   "applies": "Voluntary reference; future coverage only if a privacy management system is adopted."
+  },
+  "ISO23894": {
+   "name": "ISO/IEC 23894:2023 AI risk management guidance",
+   "kind": "voluntary guidance",
+   "access": "paid",
+   "applies": "Voluntary reference for D01, D16 method."
+  },
+  "ISO31000": {
+   "name": "ISO 31000:2018 risk management guidelines",
+   "kind": "voluntary guidance",
+   "access": "paid",
+   "applies": "Voluntary reference for the risk method."
+  },
+  "NIST": {
+   "name": "NIST AI RMF 1.0 (NIST AI 100-1) and Generative AI Profile (NIST AI 600-1)",
+   "kind": "voluntary framework",
+   "access": "free",
+   "applies": "Voluntary reference (GOVERN, MAP, MEASURE, MANAGE)."
+  },
+  "OWASP": {
+   "name": "OWASP Top 10 for LLM Applications 2025 and OWASP Agentic AI Threats and Mitigations",
+   "kind": "voluntary guidance",
+   "access": "free",
+   "applies": "Voluntary reference; the D07/D13 adversarial test set is organised by it."
+  }
+ },
+ "applicabilityMatrix": {
+  "D01": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 4, 5, 6 and Annex III screening; Art. 9 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 24",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Art. 13(2)-(3) cybersecurity risk assessment",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 5, 6.1; Annex A.2, A.3, A.5",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "cl. 5, 6.1",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO23894",
+    "ref": "cl. 5-6",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO31000",
+    "ref": "cl. 5-6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN, MAP",
+    "status": "indicative"
+   }
+  ],
+  "D02": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 14 (reference; binding only if high-risk); Art. 26(2) deployer",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.9",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM06 Excessive Agency; agentic human-in-the-loop",
+    "status": "indicative"
+   }
+  ],
+  "D03": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 50(1), 50(2) (applicability assessment pending); Art. 13 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 13-14 (customer as controller)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN, MAP",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM09 Misinformation",
+    "status": "indicative"
+   }
+  ],
+  "D04": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 12, 19, 26(6) (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 5(1)(e), 30",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I (security logging)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.15 Logging",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (event logs)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE",
+    "status": "indicative"
+   }
+  ],
+  "D05": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 11, 13, 18 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex II information to users",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 7.5; Annex A.6, A.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN",
+    "status": "indicative"
+   }
+  ],
+  "D06": [
+   {
+    "framework": "AIA",
+    "ref": "whole Regulation (monitoring of amendments, delegated and implementing acts)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Art. 13",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 4.1, 6.3",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "cl. 4, 6.3",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO31000",
+    "ref": "cl. 6.6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN 1",
+    "status": "indicative"
+   }
+  ],
+  "D07": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 15",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "Annex A.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.8, 8.25-8.29",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE (security)",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM01, LLM02, LLM05, LLM07",
+    "status": "indicative"
+   }
+  ],
+  "D08": [
+   {
+    "framework": "CRA",
+    "ref": "Art. 14 reporting (in force since 11 Sep 2026)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part II vulnerability handling",
+    "status": "future"
+   },
+   {
+    "framework": "AIA",
+    "ref": "Art. 26(5), 73 (deployer and high-risk only)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 33-34 (ColleagueAI's own breaches)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.24-5.28, 8.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 10.2",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE 4",
+    "status": "indicative"
+   }
+  ],
+  "D09": [
+   {
+    "framework": "GDPR",
+    "ref": "Art. 5, 25, 28, 30, 32, 35",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27701",
+    "ref": "PIMS controls",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.34",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.5, A.7",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MAP (privacy)",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM02 Sensitive Information Disclosure",
+    "status": "indicative"
+   }
+  ],
+  "D10": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 10 (reference; binding only if high-risk)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 5(1)(d)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.7",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM04, LLM08, LLM09",
+    "status": "indicative"
+   }
+  ],
+  "D11": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 15; Art. 25 value chain; Art. 53 (Microsoft as GPAI provider)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE; AI 600-1",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM03 (model supply chain)",
+    "status": "indicative"
+   }
+  ],
+  "D12": [
+   {
+    "framework": "CRA",
+    "ref": "Art. 13(5) due diligence on components; Annex I part II SBOM",
+    "status": "future"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 28",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.19-5.23",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.10",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN 6",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM03 Supply Chain",
+    "status": "indicative"
+   }
+  ],
+  "D13": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 9(6)-(8), 15 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I (testing)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (verification and validation)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.29",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM01-LLM10 test set",
+    "status": "indicative"
+   }
+  ],
+  "D14": [
+   {
+    "framework": "CRA",
+    "ref": "Annex I part II (secure distribution of updates)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.32",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (deployment)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE",
+    "status": "indicative"
+   }
+  ],
+  "D15": [
+   {
+    "framework": "GDPR",
+    "ref": "Art. 32(1)(c)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I (resilience)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.29-5.30, 8.13",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (operation, retirement)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE 2 (deactivation)",
+    "status": "indicative"
+   }
+  ],
+  "D16": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 4, 5, 27 (deployer FRIA where applicable)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.5",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO23894",
+    "ref": "Annex (AI risk sources)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MAP 5, MEASURE (fairness)",
+    "status": "indicative"
+   }
+  ],
+  "D17": [
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 9.2, 9.3",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "cl. 9.2",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN",
+    "status": "indicative"
+   }
+  ],
+  "D18": [
+   {
+    "framework": "OWASP",
+    "ref": "LLM10 Unbounded Consumption",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE (performance)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (monitoring)",
+    "status": "indicative"
+   }
+  ]
+ }
 }

@@ -39,12 +39,24 @@ Under the website change freeze, publishing it is an *approved operational chang
 - **Changes assessed in the open.** For each relevant change in the covered scope, we publish whether it requires a new release and why, against your certificate.
 - **Updated certified releases when needed.** When a covered change requires one, you receive the updated certified release at no further licence fee. You decide when to install it.
 - **A certificate others can check.** A Certificate ID your auditors, customers or procurement team can verify online.
-- **Regular evidence.** A standard evidence report and a consumption benchmark for your release. Shown as "planned" until it is a contractual commitment (spec §4.2).
+- **Quarterly assurance report and AI Token Economy benchmark.** A standard evidence report and a measured consumption profile (Copilot Studio use per business transaction, compared release to release) for your certified release.
+  - Shown as "planned" until it becomes a contractual benefit (spec §4.2).
+  - Measured on our reference environment, not yours.
 
 ### Always yours to run
 Your deployment and your compliance stay in your hands.
 - We give you a Deployment Assurance Kit: a checklist and a report template to confirm your installation matches the certified configuration.
 - We never need access to your environment, and we don't take it.
+
+## What it covers that matters to your risk, privacy and IT teams
+
+| Your concern | What we do | What stays with you |
+|---|---|---|
+| **GDPR, privacy and data protection** | The agent runs in your Microsoft tenant; your data stays there and we have no access to it. Each package ships with a personal-data inventory and an input pack for your DPIA | You are the controller: your DPIA, retention and notices |
+| **Risk** | Every certified release carries a risk and impact assessment and a screening against the AI Act's prohibited and high-risk categories | Your own use-case risk assessment |
+| **Compliance** | We follow changes in the rules within the covered scope, assess them in the open, and meet our own duties as provider, including security reporting, for every licensee | Your sector rules and deployer duties; we list them, we do not certify them |
+| **Microsoft compatibility** | We watch Copilot Studio and Power Platform changes every week, re-test after relevant ones, and issue a certified update when a breaking change requires it | Applying updates in your environment |
+| **AI Token Economy** | We measure each certified release's consumption per business transaction and show how it changes between releases | Monitoring your own capacity in the Power Platform admin center |
 
 ## How it works (four steps)
 
@@ -67,6 +79,13 @@ Your deployment and your compliance stay in your hands.
 ## What a certificate says, and what it does not ⚖
 
 A Colleague AI Certificate states that a specific release of a Colleague AI agent package meets the Colleague AI Certified standard, and whether it is current.
+
+**What "Active" means.** "Active" means all three of these hold:
+- your subscription is active;
+- your release is the current certified release;
+- the certificate is not suspended or revoked.
+
+A paid subscription alone does not make a release current. If a newer certified release exists, the certificate says so and points you to it.
 
 It does **not**:
 - certify your organisation, your deployment or your use;
@@ -101,4 +120,12 @@ No programme can promise that. Compliance depends on your configuration, data, p
 - You hear from us first, except in an emergency, and you can appeal.
 
 **What does it cost?**
-The prices are those already published per tier (from $99 to $399 a month, or 10 months' price for a year). They are shown with "Coming soon" until sale is authorised.
+Continuous Certification is planned for agents at CAI tiers L2, L3 and L4:
+
+| Tier | Per month | Per year (10 months' price) |
+|---|---|---|
+| L2 | $99 | $990 |
+| L3 | $149 | $1,490 |
+| L4 | $249 | $2,490 |
+
+Every price is shown with "Coming soon" until sale is authorised. L5 is not offered.
