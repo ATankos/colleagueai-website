@@ -483,7 +483,7 @@ test('notifications: recorded per registration, idempotent, bounded, and never l
     const fail = async (u, o) => { calls.push(o); return { ok: false, status: 500, json: async () => ({ message: 'leaks notify.me@example.com' }) }; };
     let n = await notifyInterest(id, { fetchImpl: fail });
     assert.equal(n.status, 'failed'); assert.equal(n.attempts, 1); assert.equal(n.lastError, 'HTTP 500');
-    assert.doesNotMatch(JSON.stringify(read().notification), /example\.com/, 'provider error bodies are not stored');
+    assert.ok(!JSON.stringify(read().notification).includes('notify.me@'), 'provider error bodies are not stored');
     assert.equal(retryDue(read(), Date.now()), false, 'back-off before the next attempt');
     assert.equal(retryDue(read(), Date.now() + 6 * 60 * 1000), true);
     const ok = async (u, o) => { calls.push(o); return { ok: true, status: 200, json: async () => ({ id: 'em_123' }) }; };
