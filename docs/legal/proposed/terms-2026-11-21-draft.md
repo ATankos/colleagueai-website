@@ -3,7 +3,7 @@
 *Proposed replacement for the live text of 13 June 2026. Publication only through the versioning process after
 counsel's approval; founder decisions D2–D4 in `README.md`.*
 
-**Colleague AI s.r.o.**, Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, registered with the
+**Colleague AI s.r.o.**, Školská 1736/12, Nové Město, 110 00 Praha 1, Czech Republic, IČO 29540852, DIČ CZ29540852, registered with the
 Municipal Court in Prague, file C 448176 ("**ColleagueAI**", "we"). Contact: hello@colleagueai.ai.
 
 ## 1. What these Terms cover
@@ -118,6 +118,6 @@ version you accepted stays recorded on your order and continues to govern that o
 
 ## 12. Contact
 
-Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha 1 · IČO 29540852 · hello@colleagueai.ai
+Colleague AI s.r.o. · Školská 1736/12, Nové Město, 110 00 Praha 1 · IČO 29540852, DIČ CZ29540852 · hello@colleagueai.ai
 
 *Last updated: [date of approval] · version [to be assigned on publication]*

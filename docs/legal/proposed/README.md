@@ -7,10 +7,9 @@ legal and tax review of 21 November 2026 (items B1.1–B1.9, B2, B3). The live p
 
 ## Facts of 21 November 2026 that the drafts reflect
 
-- **Seller identification.** ARES has no VAT-register entry for IČO 29540852 and VIES answered INVALID for
-  CZ29540852 (checked 21 Nov 2026). The drafts state no VAT identifier; one is added only from an official
-  registration decision. The live accepted versions still print "DIČ CZ29540852" inside their text; it leaves them with
-  this new version, never by editing an accepted version.
+- **Seller identification.** Founder decision 25 Nov 2026: the drafts state DIČ CZ29540852 beside the IČO. On that
+  date ARES still listed no DIČ and VIES answered INVALID; the founder chose to publish ahead of the official record.
+  Accepted versions are never edited in place; the DIČ reaches them with these new versions.
 - **Who signs for the company.** The Commercial Register (Municipal Court in Prague, C 448176) shows Marek Těšitel as
   the sole managing director, acting alone, and as the sole registered shareholder. No draft names a second director.
 - **First-sale scope.** Terms §2 states it: Czech businesses, card, the named release (config/launch-scope.json).
