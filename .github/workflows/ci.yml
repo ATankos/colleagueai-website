@@ -35,6 +35,8 @@ jobs:
 
       - name: Webhook security and idempotency
         run: node --test tests/webhook.test.mjs
+      - name: Certificate four-axis state (payment never implies an active certification claim)
+        run: node --test tests/certificate-state.test.mjs
 
       - name: Stripe API version compatibility (pinned SDK version, legacy and basil+ shapes)
         run: node --test tests/stripe-api-compat.test.mjs
