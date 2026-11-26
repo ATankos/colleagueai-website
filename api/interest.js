@@ -15,12 +15,20 @@
  *   - notification to the existing lead inbox (RESEND_API_KEY + DEMO_NOTIFY_EMAIL), optional and best-effort;
  *   - success is reported only after the record is stored, and no release date is ever promised.
  * Demand counters (lib/db.js incrDemand): per agent and month, no personal data, read by scripts/demand-report.mjs.
+ *
+ * GATE B - privacy activation switch. Registrations (personal data) are accepted only when the server-side flag
+ * INTEREST_COLLECTION_ENABLED is exactly "true". It is OFF by default and is not set by any deployment step: the
+ * founder turns it on after the privacy notice covering interest registrations is approved and published and the
+ * production store and notifications are verified (docs/launch/release-gates-abc.md). While it is off, a POST is
+ * refused before any field is read or stored, and GET /api/interest?status tells the page so it shows no form.
+ * The anonymous view counter stays on: it stores counts only, and its rate-limit key holds no plain IP address.
  */
 import crypto from 'node:crypto';
 import { rateLimit, saveLead, claimOnce, releaseKey, incrDemand } from '../lib/db.js';
 import { recordFor, publicStatus } from '../lib/availability.js';
 
 export const CONSENT_VERSION = 'interest-2026-11-26';
+export const collectionEnabled = () => process.env.INTEREST_COLLECTION_ENABLED === 'true';
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const OPEN_FOR_INTEREST = new Set(['coming-soon', 'temporarily-unavailable', 'early-access']);
 export const TECH = ['m365-copilot', 'copilot-studio', 'power-platform', 'azure', 'other', 'not-sure'];
@@ -33,6 +41,12 @@ const MIN_FILL_MS = 2500;
 const first = (v) => (Array.isArray(v) ? v[0] : v);
 const clean = (v, max) => (typeof v === 'string' ? v.trim().replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').slice(0, max) : '');
 const pick = (v, list) => (list.includes(v) ? v : null);
+
+/** A per-day salted hash of the client address: rate limiting without keeping a plain IP in the store. */
+function ipKey(req) {
+  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
+  return crypto.createHmac('sha256', salt).update(clientIp(req) + '|' + new Date().toISOString().slice(0, 10)).digest('hex').slice(0, 24);
+}
 
 function clientIp(req) {
   const fwd = first(req.headers['x-forwarded-for']);
@@ -76,8 +90,12 @@ async function notify(record) {
 }
 
 export default async function handler(req, res) {
+  if (req.method === 'GET' && first(req.query?.status) !== undefined) {
+    res.setHeader?.('Cache-Control', 'no-store');
+    return res.status(200).json({ enabled: collectionEnabled() });
+  }
   if (req.method !== 'POST') {
-    res.setHeader?.('Allow', 'POST');
+    res.setHeader?.('Allow', 'GET, POST');
     return res.status(405).json({ error: 'Method not allowed' });
   }
   const body = (req.body && typeof req.body === 'object') ? req.body : {};
@@ -88,9 +106,14 @@ export default async function handler(req, res) {
   // Anonymous view beacon: counts only, no personal data, its own rate limit; never fails the page.
   if (first(req.query?.event) === 'view') {
     try {
-      if (await rateLimit(`interest-view:${clientIp(req)}`, 120, 3600)) await incrDemand('view', agent);
+      if (await rateLimit(`interest-view:${ipKey(req)}`, 120, 3600)) await incrDemand('view', agent);
     } catch { /* counters are best-effort */ }
     return res.status(204).end();
+  }
+
+  // Gate B: no personal data is read, checked or stored unless collection has been switched on.
+  if (!collectionEnabled()) {
+    return res.status(503).json({ error: 'Interest registration is not open yet. Please email hello@colleagueai.ai.', code: 'interest_collection_disabled' });
   }
 
   const availability = publicStatus(agent);
@@ -99,7 +122,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!(await rateLimit(`interest:${clientIp(req)}`, 8, 3600))) {
+    if (!(await rateLimit(`interest:${ipKey(req)}`, 8, 3600))) {
       return res.status(429).json({ error: 'Too many registrations from this address. Please email hello@colleagueai.ai.', code: 'rate_limited' });
     }
   } catch {

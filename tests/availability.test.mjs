@@ -57,6 +57,7 @@ before(async () => {
   process.env.KV_REST_API_URL = `http://127.0.0.1:${kvServer.address().port}`;
   process.env.KV_REST_API_TOKEN = 'local-dummy-token';
   delete process.env.RESEND_API_KEY; delete process.env.DEMO_NOTIFY_EMAIL;
+  process.env.INTEREST_COLLECTION_ENABLED = 'true'; // each Gate B test below sets its own state
   ({ default: interest } = await import('../api/interest.js'));
   ({ default: checkout } = await import('../api/checkout.js'));
 });
@@ -273,6 +274,37 @@ test('the build refuses to run with drifted pages', () => {
 });
 
 // ---------- 4. interest registration ----------
+test('Gate B: interest collection is OFF unless INTEREST_COLLECTION_ENABLED is exactly "true"; nothing is stored', async () => {
+  const keep = process.env.INTEREST_COLLECTION_ENABLED;
+  try {
+    for (const v of [undefined, '', '1', 'TRUE', 'yes', 'false']) {
+      if (v === undefined) delete process.env.INTEREST_COLLECTION_ENABLED; else process.env.INTEREST_COLLECTION_ENABLED = v;
+      const r = await post(VALID);
+      assert.equal(r.statusCode, 503, `flag=${v}`); assert.equal(r.body.code, 'interest_collection_disabled');
+      const s = resDouble(); await interest({ method: 'GET', query: { status: '1' }, headers: {}, socket: {} }, s);
+      assert.deepEqual(s.body, { enabled: false }); assert.equal(s.headers['Cache-Control'], 'no-store');
+    }
+    assert.equal(lists.get('lead:index:interest'), undefined, 'no personal data stored while the switch is off');
+    assert.ok([...store.keys()].every((k) => !k.startsWith('interest:seen:')), 'no dedupe marker either');
+    // The anonymous view counter keeps working and its rate-limit key holds no plain address.
+    const v = await post({ agent: 'onboarding-agent' }, { query: { event: 'view' }, ip: '203.0.113.9' });
+    assert.equal(v.statusCode, 204);
+    assert.ok([...store.keys()].every((k) => !k.includes('203.0.113.9')));
+    process.env.INTEREST_COLLECTION_ENABLED = 'true';
+    const s = resDouble(); await interest({ method: 'GET', query: { status: '1' }, headers: {}, socket: {} }, s);
+    assert.deepEqual(s.body, { enabled: true });
+  } finally { process.env.INTEREST_COLLECTION_ENABLED = keep; }
+});
+
+test('Gate B: no deployment configuration turns interest collection on', () => {
+  const vercel = readFileSync(join(ROOT, 'vercel.json'), 'utf8');
+  const ci = readFileSync(join(ROOT, '.github/workflows/ci.yml'), 'utf8');
+  const envExample = existsSync(join(ROOT, '.env.example')) ? readFileSync(join(ROOT, '.env.example'), 'utf8') : '';
+  for (const [name, src] of [['vercel.json', vercel], ['ci.yml', ci], ['.env.example', envExample]]) {
+    assert.doesNotMatch(src, /INTEREST_COLLECTION_ENABLED\s*[=:]\s*["']?true/, name);
+  }
+});
+
 test('interest: a valid registration is stored with consent, minimised fields and a demand count', async () => {
   const r = await post(VALID);
   assert.equal(r.statusCode, 200); assert.equal(r.body.success, true); assert.ok(r.body.id);
