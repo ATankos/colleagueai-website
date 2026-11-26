@@ -1,0 +1,4 @@
+{
+  "_comment": "Approved media for the site. ccVideo is the ~60-second Continuous Certification video. It renders (home page and /certified, top of the Continuous Certification block) ONLY when src is a same-origin file under /media/ and approvedBy and approvedOn are recorded. Captions per locale: { \"en\": \"/media/cc-60s.en.vtt\", ... }. No third-party embeds (the site CSP and the privacy notice assume none).",
+  "ccVideo": null
+}

@@ -18,6 +18,9 @@ const DIST = path.join(ROOT, 'dist');
 const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/i18n/certified-content.json'), 'utf8'));
 const PRICING = JSON.parse(fs.readFileSync(path.join(ROOT, 'config/pricing.json'), 'utf8'));
 const ROUTES = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n.routes.json'), 'utf8'));
+const PILLAR = require('./lib/cc-pillar.cjs');
+/* Only the offered tiers are shown to customers (L2-L4). L5 keeps a configured price but is not offered. */
+const OFFERED = Array.isArray(PRICING.subscriptionTiersOffered) ? PRICING.subscriptionTiersOffered : [];
 
 const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const BASE = 'https://www.colleagueai.ai';
@@ -143,7 +146,7 @@ const attrSafe = (value, key) => {
 function page(loc) {
   const t = C[loc];
   const url = `${BASE}${href(loc, 'certified')}`;
-  const rows = Object.entries(PRICING.tiers).map(([tier, v]) =>
+  const rows = Object.entries(PRICING.tiers).filter(([tier]) => OFFERED.includes(tier)).map(([tier, v]) =>
     `<tr><td><b>${tier}</b></td><td>${usd(v.oneTimeCents)}</td>` +
     `<td>$${v.monthlyCents / 100} ${t.per_month}</td><td>${usd(v.annualCents)} ${t.per_year}</td></tr>`).join('');
 
@@ -156,6 +159,8 @@ function page(loc) {
 <div class="callout warn">
   <p style="margin:0"><b>${t.not_label}</b> ${t.not_text}</p>
 </div>
+
+${PILLAR.render(loc, { variant: 'full', withVideo: true })}
 
 <h2>${t.inc_h}</h2>
 <ul>${t.inc.map((i) => `<li>${i}</li>`).join('')}</ul>
@@ -226,7 +231,7 @@ function page(loc) {
   out = setLocaleLinks(out, localeLinks);
   out = graftBody(out, content);
   const headEnd = out.indexOf('</head>');
-  return `${out.slice(0, headEnd)}<style id="cai-certified-css">${STYLE}</style>\n${out.slice(headEnd)}`;
+  return `${out.slice(0, headEnd)}<style id="cai-certified-css">${STYLE}\n${PILLAR.CSS}</style>\n${out.slice(headEnd)}`;
 }
 
 let written = 0;

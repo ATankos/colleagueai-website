@@ -78,7 +78,32 @@ Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /score (CAI 
 /responsible-ai (commitments), /partners, /refund, /contact.
 Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 
-## Agent catalogue (${AGENTS.length} planned agents)
+## Continuous Certification (Coming soon)
+`;
+{
+  // One source with the website: the same content model and status labels as every page's Continuous Certification block.
+  const CC = JSON.parse(fs.readFileSync(path.join(__dirname, "i18n/certified-content.json"), "utf8")).en;
+  const { STATUS, BENEFITS, ROWS } = require("./lib/cc-pillar.cjs");
+  const P = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "config/pricing.json"), "utf8"));
+  const label = { built: CC.st_built, sub: CC.st_sub, plan: CC.st_plan };
+  out += `
+${CC.msg} ${CC.msg2}
+${CC.msg_sub}
+Status: ${CC.soon}
+Status labels: ${CC.st_legend}
+
+Benefits:
+${BENEFITS.map((b) => `- ${CC[b + "_t"]} [${label[STATUS[b]]}]: ${CC[b]}`).join("\n")}
+
+${CC.cmp_h} (feature | perpetual licence | with Continuous Certification):
+${ROWS.map((r) => `- ${CC[r]} | ${CC[r + "a"]} | ${CC[r + "b"]}`).join("\n")}
+
+Planned subscription prices (not yet on sale), per CAI tier: ${P.subscriptionTiersOffered.map((t) => `${t} $${P.tiers[t].monthlyCents / 100}/month or $${(P.tiers[t].annualCents / 100).toLocaleString("en-US")}/year`).join("; ")}. L5 is not offered.
+Scope: Continuous Certification is Colleague AI's own programme for its own releases. It is not third-party accreditation, not a regulatory or compliance opinion, and it never certifies the customer's deployment or compliance. Details: https://www.colleagueai.ai/certified
+
+`;
+}
+out += `## Agent catalogue (${AGENTS.length} planned agents)
 `;
 for (const a of AGENTS) {
   out += `
