@@ -42,7 +42,7 @@ test('localized partner pages keep a translated meta description (a changed Engl
 // Founder decision (Round 3): 10% of eligible net PERPETUAL LICENCE revenue; no commission on subscription revenue.
 const visible = (f) => readFileSync(f, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
 test('no localized partner or catalogue page shows the English commission wording (visible text, all seven languages)', () => {
-  const english = /eligible net|net licence revenue|earns no commission|you earn 10%|earn a 10%/;
+  const english = /eligible net|net licence revenue|earns no commission|you earn 10%|earn a 10%|every agent sale/;
   for (const lang of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
     for (const f of [`public/${lang}/partners.html`, `public/${lang}/partners/index.html`, `public/${lang}/agents.html`]) {
       const m = english.exec(visible(f));
@@ -54,4 +54,12 @@ test('every language states that subscription revenue earns no commission, on th
   const no = { cs: /Continuous Certification se provize neplatí/, de: /Continuous Certification fällt keine Provision an/, fr: /Continuous Certification ne donnent lieu à aucune commission/,
     es: /Continuous Certification no generan comisión/, it: /Continuous Certification non generano commissioni/, pl: /Continuous Certification nie podlegają prowizji/, pt: /Continuous Certification não geram comissão/ };
   for (const [lang, re] of Object.entries(no)) assert.match(visible(`public/${lang}/partners.html`), re, lang);
+});
+
+test('the rate badge states the commission base, not "every agent sale" (all eight languages)', () => {
+  for (const f of ['public/partners.html', ...['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'].map((l) => `public/${l}/partners.html`)]) {
+    const label = /<span class="rate-lbl">([^<]*)<\/span>/.exec(readFileSync(f, 'utf8'))?.[1] ?? '';
+    assert.doesNotMatch(label, /every agent sale|každého prodeje|jedem Agentenverkauf|chaque vente|cada venta|ogni vendita|każdej sprzedaży|cada venda/i, `${f}: ${label}`);
+    assert.ok(label.length > 10, `${f}: rate label missing`);
+  }
 });
