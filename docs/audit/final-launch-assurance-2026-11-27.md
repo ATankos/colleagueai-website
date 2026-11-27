@@ -108,8 +108,13 @@ Of 19 gates: 9 PASS hold for this candidate, 1 PASS is stale, and 9 are open (2 
 
 ## 6. Clean-environment rerun of the final head
 
+Fresh clone of `0f87cf9f`, `npm ci`, `npm run build` (working tree unchanged by the build).
+
 | Suite | Result |
 |---|---|
-| Node tests | see below |
-| Vitest, ESLint, static audits, `npm audit` | see below |
-| `npm run e2e:site` (11 specs × desktop, mobile, tablet, against `dist/`) | see below |
+| Node tests | **797/797 PASS** |
+| Vitest | **37/37 PASS** |
+| ESLint, static QA, global language, localized copy, visible copy, URL locale | **PASS** |
+| `npm audit` | 0 vulnerabilities |
+| `npm run e2e:site` (11 specs × desktop, mobile, tablet, against `dist/`) | **753/753 PASS** (16.8 min) |
+| GitHub CI on the #593 head (`test`, `e2e`) | **PASS** |
