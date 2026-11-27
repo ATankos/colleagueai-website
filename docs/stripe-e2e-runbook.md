@@ -269,7 +269,7 @@ billed on the first invoice, so **one** payment covers both.
 
 ## 8a. Stripe API version and the webhook endpoint
 
-The code pins `2026-10-28.endive`, the version the installed `stripe` SDK is built against (`lib/stripe.js`).
+The code pins `2026-11-18.endive`, the version the installed `stripe` SDK is built against (`lib/stripe.js`).
 A webhook endpoint keeps the API version it was created with, which is set separately in the Dashboard, so
 its payloads can stay in the legacy shape while our own calls use the pinned version. `lib/stripeCompat.js`
 reads both shapes, so this release can deploy before the endpoint is upgraded.
