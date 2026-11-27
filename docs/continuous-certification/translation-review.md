@@ -1,6 +1,7 @@
 # Continuous Certification copy: native-language review (required before publication)
 
 **Status:** pending for all seven translations.
+**27 Nov 2026:** PR #586 was merged and published (09:34 UTC, 2da5396e) before any row below was signed off. The seven translations are live unreviewed. The reviews are still required; corrections follow in a reviewed PR. Recorded in `docs/launch/operational-record-2026-11-27.md`.
 - The English source and the seven translations in `scripts/i18n/certified-content.json` were written by the engineering assistant, not by native speakers.
 - The structural checks pass: key parity, no English leaks, banned-claim scan in every language.
 - No automated check can judge legal register, tone or terminology. PR #586 is not published until every row below is signed off.
