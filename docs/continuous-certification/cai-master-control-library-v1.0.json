@@ -1,0 +1,2478 @@
+{
+ "_comment": "CANONICAL CAI Master Control Library (MCL). One list for every agent package and for all four assurance dimensions. Edited only through a reviewed PR; tests/cai-mcl.test.mjs checks its structure. References marked '(reference)' or '(indicative)' are mappings for orientation, not claims that the instrument applies or is met. ISO/IEC 42001 references are to clauses and Annex A objectives and must be verified against a licensed copy of the standard before the MCL is approved.",
+ "library": "CAI Master Control Library",
+ "version": "1.0.0-rc1",
+ "status": "draft-for-approval",
+ "date": "2026-11-26",
+ "dimensions": {
+  "PC": "Product certification: the release as built and shipped, assessed against the MCL. Per release; prerequisite for any sale.",
+  "SC": "Active Continuous Certification subscription coverage: keeping a certified release current while the subscription is active.",
+  "DA": "Customer deployment assurance: whether the customer's installation matches the certified configuration. Customer-run with ColleagueAI's kit.",
+  "OC": "Customer operational compliance: the customer's own legal and operational duties. Never certified by ColleagueAI."
+ },
+ "obligations": {
+  "M": "Mandatory provider obligation. Owed for every certified release and every affected licensee, regardless of subscription.",
+  "L": "Perpetual licence entitlement. Part of what every buyer of the version receives, for the life of the licence.",
+  "S": "Incremental subscription benefit. Only while a Continuous Certification subscription is active.",
+  "C": "Customer responsibility. ColleagueAI supplies guidance only and does not verify or certify it."
+ },
+ "roles": {
+  "FT": "Founder, technical (programme owner)",
+  "FC": "Founder, commercial (approver, customer and authority communication)",
+  "SGA": "Student group A (regression and benchmark)",
+  "SGB": "Student group B (mappings, documentation, evidence templates)",
+  "INT": "Intern (monitoring, registers, report assembly)",
+  "IR": "Qualified independent reviewer (external)",
+  "EC": "External counsel",
+  "CUST": "Customer"
+ },
+ "phases": {
+  "P0": "2026-12-31",
+  "P1": "2027-03-31",
+  "P2": "2027-06-30",
+  "P3": "2027-12-31"
+ },
+ "domains": [
+  {
+   "id": "D01",
+   "name": "Governance, accountability and CAI tier classification"
+  },
+  {
+   "id": "D02",
+   "name": "Human oversight and intervention"
+  },
+  {
+   "id": "D03",
+   "name": "Transparency and user disclosure"
+  },
+  {
+   "id": "D04",
+   "name": "Audit trail and record-keeping"
+  },
+  {
+   "id": "D05",
+   "name": "Documentation, instructions for use and statement of applicability"
+  },
+  {
+   "id": "D06",
+   "name": "Regulatory monitoring and change assessment"
+  },
+  {
+   "id": "D07",
+   "name": "Security engineering and secure development"
+  },
+  {
+   "id": "D08",
+   "name": "AI incident and vulnerability management"
+  },
+  {
+   "id": "D09",
+   "name": "Privacy and data protection by design"
+  },
+  {
+   "id": "D10",
+   "name": "Data governance, lineage, quality and knowledge integrity"
+  },
+  {
+   "id": "D11",
+   "name": "AI model lifecycle and Microsoft platform compatibility"
+  },
+  {
+   "id": "D12",
+   "name": "Third-party, connector and supply-chain risk"
+  },
+  {
+   "id": "D13",
+   "name": "Testing, evaluation and regression"
+  },
+  {
+   "id": "D14",
+   "name": "Release integrity, packaging and distribution"
+  },
+  {
+   "id": "D15",
+   "name": "Operational resilience, recovery, rollback and safe decommissioning"
+  },
+  {
+   "id": "D16",
+   "name": "Responsible AI, fairness, accessibility and human rights"
+  },
+  {
+   "id": "D17",
+   "name": "Independent certification review, conflicts of interest, suspension and revocation"
+  },
+  {
+   "id": "D18",
+   "name": "Business value, performance and AI Token Economy benchmarking"
+  }
+ ],
+ "controls": [
+  {
+   "id": "CAI-D01-01",
+   "domain": "D01",
+   "title": "Programme ownership and change control",
+   "requirement": "A named programme owner and approver are recorded; the MCL is versioned and changes only through a reviewed pull request with an independent approving review.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "MCL version history; PR approvals",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 cl. 5",
+    "AI Act Art. 17 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D01-02",
+   "domain": "D01",
+   "title": "CAI tier classification per release",
+   "requirement": "Each release records its CAI tier (L1-L5) and the rationale; re-assessed on every change that touches autonomy, actions or data reach.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "agent record cai.targetLevel; dossier tier rationale",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "C-1"
+   ]
+  },
+  {
+   "id": "CAI-D01-03",
+   "domain": "D01",
+   "title": "AI system impact assessment",
+   "requirement": "An impact and risk assessment per release covers intended purpose, affected persons, foreseeable misuse and residual risk, with named treatment for each risk above 'low'.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "impact assessment in the evidence library",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 A.5 (indicative)",
+    "AI Act Art. 9 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D01-04",
+   "domain": "D01",
+   "title": "High-risk and prohibited-practice screening",
+   "requirement": "Each intended purpose is screened against AI Act Art. 5 and Annex III; any 'possibly high-risk' result is confirmed by counsel before sale and changes the package's obligations.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "screening record; counsel note where required",
+   "accountable": "FC",
+   "responsible": "EC",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "AI Act Art. 5, Art. 6, Annex III"
+   ]
+  },
+  {
+   "id": "CAI-D01-05",
+   "domain": "D01",
+   "title": "Accountable human role in the package",
+   "requirement": "The package defines the customer role accountable for the agent and the decisions it may not take alone.",
+   "dimensions": [
+    "PC",
+    "DA"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "install guide; dossier",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "C-2"
+   ]
+  },
+  {
+   "id": "CAI-D02-01",
+   "domain": "D02",
+   "title": "Defined stop points",
+   "requirement": "Every action with legal, financial or external effect is listed and requires a named human approval; a regression case proves the agent cannot complete it without approval.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "regression results (oversight cases)",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "C-2",
+    "AI Act Art. 14 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D02-02",
+   "domain": "D02",
+   "title": "Stop and override",
+   "requirement": "A documented way to pause the agent and its flows is tested on each release.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "test record",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 14(4) (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D02-03",
+   "domain": "D02",
+   "title": "Customer oversight assignment",
+   "requirement": "The customer assigns oversight persons with the competence and authority to act; the deployment kit records who.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer deployment report",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 26(2) (deployer)"
+   ]
+  },
+  {
+   "id": "CAI-D03-01",
+   "domain": "D03",
+   "title": "AI interaction disclosure",
+   "requirement": "End users are told they interact with an AI system at the start of each conversation; a regression case checks the text.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "regression results",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "C-4",
+    "AI Act Art. 50(1)"
+   ]
+  },
+  {
+   "id": "CAI-D03-02",
+   "domain": "D03",
+   "title": "Synthetic content marking: applicability assessment",
+   "requirement": "For each package, a recorded assessment states whether it generates synthetic audio, image, video or text within Art. 50(2), whether an exception applies (for example assistive editing that does not substantially alter the input), and whether any transitional period is available, which is the case only where its eligibility conditions are met (per the adopted text, systems already placed on the market before 2 Aug 2026). Counsel confirms it before the package is first placed on the market; where Art. 50(2) applies, marking ships in the first release.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "decision record",
+   "accountable": "FC",
+   "responsible": "EC",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "AI Act Art. 50(2)"
+   ]
+  },
+  {
+   "id": "CAI-D03-03",
+   "domain": "D03",
+   "title": "Unverified content labelling",
+   "requirement": "Extracted or generated content not yet confirmed by a human is labelled as unverified wherever shown.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "regression results",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "C-4"
+   ]
+  },
+  {
+   "id": "CAI-D03-04",
+   "domain": "D03",
+   "title": "Customer notices to affected persons",
+   "requirement": "The customer gives any notice its own context requires (employees, counterparties).",
+   "dimensions": [
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer records",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 26, Art. 50 (deployer)"
+   ]
+  },
+  {
+   "id": "CAI-D04-01",
+   "domain": "D04",
+   "title": "Audit event schema",
+   "requirement": "Each release fixes the audit events and fields it emits; a regression case checks that every field is written.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "schema in dossier; regression results",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "C-3",
+    "AI Act Art. 12 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D04-02",
+   "domain": "D04",
+   "title": "Audit data stays with the customer",
+   "requirement": "Audit records are stored only in the customer's tenant; ColleagueAI has no access path.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "architecture note; isolation test",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "Founder decision 10 Nov 2026"
+   ]
+  },
+  {
+   "id": "CAI-D04-03",
+   "domain": "D04",
+   "title": "Customer retention setting",
+   "requirement": "The customer sets audit retention to its own policy; the kit states the default and how to change it.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer deployment report",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 26(6) (deployer)"
+   ]
+  },
+  {
+   "id": "CAI-D05-01",
+   "domain": "D05",
+   "title": "Release documentation set",
+   "requirement": "Dossier, install guide, known limitations, START-HERE, control map and the release-time evidence summary ship with every release and are listed in its SHA256SUMS.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "SHA256SUMS; bundle manifest",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "C-5",
+    "AI Act Art. 13 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D05-02",
+   "domain": "D05",
+   "title": "Statement of applicability",
+   "requirement": "Every MCL control is marked applicable or not applicable to the release, with the reason and the evidence reference; produced from one template.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "SoA file in the release evidence",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 cl. 6.1.3 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D05-03",
+   "domain": "D05",
+   "title": "Documentation retention",
+   "requirement": "Documentation for each released version stays available to its licensees for the life of the licence and at least 10 years after the version was last sold.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "continuous",
+   "method": "review",
+   "evidence": "repository and evidence library retention",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 18 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D06-01",
+   "domain": "D06",
+   "title": "Regulatory source register",
+   "requirement": "The instruments in the covered scope (I-1 to I-4), Microsoft Copilot Studio and Power Platform notices (compatibility and breaking changes) and the frameworks in the applicability matrix are scanned weekly and every relevant item is logged.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "continuous",
+   "method": "manual",
+   "evidence": "monitoring log",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "Covered scope 5.1"
+   ]
+  },
+  {
+   "id": "CAI-D06-02",
+   "domain": "D06",
+   "title": "Statutory-change triage",
+   "requirement": "Each logged change is classed within 10 business days: statutory obligation on ColleagueAI as provider, change to the CAI standard, or no effect.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-change",
+   "method": "review",
+   "evidence": "triage record",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "Covered scope 5.3"
+   ]
+  },
+  {
+   "id": "CAI-D06-03",
+   "domain": "D06",
+   "title": "Statutory remediation for all licensees",
+   "requirement": "Where a change creates a legal obligation on ColleagueAI as provider of a shipped version, the remediation goes to every affected licensee, subscribed or not.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-change",
+   "method": "review",
+   "evidence": "release notes; notification log",
+   "accountable": "FC",
+   "responsible": "FT",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "Licence §5",
+    "CRA Art. 13 (from 11 Dec 2027)"
+   ]
+  },
+  {
+   "id": "CAI-D06-04",
+   "domain": "D06",
+   "title": "Published change assessment",
+   "requirement": "For each in-scope change, an assessment (triggers a release / does not, and why) is published against the affected certificates within 30 days of the change taking effect or being published.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "per-change",
+   "method": "review",
+   "evidence": "published assessment",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "Covered scope 5.3"
+   ]
+  },
+  {
+   "id": "CAI-D06-05",
+   "domain": "D06",
+   "title": "Certified update availability",
+   "requirement": "Where an assessment triggers a release, the updated certified release is made available within 60 days of the trigger, or before the change's own deadline if later.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "per-change",
+   "method": "review",
+   "evidence": "release record; availability date",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P2",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "Covered scope 5.5"
+   ]
+  },
+  {
+   "id": "CAI-D07-01",
+   "domain": "D07",
+   "title": "Repository security scanning",
+   "requirement": "CodeQL, dependency audit and secret scanning run on every change; high or critical findings block the merge or carry a dated, approved exception.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "continuous",
+   "method": "automated",
+   "evidence": "CI results; dependency-advisory-exceptions.md",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "CRA Annex I (from 11 Dec 2027)"
+   ]
+  },
+  {
+   "id": "CAI-D07-02",
+   "domain": "D07",
+   "title": "Package scan before release",
+   "requirement": "The package is scanned for secrets, tenant identifiers and personal data before release.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "scan-bundle output",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D07-03",
+   "domain": "D07",
+   "title": "Least privilege and isolation",
+   "requirement": "Connections use the least privilege documented; a second-user test proves no cross-user or cross-team access.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "P-ISOLATION evidence",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "AI Act Art. 15 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D07-04",
+   "domain": "D07",
+   "title": "Prompt-injection and misuse test set",
+   "requirement": "A shared adversarial set (injection, jailbreak, data exfiltration, instruction override) runs on every release; critical cases must all pass.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "regression results (security set)",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 15(5) (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D07-05",
+   "domain": "D07",
+   "title": "Security support period",
+   "requirement": "The security support period (24 months) is stated in the licence and on the disclosure page.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "licence; agent record support",
+   "accountable": "FC",
+   "responsible": "EC",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "CRA Art. 13(8)",
+    "Licence §5(c)"
+   ]
+  },
+  {
+   "id": "CAI-D08-01",
+   "domain": "D08",
+   "title": "Vulnerability and incident intake",
+   "requirement": "security@ and security.txt are live; every report is acknowledged within 2 business days with a reference, whether or not the reporter is a customer.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "manual",
+   "evidence": "acknowledgement; register row",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "CRA Art. 13(6) and 13(17) (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D08-02",
+   "domain": "D08",
+   "title": "Security and AI incident register",
+   "requirement": "Every report and incident is logged with severity (CVSS for security; CAI AI-incident class for behaviour), owner and dates, and closed with a root cause.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "register",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 cl. 10 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D08-03",
+   "domain": "D08",
+   "title": "CRA reporting: early warning, notification, final report",
+   "requirement": "For an actively exploited vulnerability or a severe incident affecting a package: early warning within 24 h of becoming aware; notification within 72 h; final report within 14 days after a corrective or mitigating measure is available (vulnerability) or within one month after the incident notification (severe incident); intermediate reports when requested; affected users informed without undue delay with mitigations. Submitted through the ENISA Single Reporting Platform to the coordinating CSIRT; account and submission path registered before the first sale (CRA set-up item C6).",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "manual",
+   "evidence": "SRP submission references and timestamps in the security register; user notification log",
+   "accountable": "FC",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "CRA Art. 14 (applies since 11 Sep 2026)"
+   ]
+  },
+  {
+   "id": "CAI-D08-04",
+   "domain": "D08",
+   "title": "Notice to all affected licensees",
+   "requirement": "Every affected licensee is notified with mitigation and the corrective release, regardless of subscription status.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "manual",
+   "evidence": "notification log",
+   "accountable": "FC",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "Licence §5(c)"
+   ]
+  },
+  {
+   "id": "CAI-D08-05",
+   "domain": "D08",
+   "title": "Corrective release",
+   "requirement": "Security fixes and defect corrections ship as corrective releases of the purchased line at no further licence fee during the support period.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "release record (correctiveFor)",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "Licence §5(a)-(c)"
+   ]
+  },
+  {
+   "id": "CAI-D08-06",
+   "domain": "D08",
+   "title": "Learning loop",
+   "requirement": "Every closed incident adds or updates at least one regression case.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "regression set change log",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D08-07",
+   "domain": "D08",
+   "title": "Deployer serious-incident duties",
+   "requirement": "The customer reports serious incidents that arise in its use where the law requires; ColleagueAI supports with facts about the package.",
+   "dimensions": [
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer records",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 26(5), Art. 73 (deployer, where high-risk)"
+   ]
+  },
+  {
+   "id": "CAI-D09-01",
+   "domain": "D09",
+   "title": "Personal-data inventory per package",
+   "requirement": "Each package lists the personal data it can process, where it is stored (customer tenant) and for what purpose.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "dossier data section",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "GDPR Art. 25, Art. 30 (input)"
+   ]
+  },
+  {
+   "id": "CAI-D09-02",
+   "domain": "D09",
+   "title": "No provider access to customer data",
+   "requirement": "ColleagueAI is not given access to customer data by the package; any support access is granted by the customer, time-bound and under a written agreement, never automatic.",
+   "dimensions": [
+    "PC",
+    "DA"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "architecture note; licence",
+   "accountable": "FC",
+   "responsible": "EC",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "GDPR Art. 28"
+   ]
+  },
+  {
+   "id": "CAI-D09-03",
+   "domain": "D09",
+   "title": "DPIA input pack",
+   "requirement": "A standard input for the customer's DPIA (data, risks, controls) ships with the package.",
+   "dimensions": [
+    "PC",
+    "OC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "DPIA input document",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "GDPR Art. 35 (input)"
+   ]
+  },
+  {
+   "id": "CAI-D09-04",
+   "domain": "D09",
+   "title": "Synthetic test data only",
+   "requirement": "Development, testing and benchmarking use synthetic data only.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "continuous",
+   "method": "review",
+   "evidence": "test fixture register",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D10-01",
+   "domain": "D10",
+   "title": "Knowledge source declaration",
+   "requirement": "Every grounding source, connector and expected document format is declared with its owner role.",
+   "dimensions": [
+    "PC",
+    "DA"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "dossier; install guide",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "AI Act Art. 10 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D10-02",
+   "domain": "D10",
+   "title": "Lineage to source",
+   "requirement": "Every extracted value and every answer that cites data is traceable to the source document and location; a regression case checks this.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "regression results (lineage cases)",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "ISO/IEC 42001 A.7 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D10-03",
+   "domain": "D10",
+   "title": "Quality thresholds",
+   "requirement": "Per-field accuracy on the golden dataset meets the release threshold recorded in the release record, with no drop over 2 percentage points against the previous certified release.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "golden-set report",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "AI Act Art. 15(1) (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D10-04",
+   "domain": "D10",
+   "title": "Knowledge integrity",
+   "requirement": "Superseded, stale and unverified content is handled as documented (superseded marking, unverified labels, refusal to quote unconfirmed text as verbatim).",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "regression results",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D10-05",
+   "domain": "D10",
+   "title": "Customer source curation",
+   "requirement": "The customer curates knowledge sources and their permissions; the kit lists the checks.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer deployment report",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D11-01",
+   "domain": "D11",
+   "title": "Model and platform dependency record",
+   "requirement": "Each release records the generative settings, orchestration mode, AI Builder models and Microsoft features it depends on, as far as Microsoft exposes them.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "release record dependency section",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 A.6 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D11-02",
+   "domain": "D11",
+   "title": "Model change detection",
+   "requirement": "Microsoft model, orchestration and feature changes announced for Copilot Studio and Power Platform are logged weekly against the dependency records.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "continuous",
+   "method": "manual",
+   "evidence": "monitoring log",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "Covered scope I-4"
+   ]
+  },
+  {
+   "id": "CAI-D11-03",
+   "domain": "D11",
+   "title": "Re-evaluation on model change",
+   "requirement": "After a logged model change that can affect C-1 to C-5, the golden and security sets are re-run within 30 days and the result is published as a change assessment.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "per-change",
+   "method": "automated",
+   "evidence": "re-run report; change assessment",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D11-04",
+   "domain": "D11",
+   "title": "Safety defect from model change",
+   "requirement": "If a re-run shows a safety or security defect, the fix ships as a corrective release to all licensees in the support period.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-change",
+   "method": "review",
+   "evidence": "corrective release record",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P2",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "Licence §5"
+   ]
+  },
+  {
+   "id": "CAI-D11-05",
+   "domain": "D11",
+   "title": "Configuration under version control",
+   "requirement": "Prompts, topics, flows and settings ship only inside the managed solution of the release; no unmanaged changes in released packages.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "managed solution hash equality",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D12-01",
+   "domain": "D12",
+   "title": "Component inventory (SBOM)",
+   "requirement": "Each release lists its Microsoft services, connectors, third-party components and licences in machine-readable form.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "SBOM; third-party-licences.md",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P2",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "CRA Annex I part II (from 11 Dec 2027)"
+   ]
+  },
+  {
+   "id": "CAI-D12-02",
+   "domain": "D12",
+   "title": "Connector risk classification",
+   "requirement": "Each connector is classed by data reach, authentication and recommended DLP group.",
+   "dimensions": [
+    "PC",
+    "DA"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "connector table in dossier",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 A.10 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D12-03",
+   "domain": "D12",
+   "title": "Provider supplier register",
+   "requirement": "ColleagueAI's own suppliers (Microsoft, GitHub, Vercel, Upstash, Resend, Stripe) are listed with role, location and DPA status.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "annual",
+   "method": "review",
+   "evidence": "supplier register",
+   "accountable": "FC",
+   "responsible": "FC",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "GDPR Art. 28"
+   ]
+  },
+  {
+   "id": "CAI-D12-04",
+   "domain": "D12",
+   "title": "Third-party vulnerability watch",
+   "requirement": "Advisories for repository dependencies and Microsoft platform security are watched; relevant ones enter the incident register.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "continuous",
+   "method": "automated",
+   "evidence": "advisory log",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D12-05",
+   "domain": "D12",
+   "title": "Customer environment policies",
+   "requirement": "The customer applies DLP, environment and connector policies; the kit lists the recommended settings.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer deployment report",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D13-01",
+   "domain": "D13",
+   "title": "Mandatory release gates",
+   "requirement": "All 17 mandatory release gates pass with recorded evidence before a release can be sold.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "config/release-gates.json; releaseEvidenceErrors",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "Gate C"
+   ]
+  },
+  {
+   "id": "CAI-D13-02",
+   "domain": "D13",
+   "title": "Central regression suite",
+   "requirement": "One regression suite (functional golden set, oversight, transparency, audit, lineage, security cases) is maintained centrally and run on CAI-TEST for every release and every change assessment that touches the package.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "suite version; run report",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D13-03",
+   "domain": "D13",
+   "title": "Regression acceptance",
+   "requirement": "Zero failed critical cases; non-critical pass rate at or above the threshold in the release record; every failure has a ticket.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "run report",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D13-04",
+   "domain": "D13",
+   "title": "Clean install and workflow",
+   "requirement": "Clean install and the end-to-end workflow pass on a clean environment.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "P-INSTALL-CLEAN, P-WORKFLOW-CLEAN evidence",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D13-05",
+   "domain": "D13",
+   "title": "Upgrade from the previous certified release",
+   "requirement": "Upgrade preserves data, configuration and flow states.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "P-UPGRADE evidence",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D14-01",
+   "domain": "D14",
+   "title": "Package integrity",
+   "requirement": "Package SHA-256, bytes and bundle revision equal the release record; any mismatch refuses sale.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "release record; availability gate",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D14-02",
+   "domain": "D14",
+   "title": "Version-pinned access",
+   "requirement": "Licensees keep access to the purchased version and its corrective releases through signed, version-pinned downloads.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "continuous",
+   "method": "automated",
+   "evidence": "release-access tests",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D14-03",
+   "domain": "D14",
+   "title": "Certified update delivery",
+   "requirement": "A certified update is published as a new release through the same pipeline; the customer decides whether and when to install it. ColleagueAI never pushes or installs into a customer environment.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "per-change",
+   "method": "review",
+   "evidence": "release record; notice",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "Covered scope 5.5"
+   ]
+  },
+  {
+   "id": "CAI-D14-04",
+   "domain": "D14",
+   "title": "Release notes",
+   "requirement": "Every release states what changed, why (statutory, CAI standard, defect, security) and which controls are affected.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "release notes",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D15-01",
+   "domain": "D15",
+   "title": "Rollback procedure",
+   "requirement": "A tested procedure returns a customer to the previous certified release, including how data is preserved (a managed solution cannot be downgraded in place).",
+   "dimensions": [
+    "PC",
+    "DA"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "rollback test record",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D15-02",
+   "domain": "D15",
+   "title": "Safe decommissioning",
+   "requirement": "Uninstall removes all components and connections and lists any residual data for the customer to delete.",
+   "dimensions": [
+    "PC",
+    "DA"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "P-UNINSTALL evidence",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D15-03",
+   "domain": "D15",
+   "title": "No runtime dependency on ColleagueAI",
+   "requirement": "Installed agents keep working if ColleagueAI's website or services are unavailable: no phone-home, no remote disabling.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "architecture note; founder decision",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "Founder decision 10 Nov 2026"
+   ]
+  },
+  {
+   "id": "CAI-D15-04",
+   "domain": "D15",
+   "title": "Commercial kill switches",
+   "requirement": "Checkout, per-product sale approval, interest collection and certificate status each fail closed and are tested in CI.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "continuous",
+   "method": "automated",
+   "evidence": "CI tests",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P0",
+   "reuse": "central",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D15-05",
+   "domain": "D15",
+   "title": "Programme or package discontinuation",
+   "requirement": "On discontinuation: notice, cancellation with pro-rata refund, documentation kept available, and the certificate marked discontinued; the perpetual licence is unaffected.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "notice; certificate record",
+   "accountable": "FC",
+   "responsible": "FT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "existing",
+   "references": [
+    "Covered scope 5.6"
+   ]
+  },
+  {
+   "id": "CAI-D15-06",
+   "domain": "D15",
+   "title": "Customer backup and recovery",
+   "requirement": "The customer backs up agent data under its own policy; the kit names the tables and files.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer deployment report",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D16-01",
+   "domain": "D16",
+   "title": "Intended purpose and prohibited uses",
+   "requirement": "Each package states its intended purpose, out-of-scope uses and prohibited uses.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "dossier",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P0",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": [
+    "AI Act Art. 5, Art. 13 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D16-02",
+   "domain": "D16",
+   "title": "Fairness relevance and evaluation",
+   "requirement": "Each package is screened for decisions affecting people; where relevant, the golden set is evaluated per group on synthetic data and gaps above the threshold block release.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "screening; evaluation report",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 A.5 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D16-03",
+   "domain": "D16",
+   "title": "Accessibility target",
+   "requirement": "Package-owned interfaces (cards, apps, documents) are checked against key WCAG 2.1 AA criteria; known gaps are listed. Stated as a design target, not a conformance claim.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "manual",
+   "evidence": "accessibility checklist",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "EN 301 549 / WCAG 2.1 (reference)"
+   ]
+  },
+  {
+   "id": "CAI-D16-04",
+   "domain": "D16",
+   "title": "Fundamental-rights input",
+   "requirement": "Where a customer must carry out a fundamental-rights impact assessment, the package provides the facts it needs.",
+   "dimensions": [
+    "OC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "FRIA input section",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 27 (deployer, where applicable)"
+   ]
+  },
+  {
+   "id": "CAI-D16-05",
+   "domain": "D16",
+   "title": "AI literacy material",
+   "requirement": "Short user and administrator guidance ships with the package; the customer remains responsible for its staff's AI literacy.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "guidance document",
+   "accountable": "FT",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "AI Act Art. 4 (deployer duty)"
+   ]
+  },
+  {
+   "id": "CAI-D17-01",
+   "domain": "D17",
+   "title": "Separation of build and certification",
+   "requirement": "The person who built a release does not take its certification decision; a qualified independent reviewer reviews the evidence pack before a release is listed as certified.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "review record",
+   "accountable": "FC",
+   "responsible": "IR",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "O-REVIEW-CONTROL"
+   ]
+  },
+  {
+   "id": "CAI-D17-02",
+   "domain": "D17",
+   "title": "Reviewer qualification and independence",
+   "requirement": "Reviewers meet the published qualification criteria, sign a conflict-of-interest declaration (no build role, no sales commission, no financial interest), renewed yearly.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "M",
+   "trigger": "annual",
+   "method": "review",
+   "evidence": "qualification file; declaration",
+   "accountable": "FC",
+   "responsible": "IR",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D17-03",
+   "domain": "D17",
+   "title": "Certificate status: separate axes",
+   "requirement": "The certificate record keeps four separate states: subscription (active, past_due, cancelled, lapsed); release currency (current certified release, superseded, withdrawn); certificate decision (valid, suspended, revoked, discontinued); customer-reported deployment (not reported, version in use). The public label 'Colleague AI Certified — Active' requires all of: subscription active and in term, certified version is the current certified release of its package, decision valid. An active subscription alone never shows Active. No personal data is shown.",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "continuous",
+   "method": "automated",
+   "evidence": "/api/certificate; certification tests",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D17-04",
+   "domain": "D17",
+   "title": "Historic certification record",
+   "requirement": "The certification record of each released version as at its release remains verifiable for licensees after a subscription lapses, shown as 'certified at release, not current'.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "continuous",
+   "method": "automated",
+   "evidence": "certificate record",
+   "accountable": "FT",
+   "responsible": "FT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D17-05",
+   "domain": "D17",
+   "title": "Suspension and revocation",
+   "requirement": "Published criteria: suspension for an unmitigated critical vulnerability over 30 days, a failed critical regression case, or misuse of the mark; revocation for falsified evidence or unfixable non-conformity. Notice before action except in emergencies.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "decision record; notice",
+   "accountable": "FC",
+   "responsible": "IR",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D17-06",
+   "domain": "D17",
+   "title": "Complaints and appeals",
+   "requirement": "A customer or third party can contest a certification decision; decided within 30 days by a founder not involved in the build together with the reviewer.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "event",
+   "method": "review",
+   "evidence": "appeal record",
+   "accountable": "FC",
+   "responsible": "IR",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D17-07",
+   "domain": "D17",
+   "title": "Annual programme review",
+   "requirement": "The reviewer reviews the programme once a year against this MCL; a summary of findings and actions is published.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "annual",
+   "method": "review",
+   "evidence": "annual review report",
+   "accountable": "FC",
+   "responsible": "IR",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": [
+    "ISO/IEC 42001 cl. 9 (indicative)"
+   ]
+  },
+  {
+   "id": "CAI-D18-01",
+   "domain": "D18",
+   "title": "AI Token Economy benchmark protocol",
+   "requirement": "A fixed synthetic workload per package is run on CAI-TEST, measuring Copilot Studio consumption per business transaction, latency (p50, p95) and task success rate.",
+   "dimensions": [
+    "PC",
+    "SC"
+   ],
+   "obligation": "M",
+   "trigger": "per-release",
+   "method": "automated",
+   "evidence": "benchmark protocol; baseline report",
+   "accountable": "FT",
+   "responsible": "SGA",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D18-02",
+   "domain": "D18",
+   "title": "Consumption change report",
+   "requirement": "For subscribers, each benchmark run is compared with the previous certified release; a consumption increase above 15% or a success-rate drop above 2 points is flagged in the evidence report. Priority operational deliverable from the dry run; contractual only after the dry run validates delivery capacity (spec §4.2).",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "quarterly",
+   "method": "automated",
+   "evidence": "quarterly evidence report",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D18-03",
+   "domain": "D18",
+   "title": "Illustrative value model",
+   "requirement": "The business value model states its assumptions and customer-adjustable inputs and is labelled illustrative; no guaranteed return is stated.",
+   "dimensions": [
+    "PC"
+   ],
+   "obligation": "L",
+   "trigger": "per-release",
+   "method": "review",
+   "evidence": "value model in dossier",
+   "accountable": "FC",
+   "responsible": "SGB",
+   "phase": "P1",
+   "reuse": "per-package",
+   "status": "existing",
+   "references": []
+  },
+  {
+   "id": "CAI-D18-04",
+   "domain": "D18",
+   "title": "Customer consumption monitoring",
+   "requirement": "The customer monitors its own capacity use in the Power Platform admin center; the kit shows where.",
+   "dimensions": [
+    "DA",
+    "OC"
+   ],
+   "obligation": "C",
+   "trigger": "event",
+   "method": "attestation",
+   "evidence": "customer deployment report",
+   "accountable": "CUST",
+   "responsible": "CUST",
+   "phase": "P1",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  },
+  {
+   "id": "CAI-D18-05",
+   "domain": "D18",
+   "title": "Standardised evidence report",
+   "requirement": "One report template per package, assembled from release records, change assessments, regression and benchmark results; issued quarterly to active subscribers. The release-time evidence summary ships to every buyer as part of the documentation set (D05-01). Priority operational deliverable from the dry run; contractual only after the dry run validates delivery capacity (spec §4.2).",
+   "dimensions": [
+    "SC"
+   ],
+   "obligation": "S",
+   "trigger": "quarterly",
+   "method": "automated",
+   "evidence": "evidence report",
+   "accountable": "FT",
+   "responsible": "INT",
+   "phase": "P2",
+   "reuse": "central",
+   "status": "new",
+   "references": []
+  }
+ ],
+ "mappingStatus": {
+  "verified": "Checked against the official text of the cited edition by a named checker, with date. Required before a reference appears in any customer-facing material.",
+  "indicative": "Prepared by ColleagueAI and not yet checked against the official text. Internal only.",
+  "future": "Planned coverage for a later MCL version or an obligation not yet applicable."
+ },
+ "frameworks": {
+  "AIA": {
+   "name": "EU AI Act, Regulation (EU) 2024/1689, as amended by the Digital Omnibus on AI (2026)",
+   "kind": "law",
+   "access": "free official text (EUR-Lex)",
+   "applies": "Yes: ColleagueAI is provider of AI systems. Art. 4 and Art. 5 apply now; Art. 50 since 2 Aug 2026; Chapter III high-risk duties only if a package's intended purpose is screened as Annex III (from 2 Dec 2027)."
+  },
+  "GDPR": {
+   "name": "GDPR, Regulation (EU) 2016/679",
+   "kind": "law",
+   "access": "free official text (EUR-Lex)",
+   "applies": "Yes: to ColleagueAI's own processing (website, interest, orders). Customer is controller for data its agents process; ColleagueAI has no access and is not processor of that data."
+  },
+  "CRA": {
+   "name": "Cyber Resilience Act, Regulation (EU) 2024/2847",
+   "kind": "law",
+   "access": "free official text (EUR-Lex)",
+   "applies": "Likely yes for a distributed software package (counsel to confirm 'product with digital elements' and the role as manufacturer). Art. 14 reporting since 11 Sep 2026; Art. 13 and Annex I from 11 Dec 2027."
+  },
+  "ISO42001": {
+   "name": "ISO/IEC 42001:2023 AI management system",
+   "kind": "voluntary standard",
+   "access": "paid; licensed copy needed to verify",
+   "applies": "Voluntary reference. No certification held or claimed."
+  },
+  "ISO27001": {
+   "name": "ISO/IEC 27001:2022 information security management",
+   "kind": "voluntary standard",
+   "access": "paid",
+   "applies": "Voluntary reference. No certification held or claimed."
+  },
+  "ISO27002": {
+   "name": "ISO/IEC 27002:2022 information security controls",
+   "kind": "voluntary standard",
+   "access": "paid",
+   "applies": "Voluntary reference for control wording."
+  },
+  "ISO27701": {
+   "name": "ISO/IEC 27701 privacy information management (edition to be confirmed at purchase)",
+   "kind": "voluntary standard",
+   "access": "paid",
+   "applies": "Voluntary reference; future coverage only if a privacy management system is adopted."
+  },
+  "ISO23894": {
+   "name": "ISO/IEC 23894:2023 AI risk management guidance",
+   "kind": "voluntary guidance",
+   "access": "paid",
+   "applies": "Voluntary reference for D01, D16 method."
+  },
+  "ISO31000": {
+   "name": "ISO 31000:2018 risk management guidelines",
+   "kind": "voluntary guidance",
+   "access": "paid",
+   "applies": "Voluntary reference for the risk method."
+  },
+  "NIST": {
+   "name": "NIST AI RMF 1.0 (NIST AI 100-1) and Generative AI Profile (NIST AI 600-1)",
+   "kind": "voluntary framework",
+   "access": "free",
+   "applies": "Voluntary reference (GOVERN, MAP, MEASURE, MANAGE)."
+  },
+  "OWASP": {
+   "name": "OWASP Top 10 for LLM Applications 2025 and OWASP Agentic AI Threats and Mitigations",
+   "kind": "voluntary guidance",
+   "access": "free",
+   "applies": "Voluntary reference; the D07/D13 adversarial test set is organised by it."
+  }
+ },
+ "applicabilityMatrix": {
+  "D01": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 4, 5, 6 and Annex III screening; Art. 9 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 24",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Art. 13(2)-(3) cybersecurity risk assessment",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 5, 6.1; Annex A.2, A.3, A.5",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "cl. 5, 6.1",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO23894",
+    "ref": "cl. 5-6",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO31000",
+    "ref": "cl. 5-6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN, MAP",
+    "status": "indicative"
+   }
+  ],
+  "D02": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 14 (reference; binding only if high-risk); Art. 26(2) deployer",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.9",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM06 Excessive Agency; agentic human-in-the-loop",
+    "status": "indicative"
+   }
+  ],
+  "D03": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 50(1), 50(2) (applicability assessment pending); Art. 13 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 13-14 (customer as controller)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN, MAP",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM09 Misinformation",
+    "status": "indicative"
+   }
+  ],
+  "D04": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 12, 19, 26(6) (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 5(1)(e), 30",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I (security logging)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.15 Logging",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (event logs)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE",
+    "status": "indicative"
+   }
+  ],
+  "D05": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 11, 13, 18 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex II information to users",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 7.5; Annex A.6, A.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN",
+    "status": "indicative"
+   }
+  ],
+  "D06": [
+   {
+    "framework": "AIA",
+    "ref": "whole Regulation (monitoring of amendments, delegated and implementing acts)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Art. 13",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 4.1, 6.3",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "cl. 4, 6.3",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO31000",
+    "ref": "cl. 6.6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN 1",
+    "status": "indicative"
+   }
+  ],
+  "D07": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 15",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "Annex A.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.8, 8.25-8.29",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE (security)",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM01, LLM02, LLM05, LLM07",
+    "status": "indicative"
+   }
+  ],
+  "D08": [
+   {
+    "framework": "CRA",
+    "ref": "Art. 14 reporting (in force since 11 Sep 2026)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part II vulnerability handling",
+    "status": "future"
+   },
+   {
+    "framework": "AIA",
+    "ref": "Art. 26(5), 73 (deployer and high-risk only)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 33-34 (ColleagueAI's own breaches)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.24-5.28, 8.8",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 10.2",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE 4",
+    "status": "indicative"
+   }
+  ],
+  "D09": [
+   {
+    "framework": "GDPR",
+    "ref": "Art. 5, 25, 28, 30, 32, 35",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27701",
+    "ref": "PIMS controls",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.34",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.5, A.7",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MAP (privacy)",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM02 Sensitive Information Disclosure",
+    "status": "indicative"
+   }
+  ],
+  "D10": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 10 (reference; binding only if high-risk)",
+    "status": "indicative"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 5(1)(d)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.7",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM04, LLM08, LLM09",
+    "status": "indicative"
+   }
+  ],
+  "D11": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 15; Art. 25 value chain; Art. 53 (Microsoft as GPAI provider)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE; AI 600-1",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM03 (model supply chain)",
+    "status": "indicative"
+   }
+  ],
+  "D12": [
+   {
+    "framework": "CRA",
+    "ref": "Art. 13(5) due diligence on components; Annex I part II SBOM",
+    "status": "future"
+   },
+   {
+    "framework": "GDPR",
+    "ref": "Art. 28",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.19-5.23",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.10",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN 6",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM03 Supply Chain",
+    "status": "indicative"
+   }
+  ],
+  "D13": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 9(6)-(8), 15 (reference)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I (testing)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (verification and validation)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.29",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE",
+    "status": "indicative"
+   },
+   {
+    "framework": "OWASP",
+    "ref": "LLM01-LLM10 test set",
+    "status": "indicative"
+   }
+  ],
+  "D14": [
+   {
+    "framework": "CRA",
+    "ref": "Annex I part II (secure distribution of updates)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "8.32",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (deployment)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE",
+    "status": "indicative"
+   }
+  ],
+  "D15": [
+   {
+    "framework": "GDPR",
+    "ref": "Art. 32(1)(c)",
+    "status": "indicative"
+   },
+   {
+    "framework": "CRA",
+    "ref": "Annex I part I (resilience)",
+    "status": "future"
+   },
+   {
+    "framework": "ISO27002",
+    "ref": "5.29-5.30, 8.13",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (operation, retirement)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MANAGE 2 (deactivation)",
+    "status": "indicative"
+   }
+  ],
+  "D16": [
+   {
+    "framework": "AIA",
+    "ref": "Art. 4, 5, 27 (deployer FRIA where applicable)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.5",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO23894",
+    "ref": "Annex (AI risk sources)",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MAP 5, MEASURE (fairness)",
+    "status": "indicative"
+   }
+  ],
+  "D17": [
+   {
+    "framework": "ISO42001",
+    "ref": "cl. 9.2, 9.3",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO27001",
+    "ref": "cl. 9.2",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "GOVERN",
+    "status": "indicative"
+   }
+  ],
+  "D18": [
+   {
+    "framework": "OWASP",
+    "ref": "LLM10 Unbounded Consumption",
+    "status": "indicative"
+   },
+   {
+    "framework": "NIST",
+    "ref": "MEASURE (performance)",
+    "status": "indicative"
+   },
+   {
+    "framework": "ISO42001",
+    "ref": "Annex A.6 (monitoring)",
+    "status": "indicative"
+   }
+  ]
+ }
+}

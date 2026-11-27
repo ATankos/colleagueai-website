@@ -35,6 +35,10 @@ jobs:
 
       - name: Webhook security and idempotency
         run: node --test tests/webhook.test.mjs
+      - name: Certificate four-axis state (payment never implies an active certification claim)
+        run: node --test tests/certificate-state.test.mjs
+      - name: Certificate integrity (compare-and-set, out-of-order payment events, permanent evidence)
+        run: node --test tests/certificate-integrity.test.mjs
 
       - name: Stripe API version compatibility (pinned SDK version, legacy and basil+ shapes)
         run: node --test tests/stripe-api-compat.test.mjs
@@ -56,6 +60,8 @@ jobs:
       # pages/locales/structured data agree, L5 never sold, interest registration consented and de-duplicated.
       - name: Agent availability and interest registration
         run: node --test tests/availability.test.mjs
+      - name: CAI Master Control Library structure (18 domains, applicability matrix, obligation classes)
+        run: node --test tests/cai-mcl.test.mjs
 
       - name: Partner commission ledger (approval gate, rate locking, reversals)
         run: node --test tests/commission-ledger.test.mjs

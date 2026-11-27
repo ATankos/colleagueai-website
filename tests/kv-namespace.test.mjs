@@ -38,6 +38,7 @@ const kvServer = http.createServer((req, res) => {
     case 'SADD': { const s = sets.get(key) ?? new Set(); s.add(rest[0]); sets.set(key, s); return reply(1); }
     case 'SMEMBERS': return reply([...(sets.get(key) ?? [])]);
     case 'LPUSH': { const l = lists.get(key) ?? []; l.unshift(rest[0]); lists.set(key, l); return reply(l.length); }
+    case 'RPUSH': { const l = lists.get(key) ?? []; l.push(rest[0]); lists.set(key, l); return reply(l.length); }
     case 'LRANGE': return reply((lists.get(key) ?? []).slice(Number(rest[0]), Number(rest[1]) + 1));
     default:
       res.writeHead(400);
@@ -192,7 +193,7 @@ test('every Redis command a Preview deployment sends is scoped to preview:', asy
   assert.deepEqual(log.filter((c) => !c.key.startsWith('preview:')), [],
     'DEFECT: a Preview deployment sent a command on an unprefixed (production) key');
   const used = new Set(log.map((c) => c.cmd));
-  for (const cmd of ['GET', 'SET', 'EVAL', 'DEL', 'INCR', 'EXPIRE', 'SADD', 'SMEMBERS', 'LPUSH', 'LRANGE']) {
+  for (const cmd of ['GET', 'SET', 'EVAL', 'DEL', 'INCR', 'EXPIRE', 'SADD', 'SMEMBERS', 'LPUSH', 'RPUSH', 'LRANGE']) {
     assert.ok(used.has(cmd), `the sweep no longer exercises ${cmd}, so it cannot vouch for it`);
   }
   assert.deepEqual([...strings.keys()].filter((k) => !k.startsWith('preview:')), [],
