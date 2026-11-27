@@ -120,3 +120,23 @@ Fresh clone of `0f87cf9f`, `npm ci`, `npm run build` (working tree unchanged by 
 | `npm audit` | 0 vulnerabilities |
 | `npm run e2e:site` (11 specs × desktop, mobile, tablet, against `dist/`) | **753/753 PASS** (16.8 min) |
 | GitHub CI on the #593 head (`test`, `e2e`) | **PASS** |
+
+## 7. Required checks on the combined release candidate (after the dispute correction)
+
+Branch ruleset 16575526 ("Protect main") requires `test`, `e2e`, `Analyze JavaScript (javascript-typescript)` and
+`Lighthouse`, strict (up to date with `main`); ruleset 27653464 requires one approving review, dismisses stale approvals on
+push, and still lets the Repository admin role bypass it (O-REVIEW-CONTROL).
+
+CodeQL and Lighthouse run only for pull requests into `main`, which the stacked PRs are not, so they were run through a
+verification-only draft PR (#594, closed afterwards) whose head is the final #593 head `3710dbdd`:
+
+| Check | Result |
+|---|---|
+| `test` | **PASS** |
+| `e2e` (11 specs × desktop, mobile, tablet) | **PASS** |
+| `Analyze JavaScript (javascript-typescript)` | **PASS** |
+| `Lighthouse` (CI's pages, 4 runs) | **PASS**: performance, accessibility, best practices and SEO 100 in every run |
+| `CodeQL` (code-scanning gate, not required) | first run **FAIL**: 6 high and 1 note, **all in test files** (regex anchoring, regex HTML stripping, an unused import). Fixed in `3710dbdd`; second run **PASS** |
+
+#572 (Stripe SDK 23.2 / API version 2026-11-18) is **not merged**. Merged locally on top of the stack it has no conflict, and node 800/800 and
+vitest 37/37 pass with the build chain intact. It stays a separate merge after the stack and still needs its own sandbox payment check.
