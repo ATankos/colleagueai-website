@@ -12,8 +12,14 @@
  * What it checks WITHOUT any purchase (no money moves, test mode or not):
  *   1. /api/checkout input hardening: bad slug 400, unknown agent 404,
  *      missing terms 400, method not allowed 405.
- *   2. /api/checkout with a valid request: 303 redirect into stripe.com when
- *      Stripe is configured, or a clean 503 when it is not.
+ *   2. /api/checkout with a complete synthetic buyer (every field the order form
+ *      marks required, read from the form itself so a new field is caught): a 303
+ *      into checkout.stripe.com with a TEST session (cs_test_) is the only result
+ *      that counts as Stripe connectivity. A 503 checkout_disabled is reported as
+ *      DISABLED, not as a pass: it proves the switch is off, not that Stripe works.
+ *      Set EXPECT_DISABLED=1 when the target is meant to be closed (Production
+ *      during the commercial freeze); then 503 passes and a redirect fails.
+ *      A live session (cs_live_) on a preview always fails.
  *   3. /api/webhook: unsigned POST 400 (signature enforced), GET 405.
  *   4. /api/download: fails closed — no token 403 (or 503 when the signing
  *      secret is unset); a legacy email/sig link 403. With the secret set: a
@@ -63,20 +69,58 @@ console.log(`Preflight against ${BASE}\n`);
   ok('checkout POST without the confirmations is refused (400) or disabled (503)', r.status === 400 || r.status === 503, `got ${r.status}`);
 }
 
-// ── 2. checkout happy path (no purchase: we stop at the redirect) ────────────
+// ── 2. checkout with a complete synthetic buyer (no purchase: we stop at the redirect) ─
 {
+  const expectDisabled = process.env.EXPECT_DISABLED === '1';
   const legalSet = JSON.parse(readFileSync(new URL('../config/legal.json', import.meta.url), 'utf8')).set;
-  const r = await fetch(BASE + '/api/checkout', { method: 'POST', redirect: 'manual', headers: { 'content-type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({ agent: SLUG, method: 'card', cert: '0', company: 'Preflight Test Company', name: 'Preflight Tester', authority: 'on', terms: 'on', delivery: 'on', legal_set: legalSet }).toString() });
+  // Synthetic buyer only. Every value is fictitious; no real company, person or address.
+  const synthetic = {
+    company: 'Preflight Test Company s.r.o.', reg_number: '00000019', tax_id: '', tenant: '',
+    contact_name: 'Preflight Contact', email: 'preflight@example.com', name: 'Preflight Tester', role: 'Engineering test',
+    authority: 'on', terms: 'on', delivery: 'on',
+  };
+  const page = await get(`/api/checkout?agent=${SLUG}&method=card`);
+  const html = page.status === 200 ? await page.text() : '';
+  // The order form's own fields: hidden values are taken as served; required fields must be covered by `synthetic`.
+  const fields = {};
+  const required = [];
+  for (const m of html.matchAll(/<(input|select|textarea)\b([^>]*)>/gi)) {
+    const attrs = m[2];
+    const name = (attrs.match(/\bname="([^"]+)"/) || [])[1];
+    if (!name) continue;
+    if (/\btype="hidden"/.test(attrs)) fields[name] = (attrs.match(/\bvalue="([^"]*)"/) || [])[1] ?? '';
+    if (/\brequired\b/.test(attrs)) required.push(name);
+  }
+  // Country: the first real option the form offers (the launch scope decides which countries those are).
+  const countrySelect = (html.match(/<select\b[^>]*name="country"[^>]*>([\s\S]*?)<\/select>/i) || [])[1] || '';
+  const country = ([...countrySelect.matchAll(/<option\b[^>]*value="([A-Z]{2})"/g)][0] || [])[1] || 'CZ';
+  const body = { agent: SLUG, method: 'card', cert: '0', legal_set: legalSet, ...fields, ...synthetic, country };
+  if (html) {
+    const missing = required.filter((n) => body[n] === undefined || body[n] === '');
+    ok('preflight supplies every field the order form requires', missing.length === 0, `missing: ${missing.join(', ')}`);
+  }
+  const r = await fetch(BASE + '/api/checkout', { method: 'POST', redirect: 'manual',
+    headers: { 'content-type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams(body).toString() });
+  const loc = r.headers.get('location') || '';
   if (r.status === 303 || r.status === 302) {
-    const loc = r.headers.get('location') || '';
-    ok('checkout redirects into Stripe hosted checkout', /^https:\/\/checkout\.stripe\.com\//.test(loc), loc.slice(0, 80));
-    console.log('        (Stripe IS configured on this deployment — the manual runbook applies)');
+    const toStripe = /^https:\/\/checkout\.stripe\.com\//.test(loc);
+    const live = /cs_live_/.test(loc);
+    if (expectDisabled) ok('checkout is disabled as expected (EXPECT_DISABLED=1)', false, `redirected to ${loc.slice(0, 40)}...`);
+    else {
+      ok('checkout redirects into Stripe hosted checkout', toStripe, loc.slice(0, 60));
+      ok('the Stripe session is a TEST session (cs_test_), never live on a preview', toStripe && !live && /cs_test_/.test(loc), live ? 'LIVE session' : loc.slice(0, 60));
+      if (toStripe && !live) console.log('        CONNECTED: Stripe test mode reached. The manual runbook applies.');
+    }
   } else if (r.status === 503) {
-    ok('checkout disabled cleanly (503 checkout_disabled)', true);
-    console.log('        (Stripe NOT configured here — set the env vars and redeploy before the manual test)');
+    const code = (await r.text()).match(/checkout_disabled|stripe_not_configured|[a-z_]+_not_configured/)?.[0] || 'unavailable';
+    if (expectDisabled) ok(`checkout disabled as expected (503 ${code})`, true);
+    else {
+      ok(`checkout reaches Stripe (got 503 ${code}: DISABLED, Stripe connectivity NOT verified)`, false, 'set the preview flags and redeploy, or run with EXPECT_DISABLED=1 against a closed target');
+    }
   } else {
-    ok('checkout responds 303 (configured) or 503 (disabled)', false, `got ${r.status}`);
+    const text = await r.text();
+    const reasons = [...new Set(text.match(/Check the [^<.]+|Enter [^<.]+|Choose [^<.]+|tick all three confirmations/g) || [])].slice(0, 4).join(' | ');
+    ok('checkout accepts a complete synthetic order (303 to Stripe)', false, `got ${r.status}${reasons ? ': ' + reasons : ''}`);
   }
 }
 
