@@ -29,7 +29,7 @@ global.fetch = async (url, init) => {
   const [cmd, ...args] = String(url).replace('http://kv.test/', '').split('/').map(decodeURIComponent);
   let result = null;
   if (cmd === 'GET') result = store.has(args[0]) ? store.get(args[0]) : null;
-  else if (cmd === 'SET') { store.set(args[0], args.slice(1).join('/')); result = 'OK'; }
+  else if (cmd === 'SET') { if (args.slice(2).includes('NX') && store.has(args[0])) result = null; else { store.set(args[0], args[1]); result = 'OK'; } }
   return { ok: true, json: async () => ({ result }) };
 };
 
