@@ -12,7 +12,13 @@ webhook GET 405, download without token 403 `missing-token`, success page withou
 
 C-E2E-PREVIEW passed on 21 Nov, but the stack has since changed fulfilment, commission and certificate code, so it must be repeated.
 
-Before you start (Preview environment only): Stripe **test** keys, the Preview's webhook endpoint registered in the Stripe sandbox with its signing secret, `CHECKOUT_ENABLED` as documented in `docs/stripe-e2e-runbook.md`. Production settings are not touched.
+Before you start: founder configuration checklist (**Preview environment and Stripe sandbox only**; production settings are not touched):
+
+- [ ] Stripe **test** keys on the Preview (never a live key).
+- [ ] The Preview's webhook endpoint is registered in the Stripe sandbox, its signing secret is set on the Preview, and the endpoint subscribes to **all** of these events: `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `charge.refunded`, `charge.dispute.created`, **`charge.dispute.updated`** (new: an inquiry that escalates to a chargeback arrives as this event), `charge.dispute.closed`, `invoice.paid`, `invoice.payment_failed`, `customer.subscription.updated`, `customer.subscription.deleted` (same list as `docs/stripe-e2e-runbook.md`).
+- [ ] `CHECKOUT_ENABLED` on the Preview as documented in `docs/stripe-e2e-runbook.md`.
+- [ ] For the notification check in A8b: `OPS_ALERT_EMAIL` (an inbox you read) and `RESEND_API_KEY` set on the **Preview**. Without them the notification still appears in the runtime log, and A8b checks the log instead.
+- [ ] For the commission checks in A7–A8e: one partner code approved in the **Preview** store.
 
 | # | Step | Expected | Evidence to keep |
 |---|---|---|---|
@@ -24,7 +30,11 @@ Before you start (Preview environment only): Stripe **test** keys, the Preview's
 | A5 | Card `4000 0025 0000 3155` (3-D Secure): complete, then repeat and fail the challenge | completed: as A1; failed: no licence | screenshots |
 | A6 | Refund A1 fully in the dashboard | licence revoked; a fresh download link answers 403; credit note on the order | webhook response, credit note |
 | A7 | With a test partner code (approved in the Preview store): buy again | commission = 10% of the licence **before tax** (no subscription line in this run) | `preview:commission:<session>` |
-| A8 | Card `4000 0000 0000 1976` (inquiry), then close it in the dashboard | open: licence revoked; closed without chargeback (`warning_closed`): licence **restored** (Round 3 fix) | webhook responses |
+| A8a | Buy again with the A7 partner code, card `4000 0000 0000 1976` (the charge succeeds, then the issuer opens an **inquiry**: Stripe status `warning_needs_response`) | Webhook answers `dispute: 'inquiry'`, `licence: 'unchanged'`, `commission: 'unchanged'`. A fresh download link from the order page **still works**; `preview:commission:<session>` is still `pending`, not reversed; the order record (`preview:order:<id>`) holds the dispute with `inquiry: true`. **Nothing is revoked or suspended** (founder decision 27 Nov). If you also run A9–A11: an inquiry on a licence + certification purchase leaves the certificate **Active** (webhook `certification: 'unchanged-inquiry'`) | webhook delivery response; order page; commission record |
+| A8b | Operator notification for A8a | Runtime log (Vercel → Preview → Logs) shows `[webhook] payment inquiry received; no automatic action, investigate` with the dispute id. If `OPS_ALERT_EMAIL` is set: **one** email, subject "Payment inquiry … needs a response", containing the dispute id and order id, and **not** the buyer's email address. Webhook answer `operator: 'notified'` (email) or `'logged'` (log only). If you submit evidence on the inquiry (status becomes `warning_under_review`), that update sends **no** second email | log line; email (or its absence noted) |
+| A8c | Close the A8a inquiry in the dashboard without a chargeback (`warning_closed`) | Licence, commission and order unchanged (nothing to restore); download link still works | webhook response |
+| A8d | Escalation: a new A8a-style purchase whose inquiry **escalates** to a formal chargeback, if the Stripe sandbox offers a way to escalate an inquiry (see Stripe's testing documentation for disputes) | On `charge.dispute.updated` with status `needs_response`: licence **suspended** (fresh download link 403), commission reversed, order shows the chargeback. If the sandbox cannot escalate an inquiry, record A8d as **NOT TESTED (sandbox limitation)**. The escalation path is covered by automated test X3b in `tests/certification-dispute.test.mjs` | webhook responses, or the note |
+| A8e | Formal chargeback on a licence-only purchase: buy with the partner code, card `4000 0000 0000 0259` (charge succeeds, then disputed as fraudulent); then resolve it as **won** (submit Stripe's winning test evidence) | Open: licence suspended (download 403) and commission reversed. Won: licence **restored** (download works again) and commission back to `pending` | webhook responses; commission record |
 
 Only if you choose to test Continuous Certification on the Preview (`CERTIFICATION_SALES_ENABLED=1` on the Preview only):
 
@@ -63,13 +73,16 @@ The blocker is known: the clean environment CAI-A6-CLEAN has **no Copilot Studio
 
 ## D. Production configuration check (closes FS-3 / O-PROD-CONFIG; read in the Vercel dashboard, no change)
 
+Confirm the **live** Stripe webhook endpoint (`https://www.colleagueai.ai/api/webhook`, see `docs/launch/production-activation.md` §C) will subscribe to `charge.dispute.updated` together with `charge.dispute.created` and `charge.dispute.closed`. Without it an escalated chargeback suspends nothing. Before Continuous Certification opens, the live list also needs `invoice.paid` and `invoice.payment_failed`. Optional for operations: `OPS_ALERT_EMAIL` in Production, so inquiries and reconciliation alerts reach an inbox and not only the log.
+
 Confirm present in **Production**: `DOWNLOAD_TOKEN_SECRET` (required), `ACCEPTANCE_SALT` and `INTEREST_DEDUPE_SALT` (optional; without them the fingerprint and interest dedupe are switched off, correctly), Resend key, Blob token. Confirm `CHECKOUT_ENABLED` and `CERTIFICATION_SALES_ENABLED` are **off** until the launch decision. Do not set `CRON_SECRET` until Continuous Certification opens.
 
 ## Results
 
 | Test | Date | Result (PASS / FAIL / BLOCKED) | Reference (order, event, screenshot, log) | By |
 |---|---|---|---|---|
-| A0–A8 | | | | |
+| A0–A7 | | | | |
+| A8a–A8e (disputes) | | | | |
 | A9–A12 (optional) | | | | |
 | B1–B9 | | | | |
 | C1–C5 | | | | |
