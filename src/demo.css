@@ -13,14 +13,14 @@
 .demo-root legend { font-size: 14px; font-weight: 600; margin: 0 0 12px; padding: 0; }
 .demo-root label { display: block; font-size: 14px; font-weight: 500; margin: 0 0 6px; }
 .demo-root input, .demo-root select { width: 100%; padding: 10px 12px; border: 1px solid #E2D9CB; border-radius: 6px; font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; font-size: 14px; margin: 0 0 12px; background: #fff; color: #2B2A28; }
-.demo-root input:focus, .demo-root select:focus { outline: 2px solid #C65D3A; outline-offset: -2px; border-color: #C65D3A; }
+.demo-root input:focus, .demo-root select:focus { outline: 2px solid #A94A2C; outline-offset: -2px; border-color: #A94A2C; }
 .demo-root .checkbox-group { display: flex; flex-wrap: wrap; gap: 12px; }
 .demo-root .checkbox-label { display: flex; align-items: center; font-size: 14px; cursor: pointer; font-weight: 400; }
 .demo-root .checkbox-label input { width: auto; margin: 0 8px 0 0; }
-.demo-root .demo-submit { background: #C65D3A; color: #fff; padding: 13px 26px; border: none; border-radius: 100px; font-weight: 600; font-size: 15px; cursor: pointer; width: 100%; }
+.demo-root .demo-submit { background: #A94A2C; color: #fff; padding: 13px 26px; border: none; border-radius: 100px; font-weight: 600; font-size: 15px; cursor: pointer; width: 100%; }
 .demo-root .demo-submit:hover { background: #A94A2C; }
 .demo-root .demo-submit:disabled { opacity: 0.6; cursor: not-allowed; }
-.demo-root .demo-requested { background: #fff; border: 1px solid #E2D9CB; border-left: 3px solid #C65D3A; border-radius: 8px; padding: 11px 14px; margin: 0 0 20px; font-size: 14px; }
+.demo-root .demo-requested { background: #fff; border: 1px solid #E2D9CB; border-left: 3px solid #A94A2C; border-radius: 8px; padding: 11px 14px; margin: 0 0 20px; font-size: 14px; }
 /* C.muted (#8A857C) reads as ~3.2:1 on this panel's cream/paper backgrounds —
    short of WCAG AA's 4.5:1 for normal text (axe: color-contrast, serious).
    C.soft is the same palette's darker secondary tone (8:1+ on both) and was
@@ -29,10 +29,10 @@
    backgrounds and as this link's color is ALSO short (3.7-4.2:1) — left
    alone since that's the brand colour itself, not a one-component fix. */
 .demo-root .demo-privacy { font-size: 12.5px; color: #4A4641; line-height: 1.5; margin: 14px 0 0; text-align: center; }
-.demo-root .demo-privacy a { color: #C65D3A; }
+.demo-root .demo-privacy a { color: #A94A2C; }
 .demo-root .success-msg { background: #E8F5E9; color: #2E7D32; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
 .demo-root .error-msg { background: #FFEBEE; color: #C62828; padding: 16px; border-radius: 8px; text-align: center; margin: 0 0 24px; }
-.demo-root a:focus-visible { outline: 2px solid #C65D3A; outline-offset: 2px; }
+.demo-root a:focus-visible { outline: 2px solid #A94A2C; outline-offset: 2px; }
 @media (max-width: 560px) {
   .demo-root .demo-form { padding: 20px; }
   .demo-root input, .demo-root select { font-size: 16px; }

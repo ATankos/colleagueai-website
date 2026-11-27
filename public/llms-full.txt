@@ -5,7 +5,7 @@ a planned portfolio of 36 governed enterprise AI agents, each classified on the 
 L2 Draft, L3 Operate, L4 Decide supervised, L5 Autonomous). Agents run in the customer's own Microsoft tenant
 (Copilot Studio, Power Automate, Azure); ColleagueAI hosts none of the agents, their configuration or audit evidence,
 never receives customer business data and keeps only order, licence, download and partner-registration records. The catalogue is designed at L2-L4; no agent runs fully autonomously today.
-Availability: 0 of 36 agents are commercially available today; every other agent is "Coming soon" and cannot be purchased yet. The CAI tier shown for each agent is its target classification, not a verified CAI Score. Interest can be registered per agent at /demo?agent=<slug>&intent=interest.
+Availability: 0 of 36 agents are commercially available today; every other agent is "Coming soon" and cannot be purchased yet. The CAI tier shown for each agent is its target classification, not a verified CAI Score. Interest registration for a Coming-soon agent is offered only while the site shows its form (/demo?agent=<slug>&intent=interest); when it is closed no registration is taken. No release date is announced in advance.
 
 Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /score (CAI Score),
 /certified (certification), /trust (trust centre), /pricing, /demo, /insights,
@@ -23,7 +23,7 @@ Benefits:
 - Regulatory intelligence [Subscription benefit]: Changes in the covered rules are tracked every week and assessed in the open: you see whether a change requires a new certified release, and why.
 - GDPR, privacy and data protection [Built and tested: data stays in your tenant; Colleague AI has no access path]: The agent runs in your own Microsoft tenant. Your business data stays there, and Colleague AI has no access path to it.
 - Risk and compliance [Planned]: Each certified release will carry a risk and impact assessment and a screening against the AI Act's prohibited and high-risk categories. Your own obligations are listed, never certified.
-- Cybersecurity [Built and tested: corrective releases reach every licensee]: Security fixes reach every licensee as corrective releases at no further licence fee, whether or not they subscribe.
+- Cybersecurity [Built and tested: corrective releases for the version you bought]: A corrective release that fixes a defect in a version you bought is part of your perpetual licence for that version, at no further licence fee, whether or not you subscribe. Corrective releases do not add later feature releases to your licence.
 - Microsoft compatibility [Subscription benefit]: Breaking changes in Copilot Studio and the Power Platform that stop a shipped package working as documented are inside the covered scope.
 - AI Token Economy and consumption benchmarking [Planned]: A measured consumption profile per business transaction for each certified release, compared release to release. It describes the release, not your bill.
 - AI quality and reliability [Built and tested: sale blocked until the mandatory release gates pass]: No release can be sold until every mandatory release gate has passed with recorded evidence.

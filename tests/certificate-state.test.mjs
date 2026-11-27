@@ -13,9 +13,15 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import { casServe } from './kv-cas-fake.mjs';
 import {
+
   certificateState, subscriptionState, releaseCurrency, decisionState, deploymentState, decisionChangeError,
   currentCertifiedRelease, SUBSCRIPTION_STATES, CURRENCY_STATES, DECISION_STATES,
 } from '../lib/certificateState.js';
+
+// CAI-AUD-003: a decision names one registered, active FC and one IR (config/certificate-deciders.json shape).
+const DECIDERS = [{ role: 'FC', id: 'p-fc' }, { role: 'IR', id: 'p-ir' }];
+const REGISTER = { people: [{ id: 'p-fc', role: 'FC' }, { id: 'p-ir', role: 'IR' }] };
+const decide = (id, next) => db.setCertificateDecision(id, next, { register: REGISTER });
 
 const DAY = 86400000;
 const now = Date.parse('2027-03-01T00:00:00Z');
@@ -89,7 +95,9 @@ test('A6. decision rules: terminal states are final, adverse decisions need a pu
   assert.equal(decisionChangeError(v, { ...ok, reference: '' }), 'reference-required');
   assert.equal(decisionChangeError(v, { ...ok, decidedBy: '' }), 'decided-by-required');
   assert.equal(decisionChangeError(v, { state: 'valid', reference: 'x' }), 'no-change');
-  assert.equal(decisionChangeError(base({ decision: { state: 'suspended' } }), { state: 'valid', reference: 'R-1' }), null);
+  // CAI-AUD-003: a reinstatement needs an identified decision-maker like any other decision (it used to need none).
+  assert.equal(decisionChangeError(base({ decision: { state: 'suspended' } }), { state: 'valid', reference: 'R-1' }), 'decided-by-required');
+  assert.equal(decisionChangeError(base({ decision: { state: 'suspended' } }), { state: 'valid', reference: 'R-1', decidedBy: 'FC+IR' }), null);
   assert.equal(decisionChangeError(base({ decision: { state: 'suspended' } }), { state: 'valid' }), 'reinstate-needs-suspension-and-reference');
   for (const t of ['revoked', 'discontinued']) {
     assert.equal(decisionChangeError(base({ decision: { state: t } }), { state: 'valid', reference: 'R' }), 'terminal');
@@ -132,27 +140,27 @@ beforeEach(() => kvStore.clear());
 
 const SLUG = 'contract-intelligence-and-register';
 const issue = (v = '1.0.3.6') => db.issueCertification({ email: 'buyer@example.com', slug: SLUG, tier: 'L4', subscriptionId: 'sub_1', currentPeriodEnd: Math.floor(Date.now() / 1000) + 30 * 86400, certifiedVersion: v });
-const SUSPEND = { state: 'suspended', reason: 'critical-regression-failed', reference: 'CAI-REG-7', decidedBy: 'FC+IR', note: 'internal detail' };
+const SUSPEND = { state: 'suspended', reason: 'critical-regression-failed', reference: 'CAI-REG-7', deciders: DECIDERS, note: 'internal detail' };
 
 test('B1. a payment renewal never lifts a suspension or a revocation', async () => {
   const c = await issue();
-  assert.equal((await db.setCertificateDecision(c.certificateId, SUSPEND)).ok, true);
+  assert.equal((await decide(c.certificateId, SUSPEND)).ok, true);
   const renewed = await db.renewCertification('sub_1', Math.floor(Date.now() / 1000) + 60 * 86400);
   assert.equal(renewed.status, 'active');
   assert.equal(renewed.decision.state, 'suspended');
   assert.equal(db.isCertificationCurrent(renewed, PRODUCT), false);
-  await db.setCertificateDecision(c.certificateId, { state: 'revoked', reason: 'evidence-falsified', reference: 'CAI-D17-9', decidedBy: 'FC+IR' });
+  await decide(c.certificateId, { state: 'revoked', reason: 'evidence-falsified', reference: 'CAI-D17-9', deciders: DECIDERS });
   await db.renewCertification('sub_1', Math.floor(Date.now() / 1000) + 90 * 86400);
   assert.equal((await db.getCertification(c.certificateId)).decision.state, 'revoked');
-  assert.equal((await db.setCertificateDecision(c.certificateId, { state: 'valid', reference: 'R' })).error, 'terminal');
+  assert.equal((await decide(c.certificateId, { state: 'valid', reference: 'R' })).error, 'terminal');
 });
 
 test('B2. history keeps every lifecycle event, in order, including the version certified at issue', async () => {
   const c = await issue('1.0.3.6');
   await db.markCertificationPastDue('sub_1');
   await db.renewCertification('sub_1', Math.floor(Date.now() / 1000) + 30 * 86400);
-  await db.setCertificateDecision(c.certificateId, SUSPEND);
-  await db.setCertificateDecision(c.certificateId, { state: 'valid', reference: 'CAI-REG-7-closed', decidedBy: 'FC+IR' });
+  await decide(c.certificateId, SUSPEND);
+  await decide(c.certificateId, { state: 'valid', reference: 'CAI-REG-7-closed', deciders: DECIDERS });
   await db.recordDeploymentReport(c.certificateId, { versionInUse: '1.0.3.6' });
   await db.lapseCertification('sub_1', 'cancelled');
   const h = (await db.getCertification(c.certificateId)).history;
@@ -163,7 +171,7 @@ test('B2. history keeps every lifecycle event, in order, including the version c
 
 test('B3. payment events cannot rewrite the certified version, the decision or the history', async () => {
   const c = await issue('1.0.3.6');
-  await db.setCertificateDecision(c.certificateId, SUSPEND);
+  await decide(c.certificateId, SUSPEND);
   // renewCertification only passes subscription fields, but the guard is in patchBySubscription itself:
   const after = await db.lapseCertification('sub_1', 'cancelled');
   assert.equal(after.certifiedVersion, '1.0.3.6');
@@ -188,7 +196,7 @@ test('B4. adoption moves to a newer certified release only, keeps the old one in
 test('B5. suspension and revocation never touch the perpetual licence or the downloads it gives', async () => {
   await db.grantEntitlement('buyer@example.com', [SLUG], 'cs_1');
   const c = await issue();
-  await db.setCertificateDecision(c.certificateId, { state: 'revoked', reason: 'evidence-falsified', reference: 'X', decidedBy: 'FC+IR' });
+  await decide(c.certificateId, { state: 'revoked', reason: 'evidence-falsified', reference: 'X', deciders: DECIDERS });
   assert.equal(await db.isEntitled('buyer@example.com', SLUG), true);
   const cert = await db.getCertification(c.certificateId);
   // Download coverage stays a payment matter (what the subscriber paid for), not a certification claim.
@@ -200,7 +208,7 @@ test('B6. deployment reports are validated and stored as customer-reported', asy
   assert.equal((await db.recordDeploymentReport(c.certificateId, { versionInUse: '1.0<img>' })).error, 'bad-version');
   const r = await db.recordDeploymentReport(c.certificateId, { versionInUse: '1.0.3.6' });
   assert.equal(r.record.deployment.source, 'customer');
-  assert.equal((await db.setCertificateDecision('CAI-L4-FFFFFFFF', SUSPEND)).error, 'not-found');
+  assert.equal((await decide('CAI-L4-FFFFFFFF', SUSPEND)).error, 'not-found');
 });
 
 // ── C. public endpoint ──────────────────────────────────────────────────────
@@ -213,7 +221,7 @@ function invoke(query) {
 
 test('C1. the endpoint shows the four axes and publishes no history, note, email or subscription id', async () => {
   const c = await issue();
-  await db.setCertificateDecision(c.certificateId, SUSPEND);
+  await decide(c.certificateId, SUSPEND);
   await db.recordDeploymentReport(c.certificateId, { versionInUse: '1.0.3.6' });
   const j = await invoke({ id: c.certificateId, format: 'json' });
   const body = JSON.parse(j.body);

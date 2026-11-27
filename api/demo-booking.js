@@ -22,6 +22,7 @@
  * DEMO_NOTIFY_EMAIL set the booking is also emailed; without them the lead is
  * still durable and readable via listLeads('demo').
  */
+import { pseudonym } from '../lib/pseudonym.js';
 import { rateLimit, saveLead, incrDemand } from '../lib/db.js';
 
 const MAX = { email: 254, company: 200, role: 120, timeZone: 60 };
@@ -35,6 +36,13 @@ function clientIp(req) {
   const fwd = first(req.headers['x-forwarded-for']);
   if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
   return first(req.headers['x-real-ip']) || req.socket?.remoteAddress || 'unknown';
+}
+
+// CAI-AUD-005: the rate-limit key holds a keyed hash of the client address, never the address itself. The key expires
+// with its window (3600 s, lib/db.js rateLimit), so nothing identifying outlives the hour. The key material is shared by
+// every instance (lib/pseudonym.js), so the limit of 5 holds across the whole deployment, not per instance.
+export function rateLimitKey(req) {
+  return pseudonym('demo-ip', clientIp(req), 32);
 }
 
 /** Trim, cap length, and reject anything that isn't a plain string. */
@@ -82,7 +90,7 @@ export default async function handler(req, res) {
   // Fails closed — if the store is unreachable we cannot record a booking
   // anyway, so accepting more of them would only lose them faster.
   try {
-    const ok = await rateLimit(`demo:${clientIp(req)}`, 5, 3600);
+    const ok = await rateLimit(`demo:${await rateLimitKey(req)}`, 5, 3600);
     if (!ok) {
       return res.status(429).json({
         error: 'Too many demo requests from this address. Please email hello@colleagueai.ai.',

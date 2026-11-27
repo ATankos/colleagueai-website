@@ -8,19 +8,19 @@
   <rect width="940" height="600" fill="#FBF8F2"/>
 
   <!-- Header -->
-  <text x="60" y="58" class="mono" font-size="13" letter-spacing="3" fill="#c65d3a">THE CAI SCORE</text>
+  <text x="60" y="58" class="mono" font-size="13" letter-spacing="3" fill="#a94a2c">THE CAI SCORE</text>
   <text x="60" y="98" class="serif" font-size="34" fill="#22211F">Five tiers of autonomy — each with a named human.</text>
   <text x="60" y="126" font-size="15" fill="#68635b">Read bottom-up: the higher the tier, the more the agent does, and the more oversight is built in.</text>
 
   <!-- Autonomy axis -->
   <line x1="46" y1="172" x2="46" y2="556" stroke="#d8d2c6" stroke-width="1.5"/>
-  <polygon points="46,166 41,178 51,178" fill="#c65d3a"/>
+  <polygon points="46,166 41,178 51,178" fill="#a94a2c"/>
   <text x="30" y="370" class="mono" font-size="11" letter-spacing="2" fill="#8a857c" transform="rotate(-90 30 370)" text-anchor="middle">MORE  AUTONOMY</text>
 
   <!-- Tier rows (L5 top -> L1 bottom) -->
   <!-- L5 -->
   <g>
-    <rect x="70" y="168" width="810" height="68" rx="10" fill="#c65d3a"/>
+    <rect x="70" y="168" width="810" height="68" rx="10" fill="#a94a2c"/>
     <text x="96" y="204" class="serif" font-size="24" fill="#fff">L5</text>
     <text x="150" y="199" class="serif" font-size="19" fill="#fff">Autonomous</text>
     <text x="150" y="221" font-size="13.5" fill="#f3ded4">Acts independently within hard, pre-approved guardrails. Highest certification — held to the strictest bar.</text>

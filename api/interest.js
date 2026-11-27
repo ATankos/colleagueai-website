@@ -27,6 +27,7 @@
  */
 import crypto from 'node:crypto';
 import { rateLimit, saveLead, claimOnce, releaseKey, incrDemand } from '../lib/db.js';
+import { pseudonym } from '../lib/pseudonym.js';
 import { recordFor, publicStatus } from '../lib/availability.js';
 import { newNotification, notifyInterest } from '../lib/interestNotify.js';
 
@@ -42,14 +43,33 @@ export const INDUSTRY = ['financial-services', 'manufacturing', 'public-sector',
 const DEDUPE_DAYS = 30;
 const MIN_FILL_MS = 2500;
 
+/** The page the visitor came from, WITHOUT its query string or fragment (a referrer can carry tokens or search terms). */
+export function referrerPath(value) {
+  if (typeof value !== 'string' || !value) return null;
+  try {
+    const u = new URL(value);
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
+    return (u.origin + u.pathname).slice(0, 300);
+  } catch { return null; }
+}
+
 const first = (v) => (Array.isArray(v) ? v[0] : v);
 const clean = (v, max) => (typeof v === 'string' ? v.trim().replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').slice(0, max) : '');
 const pick = (v, list) => (list.includes(v) ? v : null);
 
-/** A per-day salted hash of the client address: rate limiting without keeping a plain IP in the store. */
+/**
+ * CAI-AUD-002: the keyed secret used for every pseudonymous key. There is NO public fallback constant: a key derived
+ * from a known constant can be recomputed from an email address by anyone who reads the store. Returns null when
+ * unset; registrations then refuse (see handler), and counters/rate limits use a random per-process key instead.
+ */
+export function keyedSecret() {
+  return process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || null;
+}
+
+/** A per-day keyed hash of the client address: rate limiting without keeping a plain IP in the store. The key is shared
+ *  by every instance (lib/pseudonym.js), so the limit holds across them. */
 function ipKey(req) {
-  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
-  return crypto.createHmac('sha256', salt).update(clientIp(req) + '|' + new Date().toISOString().slice(0, 10)).digest('hex').slice(0, 24);
+  return pseudonym('interest-ip', clientIp(req) + '|' + new Date().toISOString().slice(0, 10), 24);
 }
 
 const BOT_UA = /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|monitor|curl|wget|python-requests|httpclient|axios|node-fetch|go-http|java\//i;
@@ -58,9 +78,8 @@ export function isBot(req) {
   return !ua || BOT_UA.test(ua);
 }
 function viewKey(req, agent) {
-  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
   const ua = String(first(req.headers?.['user-agent']) || '').slice(0, 200);
-  return crypto.createHmac('sha256', salt).update([clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|')).digest('hex').slice(0, 32);
+  return pseudonym('interest-view', [clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|'), 32);
 }
 
 function clientIp(req) {
@@ -69,9 +88,9 @@ function clientIp(req) {
   return first(req.headers['x-real-ip']) || req.socket?.remoteAddress || 'unknown';
 }
 
+/** Duplicate marker for a registration. Only ever built with the keyed secret (the handler refuses without one). */
 function dedupeKey(email, agent) {
-  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
-  return 'interest:seen:' + crypto.createHmac('sha256', salt).update(email.toLowerCase() + '|' + agent).digest('hex').slice(0, 32);
+  return 'interest:seen:' + crypto.createHmac('sha256', keyedSecret()).update(email.toLowerCase() + '|' + agent).digest('hex').slice(0, 32);
 }
 
 export default async function handler(req, res) {
@@ -94,7 +113,7 @@ export default async function handler(req, res) {
   if (first(req.query?.event) === 'view') {
     try {
       if (isBot(req)) await incrDemand('bot', agent);
-      else if (await rateLimit(`interest-view:${ipKey(req)}`, 120, 3600) && await claimOnce(`demand:seen:${viewKey(req, agent)}`, 86400)) await incrDemand('view', agent);
+      else if (await rateLimit(`interest-view:${await ipKey(req)}`, 120, 3600) && await claimOnce(`demand:seen:${await viewKey(req, agent)}`, 86400)) await incrDemand('view', agent);
     } catch { /* counters are best-effort */ }
     return res.status(204).end();
   }
@@ -103,6 +122,12 @@ export default async function handler(req, res) {
   if (!collectionEnabled()) {
     return res.status(503).json({ error: 'Interest registration is not open yet. Please email hello@colleagueai.ai.', code: 'interest_collection_disabled' });
   }
+  // CAI-AUD-002: a registration needs the keyed secret for its duplicate marker. Without it, refuse; never store
+  // personal data under a predictable key.
+  if (!keyedSecret()) {
+    console.error('[interest] INTEREST_DEDUPE_SALT (or DOWNLOAD_TOKEN_SECRET) is not set: registration refused');
+    return res.status(503).json({ error: 'We could not record your registration just now. Please email hello@colleagueai.ai.', code: 'interest_not_configured' });
+  }
 
   const availability = publicStatus(agent);
   if (!OPEN_FOR_INTEREST.has(availability)) {
@@ -110,7 +135,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!(await rateLimit(`interest:${ipKey(req)}`, 8, 3600))) {
+    if (!(await rateLimit(`interest:${await ipKey(req)}`, 8, 3600))) {
       return res.status(429).json({ error: 'Too many registrations from this address. Please email hello@colleagueai.ai.', code: 'rate_limited' });
     }
   } catch {
@@ -153,7 +178,7 @@ export default async function handler(req, res) {
       marketing: { optIn: body.marketingOptIn === true, version: MARKETING_VERSION, at: body.marketingOptIn === true ? new Date().toISOString() : null },
       notification: newNotification(),
       locale: /^[a-z]{2}$/.test(clean(body.locale, 2)) ? clean(body.locale, 2) : 'en',
-      source: clean(first(req.headers.referer), 300) || null,
+      source: referrerPath(first(req.headers.referer)),
     }, { ttlDays: 365 });
   } catch (error) {
     console.error('[interest] store failed:', error.message);

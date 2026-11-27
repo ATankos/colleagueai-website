@@ -71,7 +71,7 @@ a planned portfolio of ${AGENTS.length} governed enterprise AI agents, each clas
 L2 Draft, L3 Operate, L4 Decide supervised, L5 Autonomous). Agents run in the customer's own Microsoft tenant
 (Copilot Studio, Power Automate, Azure); ColleagueAI hosts none of the agents, their configuration or audit evidence,
 never receives customer business data and keeps only order, licence, download and partner-registration records. The catalogue is designed at L2-L4; no agent runs fully autonomously today.
-Availability: ${Object.values(AVAIL).filter((v) => v === "available").length} of ${AGENTS.length} agents are commercially available today; every other agent is "Coming soon" and cannot be purchased yet. The CAI tier shown for each agent is its target classification, not a verified CAI Score. Interest can be registered per agent at /demo?agent=<slug>&intent=interest.
+Availability: ${Object.values(AVAIL).filter((v) => v === "available").length} of ${AGENTS.length} agents are commercially available today; every other agent is "Coming soon" and cannot be purchased yet. The CAI tier shown for each agent is its target classification, not a verified CAI Score. Interest registration for a Coming-soon agent is offered only while the site shows its form (/demo?agent=<slug>&intent=interest); when it is closed no registration is taken. No release date is announced in advance.
 
 Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /score (CAI Score),
 /certified (certification), /trust (trust centre), /pricing, /demo, /insights,

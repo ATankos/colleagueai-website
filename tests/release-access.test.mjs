@@ -89,6 +89,14 @@ test('a failed payment (past due) covers releases up to the paid-through day onl
   assert.deepEqual(versionsOf({ entitlement: ent, certification: cert({ status: 'past_due', validUntil: '2027-03-20T00:00:00Z' }) }), ['1.0.3.2', '1.1.0']);
 });
 
+test('CAI-AUD-001: a certification with no usable end date covers nothing (it never reads as unlimited)', () => {
+  const ent = bought({ cs_1: '1.0.3.2' });
+  for (const validUntil of [undefined, null, '', 'not-a-date']) {
+    assert.deepEqual(versionsOf({ entitlement: ent, certification: cert({ validUntil }) }), ['1.0.3.2'], `validUntil=${JSON.stringify(validUntil)}`);
+  }
+  assert.deepEqual(versionsOf({ entitlement: ent, certification: null }), ['1.0.3.2'], 'a perpetual licence alone still gives the release bought');
+});
+
 test('a refunded certification covers nothing; the licence still gives the release bought', () => {
   const ent = bought({ cs_1: '1.0.3.2' });
   const refunded = cert({ status: 'lapsed', lapseReason: 'refunded', validUntil: '2027-04-01T00:00:00Z' });
