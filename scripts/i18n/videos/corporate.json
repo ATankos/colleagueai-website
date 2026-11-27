@@ -1,0 +1,244 @@
+{
+  "_comment": "Corporate introduction (06_Firemni_video_v11.mp4). Timings from the narration (voice-activity segmentation, 27 Nov 2026); English text verified against the audio. No captions are burned into this video. Translations are engineering drafts pending native-language review (docs/media/video-integration-2026-11-27.md).",
+  "id": "corporate",
+  "segments": [
+    {
+      "t": [
+        0.1,
+        5.15
+      ],
+      "en": "Businesses don't need more AI experiments. They need AI that works. Meet ColleagueAI.",
+      "cs": "Firmy nepotřebují další experimenty s AI. Potřebují AI, která funguje. Seznamte se s ColleagueAI.",
+      "de": "Unternehmen brauchen keine weiteren KI-Experimente. Sie brauchen KI, die funktioniert. Das ist ColleagueAI.",
+      "fr": "Les entreprises n'ont pas besoin d'expériences d'IA, mais d'une IA qui fonctionne. Voici ColleagueAI.",
+      "es": "Las empresas no necesitan más pruebas con IA. Necesitan IA que funcione. Le presentamos ColleagueAI.",
+      "it": "Le aziende non hanno bisogno di esperimenti con l'IA, ma di un'IA che funzioni. Ecco ColleagueAI.",
+      "pl": "Firmy nie potrzebują kolejnych eksperymentów z AI. Potrzebują AI, która działa. Poznaj ColleagueAI.",
+      "pt": "As empresas não precisam de mais experiências com IA. Precisam de IA que funcione. Conheça a ColleagueAI."
+    },
+    {
+      "t": [
+        5.7,
+        11.36
+      ],
+      "en": "We build AI agents: software that carries out defined business tasks for your team, with rules and human oversight.",
+      "cs": "Vytváříme AI agenty: software, který pro váš tým plní vymezené úkoly podle pravidel a pod lidským dohledem.",
+      "de": "Wir entwickeln KI-Agenten: Software, die feste Aufgaben für Ihr Team erledigt – mit Regeln und menschlicher Aufsicht.",
+      "fr": "Nous créons des agents d'IA : des logiciels qui font des tâches définies pour votre équipe, avec règles et supervision.",
+      "es": "Creamos agentes de IA: software que realiza tareas definidas para su equipo, con reglas y supervisión humana.",
+      "it": "Realizziamo agenti di IA: software che svolge compiti definiti per il vostro team, con regole e supervisione umana.",
+      "pl": "Tworzymy agentów AI: oprogramowanie, które realizuje zadania Twojego zespołu według zasad i pod nadzorem człowieka.",
+      "pt": "Criamos agentes de IA: software que executa tarefas definidas para a sua equipa, com regras e supervisão humana."
+    },
+    {
+      "t": [
+        11.85,
+        16.13
+      ],
+      "en": "Agents support finance, operations, risk, compliance and legal work.",
+      "cs": "Agenti podporují práci ve financích, provozu, řízení rizik, compliance a v právu.",
+      "de": "Agenten unterstützen Finanzen, Betrieb, Risikomanagement, Compliance und Rechtsarbeit.",
+      "fr": "Les agents soutiennent les travaux en finance, opérations, risques, conformité et juridique.",
+      "es": "Los agentes apoyan finanzas, operaciones, riesgos, cumplimiento y asuntos jurídicos.",
+      "it": "Gli agenti supportano il lavoro di finanza, operations, rischio, compliance e ufficio legale.",
+      "pl": "Agenci wspierają finanse, operacje, zarządzanie ryzykiem, compliance i dział prawny.",
+      "pt": "Os agentes apoiam o trabalho de finanças, operações, risco, compliance e jurídico."
+    },
+    {
+      "t": [
+        16.61,
+        24.67
+      ],
+      "en": "For a finance review, the agent analyses business documents and transactions, flags exceptions and prepares issues to check, with the proposed next step.",
+      "cs": "Při finanční kontrole agent analyzuje obchodní dokumenty a transakce, označí výjimky a připraví body ke kontrole s navrženým dalším krokem.",
+      "de": "Bei einer Finanzprüfung analysiert der Agent Dokumente und Transaktionen, markiert Ausnahmen und bereitet Prüfpunkte mit dem vorgeschlagenen nächsten Schritt vor.",
+      "fr": "Pour une revue financière, l'agent analyse les documents et les transactions, signale les anomalies et prépare les points à vérifier, avec l'étape suivante proposée.",
+      "es": "En una revisión financiera, el agente analiza documentos y transacciones, señala excepciones y prepara puntos a comprobar, con el siguiente paso propuesto.",
+      "it": "In una revisione finanziaria, l'agente analizza documenti e transazioni, segnala le eccezioni e prepara i punti da verificare, con il passo successivo proposto.",
+      "pl": "Przy przeglądzie finansowym agent analizuje dokumenty i transakcje, oznacza wyjątki i przygotowuje kwestie do sprawdzenia wraz z proponowanym kolejnym krokiem.",
+      "pt": "Numa revisão financeira, o agente analisa documentos e transações, assinala exceções e prepara os pontos a verificar, com o próximo passo proposto."
+    },
+    {
+      "t": [
+        25.25,
+        32.55
+      ],
+      "en": "The agent works inside your Microsoft environment, using only the information it is allowed to access. Your business data stays within your organisation.",
+      "cs": "Agent pracuje ve vašem prostředí Microsoft a používá jen informace, ke kterým má povolený přístup. Vaše obchodní data zůstávají ve vaší organizaci.",
+      "de": "Der Agent arbeitet in Ihrer Microsoft-Umgebung und nutzt nur Informationen, auf die er zugreifen darf. Ihre Geschäftsdaten bleiben in Ihrer Organisation.",
+      "fr": "L'agent travaille dans votre environnement Microsoft, avec les seules informations auxquelles il a accès. Vos données restent dans votre organisation.",
+      "es": "El agente trabaja en su entorno de Microsoft y solo usa la información a la que tiene acceso. Los datos de su empresa no salen de su organización.",
+      "it": "L'agente lavora nel vostro ambiente Microsoft e usa solo le informazioni a cui ha accesso. I vostri dati aziendali restano nella vostra organizzazione.",
+      "pl": "Agent działa w Twoim środowisku Microsoft i korzysta wyłącznie z informacji, do których ma dostęp. Dane biznesowe pozostają w Twojej organizacji.",
+      "pt": "O agente trabalha no seu ambiente Microsoft e usa apenas a informação a que tem permissão de acesso. Os dados do seu negócio permanecem na sua organização."
+    },
+    {
+      "t": [
+        33.13,
+        38.34
+      ],
+      "en": "When approval is needed, your team decides. Each action and approval is recorded, so you can see what happens.",
+      "cs": "Když je potřeba schválení, rozhoduje váš tým. Každá akce i schválení se zaznamenává, takže vidíte, co se děje.",
+      "de": "Ist eine Freigabe nötig, entscheidet Ihr Team. Jede Aktion und Freigabe wird protokolliert, damit Sie sehen, was passiert.",
+      "fr": "Si une approbation est requise, votre équipe décide. Chaque action et approbation est enregistrée et visible.",
+      "es": "Si hace falta aprobación, decide su equipo. Cada acción y aprobación queda registrada para que vea lo que ocurre.",
+      "it": "Se serve un'approvazione, decide il vostro team. Ogni azione e approvazione viene registrata: vedete cosa succede.",
+      "pl": "Gdy trzeba coś zaakceptować, decyduje Twój zespół. Każde działanie i akceptacja są rejestrowane – widzisz, co się dzieje.",
+      "pt": "Quando é precisa aprovação, a sua equipa decide. Cada ação e aprovação fica registada, para ver o que acontece."
+    },
+    {
+      "t": [
+        39.46,
+        40.71
+      ],
+      "en": "Think about your next finance review.",
+      "cs": "Vaše příští finanční kontrola.",
+      "de": "Denken Sie an die Finanzprüfung.",
+      "fr": "Pensez à votre revue financière.",
+      "es": "Su próxima revisión financiera.",
+      "it": "La vostra revisione finanziaria.",
+      "pl": "Pomyśl o przeglądzie finansów.",
+      "pt": "Pense na revisão financeira."
+    },
+    {
+      "t": [
+        41.13,
+        45.95
+      ],
+      "en": "Instead of checking every document by hand, your team starts with flagged issues and a proposed next step.",
+      "cs": "Místo ruční kontroly každého dokumentu začne váš tým s označenými problémy a navrženým dalším krokem.",
+      "de": "Statt jedes Dokument von Hand zu prüfen, startet Ihr Team mit markierten Fällen und einem Vorschlag.",
+      "fr": "Au lieu de tout vérifier à la main, l'équipe part des points signalés et d'une étape suivante proposée.",
+      "es": "En vez de revisar cada documento a mano, su equipo parte de los problemas señalados y un paso propuesto.",
+      "it": "Invece di controllare tutto a mano, il team parte dalle criticità segnalate e da un passo proposto.",
+      "pl": "Zamiast sprawdzać każdy dokument ręcznie, zespół zaczyna od oznaczonych problemów i proponowanego kroku.",
+      "pt": "Em vez de verificar tudo à mão, a sua equipa começa pelos problemas assinalados e por um passo proposto."
+    },
+    {
+      "t": [
+        46.5,
+        47.94
+      ],
+      "en": "You decide what happens next.",
+      "cs": "Co bude dál, rozhodujete vy.",
+      "de": "Sie entscheiden, was folgt.",
+      "fr": "Vous décidez de la suite.",
+      "es": "Usted decide qué ocurre después.",
+      "it": "Decidete voi cosa succede.",
+      "pl": "To Ty decydujesz, co dalej.",
+      "pt": "A decisão seguinte é sua."
+    },
+    {
+      "t": [
+        48.26,
+        50.08
+      ],
+      "en": "Pick one task that slows your team down.",
+      "cs": "Vyberte jeden úkol, který váš tým zdržuje.",
+      "de": "Wählen Sie eine Aufgabe, die Ihr Team bremst.",
+      "fr": "Choisissez une tâche qui ralentit l'équipe.",
+      "es": "Elija una tarea que frene a su equipo.",
+      "it": "Scegliete un'attività che rallenta il team.",
+      "pl": "Wybierz zadanie, które spowalnia Twój zespół.",
+      "pt": "Escolha uma tarefa que atrasa a sua equipa."
+    },
+    {
+      "t": [
+        50.63,
+        52.23
+      ],
+      "en": "The checks. The follow-ups.",
+      "cs": "Kontroly. Připomínky.",
+      "de": "Die Prüfungen. Die Nachverfolgung.",
+      "fr": "Les vérifications. Les relances.",
+      "es": "Las comprobaciones. Los seguimientos.",
+      "it": "I controlli. I solleciti.",
+      "pl": "Weryfikacje. Przypomnienia.",
+      "pt": "As verificações. Os seguimentos."
+    },
+    {
+      "t": [
+        52.65,
+        53.95
+      ],
+      "en": "The same work, every week.",
+      "cs": "Stejná práce každý týden.",
+      "de": "Dieselbe Arbeit, jede Woche.",
+      "fr": "Le même travail, chaque semaine.",
+      "es": "El mismo trabajo, cada semana.",
+      "it": "Lo stesso lavoro, ogni settimana.",
+      "pl": "Ta sama praca co tydzień.",
+      "pt": "O mesmo trabalho, todas as semanas."
+    },
+    {
+      "t": [
+        54.53,
+        59.52
+      ],
+      "en": "Let your ColleagueAI agent prepare the work, flag the issues and bring the next step to your team.",
+      "cs": "Nechte agenta ColleagueAI připravit práci, označit problémy a přinést vašemu týmu další krok.",
+      "de": "Ihr ColleagueAI-Agent bereitet die Arbeit vor, markiert Probleme und bringt Ihrem Team den nächsten Schritt.",
+      "fr": "Votre agent ColleagueAI prépare le travail, signale les problèmes et propose l'étape suivante à l'équipe.",
+      "es": "Su agente de ColleagueAI prepara el trabajo, señala los problemas y lleva el siguiente paso a su equipo.",
+      "it": "Il vostro agente ColleagueAI prepara il lavoro, segnala le criticità e porta il passo successivo al team.",
+      "pl": "Pozwól agentowi ColleagueAI przygotować pracę, oznaczyć problemy i przedstawić zespołowi kolejny krok.",
+      "pt": "O seu agente ColleagueAI prepara o trabalho, assinala os problemas e leva o passo seguinte à equipa."
+    },
+    {
+      "t": [
+        60.07,
+        61.09
+      ],
+      "en": "You stay in control.",
+      "cs": "Kontrolu máte vy.",
+      "de": "Sie behalten die Kontrolle.",
+      "fr": "Vous gardez le contrôle.",
+      "es": "Usted mantiene el control.",
+      "it": "Il controllo resta a voi.",
+      "pl": "Kontrolę masz Ty.",
+      "pt": "Mantém o controlo."
+    },
+    {
+      "t": [
+        61.57,
+        62.72
+      ],
+      "en": "Your team moves forward.",
+      "cs": "Váš tým jde dál.",
+      "de": "Ihr Team kommt voran.",
+      "fr": "Votre équipe avance.",
+      "es": "Su equipo avanza.",
+      "it": "Il vostro team va avanti.",
+      "pl": "Twój zespół idzie naprzód.",
+      "pt": "A sua equipa avança."
+    },
+    {
+      "t": [
+        63.4,
+        64.16
+      ],
+      "en": "ColleagueAI.",
+      "cs": "ColleagueAI.",
+      "de": "ColleagueAI.",
+      "fr": "ColleagueAI.",
+      "es": "ColleagueAI.",
+      "it": "ColleagueAI.",
+      "pl": "ColleagueAI.",
+      "pt": "ColleagueAI."
+    },
+    {
+      "t": [
+        64.71,
+        66.02
+      ],
+      "en": "Put your next task in motion.",
+      "cs": "Rozběhněte svůj další úkol.",
+      "de": "Bringen Sie Ihre nächste Aufgabe in Gang.",
+      "fr": "Lancez votre prochaine tâche.",
+      "es": "Ponga en marcha su próxima tarea.",
+      "it": "Mettete in moto la vostra prossima attività.",
+      "pl": "Uruchom swoje następne zadanie.",
+      "pt": "Ponha em marcha a sua próxima tarefa."
+    }
+  ]
+}

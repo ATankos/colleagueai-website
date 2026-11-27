@@ -121,10 +121,10 @@ test('no L5 price is shown anywhere on the built site', { skip: !built && 'build
 });
 
 test('the video slot stays hidden until an approved same-origin video with captions in all eight languages exists', () => {
-  assert.equal(pillar.approvedVideo(), null, 'config/media.json must carry no video until one is approved');
+  assert.equal(pillar.approvedVideo(), null, 'config/media.json must carry no approved certification video until the founder approves it');
   for (const l of LOCALES) assert.ok(!pillar.render(l, { variant: 'full', withVideo: true }).includes('<video'), l);
-  const src = readFileSync(new URL('scripts/lib/cc-pillar.cjs', ROOT), 'utf8');
-  assert.ok(src.includes("LOCALES.every((l) => typeof caps[l] === 'string'"), 'captions for every language are required');
+  const src = readFileSync(new URL('scripts/lib/videos.cjs', ROOT), 'utf8');
+  assert.ok(src.includes("LOCALES.every((l) => typeof caps[l] === 'string' && LOCAL_VTT.test(caps[l]))"), 'captions for every language are required');
 });
 
 test('/certified never says the certificate reflects the version a customer runs (ColleagueAI never verifies deployments)', () => {

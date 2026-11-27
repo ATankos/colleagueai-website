@@ -1,0 +1,286 @@
+{
+  "_comment": "Continuous Certification introduction (08_Continuous_Certification_EMAIL.mp4). English captions are BURNED INTO this video; the text below follows the burned captions and the narration (checked 27 Nov 2026: the audio says 'Improve audit readiness'). Programme vocabulary follows scripts/i18n/certified-content.json (msg2 for 'Buy once. Govern continuously.'). Translations are engineering drafts pending native-language review.",
+  "id": "certification",
+  "segments": [
+    {
+      "t": [
+        0.29,
+        2.53
+      ],
+      "en": "Buying an AI agent is just the beginning.",
+      "cs": "Koupí AI agenta to teprve začíná.",
+      "de": "Der Kauf eines KI-Agenten ist erst der Anfang.",
+      "fr": "L'achat d'un agent d'IA n'est qu'un début.",
+      "es": "Comprar un agente de IA es solo el principio.",
+      "it": "Acquistare un agente di IA è solo l'inizio.",
+      "pl": "Zakup agenta AI to dopiero początek.",
+      "pt": "Comprar um agente de IA é apenas o começo."
+    },
+    {
+      "t": [
+        2.92,
+        4.4
+      ],
+      "en": "Regulations change.",
+      "cs": "Předpisy se mění.",
+      "de": "Vorschriften ändern sich.",
+      "fr": "Les réglementations changent.",
+      "es": "Las normativas cambian.",
+      "it": "Le normative cambiano.",
+      "pl": "Przepisy się zmieniają.",
+      "pt": "A regulamentação muda."
+    },
+    {
+      "t": [
+        4.45,
+        5.95
+      ],
+      "en": "Technology evolves.",
+      "cs": "Technologie se vyvíjí.",
+      "de": "Technologie entwickelt sich.",
+      "fr": "La technologie évolue.",
+      "es": "La tecnología evoluciona.",
+      "it": "La tecnologia si evolve.",
+      "pl": "Technologia się rozwija.",
+      "pt": "A tecnologia evolui."
+    },
+    {
+      "t": [
+        6.0,
+        7.45
+      ],
+      "en": "New risks emerge.",
+      "cs": "Objevují se nová rizika.",
+      "de": "Neue Risiken entstehen.",
+      "fr": "De nouveaux risques naissent.",
+      "es": "Surgen nuevos riesgos.",
+      "it": "Emergono nuovi rischi.",
+      "pl": "Pojawiają się nowe ryzyka.",
+      "pt": "Surgem novos riscos."
+    },
+    {
+      "t": [
+        7.5,
+        8.96
+      ],
+      "en": "And AI costs can grow.",
+      "cs": "A náklady na AI mohou růst.",
+      "de": "Und KI-Kosten können steigen.",
+      "fr": "Et le coût de l'IA peut grimper.",
+      "es": "Y el coste de la IA puede crecer.",
+      "it": "E i costi dell'IA possono salire.",
+      "pl": "A koszty AI mogą rosnąć.",
+      "pt": "E os custos de IA podem aumentar."
+    },
+    {
+      "t": [
+        9.48,
+        12.55
+      ],
+      "en": "Introducing ColleagueAI Continuous Certification,",
+      "cs": "Představujeme ColleagueAI Continuous Certification,",
+      "de": "Wir stellen vor: ColleagueAI Continuous Certification,",
+      "fr": "Voici ColleagueAI Continuous Certification,",
+      "es": "Le presentamos ColleagueAI Continuous Certification,",
+      "it": "Vi presentiamo ColleagueAI Continuous Certification,",
+      "pl": "Przedstawiamy ColleagueAI Continuous Certification:",
+      "pt": "Apresentamos o ColleagueAI Continuous Certification,"
+    },
+    {
+      "t": [
+        12.93,
+        16.93
+      ],
+      "en": "designed to protect the long-term value of your enterprise AI investment.",
+      "cs": "program navržený k ochraně dlouhodobé hodnoty vaší investice do podnikové AI.",
+      "de": "entwickelt, um den langfristigen Wert Ihrer Investition in Unternehmens-KI zu schützen.",
+      "fr": "conçu pour protéger la valeur à long terme de votre investissement dans l'IA d'entreprise.",
+      "es": "diseñado para proteger el valor a largo plazo de su inversión en IA empresarial.",
+      "it": "pensato per proteggere il valore a lungo termine del vostro investimento in IA aziendale.",
+      "pl": "program, który ma chronić długoterminową wartość Twojej inwestycji w AI dla firm.",
+      "pt": "concebido para proteger o valor a longo prazo do seu investimento em IA empresarial."
+    },
+    {
+      "t": [
+        17.48,
+        30.63
+      ],
+      "en": "From the EU AI Act, GDPR and data protection to ISO standards, cybersecurity, risk management, Microsoft compatibility and AI consumption costs, our programme is designed to assess the changes that matter.",
+      "cs": "Od AI Actu EU, GDPR a ochrany dat přes normy ISO, kybernetickou bezpečnost a řízení rizik až po kompatibilitu s Microsoftem a náklady na spotřebu AI: náš program je navržen tak, aby posuzoval změny, na kterých záleží.",
+      "de": "Vom EU AI Act, der DSGVO und dem Datenschutz über ISO-Normen, Cybersicherheit und Risikomanagement bis zur Microsoft-Kompatibilität und den KI-Verbrauchskosten: Unser Programm ist darauf ausgelegt, die Änderungen zu bewerten, die zählen.",
+      "fr": "Du règlement européen sur l'IA, du RGPD et de la protection des données aux normes ISO, à la cybersécurité, à la gestion des risques, à la compatibilité Microsoft et aux coûts de consommation de l'IA : notre programme est conçu pour évaluer les changements qui comptent.",
+      "es": "Desde la Ley de IA de la UE, el RGPD y la protección de datos hasta las normas ISO, la ciberseguridad, la gestión de riesgos, la compatibilidad con Microsoft y los costes de consumo de IA, nuestro programa está diseñado para evaluar los cambios que importan.",
+      "it": "Dall'AI Act dell'UE, dal GDPR e dalla protezione dei dati alle norme ISO, alla cybersicurezza, alla gestione del rischio, alla compatibilità con Microsoft e ai costi di consumo dell'IA, il nostro programma è pensato per valutare i cambiamenti che contano.",
+      "pl": "Od unijnego AI Act, RODO i ochrony danych po normy ISO, cyberbezpieczeństwo, zarządzanie ryzykiem, zgodność z Microsoft i koszty zużycia AI – nasz program ma oceniać zmiany, które mają znaczenie.",
+      "pt": "Do AI Act da UE, do RGPD e da proteção de dados às normas ISO, à cibersegurança, à gestão de risco, à compatibilidade com a Microsoft e aos custos de consumo de IA, o nosso programa foi concebido para avaliar as mudanças que importam."
+    },
+    {
+      "t": [
+        31.24,
+        32.85
+      ],
+      "en": "We don't just monitor change.",
+      "cs": "Změny jen nesledujeme.",
+      "de": "Wir beobachten nicht nur Wandel.",
+      "fr": "Nous ne faisons pas que surveiller.",
+      "es": "No solo vigilamos los cambios.",
+      "it": "Non ci limitiamo a monitorare.",
+      "pl": "Nie tylko monitorujemy zmiany.",
+      "pt": "Não nos limitamos a monitorizar."
+    },
+    {
+      "t": [
+        32.9,
+        39.4
+      ],
+      "en": "We assess its impact, implement covered improvements, validate the results and deliver qualifying certified updates.",
+      "cs": "Posoudíme jejich dopad, zavedeme pokrytá vylepšení, ověříme výsledky a dodáme způsobilé certifikované aktualizace.",
+      "de": "Wir bewerten die Folgen, setzen abgedeckte Verbesserungen um, validieren sie und liefern qualifizierende zertifizierte Updates.",
+      "fr": "Nous évaluons l'impact, appliquons les améliorations couvertes, les validons et livrons les mises à jour certifiées éligibles.",
+      "es": "Evaluamos el impacto, aplicamos las mejoras cubiertas, validamos los resultados y entregamos actualizaciones certificadas aptas.",
+      "it": "Valutiamo l'impatto, applichiamo i miglioramenti coperti, li convalidiamo e forniamo gli aggiornamenti certificati idonei.",
+      "pl": "Oceniamy wpływ, wdrażamy objęte usprawnienia, weryfikujemy wyniki i dostarczamy kwalifikujące się certyfikowane aktualizacje.",
+      "pt": "Avaliamos o impacto, aplicamos as melhorias abrangidas, validamo-las e entregamos as atualizações certificadas elegíveis."
+    },
+    {
+      "t": [
+        39.5,
+        40.61
+      ],
+      "en": "Reduce risk.",
+      "cs": "Snižte riziko.",
+      "de": "Risiken senken.",
+      "fr": "Réduisez les risques.",
+      "es": "Reduzca el riesgo.",
+      "it": "Riducete il rischio.",
+      "pl": "Ogranicz ryzyko.",
+      "pt": "Reduza o risco."
+    },
+    {
+      "t": [
+        41.22,
+        42.4
+      ],
+      "en": "Improve audit readiness.",
+      "cs": "Připravte se lépe na audit.",
+      "de": "Audit-Bereitschaft stärken.",
+      "fr": "Soyez mieux prêt aux audits.",
+      "es": "Prepárese para auditorías.",
+      "it": "Più pronti agli audit.",
+      "pl": "Popraw gotowość do audytu.",
+      "pt": "Mais preparado para auditar."
+    },
+    {
+      "t": [
+        42.45,
+        43.85
+      ],
+      "en": "Manage AI costs.",
+      "cs": "Řiďte náklady na AI.",
+      "de": "KI-Kosten steuern.",
+      "fr": "Maîtrisez les coûts de l'IA.",
+      "es": "Gestione los costes de IA.",
+      "it": "Gestite i costi dell'IA.",
+      "pl": "Zarządzaj kosztami AI.",
+      "pt": "Gira os custos de IA."
+    },
+    {
+      "t": [
+        43.9,
+        45.12
+      ],
+      "en": "Protect your data.",
+      "cs": "Chraňte svá data.",
+      "de": "Daten schützen.",
+      "fr": "Protégez vos données.",
+      "es": "Proteja sus datos.",
+      "it": "Proteggete i vostri dati.",
+      "pl": "Chroń swoje dane.",
+      "pt": "Proteja os seus dados."
+    },
+    {
+      "t": [
+        45.83,
+        48.87
+      ],
+      "en": "And keep your AI investment aligned with an evolving world.",
+      "cs": "A udržujte svou investici do AI v souladu s měnícím se světem.",
+      "de": "Ihre KI-Investition bleibt auf eine sich wandelnde Welt abgestimmt.",
+      "fr": "Votre investissement IA reste en phase avec le monde.",
+      "es": "Y mantenga su inversión en IA alineada con un mundo en evolución.",
+      "it": "E mantenete l'investimento in IA al passo con il mondo.",
+      "pl": "I utrzymuj inwestycję w AI w zgodzie ze zmieniającym się światem.",
+      "pt": "E mantenha o investimento em IA alinhado com um mundo em mudança."
+    },
+    {
+      "t": [
+        49.25,
+        51.2
+      ],
+      "en": "Your agent licence remains yours.",
+      "cs": "Licence k agentovi zůstává vaše.",
+      "de": "Ihre Agentenlizenz bleibt Ihre.",
+      "fr": "Votre licence d'agent reste la vôtre.",
+      "es": "La licencia de su agente sigue siendo suya.",
+      "it": "La licenza dell'agente resta vostra.",
+      "pl": "Licencja na agenta pozostaje Twoja.",
+      "pt": "A licença do agente continua a ser sua."
+    },
+    {
+      "t": [
+        51.3,
+        52.87
+      ],
+      "en": "Your assurance continues.",
+      "cs": "Vaše jistota trvá.",
+      "de": "Ihre Sicherheit geht weiter.",
+      "fr": "Votre assurance continue.",
+      "es": "Su aseguramiento continúa.",
+      "it": "La vostra assurance continua.",
+      "pl": "Twoje zapewnienie trwa.",
+      "pt": "A sua assurance continua."
+    },
+    {
+      "t": [
+        53.29,
+        53.99
+      ],
+      "en": "ColleagueAI.",
+      "cs": "ColleagueAI.",
+      "de": "ColleagueAI.",
+      "fr": "ColleagueAI.",
+      "es": "ColleagueAI.",
+      "it": "ColleagueAI.",
+      "pl": "ColleagueAI.",
+      "pt": "ColleagueAI."
+    },
+    {
+      "t": [
+        54.57,
+        55.23
+      ],
+      "en": "Buy once.",
+      "cs": "Kupte jednou.",
+      "de": "Einmal kaufen.",
+      "fr": "Achetez une fois.",
+      "es": "Compre una vez.",
+      "it": "Acquista una volta.",
+      "pl": "Kup raz.",
+      "pt": "Compre uma vez."
+    },
+    {
+      "t": [
+        55.56,
+        56.67
+      ],
+      "en": "Govern continuously.",
+      "cs": "Řiďte průběžně.",
+      "de": "Fortlaufend steuern.",
+      "fr": "Gouvernez en continu.",
+      "es": "Gobierne de forma continua.",
+      "it": "Governa sempre.",
+      "pl": "Zarządzaj stale.",
+      "pt": "Governe continuamente."
+    }
+  ]
+}

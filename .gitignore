@@ -45,3 +45,4 @@ TEST-REPORT-*.md
 
 RECOVERY.md
 __pycache__/
+video-qa-results.json
