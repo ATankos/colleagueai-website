@@ -1,0 +1,23 @@
+{
+  "_comment": "Product introduction (01_Produktove_video.mp4). HELD: not published. Two narration lines conflict with release 1.0.3.6 (INSTALL.pdf section 9a: excerpts are the AI's reading, 'not copied from the file and not checked against it'; 'the extraction can miss or misread a clause'), and the SharePoint and Wording/Calculation/Review slides show an empty box where an arrow glyph failed to render. English transcript only; translations follow the corrected master. The 'conflict' field marks the lines that must change.",
+  "id": "product",
+  "segments": [
+    { "t": [0.26, 4.99], "en": "An auto-renewing contract needs only one missed notice date to lock you in for another year." },
+    { "t": [5.41, 10.05], "en": "And that date is usually buried in a schedule, an amendment or the small print." },
+    { "t": [10.73, 16.10], "en": "Contract Intelligence & Register from ColleagueAI runs inside your own Microsoft 365 tenant." },
+    { "t": [16.71, 24.58], "en": "It reads the contracts in your SharePoint library, extracts the key terms with a quote to the source, and sends every extraction to a named reviewer in Teams.",
+      "conflict": "'with a quote to the source': 1.0.3.6 presents excerpts as the AI's unverified reading, not as quotations. Proposed: 'extracts the key terms with the excerpt it relied on'." },
+    { "t": [25.29, 27.52], "en": "Here, a master services agreement is uploaded." },
+    { "t": [28.10, 35.75], "en": "The reviewer sees each term with its quote: the notice period exactly as written, every notice clause found in the document, and the signing date.",
+      "conflict": "'exactly as written' and the on-screen 'Every notice clause found': the extraction can miss or misread a clause (INSTALL 9a: 'six (6) months' read as '90 (90) months'). Proposed: 'The reviewer sees each term with the AI's excerpt, to check against the contract: the notice period, the notice clauses it found, and the signing date.'" },
+    { "t": [36.68, 40.07], "en": "One click approves it, and the register records who approved it and when." },
+    { "t": [40.87, 42.85], "en": "When clauses conflict, it doesn't guess." },
+    { "t": [43.53, 48.39], "en": "This contract says three months in the main text and six months in the small print, so the deadline is held back." },
+    { "t": [49.29, 53.63], "en": "The reviewer reads the source, confirms six months, and only then does the deadline appear." },
+    { "t": [54.09, 61.47], "en": "Now your team can ask the agent which notice deadlines fall in the next 90 days, and see the wording and the calculation behind each one." },
+    { "t": [62.12, 63.87], "en": "People outside the team see nothing." },
+    { "t": [64.71, 66.37], "en": "Contract Intelligence & Register." },
+    { "t": [66.76, 69.73], "en": "It runs in your tenant, and a person approves every result." },
+    { "t": [70.21, 72.45], "en": "Book a demo at colleagueai.ai." }
+  ]
+}

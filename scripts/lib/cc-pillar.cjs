@@ -36,25 +36,16 @@ const BUILT_CAPABILITY = Object.freeze({
 const leaf = (tag, key, text, cls = '') => `<${tag}${cls ? ` class="${cls}"` : ''} data-i18n-cai="cert_${key}">${text}</${tag}>`;
 
 const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
-/** An approved video asset, or null. Approval, a same-origin file and captions in all eight languages are required;
- *  no third-party embed. Until then the slot stays hidden (nothing is emitted). */
+/* The Continuous Certification video is the site's 'certification' video (config/media.json videos.certification),
+ * rendered by the shared player in scripts/lib/videos.cjs. It shows only when approved (approvedBy, approvedOn,
+ * same-origin file, captions in all eight languages), or on a review Preview (CAI_VIDEO_PREVIEW=1, never Production). */
+const VIDEOS = require('./videos.cjs');
 function approvedVideo() {
-  const v = MEDIA.ccVideo;
-  if (!v || typeof v !== 'object') return null;
-  const local = (p) => typeof p === 'string' && /^\/media\/[a-z0-9._-]+$/i.test(p);
-  if (!local(v.src) || !v.approvedBy || !v.approvedOn) return null;
-  const caps = v.captions && typeof v.captions === 'object' ? v.captions : {};
-  if (!LOCALES.every((l) => typeof caps[l] === 'string' && /^\/media\/[a-z0-9._-]+\.vtt$/i.test(caps[l]))) return null;
-  return v;
+  return VIDEOS.approved('certification') ? MEDIA.videos.certification : null;
 }
 
 function videoSlot(t, loc) {
-  const v = approvedVideo();
-  if (!v) return '';
-  const track = v.captions && typeof v.captions[loc] === 'string' && /^\/media\/[a-z0-9._-]+\.vtt$/i.test(v.captions[loc])
-    ? `<track kind="captions" src="${v.captions[loc]}" srclang="${loc}" default>` : '';
-  const poster = typeof v.poster === 'string' && /^\/media\/[a-z0-9._-]+$/i.test(v.poster) ? ` poster="${v.poster}"` : '';
-  return `<figure class="cc-video">${leaf('figcaption', 'video_h', t.video_h)}<video controls preload="none"${poster} src="${v.src}">${track}</video></figure>`;
+  return VIDEOS.renderFeature('certification', loc, { cta: null, level: 3 });
 }
 
 const CSS = `
@@ -77,8 +68,7 @@ const CSS = `
 .cc-pillar .cc-cmp{overflow-x:auto}.cc-pillar table{width:100%;border-collapse:collapse;font-size:14.5px}
 .cc-pillar th,.cc-pillar td{text-align:left;padding:9px 10px;border-bottom:1px solid #e7e0d5;vertical-align:top}
 .cc-pillar .cc-cta{display:inline-block;margin-top:18px;color:#9A3D1F;font-weight:600}
-.cc-pillar .cc-video{margin:0 0 18px}.cc-pillar .cc-video video{width:100%;max-width:100%;border-radius:12px;aspect-ratio:16/9;background:#1d1b1a}
-.cc-pillar .cc-video figcaption{font-weight:600;margin-bottom:8px}
+.cc-pillar .cai-video-sec{margin:0 0 22px;padding:0}
 `.trim();
 
 /**

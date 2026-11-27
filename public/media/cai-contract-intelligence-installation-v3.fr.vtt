@@ -1,0 +1,322 @@
+WEBVTT
+Kind: subtitles
+Language: fr
+
+1
+00:00:00.290 --> 00:00:02.705 line:6% position:50% align:center
+Installez Contract Intelligence & Register
+
+2
+00:00:02.705 --> 00:00:05.120 line:6% position:50% align:center
+dans votre propre environnement Microsoft.
+
+3
+00:00:05.160 --> 00:00:07.067 line:6% position:50% align:center
+Si les prérequis sont déjà en place,
+
+4
+00:00:07.067 --> 00:00:09.980 line:6% position:50% align:center
+prévoyez environ 20 à 30
+minutes pour la configuration.
+
+5
+00:00:10.020 --> 00:00:11.958 line:6% position:50% align:center
+Il s'agit d'une estimation
+pour la planification,
+
+6
+00:00:11.958 --> 00:00:13.500 line:6% position:50% align:center
+pas d'une durée d'installation mesurée.
+
+7
+00:00:13.540 --> 00:00:16.890 line:6% position:50% align:center
+La préparation des autorisations ou de
+la capacité peut prendre plus de temps.
+
+8
+00:00:16.930 --> 00:00:20.670 line:6% position:50% align:center
+Gardez INSTALL.pdf ouvert pour
+les instructions détaillées.
+
+9
+00:00:20.710 --> 00:00:25.044 line:6% position:50% align:center
+Vérifiez d'abord que vous disposez d'un
+environnement Dataverse avec au moins
+
+10
+00:00:25.044 --> 00:00:29.210 line:6% position:50% align:center
+1 Go libre, d'un accès System Administrator
+et de capacité Copilot Studio.
+
+11
+00:00:29.250 --> 00:00:32.220 line:6% position:50% align:center
+Il vous faut aussi une bibliothèque
+SharePoint dédiée aux contrats,
+
+12
+00:00:32.260 --> 00:00:34.850 line:6% position:50% align:center
+un réviseur et un administrateur
+des alertes équipés de Teams,
+
+13
+00:00:34.890 --> 00:00:37.333 line:6% position:50% align:center
+un accès administrateur
+Microsoft 365 et un
+
+14
+00:00:37.333 --> 00:00:40.060 line:6% position:50% align:center
+contrat en anglais au
+format texte pour le test.
+
+15
+00:00:40.100 --> 00:00:43.290 line:6% position:50% align:center
+Les frais d'utilisation Microsoft
+sont distincts de votre licence.
+
+16
+00:00:43.330 --> 00:00:46.276 line:6% position:50% align:center
+Avant de téléverser des
+contrats, configurez la
+
+17
+00:00:46.276 --> 00:00:49.660 line:6% position:50% align:center
+capacité et des alertes
+budgétaires à 50, 80 et 100 %.
+
+18
+00:00:49.700 --> 00:00:51.740 line:6% position:50% align:center
+Les alertes budgétaires
+n'arrêtent pas les dépenses.
+
+19
+00:00:51.780 --> 00:00:54.123 line:6% position:50% align:center
+Ensuite, téléchargez votre
+bundle et vérifiez sa
+
+20
+00:00:54.123 --> 00:00:56.320 line:6% position:50% align:center
+somme de contrôle sur
+votre page de commande.
+
+21
+00:00:56.360 --> 00:00:58.728 line:6% position:50% align:center
+Décompressez le bundle
+extérieur, mais laissez
+
+22
+00:00:58.728 --> 00:01:01.250 line:6% position:50% align:center
+fermé le ZIP de la solution
+gérée qu'il contient.
+
+23
+00:01:01.290 --> 00:01:03.852 line:6% position:50% align:center
+Préparez cinq valeurs :
+l'adresse du site SharePoint,
+
+24
+00:01:03.852 --> 00:01:06.656 line:6% position:50% align:center
+l'ID de la bibliothèque de
+contrats, l'e-mail du réviseur,
+
+25
+00:01:06.656 --> 00:01:10.620 line:6% position:50% align:center
+l'e-mail de l'administrateur des alertes
+et le nom exact de l'équipe propriétaire.
+
+26
+00:01:10.660 --> 00:01:12.410 line:6% position:50% align:center
+Le guide indique où les trouver.
+
+27
+00:01:12.450 --> 00:01:16.410 line:6% position:50% align:center
+Ouvrez make.powerapps.com et
+sélectionnez votre environnement.
+
+28
+00:01:16.450 --> 00:01:18.931 line:6% position:50% align:center
+Choisissez Solutions,
+puis Import solution,
+
+29
+00:01:18.931 --> 00:01:21.470 line:6% position:50% align:center
+et sélectionnez le ZIP
+de la solution gérée.
+
+30
+00:01:21.510 --> 00:01:25.150 line:6% position:50% align:center
+Reliez les deux références Dataverse
+à la même connexion Dataverse.
+
+31
+00:01:25.190 --> 00:01:27.330 line:6% position:50% align:center
+Reliez aussi SharePoint et Teams.
+
+32
+00:01:27.370 --> 00:01:31.040 line:6% position:50% align:center
+Utilisez le même compte System
+Administrator pour les quatre références.
+
+33
+00:01:31.080 --> 00:01:33.210 line:6% position:50% align:center
+Saisissez vos cinq valeurs et importez.
+
+34
+00:01:33.250 --> 00:01:36.700 line:6% position:50% align:center
+Si Import reste grisé, saisissez de
+nouveau chaque valeur obligatoire.
+
+35
+00:01:36.740 --> 00:01:38.802 line:6% position:50% align:center
+Après l'import, ouvrez Agents,
+
+36
+00:01:38.802 --> 00:01:42.720 line:6% position:50% align:center
+All agents dans le centre
+d'administration Microsoft 365.
+
+37
+00:01:42.760 --> 00:01:45.310 line:6% position:50% align:center
+Vérifiez CAI Contract
+Intelligence Assistant.
+
+38
+00:01:45.350 --> 00:01:47.870 line:6% position:50% align:center
+Si son statut est Available, bloquez-le.
+
+39
+00:01:47.910 --> 00:01:50.300 line:6% position:50% align:center
+Laissez-le en Draft ou Blocked
+pendant la configuration.
+
+40
+00:01:50.340 --> 00:01:53.020 line:6% position:50% align:center
+Vérifiez maintenant les sept
+flux cloud de la solution.
+
+41
+00:01:53.060 --> 00:01:55.965 line:6% position:50% align:center
+Activez les flux requis,
+en particulier Review gate,
+
+42
+00:01:55.965 --> 00:01:58.590 line:6% position:50% align:center
+qui envoie les cartes
+d'approbation dans Teams.
+
+43
+00:01:58.630 --> 00:02:00.930 line:6% position:50% align:center
+Laissez Daily recompute
+désactivé pendant les tests.
+
+44
+00:02:00.970 --> 00:02:03.170 line:6% position:50% align:center
+Activé, il consomme de la capacité.
+
+45
+00:02:03.210 --> 00:02:06.530 line:6% position:50% align:center
+Créez l'équipe propriétaire avec
+exactement le nom que vous avez saisi.
+
+46
+00:02:06.570 --> 00:02:10.560 line:6% position:50% align:center
+Attribuez CAI Contract Reader et
+ajoutez les utilisateurs autorisés.
+
+47
+00:02:10.600 --> 00:02:14.758 line:6% position:50% align:center
+Vérifiez le rôle avec le guide :
+Read sur Contract et Field evidence,
+
+48
+00:02:14.758 --> 00:02:17.470 line:6% position:50% align:center
+sans autre autorisation
+définie pour ce rôle.
+
+49
+00:02:17.510 --> 00:02:20.272 line:6% position:50% align:center
+Dans Copilot Studio,
+vérifiez quatre paramètres :
+
+50
+00:02:20.272 --> 00:02:23.259 line:6% position:50% align:center
+aucun canal connecté, partage
+limité au propriétaire,
+
+51
+00:02:23.259 --> 00:02:27.260 line:6% position:50% align:center
+Authenticate with Microsoft sélectionné
+et les deux rubriques activées.
+
+52
+00:02:27.300 --> 00:02:29.370 line:6% position:50% align:center
+Ne publiez pas l'agent
+pendant l'installation.
+
+53
+00:02:29.410 --> 00:02:31.740 line:6% position:50% align:center
+Vous pouvez aussi lancer la
+vérification de préparation fournie.
+
+54
+00:02:31.780 --> 00:02:35.040 line:6% position:50% align:center
+Elle ne modifie rien ; le
+résultat final doit être READY.
+
+55
+00:02:35.080 --> 00:02:37.690 line:6% position:50% align:center
+Enfin, testez avec un compte
+de l'équipe propriétaire.
+
+56
+00:02:37.730 --> 00:02:39.659 line:6% position:50% align:center
+Téléversez votre contrat
+de test et attendez
+
+57
+00:02:39.659 --> 00:02:41.850 line:6% position:50% align:center
+Pending review et la carte
+de révision dans Teams.
+
+58
+00:02:41.890 --> 00:02:43.360 line:6% position:50% align:center
+Approuvez le contrat.
+
+59
+00:02:43.400 --> 00:02:46.063 line:6% position:50% align:center
+Dans le volet de test de
+Copilot Studio, demandez :
+
+60
+00:02:46.063 --> 00:02:48.830 line:6% position:50% align:center
+« Which notice deadlines
+fall in the next 400 days? »
+
+61
+00:02:48.870 --> 00:02:51.371 line:6% position:50% align:center
+Autorisez la connexion si on
+vous le demande, et vérifiez que
+
+62
+00:02:51.371 --> 00:02:53.790 line:6% position:50% align:center
+la réponse contient les contrats
+approuvés de votre équipe.
+
+63
+00:02:53.830 --> 00:02:57.940 line:6% position:50% align:center
+Avant d'approuver de vrais contrats,
+les réviseurs doivent lire la section
+
+64
+00:02:57.940 --> 00:03:02.050 line:6% position:50% align:center
+9a d'INSTALL.pdf et vérifier les délais
+de préavis dans le contrat source.
+
+65
+00:03:02.090 --> 00:03:04.945 line:6% position:50% align:center
+Pour obtenir de l'aide, écrivez
+à hello@colleagueai.ai en
+
+66
+00:03:04.945 --> 00:03:08.000 line:6% position:50% align:center
+indiquant l'e-mail de votre
+commande et le numéro de version.

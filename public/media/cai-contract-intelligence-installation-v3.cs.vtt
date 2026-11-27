@@ -1,0 +1,273 @@
+WEBVTT
+Kind: subtitles
+Language: cs
+
+1
+00:00:00.290 --> 00:00:05.120 line:6% position:50% align:center
+Nainstalujte Contract Intelligence &
+Register ve vlastním prostředí Microsoft.
+
+2
+00:00:05.160 --> 00:00:07.044 line:6% position:50% align:center
+Pokud už máte splněné předpoklady,
+
+3
+00:00:07.044 --> 00:00:09.980 line:6% position:50% align:center
+počítejte s přibližně 20 až
+30 minutami na nastavení.
+
+4
+00:00:10.020 --> 00:00:13.500 line:6% position:50% align:center
+Jde o orientační odhad, nikoli
+o naměřenou dobu instalace.
+
+5
+00:00:13.540 --> 00:00:16.890 line:6% position:50% align:center
+Příprava oprávnění nebo
+kapacity může zabrat další čas.
+
+6
+00:00:16.930 --> 00:00:20.670 line:6% position:50% align:center
+Mějte otevřený soubor
+INSTALL.pdf s podrobnými pokyny.
+
+7
+00:00:20.710 --> 00:00:25.558 line:6% position:50% align:center
+Nejprve ověřte, že máte prostředí
+Dataverse s alespoň 1 GB volného místa,
+
+8
+00:00:25.558 --> 00:00:29.210 line:6% position:50% align:center
+přístup System Administrator
+a kapacitu Copilot Studio.
+
+9
+00:00:29.250 --> 00:00:32.220 line:6% position:50% align:center
+Dále potřebujete vyhrazenou
+knihovnu smluv v SharePointu,
+
+10
+00:00:32.260 --> 00:00:34.850 line:6% position:50% align:center
+kontrolora a správce upozornění
+s přístupem do Teams,
+
+11
+00:00:34.890 --> 00:00:40.060 line:6% position:50% align:center
+administrátorský přístup k Microsoft 365
+a textovou anglickou smlouvu k testování.
+
+12
+00:00:40.100 --> 00:00:43.290 line:6% position:50% align:center
+Poplatky Microsoftu za využití
+jsou oddělené od vaší licence.
+
+13
+00:00:43.330 --> 00:00:46.847 line:6% position:50% align:center
+Před nahráním smluv nastavte
+kapacitu a upozornění
+
+14
+00:00:46.847 --> 00:00:49.660 line:6% position:50% align:center
+na rozpočet při 50, 80 a 100 procentech.
+
+15
+00:00:49.700 --> 00:00:51.740 line:6% position:50% align:center
+Upozornění na rozpočet výdaje nezastaví.
+
+16
+00:00:51.780 --> 00:00:56.320 line:6% position:50% align:center
+Poté stáhněte balíček a ověřte jeho
+kontrolní součet podle stránky objednávky.
+
+17
+00:00:56.360 --> 00:01:01.250 line:6% position:50% align:center
+Rozbalte vnější balíček, ale ZIP
+spravovaného řešení uvnitř nechte neotevřený.
+
+18
+00:01:01.290 --> 00:01:05.601 line:6% position:50% align:center
+Připravte si pět hodnot: adresu
+webu SharePoint, ID knihovny smluv,
+
+19
+00:01:05.601 --> 00:01:10.620 line:6% position:50% align:center
+e-mail kontrolora, e-mail správce
+upozornění a přesný název vlastnického týmu.
+
+20
+00:01:10.660 --> 00:01:12.410 line:6% position:50% align:center
+Návod ukazuje, kde je najdete.
+
+21
+00:01:12.450 --> 00:01:16.410 line:6% position:50% align:center
+Otevřete make.powerapps.com
+a vyberte své prostředí.
+
+22
+00:01:16.450 --> 00:01:21.470 line:6% position:50% align:center
+Zvolte Solutions, potom Import solution
+a vyberte ZIP spravovaného řešení.
+
+23
+00:01:21.510 --> 00:01:25.150 line:6% position:50% align:center
+Obě reference Dataverse připojte
+ke stejnému připojení Dataverse.
+
+24
+00:01:25.190 --> 00:01:27.330 line:6% position:50% align:center
+Připojte také SharePoint a Teams.
+
+25
+00:01:27.370 --> 00:01:31.040 line:6% position:50% align:center
+Pro všechny čtyři reference použijte
+stejný účet System Administrator.
+
+26
+00:01:31.080 --> 00:01:33.210 line:6% position:50% align:center
+Zadejte svých pět hodnot a spusťte import.
+
+27
+00:01:33.250 --> 00:01:36.700 line:6% position:50% align:center
+Pokud tlačítko Import zůstává šedé,
+zadejte znovu každou povinnou hodnotu.
+
+28
+00:01:36.740 --> 00:01:42.720 line:6% position:50% align:center
+Po importu otevřete v centru pro správu
+Microsoft 365 Agents, All agents.
+
+29
+00:01:42.760 --> 00:01:45.310 line:6% position:50% align:center
+Zkontrolujte CAI Contract
+Intelligence Assistant.
+
+30
+00:01:45.350 --> 00:01:47.870 line:6% position:50% align:center
+Pokud má stav Available, zablokujte ho.
+
+31
+00:01:47.910 --> 00:01:50.300 line:6% position:50% align:center
+Během nastavení ho nechte
+ve stavu Draft nebo Blocked.
+
+32
+00:01:50.340 --> 00:01:53.020 line:6% position:50% align:center
+Teď zkontrolujte sedm
+cloudových toků řešení.
+
+33
+00:01:53.060 --> 00:01:55.988 line:6% position:50% align:center
+Zapněte požadované toky,
+zejména Review gate,
+
+34
+00:01:55.988 --> 00:01:58.590 line:6% position:50% align:center
+který posílá schvalovací karty do Teams.
+
+35
+00:01:58.630 --> 00:02:00.930 line:6% position:50% align:center
+Během testování nechte
+Daily recompute vypnutý.
+
+36
+00:02:00.970 --> 00:02:03.170 line:6% position:50% align:center
+Když je zapnutý, spotřebovává kapacitu.
+
+37
+00:02:03.210 --> 00:02:06.530 line:6% position:50% align:center
+Vytvořte vlastnický tým přesně
+se jménem, které jste zadali.
+
+38
+00:02:06.570 --> 00:02:10.560 line:6% position:50% align:center
+Přiřaďte roli CAI Contract Reader
+a přidejte oprávněné uživatele.
+
+39
+00:02:10.600 --> 00:02:12.389 line:6% position:50% align:center
+Ověřte roli podle návodu:
+
+40
+00:02:12.389 --> 00:02:17.470 line:6% position:50% align:center
+Read na Contract a Field evidence,
+bez dalších oprávnění pro tuto roli.
+
+41
+00:02:17.510 --> 00:02:21.936 line:6% position:50% align:center
+V Copilot Studiu zkontrolujte čtyři
+nastavení: žádný připojený kanál,
+
+42
+00:02:21.936 --> 00:02:27.260 line:6% position:50% align:center
+sdílení jen s vlastníkem, vybrané Authenticate
+with Microsoft a obě témata zapnutá.
+
+43
+00:02:27.300 --> 00:02:29.370 line:6% position:50% align:center
+Během instalace agenta nepublikujte.
+
+44
+00:02:29.410 --> 00:02:31.740 line:6% position:50% align:center
+Můžete také spustit přiloženou
+kontrolu připravenosti.
+
+45
+00:02:31.780 --> 00:02:35.040 line:6% position:50% align:center
+Nic nemění; výsledkem by mělo být READY.
+
+46
+00:02:35.080 --> 00:02:37.690 line:6% position:50% align:center
+Nakonec otestujte s účtem
+člena vlastnického týmu.
+
+47
+00:02:37.730 --> 00:02:39.886 line:6% position:50% align:center
+Nahrajte testovací
+smlouvu a počkejte na stav
+
+48
+00:02:39.886 --> 00:02:41.850 line:6% position:50% align:center
+Pending review a kontrolní kartu v Teams.
+
+49
+00:02:41.890 --> 00:02:43.360 line:6% position:50% align:center
+Smlouvu schvalte.
+
+50
+00:02:43.400 --> 00:02:46.004 line:6% position:50% align:center
+V testovacím panelu
+Copilot Studia se zeptejte:
+
+51
+00:02:46.004 --> 00:02:48.830 line:6% position:50% align:center
+„Which notice deadlines
+fall in the next 400 days?“
+
+52
+00:02:48.870 --> 00:02:51.305 line:6% position:50% align:center
+Pokud budete vyzváni,
+povolte připojení a ověřte,
+
+53
+00:02:51.305 --> 00:02:53.790 line:6% position:50% align:center
+že odpověď obsahuje schválené
+smlouvy vašeho týmu.
+
+54
+00:02:53.830 --> 00:02:57.794 line:6% position:50% align:center
+Než budou kontroloři schvalovat
+skutečné smlouvy, měli by si přečíst
+
+55
+00:02:57.794 --> 00:03:02.050 line:6% position:50% align:center
+oddíl 9a v INSTALL.pdf a ověřovat
+výpovědní lhůty proti zdrojové smlouvě.
+
+56
+00:03:02.090 --> 00:03:05.219 line:6% position:50% align:center
+Pomoc vám poskytneme na
+hello@colleagueai.ai;
+
+57
+00:03:05.219 --> 00:03:08.000 line:6% position:50% align:center
+uveďte e-mail objednávky a číslo vydání.
