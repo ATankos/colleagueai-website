@@ -9,10 +9,8 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { createRequire } from 'node:module';
 import { execFileSync } from 'node:child_process';
 
-const require = createRequire(import.meta.url);
 const h = (n) => n.toString(16).padStart(16, '0');
 
 function fixture() {
@@ -59,7 +57,7 @@ test('an id read by code is never merged away, and nothing moves past a styleshe
   const html = fs.readFileSync(path.join(dir, 'index.html'), 'utf8');
   assert.match(html, /<link rel="stylesheet" id="cai-fixed-backtop-css" href="\/assets\/inline-0000000000000004\.css">/);
   const body = html.slice(html.indexOf('</head>'));
-  assert.match(body, /https:\/\/example\.com\/ext\.css/, 'an external stylesheet stays where it was');
+  assert.ok(body.includes('href="https://example.com/ext.css"'), 'an external stylesheet stays where it was');
   assert.match(body, /inline-0000000000000008\.css/, 'a stylesheet after it is not hoisted over it');
   assert.doesNotMatch(body, /inline-0000000000000007\.css|\/site\.css/, 'the movable body stylesheets before it were hoisted');
 });
@@ -71,7 +69,7 @@ test('body scripts are deferred in their original order; head scripts stay synch
   const head = html.slice(0, html.indexOf('</head>'));
   assert.match(head, /<script src="\/assets\/inline-0000000000000064\.js"><\/script>/);
   const body = html.slice(html.indexOf('</head>'));
-  const scripts = [...body.matchAll(/<script([^>]*)>/g)].map((m) => m[1]);
+  const scripts = [...body.matchAll(/<script([^>]*)>/gi)].map((m) => m[1]);
   assert.deepEqual(scripts, [' defer src="/assets/inline-0000000000000065.js"', ' id="cai-x" defer src="/assets/inline-0000000000000066.js"']);
 });
 

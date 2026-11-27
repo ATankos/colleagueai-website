@@ -40,7 +40,21 @@ test('localized partner pages keep a translated meta description (a changed Engl
 });
 
 // Founder decision (Round 3): 10% of eligible net PERPETUAL LICENCE revenue; no commission on subscription revenue.
-const visible = (f) => readFileSync(f, 'utf8').replace(/<script[\s\S]*?<\/script>/g, '').replace(/<style[\s\S]*?<\/style>/g, '');
+// The text a visitor sees: the file without its <script> and <style> elements. Not a sanitizer (it reads our own
+// committed pages); element bodies are cut by position, case-insensitively, so no regex has to parse HTML.
+function withoutElements(html, tag) {
+  const lower = html.toLowerCase();
+  let out = '', at = 0;
+  for (;;) {
+    const start = lower.indexOf(`<${tag}`, at);
+    if (start < 0) return out + html.slice(at);
+    const end = lower.indexOf(`</${tag}`, start);
+    out += html.slice(at, start);
+    if (end < 0) return out;
+    at = lower.indexOf('>', end) + 1 || html.length;
+  }
+}
+const visible = (f) => withoutElements(withoutElements(readFileSync(f, 'utf8'), 'script'), 'style');
 test('no localized partner or catalogue page shows the English commission wording (visible text, all seven languages)', () => {
   const english = /eligible net|net licence revenue|earns no commission|you earn 10%|earn a 10%|every agent sale/;
   for (const lang of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {

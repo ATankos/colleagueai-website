@@ -12,7 +12,7 @@ for (const [lang, v] of Object.entries(d)) {
   test(`${lang}: b4 and b4_v tie corrective releases to the version bought, not to "every licensee"`, () => {
     if (OLD[lang]) assert.doesNotMatch(v.b4, OLD[lang]);
     assert.ok(v.b4.length > 120, 'b4 states both the licence tie and the limit on later feature releases');
-    assert.doesNotMatch(v.b4_v, /every licen|each licen|todos los titulares$/i);
+    assert.doesNotMatch(v.b4_v, /(?:every licen|each licen|todos los titulares)/i);
   });
 }
 test('the seven translations differ from the English source (no English leak)', () => {
