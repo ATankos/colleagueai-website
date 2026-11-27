@@ -24,3 +24,16 @@ test('the agents-page partner teaser (adopt_p) states the same basis in all eigh
     assert.doesNotMatch(dict[lang].adopt_p, /flat|paušáln|pauschal|fixe|fijo|fisso|fixos|stałe/i, lang);
   }
 });
+
+test('localized partner pages keep a translated meta description (a changed English source must not fall back to English)', () => {
+  const en = /<meta name="description" content="([^"]+)"/.exec(readFileSync('public/partners.html', 'utf8'))[1];
+  const stale = /paušáln|pauschal|\bfixes?\b|\bfijo\b|\bfisso\b|\bfixos\b|\bstał[aey]\b|every sale|chaque vente|cada venta|ogni vendita|cada venda|każdej sprzedaży|každého prodeje|jedes Verkaufs/i;
+  for (const lang of ['cs', 'de', 'fr', 'es', 'it', 'pl', 'pt']) {
+    for (const f of [`public/${lang}/partners.html`, `public/${lang}/partners/index.html`]) {
+      const m = /<meta name="description" content="([^"]+)"/.exec(readFileSync(f, 'utf8'));
+      assert.ok(m, f);
+      assert.notEqual(m[1], en, `${f}: meta description is English`);
+      assert.doesNotMatch(m[1], stale, `${f}: still says flat/every sale`);
+    }
+  }
+});
