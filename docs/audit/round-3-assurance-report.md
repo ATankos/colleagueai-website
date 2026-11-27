@@ -112,7 +112,7 @@ Brand: the terracotta keeps its hue. Small text uses the darker shade the homepa
 | ESLint | **PASS** |
 | Static QA, global language, localized copy, visible copy, URL locale | **PASS** |
 | `npm audit` | 0 vulnerabilities |
-| `npm run e2e:site` (CI equivalent, 3 Chromium projects) | see the PR description for #593 (run finished after this file was written) |
+| `npm run e2e:site` (CI equivalent: 11 specs × desktop, mobile, tablet, against `dist/`) | **753/753 PASS** (17.1 min) |
 
 ## 7. Commercial challenge (the six reviewers)
 
