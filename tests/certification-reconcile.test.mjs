@@ -58,6 +58,10 @@ test('the status report names pending issuances AND outstanding evidence repairs
   assert.equal(s.mode, 'status');
   assert.equal(s.pendingIssuances, 1);
   assert.equal(s.evidenceRepairs, 1, 'DEFECT: the status view did not report outstanding evidence repairs');
+  assert.equal(s.oldestPendingDays, 0, 'the age of the oldest queued issuance is reported (counts only)');
+  const rec0 = JSON.parse(kvf.store.get('cert:pending:sub_q1'));
+  kvf.store.set('cert:pending:sub_q1', JSON.stringify({ ...rec0, firstFailedAt: new Date(Date.now() - 8 * 86400000).toISOString() }));
+  assert.equal((await rec.reconcileCertificates({ apply: false })).oldestPendingDays, 8);
   assert.equal(s.ok, false);
   assert.equal((await rec.reconcileCertificates({ apply: false })).pendingIssuances, 1, 'status mode changed nothing');
 });
@@ -69,6 +73,7 @@ test('a run completes both kinds of work and reports ok', async () => {
   assert.equal(r.repairs.repaired, 1);
   assert.equal(r.pendingIssuances, 0);
   assert.equal(r.evidenceRepairs, 0);
+  assert.equal(r.oldestPendingDays, null);
   assert.equal(r.ok, true);
 });
 

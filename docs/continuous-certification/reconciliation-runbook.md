@@ -8,6 +8,7 @@ Code: `lib/certificationReconcile.js` (shared), `api/certification-reconcile.js`
 | Field | Meaning |
 |---|---|
 | `pendingIssuances` | paid subscriptions whose certificate is not issued yet (store failed during the webhook) |
+| `oldestPendingDays` | age in days of the oldest pending issuance (null when none); escalate after 7, 90 is the proposed retention limit |
 | `evidenceRepairs` | certificates whose permanent evidence still misses a committed decision entry |
 | `issuing.{attempted,issued,ended,failed}` | this run's issuance retries (`ended` = the subscription was found ended: correctly not issued) |
 | `repairs.{attempted,repaired,failed}` | this run's evidence repairs |
