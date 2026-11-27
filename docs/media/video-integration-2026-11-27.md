@@ -17,12 +17,29 @@ Every material claim was checked against release 1.0.3.6 (`INSTALL.md` in bundle
 | Installation guide | `05_Instalacni_pruvodce_v3_bezne_tempo.mp4`, 3:07 | **Ready for founder approval** | Every step matches INSTALL.pdf. Two reconciliations are handled in the on-page disclosure (§3). |
 | Continuous Certification | `08_Continuous_Certification_EMAIL.mp4`, 1:00 | **Ready for founder (and counsel) approval** | Disclosures are complete on screen. One wording point is for counsel (§3). |
 
-Nothing is published by this branch:
+Nothing is published by this branch. Status on 27 Nov 2026: **product HELD; corporate, installation and certification PENDING formal approval.**
 
-- **Production:** the `approvedBy` and `approvedOn` fields in `config/media.json` are empty, so a Production build places videos on **0 pages**, as a build without the preview switch confirmed.
-- **Review Preview:** `CAI_VIDEO_PREVIEW=1`, scoped to Preview for this branch only, renders the three ready videos behind a "pending approval" banner.
+### 1.1 Publication gate (page and asset level)
+A video is rendered, and its files are served, only when **every** condition holds (`approved()` in `scripts/lib/videos.cjs`):
 
-**To publish one video:** record `approvedBy` and `approvedOn` (ISO date) for it in `config/media.json` in a reviewed PR. `approvedOn` becomes the `uploadDate` in the structured data.
+1. its status is not `held`;
+2. `approvedBy` is set and `approvedOn` is an ISO date;
+3. all eight caption tracks exist;
+4. `approvedSha256` equals `master.sha256` **and** the SHA-256 of the file actually in `media/` at build time;
+5. `publishedOn` is set, not earlier than `approvedOn` and not later than the build date.
+
+- **Pages:** an unapproved video produces no player, no card and no `VideoObject`.
+- **Assets:** source files live in `media/`, which is never served. `scripts/publish-media.cjs` copies only the files of renderable videos into `dist/media`, and re-hashes each copied video. Unapproved MP4s, posters, VTT subtitles and transcripts are therefore **absent from a Production build**, not merely unlinked.
+- **Checksum binding:** an approval names one exact file. Replacing a master without a new review changes its SHA-256, so `approved()` returns false and `publish-media` **fails the build** ("approval mismatch") rather than serving the replacement or silently dropping the video.
+- **Review Preview:** `CAI_VIDEO_PREVIEW=1` is honoured only when `VERCEL_ENV` is not `production`. It is scoped to Preview for `feat/video-integration` and shows pending videos behind a "pending approval" banner, without `VideoObject`. A held video never renders, even in Preview.
+
+Verified on the combined release candidate (§9): the Production-mode build reports `0 media file(s) published` and `video blocks on 0 page(s)`; all 33 media URLs return 404; no video trace appears in any of the 371 built files.
+
+### 1.2 To publish one video (founder, in a reviewed PR)
+1. Confirm the file reviewed is the one in `media/` (`sha256sum`), and that it matches `master.sha256` in `config/media.json`.
+2. Set `approvedBy`, `approvedOn` (ISO date) and `approvedSha256` (that checksum).
+3. Set `publishedOn` to the **actual** date the PR is merged and deployed. It becomes `uploadDate` in the structured data. A future date keeps the video hidden until that day's build.
+4. A different master requires a new file name, a new `master.sha256`, and a fresh approval.
 
 ## 2. Content validation
 
@@ -66,6 +83,20 @@ The video matches INSTALL.pdf step for step:
 - **Checks:** a readiness check that "changes nothing"; the 400-day test question; section 9a; the support contact.
 
 At 147 s, speech recognition heard "publish the agent during installation". The burned caption and the on-screen card both say "**Do not** publish the agent during installation", and the captions follow the card.
+
+**Verification against the authoritative documents** (`scripts/qa/install-narration-check.mjs`, rerunnable):
+- Inputs: release 1.0.3.6 bundle r3, `INSTALL.pdf` (SHA-256 `ced8e7a0…`) and `START-HERE.pdf` (`2165ecdf…`).
+- The 45 English narration segments were reduced to **59 anchors**: numbers, Microsoft UI labels and instructions. Five segments carry no checkable fact.
+- **58 verified**: 55 in INSTALL.pdf and 3 only in START-HERE.pdf (the INSTALL.pdf reference, and the checksum against the order page).
+- **1 expected discrepancy:** "20 to 30 minutes" is in neither document (INSTALL.pdf says "about 60 minutes"). The on-page disclosure covers it (§3).
+- **Omission:** INSTALL §5's "When you go live, Daily recompute must be On" is not narrated. The disclosure adds it.
+- **Safety instructions** are carried in all eight caption languages, and a test enforces them:
+  - do not publish the agent;
+  - block it if Available;
+  - keep Daily recompute off during testing;
+  - budget alerts do not stop spending;
+  - leave the inner ZIP unopened;
+  - section 9a before real contracts.
 
 ### 2.4 Continuous Certification (burned captions; illustrative imagery, labelled)
 | Claim | Source / check | Result |
@@ -128,7 +159,19 @@ Card links: corporate → home; certification → /certified; installation → f
   - every disclosure;
   - the installation steps;
   - the certification objectives.
-- **Reading speed:** the busiest cue per language runs at 20–35 characters per second (translations are longer than the spoken slots). Every player has the full transcript beside it.
+- **Reading speed** (characters per second, including spaces; max / mean per track). Method:
+  - Cues start 0.25 s early and may hold up to 1.5 s into a pause.
+  - About 70 translated captions were condensed to the spoken meaning; no safety instruction was removed.
+  - Lines are balanced at ≤ 42 characters, ≤ 2 lines per cue.
+  - `tests/videos.test.mjs` fails any translated cue above 20 cps and any English cue above 23.
+
+  | Video | en | cs | de | fr | es | it | pl | pt |
+  |---|---|---|---|---|---|---|---|---|
+  | Corporate | 22.7 / 16.5 | 18.8 / 15.8 | 19.6 / 17.8 | 19.6 / 17.4 | 19.3 / 17.1 | 19.6 / 17.5 | 19.3 / 16.9 | 19.6 / 16.9 |
+  | Installation | 21.7 / 16.4 | 19.7 / 16.3 | 20.0 / 17.8 | 19.6 / 17.6 | 19.7 / 17.2 | 19.8 / 17.4 | 19.4 / 16.5 | 19.9 / 16.9 |
+  | Certification | 17.7 / 13.5 | 18.9 / 13.9 | 19.8 / 15.7 | 19.9 / 16.9 | 19.5 / 16.4 | 20.0 / 16.2 | 19.2 / 14.4 | 19.6 / 15.5 |
+
+  English follows the narrator's own pace and burned captions, so it was not condensed. Previously the busiest translated cues ran at 20–35 cps. The full transcript sits beside every player.
 - **Clean masters:** for product, installation and certification, a master **without burned-in captions** would let every language, English included, be shown the same way and at full readability. Request it with the product re-edit.
 
 ## 7. Hosting, security, privacy
@@ -143,7 +186,7 @@ Card links: corporate → home; certification → /certified; installation → f
   - `.mp4` and posters: `public, max-age=31536000, immutable` (content-addressed);
   - `.vtt`: 1 hour, served as `text/vtt; charset=utf-8`;
   - `/cai-video.js` is versioned by its hash.
-- **Range requests:** the browser fetches the MP4 with byte ranges (206). Verified on the QA server; check one on the Vercel Preview.
+- **Range requests:** the browser fetches the MP4 with byte ranges. Verified on the QA server and on the Vercel Preview: `206`, `video/mp4`, immutable caching; VTT served as `text/vtt`.
 - **Payload:** corporate 5.29 MB, installation 12.72 MB, certification 8.27 MB (product 11.40 MB when its corrected master arrives). Posters are 45–126 KB and lazy-loaded. Repository growth is 26.3 MB.
 - **Bandwidth estimate:** about 6 MB per play on average (two-thirds of an average file watched).
 
@@ -152,16 +195,29 @@ Card links: corporate → home; certification → /certified; installation → f
   | 1,000 | ≈ 6 GB |
   | 10,000 | ≈ 60 GB |
 
-  Vercel Hobby includes 100 GB of Fast Data Transfer a month and Pro includes 1 TB, so the cost is **0** at any realistic B2B volume. The Hobby plan's non-commercial restriction is a separate, open founder decision (operational acceptance of 27 Nov).
+- **Plan eligibility and cost** (Vercel dashboard and pricing pages, checked 27 Nov 2026):
+  - **Account plan:** **Hobby**. Hobby is limited to non-commercial personal use. A commercial site, which colleagueai.ai is once sales open, is **not eligible** on Hobby, with or without videos.
+  - **Last 30 days of usage, against Hobby limits:**
+
+    | Usage | Used | Hobby limit |
+    |---|---|---|
+    | Fast Data Transfer | 206.7 MB | 100 GB |
+    | Deployment storage | 4.9 GB | 10 GB |
+    | Build time | 8 h | 100 h |
+    | CDN requests | 53,693 | 1M |
+
+  - **Pro:** $20 a month for 1 deploying seat, including $20 of usage credit; each extra seat is $20 a month. It includes 1 TB of Fast Data Transfer, then from $0.15 per GB.
+  - **Video delivery on Pro:** ≈ 6 GB per 1,000 plays, so **$0** additional below about 160,000 plays a month. Deployment storage is not affected materially (+26 MB per deployment).
+  - **Founder decision:** whether and when to move to Pro, about $20 a month. It is required before commercial launch regardless of video. **Nothing has been purchased or upgraded.**
 - **Privacy:** no third-party player, embed, tracker, cookie or storage. The video is served like any page asset, so the privacy notice needs no change. Posters and videos carry an "AI-generated presenter" or "Illustrative" label where the masters do.
 
 ## 8. SEO and GEO
-- **`VideoObject`** is emitted only for **approved** videos, on the page that hosts the feature player, named by that page's canonical URL. It carries:
-  - name, description, thumbnail and same-origin `contentUrl`;
-  - `duration` and `uploadDate` (the approval date);
-  - the eight caption tracks, the transcript in the page language, and the publisher.
-
-  A Preview never emits it.
+- **`VideoObject`** is emitted only for **approved** videos, on the page that hosts the feature player, named by that page's canonical URL. A Preview never emits it.
+  - **Supported properties only.** It uses Google's documented video properties: required `name`, `thumbnailUrl` and `uploadDate`; recommended `contentUrl`, `description` and `duration`.
+  - **Allowlist.** `GOOGLE_VIDEO_PROPERTIES` in `scripts/lib/videos.cjs` holds Google's full supported list, and a test fails if any other key appears.
+  - **Removed:** the earlier draft (`5ed0ff2e`) also emitted `@id`, `encodingFormat`, `width`, `height`, `inLanguage`, `isFamilyFriendly`, `caption`, `transcript` and `publisher`. Those are valid schema.org properties, but Google's video structured data does not list them. The transcript stays in the HTML, where it is crawlable.
+  - **`uploadDate`** is `publishedOn`, the actual publication date recorded at release. It is not the approval date.
+  - **Format:** ISO 8601 (`2026-12-01` or with a time and offset). `duration` is ISO 8601 (`PT1M9S`).
 - **Transcripts** are in the HTML (a `<details>` element) in the page language, so they are crawlable without JavaScript.
 - **One player per page and one canonical page per video and language**, so there is no duplicate `VideoObject` per page.
 - **No availability claims:** titles and descriptions say "planned", "Coming soon" and "illustrative" where they apply.
@@ -169,14 +225,15 @@ Card links: corporate → home; certification → /certified; installation → f
 ## 9. Test evidence
 | Check | Result |
 |---|---|
-| `tests/videos.test.mjs` (13 tests): checksums and fast start; the held product cannot render; approval gate (nothing approved, nothing in Production, Preview-only review); eight-language captions with parity and current files; valid WebVTT and two-line cues; safety lines (do not publish, Daily recompute, Improve audit readiness); blocked vocabulary; no media outside the template and no autoplay; cards; complete `VideoObject` once approved; no storage or third parties in the client; caching and CSP | 13/13 |
-| Full suite on the branch | 725/725 node tests, 35/35 vitest, eslint clean |
+| `tests/videos.test.mjs` (17 tests): checksums and fast start; the held product cannot render; approval gate (nothing approved, nothing in Production, Preview-only review, `publishedOn` not in the future); **asset gate** (nothing unapproved is copied to `dist/media`); **checksum tamper** (a replaced master on a copy of `media/` turns the approval off and fails `publish-media`); eight-language captions with parity and current files; valid WebVTT and two-line cues; **reading speed** (translations ≤ 20 cps, English ≤ 23); **installation safety lines in all 8 languages** (do not publish, block if Available, Draft or Blocked, Daily recompute off, alerts do not stop spending, checksum, one System Administrator account, inner ZIP unopened, section 9a); blocked vocabulary; no media outside the template and no autoplay; cards; `VideoObject` keys limited to Google's list, `uploadDate` = `publishedOn`; no storage or third parties in the client; caching and CSP | 17/17 |
+| Installation narration vs INSTALL.pdf / START-HERE.pdf (`scripts/qa/install-narration-check.mjs`) | 58/58 anchors documented (55 INSTALL.pdf, 3 START-HERE.pdf only); 1 expected discrepancy (20–30 min), covered by the disclosure |
+| **Combined release candidate** (local `verify/rc-video-combined`: `origin/fix/aud-r2-content-claims` ⊃ #590–#593, + `origin/main` `36b723f8`, + this branch `182dbb99`) | **Production-mode build:** 0 media published, 0 video blocks, 33/33 media URLs 404, 0 video traces in 371 files. **Unit:** 817/817 node tests, 37/37 vitest, eslint clean. **E2E** (Playwright, Google Chrome, desktop + tablet + mobile): **753/753**. **Lighthouse:** all thresholds passed. **Preview-mode build** (videos shown): browser video QA **57/57**, Lighthouse identical to the Production-mode build |
 | Browser QA, real Google Chrome 1440×900, 820×1180 and 390×844 (static server with the production CSP and byte ranges) | **57/57**: all 8 languages × home, partners and /certified (right player, transcript language, default subtitles, **no video or caption request before the click**, 0 CSP violations, 0 console errors); keyboard Enter plays with sound and focuses the video; subtitles below the picture (cs, de, fr); MP4 fetched with byte ranges; full screen holds picture and caption bar; no horizontal overflow; every card link reaches its player; keyboard order play → subtitles → full screen → transcript; axe on the video sections of home, /cs/partneri, /certified and /agents: 0 violations |
 | Lighthouse (repository thresholds) on /, /agents, /pricing, /certified, with videos vs the same build without | Identical: 100/100/100/100 everywhere except /agents best practices 96, which predates this change (same in the baseline) |
 | Firefox and WebKit | **Not run.** Their browser downloads are blocked in this environment. The player uses only standard `<video>`, `<track>`, `textTracks` and the Fullscreen API with WebKit prefixes. Run `npx playwright test` with the firefox and webkit projects on a machine that has them, or check manually in Safari and Firefox. |
 
 ## 10. Founder decisions
-1. **Approve, per video:** corporate, installation guide, Continuous Certification. Record `approvedBy` and `approvedOn` in `config/media.json`. The conditions are listed in that file:
+1. **Approve, per video:** corporate, installation guide, Continuous Certification. Follow §1.2 (`approvedBy`, `approvedOn`, `approvedSha256`, `publishedOn`). The conditions are listed in `config/media.json`:
    - corporate: the multi-domain narration and the illustrative finance example;
    - installation: the 20–30 minutes framing and the Daily recompute note;
    - certification: "ISO standards" as proposed coverage (counsel) and the objectives.
@@ -184,3 +241,25 @@ Card links: corporate → home; certification → /certified; installation → f
 3. **Clean masters** without burned captions for the three captioned videos (optional, recommended).
 4. **Native-language review** of the seven translations.
 5. **Post-purchase onboarding link:** after the release stack merges.
+6. **Vercel plan:** Hobby is non-commercial. Decide on Pro (about $20 a month) before commercial launch (§7).
+
+## 11. Release stack and approvals (checked 27 Nov 2026, 22:10–22:30 CET)
+| PR | Head → base | State | Approving review |
+|---|---|---|---|
+| #590 | `fix/cai-aud-remediation` → `main` | Open; head `9b7706cf` (main merged in at 22:10) | None yet; **required** (ruleset: 1 approval) |
+| #591 | `fix/aud-r2-integrity` → `fix/cai-aud-remediation` | Merged 21:20 (`a99b1643`) | None (stack branch, not protected) |
+| #592 | `fix/aud-r2-content-claims` → `fix/aud-r2-integrity` | Merged 22:10 (`082b8143`) | None (stack branch) |
+| #593 | `fix/aud-r3-integrity` → `fix/aud-r2-content-claims` | Merged 21:20 (`23abbf4b`) | None (stack branch) |
+| #585 | `docs/cc-operations` → `main` | Merged 21:21 (`36b723f8`) | **None**: merged into protected `main` with the owner bypass |
+| #594 | verification only | Closed | n/a |
+| #595 (this) | `feat/video-integration` → `main` | Open, draft | None yet; **required** |
+| #572 | Dependabot | Open | Not part of this release |
+
+- **Production** runs `main` `36b723f8` (`dpl_H78Yz5Gywi4a4n33W1NGcAxQaHvX`). Rollback candidate: the #589 deployment.
+- **Gap:** #591 merged `fix/aud-r2-integrity` into #590's branch **before** #592 landed on it. The 30 commits of rounds 2 and 3 (`082b8143`; 374 files changed) are therefore **not in #590**, and no open PR carries them to `main`. This includes buyer-facing claims, partner terms, disputes, commission base, reconciliation, and the 27 Nov operational-acceptance record. Merging #590 as it stands would ship round 1 without them.
+  - **Fix:** a PR from `fix/aud-r2-integrity` into `fix/cai-aud-remediation`, or retarget so that `082b8143` reaches #590, before #590 is reviewed.
+- **Tested combination:**
+  - `origin/fix/cai-aud-remediation` (`9b7706cf`) + `origin/fix/aud-r2-integrity` (`082b8143`) + this branch has a tree **identical** to the tested RC `8ffd8d62`. The only conflict is the `package.json` postbuild line: keep `optimize-render-path` last, insert `publish-media` / `inject-videos` after `inject-cc-pillar`.
+  - The §9 evidence therefore applies to that combination.
+- **Merge order once reviewed:** close the gap above → #590 → #595 (rebase onto `main`, resolving the postbuild line) → approvals per video (§1.2).
+- **Rule:** no admin bypass for any of these.

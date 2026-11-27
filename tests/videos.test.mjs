@@ -183,6 +183,7 @@ test('installation safety instructions survive condensing, in every language', (
     [at(/section 9a of INSTALL\.pdf/), { all: /9a.*INSTALL\.pdf|INSTALL\.pdf.*9a/ }],
     [at(/verify its checksum/), { en: /checksum/, cs: /kontrolní součet/, de: /Prüfsumme/, fr: /somme de contrôle/, es: /suma de verificación/, it: /checksum/, pl: /sumę kontrolną/, pt: /soma de verificação/ }],
     [at(/same System Administrator account for all four references/), { all: /System Administrator/ }],
+    [at(/leave the managed solution ZIP inside it unopened/), { en: /unopened/, cs: /ZIP.*neotevřený/, de: /ZIP.*ungeöffnet/, fr: /laissez fermé le ZIP/, es: /no abra el ZIP/, it: /lasciate chiuso lo ZIP/, pl: /nie otwieraj pliku ZIP/, pt: /deixe fechado o ZIP/ }],
   ];
   for (const [i, want] of checks) {
     assert.ok(i >= 0, 'safety line present in the English narration');
