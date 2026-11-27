@@ -361,7 +361,7 @@ test('partner referral card is localized on every locale page', () => {
 
 test('partner referral commission is fixed and agreement-qualified', () => {
   const html = read('partners.html');
-  assert.ok(html.includes('The standard Referral Partner commission is 10% of eligible net revenue.'), 'standard 10% referral commission missing');
+  assert.ok(html.includes('The standard Referral Partner commission is 10% of eligible net perpetual licence revenue.'), 'standard 10% referral commission missing');
   assert.ok(html.includes('subject to approval and a signed partner agreement'), 'agreement caveat missing');
 });
 

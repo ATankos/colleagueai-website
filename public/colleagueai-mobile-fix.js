@@ -276,6 +276,14 @@
 
         var wrapper = document.createElement("div");
         wrapper.className = "cai-table-scroll";
+        /* WCAG 2.1.1: a region that scrolls sideways must be reachable by keyboard, so it can be focused and scrolled
+           with the arrow keys; it is named after the table's caption or heading so a screen reader announces it. */
+        wrapper.setAttribute("tabindex", "0");
+        wrapper.setAttribute("role", "region");
+        var cap = table.querySelector("caption");
+        var name = (cap && cap.textContent.trim()) || table.getAttribute("aria-label") || "";
+        if (name) wrapper.setAttribute("aria-label", name.slice(0, 120));
+        else wrapper.setAttribute("aria-label", ({ cs: "Tabulka", de: "Tabelle", fr: "Tableau", es: "Tabla", it: "Tabella", pl: "Tabela", pt: "Tabela" })[(document.documentElement.lang || "en").slice(0, 2)] || "Table");
 
         table.parentNode.insertBefore(wrapper, table);
         wrapper.appendChild(table);

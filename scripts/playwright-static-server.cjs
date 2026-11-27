@@ -74,7 +74,8 @@ function findFile(urlPath) {
 
   clean = clean.replace(/^\/+/, "");
 
-  if (!clean) clean = "agents.html";
+  // "/" is the homepage: dist/index.html in the build (as on Vercel); public/ has no index.html and keeps the old default.
+  if (!clean) clean = fs.existsSync(path.join(root, "index.html")) ? "index.html" : "agents.html";
 
   const candidates = [
     clean,
