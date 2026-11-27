@@ -18,6 +18,9 @@ const DIST = path.join(ROOT, 'dist');
 const C = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts/i18n/certified-content.json'), 'utf8'));
 const PRICING = JSON.parse(fs.readFileSync(path.join(ROOT, 'config/pricing.json'), 'utf8'));
 const ROUTES = JSON.parse(fs.readFileSync(path.join(ROOT, 'i18n.routes.json'), 'utf8'));
+const PILLAR = require('./lib/cc-pillar.cjs');
+/* Only the offered tiers are shown to customers (L2-L4). L5 keeps a configured price but is not offered. */
+const OFFERED = Array.isArray(PRICING.subscriptionTiersOffered) ? PRICING.subscriptionTiersOffered : [];
 
 const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const BASE = 'https://www.colleagueai.ai';
@@ -37,22 +40,25 @@ const href = (loc, page) => {
 };
 
 const STYLE = `
-.cai-cert .crumb{font-size:13px;margin-bottom:28px}.cai-cert .crumb a{color:#C65D3A;text-decoration:none}
-.cai-cert .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
+.cai-cert .crumb{font-size:13px;margin-bottom:28px}.cai-cert .crumb a{color:#9A3D1F;text-decoration:none}
+.cai-cert .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12.5px;color:#5c574f;letter-spacing:.05em;margin-bottom:10px}
+/* the site-wide mobile fix paints every eyebrow terracotta with !important (3.7:1 on cream at 12.5px, below AA); this
+   page's eyebrow overrides it with a more specific !important rule */
+.cai-cert .eyebrow,.cai-cert .eyebrow *{color:#5c574f !important}
 .cai-cert h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
-.cai-cert h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#8a857d;margin:38px 0 10px;text-transform:uppercase}
+.cai-cert h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.04em;color:#5c574f;margin:38px 0 10px;text-transform:uppercase}
 .cai-cert ul{margin:6px 0 0;padding-left:20px}.cai-cert li{margin-bottom:6px}
 .cai-cert table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14.5px}
 .cai-cert th,.cai-cert td{text-align:left;padding:9px 10px;border-bottom:1px solid #d8d2c6}
-.cai-cert th{color:#8a857d;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
+.cai-cert th{color:#5c574f;font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em}
 .cai-cert .callout{background:#fff;border:1px solid #d8d2c6;border-radius:14px;padding:20px 22px;margin-top:14px}
 .cai-cert .callout.warn{background:#FBF2EE;border-color:#E4C7BA}
 .cai-cert .verify{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 .cai-cert .verify input{flex:1 1 240px;padding:11px 14px;border:1px solid #d8d2c6;border-radius:10px;font-size:15px;font-family:ui-monospace,Consolas,monospace}
 .cai-cert .vis-hidden{position:absolute;left:-9999px}
 .cai-cert .note{font-size:13.5px;color:#5c574f}
-.cai-cert .cert-legal{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
-.cai-cert .cert-legal a{color:#8a857d}
+.cai-cert .cert-legal{font-size:12px;color:#5c574f;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+.cai-cert .cert-legal a{color:#5c574f}
 `.trim();
 
 /* The page takes the site's shell and owns only what goes inside <main>.
@@ -143,7 +149,7 @@ const attrSafe = (value, key) => {
 function page(loc) {
   const t = C[loc];
   const url = `${BASE}${href(loc, 'certified')}`;
-  const rows = Object.entries(PRICING.tiers).map(([tier, v]) =>
+  const rows = Object.entries(PRICING.tiers).filter(([tier]) => OFFERED.includes(tier)).map(([tier, v]) =>
     `<tr><td><b>${tier}</b></td><td>${usd(v.oneTimeCents)}</td>` +
     `<td>$${v.monthlyCents / 100} ${t.per_month}</td><td>${usd(v.annualCents)} ${t.per_year}</td></tr>`).join('');
 
@@ -156,6 +162,8 @@ function page(loc) {
 <div class="callout warn">
   <p style="margin:0"><b>${t.not_label}</b> ${t.not_text}</p>
 </div>
+
+${PILLAR.render(loc, { variant: 'full', withVideo: true })}
 
 <h2>${t.inc_h}</h2>
 <ul>${t.inc.map((i) => `<li>${i}</li>`).join('')}</ul>
@@ -226,7 +234,7 @@ function page(loc) {
   out = setLocaleLinks(out, localeLinks);
   out = graftBody(out, content);
   const headEnd = out.indexOf('</head>');
-  return `${out.slice(0, headEnd)}<style id="cai-certified-css">${STYLE}</style>\n${out.slice(headEnd)}`;
+  return `${out.slice(0, headEnd)}<style id="cai-certified-css">${STYLE}\n${PILLAR.CSS}</style>\n${out.slice(headEnd)}`;
 }
 
 let written = 0;

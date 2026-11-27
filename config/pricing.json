@@ -8,6 +8,8 @@
     "L5": { "oneTimeCents": 1990000, "monthlyCents": 39900, "annualCents": 399000 }
   },
   "annualIsMonths": 10,
+  "subscriptionTiersOffered": ["L2", "L3", "L4"],
+  "_subscriptionTiersOffered": "Tiers whose agent package and Continuous Certification prices are shown to customers. L5 keeps its configured price for the CAI framework but is not offered and is never shown.",
   "partnerCommissionRate": 0.10,
   "certification": {
     "productName": "Continuous Certification",

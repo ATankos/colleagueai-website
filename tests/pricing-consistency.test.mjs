@@ -178,9 +178,18 @@ test('the demo form and the certification page read from the config too', () => 
   // the certification page is generated for eight languages, so its prices are
   // checked on the BUILT English page rather than a master that no longer exists
   const cert = read('dist/certified.html');
+  // Only the offered tiers are shown (L2-L4). L5 keeps a configured price but is not offered, so it must not appear.
+  const offered = PRICING.subscriptionTiersOffered;
+  assert.deepEqual(offered, ['L2', 'L3', 'L4']);
   for (const [tier, v] of Object.entries(PRICING.tiers)) {
-    assert.ok(cert.includes(usd(v.oneTimeCents)), `/certified is missing the ${tier} package price`);
-    assert.ok(cert.includes(`$${dollars(v.monthlyCents)} / month`), `/certified is missing the ${tier} monthly price`);
+    const shownPkg = cert.includes(usd(v.oneTimeCents));
+    const shownMonthly = cert.includes(`$${dollars(v.monthlyCents)} / month`);
+    if (offered.includes(tier)) {
+      assert.ok(shownPkg, `/certified is missing the ${tier} package price`);
+      assert.ok(shownMonthly, `/certified is missing the ${tier} monthly price`);
+    } else {
+      assert.ok(!shownPkg && !shownMonthly, `/certified still shows the ${tier} price, which is not offered`);
+    }
   }
 });
 
