@@ -1,0 +1,5 @@
+{
+  "_comment": "Register of the people who may take a certificate decision (suspend, reinstate, revoke, discontinue): the D17 procedure, spec section D17, which requires the founder (FC) AND a qualified independent reviewer (IR) without a build role. A decision is refused unless it names one active FC and one active IR from this list, who are different people. Entries hold an opaque id only (the person's name stays in the owner's own records, with the yearly conflict declaration); never put a name, email or contract detail here. The list ships empty on purpose: until the owner registers the people and the independent reviewer is contracted, no certificate decision can be recorded, which is the safe state.",
+  "roles": { "FC": "Founder, commercial (approver)", "IR": "Qualified independent reviewer (external, no build role)" },
+  "people": []
+}
