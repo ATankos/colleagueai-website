@@ -3,7 +3,9 @@
  * Sources: config/media.json, scripts/lib/videos.cjs, scripts/i18n/videos/*.json, public/cai-video.js. */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync, readdirSync } from 'node:fs';
+import { readFileSync, existsSync, readdirSync, mkdtempSync, copyFileSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
@@ -36,7 +38,7 @@ const seg = (id) => JSON.parse(readFileSync(new URL(`scripts/i18n/videos/${id}.j
 test('every served video file is byte-identical to its delivered master and named by its checksum', () => {
   for (const id of PUBLISHABLE) {
     const v = MEDIA.videos[id];
-    const file = new URL(`public${v.src}`, ROOT);
+    const file = new URL(`media/${v.src.slice(7)}`, ROOT);
     const buf = readFileSync(file);
     const sha = createHash('sha256').update(buf).digest('hex');
     assert.equal(sha, v.master.sha256, `${id}: sha256 of ${v.src}`);
@@ -44,7 +46,8 @@ test('every served video file is byte-identical to its delivered master and name
     assert.ok(v.src.includes(`.${sha.slice(0, 8)}.mp4`), `${id}: file name carries the checksum`);
     assert.equal(buf.subarray(4, 8).toString(), 'ftyp', `${id}: MP4`);
     assert.ok(buf.indexOf('moov') < buf.indexOf('mdat'), `${id}: fast start (moov before mdat) for progressive playback`);
-    for (const p of [v.poster, v.posterSmall]) assert.ok(existsSync(new URL(`public${p}`, ROOT)), `${id}: ${p}`);
+    for (const p of [v.poster, v.posterSmall]) assert.ok(existsSync(new URL(`media/${p.slice(7)}`, ROOT)), `${id}: ${p}`);
+    assert.ok(!existsSync(new URL(`public${v.src}`, ROOT)), `${id}: never under public/ (would be served without approval)`);
   }
 });
 
@@ -55,14 +58,18 @@ test('the held product video has no served file and can never render', () => {
   assert.ok(p.heldBecause.length >= 2);
   assert.equal(V.renderable('product', PREVIEW), false);
   assert.equal(V.renderFeature('product', 'en', {}, PREVIEW), '');
-  assert.ok(!readdirSync(new URL('public/media/', ROOT)).some((f) => f.includes('6edad127')), 'no product file is shipped');
+  assert.ok(!readdirSync(new URL('media/', ROOT)).some((f) => f.includes('6edad127')), 'no product file is shipped');
+  assert.ok(!existsSync(new URL('public/media/', ROOT)), 'no media directory under public/');
   const conflicts = seg('product').filter((s) => s.conflict);
   assert.equal(conflicts.length, 2, 'both conflicting narration lines are recorded');
 });
 
-test('approval gate: nothing is approved yet, nothing renders in a normal or Production build', () => {
+test('approval gate: nothing is approved yet; a normal or Production build renders and publishes nothing', () => {
   for (const id of Object.keys(MEDIA.videos)) {
-    assert.equal(MEDIA.videos[id].approvedBy, null, `${id}: approval is the founder's to record`);
+    const v = MEDIA.videos[id];
+    assert.equal(v.approvedBy, null, `${id}: approval is the founder's to record`);
+    assert.equal(v.approvedSha256, null, id);
+    assert.equal(v.publishedOn, null, id);
     assert.equal(V.approved(id), false, id);
     assert.equal(V.renderable(id, {}), false, `${id}: normal build`);
     assert.equal(V.renderable(id, { CAI_VIDEO_PREVIEW: '1', VERCEL_ENV: 'production' }), false, `${id}: Production never previews`);
@@ -72,6 +79,51 @@ test('approval gate: nothing is approved yet, nothing renders in a normal or Pro
   for (const id of PUBLISHABLE) {
     assert.equal(V.renderable(id, PREVIEW), true, `${id}: review Preview`);
     assert.match(V.renderFeature(id, 'en', {}, PREVIEW), /pending approval and is not published/, `${id}: pending banner`);
+  }
+});
+
+test('asset gate: a Production build publishes no video, poster or caption file; a review Preview only the pending ones', () => {
+  assert.deepEqual(V.filesToPublish({}), [], 'normal build');
+  assert.deepEqual(V.filesToPublish({ CAI_VIDEO_PREVIEW: '1', VERCEL_ENV: 'production' }), [], 'Production');
+  const preview = V.filesToPublish(PREVIEW);
+  for (const id of PUBLISHABLE) {
+    const v = MEDIA.videos[id];
+    for (const u of [v.src, v.poster, v.posterSmall, ...Object.values(v.captions)]) assert.ok(preview.includes(u), `${id}: ${u}`);
+  }
+  assert.equal(preview.length, 3 * (3 + 8), 'three videos: video, two posters, eight caption files each');
+  const script = readFileSync(new URL('scripts/publish-media.cjs', ROOT), 'utf8');
+  assert.match(script, /fs\.rmSync\(DIST_MEDIA/, 'dist/media is cleared before copying');
+  const pkg = JSON.parse(readFileSync(new URL('package.json', ROOT), 'utf8'));
+  assert.ok(pkg.scripts.postbuild.includes('publish-media.cjs && node scripts/inject-videos.cjs'), 'runs before the placements');
+});
+
+test('approval is bound to the exact file: a replaced master loses its approval and fails the build', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'cai-media-'));
+  const v = V.REG.corporate;
+  const saved = { approvedBy: v.approvedBy, approvedOn: v.approvedOn, approvedSha256: v.approvedSha256, publishedOn: v.publishedOn };
+  try {
+    for (const f of readdirSync(new URL('media/', ROOT))) copyFileSync(new URL(`media/${f}`, ROOT), join(dir, f));
+    Object.assign(v, { approvedBy: 'test', approvedOn: '2026-12-01', approvedSha256: v.master.sha256, publishedOn: '2026-12-02' });
+    const env = { CAI_BUILD_DATE: '2026-12-03' };
+    V.clearShaCache();
+    assert.equal(V.approved('corporate', env, dir), true, 'intact file, recorded approval');
+    assert.equal(V.approved('corporate', { CAI_BUILD_DATE: '2026-12-01' }, dir), false, 'not before its publication date');
+    assert.equal(V.approved('corporate', env), true);
+    const buf = readFileSync(join(dir, v.src.slice(7)));
+    buf[buf.length - 1] ^= 0xff;
+    writeFileSync(join(dir, v.src.slice(7)), buf);
+    V.clearShaCache();
+    assert.equal(V.approved('corporate', env, dir), false, 'one byte changed: approval lapses');
+    assert.equal(V.renderable('corporate', { ...env, ...PREVIEW }, dir), false, 'and it is not even previewable');
+    assert.deepEqual(V.approvalMismatches(dir), ['corporate'], 'publish-media.cjs fails the build on this');
+    assert.deepEqual(V.filesToPublish(env, dir), [], 'nothing of it is published');
+    Object.assign(v, { approvedSha256: '0'.repeat(64) });
+    V.clearShaCache();
+    assert.equal(V.approved('corporate', env), false, 'an approval naming another checksum does not apply');
+  } finally {
+    Object.assign(v, saved);
+    V.clearShaCache();
+    rmSync(dir, { recursive: true, force: true });
   }
 });
 
@@ -91,7 +143,7 @@ test('captions: all eight languages for every publishable video, every segment t
 test('captions: valid WebVTT, ordered cues, at most two lines, readable line length', () => {
   for (const id of PUBLISHABLE) {
     for (const l of LOCALES) {
-      const text = readFileSync(new URL(`public${MEDIA.videos[id].captions[l]}`, ROOT), 'utf8');
+      const text = readFileSync(new URL(`media/${MEDIA.videos[id].captions[l].slice(7)}`, ROOT), 'utf8');
       assert.ok(text.startsWith('WEBVTT\n'), `${id}.${l}`);
       let last = -1;
       for (const c of V.cues(id, l)) {
@@ -105,6 +157,36 @@ test('captions: valid WebVTT, ordered cues, at most two lines, readable line len
       assert.match(V.vtt(id, 'de'), /line:6%/, `${id}: translated tracks stay clear of the burned-in English`);
       assert.doesNotMatch(V.vtt(id, 'en'), /line:/, `${id}: English is not repositioned`);
     }
+  }
+});
+
+test('reading speed: translated cues at most 20 characters per second; English stays with the narration (at most 23)', () => {
+  for (const id of PUBLISHABLE) {
+    for (const l of LOCALES) {
+      for (const c of V.cues(id, l)) {
+        const cps = c.text.replace(/\n/g, ' ').length / (c.end - c.start);
+        assert.ok(cps <= (l === 'en' ? 23 : V.MAX_CPS) + 1e-9, `${id}.${l} ${cps.toFixed(1)} cps at ${c.start.toFixed(1)} s: ${c.text}`);
+      }
+    }
+  }
+});
+
+test('installation safety instructions survive condensing, in every language', () => {
+  const s = seg('install');
+  const at = (re) => s.findIndex((x) => re.test(x.en));
+  const checks = [
+    [at(/^Do not publish the agent/), { en: /Do not publish/, cs: /nepublikujte/, de: /nicht\.$/, fr: /Ne publiez pas/, es: /No publique/, it: /Non pubblicate/, pl: /Nie publikuj/, pt: /Não publique/ }],
+    [at(/status is Available, block it/), { en: /block it/, cs: /Available.*zablokujte/, de: /Available.*blockieren/, fr: /Available.*bloquez/, es: /Available.*bloquéelo/, it: /Available.*bloccatelo/, pl: /Available.*zablokuj/, pt: /Available.*bloqueie/ }],
+    [at(/^Leave it Draft or Blocked/), { all: /Draft .* Blocked/ }],
+    [at(/^Keep Daily recompute off/), { en: /off/, cs: /Daily recompute vypnutý/, de: /Daily recompute aus/, fr: /Daily recompute désactivé/, es: /Daily recompute apagado/, it: /Daily recompute spento/, pl: /wyłącz Daily recompute/, pt: /Daily recompute desligado/ }],
+    [at(/^Budget alerts do not stop spending/), { en: /do not stop/, cs: /nezastaví/, de: /stoppen keine/, fr: /n'arrêtent pas/, es: /no detienen/, it: /non bloccano/, pl: /nie zatrzymują/, pt: /não param/ }],
+    [at(/section 9a of INSTALL\.pdf/), { all: /9a.*INSTALL\.pdf|INSTALL\.pdf.*9a/ }],
+    [at(/verify its checksum/), { en: /checksum/, cs: /kontrolní součet/, de: /Prüfsumme/, fr: /somme de contrôle/, es: /suma de verificación/, it: /checksum/, pl: /sumę kontrolną/, pt: /soma de verificação/ }],
+    [at(/same System Administrator account for all four references/), { all: /System Administrator/ }],
+  ];
+  for (const [i, want] of checks) {
+    assert.ok(i >= 0, 'safety line present in the English narration');
+    for (const l of LOCALES) assert.match(s[i][l], want[l] || want.all, `install segment ${i} ${l}: ${s[i][l]}`);
   }
 });
 
@@ -160,25 +242,26 @@ test('cards link to the player in the visitor language and skip videos that may 
   assert.equal(V.renderCards([{ id: 'product', href: '/x' }], 'en', PREVIEW), '');
 });
 
-test('structured data is complete once approved, and names only same-origin files', () => {
+test('structured data: only Google-documented VideoObject properties, uploadDate = the publication moment', () => {
   const v = V.REG.certification;
-  const saved = { approvedBy: v.approvedBy, approvedOn: v.approvedOn };
+  const saved = { approvedBy: v.approvedBy, approvedOn: v.approvedOn, approvedSha256: v.approvedSha256, publishedOn: v.publishedOn };
   try {
-    v.approvedBy = 'test';
-    v.approvedOn = '2026-12-01';
-    const ld = V.jsonLd('certification', 'de', 'https://www.colleagueai.ai/de/zertifizierung');
+    Object.assign(v, { approvedBy: 'test', approvedOn: '2026-12-01', approvedSha256: v.master.sha256, publishedOn: '2026-12-02T10:00:00+01:00' });
+    V.clearShaCache();
+    const ld = V.jsonLd('certification', 'de', 'https://www.colleagueai.ai/de/zertifizierung', { CAI_BUILD_DATE: '2026-12-02' });
     const data = JSON.parse(ld.slice(ld.indexOf('>') + 1, ld.lastIndexOf('</')));
     assert.equal(data['@type'], 'VideoObject');
-    assert.equal(data.uploadDate, '2026-12-01');
+    for (const k of Object.keys(data)) if (!k.startsWith('@')) assert.ok(V.GOOGLE_VIDEO_PROPERTIES.includes(k), `${k} is a documented property`);
+    for (const k of ['name', 'thumbnailUrl', 'uploadDate']) assert.ok(data[k], `required ${k}`);
+    assert.equal(data.uploadDate, '2026-12-02T10:00:00+01:00', 'the actual publication moment, with its time zone');
     assert.equal(data.duration, 'PT1M0S');
     assert.equal(data.name, META.videos.certification.title.de);
     assert.ok(data.contentUrl.startsWith('https://www.colleagueai.ai/media/'));
-    assert.ok(data.thumbnailUrl.every((u) => u.startsWith('https://www.colleagueai.ai/media/')));
-    assert.equal(data.caption.length, 8);
-    assert.ok(data.transcript.length > 200);
-    assert.equal(V.renderable('certification', {}), true, 'an approved video renders in a normal build');
+    assert.ok(data.thumbnailUrl.every((u) => u.startsWith('https://www.colleagueai.ai/media/') && u.endsWith('.jpg')));
+    assert.equal(V.jsonLd('certification', 'de', 'x', { CAI_BUILD_DATE: '2026-12-01' }), '', 'nothing before the publication date');
   } finally {
     Object.assign(v, saved);
+    V.clearShaCache();
   }
 });
 

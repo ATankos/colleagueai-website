@@ -2,7 +2,11 @@
   "_comment": "Installation guide (05_Instalacni_pruvodce_v3_bezne_tempo.mp4). English captions are BURNED INTO this video; the text below follows the burned captions, which are authoritative where speech recognition differed (147 s: 'Do not publish the agent during installation'). Microsoft UI labels (Solutions, Import solution, Available, Review gate, Daily recompute, READY ...) stay in English in every language, as in INSTALL.pdf. Translations are engineering drafts pending native-language review.",
   "id": "install",
   "segments": [
-    { "t": [0.29, 4.64],
+    {
+      "t": [
+        0.29,
+        4.64
+      ],
       "en": "Install Contract Intelligence & Register in your own Microsoft environment.",
       "cs": "Nainstalujte Contract Intelligence & Register ve vlastním prostředí Microsoft.",
       "de": "Installieren Sie Contract Intelligence & Register in Ihrer eigenen Microsoft-Umgebung.",
@@ -10,35 +14,55 @@
       "es": "Instale Contract Intelligence & Register en su propio entorno de Microsoft.",
       "it": "Installate Contract Intelligence & Register nel vostro ambiente Microsoft.",
       "pl": "Zainstaluj Contract Intelligence & Register we własnym środowisku Microsoft.",
-      "pt": "Instale o Contract Intelligence & Register no seu próprio ambiente Microsoft." },
-    { "t": [5.16, 9.57],
+      "pt": "Instale o Contract Intelligence & Register no seu próprio ambiente Microsoft."
+    },
+    {
+      "t": [
+        5.16,
+        9.57
+      ],
       "en": "With the prerequisites already in place, allow roughly 20 to 30 minutes for setup.",
       "cs": "Pokud už máte splněné předpoklady, počítejte s přibližně 20 až 30 minutami na nastavení.",
-      "de": "Wenn die Voraussetzungen bereits erfüllt sind, planen Sie etwa 20 bis 30 Minuten für die Einrichtung ein.",
+      "de": "Mit erfüllten Voraussetzungen planen Sie etwa 20 bis 30 Minuten für die Einrichtung ein.",
       "fr": "Si les prérequis sont déjà en place, prévoyez environ 20 à 30 minutes pour la configuration.",
       "es": "Con los requisitos previos ya preparados, calcule unos 20 a 30 minutos para la configuración.",
       "it": "Con i prerequisiti già pronti, prevedete circa 20-30 minuti per la configurazione.",
       "pl": "Jeśli wymagania wstępne są już spełnione, zaplanuj około 20–30 minut na konfigurację.",
-      "pt": "Com os pré-requisitos já preparados, conte com cerca de 20 a 30 minutos para a configuração." },
-    { "t": [10.02, 13.06],
+      "pt": "Com os pré-requisitos já preparados, conte com cerca de 20 a 30 minutos para a configuração."
+    },
+    {
+      "t": [
+        10.02,
+        13.06
+      ],
       "en": "This is a planning estimate, not a measured installation time.",
       "cs": "Jde o orientační odhad, nikoli o naměřenou dobu instalace.",
       "de": "Das ist eine Planungsschätzung, keine gemessene Installationszeit.",
-      "fr": "Il s'agit d'une estimation pour la planification, pas d'une durée d'installation mesurée.",
-      "es": "Es una estimación para planificar, no un tiempo de instalación medido.",
-      "it": "È una stima di pianificazione, non un tempo di installazione misurato.",
+      "fr": "C'est une estimation de planification, pas une durée mesurée.",
+      "es": "Es una estimación orientativa, no un tiempo de instalación medido.",
+      "it": "È una stima indicativa, non un tempo di installazione misurato.",
       "pl": "To szacunek do planowania, a nie zmierzony czas instalacji.",
-      "pt": "É uma estimativa de planeamento, não um tempo de instalação medido." },
-    { "t": [13.54, 16.32],
+      "pt": "É uma estimativa de planeamento, não um tempo de instalação medido."
+    },
+    {
+      "t": [
+        13.54,
+        16.32
+      ],
       "en": "Preparing permissions or capacity may take additional time.",
       "cs": "Příprava oprávnění nebo kapacity může zabrat další čas.",
-      "de": "Die Vorbereitung von Berechtigungen oder Kapazität kann zusätzliche Zeit erfordern.",
-      "fr": "La préparation des autorisations ou de la capacité peut prendre plus de temps.",
+      "de": "Berechtigungen oder Kapazität vorzubereiten kann länger dauern.",
+      "fr": "Préparer droits ou capacité peut demander plus de temps.",
       "es": "Preparar los permisos o la capacidad puede llevar más tiempo.",
-      "it": "La preparazione di autorizzazioni o capacità può richiedere più tempo.",
+      "it": "Preparare autorizzazioni o capacità può richiedere più tempo.",
       "pl": "Przygotowanie uprawnień lub pojemności może zająć dodatkowy czas.",
-      "pt": "Preparar as permissões ou a capacidade pode demorar mais tempo." },
-    { "t": [16.93, 20.26],
+      "pt": "Preparar as permissões ou a capacidade pode demorar mais tempo."
+    },
+    {
+      "t": [
+        16.93,
+        20.26
+      ],
       "en": "Keep INSTALL.pdf open for the detailed instructions.",
       "cs": "Mějte otevřený soubor INSTALL.pdf s podrobnými pokyny.",
       "de": "Halten Sie INSTALL.pdf mit der ausführlichen Anleitung geöffnet.",
@@ -46,8 +70,13 @@
       "es": "Tenga abierto INSTALL.pdf con las instrucciones detalladas.",
       "it": "Tenete aperto INSTALL.pdf con le istruzioni dettagliate.",
       "pl": "Miej otwarty plik INSTALL.pdf ze szczegółowymi instrukcjami.",
-      "pt": "Mantenha o INSTALL.pdf aberto para as instruções detalhadas." },
-    { "t": [20.71, 28.77],
+      "pt": "Mantenha o INSTALL.pdf aberto para as instruções detalhadas."
+    },
+    {
+      "t": [
+        20.71,
+        28.77
+      ],
       "en": "First, check that you have a Dataverse environment with at least 1 GB free, System Administrator access and Copilot Studio capacity.",
       "cs": "Nejprve ověřte, že máte prostředí Dataverse s alespoň 1 GB volného místa, přístup System Administrator a kapacitu Copilot Studio.",
       "de": "Prüfen Sie zuerst, ob Sie eine Dataverse-Umgebung mit mindestens 1 GB freiem Speicher, Zugriff als System Administrator und Copilot Studio-Kapazität haben.",
@@ -55,26 +84,41 @@
       "es": "Primero, compruebe que tiene un entorno de Dataverse con al menos 1 GB libre, acceso de System Administrator y capacidad de Copilot Studio.",
       "it": "Per prima cosa, verificate di avere un ambiente Dataverse con almeno 1 GB libero, accesso System Administrator e capacità Copilot Studio.",
       "pl": "Najpierw sprawdź, czy masz środowisko Dataverse z co najmniej 1 GB wolnego miejsca, dostęp System Administrator i pojemność Copilot Studio.",
-      "pt": "Primeiro, confirme que tem um ambiente Dataverse com pelo menos 1 GB livre, acesso de System Administrator e capacidade do Copilot Studio." },
-    { "t": [29.25, 31.87],
+      "pt": "Primeiro, confirme que tem um ambiente Dataverse com pelo menos 1 GB livre, acesso de System Administrator e capacidade do Copilot Studio."
+    },
+    {
+      "t": [
+        29.25,
+        31.87
+      ],
       "en": "You also need a dedicated SharePoint contract library,",
       "cs": "Dále potřebujete vyhrazenou knihovnu smluv v SharePointu,",
-      "de": "Außerdem benötigen Sie eine eigene SharePoint-Vertragsbibliothek,",
-      "fr": "Il vous faut aussi une bibliothèque SharePoint dédiée aux contrats,",
-      "es": "También necesita una biblioteca de contratos de SharePoint dedicada,",
-      "it": "Vi servono anche una raccolta SharePoint dedicata ai contratti,",
+      "de": "Dazu eine eigene SharePoint-Vertragsbibliothek,",
+      "fr": "Il faut aussi une bibliothèque SharePoint dédiée,",
+      "es": "Y una biblioteca de SharePoint dedicada a contratos,",
+      "it": "Serve anche una raccolta SharePoint dedicata ai contratti,",
       "pl": "Potrzebujesz też osobnej biblioteki umów w SharePoint,",
-      "pt": "Precisa também de uma biblioteca de contratos dedicada no SharePoint," },
-    { "t": [32.26, 34.56],
+      "pt": "Precisa também de uma biblioteca SharePoint dedicada,"
+    },
+    {
+      "t": [
+        32.26,
+        34.56
+      ],
       "en": "a reviewer and alert administrator with Teams,",
-      "cs": "kontrolora a správce upozornění s přístupem do Teams,",
-      "de": "eine prüfende Person und einen Alarm-Administrator mit Teams,",
-      "fr": "un réviseur et un administrateur des alertes équipés de Teams,",
+      "cs": "kontrolora a správce upozornění s Teams,",
+      "de": "einen Prüfer und einen Alarm-Admin mit Teams,",
+      "fr": "un réviseur et un admin des alertes avec Teams,",
       "es": "un revisor y un administrador de alertas con Teams,",
-      "it": "un revisore e un amministratore degli avvisi con Teams,",
-      "pl": "weryfikatora i administratora alertów z dostępem do Teams,",
-      "pt": "um revisor e um administrador de alertas com Teams," },
-    { "t": [34.89, 39.65],
+      "it": "un revisore e un admin degli avvisi con Teams,",
+      "pl": "weryfikatora i administratora alertów z Teams,",
+      "pt": "um revisor e um administrador de alertas com Teams,"
+    },
+    {
+      "t": [
+        34.89,
+        39.65
+      ],
       "en": "Microsoft 365 admin access and a text-based English contract for testing.",
       "cs": "administrátorský přístup k Microsoft 365 a textovou anglickou smlouvu k testování.",
       "de": "Admin-Zugriff auf Microsoft 365 und einen textbasierten englischen Vertrag zum Testen.",
@@ -82,17 +126,27 @@
       "es": "acceso de administrador de Microsoft 365 y un contrato en inglés basado en texto para la prueba.",
       "it": "accesso amministrativo a Microsoft 365 e un contratto in inglese in formato testo per il test.",
       "pl": "dostęp administratora Microsoft 365 i tekstową umowę w języku angielskim do testów.",
-      "pt": "acesso de administrador do Microsoft 365 e um contrato em inglês em formato de texto para o teste." },
-    { "t": [40.10, 42.85],
+      "pt": "acesso de administrador do Microsoft 365 e um contrato em inglês em formato de texto para o teste."
+    },
+    {
+      "t": [
+        40.1,
+        42.85
+      ],
       "en": "Microsoft usage charges are separate from your licence.",
       "cs": "Poplatky Microsoftu za využití jsou oddělené od vaší licence.",
-      "de": "Die Nutzungsgebühren von Microsoft sind von Ihrer Lizenz getrennt.",
-      "fr": "Les frais d'utilisation Microsoft sont distincts de votre licence.",
-      "es": "Los cargos de uso de Microsoft son independientes de su licencia.",
-      "it": "I costi di utilizzo Microsoft sono separati dalla vostra licenza.",
+      "de": "Microsoft-Nutzungsgebühren sind von Ihrer Lizenz getrennt.",
+      "fr": "Les frais d'usage Microsoft sont distincts de votre licence.",
+      "es": "El uso de Microsoft se factura aparte de su licencia.",
+      "it": "I costi d'uso Microsoft sono separati dalla licenza.",
       "pl": "Opłaty Microsoft za użycie są niezależne od Twojej licencji.",
-      "pt": "Os custos de utilização da Microsoft são separados da sua licença." },
-    { "t": [43.33, 49.03],
+      "pt": "Os custos de uso da Microsoft são separados da licença."
+    },
+    {
+      "t": [
+        43.33,
+        49.03
+      ],
       "en": "Before uploading contracts, configure capacity and budget alerts at 50, 80 and 100 per cent.",
       "cs": "Před nahráním smluv nastavte kapacitu a upozornění na rozpočet při 50, 80 a 100 procentech.",
       "de": "Richten Sie vor dem Hochladen von Verträgen Kapazität und Budgetwarnungen bei 50, 80 und 100 Prozent ein.",
@@ -100,53 +154,83 @@
       "es": "Antes de subir contratos, configure la capacidad y alertas de presupuesto al 50, 80 y 100 %.",
       "it": "Prima di caricare i contratti, configurate la capacità e gli avvisi di budget al 50, 80 e 100 %.",
       "pl": "Przed przesłaniem umów skonfiguruj pojemność i alerty budżetowe na poziomie 50, 80 i 100 procent.",
-      "pt": "Antes de carregar contratos, configure a capacidade e alertas de orçamento a 50, 80 e 100 %." },
-    { "t": [49.70, 51.36],
+      "pt": "Antes de carregar contratos, configure a capacidade e alertas de orçamento a 50, 80 e 100 %."
+    },
+    {
+      "t": [
+        49.7,
+        51.36
+      ],
       "en": "Budget alerts do not stop spending.",
       "cs": "Upozornění na rozpočet výdaje nezastaví.",
       "de": "Budgetwarnungen stoppen keine Ausgaben.",
-      "fr": "Les alertes budgétaires n'arrêtent pas les dépenses.",
-      "es": "Las alertas de presupuesto no detienen el gasto.",
-      "it": "Gli avvisi di budget non bloccano la spesa.",
-      "pl": "Alerty budżetowe nie zatrzymują wydatków.",
-      "pt": "Os alertas de orçamento não param a despesa." },
-    { "t": [51.78, 55.75],
+      "fr": "Les alertes n'arrêtent pas la dépense.",
+      "es": "Las alertas no detienen el gasto.",
+      "it": "Gli avvisi non bloccano la spesa.",
+      "pl": "Alerty nie zatrzymują wydatków.",
+      "pt": "Os alertas não param a despesa."
+    },
+    {
+      "t": [
+        51.78,
+        55.75
+      ],
       "en": "Next, download your bundle and verify its checksum against your order page.",
       "cs": "Poté stáhněte balíček a ověřte jeho kontrolní součet podle stránky objednávky.",
-      "de": "Laden Sie dann Ihr Paket herunter und prüfen Sie seine Prüfsumme anhand Ihrer Bestellseite.",
-      "fr": "Ensuite, téléchargez votre bundle et vérifiez sa somme de contrôle sur votre page de commande.",
-      "es": "Después, descargue su paquete y compruebe su suma de verificación con la de su página de pedido.",
+      "de": "Laden Sie dann das Paket herunter und prüfen Sie die Prüfsumme auf der Bestellseite.",
+      "fr": "Téléchargez ensuite le bundle et comparez sa somme de contrôle à la page de commande.",
+      "es": "Descargue el paquete y compare su suma de verificación con su página de pedido.",
       "it": "Poi scaricate il bundle e verificatene il checksum con la pagina dell'ordine.",
       "pl": "Następnie pobierz pakiet i sprawdź jego sumę kontrolną ze stroną zamówienia.",
-      "pt": "Depois, descarregue o pacote e verifique a soma de verificação com a da sua página de encomenda." },
-    { "t": [56.36, 60.87],
+      "pt": "Descarregue o pacote e confirme a soma de verificação na página da encomenda."
+    },
+    {
+      "t": [
+        56.36,
+        60.87
+      ],
       "en": "Extract the outer bundle, but leave the managed solution ZIP inside it unopened.",
       "cs": "Rozbalte vnější balíček, ale ZIP spravovaného řešení uvnitř nechte neotevřený.",
       "de": "Entpacken Sie das äußere Paket, aber lassen Sie das ZIP der verwalteten Lösung darin ungeöffnet.",
       "fr": "Décompressez le bundle extérieur, mais laissez fermé le ZIP de la solution gérée qu'il contient.",
-      "es": "Extraiga el paquete exterior, pero deje sin abrir el ZIP de la solución administrada que contiene.",
+      "es": "Extraiga el paquete exterior, pero no abra el ZIP de la solución administrada.",
       "it": "Estraete il bundle esterno, ma lasciate chiuso lo ZIP della soluzione gestita al suo interno.",
-      "pl": "Rozpakuj zewnętrzny pakiet, ale nie otwieraj znajdującego się w nim pliku ZIP rozwiązania zarządzanego.",
-      "pt": "Extraia o pacote exterior, mas deixe fechado o ZIP da solução gerida que está lá dentro." },
-    { "t": [61.29, 70.18],
+      "pl": "Rozpakuj zewnętrzny pakiet, ale nie otwieraj pliku ZIP rozwiązania zarządzanego.",
+      "pt": "Extraia o pacote exterior, mas deixe fechado o ZIP da solução gerida que está lá dentro."
+    },
+    {
+      "t": [
+        61.29,
+        70.18
+      ],
       "en": "Have five values ready: your SharePoint site address, contract library ID, reviewer email, alert administrator email and exact owner team name.",
       "cs": "Připravte si pět hodnot: adresu webu SharePoint, ID knihovny smluv, e-mail kontrolora, e-mail správce upozornění a přesný název vlastnického týmu.",
       "de": "Halten Sie fünf Werte bereit: SharePoint-Websiteadresse, ID der Vertragsbibliothek, E-Mail der prüfenden Person, E-Mail des Alarm-Administrators und den exakten Namen des Besitzerteams.",
-      "fr": "Préparez cinq valeurs : l'adresse du site SharePoint, l'ID de la bibliothèque de contrats, l'e-mail du réviseur, l'e-mail de l'administrateur des alertes et le nom exact de l'équipe propriétaire.",
-      "es": "Tenga preparados cinco valores: la dirección del sitio de SharePoint, el ID de la biblioteca de contratos, el correo del revisor, el correo del administrador de alertas y el nombre exacto del equipo propietario.",
+      "fr": "Préparez cinq valeurs : adresse du site SharePoint, ID de la bibliothèque, e-mail du réviseur, e-mail de l'admin des alertes et nom exact de l'équipe propriétaire.",
+      "es": "Tenga cinco valores: dirección del sitio SharePoint, ID de la biblioteca, correo del revisor, correo del administrador de alertas y nombre exacto del equipo propietario.",
       "it": "Tenete pronti cinque valori: indirizzo del sito SharePoint, ID della raccolta contratti, e-mail del revisore, e-mail dell'amministratore degli avvisi e nome esatto del team proprietario.",
       "pl": "Przygotuj pięć wartości: adres witryny SharePoint, ID biblioteki umów, e-mail weryfikatora, e-mail administratora alertów i dokładną nazwę zespołu właściciela.",
-      "pt": "Tenha cinco valores prontos: o endereço do site SharePoint, o ID da biblioteca de contratos, o e-mail do revisor, o e-mail do administrador de alertas e o nome exato da equipa proprietária." },
-    { "t": [70.66, 72.00],
+      "pt": "Tenha cinco valores: endereço do site SharePoint, ID da biblioteca, e-mail do revisor, e-mail do administrador de alertas e nome exato da equipa proprietária."
+    },
+    {
+      "t": [
+        70.66,
+        72.0
+      ],
       "en": "The guide shows where to find them.",
       "cs": "Návod ukazuje, kde je najdete.",
-      "de": "Die Anleitung zeigt, wo Sie sie finden.",
+      "de": "Die Anleitung zeigt, wo sie stehen.",
       "fr": "Le guide indique où les trouver.",
       "es": "La guía indica dónde encontrarlos.",
       "it": "La guida mostra dove trovarli.",
-      "pl": "Przewodnik pokazuje, gdzie je znaleźć.",
-      "pt": "O guia indica onde os encontrar." },
-    { "t": [72.45, 75.81],
+      "pl": "Przewodnik pokazuje, gdzie są.",
+      "pt": "O guia indica onde os encontrar."
+    },
+    {
+      "t": [
+        72.45,
+        75.81
+      ],
       "en": "Open make.powerapps.com and select your environment.",
       "cs": "Otevřete make.powerapps.com a vyberte své prostředí.",
       "de": "Öffnen Sie make.powerapps.com und wählen Sie Ihre Umgebung.",
@@ -154,8 +238,13 @@
       "es": "Abra make.powerapps.com y seleccione su entorno.",
       "it": "Aprite make.powerapps.com e selezionate il vostro ambiente.",
       "pl": "Otwórz make.powerapps.com i wybierz swoje środowisko.",
-      "pt": "Abra make.powerapps.com e selecione o seu ambiente." },
-    { "t": [76.45, 81.06],
+      "pt": "Abra make.powerapps.com e selecione o seu ambiente."
+    },
+    {
+      "t": [
+        76.45,
+        81.06
+      ],
       "en": "Choose Solutions, then Import solution, and select the managed solution ZIP.",
       "cs": "Zvolte Solutions, potom Import solution a vyberte ZIP spravovaného řešení.",
       "de": "Wählen Sie Solutions, dann Import solution, und wählen Sie das ZIP der verwalteten Lösung.",
@@ -163,17 +252,27 @@
       "es": "Elija Solutions, después Import solution, y seleccione el ZIP de la solución administrada.",
       "it": "Scegliete Solutions, poi Import solution, e selezionate lo ZIP della soluzione gestita.",
       "pl": "Wybierz Solutions, potem Import solution i wskaż plik ZIP rozwiązania zarządzanego.",
-      "pt": "Escolha Solutions, depois Import solution, e selecione o ZIP da solução gerida." },
-    { "t": [81.51, 84.74],
+      "pt": "Escolha Solutions, depois Import solution, e selecione o ZIP da solução gerida."
+    },
+    {
+      "t": [
+        81.51,
+        84.74
+      ],
       "en": "Connect both Dataverse references to the same Dataverse connection.",
       "cs": "Obě reference Dataverse připojte ke stejnému připojení Dataverse.",
-      "de": "Verbinden Sie beide Dataverse-Referenzen mit derselben Dataverse-Verbindung.",
+      "de": "Beide Dataverse-Referenzen an dieselbe Dataverse-Verbindung binden.",
       "fr": "Reliez les deux références Dataverse à la même connexion Dataverse.",
-      "es": "Conecte las dos referencias de Dataverse a la misma conexión de Dataverse.",
-      "it": "Collegate entrambi i riferimenti Dataverse alla stessa connessione Dataverse.",
+      "es": "Conecte las dos referencias de Dataverse a la misma conexión.",
+      "it": "Collegate i due riferimenti Dataverse alla stessa connessione.",
       "pl": "Połącz oba odwołania Dataverse z tym samym połączeniem Dataverse.",
-      "pt": "Ligue as duas referências do Dataverse à mesma ligação do Dataverse." },
-    { "t": [85.19, 86.91],
+      "pt": "Ligue as duas referências do Dataverse à mesma ligação do Dataverse."
+    },
+    {
+      "t": [
+        85.19,
+        86.91
+      ],
       "en": "Also connect SharePoint and Teams.",
       "cs": "Připojte také SharePoint a Teams.",
       "de": "Verbinden Sie auch SharePoint und Teams.",
@@ -181,35 +280,55 @@
       "es": "Conecte también SharePoint y Teams.",
       "it": "Collegate anche SharePoint e Teams.",
       "pl": "Połącz też SharePoint i Teams.",
-      "pt": "Ligue também o SharePoint e o Teams." },
-    { "t": [87.37, 90.69],
+      "pt": "Ligue também o SharePoint e o Teams."
+    },
+    {
+      "t": [
+        87.37,
+        90.69
+      ],
       "en": "Use the same System Administrator account for all four references.",
       "cs": "Pro všechny čtyři reference použijte stejný účet System Administrator.",
-      "de": "Verwenden Sie für alle vier Referenzen dasselbe System Administrator-Konto.",
+      "de": "Nutzen Sie für alle vier Referenzen dasselbe System Administrator-Konto.",
       "fr": "Utilisez le même compte System Administrator pour les quatre références.",
       "es": "Use la misma cuenta de System Administrator para las cuatro referencias.",
-      "it": "Usate lo stesso account System Administrator per tutti e quattro i riferimenti.",
-      "pl": "Dla wszystkich czterech odwołań użyj tego samego konta System Administrator.",
-      "pt": "Use a mesma conta de System Administrator nas quatro referências." },
-    { "t": [91.08, 92.80],
+      "it": "Usate lo stesso account System Administrator per i quattro riferimenti.",
+      "pl": "Dla czterech odwołań użyj tego samego konta System Administrator.",
+      "pt": "Use a mesma conta de System Administrator nas quatro referências."
+    },
+    {
+      "t": [
+        91.08,
+        92.8
+      ],
       "en": "Enter your five values and import.",
       "cs": "Zadejte svých pět hodnot a spusťte import.",
-      "de": "Geben Sie Ihre fünf Werte ein und importieren Sie.",
+      "de": "Fünf Werte eingeben und importieren.",
       "fr": "Saisissez vos cinq valeurs et importez.",
       "es": "Introduzca sus cinco valores e importe.",
       "it": "Inserite i cinque valori e importate.",
       "pl": "Wpisz pięć wartości i zaimportuj.",
-      "pt": "Introduza os cinco valores e importe." },
-    { "t": [93.25, 96.29],
+      "pt": "Introduza os cinco valores e importe."
+    },
+    {
+      "t": [
+        93.25,
+        96.29
+      ],
       "en": "If Import stays grey, re-enter each required value.",
-      "cs": "Pokud tlačítko Import zůstává šedé, zadejte znovu každou povinnou hodnotu.",
+      "cs": "Je-li Import šedý, zadejte povinné hodnoty znovu.",
       "de": "Bleibt Import grau, geben Sie jeden Pflichtwert erneut ein.",
-      "fr": "Si Import reste grisé, saisissez de nouveau chaque valeur obligatoire.",
+      "fr": "Si Import reste grisé, ressaisissez chaque valeur requise.",
       "es": "Si Import sigue en gris, vuelva a introducir cada valor obligatorio.",
       "it": "Se Import resta grigio, reinserite ogni valore obbligatorio.",
-      "pl": "Jeśli przycisk Import jest nadal szary, wpisz ponownie każdą wymaganą wartość.",
-      "pt": "Se Import continuar a cinzento, volte a introduzir cada valor obrigatório." },
-    { "t": [96.74, 102.11],
+      "pl": "Jeśli Import jest szary, wpisz ponownie wymagane wartości.",
+      "pt": "Se Import ficar cinzento, reintroduza os valores obrigatórios."
+    },
+    {
+      "t": [
+        96.74,
+        102.11
+      ],
       "en": "After import, open Agents, All agents in the Microsoft 365 admin centre.",
       "cs": "Po importu otevřete v centru pro správu Microsoft 365 Agents, All agents.",
       "de": "Öffnen Sie nach dem Import im Microsoft 365 Admin Center Agents, All agents.",
@@ -217,8 +336,13 @@
       "es": "Tras la importación, abra Agents, All agents en el centro de administración de Microsoft 365.",
       "it": "Dopo l'importazione, aprite Agents, All agents nell'interfaccia di amministrazione di Microsoft 365.",
       "pl": "Po imporcie otwórz Agents, All agents w centrum administracyjnym Microsoft 365.",
-      "pt": "Após a importação, abra Agents, All agents no centro de administração do Microsoft 365." },
-    { "t": [102.76, 105.30],
+      "pt": "Após a importação, abra Agents, All agents no centro de administração do Microsoft 365."
+    },
+    {
+      "t": [
+        102.76,
+        105.3
+      ],
       "en": "Check CAI Contract Intelligence Assistant.",
       "cs": "Zkontrolujte CAI Contract Intelligence Assistant.",
       "de": "Prüfen Sie CAI Contract Intelligence Assistant.",
@@ -226,35 +350,55 @@
       "es": "Compruebe CAI Contract Intelligence Assistant.",
       "it": "Controllate CAI Contract Intelligence Assistant.",
       "pl": "Sprawdź CAI Contract Intelligence Assistant.",
-      "pt": "Verifique o CAI Contract Intelligence Assistant." },
-    { "t": [105.35, 107.49],
+      "pt": "Verifique o CAI Contract Intelligence Assistant."
+    },
+    {
+      "t": [
+        105.35,
+        107.49
+      ],
       "en": "If its status is Available, block it.",
       "cs": "Pokud má stav Available, zablokujte ho.",
-      "de": "Wenn der Status Available ist, blockieren Sie ihn.",
+      "de": "Status Available? Dann blockieren Sie ihn.",
       "fr": "Si son statut est Available, bloquez-le.",
       "es": "Si su estado es Available, bloquéelo.",
       "it": "Se lo stato è Available, bloccatelo.",
       "pl": "Jeśli ma status Available, zablokuj go.",
-      "pt": "Se o estado for Available, bloqueie-o." },
-    { "t": [107.91, 109.83],
+      "pt": "Se o estado for Available, bloqueie-o."
+    },
+    {
+      "t": [
+        107.91,
+        109.83
+      ],
       "en": "Leave it Draft or Blocked during setup.",
-      "cs": "Během nastavení ho nechte ve stavu Draft nebo Blocked.",
-      "de": "Lassen Sie ihn während der Einrichtung auf Draft oder Blocked.",
-      "fr": "Laissez-le en Draft ou Blocked pendant la configuration.",
-      "es": "Déjelo en Draft o Blocked durante la configuración.",
-      "it": "Lasciatelo in Draft o Blocked durante la configurazione.",
-      "pl": "Podczas konfiguracji pozostaw go w stanie Draft lub Blocked.",
-      "pt": "Deixe-o em Draft ou Blocked durante a configuração." },
-    { "t": [110.34, 112.48],
+      "cs": "Při nastavení ponechte Draft nebo Blocked.",
+      "de": "Während der Einrichtung: Draft oder Blocked.",
+      "fr": "Pendant la configuration : Draft ou Blocked.",
+      "es": "Durante la configuración: Draft o Blocked.",
+      "it": "Durante la configurazione: Draft o Blocked.",
+      "pl": "Podczas konfiguracji: Draft lub Blocked.",
+      "pt": "Durante a configuração: Draft ou Blocked."
+    },
+    {
+      "t": [
+        110.34,
+        112.48
+      ],
       "en": "Now check the solution's seven cloud flows.",
       "cs": "Teď zkontrolujte sedm cloudových toků řešení.",
       "de": "Prüfen Sie nun die sieben Cloud-Flows der Lösung.",
-      "fr": "Vérifiez maintenant les sept flux cloud de la solution.",
-      "es": "Ahora compruebe los siete flujos de nube de la solución.",
+      "fr": "Vérifiez les sept flux cloud de la solution.",
+      "es": "Compruebe los siete flujos de nube de la solución.",
       "it": "Ora controllate i sette flussi cloud della soluzione.",
-      "pl": "Teraz sprawdź siedem przepływów w chmurze w rozwiązaniu.",
-      "pt": "Agora verifique os sete fluxos de nuvem da solução." },
-    { "t": [113.06, 117.86],
+      "pl": "Sprawdź siedem przepływów chmurowych rozwiązania.",
+      "pt": "Agora verifique os sete fluxos de nuvem da solução."
+    },
+    {
+      "t": [
+        113.06,
+        117.86
+      ],
       "en": "Turn on the required flows, especially Review gate, which sends approval cards to Teams.",
       "cs": "Zapněte požadované toky, zejména Review gate, který posílá schvalovací karty do Teams.",
       "de": "Schalten Sie die erforderlichen Flows ein, besonders Review gate, das Freigabekarten an Teams sendet.",
@@ -262,17 +406,27 @@
       "es": "Active los flujos necesarios, sobre todo Review gate, que envía las tarjetas de aprobación a Teams.",
       "it": "Attivate i flussi richiesti, in particolare Review gate, che invia le schede di approvazione a Teams.",
       "pl": "Włącz wymagane przepływy, zwłaszcza Review gate, który wysyła karty akceptacji do Teams.",
-      "pt": "Ative os fluxos necessários, sobretudo o Review gate, que envia cartões de aprovação para o Teams." },
-    { "t": [118.63, 120.55],
+      "pt": "Ative os fluxos necessários, sobretudo o Review gate, que envia cartões de aprovação para o Teams."
+    },
+    {
+      "t": [
+        118.63,
+        120.55
+      ],
       "en": "Keep Daily recompute off during testing.",
-      "cs": "Během testování nechte Daily recompute vypnutý.",
-      "de": "Lassen Sie Daily recompute während der Tests ausgeschaltet.",
-      "fr": "Laissez Daily recompute désactivé pendant les tests.",
-      "es": "Mantenga Daily recompute desactivado durante las pruebas.",
-      "it": "Tenete Daily recompute disattivato durante i test.",
-      "pl": "Podczas testów pozostaw Daily recompute wyłączony.",
-      "pt": "Mantenha o Daily recompute desligado durante os testes." },
-    { "t": [120.97, 122.75],
+      "cs": "Při testech nechte Daily recompute vypnutý.",
+      "de": "Beim Testen Daily recompute aus lassen.",
+      "fr": "Laissez Daily recompute désactivé en test.",
+      "es": "En pruebas, mantenga Daily recompute apagado.",
+      "it": "Nei test tenete Daily recompute spento.",
+      "pl": "Podczas testów wyłącz Daily recompute.",
+      "pt": "Em testes, Daily recompute desligado."
+    },
+    {
+      "t": [
+        120.97,
+        122.75
+      ],
       "en": "It consumes capacity when enabled.",
       "cs": "Když je zapnutý, spotřebovává kapacitu.",
       "de": "Eingeschaltet verbraucht er Kapazität.",
@@ -280,26 +434,41 @@
       "es": "Cuando está activado, consume capacidad.",
       "it": "Quando è attivo consuma capacità.",
       "pl": "Gdy jest włączony, zużywa pojemność.",
-      "pt": "Quando ligado, consome capacidade." },
-    { "t": [123.21, 126.02],
+      "pt": "Quando ligado, consome capacidade."
+    },
+    {
+      "t": [
+        123.21,
+        126.02
+      ],
       "en": "Create the owner team using exactly the name you entered.",
       "cs": "Vytvořte vlastnický tým přesně se jménem, které jste zadali.",
       "de": "Legen Sie das Besitzerteam mit genau dem eingegebenen Namen an.",
-      "fr": "Créez l'équipe propriétaire avec exactement le nom que vous avez saisi.",
-      "es": "Cree el equipo propietario con exactamente el nombre que introdujo.",
+      "fr": "Créez l'équipe propriétaire avec exactement le nom saisi.",
+      "es": "Cree el equipo propietario con el nombre exacto que introdujo.",
       "it": "Create il team proprietario usando esattamente il nome inserito.",
       "pl": "Utwórz zespół właściciela, używając dokładnie wpisanej nazwy.",
-      "pt": "Crie a equipa proprietária com exatamente o nome que introduziu." },
-    { "t": [126.57, 130.11],
+      "pt": "Crie a equipa proprietária com exatamente o nome que introduziu."
+    },
+    {
+      "t": [
+        126.57,
+        130.11
+      ],
       "en": "Assign CAI Contract Reader and add the permitted users.",
       "cs": "Přiřaďte roli CAI Contract Reader a přidejte oprávněné uživatele.",
-      "de": "Weisen Sie CAI Contract Reader zu und fügen Sie die berechtigten Benutzer hinzu.",
+      "de": "Weisen Sie CAI Contract Reader zu und fügen Sie berechtigte Benutzer hinzu.",
       "fr": "Attribuez CAI Contract Reader et ajoutez les utilisateurs autorisés.",
       "es": "Asigne CAI Contract Reader y añada los usuarios autorizados.",
       "it": "Assegnate CAI Contract Reader e aggiungete gli utenti autorizzati.",
       "pl": "Przypisz rolę CAI Contract Reader i dodaj uprawnionych użytkowników.",
-      "pt": "Atribua o CAI Contract Reader e adicione os utilizadores autorizados." },
-    { "t": [130.60, 137.09],
+      "pt": "Atribua o CAI Contract Reader e adicione os utilizadores autorizados."
+    },
+    {
+      "t": [
+        130.6,
+        137.09
+      ],
       "en": "Check the role against the guide: Read on Contract and Field evidence, with no additional permissions specified for this role.",
       "cs": "Ověřte roli podle návodu: Read na Contract a Field evidence, bez dalších oprávnění pro tuto roli.",
       "de": "Prüfen Sie die Rolle anhand der Anleitung: Read auf Contract und Field evidence, ohne weitere Berechtigungen für diese Rolle.",
@@ -307,8 +476,13 @@
       "es": "Compruebe el rol con la guía: Read en Contract y Field evidence, sin permisos adicionales para este rol.",
       "it": "Controllate il ruolo con la guida: Read su Contract e Field evidence, senza altri permessi per questo ruolo.",
       "pl": "Sprawdź rolę z przewodnikiem: Read na Contract i Field evidence, bez dodatkowych uprawnień dla tej roli.",
-      "pt": "Verifique a função com o guia: Read em Contract e Field evidence, sem permissões adicionais para esta função." },
-    { "t": [137.51, 146.53],
+      "pt": "Verifique a função com o guia: Read em Contract e Field evidence, sem permissões adicionais para esta função."
+    },
+    {
+      "t": [
+        137.51,
+        146.53
+      ],
       "en": "In Copilot Studio, check four settings: no connected channel, sharing restricted to the owner, Authenticate with Microsoft selected, and both topics turned on.",
       "cs": "V Copilot Studiu zkontrolujte čtyři nastavení: žádný připojený kanál, sdílení jen s vlastníkem, vybrané Authenticate with Microsoft a obě témata zapnutá.",
       "de": "Prüfen Sie in Copilot Studio vier Einstellungen: kein verbundener Kanal, Freigabe nur für den Besitzer, Authenticate with Microsoft ausgewählt und beide Themen eingeschaltet.",
@@ -316,26 +490,41 @@
       "es": "En Copilot Studio, compruebe cuatro ajustes: ningún canal conectado, uso compartido limitado al propietario, Authenticate with Microsoft seleccionado y los dos temas activados.",
       "it": "In Copilot Studio controllate quattro impostazioni: nessun canale collegato, condivisione limitata al proprietario, Authenticate with Microsoft selezionato ed entrambi gli argomenti attivi.",
       "pl": "W Copilot Studio sprawdź cztery ustawienia: brak podłączonego kanału, udostępnienie tylko właścicielowi, wybrane Authenticate with Microsoft i oba tematy włączone.",
-      "pt": "No Copilot Studio, verifique quatro definições: nenhum canal ligado, partilha limitada ao proprietário, Authenticate with Microsoft selecionado e os dois tópicos ativados." },
-    { "t": [147.30, 148.93],
+      "pt": "No Copilot Studio, verifique quatro definições: nenhum canal ligado, partilha limitada ao proprietário, Authenticate with Microsoft selecionado e os dois tópicos ativados."
+    },
+    {
+      "t": [
+        147.3,
+        148.93
+      ],
       "en": "Do not publish the agent during installation.",
       "cs": "Během instalace agenta nepublikujte.",
-      "de": "Veröffentlichen Sie den Agenten während der Installation nicht.",
-      "fr": "Ne publiez pas l'agent pendant l'installation.",
-      "es": "No publique el agente durante la instalación.",
-      "it": "Non pubblicate l'agente durante l'installazione.",
+      "de": "Veröffentlichen Sie den Agenten nicht.",
+      "fr": "Ne publiez pas l'agent à l'installation.",
+      "es": "No publique el agente al instalarlo.",
+      "it": "Non pubblicate l'agente in installazione.",
       "pl": "Nie publikuj agenta podczas instalacji.",
-      "pt": "Não publique o agente durante a instalação." },
-    { "t": [149.41, 151.43],
+      "pt": "Não publique o agente na instalação."
+    },
+    {
+      "t": [
+        149.41,
+        151.43
+      ],
       "en": "You can also run the included readiness check.",
-      "cs": "Můžete také spustit přiloženou kontrolu připravenosti.",
-      "de": "Sie können auch die mitgelieferte Bereitschaftsprüfung ausführen.",
-      "fr": "Vous pouvez aussi lancer la vérification de préparation fournie.",
-      "es": "También puede ejecutar la comprobación de preparación incluida.",
-      "it": "Potete anche eseguire il controllo di preparazione incluso.",
-      "pl": "Możesz też uruchomić dołączone sprawdzenie gotowości.",
-      "pt": "Pode também executar a verificação de prontidão incluída." },
-    { "t": [151.78, 154.43],
+      "cs": "Můžete spustit i kontrolu připravenosti.",
+      "de": "Optional: mitgelieferte Bereitschaftsprüfung.",
+      "fr": "Vous pouvez lancer la vérification fournie.",
+      "es": "Puede ejecutar la comprobación incluida.",
+      "it": "Potete eseguire il controllo incluso.",
+      "pl": "Możesz uruchomić dołączone sprawdzenie.",
+      "pt": "Pode executar a verificação incluída."
+    },
+    {
+      "t": [
+        151.78,
+        154.43
+      ],
       "en": "It changes nothing; the final result should be READY.",
       "cs": "Nic nemění; výsledkem by mělo být READY.",
       "de": "Sie ändert nichts; das Endergebnis sollte READY lauten.",
@@ -343,26 +532,41 @@
       "es": "No cambia nada; el resultado final debería ser READY.",
       "it": "Non modifica nulla; il risultato finale dovrebbe essere READY.",
       "pl": "Niczego nie zmienia; wynik końcowy powinien brzmieć READY.",
-      "pt": "Não altera nada; o resultado final deve ser READY." },
-    { "t": [155.08, 157.38],
+      "pt": "Não altera nada; o resultado final deve ser READY."
+    },
+    {
+      "t": [
+        155.08,
+        157.38
+      ],
       "en": "Finally, test with an owner-team account.",
       "cs": "Nakonec otestujte s účtem člena vlastnického týmu.",
-      "de": "Testen Sie zum Schluss mit einem Konto aus dem Besitzerteam.",
-      "fr": "Enfin, testez avec un compte de l'équipe propriétaire.",
-      "es": "Por último, pruebe con una cuenta del equipo propietario.",
-      "it": "Infine, fate un test con un account del team proprietario.",
-      "pl": "Na koniec przetestuj na koncie z zespołu właściciela.",
-      "pt": "Por fim, teste com uma conta da equipa proprietária." },
-    { "t": [157.73, 161.44],
+      "de": "Zuletzt mit einem Konto des Besitzerteams testen.",
+      "fr": "Testez avec un compte de l'équipe propriétaire.",
+      "es": "Pruebe con una cuenta del equipo propietario.",
+      "it": "Testate con un account del team proprietario.",
+      "pl": "Na koniec testuj na koncie zespołu właściciela.",
+      "pt": "Por fim, teste com uma conta da equipa proprietária."
+    },
+    {
+      "t": [
+        157.73,
+        161.44
+      ],
       "en": "Upload your test contract and wait for Pending review and the Teams review card.",
-      "cs": "Nahrajte testovací smlouvu a počkejte na stav Pending review a kontrolní kartu v Teams.",
-      "de": "Laden Sie Ihren Testvertrag hoch und warten Sie auf Pending review und die Prüfkarte in Teams.",
-      "fr": "Téléversez votre contrat de test et attendez Pending review et la carte de révision dans Teams.",
-      "es": "Suba su contrato de prueba y espere a Pending review y a la tarjeta de revisión en Teams.",
-      "it": "Caricate il contratto di prova e attendete Pending review e la scheda di revisione in Teams.",
-      "pl": "Prześlij umowę testową i poczekaj na Pending review oraz kartę weryfikacji w Teams.",
-      "pt": "Carregue o contrato de teste e aguarde o estado Pending review e o cartão de revisão no Teams." },
-    { "t": [161.89, 162.85],
+      "cs": "Nahrajte testovací smlouvu a počkejte na Pending review a kartu v Teams.",
+      "de": "Testvertrag hochladen, dann auf Pending review und die Teams-Karte warten.",
+      "fr": "Téléversez le contrat de test, puis attendez Pending review et la carte Teams.",
+      "es": "Suba el contrato de prueba y espere a Pending review y la tarjeta de Teams.",
+      "it": "Caricate il contratto di prova e attendete Pending review e la scheda Teams.",
+      "pl": "Prześlij umowę testową i poczekaj na Pending review oraz kartę w Teams.",
+      "pt": "Carregue o contrato de teste e aguarde Pending review e o cartão no Teams."
+    },
+    {
+      "t": [
+        161.89,
+        162.85
+      ],
       "en": "Approve the contract.",
       "cs": "Smlouvu schvalte.",
       "de": "Geben Sie den Vertrag frei.",
@@ -370,8 +574,13 @@
       "es": "Apruebe el contrato.",
       "it": "Approvate il contratto.",
       "pl": "Zatwierdź umowę.",
-      "pt": "Aprove o contrato." },
-    { "t": [163.40, 168.55],
+      "pt": "Aprove o contrato."
+    },
+    {
+      "t": [
+        163.4,
+        168.55
+      ],
       "en": "In the Copilot Studio test pane, ask: “Which notice deadlines fall in the next 400 days?”",
       "cs": "V testovacím panelu Copilot Studia se zeptejte: „Which notice deadlines fall in the next 400 days?“",
       "de": "Fragen Sie im Testbereich von Copilot Studio: „Which notice deadlines fall in the next 400 days?“",
@@ -379,17 +588,27 @@
       "es": "En el panel de prueba de Copilot Studio, pregunte: «Which notice deadlines fall in the next 400 days?»",
       "it": "Nel riquadro di test di Copilot Studio chiedete: «Which notice deadlines fall in the next 400 days?»",
       "pl": "W panelu testowym Copilot Studio zapytaj: „Which notice deadlines fall in the next 400 days?”",
-      "pt": "No painel de teste do Copilot Studio, pergunte: «Which notice deadlines fall in the next 400 days?»" },
-    { "t": [168.87, 173.44],
+      "pt": "No painel de teste do Copilot Studio, pergunte: «Which notice deadlines fall in the next 400 days?»"
+    },
+    {
+      "t": [
+        168.87,
+        173.44
+      ],
       "en": "Allow the connection if prompted, and check that the answer contains your team's approved contracts.",
-      "cs": "Pokud budete vyzváni, povolte připojení a ověřte, že odpověď obsahuje schválené smlouvy vašeho týmu.",
-      "de": "Erlauben Sie bei Aufforderung die Verbindung und prüfen Sie, ob die Antwort die freigegebenen Verträge Ihres Teams enthält.",
-      "fr": "Autorisez la connexion si on vous le demande, et vérifiez que la réponse contient les contrats approuvés de votre équipe.",
-      "es": "Permita la conexión si se le solicita y compruebe que la respuesta incluye los contratos aprobados de su equipo.",
-      "it": "Consentite la connessione se richiesto e verificate che la risposta contenga i contratti approvati del vostro team.",
-      "pl": "Jeśli pojawi się prośba, zezwól na połączenie i sprawdź, czy odpowiedź zawiera zatwierdzone umowy Twojego zespołu.",
-      "pt": "Permita a ligação se lhe for pedido e confirme que a resposta inclui os contratos aprovados da sua equipa." },
-    { "t": [173.83, 181.57],
+      "cs": "Povolte připojení, pokud budete vyzváni, a ověřte, že odpověď obsahuje schválené smlouvy týmu.",
+      "de": "Bei Nachfrage Verbindung erlauben; die Antwort muss die freigegebenen Teamverträge zeigen.",
+      "fr": "Autorisez la connexion si demandé ; la réponse doit contenir les contrats approuvés de l'équipe.",
+      "es": "Permita la conexión si se pide; la respuesta debe incluir los contratos aprobados del equipo.",
+      "it": "Consentite la connessione se richiesto; la risposta deve includere i contratti approvati del team.",
+      "pl": "Zezwól na połączenie, jeśli trzeba; odpowiedź musi zawierać zatwierdzone umowy zespołu.",
+      "pt": "Permita a ligação se pedido; a resposta deve incluir os contratos aprovados da equipa."
+    },
+    {
+      "t": [
+        173.83,
+        181.57
+      ],
       "en": "Before approving real contracts, reviewers should read section 9a of INSTALL.pdf and check notice periods against the source contract.",
       "cs": "Než budou kontroloři schvalovat skutečné smlouvy, měli by si přečíst oddíl 9a v INSTALL.pdf a ověřovat výpovědní lhůty proti zdrojové smlouvě.",
       "de": "Bevor Prüfende echte Verträge freigeben, sollten sie Abschnitt 9a von INSTALL.pdf lesen und Kündigungsfristen mit dem Quellvertrag abgleichen.",
@@ -397,8 +616,13 @@
       "es": "Antes de aprobar contratos reales, los revisores deben leer la sección 9a de INSTALL.pdf y comprobar los plazos de preaviso en el contrato original.",
       "it": "Prima di approvare contratti reali, i revisori devono leggere la sezione 9a di INSTALL.pdf e verificare i termini di preavviso sul contratto originale.",
       "pl": "Zanim weryfikatorzy zaczną zatwierdzać prawdziwe umowy, powinni przeczytać sekcję 9a pliku INSTALL.pdf i sprawdzać okresy wypowiedzenia w umowie źródłowej.",
-      "pt": "Antes de aprovar contratos reais, os revisores devem ler a secção 9a do INSTALL.pdf e verificar os prazos de pré-aviso no contrato de origem." },
-    { "t": [182.09, 187.20],
+      "pt": "Antes de aprovar contratos reais, os revisores devem ler a secção 9a do INSTALL.pdf e verificar os prazos de pré-aviso no contrato de origem."
+    },
+    {
+      "t": [
+        182.09,
+        187.2
+      ],
       "en": "For help, contact hello@colleagueai.ai with your order email and release number.",
       "cs": "Pomoc vám poskytneme na hello@colleagueai.ai; uveďte e-mail objednávky a číslo vydání.",
       "de": "Hilfe erhalten Sie unter hello@colleagueai.ai mit Ihrer Bestell-E-Mail und der Release-Nummer.",
@@ -406,6 +630,7 @@
       "es": "Para obtener ayuda, escriba a hello@colleagueai.ai indicando el correo de su pedido y el número de versión.",
       "it": "Per assistenza, scrivete a hello@colleagueai.ai indicando l'e-mail dell'ordine e il numero di release.",
       "pl": "Po pomoc napisz na hello@colleagueai.ai, podając e-mail z zamówienia i numer wydania.",
-      "pt": "Para obter ajuda, contacte hello@colleagueai.ai com o e-mail da encomenda e o número da versão." }
+      "pt": "Para obter ajuda, contacte hello@colleagueai.ai com o e-mail da encomenda e o número da versão."
+    }
   ]
 }

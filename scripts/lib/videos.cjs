@@ -4,9 +4,16 @@
  * languages) and scripts/i18n/videos/meta.json (titles, descriptions, disclosures, calls to action, player strings).
  *
  * Rules built in:
- *   - Nothing renders unless the video is approved (approvedBy + approvedOn), its file is same-origin under /media/
- *     and it has captions in all eight languages. A Preview build with CAI_VIDEO_PREVIEW=1 (never Production) also
- *     renders 'pending-approval' videos, behind a visible banner and without structured data. 'held' never renders.
+ *   - Nothing renders, and no file is published, unless the video is approved: approvedBy, approvedOn, approvedSha256
+ *     equal to the delivered master's sha256 AND to the sha256 of the file in media/ at build time, publishedOn reached,
+ *     a same-origin /media/ URL and captions in all eight languages. A master replaced after approval no longer matches
+ *     approvedSha256, so its approval lapses (and the build fails loudly, see publish-media.cjs).
+ *   - Source files live in media/ (never served). scripts/publish-media.cjs copies into dist/media/ only the files of
+ *     videos this build may render (filesToPublish below). A Production build therefore serves no unapproved video,
+ *     poster or caption file, and its pages carry no unapproved player or transcript.
+ *   - A Preview build with CAI_VIDEO_PREVIEW=1 (never Production) also renders and publishes 'pending-approval'
+ *     videos whose file matches the master checksum, behind a visible banner and without structured data.
+ *     'held' never renders.
  *   - No video bytes before interaction: the page carries a poster button and an inert <template>; the <video> element
  *     is created on click (public/cai-video.js). No autoplay, no third-party player, no cookies, no storage.
  *   - Subtitles are drawn in a caption bar BELOW the picture, never over it, because three of the four masters have
@@ -30,7 +37,15 @@ const segmentsOf = (id) => {
   return SEGMENTS[id];
 };
 
+const crypto = require('crypto');
+const MEDIA_DIR = path.join(ROOT, 'media');
 const LOCAL_FILE = /^\/media\/[a-z0-9._-]+$/i;
+const SHA256 = /^[0-9a-f]{64}$/;
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+/* Publication moment: the date the video goes live, optionally with time and UTC offset (Google's uploadDate examples
+ * carry a time zone). The date part gates publication; the full value is the VideoObject uploadDate. */
+const ISO_PUBLISHED = /^(\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}(:\d{2})?(Z|[+-]\d{2}:\d{2}))?$/;
+const pubDate = (v) => { const m = ISO_PUBLISHED.exec(v || ''); return m ? m[1] : null; };
 const LOCAL_VTT = /^\/media\/[a-z0-9._-]+\.vtt$/i;
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -45,18 +60,64 @@ function captionsComplete(v) {
   return LOCALES.every((l) => typeof caps[l] === 'string' && LOCAL_VTT.test(caps[l]));
 }
 
-/** Approved for publication: recorded approval, same-origin file, captions in every language, not held. */
-function approved(id) {
+const shaCache = new Map();
+/** sha256 of a source file in media/ (or another directory, for tests), or null when missing. */
+function fileSha(url, dir = MEDIA_DIR) {
+  if (!LOCAL_FILE.test(url || '')) return null;
+  const file = path.join(dir, url.slice('/media/'.length));
+  const key = `${file}`;
+  if (!shaCache.has(key)) {
+    try { shaCache.set(key, crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')); } catch { shaCache.set(key, null); }
+  }
+  return shaCache.get(key);
+}
+const clearShaCache = () => shaCache.clear();
+
+/** The file on disk is the delivered master (integrity, independent of approval). */
+function intact(id, dir = MEDIA_DIR) {
   const v = REG[id];
-  if (!v || typeof v !== 'object' || v.status === 'held') return false;
-  return LOCAL_FILE.test(v.src || '') && Boolean(v.approvedBy) && Boolean(v.approvedOn) && captionsComplete(v);
+  return Boolean(v && v.master && SHA256.test(v.master.sha256 || '') && fileSha(v.src, dir) === v.master.sha256);
 }
 
-/** What a build may render: approved videos, plus pending ones on a review Preview. */
-function renderable(id, env = process.env) {
-  if (approved(id)) return true;
+/** Today's date (UTC, YYYY-MM-DD) for the publication check; overridable for tests and reproducible builds. */
+const today = (env = process.env) => (ISO_DATE.test(env.CAI_BUILD_DATE || '') ? env.CAI_BUILD_DATE : new Date().toISOString().slice(0, 10));
+
+/** Approved for publication: recorded approval bound to the exact checksum of the file being served, publication
+ *  date reached, same-origin file, captions in every language, not held. */
+function approved(id, env = process.env, dir = MEDIA_DIR) {
   const v = REG[id];
-  return Boolean(previewMode(env) && v && v.status === 'pending-approval' && LOCAL_FILE.test(v.src || '') && captionsComplete(v));
+  if (!v || typeof v !== 'object' || v.status === 'held') return false;
+  if (!LOCAL_FILE.test(v.src || '') || !v.approvedBy || !ISO_DATE.test(v.approvedOn || '') || !captionsComplete(v)) return false;
+  if (!SHA256.test(v.approvedSha256 || '') || v.approvedSha256 !== (v.master && v.master.sha256)) return false;
+  const pub = pubDate(v.publishedOn);
+  if (!pub || pub < v.approvedOn || pub > today(env)) return false;
+  return fileSha(v.src, dir) === v.approvedSha256;
+}
+
+/** What a build may render: approved videos, plus pending ones (intact files only) on a review Preview. */
+function renderable(id, env = process.env, dir = MEDIA_DIR) {
+  if (approved(id, env, dir)) return true;
+  const v = REG[id];
+  return Boolean(previewMode(env) && v && v.status === 'pending-approval' && LOCAL_FILE.test(v.src || '') && captionsComplete(v) && intact(id, dir));
+}
+
+/** Every /media/ URL this build may publish: video, posters and caption files of renderable videos only. */
+function filesToPublish(env = process.env, dir = MEDIA_DIR) {
+  const out = [];
+  for (const id of Object.keys(REG)) {
+    if (!renderable(id, env, dir)) continue;
+    const v = REG[id];
+    for (const u of [v.src, v.poster, v.posterSmall, ...Object.values(v.captions || {})]) if (LOCAL_FILE.test(u || '')) out.push(u);
+  }
+  return [...new Set(out)];
+}
+
+/** Videos whose recorded approval no longer matches the file (a master replaced without review). */
+function approvalMismatches(dir = MEDIA_DIR) {
+  return Object.keys(REG).filter((id) => {
+    const v = REG[id];
+    return v && v.approvedBy && v.approvedSha256 && fileSha(v.src, dir) !== v.approvedSha256;
+  });
 }
 
 const t = (group, key, loc) => {
@@ -81,6 +142,11 @@ function isoDuration(sec) {
 /* ---------- captions ---------- */
 const MAX_LINE = 42;
 const MAX_CUE = MAX_LINE * 2;
+const LEAD = 0.25;
+const HOLD = 1.5;
+const HOLD_GAP = 0.04;
+/** Reading-speed ceiling in characters per second (line breaks not counted); tests/videos.test.mjs enforces it. */
+const MAX_CPS = 20;
 
 /** Split one narration segment into caption-sized pieces of balanced length. Each cut goes to the natural break
  *  (sentence end, then clause, then word) nearest the ideal position, so no orphan fragment is left behind. */
@@ -133,10 +199,13 @@ function cues(id, lang) {
   segs.forEach((seg, si) => {
     const text = seg[lang];
     if (typeof text !== 'string' || !text) return;
-    const [start, spoken] = seg.t;
-    /* Let the last cue stay up through the pause after the line (up to 0.8 s, never into the next line). */
-    const next = segs[si + 1] ? segs[si + 1].t[0] - 0.04 : spoken + 0.8;
-    const end = Math.max(spoken, Math.min(spoken + 0.8, next));
+    const [spokenFrom, spoken] = seg.t;
+    /* Reading time: a line may appear up to LEAD s before it is spoken and stay up through the pause after it (up to
+     * HOLD s), never overlapping the neighbouring lines. */
+    const prevEnd = si ? segs[si - 1].t[1] + HOLD_GAP : 0;
+    const start = Math.max(prevEnd, spokenFrom - LEAD, 0);
+    const next = segs[si + 1] ? segs[si + 1].t[0] - LEAD - HOLD_GAP : spoken + HOLD;
+    const end = Math.max(spoken, Math.min(spoken + HOLD, next));
     const ps = pieces(text);
     const total = ps.reduce((n, p) => n + p.length, 0);
     let at = start;
@@ -196,7 +265,7 @@ function renderFeature(id, loc, opts = {}, env = process.env) {
     .concat(LOCALES.map((l) => `<option value="${l}" lang="${l}"${defaultCc === l ? ' selected' : ''}>${esc(META.languages[l])}</option>`))
     .join('');
   const tracks = LOCALES.map((l) => `<track kind="${l === 'en' ? 'captions' : 'subtitles'}" srclang="${l}" label="${esc(META.languages[l])}" src="${esc(v.captions[l])}">`).join('');
-  const pending = !approved(id);
+  const pending = !approved(id, env);
   const banner = pending ? '<p class="cai-video__pending" role="note">Preview: this video is pending approval and is not published.</p>' : '';
   const cta = opts.cta && opts.ctaHref
     ? `<a class="cai-video__cta" href="${esc(opts.ctaHref)}">${esc(t('cta', opts.cta, loc))} <span aria-hidden="true">→</span></a>` : '';
@@ -238,9 +307,17 @@ function renderCards(items, loc, env = process.env) {
   return `<section class="cai-vstrip" aria-labelledby="vstrip-${uid}" data-cai-vstrip="${uid}"><h2 id="vstrip-${uid}" class="cai-vstrip__h">${esc(t('ui', 'videos', loc))}</h2><ul>${cards}</ul></section>`;
 }
 
-/** VideoObject for a page that hosts the feature player. Approved videos only: a Preview never emits it. */
-function jsonLd(id, loc, pageUrl) {
-  if (!approved(id)) return '';
+/* Google's documented VideoObject properties (Search Central, video structured data): required name, thumbnailUrl,
+ * uploadDate; recommended contentUrl, description, duration, embedUrl, expires, hasPart, ineligibleRegion,
+ * interactionStatistic, publication, regionsAllowed. Only properties from this list that we can state truthfully are
+ * emitted (no embedUrl: there is no separate embed page; no expiry, regions, clips or view counts). The transcript is
+ * on the page itself, in the page language. */
+const GOOGLE_VIDEO_PROPERTIES = Object.freeze(['name', 'thumbnailUrl', 'uploadDate', 'contentUrl', 'description', 'duration', 'embedUrl', 'expires', 'hasPart', 'ineligibleRegion', 'interactionStatistic', 'publication', 'regionsAllowed']);
+
+/** VideoObject for a page that hosts the feature player. Approved and published videos only: a Preview never emits
+ *  it. uploadDate is the recorded publication moment (publishedOn). */
+function jsonLd(id, loc, pageUrl, env = process.env) {
+  if (!approved(id, env)) return '';
   const v = REG[id];
   const abs = (p) => `${ORIGIN}${p}`;
   const data = {
@@ -250,17 +327,9 @@ function jsonLd(id, loc, pageUrl) {
     name: vt(id, 'title', loc),
     description: vt(id, 'description', loc),
     thumbnailUrl: [abs(v.poster)],
-    uploadDate: v.approvedOn,
+    uploadDate: v.publishedOn,
     duration: isoDuration(v.durationSec),
     contentUrl: abs(v.src),
-    encodingFormat: 'video/mp4',
-    width: v.width,
-    height: v.height,
-    inLanguage: v.audioLanguage,
-    isFamilyFriendly: true,
-    caption: LOCALES.map((l) => ({ '@type': 'MediaObject', encodingFormat: 'text/vtt', inLanguage: l, contentUrl: abs(v.captions[l]) })),
-    transcript: transcriptText(id, loc),
-    publisher: { '@type': 'Organization', name: 'Colleague AI s.r.o.', url: `${ORIGIN}/` },
   };
   return `<script type="application/ld+json" data-cai-video-ld="${id}">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 }
@@ -315,8 +384,8 @@ const CSS = `
 `.trim();
 
 module.exports = {
-  LOCALES, REG, META, ORIGIN, CSS,
-  previewMode, captionsComplete, approved, renderable,
-  cues, vtt, pieces, wrap, transcriptHtml, transcriptText, clock, isoDuration,
-  renderFeature, renderCards, jsonLd,
+  LOCALES, REG, META, ORIGIN, CSS, MEDIA_DIR,
+  previewMode, captionsComplete, approved, renderable, intact, fileSha, clearShaCache, filesToPublish, approvalMismatches, today,
+  cues, vtt, pieces, wrap, MAX_CPS, transcriptHtml, transcriptText, clock, isoDuration,
+  renderFeature, renderCards, jsonLd, GOOGLE_VIDEO_PROPERTIES,
 };
