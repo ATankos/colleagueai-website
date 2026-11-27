@@ -19,9 +19,9 @@ const SLUG = 'contract-intelligence-and-register';
 const kvf = createFakeKv();
 const stripe = new Stripe('sk_test_LOCAL_DUMMY_NOT_REAL');
 const LINES = {
-  cs_sub: [ // licence 14,900.00 + first month of certification 490.00, both with 21% tax
+  cs_sub: [ // licence 14,900.00 + first month of L4 certification 249.00 (config/pricing.json), both with 21% tax
     { id: 'li_1', object: 'item', amount_subtotal: 1490000, amount_discount: 0, amount_tax: 312900, amount_total: 1802900, price: { id: 'p1', recurring: null } },
-    { id: 'li_2', object: 'item', amount_subtotal: 49000, amount_discount: 0, amount_tax: 10290, amount_total: 59290, price: { id: 'p2', recurring: { interval: 'month' } } },
+    { id: 'li_2', object: 'item', amount_subtotal: 24900, amount_discount: 0, amount_tax: 5229, amount_total: 30129, price: { id: 'p2', recurring: { interval: 'month' } } },
   ],
 };
 let stripeMode = 'ok', handler, licenceNetRevenue, appServer, stripeServer, base, seq = 0;
@@ -71,7 +71,7 @@ test('one-time licence: 10% of the amount before tax, not of the taxed total', a
 });
 
 test('licence + Continuous Certification: no commission on the certification period, nor on tax', async () => {
-  const r = await deliver(session({ id: 'cs_sub', mode: 'subscription', subscription: 'sub_c1', amount_total: 1862190, total_details: { amount_tax: 323190 } }));
+  const r = await deliver(session({ id: 'cs_sub', mode: 'subscription', subscription: 'sub_c1', amount_total: 1833029, total_details: { amount_tax: 318129 } }));
   assert.equal(r.status, 200);
   const e = entry('cs_sub');
   assert.equal(e.commissionBase, 1490000, 'only the perpetual licence line, net of tax');
@@ -88,18 +88,18 @@ test('a partial refund still reverses the refunded share of the commission', asy
 
 test('if the line items cannot be read the event fails, so Stripe retries instead of over-paying', async () => {
   stripeMode = 'down';
-  const r = await deliver(session({ id: 'cs_sub', mode: 'subscription', subscription: 'sub_c2', amount_total: 1862190, total_details: { amount_tax: 323190 } }));
+  const r = await deliver(session({ id: 'cs_sub', mode: 'subscription', subscription: 'sub_c2', amount_total: 1833029, total_details: { amount_tax: 318129 } }));
   assert.equal(r.status, 500);
   assert.equal(entry('cs_sub'), null);
   stripeMode = 'ok';
-  assert.equal((await deliver(session({ id: 'cs_sub', mode: 'subscription', subscription: 'sub_c2', amount_total: 1862190, total_details: { amount_tax: 323190 } }))).status, 200);
+  assert.equal((await deliver(session({ id: 'cs_sub', mode: 'subscription', subscription: 'sub_c2', amount_total: 1833029, total_details: { amount_tax: 318129 } }))).status, 200);
   assert.equal(entry('cs_sub').commission, 1490);
 });
 
 test('licenceNetRevenue: discounts already applied, recurring lines excluded, never negative', async () => {
   const fake = { checkout: { sessions: { listLineItems: async () => ({ data: [
     { amount_total: 1341000, amount_tax: 0, price: { recurring: null } },          // licence after a 10% discount, reverse charge
-    { amount_total: 49000, amount_tax: 0, price: { recurring: { interval: 'month' } } },
+    { amount_total: 24900, amount_tax: 0, price: { recurring: { interval: 'month' } } },
   ] }) } } };
   assert.equal(await licenceNetRevenue(fake, { id: 'x', mode: 'subscription' }), 1341000);
   assert.equal(await licenceNetRevenue(fake, { id: 'x', mode: 'payment', amount_total: 100, total_details: { amount_tax: 300 } }), 0);
