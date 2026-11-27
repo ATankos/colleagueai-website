@@ -18,7 +18,7 @@ Classic branch protection could not be read with the session's token (HTTP 403).
 
 ## 2. How owner bypasses remain possible
 
-1. **The review ruleset names the Repository admin role as a bypass actor, for pull requests.** The owner account is that admin. GitHub therefore offers "Merge without waiting for requirements to be met (bypass rules)" on every pull request. Each of the 58 merges listed in R1 used it.
+1. **The review ruleset names the Repository admin role as a bypass actor, for pull requests.** The owner account is that admin. GitHub therefore offers "Merge without waiting for requirements to be met (bypass rules)" on every pull request. Each of the 59 merges listed in R1 used it.
 2. **There is no second person who could approve.** GitHub never counts an author's own approval. Every pull request so far has been authored and merged from the owner's account (including those prepared in this session). So a required approval can only come from a second account with write access, and none is set up.
 3. **The status-check ruleset has no bypass actors and was honoured.** Checks passed before each merge. The gap is review only.
 
@@ -27,8 +27,9 @@ Classic branch protection could not be read with the session's token (HTTP 403).
 - #573–#578
 - #580–#584
 - #587
+- #588 (27 Nov 2026, 05:36 UTC)
 
-That is 58 pull requests. #579 was merged into a feature branch and is not counted. The same list is in `release-gates-abc.md` R1.
+That is 59 pull requests. #579 was merged into a feature branch and is not counted. The same list is in `release-gates-abc.md` R1.
 
 ## 3. The minimum change for genuinely independent review
 

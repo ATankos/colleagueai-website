@@ -296,10 +296,26 @@ No price change is proposed; prices change only with the founder's explicit auth
 | Area | Requirement |
 |---|---|
 | Operational | Dry run passed (P1 exit); weekly monitoring with no gap for 12 weeks; reviewer contracted; CRA SRP account registered |
-| Technical | T1: Gate C passed for every covered release. T2: subscription checkout and webhooks tested on Preview. T3: certificate four-axis state implemented and tested (§2.1). T4: production acceptance re-run |
+| Technical | T1: Gate C passed for every covered release. T2: subscription checkout and webhooks tested on Preview. T3: certificate four-axis state implemented and tested (§2.1). T4: production acceptance re-run T5: **certificate evidence-log recovery and reconciliation** (see below) |
 | Legal | Counsel-approved Licence and Terms covering Continuous Certification, the §4.4 correction, suspension and revocation (D17), and cancellation and refund. Applicability assessments done. The privacy notice covers subscription data |
 | Accounting | Tax policy approved for recurring B2B billing (identified-person status); invoice route live |
 | Commercial | Founder's written subscription GO, separate from any agent GO, naming the tiers (L2–L4) and the covered packages within the §7.3 limit; reviewed PR with an independent approval; no administrative bypass |
+
+**T5: certificate evidence-log recovery and reconciliation (residual from #588, required before the subscription GO).**
+
+Since #588, issuance, decisions and release adoptions are written to the record by compare-and-set. They are then appended to the permanent log `certification-evidence:<id>`. If that append fails twice, the record change has already been made and the caller receives an error, so a log entry can be missing.
+
+Before any subscription is sold, all of the following must exist and be tested on Preview:
+- **(a) Reconciliation.** A read-only procedure compares, for every certificate:
+  - the frozen `issuance` with the log's `issued` entry;
+  - the current `decision` and adoptions in the bounded history with the log's `decision` and `release-adopted` entries.
+  
+  It reports gaps as certificate ids and counts only.
+- **(b) Recovery.** A documented operator step re-appends a missing entry from the record. Each re-appended entry is marked `recovered: true`, with who recovered it and when. This must happen while the source event is still inside the 200-event history window, so reconciliation runs at least weekly once certificates exist.
+- **(c) Detection.** An evidence-append failure is logged with the certificate id (no personal data). The weekly operations check reviews these failures.
+- **(d) Backup.** The evidence keys are included in the KV backup and restore check. A restore test is recorded.
+
+Until T5 is complete, the subscription GO cannot be recorded. This is a readiness requirement, not new functionality; under the freeze it is implemented as an approved operational change.
 
 ## 9. Decisions
 
