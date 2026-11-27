@@ -785,5 +785,11 @@
     "api/*.js": {
       "includeFiles": "{config/agents/*.json,config/release-gates.json,scripts/cai-release/*/release-candidate.json}"
     }
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/certification-reconcile",
+      "schedule": "17 4 * * *"
+    }
+  ]
 }

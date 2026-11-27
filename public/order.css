@@ -1,7 +1,7 @@
 /* order.css - post-purchase pages (/api/success). Served as a file because the site CSP
  * blocks inline <style>. Tokens match the site (agents.html :root). */
 :root{
-  --terra:#C65D3A;--terra-solid:#A94A2C;--terra-deep:#9E3D22;--terra-soft:#E8A07F;
+  --terra:#A94A2C;--terra-solid:#A94A2C;--terra-deep:#9E3D22;--terra-soft:#E8A07F;
   --graphite:#2B2A28;--graphite-soft:#54514C;
   --paper:#FBF8F2;--cream:#F5F0E8;--cream-2:#EFE8DC;
   --line:#E2D9CB;--line-soft:#EAE2D4;--muted:#6B655E;

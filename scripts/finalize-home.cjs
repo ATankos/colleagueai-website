@@ -46,7 +46,7 @@ if (fs.existsSync(path.join(dist, "index.html"))) {
     const EN_DESC = "Book a 30-minute guided evaluation of Contract Intelligence &amp; Register on sample contracts in a test tenant, with the review step and the register on screen.";
     const EN_H1 = ">Book a demo</h1>";
     const EN_P = "A 30-minute guided evaluation of Contract Intelligence &amp; Register on sample contracts in a test tenant, with the review step and the register on screen. The booking form needs JavaScript to load; if it does not appear, email us with your company, what you would like to see and a preferred time.";
-    const EN_BROWSE = '<a href="/agents" style="color:#C65D3A;font-weight:600;">Browse the catalogue</a>';
+    const EN_BROWSE = '<a href="/agents" style="color:#A94A2C;font-weight:600;">Browse the catalogue</a>';
     for (const [loc, t] of Object.entries(DEMO_L10N)) {
       let page = idx
         .replace('<html lang="en">', `<html lang="${loc}">`)
@@ -56,7 +56,7 @@ if (fs.existsSync(path.join(dist, "index.html"))) {
         .replace('<meta property="og:url" content="https://www.colleagueai.ai/demo" />', `<meta property="og:url" content="https://www.colleagueai.ai/${loc}/demo" />`)
         .replace(EN_H1, `>${t.h1}</h1>`)
         .replace(EN_P, t.p)
-        .replace(EN_BROWSE, `<a href="${t.agents}" style="color:#C65D3A;font-weight:600;">${t.browse}</a>`);
+        .replace(EN_BROWSE, `<a href="${t.agents}" style="color:#A94A2C;font-weight:600;">${t.browse}</a>`);
       fs.mkdirSync(path.join(dist, loc), { recursive: true });
       fs.writeFileSync(path.join(dist, loc, "demo.html"), page);
     }

@@ -42,6 +42,13 @@ corrective release. A corrective release is part of the perpetual licence of the
 | `b4` | A corrective release that fixes a defect in a version you bought is part of your perpetual licence for that version, at no further licence fee, whether or not you subscribe. Corrective releases do not add later feature releases to your licence. |
 | `b4_v` | corrective releases for the version you bought |
 
-The seven other languages still carry the previous wording ("security fixes reach every licensee ..."). They must be
-re-translated from the English above by a native reviewer, and the table above recorded, before the change reaches them.
-Until then those pages overstate the corrective-release benefit and must not be presented as the reviewed copy.
+**Round 2 (27 Nov 2026): preliminary translations added.** `b4` and `b4_v` are now translated from the English above
+for cs, de, fr, es, it, pl and pt, so the live pages no longer say that security fixes reach "every licensee".
+These translations were written by the engineering assistant. **They have NOT been approved by a native speaker** and must
+not be described as reviewed. The rows in the table above stay `pending`. Points for the reviewer:
+
+- "corrective release" is rendered as: cs *opravná verze*, de *Korrektur-Release*, fr *version corrective*, es *versión correctiva*,
+  it *versione correttiva*, pl *wersja korygująca*, pt *versão corretiva*. Confirm these match the licence agreement's terms.
+- The perpetual licence is "licencja bezterminowa" (pl), "unbefristete Lizenz" (de), "licence perpétuelle" (fr). Confirm against the licence.
+- The sentence "Corrective releases do not add later feature releases to your licence" is deliberately explicit; do not soften it.
+- The `lic_note` key (security fixes and legally required remediation need no subscription) was not changed in this round.

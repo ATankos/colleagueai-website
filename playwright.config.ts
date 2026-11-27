@@ -32,6 +32,25 @@ export default defineConfig({
     {
       name: "mobile-chrome",
       use: { ...devices["Pixel 5"] }
+    },
+    {
+      // Tablet portrait (800x1280), Chromium engine: runs wherever Chromium is installed.
+      name: "chromium-tablet",
+      use: { ...devices["Galaxy Tab S4"] }
+    },
+    /* Other engines. They need `npx playwright install firefox webkit` (with system deps on Linux) and are not part of
+       the default CI job; run them with --project=firefox-desktop / webkit-desktop / mobile-safari. */
+    {
+      name: "firefox-desktop",
+      use: { ...devices["Desktop Firefox"] }
+    },
+    {
+      name: "webkit-desktop",
+      use: { ...devices["Desktop Safari"] }
+    },
+    {
+      name: "mobile-safari",
+      use: { ...devices["iPhone 13"] }
     }
   ]
 });

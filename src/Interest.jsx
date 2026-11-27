@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import AVAILABILITY from '../config/availability.json';
 import { IL } from './i18n/interestCopy.js';
 
-const C = { paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641' };
+const C = { paper:'#FBF8F2', graphite:'#2B2A28', terra:'#A94A2C', line:'#E2D9CB', soft:'#4A4641' };
 
 const TECH = ['m365-copilot', 'copilot-studio', 'power-platform', 'azure', 'other', 'not-sure'];
 const TIMEFRAME = ['0-3-months', '3-6-months', '6-12-months', '12-plus-months', 'exploring'];

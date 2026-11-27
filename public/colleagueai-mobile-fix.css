@@ -31,7 +31,7 @@
   --cai-cream: #f5f0e8;
   --cai-paper: #fbf8f2;
   --cai-muted: #68635b;
-  --cai-orange: #c65d3a;
+  --cai-orange: #a94a2c;
   --cai-mobile-padding: 16px;
 }
 
@@ -557,9 +557,9 @@ body.cai-imprint-page > main {
    ========================================================================= */
 
 /* Unify the brand orange everywhere: the logo "AI" accent and every
-   "Book a demo" CTA use the darker terracotta (#c65d3a), never the pale peach,
+   "Book a demo" CTA use the darker terracotta (#a94a2c), never the pale peach,
    so the home page and all sub-pages match. */
-.logo b, header .logo b, .cai-hdr-logo b, .cai-uni-logo b { color: #c65d3a !important; }
+.logo b, header .logo b, .cai-hdr-logo b, .cai-uni-logo b { color: #E8A07F !important; }
 
 .cai-uni-demo, a.cai-mobile-demo {
   background:var(--terra-solid,#A94A2C) !important;
@@ -586,7 +586,7 @@ body.cai-imprint-page > main {
 .stats .l, .pl-label { color: #6b655e !important; font-weight: 600 !important; }
 /* Reviewer asked whether the headline numbers could carry the brand orange for
    emphasis - they now do, which lifts them without restructuring the strip. */
-.stats .n { color: #c65d3a !important; }
+.stats .n { color: #a94a2c !important; }
 
 /* Readiness quiz: it sat indented ~168px from the left; align it with the rest
    of the page content ("this table I'd align to the left"). */
@@ -623,7 +623,7 @@ body.cai-imprint-page > main {
   font-weight: 700 !important;
   text-align: left !important;
   padding: 12px 14px !important;
-  border-bottom: 2px solid #c65d3a !important;
+  border-bottom: 2px solid #a94a2c !important;
   font-family: var(--cai-ui-font) !important;
 }
 .cai-table-scroll > table td,
@@ -699,7 +699,7 @@ a[href="#readiness"]:not(.cainav-spy):not(.cai-uni-demo) {
    NB: .pl-label is deliberately excluded - it keeps its neutral treatment. */
 .eyebrow, .kicker, .overline,
 [class*="eyebrow"], [class*="kicker"], [class*="overline"] {
-  color: #c65d3a !important;
+  color: #a94a2c !important;
   text-transform: uppercase !important;
   font-weight: 600 !important;
   letter-spacing: 0.08em !important;
@@ -747,7 +747,7 @@ header .cai-hdr-logo::after,
   width: 26px;
   height: 6px;
   pointer-events: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='6'%3E%3Ccircle cx='3' cy='3' r='3' fill='%23c65d3a'/%3E%3Ccircle cx='12' cy='3' r='3' fill='%23f5f0e8'/%3E%3Ccircle cx='21' cy='3' r='3' fill='%23c4a882'/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='6'%3E%3Ccircle cx='3' cy='3' r='3' fill='%23a94a2c'/%3E%3Ccircle cx='12' cy='3' r='3' fill='%23f5f0e8'/%3E%3Ccircle cx='21' cy='3' r='3' fill='%23c4a882'/%3E%3C/svg%3E") no-repeat;
   background-size: 26px 6px;
 }
 
@@ -767,7 +767,7 @@ footer a{padding-block:5px}
 #cai-view-intro .cai-vi-in{background:#fff;border:1px solid #E7E0D5;border-radius:16px;padding:22px 24px}
 #cai-view-intro h2{margin:0 0 8px;font-size:22px}
 #cai-view-intro p{margin:0 0 6px;line-height:1.55;color:#4A453E}
-#cai-view-intro .cai-vi-links a{color:#c65d3a;font-weight:700;text-decoration:none}
+#cai-view-intro .cai-vi-links a{color:#a94a2c;font-weight:700;text-decoration:none}
 @media (max-width:767px){#cai-view-tabs{top:56px;overflow-x:auto}}
 
 /* cai-home-final-contrast
@@ -780,3 +780,8 @@ header .logo b {
 body > main#main .kicker {
   color: #8F3F25 !important;
 }
+
+/* Round 3: keyboard-focusable table scroll regions need a visible focus ring (WCAG 2.4.7). */
+.cai-table-scroll:focus-visible { outline: 2px solid #A94A2C; outline-offset: 2px; }
+/* Round 3: a link inside running text must not rely on colour alone (WCAG 1.4.1; seen at tablet width). */
+.cai-privacy a { text-decoration: underline !important; text-underline-offset: 2px; }

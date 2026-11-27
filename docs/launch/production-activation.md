@@ -43,7 +43,7 @@ Never in Production (refused or ignored with a live key, but keep them out): `TA
 
 Endpoint `https://www.colleagueai.ai/api/webhook`. Events: `checkout.session.completed`,
 `checkout.session.async_payment_succeeded`, `checkout.session.async_payment_failed`, `checkout.session.expired`,
-`charge.refunded`, `charge.dispute.created`, `charge.dispute.closed`, `customer.tax_id.created`,
+`charge.refunded`, `charge.dispute.created`, `charge.dispute.updated`, `charge.dispute.closed`, `customer.tax_id.created`,
 `customer.tax_id.updated`, `customer.subscription.updated`, `customer.subscription.deleted`.
 
 ## D. Order of operations
