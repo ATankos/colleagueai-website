@@ -127,6 +127,11 @@ test('the video slot stays hidden until an approved same-origin video with capti
   assert.ok(src.includes("LOCALES.every((l) => typeof caps[l] === 'string'"), 'captions for every language are required');
 });
 
+test('/certified never says the certificate reflects the version a customer runs (ColleagueAI never verifies deployments)', () => {
+  for (const l of LOCALES) assert.doesNotMatch(C[l].owe, /actually running|tatsächlich betriebene|réellement utilisée|realmente utiliza|effettivamente in uso|faktycznie używaną|efetivamente em uso|skutečně provozujete/, l);
+  assert.match(C.en.owe, /does not inspect your environment/);
+});
+
 test('/certified is in the Lighthouse accessibility regression set', () => {
   assert.ok(readFileSync(new URL('scripts/run-lhci.mjs', ROOT), 'utf8').includes('/certified`'));
 });
