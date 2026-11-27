@@ -11,7 +11,7 @@ import Interest from './Interest.jsx';
 import './demo.css';
 import { IL } from './i18n/interestCopy.js';
 
-const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#C65D3A', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
+const C = { cream:'#F5F0E8', paper:'#FBF8F2', graphite:'#2B2A28', terra:'#A94A2C', line:'#E2D9CB', soft:'#4A4641', muted:'#8A857C' };
 const sans = 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
 
 // Pillar labels match the live catalogue taxonomy (public/*/agents.html chip

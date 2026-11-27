@@ -70,10 +70,21 @@ function run(command, args, options) {
   });
 }
 
+/* The browser suites must run against what is deployed: the build output (dist/), not the committed public/ folder.
+   Build steps inject the unified header, externalized assets and localized SEO, so public/ is not what a visitor
+   receives; serving it made 20 navigation and language-switch tests fail for a reason no visitor would ever see.
+   PLAYWRIGHT_STATIC_ROOT=public restores the old behaviour for debugging only. */
+const staticRoot = process.env.PLAYWRIGHT_STATIC_ROOT || "dist";
+
 async function main() {
+  const fs = require("fs");
+  if (!fs.existsSync(require("path").join(staticRoot, "index.html"))) {
+    console.error("run-playwright-static: " + staticRoot + "/index.html is missing. Run `npm run build` first.");
+    process.exit(1);
+  }
   const server = spawn(
     process.execPath,
-    ["scripts/playwright-static-server.cjs", "public", String(port)],
+    ["scripts/playwright-static-server.cjs", staticRoot, String(port)],
     {
       stdio: "inherit",
       shell: false,

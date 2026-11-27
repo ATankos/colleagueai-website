@@ -60,7 +60,7 @@ function videoSlot(t, loc) {
 const CSS = `
 .cc-pillar{margin:48px auto;max-width:1080px;padding:28px 24px;border:1px solid #d8d2c6;border-radius:18px;background:#fff;color:#1d1b1a}
 .cc-pillar .cc-msg{font-size:clamp(22px,3.4vw,32px);line-height:1.2;margin:0 0 10px;font-weight:700}
-.cc-pillar .cc-msg span{display:block}.cc-pillar .cc-msg span+span{color:#C65D3A}
+.cc-pillar .cc-msg span{display:block}.cc-pillar .cc-msg span+span{color:#A94A2C}
 .cc-pillar .cc-sub{max-width:68ch;margin:0 0 12px;line-height:1.6}
 .cc-pillar .cc-lic{max-width:68ch;margin:0 0 14px;font-size:14px;line-height:1.5;color:#3d3a35}
 .cc-pillar .cc-soon{display:inline-block;font-size:13px;background:#FBF2EE;border:1px solid #E4C7BA;border-radius:100px;padding:4px 12px;margin:0 0 18px}
