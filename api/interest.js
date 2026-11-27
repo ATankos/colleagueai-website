@@ -46,10 +46,25 @@ const first = (v) => (Array.isArray(v) ? v[0] : v);
 const clean = (v, max) => (typeof v === 'string' ? v.trim().replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').slice(0, max) : '');
 const pick = (v, list) => (list.includes(v) ? v : null);
 
+/**
+ * CAI-AUD-002: the keyed secret used for every pseudonymous key. There is NO public fallback constant: a key derived
+ * from a known constant can be recomputed from an email address by anyone who reads the store. Returns null when
+ * unset; registrations then refuse (see handler), and counters/rate limits use a random per-process key instead.
+ */
+export function keyedSecret() {
+  return process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || null;
+}
+let ephemeralKey = null;
+/** Key for rate limits and anonymous counters: the configured secret, else a random key held only in memory. */
+function counterSecret() {
+  if (keyedSecret()) return keyedSecret();
+  ephemeralKey ??= crypto.randomBytes(32).toString('hex');
+  return ephemeralKey;
+}
+
 /** A per-day salted hash of the client address: rate limiting without keeping a plain IP in the store. */
 function ipKey(req) {
-  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
-  return crypto.createHmac('sha256', salt).update(clientIp(req) + '|' + new Date().toISOString().slice(0, 10)).digest('hex').slice(0, 24);
+  return crypto.createHmac('sha256', counterSecret()).update(clientIp(req) + '|' + new Date().toISOString().slice(0, 10)).digest('hex').slice(0, 24);
 }
 
 const BOT_UA = /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|monitor|curl|wget|python-requests|httpclient|axios|node-fetch|go-http|java\//i;
@@ -58,9 +73,8 @@ export function isBot(req) {
   return !ua || BOT_UA.test(ua);
 }
 function viewKey(req, agent) {
-  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
   const ua = String(first(req.headers?.['user-agent']) || '').slice(0, 200);
-  return crypto.createHmac('sha256', salt).update([clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|')).digest('hex').slice(0, 32);
+  return crypto.createHmac('sha256', counterSecret()).update([clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|')).digest('hex').slice(0, 32);
 }
 
 function clientIp(req) {
@@ -69,9 +83,9 @@ function clientIp(req) {
   return first(req.headers['x-real-ip']) || req.socket?.remoteAddress || 'unknown';
 }
 
+/** Duplicate marker for a registration. Only ever built with the keyed secret (the handler refuses without one). */
 function dedupeKey(email, agent) {
-  const salt = process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || 'colleagueai-interest';
-  return 'interest:seen:' + crypto.createHmac('sha256', salt).update(email.toLowerCase() + '|' + agent).digest('hex').slice(0, 32);
+  return 'interest:seen:' + crypto.createHmac('sha256', keyedSecret()).update(email.toLowerCase() + '|' + agent).digest('hex').slice(0, 32);
 }
 
 export default async function handler(req, res) {
@@ -102,6 +116,12 @@ export default async function handler(req, res) {
   // Gate B: no personal data is read, checked or stored unless collection has been switched on.
   if (!collectionEnabled()) {
     return res.status(503).json({ error: 'Interest registration is not open yet. Please email hello@colleagueai.ai.', code: 'interest_collection_disabled' });
+  }
+  // CAI-AUD-002: a registration needs the keyed secret for its duplicate marker. Without it, refuse; never store
+  // personal data under a predictable key.
+  if (!keyedSecret()) {
+    console.error('[interest] INTEREST_DEDUPE_SALT (or DOWNLOAD_TOKEN_SECRET) is not set: registration refused');
+    return res.status(503).json({ error: 'We could not record your registration just now. Please email hello@colleagueai.ai.', code: 'interest_not_configured' });
   }
 
   const availability = publicStatus(agent);

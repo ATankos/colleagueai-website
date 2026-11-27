@@ -14,6 +14,7 @@ import assert from 'node:assert';
 import http from 'node:http';
 import { readFileSync } from 'node:fs';
 import { casServe } from './kv-cas-fake.mjs';
+process.env.ACCEPTANCE_SALT ??= 'test-fixture-acceptance-salt'; // CAI-AUD-006: fingerprints need a keyed secret
 // This suite tests checkout behaviour across buyer categories, currencies and payment methods; the first-sale
 // launch scope (CZ businesses, USD, card) has its own suite, tests/launch-scope.test.mjs. Test keys only.
 process.env.LAUNCH_SCOPE_TEST_BYPASS = '1';

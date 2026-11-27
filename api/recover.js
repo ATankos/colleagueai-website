@@ -21,6 +21,7 @@
 import { getEntitlement, getCertificationForHolder, rateLimit } from '../lib/db.js';
 import { productFor } from '../lib/products.js';
 import { releaseToDeliver } from '../lib/releaseAccess.js';
+import { createHmac } from 'node:crypto';
 import { openRecovery, RECOVERY_TTL_SECONDS } from '../lib/recoveryToken.js';
 import { emailKey, normaliseEmail, recoverableSlugs, recoveryAvailable, recoveryEnabled, sendRecoveryEmail, SUPPORT_EMAIL } from '../lib/recovery.js';
 import { ot, pickOrderLang } from '../lib/orderI18n.js';
@@ -47,6 +48,12 @@ function clientIp(req) {
   const fwd = first(req.headers?.['x-forwarded-for']);
   if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
   return first(req.headers?.['x-real-ip']) || req.socket?.remoteAddress || 'unknown';
+}
+
+// The rate-limit key holds a keyed hash of the address, never the address (same rule as api/demo-booking.js, CAI-AUD-005).
+// Recovery only runs with DOWNLOAD_TOKEN_SECRET set (recoveryAvailable), so that secret is always present here.
+function ipKey(req) {
+  return createHmac('sha256', process.env.DOWNLOAD_TOKEN_SECRET || '').update(clientIp(req)).digest('hex').slice(0, 32);
 }
 
 /** Browsers submitting the form ask for HTML; anything that asks for JSON, or nothing, gets JSON. */
@@ -181,7 +188,7 @@ async function handlePost(req, res, lang) {
 
   // Count first, look up second: the count is the same whether or not the address has an order.
   try {
-    const clientOk = await rateLimit(`recover:ip:${clientIp(req)}`, PER_CLIENT.max, PER_CLIENT.windowSeconds);
+    const clientOk = await rateLimit(`recover:ip:${ipKey(req)}`, PER_CLIENT.max, PER_CLIENT.windowSeconds);
     const addressOk = await rateLimit(`recover:email:${emailKey(email)}`, PER_ADDRESS.max, PER_ADDRESS.windowSeconds);
     if (!clientOk || !addressOk) return refuse(429, 'Too many requests', 'rate_limited', limitPage(lang));
   } catch (err) {

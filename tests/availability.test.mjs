@@ -74,6 +74,7 @@ before(async () => {
   process.env.KV_REST_API_TOKEN = 'local-dummy-token';
   delete process.env.RESEND_API_KEY; delete process.env.DEMO_NOTIFY_EMAIL;
   process.env.INTEREST_COLLECTION_ENABLED = 'true'; // each Gate B test below sets its own state
+process.env.INTEREST_DEDUPE_SALT ??= 'test-fixture-interest-salt'; // CAI-AUD-002: registrations need a keyed secret
   ({ default: interest } = await import('../api/interest.js'));
   ({ default: checkout } = await import('../api/checkout.js'));
 });

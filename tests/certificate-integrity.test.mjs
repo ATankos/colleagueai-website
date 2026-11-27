@@ -15,6 +15,7 @@ const kvStore = new Map();
 const lists = new Map();
 let interfere = null;   // (key) => void: runs once, just before the next compare-and-set is applied
 let kvFail = false;
+let rpushFailures = 0; // CAI-AUD-003: make the next N evidence appends fail (simulates a store error mid-issuance)
 const kvServer = http.createServer((req, res) => {
   if (kvFail) { res.writeHead(500); return res.end('forced failure'); }
   if (req.method === 'POST') {
@@ -28,6 +29,7 @@ const kvServer = http.createServer((req, res) => {
     if (flags.includes('NX') && kvStore.has(key)) return reply(null);
     kvStore.set(key, value); return reply('OK');
   }
+  if (cmd === 'RPUSH' && rpushFailures > 0) { rpushFailures--; res.writeHead(500); return res.end('forced rpush failure'); }
   if (cmd === 'RPUSH') { const l = lists.get(rest[0]) || []; l.push(rest[1]); lists.set(rest[0], l); return reply(l.length); }
   if (cmd === 'LRANGE') return reply([...(lists.get(rest[0]) || [])]);
   if (cmd === 'DEL') { kvStore.delete(rest[0]); return reply(1); }
@@ -44,7 +46,7 @@ before(async () => {
   ({ default: certHandler } = await import('../api/certificate.js'));
 });
 after(() => kvServer.close());
-beforeEach(() => { kvStore.clear(); lists.clear(); interfere = null; kvFail = false; });
+beforeEach(() => { kvStore.clear(); lists.clear(); interfere = null; kvFail = false; rpushFailures = 0; });
 
 const sec = (days) => Math.floor(Date.now() / 1000) + days * 86400;
 const PRODUCT = {
@@ -222,4 +224,19 @@ test('N2. the public endpoint never exposes the evidence log or issuance interna
     certHandler({ query: { id: c.certificateId, format: 'json' } }, res);
   });
   for (const s of ['issuance', 'history', 'CAI-REG-1', 'FC+IR', 'b@example.com', 'sub_1']) assert.ok(!body.includes(s), s);
+});
+
+// CAI-AUD-003: partial issuance. The certificate record is written, then the issuance evidence and the holder link.
+// A store failure between them used to leave a certificate with no issuance evidence and no way for the holder to find
+// it, because the webhook retry returned the existing record untouched.
+test('CAI-AUD-003: a retry after a failed evidence write completes the issuance evidence and the holder link', async () => {
+  const args = { email: 'holder@example.com', slug: 'contract-intelligence-and-register', tier: 'L4', subscriptionId: 'sub_partial', currentPeriodEnd: sec(30), certifiedVersion: '1.0.3.6' };
+  rpushFailures = 2; // the internal retry also fails, so the first issuance throws after the record is written
+  await assert.rejects(() => db.issueCertification(args));
+  const retried = await db.issueCertification(args);
+  const cert = retried.certificate ?? retried;
+  const id = cert.certificateId;
+  const evidence = await db.getCertificateEvidence(id);
+  assert.ok(evidence.some((e) => e.event === 'issued'), 'the issuance must be evidenced after the retry');
+  assert.equal(await db.getCertificationForHolder(args.email, args.slug).then((c) => c?.certificateId), id, 'the holder must be able to find the certificate');
 });

@@ -31,3 +31,17 @@
 ## How to record the review
 - Corrections go into `certified-content.json` in a reviewed PR.
 - The row above is completed with the reviewer, the date and the result.
+
+## CAI-AUD-009 — corrective-release wording (open for native review)
+
+The English source of two keys was clarified in the audit remediation, because "every licensee" overstated who receives a
+corrective release. A corrective release is part of the perpetual licence of the version it corrects, and of no other version.
+
+| Key | English after this change |
+|---|---|
+| `b4` | A corrective release that fixes a defect in a version you bought is part of your perpetual licence for that version, at no further licence fee, whether or not you subscribe. Corrective releases do not add later feature releases to your licence. |
+| `b4_v` | corrective releases for the version you bought |
+
+The seven other languages still carry the previous wording ("security fixes reach every licensee ..."). They must be
+re-translated from the English above by a native reviewer, and the table above recorded, before the change reaches them.
+Until then those pages overstate the corrective-release benefit and must not be presented as the reviewed copy.

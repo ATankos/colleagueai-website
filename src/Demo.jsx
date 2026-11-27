@@ -6,6 +6,7 @@
 import { useEffect, useState } from 'react';
 import PRICING from '../config/pricing.json';
 import PRODUCTS from '../config/products.json';
+import AVAILABILITY from '../config/availability.json';
 import Interest from './Interest.jsx';
 import './demo.css';
 import { IL } from './i18n/interestCopy.js';
@@ -173,8 +174,8 @@ function copy() {
  * The access CTA in the catalogue sends visitors here as
  * /demo?agent=<slug>&tier=<L3>. Reading it means the enquiry names a product
  * instead of arriving blank, which is what sales previously had to guess at.
- * Values are treated as untrusted: slug is pattern-checked, tier is matched
- * against the tiers the catalogue actually ships.
+ * The slug must name an agent in the official registry (config/availability.json). Its tier, name and price come
+ * from that record; a tier in the URL is never trusted (CAI-AUD-004).
  */
 // Indicative one-time package price per CAI tier, in USD, read from the same
 // config the checkout endpoint and the pricing guard use, so the demo form can
@@ -188,14 +189,19 @@ function requestedAgent() {
   if (typeof window === 'undefined') return null;
   const q = new URLSearchParams(window.location.search);
   const slug = (q.get('agent') || '').trim();
-  const tier = (q.get('tier') || '').trim().toUpperCase();
   if (!/^[a-z0-9][a-z0-9-]{2,60}$/.test(slug)) return null;
-  const safeTier = /^L[1-5]$/.test(tier) ? tier : '';
+  // CAI-AUD-004: the official registry is the only source of product facts. An unknown agent is refused, and the
+  // tier, name and price come from its registry record. Any tier sent in the URL is ignored, so a link cannot make the
+  // page quote another tier's price (for example $7,900 for a $14,900 agent).
+  const rec = Object.prototype.hasOwnProperty.call(AVAILABILITY.agents, slug) ? AVAILABILITY.agents[slug] : null;
+  if (!rec) return null;
+  const level = rec.cai?.targetLevel || '';
+  const tier = /^L[1-5]$/.test(level) ? level : '';
   return {
     slug,
-    tier: safeTier,
-    label: slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
-    priceUsd: PACKAGE_PRICE_USD[safeTier] || 0,
+    tier,
+    label: rec.name || slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+    priceUsd: PACKAGE_PRICE_USD[tier] || 0,
     // only an agent with a product record has a released package; everything else is a concept with a dossier
     released: Boolean(PRODUCTS[slug]?.release),
     // the factsheet and catalogue send intent=interest for agents that are not on sale

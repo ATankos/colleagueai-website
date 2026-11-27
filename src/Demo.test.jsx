@@ -216,7 +216,7 @@ describe('Demo agent context', () => {
     render(<Demo />)
 
     expect(screen.getByText(/You are requesting/i)).toBeInTheDocument()
-    expect(screen.getByText('Reconciliation Root Cause Agent')).toBeInTheDocument()
+    expect(screen.getByText('Reconciliation Root-Cause Agent')).toBeInTheDocument()
     expect(screen.getByText(/CAI L3/)).toBeInTheDocument()
   })
 
@@ -282,11 +282,30 @@ describe('Demo agent context', () => {
     expect(screen.queryByLabelText(/Preferred Date/)).not.toBeInTheDocument()
   })
 
-  it('shows no price for a tier that is not sold', () => {
+  it('CAI-AUD-004: a tier in the URL cannot change the flagship price (it is $14,900 at L4, not $7,900 at L2)', () => {
+    const expected = (PRICING.tiers.L4.oneTimeCents / 100).toLocaleString('en-US')
+    visit('/demo?agent=contract-intelligence-and-register&tier=L2')
+    render(<Demo />)
+
+    expect(screen.getByText(new RegExp(`Package price: \\$${expected} \\(one-time\\)`))).toBeInTheDocument()
+    expect(screen.getByText(/CAI L4/)).toBeInTheDocument()
+    expect(screen.queryByText(/\$7,900/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/\$19,900/)).not.toBeInTheDocument()
+  })
+
+  it('CAI-AUD-004: a tier in the URL that disagrees with the registry is ignored', () => {
     visit('/demo?agent=reconciliation-root-cause-agent&tier=L1')
     render(<Demo />)
 
-    expect(screen.getByText(/You are requesting/i)).toBeInTheDocument()
+    expect(screen.getByText(/CAI L3/)).toBeInTheDocument()
+    expect(screen.queryByText(/CAI L1/)).not.toBeInTheDocument()
+  })
+
+  it('CAI-AUD-004: an agent slug that is not in the registry is refused, not presented as a product', () => {
+    visit('/demo?agent=made-up-agent-xyz&tier=L4')
+    render(<Demo />)
+
+    expect(screen.queryByText(/You are requesting/i)).not.toBeInTheDocument()
     expect(screen.queryByText(/Package price/)).not.toBeInTheDocument()
   })
 

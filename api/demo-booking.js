@@ -22,6 +22,7 @@
  * DEMO_NOTIFY_EMAIL set the booking is also emailed; without them the lead is
  * still durable and readable via listLeads('demo').
  */
+import crypto from 'node:crypto';
 import { rateLimit, saveLead, incrDemand } from '../lib/db.js';
 
 const MAX = { email: 254, company: 200, role: 120, timeZone: 60 };
@@ -35,6 +36,17 @@ function clientIp(req) {
   const fwd = first(req.headers['x-forwarded-for']);
   if (typeof fwd === 'string' && fwd) return fwd.split(',')[0].trim();
   return first(req.headers['x-real-ip']) || req.socket?.remoteAddress || 'unknown';
+}
+
+// CAI-AUD-005: the rate-limit key holds a keyed hash of the client address, never the address itself. The key expires
+// with its window (3600 s, lib/db.js rateLimit), so nothing identifying outlives the hour. Without a configured secret
+// a random per-process key is used: counting still works within one instance, and no plain address is ever stored.
+let ephemeralRateKey = null;
+
+export function rateLimitKey(req) {
+  const secret = process.env.RATE_LIMIT_SECRET || process.env.DOWNLOAD_TOKEN_SECRET;
+  if (!secret) ephemeralRateKey ??= crypto.randomBytes(32).toString('hex');
+  return crypto.createHmac('sha256', secret || ephemeralRateKey).update(clientIp(req)).digest('hex').slice(0, 32);
 }
 
 /** Trim, cap length, and reject anything that isn't a plain string. */
@@ -82,7 +94,7 @@ export default async function handler(req, res) {
   // Fails closed — if the store is unreachable we cannot record a booking
   // anyway, so accepting more of them would only lose them faster.
   try {
-    const ok = await rateLimit(`demo:${clientIp(req)}`, 5, 3600);
+    const ok = await rateLimit(`demo:${rateLimitKey(req)}`, 5, 3600);
     if (!ok) {
       return res.status(429).json({
         error: 'Too many demo requests from this address. Please email hello@colleagueai.ai.',
