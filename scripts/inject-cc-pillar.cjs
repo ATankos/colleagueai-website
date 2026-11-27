@@ -1,7 +1,8 @@
 /* inject-cc-pillar.cjs: make Continuous Certification a visible commercial pillar on every main page.
  *
  * Inserts the ONE shared block (scripts/lib/cc-pillar.cjs) into the built site:
- *   home (with the video slot) and pricing                       full: message, ten benefits with status, comparison
+ *   home and pricing                                             full: message, ten benefits with status, comparison
+ *   (the Continuous Certification video plays on /certified; home and pricing link to it: scripts/inject-videos.cjs)
  *   agent catalogue, every agent factsheet, Trust Center, CAI Score, partner programme    compact: message and benefit titles
  * in the page's own language, linking to the page's localized Continuous Certification page.
  *
@@ -22,7 +23,7 @@ const certifiedUrl = (loc) => {
   return loc === 'en' ? `/${slug}` : `/${loc}/${slug}`;
 };
 
-const FULL = { home: { variant: 'full', withVideo: true }, pricing: { variant: 'full' } };
+const FULL = { home: { variant: 'full' }, pricing: { variant: 'full' } };
 const COMPACT = ['agents', 'trust', 'score', 'partners'];
 
 function candidates(loc) {

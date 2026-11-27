@@ -1,0 +1,99 @@
+{
+  "_comment": "Video titles, descriptions, disclosures, calls to action and player interface strings, in the eight site languages. Every disclosure states the video's limits next to it (illustrative content, Coming soon status, planning estimates). Engineering drafts pending native-language review, like the captions.",
+  "languages": { "en": "English", "cs": "Čeština", "de": "Deutsch", "fr": "Français", "es": "Español", "it": "Italiano", "pl": "Polski", "pt": "Português" },
+  "ui": {
+    "play":       { "en": "Play video", "cs": "Přehrát video", "de": "Video abspielen", "fr": "Lire la vidéo", "es": "Reproducir vídeo", "it": "Riproduci il video", "pl": "Odtwórz wideo", "pt": "Reproduzir vídeo" },
+    "duration":   { "en": "Duration", "cs": "Délka", "de": "Dauer", "fr": "Durée", "es": "Duración", "it": "Durata", "pl": "Czas trwania", "pt": "Duração" },
+    "subtitles":  { "en": "Subtitles", "cs": "Titulky", "de": "Untertitel", "fr": "Sous-titres", "es": "Subtítulos", "it": "Sottotitoli", "pl": "Napisy", "pt": "Legendas" },
+    "off":        { "en": "Off", "cs": "Vypnuto", "de": "Aus", "fr": "Désactivés", "es": "Desactivados", "it": "Disattivati", "pl": "Wyłączone", "pt": "Desativadas" },
+    "transcript": { "en": "Transcript", "cs": "Přepis", "de": "Transkript", "fr": "Transcription", "es": "Transcripción", "it": "Trascrizione", "pl": "Transkrypcja", "pt": "Transcrição" },
+    "fullscreen": { "en": "Full screen", "cs": "Celá obrazovka", "de": "Vollbild", "fr": "Plein écran", "es": "Pantalla completa", "it": "Schermo intero", "pl": "Pełny ekran", "pt": "Ecrã inteiro" },
+    "watch":      { "en": "Watch", "cs": "Přehrát", "de": "Ansehen", "fr": "Regarder", "es": "Ver", "it": "Guarda", "pl": "Obejrzyj", "pt": "Ver" },
+    "videos":     { "en": "Videos", "cs": "Videa", "de": "Videos", "fr": "Vidéos", "es": "Vídeos", "it": "Video", "pl": "Filmy", "pt": "Vídeos" },
+    "burned":     { "en": "English subtitles are part of the picture. Other languages appear below the video.",
+                    "cs": "Anglické titulky jsou součástí obrazu. Ostatní jazyky se zobrazují pod videem.",
+                    "de": "Englische Untertitel sind ins Bild eingebettet. Andere Sprachen erscheinen unter dem Video.",
+                    "fr": "Les sous-titres anglais font partie de l'image. Les autres langues s'affichent sous la vidéo.",
+                    "es": "Los subtítulos en inglés forman parte de la imagen. Los demás idiomas aparecen debajo del vídeo.",
+                    "it": "I sottotitoli in inglese sono parte dell'immagine. Le altre lingue compaiono sotto il video.",
+                    "pl": "Angielskie napisy są częścią obrazu. Pozostałe języki pojawiają się pod filmem.",
+                    "pt": "As legendas em inglês fazem parte da imagem. Os outros idiomas aparecem por baixo do vídeo." }
+  },
+  "cta": {
+    "catalogue": { "en": "See the agent catalogue", "cs": "Prohlédněte si katalog agentů", "de": "Zum Agentenkatalog", "fr": "Voir le catalogue d'agents", "es": "Ver el catálogo de agentes", "it": "Vedi il catalogo degli agenti", "pl": "Zobacz katalog agentów", "pt": "Ver o catálogo de agentes" },
+    "demo":      { "en": "Book a demo", "cs": "Domluvit ukázku", "de": "Demo buchen", "fr": "Réserver une démo", "es": "Reservar una demo", "it": "Prenota una demo", "pl": "Umów demo", "pt": "Marcar uma demonstração" },
+    "partner":   { "en": "Apply to partner", "cs": "Požádat o partnerství", "de": "Als Partner bewerben", "fr": "Devenir partenaire", "es": "Solicitar ser socio", "it": "Diventa partner", "pl": "Zostań partnerem", "pt": "Candidatar-se a parceiro" },
+    "certified": { "en": "Read about Continuous Certification", "cs": "Více o Continuous Certification", "de": "Mehr zu Continuous Certification", "fr": "En savoir plus sur Continuous Certification", "es": "Más sobre Continuous Certification", "it": "Scopri Continuous Certification", "pl": "Więcej o Continuous Certification", "pt": "Saber mais sobre Continuous Certification" },
+    "factsheet": { "en": "Read the factsheet", "cs": "Přečtěte si produktový list", "de": "Zum Datenblatt", "fr": "Lire la fiche produit", "es": "Leer la ficha del producto", "it": "Leggi la scheda prodotto", "pl": "Przeczytaj kartę produktu", "pt": "Ler a ficha do produto" }
+  },
+  "videos": {
+    "corporate": {
+      "title": { "en": "Introducing ColleagueAI", "cs": "Představujeme ColleagueAI", "de": "ColleagueAI im Überblick", "fr": "Découvrir ColleagueAI", "es": "Presentación de ColleagueAI", "it": "Presentazione di ColleagueAI", "pl": "Poznaj ColleagueAI", "pt": "Apresentação da ColleagueAI" },
+      "description": {
+        "en": "What ColleagueAI builds: governed AI agents that run inside your Microsoft environment, with human approval and a recorded trail.",
+        "cs": "Co ColleagueAI vytváří: řízené AI agenty, kteří běží ve vašem prostředí Microsoft, se schválením člověkem a se zaznamenanou stopou.",
+        "de": "Was ColleagueAI entwickelt: gesteuerte KI-Agenten, die in Ihrer Microsoft-Umgebung laufen, mit menschlicher Freigabe und nachvollziehbarer Protokollierung.",
+        "fr": "Ce que conçoit ColleagueAI : des agents d'IA encadrés qui fonctionnent dans votre environnement Microsoft, avec approbation humaine et traçabilité.",
+        "es": "Lo que crea ColleagueAI: agentes de IA gobernados que funcionan en su entorno de Microsoft, con aprobación humana y un registro trazable.",
+        "it": "Cosa realizza ColleagueAI: agenti di IA governati che operano nel vostro ambiente Microsoft, con approvazione umana e tracciabilità.",
+        "pl": "Co tworzy ColleagueAI: nadzorowanych agentów AI działających w Twoim środowisku Microsoft, z akceptacją człowieka i zapisem działań.",
+        "pt": "O que a ColleagueAI cria: agentes de IA governados que funcionam no seu ambiente Microsoft, com aprovação humana e registo das ações." },
+      "disclosure": {
+        "en": "The finance example is illustrative, not a product recording. Every agent is coming soon; Contract Intelligence & Register is the first.",
+        "cs": "Příklad z financí je ilustrativní, nejde o záznam produktu. Všichni agenti mají stav Připravujeme; prvním je Contract Intelligence & Register.",
+        "de": "Das Finanzbeispiel ist illustrativ und keine Produktaufnahme. Alle Agenten sind als Demnächst gekennzeichnet; Contract Intelligence & Register ist der erste.",
+        "fr": "L'exemple financier est illustratif et ne montre pas le produit. Tous les agents sont « Bientôt disponible » ; Contract Intelligence & Register est le premier.",
+        "es": "El ejemplo financiero es ilustrativo, no una grabación del producto. Todos los agentes están en «Próximamente»; Contract Intelligence & Register es el primero.",
+        "it": "L'esempio finanziario è illustrativo, non una registrazione del prodotto. Tutti gli agenti sono «Prossimamente»; Contract Intelligence & Register è il primo.",
+        "pl": "Przykład finansowy ma charakter poglądowy i nie jest nagraniem produktu. Wszyscy agenci mają status „Wkrótce”; pierwszym jest Contract Intelligence & Register.",
+        "pt": "O exemplo financeiro é ilustrativo, não uma gravação do produto. Todos os agentes estão «Em breve»; o Contract Intelligence & Register é o primeiro." }
+    },
+    "install": {
+      "title": { "en": "Installing Contract Intelligence & Register", "cs": "Instalace Contract Intelligence & Register", "de": "Contract Intelligence & Register installieren", "fr": "Installer Contract Intelligence & Register", "es": "Instalación de Contract Intelligence & Register", "it": "Installare Contract Intelligence & Register", "pl": "Instalacja Contract Intelligence & Register", "pt": "Instalar o Contract Intelligence & Register" },
+      "description": {
+        "en": "An illustrated walk-through of installing the managed solution in your own Microsoft environment, step by step with INSTALL.pdf.",
+        "cs": "Ilustrovaný průvodce instalací spravovaného řešení ve vlastním prostředí Microsoft, krok za krokem podle INSTALL.pdf.",
+        "de": "Eine illustrierte Schritt-für-Schritt-Anleitung zur Installation der verwalteten Lösung in Ihrer eigenen Microsoft-Umgebung, zusammen mit INSTALL.pdf.",
+        "fr": "Un guide illustré pour installer la solution gérée dans votre propre environnement Microsoft, étape par étape avec INSTALL.pdf.",
+        "es": "Una guía ilustrada para instalar la solución administrada en su propio entorno de Microsoft, paso a paso con INSTALL.pdf.",
+        "it": "Una guida illustrata all'installazione della soluzione gestita nel vostro ambiente Microsoft, passo dopo passo con INSTALL.pdf.",
+        "pl": "Ilustrowany przewodnik po instalacji rozwiązania zarządzanego we własnym środowisku Microsoft, krok po kroku z INSTALL.pdf.",
+        "pt": "Um guia ilustrado para instalar a solução gerida no seu próprio ambiente Microsoft, passo a passo com o INSTALL.pdf." },
+      "disclosure": {
+        "en": "Illustrated guide with an AI-generated presenter, not a screen recording. Plan 60–90 minutes in total; the 20–30 minutes in the video assume every prerequisite is already in place. When you go live, turn Daily recompute on (INSTALL.pdf, section 5).",
+        "cs": "Ilustrovaný průvodce s presenterem vytvořeným AI, nejde o záznam obrazovky. Počítejte celkem s 60–90 minutami; 20–30 minut ve videu předpokládá, že všechny předpoklady už jsou splněné. Při spuštění do provozu zapněte Daily recompute (INSTALL.pdf, oddíl 5).",
+        "de": "Illustrierte Anleitung mit KI-generiertem Sprecher, keine Bildschirmaufnahme. Planen Sie insgesamt 60–90 Minuten ein; die 20–30 Minuten im Video setzen voraus, dass alle Voraussetzungen bereits erfüllt sind. Schalten Sie bei Inbetriebnahme Daily recompute ein (INSTALL.pdf, Abschnitt 5).",
+        "fr": "Guide illustré avec un présentateur généré par IA, pas un enregistrement d'écran. Prévoyez 60 à 90 minutes au total ; les 20 à 30 minutes de la vidéo supposent que tous les prérequis sont déjà en place. Lors de la mise en production, activez Daily recompute (INSTALL.pdf, section 5).",
+        "es": "Guía ilustrada con un presentador generado por IA, no una grabación de pantalla. Calcule entre 60 y 90 minutos en total; los 20 a 30 minutos del vídeo suponen que todos los requisitos previos ya están listos. Al pasar a producción, active Daily recompute (INSTALL.pdf, sección 5).",
+        "it": "Guida illustrata con un presentatore generato dall'IA, non una registrazione dello schermo. Prevedete 60-90 minuti in totale; i 20-30 minuti del video presuppongono che tutti i prerequisiti siano già pronti. Al passaggio in produzione, attivate Daily recompute (INSTALL.pdf, sezione 5).",
+        "pl": "Ilustrowany przewodnik z prezenterem wygenerowanym przez AI, a nie nagranie ekranu. Zaplanuj łącznie 60–90 minut; 20–30 minut w filmie zakłada, że wszystkie wymagania wstępne są już spełnione. Przy uruchomieniu produkcyjnym włącz Daily recompute (INSTALL.pdf, sekcja 5).",
+        "pt": "Guia ilustrado com um apresentador gerado por IA, não uma gravação de ecrã. Conte com 60 a 90 minutos no total; os 20 a 30 minutos do vídeo pressupõem que todos os pré-requisitos já estão preparados. Ao entrar em produção, ligue o Daily recompute (INSTALL.pdf, secção 5)." }
+    },
+    "certification": {
+      "title": { "en": "Continuous Certification in 60 seconds", "cs": "Continuous Certification za 60 sekund", "de": "Continuous Certification in 60 Sekunden", "fr": "Continuous Certification en 60 secondes", "es": "Continuous Certification en 60 segundos", "it": "Continuous Certification in 60 secondi", "pl": "Continuous Certification w 60 sekund", "pt": "Continuous Certification em 60 segundos" },
+      "description": {
+        "en": "How the planned Continuous Certification programme is designed to keep a certified release current as rules, technology and AI costs change.",
+        "cs": "Jak má plánovaný program Continuous Certification udržovat certifikované vydání aktuální, když se mění pravidla, technologie a náklady na AI.",
+        "de": "Wie das geplante Programm Continuous Certification ein zertifiziertes Release aktuell halten soll, wenn sich Regeln, Technologie und KI-Kosten ändern.",
+        "fr": "Comment le programme Continuous Certification prévu est conçu pour maintenir une version certifiée à jour face à l'évolution des règles, de la technologie et des coûts de l'IA.",
+        "es": "Cómo el programa previsto de Continuous Certification está diseñado para mantener al día una versión certificada cuando cambian las normas, la tecnología y los costes de IA.",
+        "it": "Come il programma Continuous Certification previsto è pensato per mantenere aggiornata una release certificata al cambiare di regole, tecnologia e costi dell'IA.",
+        "pl": "Jak planowany program Continuous Certification ma utrzymywać aktualność certyfikowanego wydania, gdy zmieniają się przepisy, technologia i koszty AI.",
+        "pt": "Como o programa Continuous Certification previsto foi concebido para manter atualizada uma versão certificada à medida que mudam as regras, a tecnologia e os custos de IA." },
+      "disclosure": {
+        "en": "Coming soon: not yet open for subscription. Coverage shown is proposed and subject to approved coverage and subscription terms. ColleagueAI certification is a proprietary product assurance programme, not independent regulatory accreditation.",
+        "cs": "Připravujeme: předplatné zatím není otevřené. Uvedený rozsah je navržený a podléhá schválenému rozsahu a podmínkám předplatného. Certifikace ColleagueAI je vlastní program ověřování produktu, nikoli nezávislá regulatorní akreditace.",
+        "de": "Demnächst: Abonnements sind noch nicht geöffnet. Der gezeigte Umfang ist ein Vorschlag und unterliegt dem genehmigten Umfang und den Abonnementbedingungen. Die ColleagueAI-Zertifizierung ist ein eigenes Produktsicherungsprogramm, keine unabhängige regulatorische Akkreditierung.",
+        "fr": "Bientôt disponible : pas encore ouvert à l'abonnement. La couverture présentée est proposée et soumise à la couverture approuvée et aux conditions d'abonnement. La certification ColleagueAI est un programme propriétaire d'assurance produit, pas une accréditation réglementaire indépendante.",
+        "es": "Próximamente: aún no está abierto a suscripciones. La cobertura mostrada es una propuesta y está sujeta a la cobertura aprobada y a las condiciones de suscripción. La certificación de ColleagueAI es un programa propio de aseguramiento de producto, no una acreditación regulatoria independiente.",
+        "it": "Prossimamente: non ancora aperto agli abbonamenti. La copertura mostrata è proposta ed è soggetta alla copertura approvata e alle condizioni di abbonamento. La certificazione ColleagueAI è un programma proprietario di assurance di prodotto, non un accreditamento regolamentare indipendente.",
+        "pl": "Wkrótce: subskrypcje nie są jeszcze dostępne. Pokazany zakres jest propozycją i zależy od zatwierdzonego zakresu oraz warunków subskrypcji. Certyfikacja ColleagueAI to własny program zapewnienia jakości produktu, a nie niezależna akredytacja regulacyjna.",
+        "pt": "Em breve: ainda não aberto a subscrições. A cobertura apresentada é uma proposta e está sujeita à cobertura aprovada e às condições de subscrição. A certificação ColleagueAI é um programa próprio de garantia de produto, não uma acreditação regulamentar independente." }
+    },
+    "product": {
+      "title": { "en": "Contract Intelligence & Register in 70 seconds" },
+      "description": { "en": "How Contract Intelligence & Register extracts contract terms in your own Microsoft 365 tenant and holds every notice deadline until a person confirms it." },
+      "disclosure": { "en": "Illustrative workflow with an AI-generated presenter, not a product recording. Coming soon." }
+    }
+  }
+}

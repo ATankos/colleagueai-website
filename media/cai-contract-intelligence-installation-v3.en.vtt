@@ -1,0 +1,260 @@
+WEBVTT
+Kind: captions
+Language: en
+
+1
+00:00:00.040 --> 00:00:04.870
+Install Contract Intelligence & Register
+in your own Microsoft environment.
+
+2
+00:00:04.910 --> 00:00:09.730
+With the prerequisites already in place,
+allow roughly 20 to 30 minutes for setup.
+
+3
+00:00:09.770 --> 00:00:13.250
+This is a planning estimate, not
+a measured installation time.
+
+4
+00:00:13.290 --> 00:00:16.640
+Preparing permissions or capacity
+may take additional time.
+
+5
+00:00:16.680 --> 00:00:20.420
+Keep INSTALL.pdf open for
+the detailed instructions.
+
+6
+00:00:20.460 --> 00:00:25.326
+First, check that you have a Dataverse
+environment with at least 1 GB free,
+
+7
+00:00:25.326 --> 00:00:28.960
+System Administrator access
+and Copilot Studio capacity.
+
+8
+00:00:29.000 --> 00:00:31.970
+You also need a dedicated
+SharePoint contract library,
+
+9
+00:00:32.010 --> 00:00:34.600
+a reviewer and alert
+administrator with Teams,
+
+10
+00:00:34.640 --> 00:00:39.810
+Microsoft 365 admin access and a
+text-based English contract for testing.
+
+11
+00:00:39.850 --> 00:00:43.040
+Microsoft usage charges are
+separate from your licence.
+
+12
+00:00:43.080 --> 00:00:46.280
+Before uploading contracts,
+configure capacity
+
+13
+00:00:46.280 --> 00:00:49.410
+and budget alerts at
+50, 80 and 100 per cent.
+
+14
+00:00:49.450 --> 00:00:51.490
+Budget alerts do not stop spending.
+
+15
+00:00:51.530 --> 00:00:56.070
+Next, download your bundle and verify
+its checksum against your order page.
+
+16
+00:00:56.110 --> 00:01:01.000
+Extract the outer bundle, but leave the
+managed solution ZIP inside it unopened.
+
+17
+00:01:01.040 --> 00:01:05.902
+Have five values ready: your SharePoint
+site address, contract library ID,
+
+18
+00:01:05.902 --> 00:01:10.370
+reviewer email, alert administrator
+email and exact owner team name.
+
+19
+00:01:10.410 --> 00:01:12.160
+The guide shows where to find them.
+
+20
+00:01:12.200 --> 00:01:16.160
+Open make.powerapps.com and
+select your environment.
+
+21
+00:01:16.200 --> 00:01:21.220
+Choose Solutions, then Import solution,
+and select the managed solution ZIP.
+
+22
+00:01:21.260 --> 00:01:24.900
+Connect both Dataverse references
+to the same Dataverse connection.
+
+23
+00:01:24.940 --> 00:01:27.080
+Also connect SharePoint and Teams.
+
+24
+00:01:27.120 --> 00:01:30.790
+Use the same System Administrator
+account for all four references.
+
+25
+00:01:30.830 --> 00:01:32.960
+Enter your five values and import.
+
+26
+00:01:33.000 --> 00:01:36.450
+If Import stays grey,
+re-enter each required value.
+
+27
+00:01:36.490 --> 00:01:42.470
+After import, open Agents, All agents
+in the Microsoft 365 admin centre.
+
+28
+00:01:42.510 --> 00:01:45.300
+Check CAI Contract Intelligence Assistant.
+
+29
+00:01:45.340 --> 00:01:47.620
+If its status is Available, block it.
+
+30
+00:01:47.660 --> 00:01:50.050
+Leave it Draft or Blocked during setup.
+
+31
+00:01:50.090 --> 00:01:52.770
+Now check the solution's
+seven cloud flows.
+
+32
+00:01:52.810 --> 00:01:56.052
+Turn on the required flows,
+especially Review gate,
+
+33
+00:01:56.052 --> 00:01:58.340
+which sends approval cards to Teams.
+
+34
+00:01:58.380 --> 00:02:00.680
+Keep Daily recompute off during testing.
+
+35
+00:02:00.720 --> 00:02:02.920
+It consumes capacity when enabled.
+
+36
+00:02:02.960 --> 00:02:06.280
+Create the owner team using
+exactly the name you entered.
+
+37
+00:02:06.320 --> 00:02:10.310
+Assign CAI Contract Reader
+and add the permitted users.
+
+38
+00:02:10.350 --> 00:02:14.197
+Check the role against the guide:
+Read on Contract and Field evidence,
+
+39
+00:02:14.197 --> 00:02:17.220
+with no additional permissions
+specified for this role.
+
+40
+00:02:17.260 --> 00:02:22.197
+In Copilot Studio, check four settings:
+no connected channel, sharing restricted
+
+41
+00:02:22.197 --> 00:02:27.010
+to the owner, Authenticate with Microsoft
+selected, and both topics turned on.
+
+42
+00:02:27.050 --> 00:02:29.120
+Do not publish the agent
+during installation.
+
+43
+00:02:29.160 --> 00:02:31.490
+You can also run the
+included readiness check.
+
+44
+00:02:31.530 --> 00:02:34.790
+It changes nothing; the
+final result should be READY.
+
+45
+00:02:34.830 --> 00:02:37.440
+Finally, test with an owner-team account.
+
+46
+00:02:37.480 --> 00:02:41.600
+Upload your test contract and wait for
+Pending review and the Teams review card.
+
+47
+00:02:41.640 --> 00:02:43.110
+Approve the contract.
+
+48
+00:02:43.150 --> 00:02:45.433
+In the Copilot Studio test pane, ask:
+
+49
+00:02:45.433 --> 00:02:48.580
+“Which notice deadlines
+fall in the next 400 days?”
+
+50
+00:02:48.620 --> 00:02:51.005
+Allow the connection if
+prompted, and check that
+
+51
+00:02:51.005 --> 00:02:53.540
+the answer contains your
+team's approved contracts.
+
+52
+00:02:53.580 --> 00:02:57.783
+Before approving real contracts,
+reviewers should read section 9a of
+
+53
+00:02:57.783 --> 00:03:01.800
+INSTALL.pdf and check notice
+periods against the source contract.
+
+54
+00:03:01.840 --> 00:03:08.700
+For help, contact hello@colleagueai.ai
+with your order email and release number.
