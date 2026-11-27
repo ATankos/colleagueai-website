@@ -38,6 +38,12 @@ The agent catalogue includes use cases across:
 - Data quality and reporting
 - Service management
 
+## Continuous Certification (Coming soon)
+
+One licence. Continuous assurance. Buy once. Govern continuously.
+
+Agent licences are perpetual. Continuous Certification is a planned subscription (L2, L3 and L4; L5 is not offered) that keeps a purchased Colleague AI Certified Release current as rules, risks and the Microsoft platform change: published change assessments for the covered scope, an updated certified release at no further licence fee when a covered change requires one, and online certificate verification. Security fixes during the support period go to every licensee, subscribed or not. Planned additions: quarterly assurance report and AI Token Economy consumption benchmark. It is Colleague AI's own programme, not third-party accreditation or a compliance opinion. Subscriptions are not yet open. Full details, with what is built, what is a subscription benefit and what is planned: https://www.colleagueai.ai/certified and https://www.colleagueai.ai/llms-full.txt
+
 ## Trust and deployment model
 
 Production deployments are designed for enterprise governance, controlled access, audit trail, and customer-environment alignment.

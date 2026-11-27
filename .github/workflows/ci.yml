@@ -206,6 +206,8 @@ jobs:
         run: node --test tests/claims-truth.test.mjs
       - name: Continuous Certification lifecycle
         run: node --test tests/certification.test.mjs
+      - name: Continuous Certification positioning (pillar on every page, honest status, no L5 price)
+        run: node --test tests/cc-positioning.test.mjs
       - name: One language per page (localized output, dates, menu)
         run: node --test tests/language-unity.test.mjs
       - name: Localized structured data (JSON-LD vs canonical, breadcrumbs, hreflang)

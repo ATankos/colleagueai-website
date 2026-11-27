@@ -85,3 +85,14 @@ JSON
 1. `GET /repos/ATankos/colleagueai-website/rulesets/27653464` shows `"bypass_actors": []`, and `current_user_can_bypass` reads `never` for the owner.
 2. On an open pull request, the merge button is disabled until the reviewer approves. There is no bypass option.
 3. Record the date and the authorisation in `release-gates-abc.md` (R1 and O-REVIEW-CONTROL). O-REVIEW-CONTROL closes when the first pull request is merged with an independent approval.
+
+## Addendum, 27 Nov 2026 (merge of `main` into this branch)
+Two more pull requests were merged into `main` by the owner account after this note was written, with no approving review
+(GitHub API, `pulls/{n}` and `pulls/{n}/reviews`, read 27 Nov 2026):
+
+| PR | Merged (UTC) | Reviews |
+|---|---|---|
+| #586 Continuous Certification website content (8 languages) | 27 Nov 2026 09:34 | one automated CodeQL comment, no approval |
+| #589 checkout-disabled logging | 27 Nov 2026 10:14 | none |
+
+The count in `release-gates-abc.md` (R1) is updated from 59 to 61. Nothing in sections 1–5 changes.

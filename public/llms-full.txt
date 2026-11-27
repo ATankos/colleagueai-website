@@ -12,6 +12,39 @@ Key pages: https://www.colleagueai.ai/ (home), /agents (catalogue), /score (CAI 
 /responsible-ai (commitments), /partners, /refund, /contact.
 Languages: en, cs, de, fr, es, it, pl, pt. Contact: hello@colleagueai.ai.
 
+## Continuous Certification (Coming soon)
+
+One licence. Continuous assurance. Buy once. Govern continuously.
+Your agent licence is perpetual. Continuous Certification keeps the release you rely on current as rules, risks and the Microsoft platform change, with evidence you can show to auditors, customers and your board.
+Status: Not yet open: Continuous Certification subscriptions start when the programme is approved for sale.
+Status labels: Built and tested applies only to the specific capability named on the label, not to the whole area: it exists in the platform today and is covered by automated tests. Subscription benefit: part of the Continuous Certification terms once subscriptions open. Planned: in preparation, and not a commitment until it is added to the terms.
+
+Benefits:
+- Regulatory intelligence [Subscription benefit]: Changes in the covered rules are tracked every week and assessed in the open: you see whether a change requires a new certified release, and why.
+- GDPR, privacy and data protection [Built and tested: data stays in your tenant; Colleague AI has no access path]: The agent runs in your own Microsoft tenant. Your business data stays there, and Colleague AI has no access path to it.
+- Risk and compliance [Planned]: Each certified release will carry a risk and impact assessment and a screening against the AI Act's prohibited and high-risk categories. Your own obligations are listed, never certified.
+- Cybersecurity [Built and tested: corrective releases reach every licensee]: Security fixes reach every licensee as corrective releases at no further licence fee, whether or not they subscribe.
+- Microsoft compatibility [Subscription benefit]: Breaking changes in Copilot Studio and the Power Platform that stop a shipped package working as documented are inside the covered scope.
+- AI Token Economy and consumption benchmarking [Planned]: A measured consumption profile per business transaction for each certified release, compared release to release. It describes the release, not your bill.
+- AI quality and reliability [Built and tested: sale blocked until the mandatory release gates pass]: No release can be sold until every mandatory release gate has passed with recorded evidence.
+- Qualifying certified updates [Subscription benefit]: When a change in the covered scope requires one, subscribers receive the updated certified release at no further licence fee. You decide when to install it.
+- Governance and audit evidence [Built and tested: online certificate verification]: A Certificate ID that your auditors and customers can verify online, with its scope statement attached.
+- Long-term investment protection [Built and tested: licence kept when a subscription ends]: The licence is perpetual and is never revoked because a subscription ends. The installed agent does not depend on our servers to run.
+
+No subscription is needed for security fixes, corrective releases or remediation that the law requires of us: they are part of every perpetual licence.
+
+Perpetual licence and Continuous Certification (feature | perpetual licence | with Continuous Certification):
+- The version you bought | Yours, perpetually | Yours, perpetually
+- Security fixes, corrective releases and legally required remediation during the support period | Included | Included
+- Listed as a current certified release | At release only | While subscribed and current
+- Published change assessments for the covered scope | Not included | Published against your certificate
+- Updated certified release when a covered change requires one | A new licence purchase | No further licence fee
+- Online certificate verification | Shows the release as certified at release | Shows the current state
+- Quarterly assurance report and AI Token Economy benchmark | Not included | Planned
+
+Planned subscription prices (not yet on sale), per CAI tier: L2 $99/month or $990/year; L3 $149/month or $1,490/year; L4 $249/month or $2,490/year. L5 is not offered.
+Scope: Continuous Certification is Colleague AI's own programme for its own releases. It is not third-party accreditation, not a regulatory or compliance opinion, and it never certifies the customer's deployment or compliance. Details: https://www.colleagueai.ai/certified
+
 ## Agent catalogue (36 planned agents)
 
 ### Reconciliation Root-Cause Agent

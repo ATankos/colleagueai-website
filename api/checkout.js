@@ -160,7 +160,10 @@ export default async function handler(req, res) {
     return res.status(405).end('Method not allowed');
   }
   if (!process.env.STRIPE_SECRET_KEY) {
-    console.error('[checkout] STRIPE_SECRET_KEY not set');
+    // Intentionally closed (kill switch) is the normal pre-launch state: informational, not an error.
+    // Missing Stripe configuration while checkout is meant to be open is a real fault and stays an error.
+    if (checkoutEnabled()) console.error('[checkout] STRIPE_SECRET_KEY not set while checkout is enabled');
+    else console.info('[checkout] checkout disabled by the kill switch; Stripe not configured (expected)');
     return res.status(503).json({ error: 'Checkout is not enabled', code: 'checkout_disabled' });
   }
 

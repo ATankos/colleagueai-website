@@ -22,6 +22,7 @@ const urls = [
   `http://${host}:${port}/`,
   `http://${host}:${port}/agents`,
   `http://${host}:${port}/pricing`,
+  `http://${host}:${port}/certified`,
 ]
 
 const mime = {
