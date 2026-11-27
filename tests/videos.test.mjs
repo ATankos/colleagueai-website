@@ -167,7 +167,7 @@ test('structured data is complete once approved, and names only same-origin file
     v.approvedBy = 'test';
     v.approvedOn = '2026-12-01';
     const ld = V.jsonLd('certification', 'de', 'https://www.colleagueai.ai/de/zertifizierung');
-    const data = JSON.parse(ld.replace(/^<script[^>]*>/, '').replace(/<\/script>$/, ''));
+    const data = JSON.parse(ld.slice(ld.indexOf('>') + 1, ld.lastIndexOf('</')));
     assert.equal(data['@type'], 'VideoObject');
     assert.equal(data.uploadDate, '2026-12-01');
     assert.equal(data.duration, 'PT1M0S');
