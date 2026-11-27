@@ -21,6 +21,8 @@ const SESSION = 'cs_d1';
 const kvf = createFakeKv();
 const stripe = new Stripe('sk_test_LOCAL_DUMMY_NOT_REAL');
 const cancelled = [];
+const mails = [];
+let resend;
 let db, state, access, products, handler, appServer, stripeServer, base, seq = 0;
 
 const json = (res, body, code = 200) => { res.writeHead(code, { 'content-type': 'application/json' }); res.end(JSON.stringify(body)); };
@@ -53,6 +55,9 @@ before(async () => {
   });
   await new Promise((r) => stripeServer.listen(0, r));
   process.env.STRIPE_API_HOST = `http://127.0.0.1:${stripeServer.address().port}`;
+  resend = http.createServer((req, res) => { let b = ''; req.on('data', (c) => { b += c; }); req.on('end', () => { mails.push(JSON.parse(b)); json(res, { id: 'm1' }); }); });
+  await new Promise((r) => resend.listen(0, r));
+  process.env.RESEND_API_URL = `http://127.0.0.1:${resend.address().port}`;
 
   db = await import('../lib/db.js');
   state = await import('../lib/certificateState.js');
@@ -67,8 +72,8 @@ before(async () => {
   await new Promise((r) => appServer.listen(0, r));
   base = `http://127.0.0.1:${appServer.address().port}`;
 });
-after(() => { kvf.stop(); stripeServer.close(); appServer.closeAllConnections?.(); appServer.close(); });
-beforeEach(() => { kvf.reset(); db.resetSharedSecretCache(); cancelled.length = 0; });
+after(() => { kvf.stop(); stripeServer.close(); resend.close(); appServer.closeAllConnections?.(); appServer.close(); });
+beforeEach(() => { kvf.reset(); db.resetSharedSecretCache(); cancelled.length = 0; mails.length = 0; delete process.env.OPS_ALERT_EMAIL; delete process.env.RESEND_API_KEY; });
 
 const inDays = (n) => Math.floor(Date.now() / 1000) + n * 86400;
 async function deliver(event) {
@@ -124,14 +129,46 @@ test('X2. a dispute won restores the claim and the licence; evidence records bot
   assert.deepEqual((await evidence()).filter((e) => /^payment-hold/.test(e.event)).map((e) => e.event), ['payment-hold', 'payment-hold-released']);
 });
 
-test('X3. an inquiry that closes without a chargeback (warning_closed) gives the licence and the claim back', async () => {
+test('X3. an INQUIRY takes no automatic action (founder decision 27 Nov): licence, certificate and commission unchanged', async () => {
   await purchased();
-  await deliver(dispute('charge.dispute.created', { status: 'warning_needs_response' }));
-  assert.equal(entitled(), false, 'precondition: an open inquiry revokes the licence (existing rule)');
+  const open = await deliver(dispute('charge.dispute.created', { status: 'warning_needs_response' }));
+  assert.equal(open.status, 200);
+  assert.equal(open.body.dispute, 'inquiry');
+  assert.equal(entitled(), true, 'DEFECT: a preliminary inquiry revoked the perpetual licence');
+  assert.equal(await sub(), 'active', 'an inquiry does not suspend the certificate claim');
+  assert.equal(open.body.operator, 'logged', 'the operator is told (log) to investigate');
+  assert.equal((await evidence()).filter((e) => e.event === 'payment-hold').length, 0);
   const closed = await deliver(dispute('charge.dispute.closed', { status: 'warning_closed' }));
-  assert.equal(closed.body.access, 'restored', 'DEFECT: a closed inquiry left the licence revoked for good');
+  assert.equal(closed.status, 200);
   assert.equal(entitled(), true);
   assert.equal(await sub(), 'active');
+});
+
+test('X3b. an inquiry that ESCALATES to a chargeback (charge.dispute.updated) suspends; winning it restores', async () => {
+  await purchased();
+  await deliver(dispute('charge.dispute.created', { status: 'warning_needs_response' }));
+  const quiet = await deliver(dispute('charge.dispute.updated', { status: 'warning_under_review' }));
+  assert.equal(quiet.body.dispute, 'update-recorded-by-stripe');
+  assert.equal(entitled(), true, 'still only an inquiry');
+  const esc = await deliver(dispute('charge.dispute.updated', { status: 'needs_response' }));
+  assert.equal(esc.status, 200);
+  assert.equal(entitled(), false, 'DEFECT: an escalated chargeback suspended nothing');
+  assert.equal(await sub(), 'disputed');
+  const won = await deliver(dispute('charge.dispute.closed', { status: 'won' }));
+  assert.equal(won.body.access, 'restored');
+  assert.equal(entitled(), true);
+  assert.equal(await sub(), 'active');
+});
+
+test('X3c. the operator is emailed about an inquiry when alerts are configured, with ids only', async () => {
+  await purchased();
+  process.env.OPS_ALERT_EMAIL = 'ops@example.com';
+  process.env.RESEND_API_KEY = 're_test_dummy';
+  const r = await deliver(dispute('charge.dispute.created', { id: 'dp_inq', status: 'warning_needs_response' }));
+  assert.equal(r.body.operator, 'notified');
+  assert.equal(mails.length, 1);
+  assert.match(JSON.stringify(mails[0]), /dp_inq/);
+  assert.doesNotMatch(JSON.stringify(mails[0]), new RegExp(EMAIL.replace('.', '\\.')), 'no buyer address in the alert');
 });
 
 test('X4. a dispute lost ends the certification, stops billing, and a later renewal cannot revive it', async () => {
@@ -159,6 +196,17 @@ test('X5. a dispute on a RENEWAL charge (no Checkout Session) still suspends the
   assert.equal(entitled(), true, 'a renewal dispute does not touch the perpetual licence');
   await deliver(dispute('charge.dispute.closed', { id: 'dp_renew', pi: 'pi_renew', status: 'won' }));
   assert.equal(await sub(), 'active');
+});
+
+test('X5b. a LOST dispute on a renewal charge ends the certification and billing, never the perpetual licence', async () => {
+  await purchased();
+  await deliver(dispute('charge.dispute.created', { id: 'dp_rl', pi: 'pi_renew' }));
+  const lost = await deliver(dispute('charge.dispute.closed', { id: 'dp_rl', pi: 'pi_renew', status: 'lost' }));
+  assert.equal(lost.status, 200);
+  assert.equal(lost.body.certification, 'lapsed');
+  assert.deepEqual(cancelled, [SUB], 'future subscription billing cancelled');
+  assert.equal((await cert()).lapseReason, 'dispute_lost');
+  assert.equal(entitled(), true, 'DEFECT: a renewal dispute took away the separately paid perpetual licence');
 });
 
 test('X6. a dispute that arrives BEFORE the delayed checkout event: the certificate is issued on hold', async () => {

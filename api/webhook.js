@@ -62,6 +62,7 @@ import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriod
 import { ensureOrderDocuments } from '../lib/orderDocuments.js';
 import { notifyBuyer } from '../lib/orderMail.js';
 import { publicBaseUrl } from '../lib/recovery.js';
+import { mailConfigured, sendMail } from '../lib/mail.js';
 
 const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
 
@@ -130,6 +131,45 @@ async function endCertificationForRefund(stripe, subId, sessionId) {
   const cert = await lapseCertification(subId, 'refunded');
   console.log('[webhook] Certification ended after refund of %s (subscription %s)', sessionId, subId);
   return cert ? 'lapsed' : 'subscription-cancelled';
+}
+
+/* Founder decision (27 Nov 2026) on payment disputes:
+ *   - an INQUIRY (Stripe status warning_*) is a preliminary question from the card issuer, no money is withdrawn: it takes
+ *     no automatic action on the perpetual licence, the certificate claim or the partner commission. It is recorded on the
+ *     order and the operator is notified to investigate;
+ *   - a FORMAL CHARGEBACK (any other open status, from charge.dispute.created or an inquiry escalated through
+ *     charge.dispute.updated) suspends the affected commercial entitlements, subject to the contractual terms;
+ *   - a dispute WON (or an inquiry closed, or a prevented dispute) restores what was suspended;
+ *   - a dispute LOST on a subscription charge ends that certification and cancels future billing;
+ *   - a dispute on a subscription RENEWAL charge never touches the separately paid perpetual licence (a renewal charge has
+ *     no Checkout Session, so the licence path below is never reached for it). */
+const isInquiry = (status) => typeof status === 'string' && status.startsWith('warning_');
+const OPEN_CHARGEBACK = new Set(['needs_response', 'under_review']);
+function disputePhase(eventType, status) {
+  if (eventType === 'charge.dispute.closed') return 'closed';
+  if (isInquiry(status)) return eventType === 'charge.dispute.created' ? 'inquiry' : 'ignore'; // notify once, on creation
+  if (eventType === 'charge.dispute.created') return 'chargeback';
+  if (eventType === 'charge.dispute.updated' && OPEN_CHARGEBACK.has(status)) return 'chargeback'; // an escalated inquiry
+  return 'ignore'; // other updates: the closed event carries the outcome
+}
+
+/** Tell the operator about an inquiry. Log always; email only when OPS_ALERT_EMAIL and the transport are configured.
+ *  Ids only, never the buyer's address. Never fails the event. */
+async function notifyOperatorOfInquiry({ disputeId, orderId, subscriptionId, reason, amount, currency }) {
+  const facts = { disputeId: disputeId ?? null, orderId: orderId ?? null, subscriptionId: subscriptionId ?? null, reason: reason ?? null, amount: amount ?? null, currency: currency ?? null };
+  console.warn('[webhook] payment inquiry received; no automatic action, investigate: %s', JSON.stringify(facts));
+  const to = process.env.OPS_ALERT_EMAIL;
+  if (!to || !mailConfigured()) return 'logged';
+  try {
+    const sent = await sendMail({ to, subject: `[ColleagueAI] Payment inquiry ${facts.disputeId ?? ''} needs a response`,
+      text: ['A card issuer opened a payment inquiry (no chargeback yet). Nothing was revoked or suspended.', '',
+        ...Object.entries(facts).map(([k, v]) => `${k}: ${v ?? '-'}`), '',
+        'Respond in the Stripe dashboard before the inquiry deadline. An unanswered inquiry can escalate to a chargeback.'].join('\n') });
+    return sent?.sent === false ? 'logged' : 'notified';
+  } catch (err) {
+    console.error('[webhook] inquiry notification failed:', err?.message ?? err);
+    return 'logged';
+  }
 }
 
 /* Dispute outcomes that leave the money with us: a won dispute, a closed inquiry (no chargeback) and a prevented one. */
@@ -707,11 +747,14 @@ export default async function handler(req, res) {
   if (
     event.type === 'charge.refunded' ||
     event.type === 'charge.dispute.created' ||
+    event.type === 'charge.dispute.updated' ||
     event.type === 'charge.dispute.closed'
   ) {
     const obj = event.data.object || {};
+    const isDispute = event.type !== 'charge.refunded';
+    const phase = isDispute ? disputePhase(event.type, obj.status) : null;
+    if (phase === 'ignore') return res.status(200).json({ received: true, dispute: 'update-recorded-by-stripe', status: obj.status ?? null });
     const { sessionId, session, lookupFailed } = await sessionForCharge(stripe, obj);
-    const isDispute = event.type === 'charge.dispute.created' || event.type === 'charge.dispute.closed';
 
     // Disputes also suspend (or restore) Continuous Certification, including disputes of RENEWAL charges, which have no
     // Checkout Session and used to change nothing. Done first and idempotently; a lookup failure makes Stripe retry.
@@ -720,12 +763,27 @@ export default async function handler(req, res) {
       const { subId, lookupFailed: subLookupFailed } = await subscriptionForDispute(stripe, obj, session, sessionId);
       if (subLookupFailed) return res.status(500).json({ error: 'Subscription lookup failed' });
       if (subId) {
-        try { certificationDispute = await certificationForDispute(stripe, event.type, obj, subId); }
+        try { certificationDispute = phase === 'inquiry' ? 'unchanged-inquiry' : await certificationForDispute(stripe, phase === 'chargeback' ? 'charge.dispute.created' : event.type, obj, subId); }
         catch (err) {
           console.error('[webhook] Certification dispute handling failed:', err?.message ?? err);
           return res.status(500).json({ error: 'Certification dispute handling failed' });
         }
       }
+    }
+
+    if (phase === 'inquiry') {
+      if (lookupFailed) return res.status(500).json({ error: 'Session lookup failed' });
+      const orderId = sessionId ? (orderIdOf(obj) || orderIdOf(session) || await orderIdForSessionId(stripe, sessionId)) : orderIdOf(obj);
+      if (orderId) {
+        try {
+          await noteOnOrder(orderId, { sourceId: event.id, type: event.type,
+            facts: { dispute: { id: obj.id ?? null, status: obj.status ?? null, reason: obj.reason ?? null, amount: obj.amount ?? null, inquiry: true, at: new Date().toISOString() } } });
+        } catch { return res.status(500).json({ error: 'Order record write failed' }); }
+      }
+      const subRef = session?.subscription;
+      const operator = await notifyOperatorOfInquiry({ disputeId: obj.id, orderId, subscriptionId: typeof subRef === 'string' ? subRef : subRef?.id,
+        reason: obj.reason, amount: obj.amount, currency: obj.currency });
+      return res.status(200).json({ received: true, dispute: 'inquiry', licence: 'unchanged', commission: 'unchanged', certification: certificationDispute ?? 'unchanged', operator });
     }
 
     if (!sessionId) {
@@ -747,7 +805,7 @@ export default async function handler(req, res) {
 
     const orderId = orderIdOf(obj) || orderIdOf(session) || await orderIdForSessionId(stripe, sessionId);
     try {
-      if (event.type === 'charge.dispute.created' || event.type === 'charge.dispute.closed') {
+      if (isDispute) {
         await noteOnOrder(orderId, { sourceId: event.id, type: event.type,
           facts: { dispute: { id: obj.id ?? null, status: obj.status ?? (event.type === 'charge.dispute.created' ? 'needs_response' : null), reason: obj.reason ?? null, amount: obj.amount ?? null, at: new Date().toISOString() } } });
       }
