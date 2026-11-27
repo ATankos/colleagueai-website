@@ -216,3 +216,26 @@ test('X10. a failed Stripe lookup fails the event so Stripe redelivers it', asyn
   const again = await deliver(dispute('charge.dispute.created', { pi: 'pi_renew' }));
   assert.equal(again.body.certification, 'on-hold');
 });
+
+// ── Data minimization (founder decision, Round 3) ───────────────────────────
+test('M1. permanent evidence never holds an email address, a name or free text, across issuance, holds, decisions', async () => {
+  await purchased();
+  const { certificateId } = await cert();
+  await deliver(dispute('charge.dispute.created', { pi: 'pi_renew' }));
+  await deliver(dispute('charge.dispute.closed', { pi: 'pi_renew', status: 'won' }));
+  const r = await db.setCertificateDecision(certificateId, { state: 'suspended', reason: 'critical-regression-failed', reference: 'CAI-REG-9',
+    deciders: [{ role: 'FC', id: 'p-fc', name: 'Jane Founder', email: 'jane@example.com' }, { role: 'IR', id: 'p-ir' }], note: 'called Jane Founder at home' }, { register: REGISTER });
+  assert.equal(r.ok, true);
+  const raw = JSON.stringify(await evidence());
+  assert.doesNotMatch(raw, /@|Jane|called/, 'no personal data or free text in the evidence');
+  assert.match(raw, /"role":"FC","id":"p-fc"/, 'deciders recorded as opaque register ids');
+  assert.ok(JSON.stringify(await cert()).includes(EMAIL), 'the personal operational record still identifies the holder (separate retention)');
+});
+
+test('M2. a decision reference must be a case identifier, never free text such as a name', async () => {
+  await purchased();
+  const { certificateId } = await cert();
+  const bad = await db.setCertificateDecision(certificateId, { state: 'suspended', reason: 'critical-regression-failed', reference: 'Spoke to Jane Novak', deciders: DECIDERS }, { register: REGISTER });
+  assert.equal(bad.error, 'reference-format');
+  assert.equal((await db.setCertificateDecision(certificateId, { state: 'suspended', reason: 'critical-regression-failed', reference: 'INC-2026-004', deciders: DECIDERS }, { register: REGISTER })).ok, true);
+});
