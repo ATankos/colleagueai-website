@@ -127,15 +127,15 @@ function page(a) {
 <style>
 body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
 main{max-width:760px;margin:0 auto;padding:48px 24px 80px}
-.crumb{font-size:13px;margin-bottom:18px}.crumb a{color:#C65D3A;text-decoration:none}
+.crumb{font-size:13px;margin-bottom:18px}.crumb a{color:#A94A2C;text-decoration:none}
 .fact-lang{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 28px;font-size:12.5px;color:#6f6a62}
 .fact-lang select{font:500 12.5px ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;color:#1D1B1A;border:1px solid #d8d2c6;border-radius:999px;padding:6px 10px;background:#fff}
 .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:12.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
 h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}
 .meta{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0 30px}
 .chip{font-size:12.5px;padding:5px 13px;border:1px solid #d8d2c6;border-radius:999px;background:#fff}
-.chip strong{color:#C65D3A}
-h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#8a857d;margin:34px 0 8px;text-transform:uppercase}
+.chip strong{color:#A94A2C}
+h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#6F6A62;margin:34px 0 8px;text-transform:uppercase}
 section p{margin:0}
 .facts dl{margin:10px 0 0;border:1px solid #d8d2c6;border-radius:14px;background:#fff;padding:4px 18px}
 .facts dl div{padding:12px 0;border-bottom:1px solid #ece6da}.facts dl div:last-child{border-bottom:none}
@@ -145,7 +145,7 @@ ul{margin:6px 0 0;padding-left:20px}
 .cta-top{margin:-10px 0 8px}
 .btn{display:inline-block;padding:12px 26px;border-radius:999px;text-decoration:none;font-size:14.5px}
 .btn-p{background:#1D1B1A;color:#F5F0E8}.btn-s{border:1.5px solid #1D1B1A;color:#1D1B1A}
-footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
+footer{font-size:12px;color:#6F6A62;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}
 </style>
 </head>
 <body>
@@ -270,12 +270,12 @@ for (const a of AGENTS) {
 <title>Agent dossiers (PDF) | Colleague AI</title><meta name="description" content="One PDF dossier per governed agent package: scope, CAI Score tier, controls and deployment boundary. English only.">
 <meta name="robots" content="index, follow"><link rel="canonical" href="${BASE}/docs/agents/"><link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <style>body{margin:0;font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:#F5F0E8;color:#1D1B1A;line-height:1.65}
-main{max-width:780px;margin:0 auto;padding:48px 24px 80px}.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#C65D3A;text-decoration:none}
+main{max-width:780px;margin:0 auto;padding:48px 24px 80px}.crumb{font-size:13px;margin-bottom:28px}.crumb a{color:#A94A2C;text-decoration:none}
 .eyebrow{font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;font-size:11.5px;color:#8a857d;letter-spacing:.05em;margin-bottom:10px}
-h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#8a857d;margin:40px 0 10px;text-transform:uppercase}
-p,li{font-size:15px}ul{margin:6px 0 0;padding-left:20px}li{padding:4px 0}a{color:#C65D3A}.dom{color:#8a857d;font-size:13px}.fs{font-size:13px}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:0 0 14px}h2{font-size:15px;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",Menlo,monospace;letter-spacing:.04em;color:#6F6A62;margin:40px 0 10px;text-transform:uppercase}
+p,li{font-size:15px}ul{margin:6px 0 0;padding-left:20px}li{padding:4px 0}a{color:#A94A2C}.dom{color:#8a857d;font-size:13px}.fs{font-size:13px}
 .note{font-size:13px;color:#6b665e;background:#fff;border:1px solid #d8d2c6;border-radius:10px;padding:14px 16px;margin-top:14px}
-footer{font-size:12px;color:#8a857d;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}</style></head><body><main>
+footer{font-size:12px;color:#6F6A62;margin-top:56px;border-top:1px solid #d8d2c6;padding-top:18px}</style></head><body><main>
 <nav class="crumb"><a href="/agents">← Agent Catalogue</a></nav><div class="eyebrow">Documentation</div><h1>Agent dossiers (PDF)</h1>
 <p>One dossier per governed agent package: what it does, its CAI Score tier and human-oversight model, the controls it ships with, and the deployment boundary inside your own tenant.</p>
 <p class="note">Dossiers are in English. They describe the package as delivered after approval; indicative prices and commercial terms are on the <a href="/pricing">pricing page</a>. Access to the deployable packages themselves is released after commercial setup — <a href="/demo">request access</a>.</p>

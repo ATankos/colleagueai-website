@@ -65,14 +65,14 @@ try{document.documentElement.className+=' js';}catch(e){}</script>
     --graphite:#2B2A28;
     --graphite-soft:#54514C;
     --muted:#6B655E;
-    --terra:#C65D3A;--terra-solid:#A94A2C;
+    --terra:#A94A2C;--terra-solid:#A94A2C;
     --terra-deep:#9E3D22;
     --line:#E2D9CB;
     --line-soft:#EAE2D4;
     /* tier heat ramp, cool/safe -> dark/highest, anchored on brand terracotta */
     --t1:#6E8B7B; /* sage */
     --t2:#C99A5B; /* sand */
-    --t3:#C65D3A; /* terracotta (brand) */
+    --t3:#A94A2C; /* terracotta (brand) */
     --t4:#9E3D22; /* rust */
     --t5:#2B2A28; /* graphite */
     --shadow:0 1px 2px rgba(43,42,40,.04), 0 8px 30px rgba(43,42,40,.06);
@@ -1385,7 +1385,7 @@ display: flex !important;
 </style>
 <header class="nav" id="nav">
   <div class="wrap nav-inner">
-    <a href="/fr" class="logo" aria-label="Colleague AI home">Colleague<b>AI</b></a>
+    <a href="/fr" class="logo" aria-label="ColleagueAI home">Colleague<b>AI</b></a>
     <nav class="nav-links">
         <a href="/fr/agents" aria-current="page">Catalogue</a>
         <a href="/score">CAI Score</a>
@@ -1473,7 +1473,7 @@ display: flex !important;
 #cai-view-intro .cai-vi-in{background:#fff;border:1px solid #E7E0D5;border-radius:16px;padding:22px 24px}
 #cai-view-intro h2{margin:0 0 8px;font-size:22px}
 #cai-view-intro p{margin:0 0 6px;line-height:1.55;color:#4A453E}
-#cai-view-intro .cai-vi-links a{color:#c65d3a;font-weight:700;text-decoration:none}
+#cai-view-intro .cai-vi-links a{color:#a94a2c;font-weight:700;text-decoration:none}
 </style>
 <div id="cai-view-tabs" role="navigation" aria-label="Product areas">
     <a href="/fr/agents" aria-current="page" data-i18n-cai="tabs_agents">Catalogue d'agents</a>
@@ -1764,7 +1764,7 @@ display: flex !important;
 <link rel="stylesheet" href="/cai-authority-graph.css">
 <!-- CAI_AUTHORITY_GRAPH_END -->
 <footer><div class="wrap foot-inner">
-    <a href="/fr" class="logo" aria-label="Colleague AI home">Colleague<b>AI</b></a>
+    <a href="/fr" class="logo" aria-label="ColleagueAI home">Colleague<b>AI</b></a>
     <span class="fnote" data-i18n-cai="foot_note">// La couche de confiance pour l’IA d’entreprise · CAI Score™ · Mis à jour septembre 2026</span>
     <span class="flegal" data-i18n-html="foot_legal">© Colleague AI 2026 · Propriétaire. Les agents sont licenciés par tenant et ne peuvent être redistribués ou revendus, sauf si cela est expressément permis par un accord de partenariat ColleagueAI signé. La rétro-ingénierie reste interdite, sauf si elle est autorisée par la loi ou expressément autorisée par écrit.</span>
   <div class="wrap foot-links">· <a href="/fr/conditions">Conditions</a> · <a href="/fr/confidentialite">Confidentialité</a> · <a href="/fr/remboursement">Remboursement</a> · <a href="/fr/license">Licence</a> · <a href="/fr/partner-agreement">Accord de partenariat</a> · <a href="/fr/imprint">Mentions légales</a> · <a href="/fr/ia-responsable">IA responsable</a> · <a href="/fr/accessibilite">Accessibilité</a> · <a href="/fr/contact">Contact</a></div>
@@ -1959,7 +1959,7 @@ function render(){
        implied for a service that cannot be bought today. */
     const CERT_OPEN=false;
     const cardCert=(CERT_OPEN&&_cm)?('+ '+_usd(_cm)+((window.T&&T('card_permonth'))||'/mo')+' '+((window.T&&T('card_certified'))||'certified')):'';
-    return `<article class="card" data-i="${idx}" tabindex="0" role="button" aria-label="${a.n}, CAI ${a.t}, open details" style="--bc:${TIERS[a.t].c}">
+    return `<article class="card" data-i="${idx}" tabindex="0" role="button" style="--bc:${TIERS[a.t].c}">
       <div class="top"><span class="badge">${a.t}</span><span class="pill">${a.dom}</span></div>
       <h3>${a.n}</h3>
       <p class="desc">${cardDesc}</p>
@@ -1969,7 +1969,7 @@ function render(){
       </div>
       <div class="foot">
         <div class="kpi"><span class="kl">KPI</span>${cardKpi}</div>
-        <span class="open">Details<span class="ring">→</span></span>
+        <span class="open">${({cs:"Podrobnosti",fr:"Détails",es:"Detalles",it:"Dettagli",pl:"Szczegóły",pt:"Detalhes"})[(document.documentElement.lang||"en").slice(0,2)]||"Details"}<span class="ring" aria-hidden="true">→</span></span>
       </div>
     </article>`;
   }).join('');
@@ -2191,8 +2191,8 @@ var I18N={"en":{"dr_facts":"▤ What you get, what you need","card_onetime":"one
 var CUR="en";window.T=function(k){var d=I18N[CUR]||I18N.en;return d&&d[k]!=null?d[k]:(I18N.en&&I18N.en[k]!=null?I18N.en[k]:null);};
 var applyLang=function(l){CUR=l;
 document.documentElement.lang=l;if(typeof render==="function")render();
-document.querySelectorAll("[data-i18n]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n"));if(v!=null)e.textContent=v;});
-document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-html"));if(v!=null)e.innerHTML=v;});
+document.querySelectorAll("[data-i18n]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n"));if(v!=null&&e.textContent!==v)e.textContent=v;});
+document.querySelectorAll("[data-i18n-html]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-html"));if(v!=null&&e.innerHTML!==v)e.innerHTML=v;});
 document.querySelectorAll("[data-i18n-ph]").forEach(function(e){var v=window.T(e.getAttribute("data-i18n-ph"));if(v!=null)e.setAttribute("placeholder",v);});
 try{localStorage.setItem("cai_lang",l);}catch(e){}
 if(typeof render==="function")render();if(window.refreshCalcI18n)window.refreshCalcI18n();if(window.__rebuildGAQuiz)window.__rebuildGAQuiz();var _dr=document.getElementById('drawer');if(_dr&&_dr.classList.contains('open')&&window.__caiDi!=null&&typeof openDrawer==='function'){openDrawer(window.__caiDi);}}
