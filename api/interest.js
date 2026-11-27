@@ -27,6 +27,7 @@
  */
 import crypto from 'node:crypto';
 import { rateLimit, saveLead, claimOnce, releaseKey, incrDemand } from '../lib/db.js';
+import { pseudonym } from '../lib/pseudonym.js';
 import { recordFor, publicStatus } from '../lib/availability.js';
 import { newNotification, notifyInterest } from '../lib/interestNotify.js';
 
@@ -42,6 +43,16 @@ export const INDUSTRY = ['financial-services', 'manufacturing', 'public-sector',
 const DEDUPE_DAYS = 30;
 const MIN_FILL_MS = 2500;
 
+/** The page the visitor came from, WITHOUT its query string or fragment (a referrer can carry tokens or search terms). */
+export function referrerPath(value) {
+  if (typeof value !== 'string' || !value) return null;
+  try {
+    const u = new URL(value);
+    if (u.protocol !== 'https:' && u.protocol !== 'http:') return null;
+    return (u.origin + u.pathname).slice(0, 300);
+  } catch { return null; }
+}
+
 const first = (v) => (Array.isArray(v) ? v[0] : v);
 const clean = (v, max) => (typeof v === 'string' ? v.trim().replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g, '').slice(0, max) : '');
 const pick = (v, list) => (list.includes(v) ? v : null);
@@ -54,17 +65,11 @@ const pick = (v, list) => (list.includes(v) ? v : null);
 export function keyedSecret() {
   return process.env.INTEREST_DEDUPE_SALT || process.env.DOWNLOAD_TOKEN_SECRET || null;
 }
-let ephemeralKey = null;
-/** Key for rate limits and anonymous counters: the configured secret, else a random key held only in memory. */
-function counterSecret() {
-  if (keyedSecret()) return keyedSecret();
-  ephemeralKey ??= crypto.randomBytes(32).toString('hex');
-  return ephemeralKey;
-}
 
-/** A per-day salted hash of the client address: rate limiting without keeping a plain IP in the store. */
+/** A per-day keyed hash of the client address: rate limiting without keeping a plain IP in the store. The key is shared
+ *  by every instance (lib/pseudonym.js), so the limit holds across them. */
 function ipKey(req) {
-  return crypto.createHmac('sha256', counterSecret()).update(clientIp(req) + '|' + new Date().toISOString().slice(0, 10)).digest('hex').slice(0, 24);
+  return pseudonym('interest-ip', clientIp(req) + '|' + new Date().toISOString().slice(0, 10), 24);
 }
 
 const BOT_UA = /bot|crawl|spider|slurp|headless|lighthouse|pagespeed|preview|monitor|curl|wget|python-requests|httpclient|axios|node-fetch|go-http|java\//i;
@@ -74,7 +79,7 @@ export function isBot(req) {
 }
 function viewKey(req, agent) {
   const ua = String(first(req.headers?.['user-agent']) || '').slice(0, 200);
-  return crypto.createHmac('sha256', counterSecret()).update([clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|')).digest('hex').slice(0, 32);
+  return pseudonym('interest-view', [clientIp(req), ua, agent, new Date().toISOString().slice(0, 10)].join('|'), 32);
 }
 
 function clientIp(req) {
@@ -108,7 +113,7 @@ export default async function handler(req, res) {
   if (first(req.query?.event) === 'view') {
     try {
       if (isBot(req)) await incrDemand('bot', agent);
-      else if (await rateLimit(`interest-view:${ipKey(req)}`, 120, 3600) && await claimOnce(`demand:seen:${viewKey(req, agent)}`, 86400)) await incrDemand('view', agent);
+      else if (await rateLimit(`interest-view:${await ipKey(req)}`, 120, 3600) && await claimOnce(`demand:seen:${await viewKey(req, agent)}`, 86400)) await incrDemand('view', agent);
     } catch { /* counters are best-effort */ }
     return res.status(204).end();
   }
@@ -130,7 +135,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!(await rateLimit(`interest:${ipKey(req)}`, 8, 3600))) {
+    if (!(await rateLimit(`interest:${await ipKey(req)}`, 8, 3600))) {
       return res.status(429).json({ error: 'Too many registrations from this address. Please email hello@colleagueai.ai.', code: 'rate_limited' });
     }
   } catch {
@@ -173,7 +178,7 @@ export default async function handler(req, res) {
       marketing: { optIn: body.marketingOptIn === true, version: MARKETING_VERSION, at: body.marketingOptIn === true ? new Date().toISOString() : null },
       notification: newNotification(),
       locale: /^[a-z]{2}$/.test(clean(body.locale, 2)) ? clean(body.locale, 2) : 'en',
-      source: clean(first(req.headers.referer), 300) || null,
+      source: referrerPath(first(req.headers.referer)),
     }, { ttlDays: 365 });
   } catch (error) {
     console.error('[interest] store failed:', error.message);

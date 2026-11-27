@@ -49,27 +49,29 @@ test('CAI-AUD-002: a registration is refused (503, nothing stored) when no keyed
 });
 
 // ── CAI-AUD-005 ───────────────────────────────────────────────────────────────
-test('CAI-AUD-005: the demo-booking rate-limit key does not contain the client address', () => {
+// rateLimitKey is async since round 2: the key material is the configured secret, or - when none is configured -
+// a secret shared through the store (never a per-process random value, which gave every instance its own window).
+test('CAI-AUD-005: the demo-booking rate-limit key does not contain the client address', async () => {
   process.env.RATE_LIMIT_SECRET = 'test-secret-not-public';
   const req = { headers: { 'x-forwarded-for': '203.0.113.77, 10.0.0.1' }, socket: {} };
-  const key = rateLimitKey(req);
+  const key = await rateLimitKey(req);
   assert.match(key, /^[0-9a-f]{32}$/);
   assert.ok(!key.includes('203.0.113.77'));
 });
 
-test('CAI-AUD-005: the key is stable for one address and differs between addresses', () => {
+test('CAI-AUD-005: the key is stable for one address and differs between addresses', async () => {
   process.env.RATE_LIMIT_SECRET = 'test-secret-not-public';
-  const a = rateLimitKey({ headers: { 'x-real-ip': '198.51.100.1' }, socket: {} });
-  const b = rateLimitKey({ headers: { 'x-real-ip': '198.51.100.1' }, socket: {} });
-  const c = rateLimitKey({ headers: { 'x-real-ip': '198.51.100.2' }, socket: {} });
+  const a = await rateLimitKey({ headers: { 'x-real-ip': '198.51.100.1' }, socket: {} });
+  const b = await rateLimitKey({ headers: { 'x-real-ip': '198.51.100.1' }, socket: {} });
+  const c = await rateLimitKey({ headers: { 'x-real-ip': '198.51.100.2' }, socket: {} });
   assert.equal(a, b, 'the same address must count against the same window');
   assert.notEqual(a, c);
 });
 
-test('CAI-AUD-005: the key is not a plain unkeyed hash of the address (recomputable from IPv4 space)', () => {
+test('CAI-AUD-005: the key is not a plain unkeyed hash of the address (recomputable from IPv4 space)', async () => {
   process.env.RATE_LIMIT_SECRET = 'test-secret-not-public';
   const ip = '198.51.100.9';
-  const key = rateLimitKey({ headers: { 'x-real-ip': ip }, socket: {} });
+  const key = await rateLimitKey({ headers: { 'x-real-ip': ip }, socket: {} });
   assert.notEqual(key, createHash('sha256').update(ip).digest('hex').slice(0, 32));
 });
 

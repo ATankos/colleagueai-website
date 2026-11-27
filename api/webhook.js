@@ -38,6 +38,9 @@ import {
   getPartnerStats,
   issueCertification,
   renewCertification,
+  recordPendingIssuance,
+  retryPendingIssuances,
+  retryEvidenceRepairs,
   markCertificationPastDue,
   lapseCertification,
   getCertificationBySubscription,
@@ -325,18 +328,33 @@ async function grantForSession(session, eventId) {
   const subscriptionId = typeof session.subscription === 'string'
     ? session.subscription
     : session.subscription?.id;
-  if (subscriptionId) {
+  if (subscriptionId && refused) {
+    // A purchase that was already refunded or charged back must not mint a certificate: a late or repeated checkout event
+    // arriving after the refund used to issue an "active" certificate for a subscription that had ended.
+    console.warn('[webhook] Certification not issued (%s): session %s', refused, session.id);
+  } else if (subscriptionId) {
+    const issuance = {
+      email, slug, tier: session.metadata?.tier,
+      subscriptionId,
+      currentPeriodEnd: subscriptionPeriodEnd(session.subscription),
+      // The release this purchase bought is the one the certificate names (it used to default to "1.0").
+      certifiedVersion: releaseVersionForSession(session, productFor(canonicalSlug(slug))),
+    };
     try {
-      const cert = await issueCertification({
-        email, slug, tier: session.metadata?.tier,
-        subscriptionId,
-        currentPeriodEnd: subscriptionPeriodEnd(session.subscription),
-        // The release this purchase bought is the one the certificate names (it used to default to "1.0").
-        certifiedVersion: releaseVersionForSession(session, productFor(canonicalSlug(slug))),
-      });
-      console.log('[webhook] Certification issued:', cert?.certificateId);
+      const cert = await issueCertification(issuance);
+      console.log('[webhook] Certification issued:', cert?.certificateId ?? cert?.reason);
     } catch (err) {
-      console.error('[webhook] Certification issue failed (licence unaffected):', err?.message ?? err);
+      // The licence is already granted, so the fulfilment stands; but the issuance must not be forgotten. It is stored with
+      // everything needed to repeat it and retried (retryPendingIssuances, scripts/certification-reconcile.mjs). If it cannot
+      // even be stored the store is down: fail the event so Stripe delivers it again.
+      console.error('[webhook] Certification issue failed, queued for retry (licence unaffected):', err?.message ?? err);
+      try {
+        await recordPendingIssuance(issuance, err);
+      } catch (queueErr) {
+        console.error('[webhook] Certification issue could not be queued:', queueErr?.message ?? queueErr);
+        await releaseClaims(eventId, session.id);
+        throw new Error('Certification issue failed and could not be queued');
+      }
     }
   }
 
@@ -458,6 +476,18 @@ export default async function handler(req, res) {
   } catch (err) {
     console.error('[webhook] Signature verification failed:', err.message);
     return res.status(400).json({ error: `Webhook signature error: ${err.message}` });
+  }
+
+  // A subscription event is a natural moment to finish certificate work that failed earlier (a queued issuance, an
+  // evidence entry that did not land). Best effort and bounded: it never fails the event it rides on.
+  if (event.type.startsWith('invoice.') || event.type.startsWith('customer.subscription.')) {
+    try {
+      const issuing = await retryPendingIssuances({ limit: 3 });
+      const repairs = await retryEvidenceRepairs({ limit: 3 });
+      if (issuing.attempted || repairs.attempted) console.log('[webhook] certificate recovery', JSON.stringify({ issuing, repairs }));
+    } catch (err) {
+      console.warn('[webhook] certificate recovery skipped:', err?.message ?? err);
+    }
   }
 
   // ---- Fulfilment: instant (card) now, or when a delayed transfer clears ----
