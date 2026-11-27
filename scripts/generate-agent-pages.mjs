@@ -201,7 +201,7 @@ ${RUNTIME[slug] ? `<section><h2>Microsoft prerequisites and running costs</h2><p
 <p style="font-size:13px;color:#5c574f">Colleague AI&rsquo;s own programme &mdash; not third-party accreditation, and it does not certify how you use the agent. <a href="/certified">What it covers</a>.</p></section>
 <section><h2>About Colleague AI</h2><p>${esc(ABOUT)}</p></section>
 <div class="cta">
-  ${commercialSaleAllowed(slug) ? `<a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Book a demo →</a>` : `<a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}&amp;intent=interest" data-track="interest_cta" data-agent="${slug}">Register your interest →</a>`}
+  ${commercialSaleAllowed(slug) ? `<a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Book a demo →</a>` : `<a class="btn btn-p" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}&amp;intent=interest" data-track="interest_cta" data-agent="${slug}">Ask about this agent →</a>`}
   ${releaseOf(slug) ? '<a class="btn btn-s" href="/pricing">Pricing and what is included</a>' : `<a class="btn btn-s" href="/demo?agent=${slug}&amp;tier=${esc(a.t)}">Request a demo</a>`}
   <a class="btn btn-s" href="${pdf}" target="_blank" rel="noopener">⤓ Agent dossier (PDF)</a>
 </div>
