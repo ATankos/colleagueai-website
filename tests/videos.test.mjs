@@ -16,6 +16,21 @@ const META = JSON.parse(readFileSync(new URL('scripts/i18n/videos/meta.json', RO
 const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 const PUBLISHABLE = ['corporate', 'install', 'certification'];
 const PREVIEW = { CAI_VIDEO_PREVIEW: '1', VERCEL_ENV: 'preview' };
+/* Remove every <template>…</template> block by position (no regex over HTML: CodeQL js/bad-tag-filter). */
+function withoutTemplates(html) {
+  const lower = html.toLowerCase();
+  let out = '';
+  let from = 0;
+  for (;;) {
+    const open = lower.indexOf('<template', from);
+    if (open === -1) return out + html.slice(from);
+    const close = lower.indexOf('</template', open);
+    if (close === -1) return out + html.slice(from, open);
+    out += html.slice(from, open);
+    const end = lower.indexOf('>', close);
+    from = end === -1 ? html.length : end + 1;
+  }
+}
 const seg = (id) => JSON.parse(readFileSync(new URL(`scripts/i18n/videos/${id}.json`, ROOT), 'utf8')).segments;
 
 test('every served video file is byte-identical to its delivered master and named by its checksum', () => {
@@ -124,7 +139,7 @@ test('the player downloads nothing before interaction and never autoplays', () =
   for (const id of PUBLISHABLE) {
     for (const l of LOCALES) {
       const html = V.renderFeature(id, l, { cta: 'demo', ctaHref: '/demo' }, PREVIEW);
-      const outside = html.replace(/<template[\s\S]*?<\/template>/g, '');
+      const outside = withoutTemplates(html);
       assert.doesNotMatch(outside, /<(video|audio|iframe|track|source)\b/i, `${id}.${l}: media only inside the inert template`);
       assert.doesNotMatch(html, /\bautoplay\b/i, `${id}.${l}`);
       assert.match(html, /<img [^>]*loading="lazy"/, `${id}.${l}: lazy poster`);
@@ -193,7 +208,7 @@ test('built pages: placements in every language, no inline style left, script on
       const h = html(p);
       assert.doesNotMatch(h, /<style id="cai-video-css">/, `${p}: CSS externalized for the CSP`);
       assert.equal(h.includes('data-cai-video-play'), h.includes('id="cai-video-js"'), `${p}: script exactly where a player is`);
-      assert.doesNotMatch(h.replace(/<template[\s\S]*?<\/template>/g, ''), /<video\b/, `${p}: no video element before interaction`);
+      assert.doesNotMatch(withoutTemplates(h), /<video\b/, `${p}: no video element before interaction`);
     }
     if (preview) {
       assert.match(html(`${pre}index.html`), /data-cai-video="corporate"/, `${l} home`);
