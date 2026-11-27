@@ -45,3 +45,45 @@ mechanisms were **not** verified from the repository (see the open items).
 6. Make the acceptance-fingerprint sentence (item 7) match the deployment, or guarantee the secret is set in production.
 
 Until items 5–7 are settled the published privacy text is not reconciled with the code. Nothing in this document changes the text itself.
+
+
+---
+
+## Round 2 update (27 Nov 2026)
+
+Re-checked against branch `fix/aud-r2-integrity`. Still engineering reconciliation, not legal advice. The published text was **not** changed.
+
+### Changes to round-1 rows
+
+| Row | Round 1 | Round 2 |
+|---|---|---|
+| 1–3 | Keyed hash; "random per-process key when unset" | **Corrected.** A per-process key gave every serverless instance its own counting window, so a rate limit did not limit. The key is now a configured secret, or a random secret created once in the store (`secret:<name>`, SET NX) and shared by every instance. If the store is unreadable the request fails closed (tested, S4). |
+| 4 | Registration refused without a keyed secret | Unchanged: the duplicate marker and the acceptance fingerprint derive from an **email address / network address that persists**, so they need `INTEREST_DEDUPE_SALT` / `ACCEPTANCE_SALT` set in the environment. A secret stored next to the data it protects would not protect it. |
+| 6 | Open | **Fixed in code** (`referrerPath`): only origin + path are kept; query string and fragment are dropped. Tested. The text need not disclose query strings. |
+
+### New processing introduced by the certification recovery work
+
+| Key (store) | Holds | Personal data? | Retention in code | Needs a statement |
+|---|---|---|---|---|
+| `cert:pending:<subscriptionId>` + index `cert:pending` | buyer email, agent, tier, subscription id, last error (200 chars) while an issuance is being retried | **Yes (email)** | **No TTL**; deleted when the issuance completes or the subscription is found ended | Yes: "kept until the certificate is issued" |
+| `cert:ended:<subscriptionId>` | reason, time | Pseudonymous (Stripe id only) | No TTL (it must outlive late events) | State with order records |
+| `cert:term:<subscriptionId>` | paid-through date | Pseudonymous | No TTL | State with order records |
+| `cert:evidence-repair` | certificate ids awaiting a missing evidence entry | No | Removed when repaired | No |
+| `certification-evidence:<id>` (append-only) | decisions (decider ids by role), issuance, lapse | Decider ids are people | No TTL by design (audit evidence) | **Yes**: say that decision evidence names the deciding persons and is retained as an audit record |
+| `secret:<name>` | random key material | No | No TTL | Security note only |
+
+**Owner/counsel decision:** a retention period for the three no-TTL certification keys. The code deliberately keeps them (an expiry would let a late webhook event revive an ended certificate). Pick a period, after which an operator job may delete them, or state that they follow the order record.
+
+### Vendor configuration check (27 Nov 2026)
+
+- Vercel API, project `colleagueai-website`: domains, framework (vite), Node 24.x, SSO protection "all except custom domains". The API **does not expose** function region, log retention, drains or analytics settings. Integration list: **403 forbidden**. Items 9, 10 and 13 therefore stay **NOT VERIFIED**; they need the dashboard (Settings → Functions region, Observability retention, Integrations) or an owner screenshot.
+- Production environment variables (`INTEREST_DEDUPE_SALT`, `ACCEPTANCE_SALT`, `DOWNLOAD_TOKEN_SECRET`, `RATE_LIMIT_SECRET`/`PSEUDONYM_SECRET`) could not be listed (403). **NOT VERIFIED.** Without the first two, interest dedupe and the acceptance fingerprint are correctly disabled, so the fingerprint sentence in the policy is true only if `ACCEPTANCE_SALT` is set.
+
+### Open items for the owner (replaces the round-1 list where it overlaps)
+
+1. Interest-record retention statement (row 5). Interest collection itself is closed.
+2. Retention period or statement for the three no-TTL certification keys, and wording about decider names in evidence.
+3. Actual log retention (row 9) and production store/function regions (row 10), from the dashboard.
+4. Confirm analytics and error monitoring configuration (row 13).
+5. Vendor DPAs and transfer mechanisms (unchanged).
+6. Confirm the four secrets above in production, or accept that the fingerprint and interest dedupe stay off.
