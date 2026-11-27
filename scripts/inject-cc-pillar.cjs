@@ -65,8 +65,14 @@ let pages = 0;
 for (const loc of LOCALES) {
   for (const [rel, opts] of candidates(loc)) {
     const file = path.join(DIST, rel);
-    if (!fs.existsSync(file)) continue;
-    let html = fs.readFileSync(file, 'utf8');
+    /* Read directly and skip a missing page: no exists-then-read window (CodeQL js/file-system-race). */
+    let html;
+    try {
+      html = fs.readFileSync(file, 'utf8');
+    } catch (err) {
+      if (err.code === 'ENOENT' || err.code === 'EISDIR') continue;
+      throw err;
+    }
     if (html.includes('data-cc-pillar=')) continue;
     const at = insertionPoint(html);
     if (at === -1) continue;
