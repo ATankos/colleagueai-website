@@ -286,7 +286,7 @@ async function fulfillSession(session, eventId, stripe) {
     return { withheld };
   }
 
-  const result = await grantForSession(session, eventId);
+  const result = await grantForSession(session, eventId, stripe);
 
   if (order) {
     try {
@@ -320,7 +320,20 @@ async function fulfillSession(session, eventId, stripe) {
 }
 
 /** The entitlement, acceptance, certification and commission steps, once per session. */
-async function grantForSession(session, eventId) {
+/** Eligible net perpetual-licence revenue of a session, in minor units: the one-time (non-recurring) lines, after
+ *  discounts and before tax. A payment-mode session holds only the licence; a subscription-mode one also holds the first
+ *  Continuous Certification period, which earns no commission. Throws when the lines cannot be read (the event retries). */
+export async function licenceNetRevenue(stripe, session) {
+  if (session.mode !== 'subscription') {
+    return Math.max(0, (session.amount_total ?? 0) - (session.total_details?.amount_tax ?? 0));
+  }
+  const lines = await stripe.checkout.sessions.listLineItems(session.id, { limit: 100 });
+  return (lines?.data ?? [])
+    .filter((l) => !l.price?.recurring)
+    .reduce((sum, l) => sum + Math.max(0, (l.amount_total ?? 0) - (l.amount_tax ?? 0)), 0);
+}
+
+async function grantForSession(session, eventId, stripe) {
   if (!(await claimSession(session.id))) return { response: { duplicate: 'session' } };
 
   const email = session.customer_details?.email ?? session.metadata?.email;
@@ -422,9 +435,14 @@ async function grantForSession(session, eventId) {
 
     const amountGross = session.amount_total ?? 0;
     try {
+      // Founder decision (Round 3): the standard 10% applies to eligible NET perpetual licence revenue only: tax and any
+      // Continuous Certification charge in the same checkout are excluded. amountGross stays the charge total, because a
+      // partial refund reverses the share refunded / charge total.
+      const commissionBase = await licenceNetRevenue(stripe, session);
       const commission = await recordCommission({
         code: partnerCode,
         amountGross,
+        commissionBase,
         commissionRate: COMMISSION_RATE,
         stripeSessionId: session.id,
         currency: (session.currency || 'eur').toUpperCase(),

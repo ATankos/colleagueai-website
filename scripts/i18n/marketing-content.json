@@ -2159,15 +2159,6 @@
     "pl": "Harmonogram wypłat określony w umowie",
     "pt": "Calendário de pagamentos definido no acordo"
   },
-  "When a customer you introduced buys an agent package, you earn 10% of the sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts follow the schedule in your signed partner agreement.": {
-    "cs": "Když zákazník, kterého jste přivedli, koupí balíček agenta, získáte 10 % z prodeje. Žádné stropy, žádné úrovně snižující vaši sazbu. Každý prodej je evidován. Výplaty probíhají podle harmonogramu ve vaší podepsané partnerské smlouvě.",
-    "de": "Wenn ein von Ihnen vermittelter Kunde ein Agentenpaket kauft, erhalten Sie 10 % des Verkaufs. Keine Obergrenzen, keine Stufen, die Ihren Satz senken. Jeder Verkauf wird dokumentiert. Auszahlungen erfolgen gemäß dem Zeitplan in Ihrer unterzeichneten Partnervereinbarung.",
-    "fr": "Lorsqu’un client que vous avez présenté achète un package d’agent, vous percevez 10 % de la vente. Sans plafond, sans paliers réduisant votre taux. Chaque vente est enregistrée. Les versements suivent le calendrier défini dans votre accord de partenariat signé.",
-    "es": "Cuando un cliente que usted presentó compra un paquete de agente, gana el 10 % de la venta. Sin límites, sin niveles que reduzcan su tasa. Cada venta queda registrada. Los pagos siguen el calendario definido en su acuerdo de colaboración firmado.",
-    "it": "Quando un cliente da voi presentato acquista un pacchetto di agenti, guadagnate il 10% della vendita. Nessun tetto, nessun livello che riduca la vostra percentuale. Ogni vendita è registrata. I pagamenti seguono il calendario definito nel vostro accordo di partnership firmato.",
-    "pl": "Gdy klient, którego przedstawiłeś, kupi pakiet agenta, otrzymujesz 10% wartości sprzedaży. Bez limitów i progów obniżających stawkę. Każda sprzedaż jest rejestrowana. Wypłaty odbywają się zgodnie z harmonogramem określonym w podpisanej umowie partnerskiej.",
-    "pt": "Quando um cliente que apresentou compra um pacote de agente, ganha 10% da venda. Sem limites, sem escalões que reduzam a sua taxa. Cada venda fica registada. Os pagamentos seguem o calendário definido no seu acordo de parceria assinado."
-  },
   "Transactional email: demo bookings, order and download-recovery mail": {
     "cs": "Transakční e-maily: rezervace ukázek, objednávky a obnovení stažení",
     "de": "Transaktions-E-Mails: Demo-Buchungen, Bestell- und Download-Wiederherstellungs-Mails",
@@ -2257,5 +2248,14 @@
     "it": "Prenota una demo",
     "pl": "Umów demo",
     "pt": "Marcar uma demo"
+  },
+  "When a customer you introduced buys an agent package, you earn 10% of the eligible net licence revenue from that sale. No caps, no tiers that reduce your rate. Every sale is on record. Payouts follow the schedule in your signed partner agreement.": {
+    "cs": "Když zákazník, kterého jste přivedli, koupí balíček agenta, získáte 10 % z čistých způsobilých tržeb z licencí z tohoto prodeje. Žádné stropy, žádné úrovně snižující vaši sazbu. Každý prodej je evidován. Výplaty probíhají podle harmonogramu ve vaší podepsané partnerské smlouvě.",
+    "de": "Wenn ein von Ihnen vermittelter Kunde ein Agentenpaket kauft, erhalten Sie 10 % der berücksichtigungsfähigen Netto-Lizenzerlöse aus diesem Verkauf. Keine Obergrenzen, keine Stufen, die Ihren Satz senken. Jeder Verkauf wird dokumentiert. Auszahlungen erfolgen gemäß dem Zeitplan in Ihrer unterzeichneten Partnervereinbarung.",
+    "fr": "Lorsqu’un client que vous avez présenté achète un package d’agent, vous percevez 10 % du chiffre d’affaires net éligible des licences de cette vente. Sans plafond, sans paliers réduisant votre taux. Chaque vente est enregistrée. Les versements suivent le calendrier défini dans votre accord de partenariat signé.",
+    "es": "Cuando un cliente que usted presentó compra un paquete de agente, gana el 10 % de los ingresos netos elegibles por licencias de esa venta. Sin límites, sin niveles que reduzcan su tasa. Cada venta queda registrada. Los pagos siguen el calendario definido en su acuerdo de colaboración firmado.",
+    "it": "Quando un cliente da voi presentato acquista un pacchetto di agenti, guadagnate il 10% dei ricavi netti ammissibili da licenze di quella vendita. Nessun tetto, nessun livello che riduca la vostra percentuale. Ogni vendita è registrata. I pagamenti seguono il calendario definito nel vostro accordo di partnership firmato.",
+    "pl": "Gdy klient, którego przedstawiłeś, kupi pakiet agenta, otrzymujesz 10% kwalifikowanych przychodów netto z licencji z tej sprzedaży. Bez limitów i progów obniżających stawkę. Każda sprzedaż jest rejestrowana. Wypłaty odbywają się zgodnie z harmonogramem określonym w podpisanej umowie partnerskiej.",
+    "pt": "Quando um cliente que apresentou compra um pacote de agente, ganha 10% da receita líquida elegível de licenças dessa venda. Sem limites, sem escalões que reduzam a sua taxa. Cada venda fica registada. Os pagamentos seguem o calendário definido no seu acordo de parceria assinado."
   }
 }
