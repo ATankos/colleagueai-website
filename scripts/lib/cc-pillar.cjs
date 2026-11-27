@@ -35,7 +35,6 @@ const BUILT_CAPABILITY = Object.freeze({
 
 const leaf = (tag, key, text, cls = '') => `<${tag}${cls ? ` class="${cls}"` : ''} data-i18n-cai="cert_${key}">${text}</${tag}>`;
 
-const LOCALES = ['en', 'cs', 'de', 'fr', 'es', 'it', 'pl', 'pt'];
 /* The Continuous Certification video is the site's 'certification' video (config/media.json videos.certification),
  * rendered by the shared player in scripts/lib/videos.cjs. It shows only when approved (approvedBy, approvedOn,
  * same-origin file, captions in all eight languages), or on a review Preview (CAI_VIDEO_PREVIEW=1, never Production). */
