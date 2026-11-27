@@ -206,9 +206,9 @@ function renderFeature(id, loc, opts = {}, env = process.env) {
 <figure class="cai-video" id="video-${id}" data-cai-video="${id}">${banner}
 <div class="cai-video__frame">
 <div class="cai-video__stage">
-<button type="button" class="cai-video__facade" data-cai-video-play aria-label="${esc(`${t('ui', 'play', loc)}: ${title} (${dur})`)}">
+<button type="button" class="cai-video__facade" data-cai-video-play>
 <img src="${esc(v.poster)}"${srcset} width="1280" height="720" alt="" loading="lazy" decoding="async">
-<span class="cai-video__btn" aria-hidden="true">${PLAY_ICON}</span><span class="cai-video__dur" aria-hidden="true">${dur}</span>
+<span class="cai-video__sr">${esc(`${t('ui', 'play', loc)}: ${title},`)} </span><span class="cai-video__btn" aria-hidden="true">${PLAY_ICON}</span><span class="cai-video__dur">${dur}</span>
 </button>
 <template data-cai-video-tpl><video controls playsinline preload="metadata" controlslist="nodownload nofullscreen noremoteplayback" disablepictureinpicture poster="${esc(v.poster)}" src="${esc(v.src)}">${tracks}</video></template>
 </div>
@@ -283,7 +283,7 @@ const CSS = `
 .cai-video__facade:focus-visible .cai-video__btn{box-shadow:0 0 0 4px #fff,0 0 0 7px #A94A2C}
 .cai-video__cc{min-height:2.9em;padding:10px 16px;background:#1d1b1a;color:#fff;font-size:17px;line-height:1.4;text-align:center;white-space:pre-line}
 .cai-video__bar{display:flex;flex-wrap:wrap;align-items:center;gap:10px 16px;margin:14px 0 0}
-.cai-video__title{margin:0;font-size:18px;font-weight:600;line-height:1.3;flex:1 1 260px;min-width:0}
+.cai-video .cai-video__title{margin:0;font-size:18px;font-weight:600;line-height:1.3;flex:1 1 260px;min-width:0;text-transform:none;letter-spacing:normal;color:#2B2A28}
 .cai-video__time{font-size:14px;color:#4A4641;font-variant-numeric:tabular-nums}
 .cai-video__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .cai-video__lang{display:inline-flex;align-items:center;gap:6px;font-size:14px;color:#4A4641}

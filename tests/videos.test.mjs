@@ -128,7 +128,7 @@ test('the player downloads nothing before interaction and never autoplays', () =
       assert.doesNotMatch(outside, /<(video|audio|iframe|track|source)\b/i, `${id}.${l}: media only inside the inert template`);
       assert.doesNotMatch(html, /\bautoplay\b/i, `${id}.${l}`);
       assert.match(html, /<img [^>]*loading="lazy"/, `${id}.${l}: lazy poster`);
-      assert.match(html, /<button type="button" class="cai-video__facade"[^>]*aria-label="[^"]+"/, `${id}.${l}: labelled play control`);
+      assert.match(html, /<button type="button" class="cai-video__facade" data-cai-video-play>[\s\S]*?<span class="cai-video__sr">[^<]+<\/span>/, `${id}.${l}: play control named by its own text`);
       assert.match(html, new RegExp(`<div class="cai-video__txbody" lang="${l}">`), `${id}.${l}: transcript in the page language`);
       const burned = MEDIA.videos[id].burnedCaptions;
       const expected = burned && l === 'en' ? 'off' : l;

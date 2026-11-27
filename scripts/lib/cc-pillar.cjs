@@ -45,7 +45,7 @@ function approvedVideo() {
 }
 
 function videoSlot(t, loc) {
-  return VIDEOS.renderFeature('certification', loc, { cta: null, level: 3 });
+  return VIDEOS.renderFeature('certification', loc, { cta: null, level: 2 });
 }
 
 const CSS = `
