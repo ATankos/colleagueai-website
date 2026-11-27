@@ -19,6 +19,17 @@ Every material claim was checked against release 1.0.3.6 (`INSTALL.md` in bundle
 
 Nothing is published by this branch. Status on 27 Nov 2026: **product HELD; corporate, installation and certification PENDING formal approval.**
 
+**Recommendations to the founder (27 Nov, 23:00):**
+
+| Video | Recommendation | Conditions that stay attached |
+|---|---|---|
+| Corporate introduction | **Recommend publication** | The on-page disclosure: every agent is Coming soon, Contract Intelligence & Register is the first; the duplicate-invoice scene is an illustrative example, not a released agent. |
+| Installation guide | **Ready for approval.** The spoken safety instruction is confirmed as "Do not publish the agent during installation" (§2.3). | The on-page disclosure: plan 60–90 minutes in total (the video's 20–30 minutes assume every prerequisite is in place); turn Daily recompute on at go-live (INSTALL.pdf, section 5). |
+| Continuous Certification | **Pending counsel approval** of "ISO standards" as proposed coverage and the programme objectives | Coming soon; proprietary programme, not independent regulatory accreditation |
+| Product | **HELD** until the corrected master arrives (§2.2) | A new master requires a new checksum and a fresh review |
+
+Every approval remains bound to the file's SHA-256 and to a real `publishedOn` date (§1.2). Unapproved files stay out of the build (§1.1). All seven translations still need native-language review (§6); publishing before that review is a founder decision.
+
 ### 1.1 Publication gate (page and asset level)
 A video is rendered, and its files are served, only when **every** condition holds (`approved()` in `scripts/lib/videos.cjs`):
 
@@ -82,7 +93,14 @@ The video matches INSTALL.pdf step for step:
 - **Access:** CAI Contract Reader, with Read on Contract and Field evidence only; the four Copilot Studio checks.
 - **Checks:** a readiness check that "changes nothing"; the 400-day test question; section 9a; the support contact.
 
-At 147 s, speech recognition heard "publish the agent during installation". The burned caption and the on-screen card both say "**Do not** publish the agent during installation", and the captions follow the card.
+**Spoken safety instruction at 147 s, confirmed:** the narrator says "**Do not publish the agent during installation.**" This matches the burned caption and the on-screen card.
+
+The first pass of speech recognition returned "publish the agent during installation". That was a segmentation artefact: the voice-activity detector started its segment at 147.30 s, after the words "Do not". Re-checked on 27 Nov at 22:55:
+- **Energy (40 ms frames):** a speech burst at 146.98–147.28 s, at −11 to −15 dBFS (the same level as the surrounding narration), between a silence at 146.60–146.92 s (−60 to −69 dBFS) and "publish" from 147.32 s.
+- **Transcription of that burst alone** (146.50–147.35 s, padded, no detector): "Do not".
+- **Wider windows** (144.0–149.2, 145.8–149.2, 146.3–148.95 s): each reads "Do not publish the agent during installation."
+
+The caption files and transcripts in all eight languages carry the negative instruction, and `tests/videos.test.mjs` enforces it.
 
 **Verification against the authoritative documents** (`scripts/qa/install-narration-check.mjs`, rerunnable):
 - Inputs: release 1.0.3.6 bundle r3, `INSTALL.pdf` (SHA-256 `ced8e7a0…`) and `START-HERE.pdf` (`2165ecdf…`).
