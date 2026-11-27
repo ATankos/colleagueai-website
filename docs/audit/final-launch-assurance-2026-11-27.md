@@ -54,7 +54,7 @@ What turns NO-GO into GO for area 2: tests A, B, C, D in `docs/launch/founder-ac
 | P-CAPACITY-DOC | PASS | Holds (INSTALL §1, §9) |
 | C-DECLINE-3DS | BLOCKED | Still blocked (needs a person to enter test cards). Founder pack A4–A5 |
 | C-REFUND-PREVIEW | REQUIRES FOUNDER APPROVAL | Logic tested locally; Preview run is founder pack A6 |
-| C-E2E-PREVIEW | PASS | **Stale for the candidate** (see §1). Founder pack A1–A3 |
+| C-E2E-PREVIEW | ~~PASS~~ → **BLOCKED** (register updated 27 Nov; the 21 Nov evidence is kept as `previousEvidence`) | **Stale for the candidate** (see §1). Founder pack A0–A8 |
 | C-BUNDLE-R2-PUBLISHED | PASS | Hash in the register equals `config/products.json` (`37a047c1…e051d`). Its own follow-up, one buyer download after merge, is **not recorded** as done. Founder pack A2 |
 | C-1032-FILE | PASS | Holds (hash in register equals `products.json`) |
 | C-CI-DOCUMENTS | PASS | Holds: `ci.yml` runs `tests/order-documents.test.mjs` |
@@ -65,7 +65,7 @@ What turns NO-GO into GO for area 2: tests A, B, C, D in `docs/launch/founder-ac
 | O-PROD-CONFIG | REQUIRES FOUNDER APPROVAL | Environment values unreadable here (403). Founder pack D |
 | O-REVIEW-CONTROL | REQUIRES FOUNDER APPROVAL | 61 merges without approving review (#585, R1); needs a second reviewer and no admin bypass |
 
-Of 19 gates: 9 PASS hold for this candidate, 1 PASS is stale, and 9 are open (2 BLOCKED, 7 awaiting approval).
+Of 19 gates: 9 PASS hold for this candidate; 10 are open (3 BLOCKED including the stale C-E2E-PREVIEW, 7 awaiting approval).
 
 ## 4. Independent verification (this round)
 
@@ -99,9 +99,11 @@ Of 19 gates: 9 PASS hold for this candidate, 1 PASS is stale, and 9 are open (2 
 10. Native review of the seven preliminary translations (`docs/continuous-certification/translation-review.md`).
 11. Founder pack A9–A12 (subscription, dispute won and lost, reconciliation status).
 
-### 5.3 Founder confirmations of behaviour chosen in engineering
-12. A **lost** dispute ends the certification **and cancels the subscription** (Round 3), so nobody is billed for a certificate that can no longer become active. Confirm, or ask for the cancellation to be removed.
-13. A dispute **inquiry** revokes the licence while open (existing rule since before Round 1; restored when the inquiry closes without a chargeback). Confirm, or ask that inquiries leave the licence in place.
+### 5.3 Dispute policy (founder decision 27 Nov, implemented and tested)
+12. A **lost** dispute on a subscription charge ends that certification and cancels future billing.
+13. A preliminary **inquiry** takes no automatic action on the licence, the certificate claim or the commission; it is recorded on the order and the operator is notified (`OPS_ALERT_EMAIL`). An inquiry that escalates to a formal chargeback (`charge.dispute.updated`) is handled as a chargeback. **Owner step:** add `charge.dispute.updated` to the webhook endpoint's events in the Stripe dashboard (Preview and, later, live).
+    A **formal chargeback** suspends the affected package, as the published refund policy allows; a **won** dispute restores it; a **renewal** dispute never touches the separately paid perpetual licence. Tests: `tests/certification-dispute.test.mjs` X1–X10, X3b, X3c, X5b.
+    Note for the Continuous Certification launch: the live webhook event list in `docs/launch/production-activation.md` does not include `invoice.paid` / `invoice.payment_failed`, which renewals need (not a first-sale item).
 
 ### 5.4 Optional (commercial value, no new infrastructure)
 14. Publish a support response target beside "e-mail support for 24 months"; reconcile the Microsoft cost estimate with a real invoice; consider an email confirmation to demo requesters; key the holder lookup with an HMAC.
