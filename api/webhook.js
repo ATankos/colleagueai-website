@@ -43,6 +43,8 @@ import {
   retryEvidenceRepairs,
   markCertificationPastDue,
   lapseCertification,
+  holdCertificationForDispute,
+  resolveCertificationDispute,
   getCertificationBySubscription,
   bindAcceptance,
   releaseEventClaim,
@@ -60,6 +62,7 @@ import { invoiceSubscriptionId, invoiceSubscriptionPeriodEnd, subscriptionPeriod
 import { ensureOrderDocuments } from '../lib/orderDocuments.js';
 import { notifyBuyer } from '../lib/orderMail.js';
 import { publicBaseUrl } from '../lib/recovery.js';
+import { mailConfigured, sendMail } from '../lib/mail.js';
 
 const COMMISSION_RATE = parseFloat(process.env.PARTNER_COMMISSION_RATE ?? '0.10');
 
@@ -128,6 +131,91 @@ async function endCertificationForRefund(stripe, subId, sessionId) {
   const cert = await lapseCertification(subId, 'refunded');
   console.log('[webhook] Certification ended after refund of %s (subscription %s)', sessionId, subId);
   return cert ? 'lapsed' : 'subscription-cancelled';
+}
+
+/* Founder decision (27 Nov 2026) on payment disputes:
+ *   - an INQUIRY (Stripe status warning_*) is a preliminary question from the card issuer, no money is withdrawn: it takes
+ *     no automatic action on the perpetual licence, the certificate claim or the partner commission. It is recorded on the
+ *     order and the operator is notified to investigate;
+ *   - a FORMAL CHARGEBACK (any other open status, from charge.dispute.created or an inquiry escalated through
+ *     charge.dispute.updated) suspends the affected commercial entitlements, subject to the contractual terms;
+ *   - a dispute WON (or an inquiry closed, or a prevented dispute) restores what was suspended;
+ *   - a dispute LOST on a subscription charge ends that certification and cancels future billing;
+ *   - a dispute on a subscription RENEWAL charge never touches the separately paid perpetual licence (a renewal charge has
+ *     no Checkout Session, so the licence path below is never reached for it). */
+const isInquiry = (status) => typeof status === 'string' && status.startsWith('warning_');
+const OPEN_CHARGEBACK = new Set(['needs_response', 'under_review']);
+function disputePhase(eventType, status) {
+  if (eventType === 'charge.dispute.closed') return 'closed';
+  if (isInquiry(status)) return eventType === 'charge.dispute.created' ? 'inquiry' : 'ignore'; // notify once, on creation
+  if (eventType === 'charge.dispute.created') return 'chargeback';
+  if (eventType === 'charge.dispute.updated' && OPEN_CHARGEBACK.has(status)) return 'chargeback'; // an escalated inquiry
+  return 'ignore'; // other updates: the closed event carries the outcome
+}
+
+/** Tell the operator about an inquiry. Log always; email only when OPS_ALERT_EMAIL and the transport are configured.
+ *  Ids only, never the buyer's address. Never fails the event. */
+async function notifyOperatorOfInquiry({ disputeId, orderId, subscriptionId, reason, amount, currency }) {
+  const facts = { disputeId: disputeId ?? null, orderId: orderId ?? null, subscriptionId: subscriptionId ?? null, reason: reason ?? null, amount: amount ?? null, currency: currency ?? null };
+  console.warn('[webhook] payment inquiry received; no automatic action, investigate: %s', JSON.stringify(facts));
+  const to = process.env.OPS_ALERT_EMAIL;
+  if (!to || !mailConfigured()) return 'logged';
+  try {
+    const sent = await sendMail({ to, subject: `[ColleagueAI] Payment inquiry ${facts.disputeId ?? ''} needs a response`,
+      text: ['A card issuer opened a payment inquiry (no chargeback yet). Nothing was revoked or suspended.', '',
+        ...Object.entries(facts).map(([k, v]) => `${k}: ${v ?? '-'}`), '',
+        'Respond in the Stripe dashboard before the inquiry deadline. An unanswered inquiry can escalate to a chargeback.'].join('\n') });
+    return sent?.sent === false ? 'logged' : 'notified';
+  } catch (err) {
+    console.error('[webhook] inquiry notification failed:', err?.message ?? err);
+    return 'logged';
+  }
+}
+
+/* Dispute outcomes that leave the money with us: a won dispute, a closed inquiry (no chargeback) and a prevented one. */
+const DISPUTE_RESOLVED_FOR_US = new Set(['won', 'warning_closed', 'prevented']);
+
+/** The Continuous Certification subscription a disputed charge belongs to, or null (a one-time purchase). The purchase
+ *  charge resolves through its Checkout Session; a renewal charge (no session) through its invoice. */
+async function subscriptionForDispute(stripe, obj, session, sessionId) {
+  const ref = session?.subscription;
+  const fromSession = typeof ref === 'string' ? ref : ref?.id;
+  if (fromSession) return { subId: fromSession };
+  // A resolved purchase without a subscription is a one-time licence: nothing to suspend, and no extra API call.
+  if (session || sessionId) return { subId: null };
+  const pi = typeof obj.payment_intent === 'string' ? obj.payment_intent : obj.payment_intent?.id;
+  if (!pi) return { subId: null };
+  try {
+    const payments = await stripe.invoicePayments.list({ payment: { type: 'payment_intent', payment_intent: pi }, limit: 1 });
+    const invoiceRef = payments?.data?.[0]?.invoice;
+    const invoiceId = typeof invoiceRef === 'string' ? invoiceRef : invoiceRef?.id;
+    if (!invoiceId) return { subId: null };
+    const invoice = typeof invoiceRef === 'object' && invoiceRef?.parent ? invoiceRef : await stripe.invoices.retrieve(invoiceId);
+    return { subId: invoiceSubscriptionId(invoice) ?? null };
+  } catch (err) {
+    console.error('[webhook] Subscription lookup for dispute failed:', err?.message ?? err);
+    return { subId: null, lookupFailed: true };
+  }
+}
+
+/** Payment axis only (founder decision, Round 3): an open dispute suspends the subscription benefit and the active claim;
+ *  a dispute resolved for us lifts that suspension; a lost dispute ends the certification and stops further billing.
+ *  Never touches the technical decision (axis 3). */
+async function certificationForDispute(stripe, eventType, obj, subId) {
+  if (eventType === 'charge.dispute.created') {
+    const r = await holdCertificationForDispute(subId, { disputeId: obj.id ?? null });
+    return r.held ? 'on-hold' : (r.reason ?? 'hold-recorded');
+  }
+  if (DISPUTE_RESOLVED_FOR_US.has(obj.status)) return (await resolveCertificationDispute(subId, { disputeId: obj.id ?? null, outcome: 'won' })).state;
+  if (obj.status === 'lost') {
+    try {
+      await stripe.subscriptions.cancel(subId, { invoice_now: false, prorate: false });
+    } catch (err) {
+      if (!/canceled|No such subscription|resource_missing/i.test(String(err?.message ?? err) + String(err?.code ?? ''))) throw err;
+    }
+    return (await resolveCertificationDispute(subId, { disputeId: obj.id ?? null, outcome: 'lost' })).state;
+  }
+  return 'unchanged';
 }
 
 async function getRawBody(req) {
@@ -238,7 +326,7 @@ async function fulfillSession(session, eventId, stripe) {
     return { withheld };
   }
 
-  const result = await grantForSession(session, eventId);
+  const result = await grantForSession(session, eventId, stripe);
 
   if (order) {
     try {
@@ -272,7 +360,20 @@ async function fulfillSession(session, eventId, stripe) {
 }
 
 /** The entitlement, acceptance, certification and commission steps, once per session. */
-async function grantForSession(session, eventId) {
+/** Eligible net perpetual-licence revenue of a session, in minor units: the one-time (non-recurring) lines, after
+ *  discounts and before tax. A payment-mode session holds only the licence; a subscription-mode one also holds the first
+ *  Continuous Certification period, which earns no commission. Throws when the lines cannot be read (the event retries). */
+export async function licenceNetRevenue(stripe, session) {
+  if (session.mode !== 'subscription') {
+    return Math.max(0, (session.amount_total ?? 0) - (session.total_details?.amount_tax ?? 0));
+  }
+  const lines = await stripe.checkout.sessions.listLineItems(session.id, { limit: 100 });
+  return (lines?.data ?? [])
+    .filter((l) => !l.price?.recurring)
+    .reduce((sum, l) => sum + Math.max(0, (l.amount_total ?? 0) - (l.amount_tax ?? 0)), 0);
+}
+
+async function grantForSession(session, eventId, stripe) {
   if (!(await claimSession(session.id))) return { response: { duplicate: 'session' } };
 
   const email = session.customer_details?.email ?? session.metadata?.email;
@@ -374,9 +475,14 @@ async function grantForSession(session, eventId) {
 
     const amountGross = session.amount_total ?? 0;
     try {
+      // Founder decision (Round 3): the standard 10% applies to eligible NET perpetual licence revenue only: tax and any
+      // Continuous Certification charge in the same checkout are excluded. amountGross stays the charge total, because a
+      // partial refund reverses the share refunded / charge total.
+      const commissionBase = await licenceNetRevenue(stripe, session);
       const commission = await recordCommission({
         code: partnerCode,
         amountGross,
+        commissionBase,
         commissionRate: COMMISSION_RATE,
         stripeSessionId: session.id,
         currency: (session.currency || 'eur').toUpperCase(),
@@ -641,10 +747,44 @@ export default async function handler(req, res) {
   if (
     event.type === 'charge.refunded' ||
     event.type === 'charge.dispute.created' ||
+    event.type === 'charge.dispute.updated' ||
     event.type === 'charge.dispute.closed'
   ) {
     const obj = event.data.object || {};
+    const isDispute = event.type !== 'charge.refunded';
+    const phase = isDispute ? disputePhase(event.type, obj.status) : null;
+    if (phase === 'ignore') return res.status(200).json({ received: true, dispute: 'update-recorded-by-stripe', status: obj.status ?? null });
     const { sessionId, session, lookupFailed } = await sessionForCharge(stripe, obj);
+
+    // Disputes also suspend (or restore) Continuous Certification, including disputes of RENEWAL charges, which have no
+    // Checkout Session and used to change nothing. Done first and idempotently; a lookup failure makes Stripe retry.
+    let certificationDispute;
+    if (isDispute && !lookupFailed) {
+      const { subId, lookupFailed: subLookupFailed } = await subscriptionForDispute(stripe, obj, session, sessionId);
+      if (subLookupFailed) return res.status(500).json({ error: 'Subscription lookup failed' });
+      if (subId) {
+        try { certificationDispute = phase === 'inquiry' ? 'unchanged-inquiry' : await certificationForDispute(stripe, phase === 'chargeback' ? 'charge.dispute.created' : event.type, obj, subId); }
+        catch (err) {
+          console.error('[webhook] Certification dispute handling failed:', err?.message ?? err);
+          return res.status(500).json({ error: 'Certification dispute handling failed' });
+        }
+      }
+    }
+
+    if (phase === 'inquiry') {
+      if (lookupFailed) return res.status(500).json({ error: 'Session lookup failed' });
+      const orderId = sessionId ? (orderIdOf(obj) || orderIdOf(session) || await orderIdForSessionId(stripe, sessionId)) : orderIdOf(obj);
+      if (orderId) {
+        try {
+          await noteOnOrder(orderId, { sourceId: event.id, type: event.type,
+            facts: { dispute: { id: obj.id ?? null, status: obj.status ?? null, reason: obj.reason ?? null, amount: obj.amount ?? null, inquiry: true, at: new Date().toISOString() } } });
+        } catch { return res.status(500).json({ error: 'Order record write failed' }); }
+      }
+      const subRef = session?.subscription;
+      const operator = await notifyOperatorOfInquiry({ disputeId: obj.id, orderId, subscriptionId: typeof subRef === 'string' ? subRef : subRef?.id,
+        reason: obj.reason, amount: obj.amount, currency: obj.currency });
+      return res.status(200).json({ received: true, dispute: 'inquiry', licence: 'unchanged', commission: 'unchanged', certification: certificationDispute ?? 'unchanged', operator });
+    }
 
     if (!sessionId) {
       if (lookupFailed) {
@@ -653,7 +793,7 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Session lookup failed' });
       }
       console.warn('[webhook] %s without a session reference; ledger untouched', event.type);
-      return res.status(200).json({ received: true, commission: 'no-session-reference' });
+      return res.status(200).json({ received: true, commission: 'no-session-reference', ...(certificationDispute ? { certification: certificationDispute } : {}) });
     }
 
     // Who bought what: the charge's own copy first, then the resolved session. Charge metadata
@@ -665,12 +805,14 @@ export default async function handler(req, res) {
 
     const orderId = orderIdOf(obj) || orderIdOf(session) || await orderIdForSessionId(stripe, sessionId);
     try {
-      if (event.type === 'charge.dispute.created' || event.type === 'charge.dispute.closed') {
+      if (isDispute) {
         await noteOnOrder(orderId, { sourceId: event.id, type: event.type,
           facts: { dispute: { id: obj.id ?? null, status: obj.status ?? (event.type === 'charge.dispute.created' ? 'needs_response' : null), reason: obj.reason ?? null, amount: obj.amount ?? null, at: new Date().toISOString() } } });
       }
       if (event.type === 'charge.dispute.closed') {
-        if (obj.status === 'won') {
+        // A closed inquiry or a prevented dispute withdrew no money: treat it like a won dispute (it used to leave the
+        // licence revoked for good after an inquiry, because only 'won' restored it).
+        if (DISPUTE_RESOLVED_FOR_US.has(obj.status)) {
           const restored = await restoreCommission(sessionId, 'dispute-won');
           // The buyer gets the agent back too, unless the same purchase was refunded or it was a live
           // sale of a release with a record that is not approved (liveRestoreRefused). restoreEntitlement
@@ -682,9 +824,9 @@ export default async function handler(req, res) {
             const r = await restoreEntitlement(email, [slug], sessionId);
             access = r.restored ? 'restored' : r.reason;
           }
-          return res.status(200).json({ received: true, commission: restored.state ?? 'restored', access });
+          return res.status(200).json({ received: true, commission: restored.state ?? 'restored', access, ...(certificationDispute ? { certification: certificationDispute } : {}) });
         }
-        return res.status(200).json({ received: true, commission: 'dispute-lost-already-reversed' });
+        return res.status(200).json({ received: true, commission: 'dispute-lost-already-reversed', ...(certificationDispute ? { certification: certificationDispute } : {}) });
       }
 
       const refunded = event.type === 'charge.refunded' ? (obj.amount_refunded ?? null) : null;
@@ -717,7 +859,7 @@ export default async function handler(req, res) {
         if (creditNotes.issued > 0) await documentationStep(orderId, { notify: false }); // the credit-note PDF joins the order's documents
       }
 
-      return res.status(200).json({ received: true, commission: result.state ?? result.reason, ...(certification ? { certification } : {}), ...(creditNotes ? { creditNotes: creditNotes.issued } : {}), ...(orderId ? { order: orderId } : {}) });
+      return res.status(200).json({ received: true, commission: result.state ?? result.reason, ...(certification ? { certification } : {}), ...(certificationDispute ? { certification: certificationDispute } : {}), ...(creditNotes ? { creditNotes: creditNotes.issued } : {}), ...(orderId ? { order: orderId } : {}) });
     } catch (err) {
       console.error('[webhook] Reversal handling failed:', err);
       return res.status(500).json({ error: 'Reversal write failed' });

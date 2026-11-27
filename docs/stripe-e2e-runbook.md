@@ -19,7 +19,7 @@ Nothing in this document contains a secret, and no step asks you to share one.
    `https://<preview>.vercel.app/api/webhook`, events:
    `checkout.session.completed`, `checkout.session.async_payment_succeeded`,
    `checkout.session.async_payment_failed`, `charge.refunded`,
-   `charge.dispute.created`, `charge.dispute.closed`,
+   `charge.dispute.created`, `charge.dispute.updated`, `charge.dispute.closed`,
    `invoice.paid`, `invoice.payment_failed`,
    `customer.subscription.updated`, `customer.subscription.deleted`.
    Copy the signing secret (`whsec_…`).

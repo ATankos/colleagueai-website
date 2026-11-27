@@ -650,7 +650,7 @@ ${hubAlternateBlock()}
   --muted:#6B665E;
   --line:#D8D2C6;
   --paper:#FFFDF8;
-  --accent:#C65D3A;
+  --accent:#A94A2C;
 }
 *{box-sizing:border-box}
 body{
@@ -878,7 +878,7 @@ ${alternateBlock(key)}
   --muted:#6B665E;
   --line:#D8D2C6;
   --paper:#FFFDF8;
-  --accent:#C65D3A;
+  --accent:#A94A2C;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}

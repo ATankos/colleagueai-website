@@ -108,7 +108,7 @@ export default async function handler(req, res) {
   }
 
   const statusLabel = state.label;
-  const subscriptionText = { active: 'Active', past_due: 'Payment overdue', cancelled: 'Cancelled', lapsed: 'Ended' }[state.subscription] || 'Ended';
+  const subscriptionText = { active: 'Active', past_due: 'Payment overdue', disputed: 'Payment dispute open', cancelled: 'Cancelled', lapsed: 'Ended' }[state.subscription] || 'Ended';
   const currencyText = {
     current: 'Current certified release',
     superseded: `Superseded by ${state.currentCertifiedRelease}`,
