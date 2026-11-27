@@ -30,7 +30,7 @@ const norm = (s) => s.toLowerCase()
 const text = (f) => norm(execFileSync('pdftotext', ['-layout', f, '-'], { encoding: 'utf8' }));
 const DOCS = { 'INSTALL.pdf': text(installPdf), 'START-HERE.pdf': text(startPdf) };
 
-// [segment index, what the narration asserts, regex on the normalised document text, options]
+// [segment index, what the narration asserts, regex (or literal string) on the normalised document text, options]
 const ANCHORS = [
   [0, 'installs in the customer\'s own Microsoft environment', /your own microsoft licen|stay in your microsoft tenant/],
   [1, '"20 to 30 minutes" setup time', /20\s*(-|to)\s*30 minutes/, { expect: 'absent', covers: 'On-page disclosure: plan 60-90 minutes in total; 20-30 assumes every prerequisite is in place (INSTALL.pdf: about 60 minutes).' }],
@@ -54,7 +54,7 @@ const ANCHORS = [
   [14, 'SharePoint site address', /sharepoint site (address|url)/],
   [14, 'library ID', /library id/],
   [14, 'owner team name, exact', /owner team/],
-  [16, 'make.powerapps.com', /make\.powerapps\.com/],
+  [16, 'make.powerapps.com', 'make.powerapps.com'],
   [17, 'Solutions > Import solution', /import solution/],
   [18, 'both Dataverse references on the same connection', /(same|one) dataverse connection|both dataverse/],
   [19, 'SharePoint and Teams connections', /microsoft teams connection/],
@@ -95,7 +95,7 @@ const ANCHORS = [
 
 const segs = JSON.parse(readFileSync(path.join(ROOT, 'scripts/i18n/videos/install.json'), 'utf8')).segments;
 const rows = ANCHORS.map(([seg, claim, re, opt = {}]) => {
-  const where = Object.entries(DOCS).filter(([, t]) => re.test(t)).map(([d]) => d);
+  const where = Object.entries(DOCS).filter(([, t]) => (typeof re === 'string' ? t.includes(re) : re.test(t))).map(([d]) => d);
   const expectAbsent = opt.expect === 'absent';
   const ok = expectAbsent ? where.length === 0 : where.length > 0;
   return { seg, at: segs[seg].t[0], narration: segs[seg].en, claim, foundIn: where, expect: expectAbsent ? 'absent' : 'present', ok, covers: opt.covers };
