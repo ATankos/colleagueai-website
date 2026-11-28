@@ -54,7 +54,7 @@ The verdict is FAIL unless every rule below holds.
    - A step that runs tests (node:test, Vitest, Playwright) must report a parsed summary with more than 0 tests and none skipped, todo, cancelled, flaky or not run.
    - Otherwise the step is reported as INCOMPLETE, UNVERIFIED, NO_TESTS or FLAKY, and it blocks.
    - Steps marked `continue-on-error` in the workflow are reported with their real status and do not block. Today that is only the go-live readiness check, which fails by design while commerce is disabled.
-5. **Coverage gaps are listed.** Test files that no CI step runs appear in `testFilesNotRunByCi`.
+5. **Coverage gaps are listed and run.** Test files that no CI step runs appear in `testFilesNotRunByCi`. Unless `--ci-only` is given, they are run after the CI jobs, under the same rules, and they block. On 28 Nov 2026 there were 13 such files. CI does not gate them, so the release evidence does.
 6. **Tree equivalence.** `--expect-tree` makes the verdict FAIL unless the commit's tree equals the reviewed candidate's tree. Use it to prove that the commit on `main` after merging is byte-for-byte the tree that was tested and reviewed.
 
 Each step's full log is kept, and `SHA256SUMS` covers the logs and the evidence file.

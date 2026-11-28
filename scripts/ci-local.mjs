@@ -3,7 +3,7 @@
 // Uses no GitHub Actions minutes. Procedure and rules: docs/ops/local-ci.md.
 //
 //   node scripts/ci-local.mjs [--ref <commit>] [--jobs test,e2e] [--expect-tree <tree>]
-//                             [--out <dir>] [--keep]
+//                             [--out <dir>] [--keep] [--ci-only]
 //
 // Integrity rules (each one makes the verdict FAIL):
 //  - the source working tree must be clean (no modified, staged or untracked files);
@@ -13,14 +13,16 @@
 //  - every mandatory step must run and exit 0, and a step that runs tests must report
 //    a parsed test summary with tests > 0 and nothing skipped, todo, cancelled,
 //    flaky or not run; anything else is reported as INCOMPLETE/UNVERIFIED, never PASS;
-//  - with --expect-tree, the commit's tree hash must equal the given tree.
+//  - with --expect-tree, the commit's tree hash must equal the given tree;
+//  - test files that no CI step runs are listed and, unless --ci-only, run too, with
+//    the same rules (CI does not gate them, so release evidence does).
 // Steps marked continue-on-error in the workflow are reported with their real status
 // but do not block (today only the go-live readiness check, failing by design).
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync, mkdtempSync, rmSync } from 'node:fs';
 import { execFileSync, spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 import { createRequire } from 'node:module';
-import { tmpdir, type, release, arch, cpus } from 'node:os';
+import * as os from 'node:os';
 import { join, resolve } from 'node:path';
 
 const args = process.argv.slice(2);
@@ -49,10 +51,10 @@ try { yaml = require('js-yaml'); } catch {
 }
 
 // 2. Fresh isolated checkout.
-const work = mkdtempSync(join(tmpdir(), `ci-local-${sha.slice(0, 8)}-`));
+const work = mkdtempSync(join(os.tmpdir(), `ci-local-${sha.slice(0, 8)}-`));
 rmSync(work, { recursive: true });
 sh('git', ['worktree', 'add', '--detach', work, sha]);
-const outDir = resolve(opt('--out', join(tmpdir(), `ci-local-evidence-${sha.slice(0, 8)}`)));
+const outDir = resolve(opt('--out', join(os.tmpdir(), `ci-local-evidence-${sha.slice(0, 8)}`)));
 rmSync(outDir, { recursive: true, force: true });
 mkdirSync(join(outDir, 'logs'), { recursive: true });
 
@@ -108,9 +110,9 @@ function parseCounts(log) {
 // 3. Environment and dependencies.
 const wf = yaml.load(readFileSync(join(work, '.github/workflows/ci.yml'), 'utf8'));
 const env = {
-  node: process.version, npm: sh('npm', ['-v']), os: `${type()} ${release()} ${arch()}`,
+  node: process.version, npm: sh('npm', ['-v']), os: `${os.type()} ${os.release()} ${os.arch()}`,
   osRelease: existsSync('/etc/os-release') ? (readFileSync('/etc/os-release', 'utf8').match(/PRETTY_NAME="([^"]+)"/) || [])[1] : null,
-  cpus: cpus().length,
+  cpus: os.cpus().length,
   packageLockSha256: sha256(readFileSync(join(work, 'package-lock.json'))),
   packageJsonSha256: sha256(readFileSync(join(work, 'package.json'))),
 };
@@ -181,6 +183,20 @@ const cmds = jobs.flatMap((jb) => (wf.jobs[jb]?.steps || []).map((s) => s.run ||
 const expanded = cmds + '\n' + Object.entries(scripts).filter(([k]) => cmds.includes(`npm run ${k}`)).map(([, v]) => v).join('\n');
 const testFiles = existsSync(join(work, 'tests')) ? readdirSync(join(work, 'tests')).filter((f) => /\.test\.m?js$/.test(f)).map((f) => `tests/${f}`) : [];
 const notInCi = testFiles.filter((f) => !expanded.includes(f));
+
+// 5. Release evidence also runs those files (after the build, so nothing skips for a
+//    missing dist/), with the same PASS rules. --ci-only leaves them out.
+if (!flag('--ci-only')) {
+  for (const f of notInCi) {
+    const r = run(`uncovered ${f}`, `node --test --test-reporter=tap ${f}`);
+    const counts = parseCounts(r.log);
+    const status = r.exit !== 0 ? 'FAIL' : counts.total === null ? 'UNVERIFIED' : counts.total === 0 ? 'NO_TESTS'
+      : (counts.skipped || counts.todo || counts.cancelled) ? 'INCOMPLETE' : 'PASS';
+    results.push({ job: 'not-in-ci', name: f, kind: 'step', mandatory: true, status, blocking: status !== 'PASS',
+      exit: r.exit, seconds: r.seconds, counts, commandSha256: sha256(f), log: r.file, logSha256: r.logSha256 });
+    console.log(`${status.padEnd(10)} [not-in-ci] ${f}  tests=${counts.total}`);
+  }
+}
 
 const steps = results.filter((x) => x.kind === 'step');
 const envFail = results.filter((x) => x.kind === 'environment' && x.status !== 'PASS').length;
