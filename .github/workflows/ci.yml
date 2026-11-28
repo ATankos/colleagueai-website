@@ -1,11 +1,20 @@
 name: CI
 
+# Private-repository Actions budget (GitHub Free: 2,000 min, 500 MB storage).
+# While the repository is public nothing changes. Once it is private, the heavy
+# jobs below run only on manual dispatch; run them locally instead
+# (docs/ops/local-ci.md). Unit tests still run on every PR and push to main.
 "on":
+  workflow_dispatch:
   push:
     branches:
       - main
       - golive-fixes
   pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -244,14 +253,16 @@ jobs:
           BASE_URL=http://localhost:4173 node tests/audit-headers.mjs
 
       - name: Upload harness evidence
-        if: always()
+        if: ${{ failure() || !github.event.repository.private }}
         uses: actions/upload-artifact@v7
         with:
           name: harness-results
           path: tests/results/
           if-no-files-found: ignore
+          retention-days: 3
 
   e2e:
+    if: ${{ !github.event.repository.private || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
 
     steps:
@@ -286,9 +297,10 @@ jobs:
         run: npm run e2e:golive
 
       - name: Upload Playwright report
-        if: always()
+        if: ${{ failure() || !github.event.repository.private }}
         uses: actions/upload-artifact@v7
         with:
           name: playwright-report
           path: playwright-report/
           if-no-files-found: ignore
+          retention-days: 3
