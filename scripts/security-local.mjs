@@ -34,9 +34,11 @@ const dirty = sh('git', ['status', '--porcelain', '--untracked-files=normal']);
 if (dirty) { console.error('Working tree is not clean:\n' + dirty); process.exit(2); }
 const sha = sh('git', ['rev-parse', 'HEAD']);
 const tree = sh('git', ['rev-parse', 'HEAD^{tree}']);
-const outDir = resolve(opt('--out', join(tmpdir(), `security-local-${sha.slice(0, 8)}`)));
-rmSync(outDir, { recursive: true, force: true });
-mkdirSync(outDir, { recursive: true });
+// Evidence goes to --out (emptied first), or to a new private temp directory with an
+// unpredictable name (never a fixed /tmp path another user could pre-create).
+const outArg = opt('--out');
+const outDir = outArg ? resolve(outArg) : mkdtempSync(join(tmpdir(), `security-local-${sha.slice(0, 8)}-`));
+if (outArg) { rmSync(outDir, { recursive: true, force: true }); mkdirSync(outDir, { recursive: true, mode: 0o700 }); }
 const rules = process.env.SEMGREP_RULES;
 const tool = (c, a) => { try { return sh(c, a); } catch { return null; } };
 report.tools = {

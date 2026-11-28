@@ -54,9 +54,12 @@ try { yaml = require('js-yaml'); } catch {
 const work = mkdtempSync(join(os.tmpdir(), `ci-local-${sha.slice(0, 8)}-`));
 rmSync(work, { recursive: true });
 sh('git', ['worktree', 'add', '--detach', work, sha]);
-const outDir = resolve(opt('--out', join(os.tmpdir(), `ci-local-evidence-${sha.slice(0, 8)}`)));
-rmSync(outDir, { recursive: true, force: true });
-mkdirSync(join(outDir, 'logs'), { recursive: true });
+// Evidence goes to --out (emptied first), or to a new private temp directory with an
+// unpredictable name (never a fixed /tmp path another user could pre-create).
+const outArg = opt('--out');
+const outDir = outArg ? resolve(outArg) : mkdtempSync(join(os.tmpdir(), `ci-local-evidence-${sha.slice(0, 8)}-`));
+if (outArg) rmSync(outDir, { recursive: true, force: true });
+mkdirSync(join(outDir, 'logs'), { recursive: true, mode: 0o700 });
 
 let seq = 0;
 let stepEnv = {};
