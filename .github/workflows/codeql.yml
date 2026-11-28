@@ -1,5 +1,8 @@
 name: CodeQL
 
+# Code scanning on a private repository needs paid GitHub Code Security, which is
+# not authorized. The job therefore runs only while the repository is public.
+
 on:
   push:
     branches: [main]
@@ -17,6 +20,7 @@ permissions:
 jobs:
   analyze:
     name: Analyze JavaScript
+    if: ${{ !github.event.repository.private }}
     runs-on: ubuntu-latest
     timeout-minutes: 15
 

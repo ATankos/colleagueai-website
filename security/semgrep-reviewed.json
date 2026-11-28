@@ -1,0 +1,3066 @@
+{
+ "reviewedOn": "2026-11-28",
+ "reviewedBy": "Claude (AI) - requires confirmation by the independent human reviewer",
+ "semgrep": "1.95.0",
+ "semgrepRules": "semgrep/semgrep-rules a5ad1714f00c9f7fde980cab0ea1d6dc6d414fd2",
+ "unparsed": [
+  {
+   "path": "lib/legalArchive.js",
+   "reason": "Semgrep 1.95 parser rejects a regex literal after \"(\". Reviewed manually 2026-11-28: pure functions over config/legal.json and archived text; no filesystem, network or request input. Covered by ESLint and tests/legal-*."
+  },
+  {
+   "path": "scripts/generate-locale-pages.mjs",
+   "reason": "Same parser limitation. Build-time generator on repository content; not deployed. Covered by ESLint."
+  }
+ ],
+ "findings": [
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|5c70e0e1d72e26ef",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 42,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|49e23cdb812d80fe",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 51,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|f66931c1f5588799",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 52,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|739a546137c9832e",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 70,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|601ec30124e87b9b",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 126,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|601ec30124e87b9b",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 126,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|a4841ea3b454ce56",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 127,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|a4841ea3b454ce56",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 127,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|34b50ce8e8f1f565",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 129,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|34b50ce8e8f1f565",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 129,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|1dc75d18d14373bf",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 130,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|1dc75d18d14373bf",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 130,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|ad695e068909e8e2",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 131,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|ad695e068909e8e2",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 131,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|c7877fbedb3f7d3f",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 132,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|c7877fbedb3f7d3f",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 132,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|c5f3a571eeff34da",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 133,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|c5f3a571eeff34da",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 133,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|75bd7f9fb291e8a1",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 134,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|75bd7f9fb291e8a1",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 134,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|0432054b6cf53eee",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 135,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|0432054b6cf53eee",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 135,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|b52b6e51426bfe0f",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 136,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|b52b6e51426bfe0f",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 136,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/certificate.js|37ec1f6ffa0861d9",
+   "rule": "raw-html-format",
+   "path": "api/certificate.js",
+   "line": 137,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/certificate.js|37ec1f6ffa0861d9",
+   "rule": "html-in-template-string",
+   "path": "api/certificate.js",
+   "line": 137,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|3baae0b75b9e466a",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 32,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|82cc12e9c65bb8e0",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 81,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|0eca3cbe808843f1",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 86,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|c5dffbf9f3dfd4be",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 87,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|fedfd35a0b3f6571",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 90,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|380d24fdb0b37d32",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 91,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/recover.js|c91ffc6ea2e80b4a",
+   "rule": "raw-html-format",
+   "path": "api/recover.js",
+   "line": 167,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/recover.js|c91ffc6ea2e80b4a",
+   "rule": "html-in-template-string",
+   "path": "api/recover.js",
+   "line": 167,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|363081dd0f791d76",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 39,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|6c76f40347a7414b",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 40,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|453c9472a2699868",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 41,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|ed3aabc2c1849b19",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 71,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a2619bf326a7d93f",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 72,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|8ddce22c53a93d31",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 73,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|06c872bb6111d2df",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 75,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|7a5c7fee1f5f8e2f",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 77,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a54ac6faf6950520",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 79,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|2b5faf878510ce01",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 81,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|73fe65ccf160328b",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 82,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|8228507ed042b4e0",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 83,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|b51e998dcd817c56",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 84,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a60dcfa617ae6569",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 85,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a5f95303d221be9d",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 86,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|b3ab1155d578d9b8",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 87,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|58917d8d26b8ae91",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 106,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|1017b27c45d36cbf",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 107,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|0224ce5797103502",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 130,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|226d181492caa4c3",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 132,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a88092c56c6358a7",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 133,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|d032ddaa9a356fc5",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 137,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a8475afd72815c10",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 138,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|0c3b7bca35af2996",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 141,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|d1bf66e9fcf4384d",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 142,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|df106325d5c36851",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 143,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|1b7318e625083dec",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 149,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|feb1a26e07015b89",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 153,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|e6bac70fe716e522",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 155,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|41624e23c3f66396",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 156,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|f040ed4db720fd26",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 157,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|8ea1667a313d0eef",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 159,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|e2010e8881ffca80",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 160,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|26a5c37bd189adfc",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 161,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|7c41ae010680add1",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 162,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|bf34620d32fcff0e",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 163,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|2f66e887c9530072",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 164,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|10414d72f699c03b",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 165,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|1704ce736f7a0509",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 166,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|36a40cf3474ca009",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 176,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-join|api/success.js|6adc1b6a0ace5c4f",
+   "rule": "raw-html-join",
+   "path": "api/success.js",
+   "line": 178,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|7cab5af0768cb621",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 178,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|333c5e190c186a4f",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 179,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|fc2cfbda1c84dd35",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 180,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|05dee44057663b94",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 182,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|c72b3ead67438d6d",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 184,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|9d988736e023ac2a",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 186,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|06c3ca0914ed5278",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 187,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|da0e6507a8a2c2d1",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 208,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|2ca5475b2375d30a",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 210,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|ff2c1f9216b3b7f2",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 213,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|523fa90350466502",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 219,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|07dc15e75f95722b",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 223,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|2f3fccbaa651ad30",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 224,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|e3f2f56864268c93",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 225,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|29e9643b50542b0e",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 226,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|4b6222137cc04d72",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 227,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|418e8916379eb03c",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 229,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|d476db0dc4e6ff6c",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 230,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/success.js|2813db5ecb18354f",
+   "rule": "raw-html-format",
+   "path": "api/success.js",
+   "line": 259,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|2813db5ecb18354f",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 259,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/success.js|c4912d9a2c2b756d",
+   "rule": "raw-html-format",
+   "path": "api/success.js",
+   "line": 285,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|c4912d9a2c2b756d",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 285,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/success.js|a023fbd80b027854",
+   "rule": "raw-html-format",
+   "path": "api/success.js",
+   "line": 290,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|a023fbd80b027854",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 290,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-format|api/success.js|ae0e39e3bbeeabc3",
+   "rule": "raw-html-format",
+   "path": "api/success.js",
+   "line": 331,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|api/success.js|ae0e39e3bbeeabc3",
+   "rule": "html-in-template-string",
+   "path": "api/success.js",
+   "line": 331,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|e2e/diacritics.spec.js|f27829a2765c4843",
+   "rule": "detect-non-literal-regexp",
+   "path": "e2e/diacritics.spec.js",
+   "line": 66,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|e2e/diacritics.spec.js|c58f28e038237346",
+   "rule": "detect-non-literal-regexp",
+   "path": "e2e/diacritics.spec.js",
+   "line": 67,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|e2e/diacritics.spec.js|0ff39c563e1aa446",
+   "rule": "detect-non-literal-regexp",
+   "path": "e2e/diacritics.spec.js",
+   "line": 68,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|e2e/localization-all-languages.spec.js|f27829a2765c4843",
+   "rule": "detect-non-literal-regexp",
+   "path": "e2e/localization-all-languages.spec.js",
+   "line": 84,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|e2e/localization-all-languages.spec.js|c58f28e038237346",
+   "rule": "detect-non-literal-regexp",
+   "path": "e2e/localization-all-languages.spec.js",
+   "line": 85,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|e2e/localization-all-languages.spec.js|0ff39c563e1aa446",
+   "rule": "detect-non-literal-regexp",
+   "path": "e2e/localization-all-languages.spec.js",
+   "line": 86,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|fix-agents-final.cjs|b49a7d5a3a8a8fe6",
+   "rule": "path-join-resolve-traversal",
+   "path": "fix-agents-final.cjs",
+   "line": 7,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|fix-agents-final.cjs|3beb8152b054c6a5",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "fix-agents-final.cjs",
+   "line": 8,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|fix-agents-final.cjs|77801123ff78a7b5",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "fix-agents-final.cjs",
+   "line": 13,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-redos|lib/acceptance.js|66b501dff29e378b",
+   "rule": "detect-redos",
+   "path": "lib/acceptance.js",
+   "line": 94,
+   "verdict": "false positive",
+   "reason": "TENANT_RE: anchored, label quantifiers bounded {0,61}; measured linear (100,000 characters in 1 ms)."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|1fdf9ce06a652ffe",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 174,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|4804b43ba87f9ac6",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 175,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|d066e72d90bca05b",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 177,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "raw-html-join|lib/acceptance.js|7c240f60271e2640",
+   "rule": "raw-html-join",
+   "path": "lib/acceptance.js",
+   "line": 178,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|a68e52efc0bc3361",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 179,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|43ff4cb7934989a7",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 180,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|6ccfb8442eb48983",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 189,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|a37a816565e082e4",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 191,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|ba32f9167e11d7ba",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 192,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|97ee3060468b73af",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 193,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|5882ebaf873e88f6",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 194,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|0a25f485ea10ae6a",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 198,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|e75f9d522bec8802",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 199,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|694178ba05b13ae6",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 200,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|8bb6ffc8d2ddcd76",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 202,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|4b90a813a25b103c",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 204,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|c491bb616d729dac",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 205,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|92eac847629ed78e",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 212,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|1a5d8df9a5ac69b0",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 213,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|21402ed63fdb16cc",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 215,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|9ff4515d712c02d5",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 225,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|46a5aa2c033eb459",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 226,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|97c5a30705e8ede1",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 231,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|fedc5d406f294dce",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 235,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|efa201682b606c48",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 236,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|efec64ce1116a884",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 242,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|0bcfef72a2b8e1e6",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 257,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|fac4a2547a8d2f9b",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 258,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|409bb9e01375a566",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 259,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|5dd910927945d52d",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 262,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/acceptance.js|142c010efdae6936",
+   "rule": "html-in-template-string",
+   "path": "lib/acceptance.js",
+   "line": 265,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "no-stringify-keys|lib/db.js|4c310dd626742fac",
+   "rule": "no-stringify-keys",
+   "path": "lib/db.js",
+   "line": 134,
+   "verdict": "false positive",
+   "reason": "Array index access on the Upstash EVAL reply (reply[0], reply[1]); not an object-key injection."
+  },
+  {
+   "fingerprint": "no-stringify-keys|lib/db.js|3193cb5dfd7c95df",
+   "rule": "no-stringify-keys",
+   "path": "lib/db.js",
+   "line": 137,
+   "verdict": "false positive",
+   "reason": "Array index access on the Upstash EVAL reply (reply[0], reply[1]); not an object-key injection."
+  },
+  {
+   "fingerprint": "no-stringify-keys|lib/db.js|dc64bee720f6ac7d",
+   "rule": "no-stringify-keys",
+   "path": "lib/db.js",
+   "line": 138,
+   "verdict": "false positive",
+   "reason": "Array index access on the Upstash EVAL reply (reply[0], reply[1]); not an object-key injection."
+  },
+  {
+   "fingerprint": "gcm-no-tag-length|lib/downloadToken.js|fc733d76ab77ac3b",
+   "rule": "gcm-no-tag-length",
+   "path": "lib/downloadToken.js",
+   "line": 77,
+   "verdict": "false positive",
+   "reason": "Token length is checked (raw.length > IV_BYTES + TAG_BYTES) before setAuthTag receives a fixed 16-byte slice, so a truncated tag cannot reach the decipher. Optional defence in depth: createDecipheriv(..., { authTagLength: 16 })."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/recovery.js|cc5ba705dc08cfee",
+   "rule": "html-in-template-string",
+   "path": "lib/recovery.js",
+   "line": 93,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "html-in-template-string|lib/recovery.js|99a906444dabb064",
+   "rule": "html-in-template-string",
+   "path": "lib/recovery.js",
+   "line": 94,
+   "verdict": "false positive",
+   "reason": "Runtime HTML (api/, lib/): every request- or user-derived value passes through esc(); the unescaped interpolations are static literals, ORDER_LOCALES-allowlisted language codes, constants, or fragments built from escaped values. Reviewed 2026-11-28."
+  },
+  {
+   "fingerprint": "gcm-no-tag-length|lib/recoveryToken.js|fc733d76ab77ac3b",
+   "rule": "gcm-no-tag-length",
+   "path": "lib/recoveryToken.js",
+   "line": 45,
+   "verdict": "false positive",
+   "reason": "Token length is checked (raw.length > IV_BYTES + TAG_BYTES) before setAuthTag receives a fixed 16-byte slice, so a truncated tag cannot reach the decipher. Optional defence in depth: createDecipheriv(..., { authTagLength: 16 })."
+  },
+  {
+   "fingerprint": "insecure-document-method|public/colleagueai-mobile-fix.js|854a2f946fdb99a1",
+   "rule": "insecure-document-method",
+   "path": "public/colleagueai-mobile-fix.js",
+   "line": 433,
+   "verdict": "false positive",
+   "reason": "Unified header built from the static MENU constant; the locale key comes from location.pathname against a fixed list; no user input reaches innerHTML."
+  },
+  {
+   "fingerprint": "insecure-innerhtml|public/colleagueai-mobile-fix.js|854a2f946fdb99a1",
+   "rule": "insecure-innerhtml",
+   "path": "public/colleagueai-mobile-fix.js",
+   "line": 433,
+   "verdict": "false positive",
+   "reason": "Unified header built from the static MENU constant; the locale key comes from location.pathname against a fixed list; no user input reaches innerHTML."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/align-og-url.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/align-og-url.cjs",
+   "line": 27,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/align-og-url.cjs|6b31f888f2bcf998",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/align-og-url.cjs",
+   "line": 29,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/align-og-url.cjs|e8be37d8efbecbc0",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/align-og-url.cjs",
+   "line": 30,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "insecure-object-assign|scripts/apply-i18n.mjs|f69676e69c763da6",
+   "rule": "insecure-object-assign",
+   "path": "scripts/apply-i18n.mjs",
+   "line": 147,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/apply-mobile-fix.cjs|3b30522e468915a8",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/apply-mobile-fix.cjs",
+   "line": 46,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/apply-mobile-fix.cjs|b1cda151ae3a71e9",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/apply-mobile-fix.cjs",
+   "line": 49,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/audit-marketing-language-architecture.cjs|e6e2c27acb8fa86a",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/audit-marketing-language-architecture.cjs",
+   "line": 21,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/audit-marketing-language-architecture.cjs|13ed6219f1de0c43",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/audit-marketing-language-architecture.cjs",
+   "line": 22,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/audit-visible-localized-copy.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/audit-visible-localized-copy.cjs",
+   "line": 37,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/audit-visible-localized-copy.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/audit-visible-localized-copy.cjs",
+   "line": 39,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-redos|scripts/check-cai-solution-package.mjs|f45bb2ad1c0af85f",
+   "rule": "detect-redos",
+   "path": "scripts/check-cai-solution-package.mjs",
+   "line": 117,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-global-language-navigation.cjs|b34623e7ca6b68bb",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-global-language-navigation.cjs",
+   "line": 6,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-global-language-navigation.cjs|62b46a363776eacc",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-global-language-navigation.cjs",
+   "line": 7,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-global-language-navigation.cjs|19be633291bebf08",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-global-language-navigation.cjs",
+   "line": 10,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-localized-page-copy.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-localized-page-copy.cjs",
+   "line": 26,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-localized-page-copy.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-localized-page-copy.cjs",
+   "line": 28,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-url-locale-controller.cjs|590ec1e7ac27cef4",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-url-locale-controller.cjs",
+   "line": 8,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-url-locale-controller.cjs|1f1f4b3a4be9c99c",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-url-locale-controller.cjs",
+   "line": 12,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/check-url-locale-controller.cjs|19be633291bebf08",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/check-url-locale-controller.cjs",
+   "line": 24,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-stringify-keys|scripts/commerce/order-documents-sample.mjs|e6e822281ff2d69f",
+   "rule": "no-stringify-keys",
+   "path": "scripts/commerce/order-documents-sample.mjs",
+   "line": 47,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/enable-checkout-preview.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/enable-checkout-preview.cjs",
+   "line": 40,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/enable-checkout-preview.cjs|936f6647b71e1224",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/enable-checkout-preview.cjs",
+   "line": 42,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/enable-checkout-preview.cjs|ced2f301a9caadca",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/enable-checkout-preview.cjs",
+   "line": 46,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/enable-checkout-preview.cjs|9fea88c47751622e",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/enable-checkout-preview.cjs",
+   "line": 49,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/enforce-url-locale-controller.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/enforce-url-locale-controller.cjs",
+   "line": 75,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/enforce-url-locale-controller.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/enforce-url-locale-controller.cjs",
+   "line": 77,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/enforce-url-locale-controller.cjs|d16441f4006ca11d",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/enforce-url-locale-controller.cjs",
+   "line": 78,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-stringify-keys|scripts/enforce-url-locale-controller.cjs|37c48c3baa940dd1",
+   "rule": "no-stringify-keys",
+   "path": "scripts/enforce-url-locale-controller.cjs",
+   "line": 105,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/externalize-inline-scripts.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 43,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/externalize-inline-scripts.cjs|f80f05a7232a408a",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 44,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/externalize-inline-scripts.cjs|02c35b3b3114bf5d",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 131,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/externalize-inline-scripts.cjs|f0d69ed77ff368fe",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 143,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/externalize-inline-scripts.cjs|f0d69ed77ff368fe",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 143,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/externalize-inline-scripts.cjs|8d0a4146f92b526b",
+   "rule": "html-in-template-string",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 173,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "unknown-value-with-script-tag|scripts/externalize-inline-scripts.cjs|8d0a4146f92b526b",
+   "rule": "unknown-value-with-script-tag",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 173,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/externalize-inline-scripts.cjs|0904ba2b16184488",
+   "rule": "html-in-template-string",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 184,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/externalize-inline-scripts.cjs|c10e54043347e17b",
+   "rule": "html-in-template-string",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 196,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/externalize-inline-scripts.cjs|2971d17c0085888c",
+   "rule": "html-in-template-string",
+   "path": "scripts/externalize-inline-scripts.cjs",
+   "line": 221,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/final-i18n-page-polish.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/final-i18n-page-polish.cjs",
+   "line": 88,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/final-i18n-page-polish.cjs|664fa55511c93e16",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/final-i18n-page-polish.cjs",
+   "line": 89,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/final-i18n-page-polish.cjs|b3a7f1e541ee1479",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/final-i18n-page-polish.cjs",
+   "line": 90,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-replaceall|scripts/final-i18n-page-polish.cjs|9c406aa5ad28eade",
+   "rule": "no-replaceall",
+   "path": "scripts/final-i18n-page-polish.cjs",
+   "line": 105,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/finalize-home.cjs|d041c0b34d588173",
+   "rule": "html-in-template-string",
+   "path": "scripts/finalize-home.cjs",
+   "line": 52,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/finalize-home.cjs|fcb5bfe747b75032",
+   "rule": "html-in-template-string",
+   "path": "scripts/finalize-home.cjs",
+   "line": 55,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/finalize-home.cjs|b9de183f57aeea89",
+   "rule": "html-in-template-string",
+   "path": "scripts/finalize-home.cjs",
+   "line": 56,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/finalize-home.cjs|b33f3c2eb252e567",
+   "rule": "html-in-template-string",
+   "path": "scripts/finalize-home.cjs",
+   "line": 57,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/finalize-home.cjs|94bbfa81182a1867",
+   "rule": "html-in-template-string",
+   "path": "scripts/finalize-home.cjs",
+   "line": 59,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/finalize-home.cjs|ca3698c5f8076a46",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/finalize-home.cjs",
+   "line": 120,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/finalize-home.cjs|419a4543268ccf75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/finalize-home.cjs",
+   "line": 121,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/finalize-home.cjs|9abe8762c2e72666",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/finalize-home.cjs",
+   "line": 122,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|4db92ac93b5c9a39",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 102,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|f45d865a1d220d24",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 108,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|280505dd732e40e7",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 110,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|d38ee40ae43fbdd6",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 176,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|171afa6d685ac042",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 182,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|9a2ba1e13cc42d13",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 183,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|e19d1e56f1ae22fb",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 195,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|8f348cd3e22400fb",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 196,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|678b47783fa07273",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 204,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|2fd168025cdd5b3a",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 205,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|ed9c5ca4e17a87f3",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 267,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|55801bf6fb02c44b",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 268,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-agent-pages.mjs|81af6df5ace1f9e7",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-agent-pages.mjs",
+   "line": 269,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-replaceall|scripts/generate-authority-pages.cjs|9e3b4f2e4f21b425",
+   "rule": "no-replaceall",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 76,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-replaceall|scripts/generate-authority-pages.cjs|ed5f929d98d4aa40",
+   "rule": "no-replaceall",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 76,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-replaceall|scripts/generate-authority-pages.cjs|9d60370b7f032be3",
+   "rule": "no-replaceall",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 76,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-replaceall|scripts/generate-authority-pages.cjs|d549d1201bec28fe",
+   "rule": "no-replaceall",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 76,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-authority-pages.cjs|2249e12cc57c0d94",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 360,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/generate-authority-pages.cjs|15e3b394333114ec",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1188,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-pages.cjs|1f6f28dff2b513a3",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1194,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/generate-authority-pages.cjs|a95113d2e9164e73",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1255,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/generate-authority-pages.cjs|834af569ba7c1131",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1256,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-pages.cjs|30a85e0bdc0c013d",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1258,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-pages.cjs|a1e37563e73e4c0c",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1259,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-pages.cjs|7dd2998571e70fde",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1261,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-pages.cjs|e0e75bf7e31928f4",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-pages.cjs",
+   "line": 1262,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-sitemap.cjs|afb52fbcad038043",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-sitemap.cjs",
+   "line": 145,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-authority-sitemap.cjs|af975ff50c83f47f",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-authority-sitemap.cjs",
+   "line": 191,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-certified-pages.cjs|371246f60c48417f",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 76,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/generate-certified-pages.cjs|371246f60c48417f",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 76,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|4a5bbdd0c423d477",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 89,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|b7526052d4e7b118",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 153,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|5595377a505cfe28",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 154,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|547a8a4f0f115407",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 156,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|8071e37aa012ce40",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 169,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|76fdd7d85c51ff7b",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 172,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|969a183d6087c767",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 178,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|6d67bb50dc9ebae3",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 194,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|54dba7cb3878db31",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 217,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|5d40bfaa1008f750",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 218,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|6f94ccdf200b4fd5",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 219,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-certified-pages.cjs|c711498d90180b6a",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-certified-pages.cjs",
+   "line": 220,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|0603c2e837543d35",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 115,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|57e4ac1f493a8cd0",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 116,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|c04c481594f6f5db",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 118,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|5f715125eef81020",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 119,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|dccd5749d75787e2",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 205,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|e17f97cd0847607a",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 206,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|848c5280e76d26e4",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 216,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|8f1251dfcb54c2a2",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 217,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|fc85023345f0f93f",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 219,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|6ac904a41badd2a9",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 220,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|6f0e831eaa0e3c1e",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 225,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|5d71482ee2993205",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 226,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|d63e064946efc875",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 229,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|050fdd5f61086744",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 230,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|17b17bff0fdbc047",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 231,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-global-language-pages.cjs|ffbb08f8300f548b",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-global-language-pages.cjs",
+   "line": 233,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/generate-llms-full.cjs|5d115e557dbefe19",
+   "rule": "html-in-template-string",
+   "path": "scripts/generate-llms-full.cjs",
+   "line": 67,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-pricing-pages.cjs|0a38c73f7ba00357",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-pricing-pages.cjs",
+   "line": 14,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-pricing-pages.cjs|58512ee07690b9e8",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-pricing-pages.cjs",
+   "line": 16,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-pricing-pages.cjs|4ac9a112d862a759",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-pricing-pages.cjs",
+   "line": 17,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-pricing-pages.cjs|dc7de6444f1ea2ea",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-pricing-pages.cjs",
+   "line": 21,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-pricing-pages.cjs|d44f82f0a373cd58",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-pricing-pages.cjs",
+   "line": 22,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/generate-pricing-pages.cjs|19be633291bebf08",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/generate-pricing-pages.cjs",
+   "line": 40,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/generate-secondary-pages.mjs|d4fa80bd0a98c5f0",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/generate-secondary-pages.mjs",
+   "line": 90,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/generate-secondary-pages.mjs|e0e53c7e123788f6",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/generate-secondary-pages.mjs",
+   "line": 109,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "raw-html-join|scripts/generate-secondary-pages.mjs|232c5d86e359f7d6",
+   "rule": "raw-html-join",
+   "path": "scripts/generate-secondary-pages.mjs",
+   "line": 152,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "raw-html-join|scripts/generate-secondary-pages.mjs|55237bd3973aa6d4",
+   "rule": "raw-html-join",
+   "path": "scripts/generate-secondary-pages.mjs",
+   "line": 256,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/i18n-restore-reviewed-copy.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/i18n-restore-reviewed-copy.cjs",
+   "line": 18,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/i18n-restore-reviewed-copy.cjs|6b31f888f2bcf998",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/i18n-restore-reviewed-copy.cjs",
+   "line": 20,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/i18n-restore-reviewed-copy.cjs|e8be37d8efbecbc0",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/i18n-restore-reviewed-copy.cjs",
+   "line": 21,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/i18n-restore-reviewed-copy.cjs|6241454004dc3073",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/i18n-restore-reviewed-copy.cjs",
+   "line": 34,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/i18n-translate-visible-copy.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/i18n-translate-visible-copy.cjs",
+   "line": 672,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/i18n-translate-visible-copy.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/i18n-translate-visible-copy.cjs",
+   "line": 674,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/i18n-translate-visible-copy.cjs|b0a270e87723c1b2",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/i18n-translate-visible-copy.cjs",
+   "line": 691,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/inject-authority-graph.cjs|b03bc0c0ed4c666a",
+   "rule": "html-in-template-string",
+   "path": "scripts/inject-authority-graph.cjs",
+   "line": 77,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-authority-graph.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-authority-graph.cjs",
+   "line": 184,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/inject-authority-graph.cjs|b3a7f1e541ee1479",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/inject-authority-graph.cjs",
+   "line": 185,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-authority-graph.cjs|ea03864f17f3f552",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-authority-graph.cjs",
+   "line": 214,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-authority-graph.cjs|94148f54bfc16d69",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-authority-graph.cjs",
+   "line": 217,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/inject-certified-nav.cjs|bba960789d627150",
+   "rule": "html-in-template-string",
+   "path": "scripts/inject-certified-nav.cjs",
+   "line": 117,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-certified-nav.cjs|8eb3dcdf59bba0af",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-certified-nav.cjs",
+   "line": 143,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-certified-nav.cjs|c0373bd80ce86450",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-certified-nav.cjs",
+   "line": 153,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-certified-nav.cjs|954658529cfbf276",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-certified-nav.cjs",
+   "line": 156,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-fixed-backtop.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-fixed-backtop.cjs",
+   "line": 7,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-fixed-backtop.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-fixed-backtop.cjs",
+   "line": 11,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/inject-fixed-backtop.cjs|b3a7f1e541ee1479",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/inject-fixed-backtop.cjs",
+   "line": 12,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-videos.cjs|4e6c5ba03ada8f32",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-videos.cjs",
+   "line": 117,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/inject-videos.cjs|f3f83d7e97b206f2",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/inject-videos.cjs",
+   "line": 138,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|700275d8c31c80d9",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 80,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|806020b0d15099eb",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 82,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|e23d041a2ef68a53",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 92,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|fdd888ff8f238a8a",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 94,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|682de1c4600466b3",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 99,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|10e4612bba04d181",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 101,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/cc-pillar.cjs|adaac6711f1e5c21",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/cc-pillar.cjs",
+   "line": 103,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/lib/videos.cjs|77d8f1fce023d294",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/lib/videos.cjs",
+   "line": 30,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/lib/videos.cjs|77d8f1fce023d294",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/lib/videos.cjs",
+   "line": 30,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/lib/videos.cjs|852f84e6175f7887",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/lib/videos.cjs",
+   "line": 36,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/lib/videos.cjs|8bcdb1fc6f953216",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/lib/videos.cjs",
+   "line": 67,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/lib/videos.cjs|f3648b5542860120",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/lib/videos.cjs",
+   "line": 70,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|689532d081f57769",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 243,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|bcfc47dfe3e250f1",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 264,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|dad5ea478f7b8ba4",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 265,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|ca411a7e2c80967c",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 267,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|7e71e2aa712021f1",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 271,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|c5c7674f301c27dd",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 272,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|69d55ebc18eb91ce",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 274,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|3d53a9c4d8c77ed2",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 305,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|b94d8b16a47e7a9d",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 307,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/lib/videos.cjs|65d25de664da2073",
+   "rule": "html-in-template-string",
+   "path": "scripts/lib/videos.cjs",
+   "line": 334,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-global-page-copy.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-global-page-copy.cjs",
+   "line": 163,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-global-page-copy.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-global-page-copy.cjs",
+   "line": 165,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-global-page-identity.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 511,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-global-page-identity.cjs|e6875ef7f963517e",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 513,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/localize-global-page-identity.cjs|2ce0ada737aa9743",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 514,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|d3ce24547291b9ed",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 555,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|81020e73d55c559e",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 556,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|8b69eb28242d2143",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 560,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|080a64ea471d4ce1",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 561,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|b7973fd98768ca63",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 565,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|50dff474c6149144",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 566,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|5d1b96b61febdcfd",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 570,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|6cd8d9686c172314",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 571,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|5f1dad19ac0ae575",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 575,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|1051434fd1a48ea6",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 576,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|6a3f82e184319042",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 580,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|dbb1b83370eeac79",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 581,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|0c3ff1e91359d5ac",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 585,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/localize-global-page-identity.cjs|7ea9ae3a3f6732c7",
+   "rule": "html-in-template-string",
+   "path": "scripts/localize-global-page-identity.cjs",
+   "line": 586,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-internal-links.cjs|8eb3dcdf59bba0af",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-internal-links.cjs",
+   "line": 110,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/localize-internal-links.cjs|f80f05a7232a408a",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/localize-internal-links.cjs",
+   "line": 115,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-internal-links.cjs|c0373bd80ce86450",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-internal-links.cjs",
+   "line": 118,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-internal-links.cjs|8169fabc489e07a7",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-internal-links.cjs",
+   "line": 120,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-marketing-content.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-marketing-content.cjs",
+   "line": 8,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-marketing-content.cjs|6b31f888f2bcf998",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-marketing-content.cjs",
+   "line": 10,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/localize-marketing-content.cjs|cdbc8fce79a56c6c",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/localize-marketing-content.cjs",
+   "line": 11,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-stringify-keys|scripts/localize-marketing-content.cjs|7229981b9730d880",
+   "rule": "no-stringify-keys",
+   "path": "scripts/localize-marketing-content.cjs",
+   "line": 66,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-structured-data.cjs|d5ff0f7f9f8a2531",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-structured-data.cjs",
+   "line": 94,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-structured-data.cjs|f0b3ff0a89ce34e3",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-structured-data.cjs",
+   "line": 145,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/localize-structured-data.cjs|8eb3dcdf59bba0af",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/localize-structured-data.cjs",
+   "line": 152,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/localize-structured-data.cjs|f80f05a7232a408a",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/localize-structured-data.cjs",
+   "line": 157,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/optimize-render-path.cjs|6b31f888f2bcf998",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 33,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/optimize-render-path.cjs|e8be37d8efbecbc0",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 34,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/optimize-render-path.cjs|484c5a3b7998264c",
+   "rule": "html-in-template-string",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 43,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/optimize-render-path.cjs|582a956a7c08c4c7",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 56,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/optimize-render-path.cjs|efdf0efaf8cb191e",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 57,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/optimize-render-path.cjs|985a18747928f005",
+   "rule": "html-in-template-string",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 65,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/optimize-render-path.cjs|9281836b4b7587f0",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 86,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/optimize-render-path.cjs|9281836b4b7587f0",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 86,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/optimize-render-path.cjs|b6631d6ab65184d2",
+   "rule": "html-in-template-string",
+   "path": "scripts/optimize-render-path.cjs",
+   "line": 90,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/playwright-static-server.cjs|0220716d54e95996",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/playwright-static-server.cjs",
+   "line": 61,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/playwright-static-server.cjs|8b880d577a040e15",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/playwright-static-server.cjs",
+   "line": 91,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/playwright-static-server.cjs|9e0f0f96b893d2fb",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/playwright-static-server.cjs",
+   "line": 123,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/polish-trust-page-readability.cjs|c0910171e0b92b75",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/polish-trust-page-readability.cjs",
+   "line": 79,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/polish-trust-page-readability.cjs|664fa55511c93e16",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/polish-trust-page-readability.cjs",
+   "line": 80,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/polish-trust-page-readability.cjs|b3a7f1e541ee1479",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/polish-trust-page-readability.cjs",
+   "line": 81,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-replaceall|scripts/polish-trust-page-readability.cjs|bc235de575cc58f4",
+   "rule": "no-replaceall",
+   "path": "scripts/polish-trust-page-readability.cjs",
+   "line": 90,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/polish-trust-page-readability.cjs|e3d62d8af67b6402",
+   "rule": "html-in-template-string",
+   "path": "scripts/polish-trust-page-readability.cjs",
+   "line": 103,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/qa-static-site-audit.cjs|590ec1e7ac27cef4",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/qa-static-site-audit.cjs",
+   "line": 21,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/qa-static-site-audit.cjs|13ed6219f1de0c43",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/qa-static-site-audit.cjs",
+   "line": 25,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/qa-static-site-audit.cjs|2687d99a4fc0bdcc",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/qa-static-site-audit.cjs",
+   "line": 29,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/qa-static-site-audit.cjs|19be633291bebf08",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/qa-static-site-audit.cjs",
+   "line": 34,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/qa-static-site-audit.cjs|926b726b68e0ee31",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/qa-static-site-audit.cjs",
+   "line": 79,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "playwright-goto-injection|scripts/qa/video-qa.mjs|c17d0a92b3626172",
+   "rule": "playwright-goto-injection",
+   "path": "scripts/qa/video-qa.mjs",
+   "line": 36,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "playwright-goto-injection|scripts/qa/video-qa.mjs|a525225115f74cea",
+   "rule": "playwright-goto-injection",
+   "path": "scripts/qa/video-qa.mjs",
+   "line": 53,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "playwright-goto-injection|scripts/qa/video-qa.mjs|c5abf676d8a42c7e",
+   "rule": "playwright-goto-injection",
+   "path": "scripts/qa/video-qa.mjs",
+   "line": 88,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "playwright-goto-injection|scripts/qa/video-qa.mjs|e1139dcefd6c4083",
+   "rule": "playwright-goto-injection",
+   "path": "scripts/qa/video-qa.mjs",
+   "line": 123,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-regexp|scripts/release/certify-release.mjs|55e9daf4ec7bdc34",
+   "rule": "detect-non-literal-regexp",
+   "path": "scripts/release/certify-release.mjs",
+   "line": 122,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "html-in-template-string|scripts/release/validate-product.mjs|3eeacc04c3b52885",
+   "rule": "html-in-template-string",
+   "path": "scripts/release/validate-product.mjs",
+   "line": 69,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-redos|scripts/release/validate-product.mjs|b608cdf089aba909",
+   "rule": "detect-redos",
+   "path": "scripts/release/validate-product.mjs",
+   "line": 80,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "no-stringify-keys|scripts/release/validate-product.mjs|e6aaa44f24363fb0",
+   "rule": "no-stringify-keys",
+   "path": "scripts/release/validate-product.mjs",
+   "line": 111,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "spawn-shell-true|scripts/run-playwright-static.cjs|02f0f96aa39407a5",
+   "rule": "spawn-shell-true",
+   "path": "scripts/run-playwright-static.cjs",
+   "line": 60,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-child-process|scripts/run-playwright-static.cjs|dfd6aa4aef8694de",
+   "rule": "detect-child-process",
+   "path": "scripts/run-playwright-static.cjs",
+   "line": 60,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "lazy-load-module|scripts/run-playwright-static.cjs|b2b48405772cc349",
+   "rule": "lazy-load-module",
+   "path": "scripts/run-playwright-static.cjs",
+   "line": 80,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "lazy-load-module|scripts/run-playwright-static.cjs|b2736f611e27057d",
+   "rule": "lazy-load-module",
+   "path": "scripts/run-playwright-static.cjs",
+   "line": 81,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/slim-locale-payloads.cjs|3e2f07f947013461",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/slim-locale-payloads.cjs",
+   "line": 29,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "detect-non-literal-fs-filename|scripts/slim-locale-payloads.cjs|8ebcfb857e921216",
+   "rule": "detect-non-literal-fs-filename",
+   "path": "scripts/slim-locale-payloads.cjs",
+   "line": 30,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  },
+  {
+   "fingerprint": "path-join-resolve-traversal|scripts/slim-locale-payloads.cjs|f80f05a7232a408a",
+   "rule": "path-join-resolve-traversal",
+   "path": "scripts/slim-locale-payloads.cjs",
+   "line": 31,
+   "verdict": "false positive",
+   "reason": "Build and test tooling (scripts/, e2e/, fix-agents-final.cjs): run only by developers and CI on repository files and constants; not deployed as a Vercel function (functions live in api/ only)."
+  }
+ ]
+}
